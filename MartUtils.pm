@@ -21,13 +21,26 @@ sub file_to_bytes {
 
 sub get_datasets {
     my $src_tables = shift;
+    my $regexp = "gene_ensembl__gene__main";
+    return get_datasets_regexp (@_, $regexp);
+}
+
+sub get_datasets_regexp {
+    my $src_tables_aref = shift;
+    my $regexp = shift;
+    
     my @datasets = ();
-    foreach my $src_table (@$src_tables) {
-	if( $src_table =~ m/(.*)_gene_ensembl__gene__main/ ) {
+    foreach my $src_table (@$src_tables_aref) {
+	if( $src_table =~ m/(.*)_$regexp/ ) {
 	    push @datasets,$1;
 	}
     }
-    @datasets;
+    return @datasets;
+}
+
+sub get_sequence_datasets {
+    my $regexp = "genomic_sequence__dna_chunks__main";
+    return get_datasets_regexp (@_, $regexp);
 }
 
 sub get_ensembl_db {
