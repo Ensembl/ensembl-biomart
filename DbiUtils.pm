@@ -43,6 +43,12 @@ sub get_strings {
     @strings;
 }
 
+sub get_row {
+    my $sth = shift;
+    $sth->execute(@_);
+    $sth->fetchrow_array();
+}
+
 sub get_hash {
     my $sth = shift;
     my %hash = ();

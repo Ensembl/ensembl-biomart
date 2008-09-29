@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
-<DatasetConfig dataset="%name%_gene_ensembl" datasetID="%id%" defaultDataset="*default*" description="Ensembl Genes"
+<DatasetConfig dataset="%name%" datasetID="%id%" defaultDataset="*default*" description="Ensembl Genes"
 	displayName="%des% genes" entryLabel="Genes" interfaces="default" internalName="default" martUsers="default"
-	modified="2008-07-10 12:07:40" softwareVersion="0.1" template="gene_ensembl" type="TableSet" version="%version%" visible="1">
-	<MainTable>%name%_gene_ensembl__gene__main</MainTable>
-	<MainTable>%name%_gene_ensembl__transcript__main</MainTable>
-	<MainTable>%name%_gene_ensembl__translation__main</MainTable>
+	modified="2008-07-10 12:07:40" softwareVersion="0.1" template="gene" type="TableSet" version="%version%" visible="1">
+	<MainTable>%name%__gene__main</MainTable>
+	<MainTable>%name%__transcript__main</MainTable>
+	<MainTable>%name%__translation__main</MainTable>
 	<Key>gene_id_1020_key</Key>
 	<Key>transcript_id_1064_key</Key>
 	<Key>translation_id_1068_key</Key>

@@ -19,6 +19,11 @@ sub file_to_bytes {
     $bytes;
 }
 
+sub get_dataset_names {
+    my $dbh = shift;
+    query_to_strings($dbh,'SELECT name FROM dataset_names');
+}
+
 sub get_datasets {
     my $src_tables = shift;
     my $regexp = "gene_ensembl__gene__main";

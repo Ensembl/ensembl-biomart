@@ -23,6 +23,42 @@ Log::Log4perl->easy_init($DEBUG);
 
 my $logger = get_logger();
 
+# db params
+my $db_host = '127.0.0.1';
+my $db_port = '4158';
+my $db_user = 'admin';
+my $db_pwd = 'L9xn1VpN';
+#my $db_port = '3306';
+#my $db_user = 'eg';
+#my $db_pwd = 'eg';
+my $mart_db = 'split_new_bacterial_mart_51';
+my $release = '51';
+
+sub usage {
+    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
+    print "-h <host> Default is $db_host\n";
+    print "-P <port> Default is $db_port\n";
+    print "-u <host> Default is $db_user\n";
+    print "-p <password> Default is top secret unless you know cat\n";
+    print "-mart <mart> Default is $mart_db\n";
+    print "-release <releaseN> Default is $release\n";
+    exit 1;
+};
+
+my $options_okay = GetOptions (
+    "h=s"=>\$db_host,
+    "P=s"=>\$db_port,
+    "u=s"=>\$db_user,
+    "p=s"=>\$db_pwd,
+    "release=s"=>\$release,
+    "mart=s"=>\$mart_db,
+    "help"=>sub {usage()}
+    );
+
+if(!$options_okay) {
+    usage();
+}
+
 sub write_dataset_xml {
     my $dataset_names = shift;
     my $fname = './output/'.$dataset_names->{dataset}.'.xml';
@@ -30,7 +66,7 @@ sub write_dataset_xml {
     my $template_file_name = 'templates/dataset_template.xml';
     open my $template_file, '<', $template_file_name or croak "Could not open $template_file_name";
     while (my $line = <$template_file>) {
-	$line =~ s/%name%/$$dataset_names{dataset}/g;
+	$line =~ s/%name%/$$dataset_names{dataset}_gene/g;
 	$line =~ s/%id%/$$dataset_names{species_id}/g;
 	$line =~ s/%des%/$$dataset_names{species_name}/g;
 	$line =~ s/%version%/$$dataset_names{version_num}/g;     
@@ -68,8 +104,8 @@ sub write_template_xml {
 	    ',species4='.$dataset->{short_name}.
 	    ',version='.$dataset->{version_num}.
 	    ',link_version='.$dataset->{dataset}.
-	    '_51,default=true" internalName="'.
-	    $dataset->{dataset}.'_gene_ensembl"/>'."\n";
+	    '_'.$release.',default=true" internalName="'.
+	    $dataset->{dataset}.'_gene"/>'."\n";
     }
     write_replace_file('templates/template_template.xml','output/template.xml','%datasets%',$datasets_text);
     `gzip -c output/template.xml > output/template.xml.gz`;
@@ -90,103 +126,6 @@ sub update_meta_file {
     }
     $datasets_text.=$suffix;
     write_replace_file($template,$output,$placeholder,$datasets_text);
-}
-
-sub write_metafiles {
-
-    my $datasets = shift;
-    my $pwd = &Cwd::cwd();
-
-    my @files = ();
-
-    # a. copy meta_version__version__main
-    $logger->debug('Copying files');
-    copy('templates/meta_version__version__main.dump','output/meta_version__version__main.dump');
-    
-    # b. update meta_template__xml__dm.dump
-    my $outfile = './output/meta_template__xml__dm.dump';   
-    $logger->debug("Rewriting $outfile");
-    push(@files,$outfile);
-    write_replace_file('templates/meta_template__xml__dm.dump',
-		       $outfile,
-		       '%insert%',
-		       sprintf('INSERT INTO `meta_template__xml__dm` VALUES (\'gene_ensembl\',null); LOAD DATA LOCAL INFILE "%s/output/template.xml.gz" INTO TABLE meta_template__xml__dm(compressed_xml) FIELDS TERMINATED BY \'\' FIELDS ENCLOSED BY \'\';',$pwd)."\n");
-    
-
-    # c. meta_template__template__main.dump
-    $outfile =  './output/meta_template__template__main.dump';
-    push(@files,$outfile);
-    $logger->debug("Updating $outfile");
-    update_meta_file('templates/meta_template__template__main.dump',
-		    $outfile,
-		     '%insert%','INSERT INTO `meta_template__template__main` VALUES',";\n",',',$datasets, 
-		     sub {   
-			 my $dataset = shift; 														     
-			 "($dataset->{species_id},'gene_ensembl')"    
-		     }
-	);
-
-
-    # d. meta_conf__dataset__main.dump
-    $outfile =  './output/meta_conf__dataset__main.dump';
-    $logger->debug("Updating $outfile");
-    push(@files,$outfile);
-    update_meta_file("templates/meta_conf__dataset__main.dump",
-		     $outfile,
-                     '%insert%','INSERT INTO `meta_conf__dataset__main` VALUES',
-		     ";\n",",",
-		     $datasets, 
-		     sub { 
-			 my $dataset = shift;
-			 "($dataset->{species_id},'$dataset->{dataset}_gene_ensembl','$dataset->{species_name} genes ($dataset->{version_num})','Ensembl Genes','TableSet',1,'$dataset->{version_num}','2008-07-18 13:11:12')";
-		     }
-	);
-    
-    # e. meta_conf__interface__dm.dump 
-    $outfile =  './output/meta_conf__interface__dm.dump';
-    $logger->debug("Updating $outfile");
-    push(@files,$outfile);
-    update_meta_file("templates/meta_conf__interface__dm.dump",
-		     $outfile,
-		     '%insert%','INSERT INTO `meta_conf__interface__dm` VALUES',
-		     ";\n",',',
-		     $datasets,
-		     sub {
-		       my $dataset = shift;		       
-		       "($dataset->{species_id},'default')"    
-		     }
-	);
-    
-    # f. meta_conf__user__dm.dump
-    $outfile = './output/meta_conf__user__dm.dump';
-    $logger->debug("Updating $outfile");
-    push(@files,$outfile);
-    update_meta_file("templates/meta_conf__user__dm.dump",
-		     $outfile,
-		     '%insert%','INSERT INTO `meta_conf__user__dm` VALUES',
-		     ";\n",',',
-		     $datasets,	
-		     sub {
-			 my $dataset = shift;		       
-			 "($dataset->{species_id},'default')"    
-		     }
-	);
-    
-    # g. meta_conf__xml__dm.dump
-    $outfile = './output/meta_conf__xml__dm.dump';
-    $logger->debug("Updating $outfile");
-    push(@files,$outfile);
-    update_meta_file("templates/meta_conf__xml__dm.dump",
-		     $outfile,
-		     '%insert%','',
-		     '','',
-		     $datasets,
-		     sub {
-			 my $dataset = shift;		       
-			 "INSERT INTO \`meta_conf__xml__dm\` VALUES ($dataset->{species_id},null,null,null);\nLOAD DATA LOCAL INFILE \"$pwd/output/$dataset->{dataset}.xml\" INTO TABLE meta_conf__xml__dm(xml) FIELDS TERMINATED BY '' FIELDS ENCLOSED BY '';\nLOAD DATA LOCAL INFILE \"$pwd/output/$dataset->{dataset}.xml.gz\" INTO TABLE meta_conf__xml__dm(compressed_xml)  FIELDS TERMINATED BY '' FIELDS ENCLOSED BY '';\n LOAD DATA LOCAL INFILE \"$pwd/output/$dataset->{dataset}.xml.gz.md5\" INTO TABLE meta_conf__xml__dm(message_digest)  FIELDS TERMINATED BY '' FIELDS ENCLOSED BY '';\n"
-		     }
-	);
-    @files;
 }
 
 my $table_args ="ENGINE=MyISAM DEFAULT CHARSET=latin1";
@@ -241,7 +180,7 @@ sub write_metatables {
     ## meta_version__version__main
     $mart_handle->do("INSERT INTO meta_version__version__main VALUES ('0.6')");
     ## meta_template__xml__dm
-    my $dataset_name = 'gene_ensembl';
+    my $dataset_name = 'gene';
     my $sth = $mart_handle->prepare('INSERT INTO meta_template__xml__dm VALUES (?,?)');
     $sth->execute($dataset_name, file_to_bytes("$pwd/output/template.xml.gz")) 
 		  or croak "Could not load file into meta_template__xml__dm";
@@ -270,7 +209,7 @@ sub write_metatables {
 	# meta_conf__dataset__main 
 	$meta_conf__dataset__main->execute(
 	    $dataset->{species_id},
-	    "$dataset->{dataset}_gene_ensembl",
+	    "$dataset->{dataset}_gene",
 	    "$dataset->{species_name} genes ($dataset->{version_num})",
 	    $dataset->{version_num}) or croak "Could not update meta_conf__dataset__main";
 	# meta_template__template__main
@@ -287,7 +226,7 @@ sub write_metatables {
 
 sub get_short_name {
     my ($db_name,$species_id) = @_;    
-    uc(substr($db_name,0,3).$species_id);
+    uc($species_id);
 } 
 
 sub get_version {
@@ -296,81 +235,32 @@ sub get_version {
     $1;
 }
 
-# db params
-my $db_host = '127.0.0.1';
-my $db_port = '4126';
-my $db_user = 'admin';
-my $db_pwd = 'tGc3Vs2O';
-#my $db_port = '3306';
-#my $db_user = 'eg';
-#my $db_pwd = 'eg';
-my $mart_db = 'bacterial_mart_51';
-
-sub usage {
-    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
-    print "-h <host> Default is $db_host\n";
-    print "-P <port> Default is $db_port\n";
-    print "-u <host> Default is $db_user\n";
-    print "-p <password> Default is top secret unless you know cat\n";
-    print "-mart <mart> Default is $mart_db\n";
-    exit 1;
-};
-
-my $options_okay = GetOptions (
-    "h=s"=>\$db_host,
-    "P=s"=>\$db_port,
-    "u=s"=>\$db_user,
-    "p=s"=>\$db_pwd,
-    "mart=s"=>\$mart_db,
-    "help"=>sub {usage()}
-    );
-
-if(!$options_okay) {
-    usage();
-}
-
 my $mart_string = "DBI:mysql:$mart_db:$db_host:$db_port";
 my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
 			       { RaiseError => 1 }
     ) or croak "Could not connect to $mart_string";
 
-my @mart_tables = get_tables($mart_handle);
-my @mart_dbs = get_databases($mart_handle);
 my @datasets = ();
+my $dataset_sth = $mart_handle->prepare('SELECT src_dataset,src_db,species_id,species_name,version FROM dataset_names WHERE name=?');
 
-foreach my $dataset (get_datasets(\@mart_tables)) {
+# get names of datasets from names table
+foreach my $dataset (get_dataset_names($mart_handle)) {
     $logger->info("Processing $dataset");
+    # get other naming info from names table
     my %dataset_names = ();
     $dataset_names{dataset}=$dataset;
-    ($dataset_names{baseset},$dataset_names{species_id}) = ($dataset =~ /^(.+)_([0-9]+)$/) [0,1];
-    my $ens_db = get_ensembl_db(\@mart_dbs,$dataset_names{baseset});
-    if(!$ens_db) {
-	croak "Could not find original source db for dataset $dataset_names{baseset}\n";
-    }
-    my $species_sth = $mart_handle->prepare("select m2.meta_value from $ens_db.meta m1 join $ens_db.meta m2 on (m1.species_id=m2.species_id and m2.meta_key='species.db_name')where m1.meta_key='species.db_alias' and m1.meta_value=?");  
-    $logger->debug("Maps to $ens_db");
-    $logger->debug("Species ID = $dataset_names{species_id}");
-    $dataset_names{species_name} = get_string($species_sth,$dataset_names{species_id});
-    $logger->debug("Species name = $dataset_names{species_name}");
+    ($dataset_names{baseset}, $dataset_names{src_db},$dataset_names{species_id},$dataset_names{species_name},$dataset_names{version_num}) = get_row($dataset_sth,$dataset);
     $dataset_names{species_uc_name} = $dataset_names{species_name};
     $dataset_names{species_uc_name} =~ s/\s+/_/g;
     $dataset_names{short_name} = get_short_name($dataset_names{species_name},$dataset_names{species_id});
-    $dataset_names{version_num} = $dataset_names{short_name}.'_'.get_version($ens_db);
     $logger->debug(join(',',values(%dataset_names)));
     push(@datasets,\%dataset_names);
     write_dataset_xml(\%dataset_names)
 }
+$dataset_sth->finish();
 
 # 2. write template files
 write_template_xml(\@datasets);
-
-## 3. write and load metafiles
-#foreach my $file (write_metafiles(\@datasets)) {
-#    $logger->info("Loading $file into database");
-#    my $command = "mysql -u$db_user -p$db_pwd -P$db_port -h$db_host $mart_db < $file";
-#    $logger->debug("Running $command");
-#    system($command);
-#}
 
 write_metatables($mart_handle, \@datasets);
 

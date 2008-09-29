@@ -24,11 +24,11 @@ my $logger = get_logger();
 
 # db params
 my $db_host = '127.0.0.1';
-my $db_port = '4126';
+my $db_port = '4158';
 my $db_user = 'admin';
-my $db_pwd = 'tGc3Vs2O';
-my $src_mart_db = 'bacterial_mart_51';
-my $target_mart_db = 'bacterial_mart_51';
+my $db_pwd = 'L9xn1VpN';
+my $src_mart_db = 'new_bacterial_mart_51';
+my $target_mart_db = 'split_new_bacterial_mart_51';
 
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
@@ -73,6 +73,21 @@ if(!$delete) {
     $target_handle->do("create database $target_mart_db");
 }
 $target_handle->do("use $target_mart_db");
+
+# create a names table to keep track of whats what
+my $names_table = 'dataset_names';
+drop_and_create_table($target_handle, $names_table,
+		      ['name varchar(100)',
+		       'src_dataset varchar(100)',
+		       'src_db varchar(100)',
+		       'species_id varchar(100)',
+		       'species_name varchar(100)',
+		       'version varchar(100)'
+		      ],
+		      'ENGINE=MyISAM DEFAULT CHARSET=latin1'
+    );
+
+my $names_insert = $target_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,?,?,?)");
 
 my @src_tables = get_tables($src_handle);
 my @src_dbs = get_databases($src_handle);
@@ -122,22 +137,33 @@ foreach my $dataset (@datasets) {
 	}
     }
 
-    # get list of species IDs
-    my %species_ids = query_to_hash($ens_dbh,"select species_id,meta_value from meta where meta_key='species.db_alias'");
+    # get hash of species IDs
+    my %species_ids = query_to_hash($ens_dbh,"select species_id,meta_value from meta where meta_key='species.sql_name'");
 
     foreach my $species_id (keys (%species_ids)) {
 
-	my $species_name = lc($species_ids{$species_id});
-	$species_name =~ s/\s+/_/g;
+	## use the species ID to get a hash of everything we need and write it into the names_table
+	my %species_names = query_to_hash($ens_dbh,"select meta_key,meta_value from meta where species_id='$species_id'");	
+	my $sub_dataset = $species_names{'species.sql_name'};
+	# suppress numbers of datasets
+	$sub_dataset =~ s/[_-]+/_/g;
 
-	my $sub_dataset = $dataset.'_'.$species_name;
-
+	$names_insert->execute(	    
+	    $sub_dataset,
+	    $dataset,
+	    $ens_db,
+	    $species_names{'species.db_alias'},
+	    $species_names{'species.db_name'},
+	    $species_names{'genebuild.version'}
+	    ); 
+	
 	$logger->info("Splitting into dataset $sub_dataset");
 	# for each species, get a list of seq_region_ids that are valid
 	# 1. create a condensed gene table
 	my $src_gene_table = "${dataset}_$gene_table";
 	my $target_gene_table = "${sub_dataset}_$gene_table";
-	
+	$target_gene_table =~ s/gene_ensembl/gene/;
+
 	$logger->info("Creating $target_mart_db.$target_gene_table");
 	my $sql = "create table $target_mart_db.$target_gene_table as ".
 	    "select s.* from $src_mart_db.$src_gene_table s ".
@@ -153,6 +179,7 @@ foreach my $dataset (@datasets) {
 	# 2. create a condensed transcript table
 	my $src_transcript_table = "${dataset}_$transcript_table";
 	my $target_transcript_table = "${sub_dataset}_$transcript_table";
+	$target_transcript_table =~ s/gene_ensembl/gene/;
 	$logger->info("Creating $target_mart_db.$target_transcript_table");
 	$sql = "create table $target_mart_db.$target_transcript_table as ".
 	    "select t.* from $src_mart_db.$src_transcript_table t join $target_mart_db.$target_gene_table g on  g.$gene_key=t.$gene_key";
@@ -163,6 +190,7 @@ foreach my $dataset (@datasets) {
 	# 3. create a condensed translation table	
 	my $src_translation_table = "${dataset}_$translation_table";
 	my $target_translation_table = "${sub_dataset}_$translation_table";
+	$target_translation_table =~ s/gene_ensembl/gene/;
 	$logger->info("Creating $target_mart_db.$target_translation_table");
 	$sql = "create table $target_mart_db.$target_translation_table as ".
 	    "select t.* from $src_mart_db.$src_translation_table t join $target_mart_db.$target_transcript_table g on t.$transcript_key = g.$transcript_key";
@@ -176,14 +204,16 @@ foreach my $dataset (@datasets) {
 	    my $key_table_id = $key_table_ids{$key_table};
 	    my $src_key_table = $dataset . '_' . $key_table;
 	    my $target_key_table = $sub_dataset . '_' . $key_table;
+	    $target_key_table =~ s/gene_ensembl/gene/;
 	    $logger->info("Finding satellite tables for $key_table using $key_table_id");
 	    $processed_tables{$src_key_table}=1;
 	    foreach my $src_table (@src_tables) {
 		if($src_table=~ m/$dataset/ && !$processed_tables{$src_table} && has_column($src_handle,$src_table,$key_table_id)) {
 		    my $target_table = $src_table;
 		    $target_table =~ s/$dataset/$sub_dataset/;
+		    $target_table =~ s/gene_ensembl/gene/;
 		    $logger->info("Need to split $src_table into $target_table using $src_key_table.$key_table_id");
-		    my $sql = "create table $target_mart_db.$target_table as select s.* from $src_mart_db.$src_table s join  $target_mart_db.$target_key_table t on s.$key_table_id=t.$key_table_id";
+		    my $sql = "create table $target_mart_db.$target_table as select s.* from $src_mart_db.$src_table s join $target_mart_db.$target_key_table t on s.$key_table_id=t.$key_table_id";
 		    $logger->debug("Executing $sql");
 		    $target_handle->do($sql);
 		    $processed_tables{$src_table} = 1;
