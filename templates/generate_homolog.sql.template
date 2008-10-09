@@ -1,0 +1,60 @@
+drop table if exists %martSchema%.TEMP14, %martSchema%.TEMP17, %martSchema%.TEMP18, %martSchema%.TEMP20, %martSchema%.TEMP24, %martSchema%.TEMP28, %martSchema%.TEMP30, %martSchema%.TEMP34, %martSchema%.TEMP38, %martSchema%.TEMP39, %martSchema%.%dataSet%__homolog_%speciesTld%__dm;
+
+create table %martSchema%.TEMP14 as select a.species_set_id as species_set_id_4019,a.method_link_id as method_link_id_4019,a.method_link_species_set_id as method_link_species_set_id_4019 from %srcSchema%.method_link_species_set as a where a.method_link_species_set_id='%method_link_species_set_id%';
+create index %indexName% on %martSchema%.TEMP14(method_link_species_set_id_4019);
+
+create table %martSchema%.TEMP17 as select a.*,b.ds as ds_4014,b.dn as dn_4014,b.description as description_4014,b.homology_id as homology_id_4014 from %martSchema%.TEMP14 as a inner join %srcSchema%.homology as b on a.method_link_species_set_id_4019=b.method_link_species_set_id;
+
+create index %indexName% on %martSchema%.TEMP17(homology_id_4014);
+create table %martSchema%.TEMP18 as select a.*,b.peptide_member_id as peptide_member_id_4015,b.member_id as member_id_4015,b.perc_cov as perc_cov_4015,b.peptide_align_feature_id as peptide_align_feature_id_4015,b.perc_id as perc_id_4015 from %martSchema%.TEMP17 as a inner join %srcSchema%.homology_member as b on a.homology_id_4014=b.homology_id;
+
+create index %indexName% on %martSchema%.TEMP18(member_id_4015);
+create table %martSchema%.TEMP20 as select a.*,b.stable_id as stable_id_4016,b.genome_db_id as genome_db_id_4016,b.sequence_id as sequence_id_4016 from %martSchema%.TEMP18 as a inner join %srcSchema%.member as b on a.member_id_4015=b.member_id;
+
+create index %indexName% on %martSchema%.TEMP20(peptide_member_id_4015);
+create table %martSchema%.TEMP24 as select a.*,b.stable_id as stable_id_4016_r1,b.genome_db_id as genome_db_id_4016_r1,b.sequence_id as sequence_id_4016_r1 from %martSchema%.TEMP20 as a inner join %srcSchema%.member as b on a.peptide_member_id_4015=b.member_id;
+
+create index %indexName% on %martSchema%.TEMP24(homology_id_4014);
+create table %martSchema%.TEMP28 as select a.*,b.peptide_member_id as peptide_member_id_4015_r1,b.member_id as member_id_4015_r1,b.perc_cov as perc_cov_4015_r1,b.peptide_align_feature_id as peptide_align_feature_id_4015_r1,b.perc_id as perc_id_4015_r1 from %martSchema%.TEMP24 as a inner join %srcSchema%.homology_member as b on a.homology_id_4014=b.homology_id and a.member_id_4015<>b.member_id;
+
+create index %indexName% on %martSchema%.TEMP28(member_id_4015_r1);
+create table %martSchema%.TEMP30 as select a.*,b.chr_start as chr_start_4016_r2,b.stable_id as stable_id_4016_r2,b.chr_name as chr_name_4016_r2,b.chr_end as chr_end_4016_r2,b.genome_db_id as genome_db_id_4016_r2,b.sequence_id as sequence_id_4016_r2 from %martSchema%.TEMP28 as a inner join %srcSchema%.member as b on a.member_id_4015_r1=b.member_id;
+
+create index %indexName% on %martSchema%.TEMP30(peptide_member_id_4015_r1);
+create table %martSchema%.TEMP34 as select a.*,b.stable_id as stable_id_4016_r3,b.genome_db_id as genome_db_id_4016_r3,b.sequence_id as sequence_id_4016_r3 from %martSchema%.TEMP30 as a inner join %srcSchema%.member as b on a.peptide_member_id_4015_r1=b.member_id;
+
+create index %indexName% on %martSchema%.TEMP34(stable_id_4016);
+create table %martSchema%.TEMP38 as select a.*,b.gene_id_1020_key from %martSchema%.TEMP34 as a inner join %martSchema%.%dataSet%__gene__main as b on a.stable_id_4016=b.stable_id_1023;
+
+create index %indexName% on %martSchema%.TEMP38(gene_id_1020_key);
+create table %martSchema%.TEMP39 as select a.gene_id_1020_key,b.genome_db_id_4016_r3,b.chr_name_4016_r2,b.homology_id_4014,b.stable_id_4016,b.stable_id_4016_r3,b.peptide_member_id_4015,b.genome_db_id_4016,b.peptide_align_feature_id_4015,b.perc_cov_4015_r1,b.peptide_member_id_4015_r1,b.sequence_id_4016_r2,b.perc_id_4015_r1,b.stable_id_4016_r2,b.ds_4014,b.genome_db_id_4016_r1,b.peptide_align_feature_id_4015_r1,b.sequence_id_4016_r3,b.chr_start_4016_r2,b.perc_id_4015,b.sequence_id_4016,b.genome_db_id_4016_r2,b.description_4014,b.sequence_id_4016_r1,b.chr_end_4016_r2,b.member_id_4015_r1,b.member_id_4015,b.perc_cov_4015,b.species_set_id_4019,b.method_link_species_set_id_4019,b.stable_id_4016_r1,b.dn_4014,b.method_link_id_4019 from %martSchema%.%dataSet%__gene__main as a left join %martSchema%.TEMP38 as b on a.gene_id_1020_key=b.gene_id_1020_key;
+
+alter table %martSchema%.TEMP39 drop column genome_db_id_4016_r3;
+alter table %martSchema%.TEMP39 drop column homology_id_4014;
+alter table %martSchema%.TEMP39 drop column peptide_member_id_4015;
+alter table %martSchema%.TEMP39 drop column genome_db_id_4016;
+alter table %martSchema%.TEMP39 drop column peptide_align_feature_id_4015;
+alter table %martSchema%.TEMP39 drop column peptide_member_id_4015_r1;
+alter table %martSchema%.TEMP39 drop column sequence_id_4016_r2;
+alter table %martSchema%.TEMP39 drop column genome_db_id_4016_r1;
+alter table %martSchema%.TEMP39 drop column peptide_align_feature_id_4015_r1;
+alter table %martSchema%.TEMP39 drop column sequence_id_4016_r3;
+alter table %martSchema%.TEMP39 drop column sequence_id_4016;
+alter table %martSchema%.TEMP39 drop column genome_db_id_4016_r2;
+alter table %martSchema%.TEMP39 drop column sequence_id_4016_r1;
+alter table %martSchema%.TEMP39 drop column member_id_4015_r1;
+alter table %martSchema%.TEMP39 drop column member_id_4015;
+alter table %martSchema%.TEMP39 drop column species_set_id_4019;
+alter table %martSchema%.TEMP39 drop column method_link_species_set_id_4019;
+alter table %martSchema%.TEMP39 drop column method_link_id_4019;
+create index %indexName% on %martSchema%.TEMP39(stable_id_4016);
+create index %indexName% on %martSchema%.TEMP39(stable_id_4016_r3);
+create index %indexName% on %martSchema%.TEMP39(stable_id_4016_r2);
+create index %indexName% on %martSchema%.TEMP39(stable_id_4016_r1);
+rename table %martSchema%.TEMP39 to %martSchema%.%dataSet%__homolog_%speciesTld%__dm;
+create index %indexName% on %martSchema%.%dataSet%__homolog_%speciesTld%__dm(gene_id_1020_key);
+
+alter table %martSchema%.%dataSet%__gene__main add column (homolog_%speciesTld%_bool integer default 0);
+update %martSchema%.%dataSet%__gene__main a set homolog_%speciesTld%_bool=(select case count(1) when 0 then null else 1 end from %martSchema%.%dataSet%__homolog_%speciesTld%__dm b where a.gene_id_1020_key=b.gene_id_1020_key and not (b.chr_name_4016_r2 is null and b.stable_id_4016 is null and b.stable_id_4016_r3 is null and b.perc_cov_4015_r1 is null and b.perc_id_4015_r1 is null and b.stable_id_4016_r2 is null and b.ds_4014 is null and b.chr_start_4016_r2 is null and b.perc_id_4015 is null and b.description_4014 is null and b.chr_end_4016_r2 is null and b.perc_cov_4015 is null and b.stable_id_4016_r1 is null and b.dn_4014 is null));
+create index %indexName% on %martSchema%.%dataSet%__gene__main(homolog_%speciesTld%_bool);
+
