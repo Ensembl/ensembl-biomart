@@ -100,7 +100,7 @@ sub write_species {
     close($sql_file);
 }
 
-my $species_sql = qq{
+my $species_homolog_sql = qq{
 select ms.method_link_species_set_id, g.name, CONCAT(CONCAT(n.src_dataset,'_'),n.species_id) from $compara_db.species_set s
 join $compara_db.method_link_species_set ms using (species_set_id)
 join $compara_db.method_link m using (method_link_id)
@@ -114,13 +114,34 @@ join $compara_db.genome_db gg
      using (genome_db_id)
 where gg.name=?
 )
-AND g.name<>?
+AND g.name<>? 
+AND m.type='ENSEMBL_ORTHOLOGUES'
 };
 
-my $species_homolog_sth = $mart_handle->prepare($species_sql . ' AND m.type=\'ENSEMBL_ORTHOLOGUES\'');
-my $species_paralog_sth = $mart_handle->prepare($species_sql . ' AND m.type=\'ENSEMBL_PARALOGUES\'');
+my $species_paralog_sql = qq{
+select ms.method_link_species_set_id, g.name, CONCAT(CONCAT(n.src_dataset,'_'),n.species_id) from $compara_db.species_set s
+join $compara_db.method_link_species_set ms using (species_set_id)
+join $compara_db.method_link m using (method_link_id)
+join $compara_db.genome_db g using (genome_db_id)
+join $mart_db.dataset_names n on n.name=g.name
+where
+s.species_set_id in (
+select distinct (ss.species_set_id) from
+       $compara_db.species_set ss
+join $compara_db.genome_db gg
+     using (genome_db_id)
+where gg.name=?
+)
+AND g.name=? AND m.type='ENSEMBL_PARALOGUES'
+AND ms.name like ?
+};
+
+my $species_homolog_sth = $mart_handle->prepare($species_homolog_sql);
+my $species_paralog_sth = $mart_handle->prepare($species_paralog_sql);
 my $homolog_sql = './templates/generate_homolog.sql.template';
 my $paralog_sql = './templates/generate_paralog.sql.template';
+
+my $get_species_id_sth = $mart_handle->prepare('select species_id from dataset_names where name=?');
 
 # iterate over each dataset
 my @datasets = get_dataset_names($mart_handle);
@@ -138,13 +159,16 @@ for my $dataset (@datasets) {
 	$logger->info('Processing homologs for '.$species_set->{name}.' as '.$species_set->{tld});
 	write_species($dataset, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homolog_sql);
     }
-    for my $species_set (get_species_sets($species_paralog_sth,$dataset)) {
-	$logger->info("Processing paralogs for ".$species_set->{name}.' as '.$species_set->{tld});
-	write_species($dataset, $species_set->{id}, $species_set->{name},$species_set->{tld}, $paralog_sql);
-    }
+    # get paralogs
+    #$dataset ~= m/(.)[^ ]+ +(...).*/;
+    #my $id = get_string($get_species_id_sth,$dataset);
+    #$logger->info("Processing paralogs for $dataset as $1.$2 paralogues");
+    #my $method_link_species_id = get_string($species_paralog_sth,$dataset,$dataset,"$1.$2 paralogues%");
+    #write_species($dataset, $method_link_species_id, $dataset,"$dataset_$id", $paralog_sql);
 }
 $logger->info("Completed processing");
 $species_homolog_sth->finish() or carp "Could not close statement handle";
 $species_paralog_sth->finish() or carp "Could not close statement handle";
+$get_species_id_sth->finish() or carp "Could not close statement handle";
 $mart_handle->disconnect() or carp "Could not close handle to $mart_string";
 
