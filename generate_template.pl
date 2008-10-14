@@ -335,8 +335,8 @@ my @datasets = ();
 my $dataset_sth = $mart_handle->prepare('SELECT src_dataset,src_db,species_id,species_name,version FROM dataset_names WHERE name=?');
 
 # get names of datasets from names table
-#foreach my $dataset (get_dataset_names($mart_handle)) {
-foreach my $dataset (get_dataset_names_for_clade($mart_handle,'bacillus')) {
+foreach my $dataset (get_dataset_names($mart_handle)) {
+#foreach my $dataset (get_dataset_names_for_clade($mart_handle,'bacillus')) {
     $logger->info("Processing $dataset");
     # get other naming info from names table
     my %dataset_names = ();
