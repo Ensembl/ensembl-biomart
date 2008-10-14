@@ -19,6 +19,11 @@ sub file_to_bytes {
     $bytes;
 }
 
+sub get_dataset_names_for_clade {
+    my ($dbh,$clade) = @_;
+    query_to_strings($dbh,"SELECT name FROM dataset_names WHERE src_dataset='$clade'");
+}
+
 sub get_dataset_names {
     my $dbh = shift;
     query_to_strings($dbh,'SELECT name FROM dataset_names');

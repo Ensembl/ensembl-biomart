@@ -78,12 +78,15 @@ sub write_dataset_xml {
     `md5sum $fname.gz > $fname.gz.md5`;}
 
 sub write_replace_file {
-    my ($template,$output,$placeholder,$contents) = @_[0,1,2,3];
+    my ($template,$output,$placeholders) = @_;
     open my $output_file, '>', $output or croak "Could not open $output";
     open my $template_file, '<', $template or croak "Could not open $template";
     while( my $content = <$template_file>) {
-	if ($content =~ m/$placeholder/) {
-	    $content =~ s/$placeholder/$contents/;
+	foreach my $placeholder (keys(%$placeholders)) {
+	    my $contents = $placeholders->{$placeholder};
+	    if ($content =~ m/$placeholder/) {
+		$content =~ s/$placeholder/$contents/;
+	    }
 	}
         print $output_file $content;
     }
@@ -91,23 +94,111 @@ sub write_replace_file {
     close($template_file);
 }
 
+sub get_dataset_element {
+    my $dataset = shift;
+    '<DynamicDataset aliases="mouse_formatter1=,mouse_formatter2=,mouse_formatter3=,species1='.
+	${$dataset}{species_name}.
+	',species2='.$dataset->{species_uc_name}.
+	',species3='.$dataset->{dataset}.
+	',species4='.$dataset->{short_name}.
+	',version='.$dataset->{version_num}.
+	',link_version='.$dataset->{dataset}.
+	'_'.$release.',default=true" internalName="'.
+	$dataset->{dataset}.'_gene"/>'
+}
+
+sub get_dataset_exportable {
+    my $dataset = shift;
+    my $text = << "EXP_END";
+    <Exportable attributes="$dataset->{dataset}_gene" 
+	default="1" internalName="$dataset->{dataset}_gene_stable_id" 
+	linkName="$dataset->{dataset}_gene_stable_id" 
+	name="$dataset->{dataset}_gene_stable_id" type="link"/>
+EXP_END
+    $text;
+}
+
+sub get_dataset_homolog_filter {
+    my $dataset = shift;
+    my $text = << "HOMOFIL_END";
+<Option displayName="Orthologous $dataset->{species_name} Genes" displayType="list" field="homolog_$dataset->{baseset}_$dataset->{species_id}_bool" hidden="false" internalName="with_$dataset->{dataset}_homolog" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"><Option displayName="Only" hidden="false" internalName="only" value="only" /><Option displayName="Excluded" hidden="false" internalName="excluded" value="excluded" /></Option>
+HOMOFIL_END
+    $text;
+}
+
+sub get_dataset_paralog_filter {
+    my $dataset = shift;
+    my $text = << "PARAFIL_END";
+<Option displayName="Paralogous $dataset->{species_name} Genes" displayType="list" field="paralog_$dataset->{baseset}_$dataset->{species_id}_bool" hidden="false" internalName="with_$dataset->{dataset}_paralog" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"><Option displayName="Only" hidden="false" internalName="only" isSelectable="true" value="only" /><Option displayName="Excluded" hidden="false" internalName="excluded" isSelectable="true" value="excluded" /></Option>
+PARAFIL_END
+    $text;
+}
+
+sub get_dataset_homolog_attribute {
+    my $dataset = shift;
+    my $text = << "HOMOATT_END";
+    <AttributeGroup displayName="$dataset->{species_name} ORTHOLOGS:" hidden="false" internalName="$dataset->{dataset}_orthologs">
+      <AttributeCollection displayName="Ortholog Attributes" hidden="false" internalName="homologs_$dataset->{dataset}">
+        <AttributeDescription displayName="$dataset->{species_name} Ensembl Gene ID" field="stable_id_4016_r2" hidden="false" internalName="$dataset->{dataset}_ensembl_gene" key="gene_id_1020_key" linkoutURL="exturl|http://www.ensembl.org/Xenopus_tropicalis/geneview?gene=%s" maxLength="20" tableConstraint="homolog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Chromosome" field="chr_name_4016_r2" hidden="false" internalName="$dataset->{dataset}_chromosome" key="gene_id_1020_key" maxLength="9" tableConstraint="homolog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Chr Start (bp)" field="chr_start_4016_r2" hidden="false" internalName="$dataset->{dataset}_chrom_start" key="gene_id_1020_key" maxLength="10" tableConstraint="homolog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Chr End (bp)" field="chr_end_4016_r2" hidden="false" internalName="$dataset->{dataset}_chrom_end" key="gene_id_1020_key" maxLength="10" tableConstraint="homolog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="Orthology Type" field="description_4014" hidden="false" internalName="$dataset->{dataset}_orthology_type" key="gene_id_1020_key" maxLength="15" tableConstraint="homolog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="Ensembl Peptide ID" field="stable_id_4016_r1" hidden="false" internalName="$dataset->{dataset}_ensembl_peptide" key="gene_id_1020_key" maxLength="20" tableConstraint="homolog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="% Identity" field="perc_id_4015" hidden="false" internalName="$dataset->{dataset}_percent_identity" key="gene_id_1020_key" maxLength="3" tableConstraint="homolog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Ensembl Peptide ID" field="stable_id_4016_r3" hidden="false" internalName="$dataset->{dataset}_homolog_ensembl_peptide" key="gene_id_1020_key" maxLength="20" tableConstraint="homolog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} % Identity" field="perc_id_4015_r1" hidden="false" internalName="$dataset->{dataset}_homolog_percent_identity" key="gene_id_1020_key" maxLength="3" tableConstraint="homolog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+      </AttributeCollection>
+    </AttributeGroup>
+HOMOATT_END
+   $text;
+}
+
+sub get_dataset_paralog_attribute {
+    my $dataset = shift;
+    my $text = << "PARAATT_END";
+      <AttributeCollection displayName="$dataset->{species_name} Paralog Attributes" hidden="false" internalName="paralogs_xtropicalis">
+        <AttributeDescription displayName="$dataset->{species_name} Paralog Ensembl Gene ID" field="stable_id_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_ensembl_gene" key="gene_id_1020_key" linkoutURL="exturl|http://www.ensembl.org/*species2*/geneview?gene=%s" maxLength="140" tableConstraint="paralog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Paralog Chromosome" field="chr_name_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_chromosome" key="gene_id_1020_key" maxLength="40" tableConstraint="paralog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Paralog Chr Start (bp)" field="chr_start_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_chrom_start" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Paralog Chr End (bp)" field="chr_end_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_chrom_end" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="Ensembl Peptide ID" field="stable_id_4016_r1" hidden="false" internalName="$dataset->{dataset}_paralog_ensembl_peptide" key="gene_id_1020_key" maxLength="40" tableConstraint="paralog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="% Coverage" field="perc_cov_4015" hidden="false" internalName="$dataset->{dataset}_paralog_percent_coverage" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="% Identity" field="perc_id_4015" hidden="false" internalName="$dataset->{dataset}_paralog_percent_identity" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Paralog Ensembl Peptide ID" field="stable_id_4016_r3" hidden="false" internalName="$dataset->{dataset}_paralog_paralog_ensembl_peptide" key="gene_id_1020_key" maxLength="40" tableConstraint="paralog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Paralog % Coverage" field="perc_cov_4015_r1" hidden="false" internalName="$dataset->{dataset}_paralog_paralog_percent_coverage" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Paralog % Identity" field="perc_id_4015_r1" hidden="false" internalName="$dataset->{dataset}_paralog_paralog_percent_identity" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+        <AttributeDescription displayName="Ancestor" field="subtype_4014" hidden="false" internalName="$dataset->{dataset}_paralog_ancestor" key="gene_id_1020_key" maxLength="24" tableConstraint="paralog_$dataset->{baseset}_$dataset->{species_id}__dm"/>
+      </AttributeCollection>
+PARAATT_END
+    $text;
+}
+
 
 sub write_template_xml {
     my $datasets = shift;
     my $datasets_text='';
+    my $homology_filters_text='';
+    my $homology_attributes_text='';
+    my $paralogy_attributes_text='';
+    my $exportables_text='';
     foreach my $dataset (@$datasets) {
-	$datasets_text = $datasets_text . 
-	    '<DynamicDataset aliases="mouse_formatter1=,mouse_formatter2=,mouse_formatter3=,species1='.
-	    ${$dataset}{species_name}.
-	    ',species2='.$dataset->{species_uc_name}.
-	    ',species3='.$dataset->{dataset}.
-	    ',species4='.$dataset->{short_name}.
-	    ',version='.$dataset->{version_num}.
-	    ',link_version='.$dataset->{dataset}.
-	    '_'.$release.',default=true" internalName="'.
-	    $dataset->{dataset}.'_gene"/>'."\n";
+	$datasets_text .= get_dataset_element($dataset)
+	    ."\n";
+	$exportables_text .= get_dataset_exportable($dataset);
+	$homology_filters_text .= get_dataset_homolog_filter($dataset);
+	$homology_filters_text .= get_dataset_paralog_filter($dataset);
+	$homology_attributes_text .= get_dataset_homolog_attribute($dataset);
+	$paralogy_attributes_text .= get_dataset_paralog_attribute($dataset);
     }
-    write_replace_file('templates/template_template.xml','output/template.xml','%datasets%',$datasets_text);
+    my %placeholders = (
+	'%datasets%'=>$datasets_text,
+	'%homology_filters%'=>$homology_filters_text,
+	'%homology_attributes%'=>$homology_attributes_text,
+	'%paralogy_attributes%'=>$paralogy_attributes_text,
+	'%exportables%'=>$exportables_text
+	);
+    write_replace_file('templates/template_template.xml','output/template.xml',\%placeholders);
     `gzip -c output/template.xml > output/template.xml.gz`;
 }
 
@@ -244,7 +335,8 @@ my @datasets = ();
 my $dataset_sth = $mart_handle->prepare('SELECT src_dataset,src_db,species_id,species_name,version FROM dataset_names WHERE name=?');
 
 # get names of datasets from names table
-foreach my $dataset (get_dataset_names($mart_handle)) {
+#foreach my $dataset (get_dataset_names($mart_handle)) {
+foreach my $dataset (get_dataset_names_for_clade($mart_handle,'bacillus')) {
     $logger->info("Processing $dataset");
     # get other naming info from names table
     my %dataset_names = ();

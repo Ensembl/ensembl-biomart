@@ -133,7 +133,7 @@ join $compara_db.genome_db gg
 where gg.name=?
 )
 AND g.name=? AND m.type='ENSEMBL_PARALOGUES'
-AND ms.name like ?
+AND ms.name=CONCAT(g.genome_db_id,' paralogues')
 };
 
 my $species_homolog_sth = $mart_handle->prepare($species_homolog_sql);
@@ -142,6 +142,7 @@ my $homolog_sql = './templates/generate_homolog.sql.template';
 my $paralog_sql = './templates/generate_paralog.sql.template';
 
 my $get_species_id_sth = $mart_handle->prepare('select species_id from dataset_names where name=?');
+my $get_species_clade_sth = $mart_handle->prepare('select src_dataset from dataset_names where name=?');
 
 # iterate over each dataset
 my @datasets = get_dataset_names($mart_handle);
@@ -160,15 +161,20 @@ for my $dataset (@datasets) {
 	write_species($dataset, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homolog_sql);
     }
     # get paralogs
-    #$dataset ~= m/(.)[^ ]+ +(...).*/;
-    #my $id = get_string($get_species_id_sth,$dataset);
-    #$logger->info("Processing paralogs for $dataset as $1.$2 paralogues");
-    #my $method_link_species_id = get_string($species_paralog_sth,$dataset,$dataset,"$1.$2 paralogues%");
-    #write_species($dataset, $method_link_species_id, $dataset,"$dataset_$id", $paralog_sql);
+
+    my $id = get_string($get_species_id_sth,$dataset);
+    my $clade = get_string($get_species_clade_sth,$dataset);
+    $logger->info("Processing paralogs for $dataset");
+    my $method_link_species_id = get_string($species_paralog_sth,$dataset,$dataset);
+    if($method_link_species_id) {	
+	$logger->info("Writing paralogs for $dataset with id ${clade}_${id}");
+	write_species($dataset, $method_link_species_id, $dataset,"${clade}_$id", $paralog_sql);
+    }
 }
 $logger->info("Completed processing");
 $species_homolog_sth->finish() or carp "Could not close statement handle";
 $species_paralog_sth->finish() or carp "Could not close statement handle";
 $get_species_id_sth->finish() or carp "Could not close statement handle";
+$get_species_clade_sth->finish() or carp "Could not close statement handle";
 $mart_handle->disconnect() or carp "Could not close handle to $mart_string";
 
