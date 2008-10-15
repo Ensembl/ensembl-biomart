@@ -1824,24 +1824,24 @@
   <AttributePage description="Details on Genomic Structures" displayName="Structures" internalName="structure" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls,gff">
     <AttributeGroup displayName="GENE:" internalName="gene">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl Attributes" internalName="ensembl_attributes_structure">
-        <AttributeDescription internalName="structure_gene_stable_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_transcript_stable_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_translation_stable_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_canonical_transcript_id" pointerAttribute="canonical_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_chrom_name" pointerAttribute="chromosome_name" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_gene_chrom_start" pointerAttribute="start_position" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_gene_chrom_end" pointerAttribute="end_position" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_transcript_chrom_start" pointerAttribute="transcript_start" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_transcript_chrom_end" pointerAttribute="transcript_end" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_transcript_chrom_strand" pointerAttribute="strand" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_external_gene_id" pointerAttribute="external_gene_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_external_db_name" pointerAttribute="external_gene_db" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_cds_length" pointerAttribute="cds_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_cdna_length" pointerAttribute="cdna_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_peptide_length" pointerAttribute="peptide_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="struct_transcript_count" pointerAttribute="transcript_count" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_description" pointerAttribute="description" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_biotype" pointerAttribute="biotype" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_gene_stable_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_transcript_stable_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_translation_stable_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_canonical_transcript_id" pointerAttribute="canonical_transcript_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_chrom_name" pointerAttribute="chromosome_name" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_gene_chrom_start" pointerAttribute="start_position" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_gene_chrom_end" pointerAttribute="end_position" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_transcript_chrom_start" pointerAttribute="transcript_start" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_transcript_chrom_end" pointerAttribute="transcript_end" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_transcript_chrom_strand" pointerAttribute="strand" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_external_gene_id" pointerAttribute="external_gene_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_external_db_name" pointerAttribute="external_gene_db" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_cds_length" pointerAttribute="cds_length" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_cdna_length" pointerAttribute="cdna_length" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_peptide_length" pointerAttribute="peptide_length" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="struct_transcript_count" pointerAttribute="transcript_count" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_description" pointerAttribute="description" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_biotype" pointerAttribute="biotype" pointerDataset="*species3*_gene" pointerInterface="default"/>
       </AttributeCollection>
     </AttributeGroup>
     <AttributeGroup description="Details on Genomic Structures" displayName="EXON:" internalName="exon">
