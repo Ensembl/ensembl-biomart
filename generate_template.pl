@@ -118,6 +118,14 @@ EXP_END
     $text;
 }
 
+sub get_dataset_exportable_link {
+    my $dataset = shift;
+    my $text = << "EXPL_END";
+        <AttributeDescription field="homol_id" hideDisplay="true" internalName="$dataset->{dataset}_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_$dataset->{dataset}__dm"/>
+EXPL_END
+    $text;
+}
+
 sub get_dataset_homolog_filter {
     my $dataset = shift;
     my $text = << "HOMOFIL_END";
@@ -182,10 +190,12 @@ sub write_template_xml {
     my $homology_attributes_text='';
     my $paralogy_attributes_text='';
     my $exportables_text='';
+    my $exportables_link_text='';
     foreach my $dataset (@$datasets) {
 	$datasets_text .= get_dataset_element($dataset)
 	    ."\n";
 	$exportables_text .= get_dataset_exportable($dataset);
+	$exportables_link_text .= get_dataset_exportable_link($dataset);
 	$homology_filters_text .= get_dataset_homolog_filter($dataset);
 	$homology_filters_text .= get_dataset_paralog_filter($dataset);
 	$homology_attributes_text .= get_dataset_homolog_attribute($dataset);
@@ -196,7 +206,8 @@ sub write_template_xml {
 	'%homology_filters%'=>$homology_filters_text,
 	'%homology_attributes%'=>$homology_attributes_text,
 	'%paralogy_attributes%'=>$paralogy_attributes_text,
-	'%exportables%'=>$exportables_text
+	'%exportables%'=>$exportables_text,
+	'%exportables_link%'=>$exportables_link_text
 	);
     write_replace_file('templates/template_template.xml','output/template.xml',\%placeholders);
     `gzip -c output/template.xml > output/template.xml.gz`;

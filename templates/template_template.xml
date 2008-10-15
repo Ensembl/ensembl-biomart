@@ -2006,43 +2006,9 @@
         <AttributeDescription displayName="exon_id" field="exon_id_1017" hidden="false" hideDisplay="true" internalName="exon_id" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm"/>
         <AttributeDescription displayName="Coding End Offset" field="seq_end_1068" hideDisplay="true" internalName="coding_end_offset" key="translation_id_1068_key" maxLength="16" tableConstraint="main"/>
         <AttributeDescription displayName="Coding Start Offset" field="seq_start_1068" hideDisplay="true" internalName="coding_start_offset" key="translation_id_1068_key" maxLength="16" tableConstraint="main"/>
-        <AttributeDescription displayName="Dbprimary acc" field="dbprimary_acc_1074" hidden="false" hideDisplay="true" internalName="go" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_GO__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="commonshrew_gene_id" key="gene_id_1020_key" maxLength="10" tableConstraint="homologs_saraneus__dm"/>
-        <AttributeDescription field="homol_id" hidden="false" hideDisplay="true" internalName="cat_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homolog_fcat__dm"/>
-        <AttributeDescription field="homol_id" hidden="false" hideDisplay="true" internalName="treeshrew_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_tbelangeri__dm"/>
-        <AttributeDescription field="homol_id" hidden="false" hideDisplay="true" internalName="hedgehog_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_eeuropaeus__dm"/>
-        <AttributeDescription field="homol_id" hidden="false" hideDisplay="true" internalName="guineapig_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_cporcellus__dm"/>
-        <AttributeDescription field="homol_id" hidden="false" hideDisplay="true" internalName="armadillo_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_dnovemcinctus__dm"/>
-        <AttributeDescription field="homol_id" hidden="false" hideDisplay="true" internalName="echinops_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_etalfairi__dm"/>
-        <AttributeDescription field="homol_id" hidden="false" hideDisplay="true" internalName="macaque_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_mmulatta__dm"/>
-        <AttributeDescription field="homol_id" hidden="false" hideDisplay="true" internalName="monodelphis_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_mdomestica__dm"/>
-        <AttributeDescription field="homol_id" hidden="false" hideDisplay="true" internalName="elephant_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_lafricana__dm"/>
-        <AttributeDescription field="homol_id" hidden="false" hideDisplay="true" internalName="rabbit_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_ocuniculus__dm"/>
-        <AttributeDescription field="homol_id" hidden="false" hideDisplay="true" internalName="medaka_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_olatipus__dm"/>
-        <AttributeDescription field="homol_id" hidden="false" hideDisplay="true" internalName="platypus_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_oanatinus__dm"/>
-        <AttributeDescription field="homol_id" hidden="false" hideDisplay="true" internalName="cow_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_btaurus__dm"/>
-        <AttributeDescription field="transcript_id_1064_key" hideDisplay="true" internalName="transcript_id_key" key="transcript_id_1064_key" maxLength="128" tableConstraint="main"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="yeast_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_scerevisiae__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="ciona_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_cintestinalis__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="ciona_savignyi_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_csavignyi__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="mouse_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_mmusculus__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="mosquito_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_agambiae__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="elegans_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_celegans__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="dog_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_cfamiliaris__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="fly_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_dmelanogaster__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="danio_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_drerio__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="chicken_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_ggallus__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="chimp_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_ptroglodytes__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="xenopus_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_xtropicalis__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="rat_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_rnorvegicus__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="tetraodon_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_tnigroviridis__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="fugu_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_trubripes__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="stickleback_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_gaculeatus__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="squirrel_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_stridecemlineatus__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="bushbaby_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_ogarnettii__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="microbat_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_mlucifugus__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="human_gene_id" key="gene_id_1020_key" maxLength="10" tableConstraint="homologs_hsapiens__dm"/>
-        <AttributeDescription field="homol_id" hideDisplay="true" internalName="aedes_gene_id" key="gene_id_1020_key" maxLength="128" tableConstraint="homologs_aaegypti__dm"/>
+ %exportables_link%
+       <AttributeDescription displayName="Dbprimary acc" field="dbprimary_acc_1074" hidden="false" hideDisplay="true" internalName="go" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_GO__dm"/>
+`
         <AttributeDescription internalName="structure_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="structure_transcript_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="structure_rank" pointerAttribute="rank" pointerDataset="*species3*_gene" pointerInterface="default"/>
