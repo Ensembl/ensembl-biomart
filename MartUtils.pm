@@ -31,14 +31,13 @@ sub get_dataset_names {
 
 sub get_datasets {
     my $src_tables = shift;
-    my $regexp = "gene_ensembl__gene__main";
-    return get_datasets_regexp (@_, $regexp);
+    my $regexp = 'gene__gene__main';
+    return get_datasets_regexp ($src_tables, $regexp);
 }
 
 sub get_datasets_regexp {
     my $src_tables_aref = shift;
     my $regexp = shift;
-    
     my @datasets = ();
     foreach my $src_table (@$src_tables_aref) {
 	if( $src_table =~ m/(.*)_$regexp/ ) {
@@ -59,7 +58,7 @@ sub get_ensembl_db {
     my $ens_db;
     foreach my $src_db (@$src_dbs) {
 	my $candidate = $src_db;
-	$candidate =~ s/^(.)?([^_]+_)?([^_]+)_collection_core_*\d*_51_[0-9]+[a-z]*$/$1$3/;
+	$candidate =~ s/^(.)?([^_]+_)?([^_]+)_collection_core_*\d*_[0-9]+_[0-9]+[a-z]*$/$1$3/;
 	if($candidate eq $dataset) {
 	    $ens_db = $src_db;
 	    last;
