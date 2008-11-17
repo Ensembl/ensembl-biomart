@@ -24,11 +24,31 @@ my $logger = get_logger();
 
 # db params
 my $db_host = '127.0.0.1';
-my $db_port = '4158';
+my $db_port = '4161';
 my $db_user = 'admin';
-my $db_pwd = 'L9xn1VpN';
-my $src_mart_db = 'new_bacterial_mart_51';
-my $target_mart_db = 'split_new_bacterial_mart_51';
+my $db_pwd = 'iPBi22yI';
+my $src_mart_db = 'base_bacterial_mart_52';
+my $target_mart_db = 'bacterial_mart_52';
+
+my %table_res = (
+    qr/protein_feature/ => {
+	qr/Superfamily/ => 'superfam',
+	qr/scanprosite/ => 'scanpro'
+    }
+);
+
+sub transform_table {
+    my $table = shift;
+    foreach my $tre (keys %table_res) {
+	if($table=~ /$tre/) {
+	    my %res = %{$table_res{$tre}};
+	    foreach my $from (keys %res) {
+		$table =~ s/$from/$res{$from}/;
+	    }
+	}
+    }
+    $table;
+}
 
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
@@ -96,11 +116,13 @@ $logger->info("Listing datasets from $src_mart_db");
 # 1. identify datasets based on main tables
 my @datasets = get_datasets(\@src_tables);
 
-my $translation_table='gene_ensembl__translation__main';
+my $dataset_basename = 'gene';
+
+my $translation_table=$dataset_basename.'__translation__main';
 my $translation_key='translation_id_1068_key';
-my $transcript_table='gene_ensembl__transcript__main';
+my $transcript_table=$dataset_basename.'__transcript__main';
 my $transcript_key='transcript_id_1064_key';
-my $gene_table='gene_ensembl__gene__main';
+my $gene_table=$dataset_basename.'__gene__main';
 my $gene_key='gene_id_1020_key';
 my $seq_region_key='seq_region_id_1020';
 
@@ -162,7 +184,7 @@ foreach my $dataset (@datasets) {
 	# 1. create a condensed gene table
 	my $src_gene_table = "${dataset}_$gene_table";
 	my $target_gene_table = "${sub_dataset}_$gene_table";
-	$target_gene_table =~ s/gene_ensembl/gene/;
+	#$target_gene_table =~ s/gene_ensembl/gene/;
 
 	$logger->info("Creating $target_mart_db.$target_gene_table");
 	my $sql = "create table $target_mart_db.$target_gene_table as ".
@@ -209,7 +231,7 @@ foreach my $dataset (@datasets) {
 	    $processed_tables{$src_key_table}=1;
 	    foreach my $src_table (@src_tables) {
 		if($src_table=~ m/$dataset/ && !$processed_tables{$src_table} && has_column($src_handle,$src_table,$key_table_id)) {
-		    my $target_table = $src_table;
+		    my $target_table = transform_table($src_table);
 		    $target_table =~ s/$dataset/$sub_dataset/;
 		    $target_table =~ s/gene_ensembl/gene/;
 		    $logger->info("Need to split $src_table into $target_table using $src_key_table.$key_table_id");
