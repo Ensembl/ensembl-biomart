@@ -100,36 +100,36 @@ sub create_metatable {
 }
 
 sub write_metatables {
-    my ($mart_handle, $datasets_aref) = @_[0,1];
+    my ($seq_mart_handle, $datasets_aref) = @_[0,1];
     my $pwd = &Cwd::cwd();
 
     $logger->info("Creating meta tables");
 
     # create tables
-    create_metatable($mart_handle,'meta_version__version__main',
+    create_metatable($seq_mart_handle,'meta_version__version__main',
 		     ['version varchar(10) default NULL']);
-    create_metatable($mart_handle,'meta_template__xml__dm',
+    create_metatable($seq_mart_handle,'meta_template__xml__dm',
 		     ['template varchar(100) default NULL',
 		      'compressed_xml longblob',
 		      'UNIQUE KEY template (template)']);
-    create_metatable($mart_handle,'meta_conf__xml__dm',
+    create_metatable($seq_mart_handle,'meta_conf__xml__dm',
 		     ['dataset_id_key int(11) NOT NULL',
 		      'xml longblob',
 		      'compressed_xml longblob',
 		      'message_digest blob',
 		      'UNIQUE KEY dataset_id_key (dataset_id_key)']);
-    create_metatable($mart_handle,'meta_conf__user__dm',
+    create_metatable($seq_mart_handle,'meta_conf__user__dm',
 		     ['dataset_id_key int(11) default NULL',
 		      'mart_user varchar(100) default NULL',
 		      'UNIQUE KEY dataset_id_key (dataset_id_key,mart_user)']);
-    create_metatable($mart_handle,'meta_conf__interface__dm',
+    create_metatable($seq_mart_handle,'meta_conf__interface__dm',
 		     ['dataset_id_key int(11) default NULL',
 		      'interface varchar(100) default NULL',
 		      'UNIQUE KEY dataset_id_key (dataset_id_key,interface)']);
-    create_metatable($mart_handle,'meta_template__template__main',
+    create_metatable($seq_mart_handle,'meta_template__template__main',
 		     ['dataset_id_key int(11) NOT NULL',
 		      'template varchar(100) NOT NULL']);
-    create_metatable($mart_handle,'meta_conf__dataset__main',[ 
+    create_metatable($seq_mart_handle,'meta_conf__dataset__main',[ 
 			 'dataset_id_key int(11) NOT NULL',
 			 'dataset varchar(100) default NULL',
 			 'display_name varchar(200) default NULL',
@@ -143,21 +143,21 @@ sub write_metatables {
     $logger->info("Populating template tables");
     # populate template tables
     ## meta_version__version__main
-    $mart_handle->do("INSERT INTO meta_version__version__main VALUES ('0.7')");
+    $seq_mart_handle->do("INSERT INTO meta_version__version__main VALUES ('0.7')");
     ## meta_template__xml__dm
 
-    my $meta_conf__xml__dm       = $mart_handle->prepare('INSERT INTO meta_conf__xml__dm VALUES (?,?,?,?)');
-    my $meta_conf__user__dm      = $mart_handle->prepare('INSERT INTO meta_conf__user__dm VALUES(?,\'default\')');
-    my $meta_conf__interface__dm = $mart_handle->prepare('INSERT INTO meta_conf__interface__dm VALUES(?,\'default\')');
-    my $meta_conf__dataset__main = $mart_handle->prepare("INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,'Ensembl Sequences','GenomicSequence',0,?)");
-    my $meta_template__template__main = $mart_handle->prepare('INSERT INTO meta_template__template__main VALUES(?,?)');
+    my $meta_conf__xml__dm       = $seq_mart_handle->prepare('INSERT INTO meta_conf__xml__dm VALUES (?,?,?,?)');
+    my $meta_conf__user__dm      = $seq_mart_handle->prepare('INSERT INTO meta_conf__user__dm VALUES(?,\'default\')');
+    my $meta_conf__interface__dm = $seq_mart_handle->prepare('INSERT INTO meta_conf__interface__dm VALUES(?,\'default\')');
+    my $meta_conf__dataset__main = $seq_mart_handle->prepare("INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,'Ensembl Sequences','GenomicSequence',0,?)");
+    my $meta_template__template__main = $seq_mart_handle->prepare('INSERT INTO meta_template__template__main VALUES(?,?)');
     
     foreach my $dataset_href (@$datasets_aref) {
 	
 	my $template_filename = $dataset_href->{template};
 	my $dataset_name      = $dataset_href->{dataset};
 
-	my $sth = $mart_handle->prepare('INSERT INTO meta_template__xml__dm VALUES (?,?)');
+	my $sth = $seq_mart_handle->prepare('INSERT INTO meta_template__xml__dm VALUES (?,?)');
 	$sth->execute($dataset_href->{dataset}, file_to_bytes("$pwd/output/" . $template_filename)) 
 	    or croak "Could not load template file,$template_filename, into meta_template__xml__dm";
 	$sth->finish();
@@ -220,26 +220,30 @@ my $db_port = '4160';
 my $db_user = 'admin';
 my $db_pwd = '6KSFrax4';
 
-my $mart_db = 'ensembl_bacterial_sequence_mart';
+my $seq_mart_db = 'ensembl_bacterial_sequence_mart_51';
+my $gene_mart_db = 'bacterial_mart_51';
 
 sub usage {
-    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-mart <target mart>] [-rel <release number>]\n";
+    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-gene_mart <gene mart database>] [-seq_mart <target mart database>] [-release <release number>]\n";
     print "-h <host> Default is $db_host\n";
     print "-P <port> Default is $db_port\n";
     print "-u <host> Default is $db_user\n";
     print "-p <password> Default is top secret unless you know cat\n";
-    print "-mart <mart> Default is $mart_db\n";
-    print "-rel <mart release number> Default is $release\n";
+    print "-seq_mart <mart> Default is $seq_mart_db\n";
+    print "-gene_mart <mart> Default is $gene_mart_db\n";
+    
+    print "-release <ensembl release number> Default is $release\n";
     exit 1;
 };
 
 my $options_okay = GetOptions (
     "h=s"=>\$db_host,
-    "P=s"=>\$db_port,
+    "port=s"=>\$db_port,
     "u=s"=>\$db_user,
-    "p=s"=>\$db_pwd,
-    "mart=s"=>\$mart_db,
-    "rel=s"=>\$release,
+    "pwd=s"=>\$db_pwd,
+    "seq_mart=s"=>\$seq_mart_db,
+    "gene_mart=s"=>\$gene_mart_db,
+    "release=s"=>\$release,
     "help"=>sub {usage()}
     );
 
@@ -247,58 +251,52 @@ if(!$options_okay) {
     usage();
 }
 
-my $mart_string = "DBI:mysql:$mart_db:$db_host:$db_port";
-my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
+my $seq_mart_string = "DBI:mysql:$seq_mart_db:$db_host:$db_port";
+my $seq_mart_handle = DBI->connect($seq_mart_string, $db_user, $db_pwd,
 			       { RaiseError => 1 }
-    ) or croak "Could not connect to $mart_string";
+    ) or croak "Could not connect to $seq_mart_string with user $db_user and pwd, $db_pwd";
 
-my @mart_tables = get_tables($mart_handle);
-my @mart_dbs = get_databases($mart_handle);
+my $gene_mart_string = "DBI:mysql:$gene_mart_db:$db_host:$db_port";
+my $gene_mart_handle = DBI->connect($gene_mart_string, $db_user, $db_pwd,
+			       { RaiseError => 1 }
+    ) or croak "Could not connect to $gene_mart_string with user $db_user and pwd, $db_pwd";
 
+
+my $dataset_sth = $gene_mart_handle->prepare('SELECT src_dataset,src_db,species_id,species_name,version FROM dataset_names WHERE name = ?');
+
+# dataset names are originally from the meta attribute 'sql_name'
+my @dataset_names = get_dataset_names($gene_mart_handle);
 my @datasets = ();
-foreach my $dataset (get_sequence_datasets(\@mart_tables)) {
+foreach my $dataset (@dataset_names) {
     $logger->info("Processing $dataset");
-    my %dataset_names = ();
+    my %dataset_href = ();
     my $template_filename = $dataset . "_genomic_sequence_template.template.xml";
-    $dataset_names{dataset}=$dataset . "_genomic_sequence";
-    $dataset_names{template}=$template_filename; 
-    $dataset_names{short_species_name}=$dataset;
-
+    $dataset_href{dataset}=$dataset . "_genomic_sequence";
+    $dataset_href{template}=$template_filename;
+    $dataset_href{short_species_name}=$dataset;
+    
     $logger->info("dataset name: $dataset");
     $logger->info("template filename, $template_filename");
     
-    ($dataset_names{baseset},$dataset_names{species_id}) = ($dataset =~ /^(.+)_([0-9]+)$/) [0,1];
-    my $ens_db = get_ensembl_db(\@mart_dbs,$dataset_names{baseset});
-    if(!$ens_db) {
-	croak "Could not find original source db for dataset $dataset_names{baseset}\n";
-    }
-    my $species_sth = $mart_handle->prepare("select m2.meta_value from $ens_db.meta m1 join $ens_db.meta m2 on (m1.species_id=m2.species_id and m2.meta_key='species.db_name')where m1.meta_key='species.db_alias' and m1.meta_value=?");  
-    $logger->debug("Maps to $ens_db");
-    $logger->debug("Species ID = $dataset_names{species_id}");
-    $dataset_names{species_name} = get_string($species_sth,$dataset_names{species_id});
-    $logger->debug("Species name = $dataset_names{species_name}");
-    $dataset_names{species_uc_name} = $dataset_names{species_name};
-    $dataset_names{species_uc_name} =~ s/\s+/_/g;
-    $dataset_names{short_name} = get_short_name($dataset_names{species_name},$dataset_names{species_id});
-    $dataset_names{version_num} = $dataset_names{short_name}.'_'.get_version($ens_db);
-    $logger->debug(join(',',values(%dataset_names)));
-    push(@datasets,\%dataset_names);
-    write_dataset_xml(\%dataset_names);
+    ($dataset_href{baseset}, $dataset_href{src_db},$dataset_href{species_id},$dataset_href{species_name},$dataset_href{version_num}) = get_row($dataset_sth,$dataset);
+    $dataset_href{species_uc_name} = $dataset_href{species_name};
+    $dataset_href{species_uc_name} =~ s/\s+/_/g;
+    $dataset_href{short_name} = get_short_name($dataset_href{species_name},$dataset_href{species_id});
+    
+    $logger->debug(join(',',values(%dataset_href)));
+    
+    push(@datasets,\%dataset_href);
+    write_dataset_xml(\%dataset_href);
 
 }
+$dataset_sth->finish();
 
 # 2. write template files
 write_template_xml(\@datasets);
 
 ## 3. write and load metafiles
-#foreach my $file (write_metafiles(\@datasets)) {
-#    $logger->info("Loading $file into database");
-#    my $command = "mysql -u$db_user -p$db_pwd -P$db_port -h$db_host $mart_db < $file";
-#    $logger->debug("Running $command");
-#    system($command);
-#}
 
-write_metatables($mart_handle, \@datasets);
+write_metatables($seq_mart_handle, \@datasets);
 
-$mart_handle->disconnect() or croak "Could not close handle to $mart_string";
-
+$seq_mart_handle->disconnect() or croak "Could not close handle to $seq_mart_string";
+$gene_mart_handle->disconnect() or croak "Could not close handle to $gene_mart_string";
