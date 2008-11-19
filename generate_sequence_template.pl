@@ -16,7 +16,6 @@ use Log::Log4perl qw(:easy);
 use DbiUtils;
 use MartUtils;
 use Cwd;
-# use File::Copy;
 use Getopt::Long;
 use Bio::EnsEMBL::Registry;
 
@@ -262,7 +261,8 @@ my $seq_mart_handle = DBI->connect($seq_mart_string, $db_user, $db_pwd,
 			       { RaiseError => 1 }
     ) or croak "Could not connect to $seq_mart_string with user $db_user and pwd, $db_pwd";
 
-# Use Registry instead
+# Use Registry rather than dataset_names table from gene mart
+# to get the dataset name, the species id etc.
 Bio::EnsEMBL::Registry->load_registry_from_db(
                                               -host => $db_host,
                                               -user => $db_user,
@@ -281,6 +281,14 @@ foreach my $species_name (@$species_names_aref) {
         die "meta_container couldn't be instanciated for species, \"$species_name\"\n";
     }
     
+    ###################################################
+    #
+    # MAKE SURE the dataset_name, the species_id, etc. 
+    # are consistent with the one generated 
+    # for the gene mart dbs !!
+    #
+    ###################################################
+
     my $dataset_name = @{$meta_container->list_value_by_key('species.sql_name')}[0];
     if (! defined $dataset_name) {
         die "sql_name meta attribute not defined for species, '$species_name'!\n";
