@@ -16,17 +16,41 @@ use Log::Log4perl qw(:easy);
 use DbiUtils;
 use MartUtils;
 use Cwd;
-use File::Copy;
+# use File::Copy;
 use Getopt::Long;
+use Bio::EnsEMBL::Registry;
 
 Log::Log4perl->easy_init($DEBUG);
 
 my $logger = get_logger();
 my $release = 51;
+my $output_dir = "./output";
+my $mart_version = "0.7";
+
+sub all_species {
+    my $species_aref = [];
+    my %hash;
+
+    foreach my $adap (@{Bio::EnsEMBL::Registry->get_all_DBAdaptors(-group => "core")}){
+        if(!defined($hash{$adap->species})){
+            if($adap->species =~ /ancestral sequences/i){ # ignore "Ancestral sequences"
+                print STDERR "ignoring it!\n";
+            }
+            else{
+                push @$species_aref, $adap->species;
+                $hash{$adap->species} = 1;
+            }
+        }
+
+    }
+
+    return $species_aref;
+}
+
 
 sub write_dataset_xml {
     my $dataset_names = shift;
-    my $fname = './output/'.$dataset_names->{dataset}.'.xml';
+    my $fname = "./$output_dir/".$dataset_names->{dataset}.'.xml';
     open my $dataset_file, '>', $fname or croak "Could not open $fname for writing"; 
     my $template_file_name = 'templates/dataset_sequence_template.xml';
     open my $template_file, '<', $template_file_name or croak "Could not open $template_file_name";
@@ -71,26 +95,9 @@ sub write_template_xml {
 	    '<DynamicDataset internalName="'.
 	    $dataset->{dataset}.'"/>'."\n";
 	my $template_filename = $dataset->{template};
-	write_replace_file('templates/sequence_template_template.xml',"output/$template_filename",$dataset);
-	`gzip -c output/$template_filename > output/$template_filename.gz`;
+	write_replace_file('templates/sequence_template_template.xml',"$output_dir/$template_filename",$dataset);
+	`gzip -c $output_dir/$template_filename > $output_dir/$template_filename.gz`;
     }
-}
-
-
-sub update_meta_file {
-    my ($template,$output,$placeholder,$prefix,$suffix,$separator,$datasets,$ds_closure) = @_;  
-    my $datasets_text=$prefix;  
-    my $first=0;
-    foreach my $dataset (@$datasets) {
-	if($first>0) {
-	    $datasets_text .= $separator;
-	}
-	my $dst = &$ds_closure($dataset);
-	$datasets_text .= $dst;
-	$first++;
-    }
-    $datasets_text.=$suffix;
-    write_replace_file($template,$output,$placeholder,$datasets_text);
 }
 
 my $table_args ="ENGINE=MyISAM DEFAULT CHARSET=latin1";
@@ -143,7 +150,7 @@ sub write_metatables {
     $logger->info("Populating template tables");
     # populate template tables
     ## meta_version__version__main
-    $seq_mart_handle->do("INSERT INTO meta_version__version__main VALUES ('0.7')");
+    $seq_mart_handle->do("INSERT INTO meta_version__version__main VALUES ('$mart_version')");
     ## meta_template__xml__dm
 
     my $meta_conf__xml__dm       = $seq_mart_handle->prepare('INSERT INTO meta_conf__xml__dm VALUES (?,?,?,?)');
@@ -158,7 +165,7 @@ sub write_metatables {
 	my $dataset_name      = $dataset_href->{dataset};
 
 	my $sth = $seq_mart_handle->prepare('INSERT INTO meta_template__xml__dm VALUES (?,?)');
-	$sth->execute($dataset_href->{dataset}, file_to_bytes("$pwd/output/" . $template_filename)) 
+	$sth->execute($dataset_href->{dataset}, file_to_bytes("$pwd/$output_dir/" . $template_filename)) 
 	    or croak "Could not load template file,$template_filename, into meta_template__xml__dm";
 	$sth->finish();
  
@@ -166,9 +173,9 @@ sub write_metatables {
 	
 	# meta_conf__xml__dm
 	$meta_conf__xml__dm->execute($dataset_href->{species_id},
-				     file_to_bytes("$pwd/output/$dataset_href->{dataset}.xml"),
-				     file_to_bytes("$pwd/output/$dataset_href->{dataset}.xml.gz"),
-				     file_to_bytes("$pwd/output/$dataset_href->{dataset}.xml.gz.md5")
+				     file_to_bytes("$pwd/$output_dir/$dataset_href->{dataset}.xml"),
+				     file_to_bytes("$pwd/$output_dir/$dataset_href->{dataset}.xml.gz"),
+				     file_to_bytes("$pwd/$output_dir/$dataset_href->{dataset}.xml.gz.md5")
 				     ) or croak "Could not update meta_conf__xml__dm";
 	# meta_conf__user__dm
 	$meta_conf__user__dm->execute($dataset_href->{species_id}) 
@@ -204,11 +211,7 @@ sub get_short_name {
     uc(substr($db_name,0,3).$species_id);
 } 
 
-sub get_version {
-    my $ens_db = shift;
-    $ens_db =~ m/^.*_([0-9]+[a-z]*)$/;
-    $1;
-}
+
 
 # db params
 #my $db_host = 'mysql-eg-devel-1.ebi.ac.uk';
@@ -221,17 +224,14 @@ my $db_user = 'admin';
 my $db_pwd = '6KSFrax4';
 
 my $seq_mart_db = 'ensembl_bacterial_sequence_mart_51';
-my $gene_mart_db = 'bacterial_mart_51';
 
 sub usage {
-    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-gene_mart <gene mart database>] [-seq_mart <target mart database>] [-release <release number>]\n";
+    print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-pwd <pwd>] [-seq_mart <target mart database>] [-release <release number>]\n";
     print "-h <host> Default is $db_host\n";
-    print "-P <port> Default is $db_port\n";
+    print "-port <port> Default is $db_port\n";
     print "-u <host> Default is $db_user\n";
-    print "-p <password> Default is top secret unless you know cat\n";
+    print "-pwd <password> Default is top secret unless you know cat\n";
     print "-seq_mart <mart> Default is $seq_mart_db\n";
-    print "-gene_mart <mart> Default is $gene_mart_db\n";
-    
     print "-release <ensembl release number> Default is $release\n";
     exit 1;
 };
@@ -242,7 +242,6 @@ my $options_okay = GetOptions (
     "u=s"=>\$db_user,
     "pwd=s"=>\$db_pwd,
     "seq_mart=s"=>\$seq_mart_db,
-    "gene_mart=s"=>\$gene_mart_db,
     "release=s"=>\$release,
     "help"=>sub {usage()}
     );
@@ -251,34 +250,83 @@ if(!$options_okay) {
     usage();
 }
 
+print STDERR "working with release, $release\n";
+
+if (! -d $output_dir) {
+    print STDERR "create output directory, $output_dir\n";
+    qx/mkdir $output_dir/;
+}
+
 my $seq_mart_string = "DBI:mysql:$seq_mart_db:$db_host:$db_port";
 my $seq_mart_handle = DBI->connect($seq_mart_string, $db_user, $db_pwd,
 			       { RaiseError => 1 }
     ) or croak "Could not connect to $seq_mart_string with user $db_user and pwd, $db_pwd";
 
-my $gene_mart_string = "DBI:mysql:$gene_mart_db:$db_host:$db_port";
-my $gene_mart_handle = DBI->connect($gene_mart_string, $db_user, $db_pwd,
-			       { RaiseError => 1 }
-    ) or croak "Could not connect to $gene_mart_string with user $db_user and pwd, $db_pwd";
+# Use Registry instead
+Bio::EnsEMBL::Registry->load_registry_from_db(
+                                              -host => $db_host,
+                                              -user => $db_user,
+                                              -pass => $db_pwd,
+                                              -port => $db_port,
+                                              -db_version => $release);
+my $species_names_aref = all_species();
 
-
-my $dataset_sth = $gene_mart_handle->prepare('SELECT src_dataset,src_db,species_id,species_name,version FROM dataset_names WHERE name = ?');
-
-# dataset names are originally from the meta attribute 'sql_name'
-my @dataset_names = get_dataset_names($gene_mart_handle);
 my @datasets = ();
-foreach my $dataset (@dataset_names) {
-    $logger->info("Processing $dataset");
-    my %dataset_href = ();
-    my $template_filename = $dataset . "_genomic_sequence_template.template.xml";
-    $dataset_href{dataset}=$dataset . "_genomic_sequence";
-    $dataset_href{template}=$template_filename;
-    $dataset_href{short_species_name}=$dataset;
+foreach my $species_name (@$species_names_aref) {
+    $logger->info("Processing species, '$species_name'");
+
+    my $meta_container =
+           Bio::EnsEMBL::Registry->get_adaptor( "$species_name", 'Core', 'MetaContainer' );
+    if (! defined $meta_container) {
+        die "meta_container couldn't be instanciated for species, \"$species_name\"\n";
+    }
     
-    $logger->info("dataset name: $dataset");
+    my $dataset_name = @{$meta_container->list_value_by_key('species.sql_name')}[0];
+    if (! defined $dataset_name) {
+        die "sql_name meta attribute not defined for species, '$species_name'!\n";
+    }
+
+    print STDERR "species_name, $species_name\n";
+
+    my $species_id = @{$meta_container->list_value_by_key('species.proteome_id')}[0];
+    if (! defined $species_id) {
+        die "'species.proteome_id' meta attribute not defined for species, '$species_name'!\n";
+    }
+
+    print STDERR "species_id, $species_id\n";
+
+    my $src_db = $meta_container->db->{_dbc}->{_dbname};
+
+    print STDERR "src_db, $src_db\n";
+
+    my $baseset = undef;
+    if ($src_db =~ /^(\w)\w+_(\w+)_collection.+$/) {
+	$baseset = $1 . $2;
+    }
+    else {
+	$src_db =~ /^(\w+)_collection.+$/;
+	$baseset = $1;
+    }
+
+    print STDERR "baseset: $baseset\n";
+    
+    my $version_num = @{$meta_container->list_value_by_key('genebuild.version')}[0];
+    if (! defined $version_num) {
+        die "'genebuild.version' meta attribute not defined for species, '$version_num'!\n";
+    }
+    print STDERR "version_num, $version_num\n";
+    
+
+    my %dataset_href = ();
+    my $template_filename = $dataset_name . "_genomic_sequence_template.template.xml";
+    $dataset_href{dataset}=$dataset_name . "_genomic_sequence";
+    $dataset_href{template}=$template_filename;
+    $dataset_href{short_species_name}=$dataset_name;
+    
+    $logger->info("dataset name: $dataset_name");
     $logger->info("template filename, $template_filename");
     
-    ($dataset_href{baseset}, $dataset_href{src_db},$dataset_href{species_id},$dataset_href{species_name},$dataset_href{version_num}) = get_row($dataset_sth,$dataset);
+    ($dataset_href{baseset}, $dataset_href{src_db},$dataset_href{species_id},$dataset_href{species_name},$dataset_href{version_num}) = ($baseset,$src_db,$species_id,$species_name,$version_num);
     $dataset_href{species_uc_name} = $dataset_href{species_name};
     $dataset_href{species_uc_name} =~ s/\s+/_/g;
     $dataset_href{short_name} = get_short_name($dataset_href{species_name},$dataset_href{species_id});
@@ -289,7 +337,6 @@ foreach my $dataset (@dataset_names) {
     write_dataset_xml(\%dataset_href);
 
 }
-$dataset_sth->finish();
 
 # 2. write template files
 write_template_xml(\@datasets);
@@ -299,4 +346,3 @@ write_template_xml(\@datasets);
 write_metatables($seq_mart_handle, \@datasets);
 
 $seq_mart_handle->disconnect() or croak "Could not close handle to $seq_mart_string";
-$gene_mart_handle->disconnect() or croak "Could not close handle to $gene_mart_string";
