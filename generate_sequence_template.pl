@@ -26,26 +26,6 @@ my $release = 51;
 my $output_dir = "./output";
 my $mart_version = "0.7";
 
-sub all_species {
-    my $species_aref = [];
-    my %hash;
-
-    foreach my $adap (@{Bio::EnsEMBL::Registry->get_all_DBAdaptors(-group => "core")}){
-        if(!defined($hash{$adap->species})){
-            if($adap->species =~ /ancestral sequences/i){ # ignore "Ancestral sequences"
-                print STDERR "ignoring it!\n";
-            }
-            else{
-                push @$species_aref, $adap->species;
-                $hash{$adap->species} = 1;
-            }
-        }
-
-    }
-
-    return $species_aref;
-}
-
 
 sub write_dataset_xml {
     my $dataset_names = shift;
@@ -269,7 +249,7 @@ Bio::EnsEMBL::Registry->load_registry_from_db(
                                               -pass => $db_pwd,
                                               -port => $db_port,
                                               -db_version => $release);
-my $species_names_aref = all_species();
+my $species_names_aref = get_all_species();
 
 my @datasets = ();
 foreach my $species_name (@$species_names_aref) {

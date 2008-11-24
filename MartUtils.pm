@@ -134,5 +134,26 @@ sub build_dataset_href {
     return $dataset_href;
 }
 
+
+sub get_all_species {
+    my $species_aref = [];
+    my %hash;
+
+    foreach my $adap (@{Bio::EnsEMBL::Registry->get_all_DBAdaptors(-group => "core")}){
+        if(!defined($hash{$adap->species})){
+            if($adap->species =~ /ancestral sequences/i){ # ignore "Ancestral sequences"
+                print STDERR "ignoring it!\n";
+            }
+            else{
+                push @$species_aref, $adap->species;
+                $hash{$adap->species} = 1;
+            }
+        }
+
+    }
+
+    return $species_aref;
+}
+
 1;
 
