@@ -258,7 +258,7 @@ if (! -d $output_dir) {
 
 my $seq_mart_string = "DBI:mysql:$seq_mart_db:$db_host:$db_port";
 my $seq_mart_handle = DBI->connect($seq_mart_string, $db_user, $db_pwd,
-			       { RaiseError => 1 }
+				   { RaiseError => 1 }
     ) or croak "Could not connect to $seq_mart_string with user $db_user and pwd, $db_pwd";
 
 # Use Registry rather than dataset_names table from gene mart
@@ -280,70 +280,11 @@ foreach my $species_name (@$species_names_aref) {
     if (! defined $meta_container) {
         die "meta_container couldn't be instanciated for species, \"$species_name\"\n";
     }
-    
-    ###################################################
-    #
-    # MAKE SURE the dataset_name, the species_id, etc. 
-    # are consistent with the one generated 
-    # for the gene mart dbs !!
-    #
-    ###################################################
+    my $dataset_href = build_dataset_href ($meta_container);
+    my $template_filename = $dataset_href->{formatted_species_name} . "_genomic_sequence_template.template.xml";
 
-    my $dataset_name = @{$meta_container->list_value_by_key('species.sql_name')}[0];
-    if (! defined $dataset_name) {
-        die "sql_name meta attribute not defined for species, '$species_name'!\n";
-    }
-
-    print STDERR "species_name, $species_name\n";
-
-    my $species_id = @{$meta_container->list_value_by_key('species.proteome_id')}[0];
-    if (! defined $species_id) {
-        die "'species.proteome_id' meta attribute not defined for species, '$species_name'!\n";
-    }
-
-    print STDERR "species_id, $species_id\n";
-
-    my $src_db = $meta_container->db->{_dbc}->{_dbname};
-
-    print STDERR "src_db, $src_db\n";
-
-    my $baseset = undef;
-    if ($src_db =~ /^(\w)\w+_(\w+)_collection.+$/) {
-	$baseset = $1 . $2;
-    }
-    else {
-	$src_db =~ /^(\w+)_collection.+$/;
-	$baseset = $1;
-    }
-
-    print STDERR "baseset: $baseset\n";
-    
-    my $version_num = @{$meta_container->list_value_by_key('genebuild.version')}[0];
-    if (! defined $version_num) {
-        die "'genebuild.version' meta attribute not defined for species, '$version_num'!\n";
-    }
-    print STDERR "version_num, $version_num\n";
-    
-
-    my %dataset_href = ();
-    my $template_filename = $dataset_name . "_genomic_sequence_template.template.xml";
-    $dataset_href{dataset}=$dataset_name . "_genomic_sequence";
-    $dataset_href{template}=$template_filename;
-    $dataset_href{short_species_name}=$dataset_name;
-    
-    $logger->info("dataset name: $dataset_name");
-    $logger->info("template filename, $template_filename");
-    
-    ($dataset_href{baseset}, $dataset_href{src_db},$dataset_href{species_id},$dataset_href{species_name},$dataset_href{version_num}) = ($baseset,$src_db,$species_id,$species_name,$version_num);
-    $dataset_href{species_uc_name} = $dataset_href{species_name};
-    $dataset_href{species_uc_name} =~ s/\s+/_/g;
-    $dataset_href{short_name} = get_short_name($dataset_href{species_name},$dataset_href{species_id});
-    
-    $logger->debug(join(',',values(%dataset_href)));
-    
-    push(@datasets,\%dataset_href);
-    write_dataset_xml(\%dataset_href);
-
+    push(@datasets,$dataset_href);
+    write_dataset_xml($dataset_href);
 }
 
 # 2. write template files
