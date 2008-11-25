@@ -47,7 +47,7 @@ sub get_datasets_regexp {
     return @datasets;
 }
 
-@deprecated
+#@deprecated
 sub get_sequence_datasets {
     my $regexp = "genomic_sequence__dna_chunks__main";
     return get_datasets_regexp (@_, $regexp);
@@ -72,8 +72,11 @@ sub get_ensembl_db {
 # Assume we are dealing with a Multispecies database at the moment
 
 sub build_dataset_href {
-    my ($meta_container) = @_;
+    my ($meta_container, $logger) = @_;
     my $dataset_href = {};
+
+    # just use for report purposes
+    my $species_name = $meta_container->db->species;
 
     my $formatted_species_name = @{$meta_container->list_value_by_key('species.sql_name')}[0];
     if (! defined $formatted_species_name) {
@@ -94,7 +97,7 @@ sub build_dataset_href {
     print STDERR "src_db, $src_db\n";
     
     my $baseset = undef;
-    if ($meta_container->db->{_is_multispecies) {
+    if ($meta_container->db->{_is_multispecies}) {
 	if ($src_db =~ /^(\w)\w+_(\w+)_collection.+$/) {
 	    $baseset = $1 . $2;
 	}
@@ -116,20 +119,25 @@ sub build_dataset_href {
     }
     print STDERR "version_num, $version_num\n";
     
-    my $dataset_href->{formatted_species_name} = $formatted_species_name;
+    $dataset_href->{formatted_species_name} = $formatted_species_name;
     $dataset_href->{dataset}=$formatted_species_name . "_genomic_sequence";
+    my $template_filename = $formatted_species_name . "_genomic_sequence_template.template.xml";
     $dataset_href->{template}=$template_filename;
     $dataset_href->{short_species_name}=$formatted_species_name;
     
-    $logger->info("dataset name: " . $dataset_href->{dataset});
-    $logger->info("template filename, $template_filename");
-    
+    if (defined $logger) {
+	$logger->info("dataset name: " . $dataset_href->{dataset});
+	$logger->info("template filename, $template_filename");
+    }
+
     ($dataset_href->{baseset}, $dataset_href->{src_db},$dataset_href->{species_id},$dataset_href->{species_name},$dataset_href->{version_num}) = ($baseset,$src_db,$species_id,$species_name,$version_num);
     $dataset_href->{species_uc_name} = $dataset_href->{species_name};
     $dataset_href->{species_uc_name} =~ s/\s+/_/g;
     $dataset_href->{short_name} = get_short_name($dataset_href->{species_name},$dataset_href->{species_id});
-    
-    $logger->debug(join(',',values(%$dataset_href)));
+
+    if (defined $logger) {
+	$logger->debug(join(',',values(%$dataset_href)));
+    }
     
     return $dataset_href;
 }

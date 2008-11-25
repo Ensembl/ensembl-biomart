@@ -260,9 +260,8 @@ foreach my $species_name (@$species_names_aref) {
     if (! defined $meta_container) {
         die "meta_container couldn't be instanciated for species, \"$species_name\"\n";
     }
-    my $dataset_href = build_dataset_href ($meta_container);
-    my $template_filename = $dataset_href->{formatted_species_name} . "_genomic_sequence_template.template.xml";
-
+    my $dataset_href = build_dataset_href ($meta_container,$logger);
+    
     push(@datasets,$dataset_href);
     write_dataset_xml($dataset_href);
 }
