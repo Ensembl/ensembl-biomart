@@ -158,7 +158,7 @@ sub build_dataset_href {
     
     my $version_num = @{$meta_container->list_value_by_key('genebuild.version')}[0];
     if (! defined $version_num) {
-        die "'genebuild.version' meta attribute not defined for species, '$version_num'!\n";
+        die "'genebuild.version' meta attribute not defined for species, '$species_name'!\n";
     }
     print STDERR "version_num, $version_num\n";
     
