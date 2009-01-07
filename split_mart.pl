@@ -102,12 +102,13 @@ drop_and_create_table($target_handle, $names_table,
 		       'src_db varchar(100)',
 		       'species_id varchar(100)',
 		       'species_name varchar(100)',
+		       'sql_name varchar(100)',
 		       'version varchar(100)'
 		      ],
 		      'ENGINE=MyISAM DEFAULT CHARSET=latin1'
     );
 
-my $names_insert = $target_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,?,?,?)");
+my $names_insert = $target_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,?,?,?,?)");
 
 my @src_tables = get_tables($src_handle);
 my @src_dbs = get_databases($src_handle);
@@ -138,7 +139,7 @@ foreach my $dataset (@datasets) {
 
     $logger->info("Splitting $dataset");
     # get original database
-    my $ens_db = get_ensembl_db(\@src_dbs,$dataset);
+    my $ens_db = get_ensembl_db_collection(\@src_dbs,$dataset);
     if(!$ens_db) {
 	croak "Could not find original source db for dataset $dataset\n";
     }   
@@ -166,7 +167,7 @@ foreach my $dataset (@datasets) {
 
 	## use the species ID to get a hash of everything we need and write it into the names_table
 	my %species_names = query_to_hash($ens_dbh,"select meta_key,meta_value from meta where species_id='$species_id'");	
-	my $sub_dataset = $species_names{'species.sql_name'};
+	my $sub_dataset = $dataset.'_'.$species_names{'species.proteome_id'};
 	# suppress numbers of datasets
 	$sub_dataset =~ s/[_-]+/_/g;
 
@@ -174,8 +175,9 @@ foreach my $dataset (@datasets) {
 	    $sub_dataset,
 	    $dataset,
 	    $ens_db,
-	    $species_names{'species.db_alias'},
+	    $species_names{'species.proteome_id'},
 	    $species_names{'species.db_name'},
+	    $species_names{'species.sql_name'},
 	    $species_names{'genebuild.version'}
 	    ); 
 	
