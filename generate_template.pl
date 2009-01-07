@@ -25,14 +25,14 @@ my $logger = get_logger();
 
 # db params
 my $db_host = '127.0.0.1';
-my $db_port = '4158';
+my $db_port = '4161';
 my $db_user = 'admin';
-my $db_pwd = 'L9xn1VpN';
+my $db_pwd = 'iPBi22yI';
 #my $db_port = '3306';
 #my $db_user = 'eg';
 #my $db_pwd = 'eg';
-my $mart_db = 'split_new_bacterial_mart_51';
-my $release = '51';
+my $mart_db = 'bacterial_mart_52';
+my $release = '52';
 
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
@@ -297,6 +297,7 @@ sub write_metatables {
     # populate dataset tables
     foreach my $dataset (@$datasets) { 
 	# meta_conf__xml__dm
+	$logger->info("Writing metadata for species ".$dataset->{species_id});
 	$meta_conf__xml__dm->execute($dataset->{species_id},
 				     file_to_bytes("$pwd/output/$dataset->{dataset}.xml"),
 				     file_to_bytes("$pwd/output/$dataset->{dataset}.xml.gz"),
@@ -347,7 +348,6 @@ my $dataset_sth = $mart_handle->prepare('SELECT src_dataset,src_db,species_id,sp
 
 # get names of datasets from names table
 foreach my $dataset (get_dataset_names($mart_handle)) {
-#foreach my $dataset (get_dataset_names_for_clade($mart_handle,'bacillus')) {
     $logger->info("Processing $dataset");
     # get other naming info from names table
     my %dataset_names = ();
