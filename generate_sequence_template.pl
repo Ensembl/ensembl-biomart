@@ -21,6 +21,17 @@ use Bio::EnsEMBL::Registry;
 
 Log::Log4perl->easy_init($DEBUG);
 
+# db_patterns added so we can filter species into groups
+# e.g. plant or protist or fungal or bacterial mode
+# to filter out a subset of databases
+
+my @protist_db_patterns   = ("plasmodium_vivax_","plasmodium_knowlesi_","plasmodium_falciparum_");
+my @fungal_db_patterns    = ("schizosaccharomyces_pombe_","saccharomyces_cerevisiae_");
+my @bacterial_db_patterns = ("bacillus_collection_","escherichia_shigella_collection_","mycobacterium_collection_","neisseria_collection_","pyrococcus_collection_","staphylococcus_collection_","streptococcus_collection_");
+my @plant_db_patterns = ("oryza_sativa_japonica_","arabidopsis_thaliana_");
+
+my @db_patterns = undef;
+
 my $logger = get_logger();
 my $release = 51;
 my $output_dir = "./output";
@@ -229,6 +240,24 @@ if(!$options_okay) {
     usage();
 }
 
+# Set the db_patterns, depending on the database mart name
+if ($seq_mart_db =~ /bacterial/i) {
+    @db_patterns = @bacterial_db_patterns;
+}
+elsif ($seq_mart_db =~ /protist/i) {
+    @db_patterns = @protist_db_patterns;
+}
+elsif ($seq_mart_db =~ /fungal/i) {
+    @db_patterns = @fungal_db_patterns;
+}
+elsif ($seq_mart_db =~ /plant/i) {
+    @db_patterns = @plant_db_patterns;
+}
+else {
+    print STDERR "sequence mart db name, $seq_mart_db\n";
+    print STDERR "sequence mart db name doesn't match a known pattern, so all databases on the server will be taken into account\n";
+}
+
 print STDERR "working with release, $release\n";
 
 if (! -d $output_dir) {
@@ -255,8 +284,21 @@ my @datasets = ();
 foreach my $species_name (@$species_names_aref) {
     $logger->info("Processing species, '$species_name'");
 
+    
+    # Filter out the species we don't in, if db_patterns array is defined
+    
+    my $dba = Bio::EnsEMBL::Registry->get_DBAdaptor($species_name, "core");
+    
+    my $core_dbname = $dba->{_dbc}->{_dbname};
+    if (@db_patterns) {
+	if (! contains(\@db_patterns, $core_dbname)) {
+	    print STDERR "species, '$species_name', from db, $core_dbname, is filtered out\n";
+	    next;
+	}
+    }
+
     my $meta_container =
-           Bio::EnsEMBL::Registry->get_adaptor( "$species_name", 'Core', 'MetaContainer' );
+	Bio::EnsEMBL::Registry->get_adaptor( "$species_name", 'Core', 'MetaContainer' );
     if (! defined $meta_container) {
         die "meta_container couldn't be instanciated for species, \"$species_name\"\n";
     }
@@ -274,3 +316,18 @@ write_template_xml(\@datasets);
 write_metatables($seq_mart_handle, \@datasets);
 
 $seq_mart_handle->disconnect() or croak "Could not close handle to $seq_mart_string";
+
+######
+
+sub contains {
+    my $array_ref = shift;
+    my $element = shift;
+
+    foreach my $item (@$array_ref) {
+	if ($element  =~ /^$item/i) {
+	    return 1;
+	}
+    }
+
+    return 0;
+}

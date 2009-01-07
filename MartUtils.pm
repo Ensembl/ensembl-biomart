@@ -97,19 +97,40 @@ sub build_dataset_href {
     my ($meta_container, $logger) = @_;
     my $dataset_href = {};
 
-    # just use for report purposes
     my $species_name = $meta_container->db->species;
+    my $is_multispecies = $meta_container->db->{_is_multispecies};
 
-    my $formatted_species_name = @{$meta_container->list_value_by_key('species.sql_name')}[0];
-    if (! defined $formatted_species_name) {
-        die "'species.sql_name' meta attribute not defined for species, '$species_name'!\n";
+    my $formatted_species_name = undef;
+    if (! defined @{$meta_container->list_value_by_key('species.sql_name')}[0]) {
+        warn "'species.sql_name' meta attribute not defined for species, '$species_name'!\n";
+	if ($is_multispecies) {
+	    die "not allowed for a multispecies database";
+	}
+	else {
+	    print STDERR "using the species name from the database instead\n";
+	    $formatted_species_name = $species_name;
+	}
     }
-
+    else {
+	$formatted_species_name = @{$meta_container->list_value_by_key('species.sql_name')}[0];
+    }
+    
     print STDERR "formatted_species_name, $formatted_species_name\n";
 
-    my $species_id = @{$meta_container->list_value_by_key('species.proteome_id')}[0];
-    if (! defined $species_id) {
-        die "'species.proteome_id' meta attribute not defined for species, '$species_name'!\n";
+    my $species_id = undef;
+    if (defined @{$meta_container->list_value_by_key('species.proteome_id')}[0]) {
+	# use the proteome_id if possible
+	$species_id = @{$meta_container->list_value_by_key('species.proteome_id')}[0];
+    }
+    else {
+	if ($is_multispecies) {
+	    print STDERR "species.proteome_id' meta attribute is required in a multispecies database context\n";
+	    die "'species.proteome_id' meta attribute not defined for species, '$species_name'!\n";
+	}
+	else {
+	    # set it arbitrarily to 1!
+	    $species_id = 1;
+	}
     }
 
     print STDERR "species_id, $species_id\n";
@@ -119,7 +140,7 @@ sub build_dataset_href {
     print STDERR "src_db, $src_db\n";
     
     my $baseset = undef;
-    if ($meta_container->db->{_is_multispecies}) {
+    if ($is_multispecies) {
 	if ($src_db =~ /^(\w)\w+_(\w+)_collection.+$/) {
 	    $baseset = $1 . $2;
 	}
