@@ -53,13 +53,35 @@ sub get_sequence_datasets {
     return get_datasets_regexp (@_, $regexp);
 }
 
+sub get_ensembl_db_single {
+    my ($src_dbs,$dataset) = @_;
+    return get_ensembl_db($src_dbs,$dataset, sub {
+	my $var = shift;
+	$var =~ s/^(.)[^_]*_([^_]+)_core_*\d*_[0-9]+_[0-9]+[a-z]*$/$1$2/;
+	return $var;
+			  }
+	);    
+}
+
+sub get_ensembl_db_collection {
+    my ($src_dbs,$dataset) = @_;
+    return get_ensembl_db($src_dbs,$dataset,  sub {
+	my $var = shift;
+	$var =~ s/^(...).*_collection_core_*\d*_[0-9]+_[0-9]+[a-z]*$/$1/;
+	return $var;
+			  }
+	);
+}
+
 sub get_ensembl_db {
     my $src_dbs = shift;
     my $dataset = shift;
+    my $fn = shift;
     my $ens_db;
     foreach my $src_db (@$src_dbs) {
 	my $candidate = $src_db;
-	$candidate =~ s/^(.)?([^_]+_)?([^_]+)_collection_core_*\d*_[0-9]+_[0-9]+[a-z]*$/$1$3/;
+	#$candidate =~ s/^(.)?([^_]+_)?([^_]+)_collection_core_*\d*_[0-9]+_[0-9]+[a-z]*$/$1$3/;
+	$candidate = $fn->($candidate);
 	if($candidate eq $dataset) {
 	    $ens_db = $src_db;
 	    last;
