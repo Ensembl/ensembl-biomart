@@ -24,13 +24,13 @@ Log::Log4perl->easy_init($DEBUG);
 my $logger = get_logger();
 
 # db params
-my $db_host = '127.0.0.1';
-my $db_port = '4158';
-my $db_user = 'admin';
-my $db_pwd = 'L9xn1VpN';
-my $mart_db = 'split_new_bacterial_mart_51';
-my $compara_db ='ensembl_compara_bacteria_homology_0_51';
 
+my $db_host = '127.0.0.1';
+my $db_port = '4161';
+my $db_user = 'admin';
+my $db_pwd = 'iPBi22yI';
+my $mart_db = 'bacterial_mart_52';
+my $compara_db ='ensembl_compara_bacteria_1_52';
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
     print "-h <host> Default is $db_host\n";
@@ -148,10 +148,12 @@ my $get_species_clade_sth = $mart_handle->prepare('select src_dataset from datas
 my @datasets = get_dataset_names($mart_handle);
 for my $dataset (@datasets) {
     $logger->info("Processing $dataset");
-    my $table_name = $dataset.'_gene__gene__main';
-    for my $type (qw(homolog paralog)) {
-	for my $col (query_to_strings($mart_handle,"show columns from $table_name like '${type}_%_bool'")) {
-	    $mart_handle->do("alter table $table_name drop column $col") or croak "Could not drop column $table_name.$col";
+    for my $table_type (('gene','transcript','translation')) {
+	my $table_name = $dataset.'_gene__'.$table_type.'__main';
+	for my $type (qw(homolog paralog)) {
+	    for my $col (query_to_strings($mart_handle,"show columns from $table_name like '${type}_%_bool'")) {
+		$mart_handle->do("alter table $table_name drop column $col") or croak "Could not drop column $table_name.$col";
+	    }
 	}
     }
     # work out species name from $dataset
@@ -161,7 +163,6 @@ for my $dataset (@datasets) {
 	write_species($dataset, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homolog_sql);
     }
     # get paralogs
-
     my $id = get_string($get_species_id_sth,$dataset);
     my $clade = get_string($get_species_clade_sth,$dataset);
     $logger->info("Processing paralogs for $dataset");
