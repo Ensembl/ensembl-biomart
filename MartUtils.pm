@@ -12,6 +12,12 @@ use Carp;
 use Log::Log4perl qw(:easy);
 use DbiUtils;
 
+sub get_species_name_for_dataset {
+    my ($dbh,$ds_name) = @_;
+    my $sth = $dbh->prepare("SELECT sql_name FROM dataset_names WHERE name='$ds_name'");
+    get_string($sth);
+}
+
 sub file_to_bytes {
     my $file_name = $_[0];
     open my $file, "<", $file_name or croak "Could not open $file_name";

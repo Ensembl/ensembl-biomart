@@ -25,12 +25,12 @@ my $logger = get_logger();
 
 # db params
 
-my $db_host = '127.0.0.1';
+my $db_host = 'mysql-eg-production-1';
 my $db_port = '4161';
 my $db_user = 'admin';
 my $db_pwd = 'iPBi22yI';
 my $mart_db = 'bacterial_mart_52';
-my $compara_db ='ensembl_compara_bacteria_1_52';
+my $compara_db ='ensembl_compara_bacteria_homology_1_52';
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
     print "-h <host> Default is $db_host\n";
@@ -105,7 +105,7 @@ select ms.method_link_species_set_id, g.name, CONCAT(CONCAT(n.src_dataset,'_'),n
 join $compara_db.method_link_species_set ms using (species_set_id)
 join $compara_db.method_link m using (method_link_id)
 join $compara_db.genome_db g using (genome_db_id)
-join $mart_db.dataset_names n on n.name=g.name
+join $mart_db.dataset_names n on n.sql_name=g.name
 where
 s.species_set_id in (
 select distinct (ss.species_set_id) from
@@ -123,7 +123,7 @@ select ms.method_link_species_set_id, g.name, CONCAT(CONCAT(n.src_dataset,'_'),n
 join $compara_db.method_link_species_set ms using (species_set_id)
 join $compara_db.method_link m using (method_link_id)
 join $compara_db.genome_db g using (genome_db_id)
-join $mart_db.dataset_names n on n.name=g.name
+join $mart_db.dataset_names n on n.sql_name=g.name
 where
 s.species_set_id in (
 select distinct (ss.species_set_id) from
@@ -147,7 +147,8 @@ my $get_species_clade_sth = $mart_handle->prepare('select src_dataset from datas
 # iterate over each dataset
 my @datasets = get_dataset_names($mart_handle);
 for my $dataset (@datasets) {
-    $logger->info("Processing $dataset");
+    my $ds_name = get_species_name_for_dataset($mart_handle,$dataset);
+    $logger->info("Processing $dataset for $ds_name");
     for my $table_type (('gene','transcript','translation')) {
 	my $table_name = $dataset.'_gene__'.$table_type.'__main';
 	for my $type (qw(homolog paralog)) {
@@ -158,7 +159,7 @@ for my $dataset (@datasets) {
     }
     # work out species name from $dataset
     # get list of method_link_species_set_id/name pairs for homolog partners
-    for my $species_set (get_species_sets($species_homolog_sth,$dataset)) {
+    for my $species_set (get_species_sets($species_homolog_sth,$ds_name)) {
 	$logger->info('Processing homologs for '.$species_set->{name}.' as '.$species_set->{tld});
 	write_species($dataset, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homolog_sql);
     }
@@ -166,7 +167,7 @@ for my $dataset (@datasets) {
     my $id = get_string($get_species_id_sth,$dataset);
     my $clade = get_string($get_species_clade_sth,$dataset);
     $logger->info("Processing paralogs for $dataset");
-    my $method_link_species_id = get_string($species_paralog_sth,$dataset,$dataset);
+    my $method_link_species_id = get_string($species_paralog_sth,$ds_name,$ds_name);
     if($method_link_species_id) {	
 	$logger->info("Writing paralogs for $dataset with id ${clade}_${id}");
 	write_species($dataset, $method_link_species_id, $dataset,"${clade}_$id", $paralog_sql);
