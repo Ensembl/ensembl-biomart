@@ -105,7 +105,10 @@ sub build_dataset_href {
 
     my $species_name = $meta_container->db->species;
     my $is_multispecies = $meta_container->db->{_is_multispecies};
-
+    my $src_db = $meta_container->db->{_dbc}->{_dbname};
+    
+    print STDERR "src_db, $src_db\n";
+    
     my $formatted_species_name = undef;
     if (! defined @{$meta_container->list_value_by_key('species.sql_name')}[0]) {
         warn "'species.sql_name' meta attribute not defined for species, '$species_name'!\n";
@@ -118,7 +121,16 @@ sub build_dataset_href {
 	}
     }
     else {
-	$formatted_species_name = @{$meta_container->list_value_by_key('species.sql_name')}[0];
+	# Todo: Reformat it, by using the proteome_id instead
+	# e.g. 'bac_130'
+	
+	# Was:
+	# $formatted_species_name = @{$meta_container->list_value_by_key('species.sql_name')}[0];
+
+	# Now: 
+	$src_db =~ /^(\w\w\w).+/;
+	my $db_prefix = $1;
+	$formatted_species_name = $db_prefix . "_" . @{$meta_container->list_value_by_key('species.proteome_id')}[0];
     }
     
     print STDERR "formatted_species_name, $formatted_species_name\n";
@@ -140,10 +152,6 @@ sub build_dataset_href {
     }
 
     print STDERR "species_id, $species_id\n";
-
-    my $src_db = $meta_container->db->{_dbc}->{_dbname};
-
-    print STDERR "src_db, $src_db\n";
     
     my $baseset = undef;
     if ($is_multispecies) {
