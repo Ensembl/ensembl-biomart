@@ -98,11 +98,12 @@ sub get_ensembl_db {
 
 # Build the dataset hash
 # Assume we are dealing with a Multispecies database at the moment
-
+# not anymore !
+# should be workign fine in all cases (tested on both protist and bacterial)
 sub build_dataset_href {
     my ($meta_container, $logger) = @_;
     my $dataset_href = {};
-
+    
     my $species_name = $meta_container->db->species;
     my $is_multispecies = $meta_container->db->{_is_multispecies};
     my $src_db = $meta_container->db->{_dbc}->{_dbname};
@@ -110,27 +111,26 @@ sub build_dataset_href {
     print STDERR "src_db, $src_db\n";
     
     my $formatted_species_name = undef;
-    if (! defined @{$meta_container->list_value_by_key('species.sql_name')}[0]) {
-        warn "'species.sql_name' meta attribute not defined for species, '$species_name'!\n";
-	if ($is_multispecies) {
-	    die "not allowed for a multispecies database";
-	}
-	else {
-	    print STDERR "using the species name from the database instead\n";
-	    $formatted_species_name = $species_name;
-	}
+    if (! $is_multispecies) {
+	$formatted_species_name = $species_name;
     }
     else {
-	# Todo: Reformat it, by using the proteome_id instead
-	# e.g. 'bac_130'
-	
-	# Was:
-	# $formatted_species_name = @{$meta_container->list_value_by_key('species.sql_name')}[0];
-
-	# Now: 
-	$src_db =~ /^(\w\w\w).+/;
-	my $db_prefix = $1;
-	$formatted_species_name = $db_prefix . "_" . @{$meta_container->list_value_by_key('species.proteome_id')}[0];
+	if (! defined @{$meta_container->list_value_by_key('species.sql_name')}[0]) {
+	    warn "'species.sql_name' meta attribute not defined for species, '$species_name'!\n";
+	    die "not allowed for a multispecies database";
+       	}
+	else {
+	    # Todo: Reformat it, by using the proteome_id instead
+	    # e.g. 'bac_130'
+	    
+	    # Was:
+	    # $formatted_species_name = @{$meta_container->list_value_by_key('species.sql_name')}[0];
+	    
+	    # Now: 
+	    $src_db =~ /^(\w\w\w).+/;
+	    my $db_prefix = $1;
+	    $formatted_species_name = $db_prefix . "_" . @{$meta_container->list_value_by_key('species.proteome_id')}[0];
+	}
     }
     
     print STDERR "formatted_species_name, $formatted_species_name\n";
