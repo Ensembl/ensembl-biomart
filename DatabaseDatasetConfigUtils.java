@@ -192,13 +192,14 @@ public class DatabaseDatasetConfigUtils {
 		return exists;
 	}
 
-	private Set<String> tables = null;
+	//Set<String>
+	private Set tables = null;
 
-	private Set<String> getTables() throws SQLException {
+	private Set getTables() throws SQLException {
 		if (tables == null) {
 			System.err.println("Retrieving table list for "
 					+ this.getSchema()[0]);
-			tables = new HashSet<String>();
+			tables = new HashSet();
 			Connection conn = null;
 			ResultSet vr = null;
 			try {
@@ -223,49 +224,61 @@ public class DatabaseDatasetConfigUtils {
 		return tables;
 	}
 
-	private Map<String,SoftReference<Map<String, Set<String>>>> tableColumns;
+	//	private Map<String,SoftReference<Map<String, Set<String>>>> tableColumns;
+	private Map tableColumns;
 
-	private Map<String, Set<String>> getTableColumns(String dset,
+	//	private Map<String, Set<String>> getTableColumns(String dset,
+	private Map getTableColumns(String dset,
 			final String schema, final String catalog, final Connection conn)
 			throws SQLException {
 		if (tableColumns == null) {
-			tableColumns = new HashMap<String,SoftReference<Map<String, Set<String>>>>();
+			//tableColumns = new HashMap<String,SoftReference<Map<String, Set<String>>>>();
+			tableColumns = new HashMap();
 		}
-		Map<String,Set<String>> tableColumnsForSet = null;
-		SoftReference<Map<String, Set<String>>> tcRef = tableColumns.get(dset);
+		Map tableColumnsForSet = null;
+		//Map<String,Set<String>> tableColumnsForSet = null;
+		//SoftReference<Map<String, Set<String>>> tcRef = tableColumns.get(dset);
+		SoftReference tcRef = (SoftReference)(tableColumns.get(dset));
 		if(tcRef!=null) {
-			tableColumnsForSet = tcRef.get();
+			tableColumnsForSet = (Map)(tcRef.get());
 		}
 		if(tableColumnsForSet==null) {
-			tableColumnsForSet  =new HashMap<String,Set<String>>();
+			//tableColumnsForSet  =new HashMap<String,Set<String>>();
+			tableColumnsForSet  =new HashMap();
 			//System.out.println("Fetching all table columns for " + dset);
-			tableColumnsForSet = new HashMap<String, Set<String>>();
+			//tableColumnsForSet = new HashMap<String, Set<String>>();
+			tableColumnsForSet = new HashMap();
 			final ResultSet rs = conn.getMetaData().getColumns(catalog, schema,
 					dset + "%", "%");
 
 			while (rs.next()) {
-				final String columnName = rs.getString(4).toLowerCase();
-				final String tableName = rs.getString(3).toLowerCase();
-				Set<String> cols = tableColumnsForSet.get(tableName);
+				final String columnName = rs.getString(4);
+				final String tableName = rs.getString(3);
+				Set cols = (Set)(tableColumnsForSet.get(tableName));
 				if (cols == null) {
-					cols = new HashSet<String>();
+					//<String>
+					cols = new HashSet();
 					tableColumnsForSet.put(tableName, cols);
 				}
 				cols.add(columnName);
 			}
 			rs.close();
 			//System.out.println("Fetched all table columns for "+dset);
-			tableColumns.put(dset, new SoftReference<Map<String,Set<String>>>(tableColumnsForSet));
+			//<Map<String,Set<String>>>
+			tableColumns.put(dset, new SoftReference(tableColumnsForSet));
 		}
 		return tableColumnsForSet;
 	}
 
-	private Set<String> getMainTables(String dataSet, final String schema,
+	//Set<String>
+	private Set getMainTables(String dataSet, final String schema,
 			final String catalog, final Connection conn) throws SQLException {
-		Set<String> subs = new HashSet<String>();
+		Set subs = new HashSet();
 		String pat = "^" + dataSet + ".*__main$";
-		for (String tableName : getTableColumns(dataSet, schema, catalog, conn)
-				.keySet()) {
+		String tableName = null;
+		for(Iterator i =  getTableColumns(dataSet, schema, catalog, conn)
+				.keySet().iterator(); i.hasNext();) {
+			tableName = (String)i.next();
 			if (tableName.matches(pat)) {
 				subs.add(tableName);
 			}
@@ -5557,12 +5570,20 @@ public class DatabaseDatasetConfigUtils {
 
 			// test for all nulls as well if flagged and set fieldValid and
 			// tableValid = false if all nulls
-			if (tableConstraint.equals("main"))
+			if (tableConstraint.equals("main")) {
 				// tableConstraint = [] mains;
 				for (int i = 0; i < keys.length; i++) {
 					tableConstraint = mains[i];
 					if (keys[i].equals(validatedFilter.getKey()))
 						break;
+				}
+			}else if( desVal.fieldValid && desVal.tableValid && validatedFilter.getKey()!=null){
+					// DMS says check the key too!
+					DescriptionValidity keyVal =  validateDescription(schema, catalog, dset,
+							conn, validatedFilter.getKey(), tableConstraint);
+					if(!keyVal.fieldValid || !keyVal.tableValid) {
+						System.err.println("Filter key "+validatedFilter.getKey()+" does not exist for table "+tableConstraint);
+					}
 				}
 			if ("true".equals(validatedFilter.getCheckForNulls()) && fieldValid
 					&& tableValid && this.isAllNull(field, tableConstraint)) {
@@ -5581,6 +5602,8 @@ public class DatabaseDatasetConfigUtils {
 				validatedFilter.setFieldBroken(); // so gets changed in the
 				// update
 			}
+
+			//System.out.println(tableConstraint+"."+field+"="+tableValid+"/"+fieldValid);
 
 			if (!(fieldValid && tableValid)) {
 				validatedFilter.setFieldBroken();
@@ -6076,13 +6099,21 @@ public class DatabaseDatasetConfigUtils {
 
 			// test for all nulls as well if flagged and set fieldValid and
 			// tableValid = false if all nulls
-			if (tableConstraint.equals("main"))
+			if (tableConstraint.equals("main")) {
 				// tableConstraint = [] mains;
 				for (int i = 0; i < keys.length; i++) {
 					tableConstraint = mains[i];
 					if (keys[i].equals(validatedOption.getKey()))
 						break;
 				}
+			} else if( desVal.fieldValid && desVal.tableValid && validatedOption.getKey()!=null){
+						// DMS says check the key too!
+						DescriptionValidity keyVal =  validateDescription(schema, catalog, dset,
+								conn, validatedOption.getKey(), tableConstraint);
+						if(!keyVal.fieldValid || !keyVal.tableValid) {
+							System.err.println("Option key "+validatedOption.getKey()+" does not exist for table "+tableConstraint);
+						}
+					}
 			if ("true".equals(validatedOption.getCheckForNulls()) && fieldValid
 					&& tableValid && this.isAllNull(field, tableConstraint)) {
 				fieldValid = false;
@@ -6489,6 +6520,13 @@ public class DatabaseDatasetConfigUtils {
 				if (keys[i].equals(validatedAttribute.getKey()))
 					break;
 			}
+		} else if( desVal.fieldValid && desVal.tableValid && validatedAttribute.getKey()!=null){
+			// DMS says check the key too!
+			DescriptionValidity keyVal =  validateDescription(schema, catalog, dset,
+					conn, validatedAttribute.getKey(), tableConstraint);
+			if(!keyVal.fieldValid || !keyVal.tableValid) {
+				System.err.println("Key "+validatedAttribute.getKey()+" does not exist for table "+tableConstraint);
+			}
 		}
 		if ("true".equals(validatedAttribute.getCheckForNulls()) && fieldValid
 				&& tableValid && this.isAllNull(field, tableConstraint)) {
@@ -6512,6 +6550,7 @@ public class DatabaseDatasetConfigUtils {
 			validatedAttribute.setTableConstraintBroken();
 		}
 
+
 		return validatedAttribute;
 	}
 
@@ -6520,12 +6559,16 @@ public class DatabaseDatasetConfigUtils {
 			String field, String tableConstraint) throws SQLException {
 		DescriptionValidity desVal = new DescriptionValidity();
 		if (tableConstraint.equals("main")) {
-			Set<String> mainNames = getMainTables(dset, schema, catalog, conn);
-			for (String tableName : mainNames) {
-				Set<String> columns = getTableColumns(dset, schema, catalog,
-						conn).get(tableName.toLowerCase());
+			Set mainNames = getMainTables(dset, schema, catalog, conn);
+			String tableName = null;
+			for (Iterator i = mainNames.iterator(); i.hasNext(); ) {
+				tableName = (String)i.next();
+				Set columns = (Set)getTableColumns(dset, schema, catalog,
+						conn).get(tableName);
 				if (columns != null) {
-					for (String columnName : columns) {
+					String columnName = null;
+					for (Iterator i2 = columns.iterator(); i2.hasNext(); ) {
+						columnName = (String)i2.next();
 						final boolean[] valid = this.isValidDescription(
 								columnName, field, tableName, tableConstraint);
 						desVal.fieldValid = valid[0];
@@ -6539,10 +6582,12 @@ public class DatabaseDatasetConfigUtils {
 			}
 		} else {
 			String tableName = tableConstraint;
-			Set<String> columns = getTableColumns(dset, schema, catalog, conn)
-					.get(tableConstraint.toLowerCase());
+			Set columns = (Set)getTableColumns(dset, schema, catalog, conn)
+					.get(tableConstraint);
 			if (columns != null) {
-				for (String columnName : columns) {
+				String columnName = null;
+				for(Iterator i=columns.iterator(); i.hasNext(); ) {
+					columnName = (String)i.next();
 					final boolean[] valid = this.isValidDescription(columnName,
 							field, tableName, tableConstraint);
 					desVal.fieldValid = valid[0];
@@ -6552,6 +6597,7 @@ public class DatabaseDatasetConfigUtils {
 				}
 			}
 		}
+		//System.out.println(tableConstraint+"."+field+"="+desVal.tableValid+"/"+desVal.fieldValid);
 		return desVal;
 	}
 
