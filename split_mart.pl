@@ -232,9 +232,9 @@ foreach my $dataset (@datasets) {
 	    $logger->info("Finding satellite tables for $key_table using $key_table_id");
 	    $processed_tables{$src_key_table}=1;
 	    foreach my $src_table (@src_tables) {
-		if($src_table=~ m/$dataset/ && !$processed_tables{$src_table} && has_column($src_handle,$src_table,$key_table_id)) {
+		if($src_table=~ m/^$dataset/ && !$processed_tables{$src_table} && has_column($src_handle,$src_table,$key_table_id)) {
 		    my $target_table = transform_table($src_table);
-		    $target_table =~ s/$dataset/$sub_dataset/;
+		    $target_table =~ s/^$dataset/$sub_dataset/;
 		    $target_table =~ s/gene_ensembl/gene/;
 		    $logger->info("Need to split $src_table into $target_table using $src_key_table.$key_table_id");
 		    my $sql = "create table $target_mart_db.$target_table as select s.* from $src_mart_db.$src_table s join $target_mart_db.$target_key_table t on s.$key_table_id=t.$key_table_id";
@@ -253,7 +253,7 @@ foreach my $dataset (@datasets) {
 
     # report on sums
     foreach my $src_table (keys(%src_table_counts)) {
-	if($src_table=~ m/$dataset/) {
+	if($src_table=~ m/^$dataset/) {
 	    my $src_count = $src_table_counts{$src_table};
 	    $logger->info("$src_table expected $src_count");
 	    my $total = 0;
