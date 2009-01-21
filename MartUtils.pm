@@ -112,7 +112,8 @@ sub build_dataset_href {
     
     my $formatted_species_name = undef;
     if (! $is_multispecies) {
-	$formatted_species_name = $species_name;
+	$species_name =~ /^(\w)[^_]+_(.+)/;
+	$formatted_species_name = $1 . $2;	
     }
     else {
 	if (! defined @{$meta_container->list_value_by_key('species.sql_name')}[0]) {
