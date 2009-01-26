@@ -96,11 +96,16 @@ sub write_replace_file {
 
 sub get_dataset_element {
     my $dataset = shift;
+    my $colstr = '';
+    if(defined $dataset->{collection}) {
+	$colstr = '/'.$dataset->{collection};
+    }
     '<DynamicDataset aliases="mouse_formatter1=,mouse_formatter2=,mouse_formatter3=,species1='.
 	${$dataset}{species_name}.
 	',species2='.$dataset->{species_uc_name}.
 	',species3='.$dataset->{dataset}.
 	',species4='.$dataset->{short_name}.
+	',collection_path='.$colstr.
 	',version='.$dataset->{version_num}.
 	',link_version='.$dataset->{dataset}.
 	'_'.$release.',default=true" internalName="'.
@@ -344,7 +349,7 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
     ) or croak "Could not connect to $mart_string";
 
 my @datasets = ();
-my $dataset_sth = $mart_handle->prepare('SELECT src_dataset,src_db,species_id,species_name,version FROM dataset_names WHERE name=?');
+my $dataset_sth = $mart_handle->prepare('SELECT src_dataset,src_db,species_id,species_name,version,collection FROM dataset_names WHERE name=?');
 
 # get names of datasets from names table
 foreach my $dataset (get_dataset_names($mart_handle)) {
@@ -352,7 +357,7 @@ foreach my $dataset (get_dataset_names($mart_handle)) {
     # get other naming info from names table
     my %dataset_names = ();
     $dataset_names{dataset}=$dataset;
-    ($dataset_names{baseset}, $dataset_names{src_db},$dataset_names{species_id},$dataset_names{species_name},$dataset_names{version_num}) = get_row($dataset_sth,$dataset);
+    ($dataset_names{baseset}, $dataset_names{src_db},$dataset_names{species_id},$dataset_names{species_name},$dataset_names{version_num},$dataset_names{collection}) = get_row($dataset_sth,$dataset);
     $dataset_names{species_uc_name} = $dataset_names{species_name};
     $dataset_names{species_uc_name} =~ s/\s+/_/g;
     $dataset_names{short_name} = get_short_name($dataset_names{species_name},$dataset_names{species_id});

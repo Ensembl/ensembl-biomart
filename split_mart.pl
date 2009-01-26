@@ -23,7 +23,7 @@ Log::Log4perl->easy_init($DEBUG);
 my $logger = get_logger();
 
 # db params
-my $db_host = 'mysql-eg-production-1';
+my $db_host = 'mysql-eg-production-1.ebi.ac.uk';
 my $db_port = '4161';
 my $db_user = 'admin';
 my $db_pwd = 'iPBi22yI';
@@ -103,12 +103,13 @@ drop_and_create_table($target_handle, $names_table,
 		       'species_id varchar(100)',
 		       'species_name varchar(100)',
 		       'sql_name varchar(100)',
-		       'version varchar(100)'
+		       'version varchar(100)',
+		       'collection varchar(100)'
 		      ],
 		      'ENGINE=MyISAM DEFAULT CHARSET=latin1'
     );
 
-my $names_insert = $target_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,?,?,?,?)");
+my $names_insert = $target_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,?,?,?,?,?)");
 
 my @src_tables = get_tables($src_handle);
 my @src_dbs = get_databases($src_handle);
@@ -170,7 +171,8 @@ foreach my $dataset (@datasets) {
 	my $sub_dataset = $dataset.'_'.$species_names{'species.proteome_id'};
 	# suppress numbers of datasets
 	$sub_dataset =~ s/[_-]+/_/g;
-
+	my $collection = $ens_db;
+	$collection =~ s/^(.+)_collection.*/$1/;
 	$names_insert->execute(	    
 	    $sub_dataset,
 	    $dataset,
@@ -178,7 +180,8 @@ foreach my $dataset (@datasets) {
 	    $species_names{'species.proteome_id'},
 	    $species_names{'species.db_name'},
 	    $species_names{'species.sql_name'},
-	    $species_names{'genebuild.version'}
+	    $species_names{'genebuild.version'},
+	    $collection
 	    ); 
 	
 	$logger->info("Splitting into dataset $sub_dataset");

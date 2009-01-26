@@ -88,12 +88,13 @@ drop_and_create_table($mart_handle, $names_table,
 		       'species_id varchar(100)',
 		       'species_name varchar(100)',
 		       'sql_name varchar(100)',
-		       'version varchar(100)'
+		       'version varchar(100)',
+		       'collection varchar(100)'
 		      ],
 		      'ENGINE=MyISAM DEFAULT CHARSET=latin1'
     );
 
-my $names_insert = $mart_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,?,?,?,?)");
+my $names_insert = $mart_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,?,?,?,?,NULL)");
 
 my @src_tables = get_tables($mart_handle);
 my @src_dbs = get_databases($mart_handle);
