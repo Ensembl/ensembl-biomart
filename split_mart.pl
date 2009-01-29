@@ -23,12 +23,12 @@ Log::Log4perl->easy_init($DEBUG);
 my $logger = get_logger();
 
 # db params
-my $db_host = 'mysql-eg-production-1.ebi.ac.uk';
+my $db_host = '127.0.0.1';
 my $db_port = '4161';
 my $db_user = 'admin';
 my $db_pwd = 'iPBi22yI';
 my $src_mart_db = 'base_bacterial_mart_52';
-my $target_mart_db = 'bacterial_mart_52';
+my $target_mart_db = 'new_bacterial_mart_52';
 
 my %table_res = (
     qr/protein_feature/ => {
@@ -190,16 +190,12 @@ foreach my $dataset (@datasets) {
 	my $src_gene_table = "${dataset}_$gene_table";
 	my $target_gene_table = "${sub_dataset}_$gene_table";
 	#$target_gene_table =~ s/gene_ensembl/gene/;
-
-	$logger->info("Creating $target_mart_db.$target_gene_table");
-	my $sql = "create table $target_mart_db.$target_gene_table as ".
-	    "select s.* from $src_mart_db.$src_gene_table s ".
-            "join $ens_db.seq_region sr on $seq_region_key=sr.seq_region_id ".
-	    "join $ens_db.coord_system cs on cs.coord_system_id=sr.coord_system_id ".
-	    "where cs.species_id=$species_id";
-	$logger->debug("Executing $sql");
-	$target_handle->do($sql);
-	$logger->debug("Executing $sql");
+	$logger->info("Creating $target_gene_table from $src_gene_table");
+	create_table_from_query($target_handle,$src_mart_db,$src_gene_table,$target_mart_db,$target_gene_table,
+				"select s.* from $src_mart_db.$src_gene_table s ".
+				"join $ens_db.seq_region sr on $seq_region_key=sr.seq_region_id ".
+				"join $ens_db.coord_system cs on cs.coord_system_id=sr.coord_system_id ".
+				"where cs.species_id=$species_id");
 
 	$target_table_counts{$src_gene_table}{$target_gene_table} = row_count($target_handle, $target_gene_table);
 
@@ -208,10 +204,10 @@ foreach my $dataset (@datasets) {
 	my $target_transcript_table = "${sub_dataset}_$transcript_table";
 	$target_transcript_table =~ s/gene_ensembl/gene/;
 	$logger->info("Creating $target_mart_db.$target_transcript_table");
-	$sql = "create table $target_mart_db.$target_transcript_table as ".
-	    "select t.* from $src_mart_db.$src_transcript_table t join $target_mart_db.$target_gene_table g on  g.$gene_key=t.$gene_key";
-	$logger->debug("Executing $sql");
-	$target_handle->do($sql);
+	$logger->info("Creating $target_transcript_table from $src_transcript_table");
+	create_table_from_query($target_handle,$src_mart_db,$src_transcript_table,$target_mart_db,$target_transcript_table,
+				"select t.* from $src_mart_db.$src_transcript_table t join $target_mart_db.$target_gene_table g on  g.$gene_key=t.$gene_key");
+	
 	$target_table_counts{$src_transcript_table}{$target_transcript_table} = row_count($target_handle, $target_transcript_table);
 	
 	# 3. create a condensed translation table	
@@ -219,10 +215,9 @@ foreach my $dataset (@datasets) {
 	my $target_translation_table = "${sub_dataset}_$translation_table";
 	$target_translation_table =~ s/gene_ensembl/gene/;
 	$logger->info("Creating $target_mart_db.$target_translation_table");
-	$sql = "create table $target_mart_db.$target_translation_table as ".
-	    "select t.* from $src_mart_db.$src_translation_table t join $target_mart_db.$target_transcript_table g on t.$transcript_key = g.$transcript_key";
-	$logger->debug("Executing $sql");
-	$target_handle->do($sql);
+	create_table_from_query($target_handle,$src_mart_db,$src_translation_table,$target_mart_db,$target_translation_table,
+				"select t.* from $src_mart_db.$src_translation_table t join $target_mart_db.$target_transcript_table g on t.$transcript_key = g.$transcript_key");
+	
 	$target_table_counts{$src_translation_table}{$target_translation_table} = row_count($target_handle, $target_translation_table);
 
 	my %processed_tables = ();
@@ -240,9 +235,10 @@ foreach my $dataset (@datasets) {
 		    $target_table =~ s/^$dataset/$sub_dataset/;
 		    $target_table =~ s/gene_ensembl/gene/;
 		    $logger->info("Need to split $src_table into $target_table using $src_key_table.$key_table_id");
-		    my $sql = "create table $target_mart_db.$target_table as select s.* from $src_mart_db.$src_table s join $target_mart_db.$target_key_table t on s.$key_table_id=t.$key_table_id";
-		    $logger->debug("Executing $sql");
-		    $target_handle->do($sql);
+		    
+		    create_table_from_query($target_handle,$src_mart_db,$src_table,$target_mart_db,$target_table,
+					    "select s.* from $src_mart_db.$src_table s join $target_mart_db.$target_key_table t on s.$key_table_id=t.$key_table_id");
+		    
 		    $processed_tables{$src_table} = 1;
 		    $target_table_counts{$src_table}{$target_table} = row_count($target_handle, $target_table);		    
 		}
