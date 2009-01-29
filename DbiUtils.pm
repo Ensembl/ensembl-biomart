@@ -1,3 +1,4 @@
+
 # $Source$
 # $Revision$
 # $Date$
@@ -8,6 +9,46 @@
 use warnings;
 use strict;
 use DBI;
+
+sub create_table_from_query {
+    my ($db_handle,$src_mart,$src_table,$target_mart,$target_table,$query) = @_;
+    $db_handle->do("create table $target_mart.$target_table like $src_mart.$src_table");
+    $db_handle->do("insert into $target_mart.$target_table ($query)");
+
+}
+
+sub create_indices {
+    my ($db_handle,$table_name,$cols) = @_[0,1,2];
+    foreach my $col (@$cols) {       
+	print "Creating index on $table_name $col\n";
+	$db_handle->do("ALTER TABLE $table_name ADD INDEX ($col)");
+    }    
+}
+
+my %col_info = ();
+sub get_indexed_columns {
+    my ($db_handle,$table_name) = @_[0,1];
+    my $key = $db_handle->{Name}.'.'.$table_name;
+    my $cols = $col_info{$key};
+    if(!$cols) {
+	my $sth = $db_handle->prepare("SHOW INDEX FROM $table_name");
+	$cols = [];
+	$sth->execute();
+	while(my @data = $sth->fetchrow_array()) {
+	    push @$cols, $data[4];
+	}
+	$col_info{$key} = $cols;
+    }
+    return @$cols;
+}
+
+sub table_exists {
+    my ($db_handle,$table_name) = @_[0,1];
+    my $exists = 0;
+    my $sth =$db_handle->prepare("SHOW TABLES LIKE '$table_name'");
+    $sth->execute();
+    return $sth->fetchrow_array();
+}
 
 sub drop_and_create_table {
     my ($db_handle,$table_name,$cols,$args) = @_[0,1,2,3];
