@@ -216,7 +216,7 @@ my $db_pwd = '6KSFrax4';
 my $seq_mart_db = 'ensembl_bacterial_sequence_mart_51';
 
 sub usage {
-    print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-pwd <pwd>] [-seq_mart <target mart database>] [-release <release number>]\n";
+    print "Usage: $0 [-h <host>] [-port <port>] [-u <user>] [-pwd <pwd>] [-seq_mart <target mart database>] [-release <release number>]\n";
     print "-h <host> Default is $db_host\n";
     print "-port <port> Default is $db_port\n";
     print "-u <host> Default is $db_user\n";
