@@ -969,7 +969,9 @@
           <Option checkForNulls="true" displayName="Gadfly protein cgid ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gadfly_translation_cgid" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gadfly_translation_cgid__dm" type="list"/>
           <Option checkForNulls="true" displayName="Genoscope pred gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="genoscope_pred_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Genoscope_pred_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="Genoscope pred transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="genoscope_pred_transcript" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Genoscope_pred_transcript__dm" type="list"/>
-          <Option checkForNulls="true" description="filter to include genes with supplied list of GO ID(s)" displayName="GO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="go" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_GO__dm" type="list"/>
+          <Option checkForNulls="true" description="filter to include genes with supplied list of GO ID(s)" displayName="GO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="go" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_GO__dm" type="list">
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="pfalciparum_gene" key="translation_id_1068_key" tableConstraint="ox_GO__dm"/>
+	  </Option>
           <Option checkForNulls="true" displayName="HGNC ID" displayType="text" field="dbprimary_acc_1074" internalName="hgnc_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_HGNC__dm" type="list"/>
           <Option checkForNulls="true" displayName="HGNC symbol" displayType="text" field="display_label_1074" internalName="hgnc_symbol" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_HGNC__dm" type="list"/>
           <Option checkForNulls="true" displayName="HGNC automatic gene name" displayType="text" field="dbprimary_acc_1074" internalName="hgnc_automatic_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_HGNC_automatic_gene__dm" type="list"/>
@@ -1570,8 +1572,7 @@
         <AttributeDescription displayName="Drosophila melanogaster Exon Database (DEDB) ID(s)" field="dbprimary_acc_1074" hidden="false" internalName="DEDb" key="gene_id_1020_key" linkoutURL="exturl|http://proline.bic.nus.edu.sg/dedb/cgi-bin/viewer.py?id=%s" maxLength="40" tableConstraint="ox_DEDb__dm"/>
         <AttributeDescription checkForNulls="true" displayName="CCDS ID" field="dbprimary_acc_1074" internalName="ccds" key="translation_id_1068_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&amp;DATA=%s" maxLength="40" tableConstraint="ox_CCDS__dm">
         </AttributeDescription>
-        <AttributeDescription checkForNulls="true" description="EMBL Accessions" displayName="EMBL (Genbank) ID" field="dbprimary_acc_1074" internalName="embl" key="translation_id_1068_key" linkoutURL="exturl|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_EMBL__dm">
-        </AttributeDescription>
+        <AttributeDescription checkForNulls="true" description="EMBL Accessions" displayName="EMBL (Genbank) ID" field="dbprimary_acc_1074" internalName="embl" key="translation_id_1068_key" linkoutURL="exturl|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_EMBL__dm"/>
         <AttributeDescription checkForNulls="true" displayName="EMBL predicted" field="dbprimary_acc_1074" internalName="embl_predicted" key="translation_id_1068_key" linkoutURL="exturl|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="40" tableConstraint="ox_EMBL_predicted__dm"/>
         <AttributeDescription displayName="Ensembl Dog gene" field="dbprimary_acc_1074" internalName="ens_cf_gene" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/geneview?gene=%s" maxLength="40" tableConstraint="ox_Ens_Cf_gene__dm"/>
         <AttributeDescription displayName="Ensembl Dog transcript" field="dbprimary_acc_1074" internalName="ens_cf_transcript" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Ens_Cf_transcript__dm"/>
@@ -2041,8 +2042,9 @@
         <AttributeDescription displayName="Coding End Offset" field="seq_end_1068" hideDisplay="true" internalName="coding_end_offset" key="translation_id_1068_key" maxLength="16" tableConstraint="main"/>
         <AttributeDescription displayName="Coding Start Offset" field="seq_start_1068" hideDisplay="true" internalName="coding_start_offset" key="translation_id_1068_key" maxLength="16" tableConstraint="main"/>
  %exportables_link%
-       <AttributeDescription displayName="Dbprimary acc" field="dbprimary_acc_1074" hidden="false" hideDisplay="true" internalName="go" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_GO__dm"/>
-`
+       <AttributeDescription displayName="Dbprimary acc" field="dbprimary_acc_1074" hidden="false" hideDisplay="true" internalName="go" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_GO__dm">
+           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="pfalciparum_gene" key="translation_id_1068_key" tableConstraint="ox_GO__dm"/>
+       </AttributeDescription>
         <AttributeDescription internalName="structure_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="structure_transcript_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="structure_rank" pointerAttribute="rank" pointerDataset="*species3*_gene" pointerInterface="default"/>
@@ -2082,9 +2084,15 @@
         <AttributeDescription displayName="Created date 1016" field="created_date_1016" internalName="created_date_1016" key="transcript_id_1064_key" maxLength="19" tableConstraint="exon_transcript__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="ox EMBL" internalName="ox_EMBL">
-        <AttributeDescription displayName="Db display name 1018" field="db_display_name_1018" internalName="ox_EMBL__dm_db_display_name_1018" key="transcript_id_1064_key" maxLength="255" tableConstraint="ox_EMBL__dm"/>
-        <AttributeDescription displayName="Db name 1018" field="db_name_1018" internalName="db_name_1018" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_EMBL__dm"/>
-        <AttributeDescription displayName="Display label 1074" field="display_label_1074" internalName="ox_EMBL__dm_display_label_1074" key="transcript_id_1064_key" maxLength="128" tableConstraint="ox_EMBL__dm"/>
+        <AttributeDescription displayName="Db display name 1018" field="db_display_name_1018" internalName="ox_EMBL__dm_db_display_name_1018" key="transcript_id_1064_key" maxLength="255" tableConstraint="ox_EMBL__dm">
+          <SpecificAttributeContent field="dbprimary_display_name_1018" internalName="pfalciparum_gene" key="translation_id_1068_key" tableConstraint="ox_EMBL__dm"/>
+	</AttributeDescription>
+        <AttributeDescription displayName="Db name 1018" field="db_name_1018" internalName="db_name_1018" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_EMBL__dm">
+          <SpecificAttributeContent field="dbprimary_display_name_1018" internalName="pfalciparum_gene" key="translation_id_1068_key" tableConstraint="ox_EMBL__dm"/>
+	</AttributeDescription>
+        <AttributeDescription displayName="Display label 1074" field="display_label_1074" internalName="ox_EMBL__dm_display_label_1074" key="transcript_id_1064_key" maxLength="128" tableConstraint="ox_EMBL__dm">
+          <SpecificAttributeContent field="display_label_1074" internalName="pfalciparum_gene" key="translation_id_1068_key" tableConstraint="ox_EMBL__dm"/>
+	</AttributeDescription>
       </AttributeCollection>
       <AttributeCollection displayName="ox RFAM" internalName="ox_RFAM">
         <AttributeDescription displayName="Db display name 1018" field="db_display_name_1018" internalName="ox_RFAM__dm_db_display_name_1018" key="transcript_id_1064_key" maxLength="255" tableConstraint="ox_RFAM__dm"/>
