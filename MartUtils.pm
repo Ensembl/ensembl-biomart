@@ -12,10 +12,22 @@ use Carp;
 use Log::Log4perl qw(:easy);
 use DbiUtils;
 
-sub get_species_name_for_dataset {
+#sub get_species_name_for_dataset {
+#    my ($dbh,$ds_name) = @_;
+#    my $sth = $dbh->prepare("SELECT sql_name FROM dataset_names WHERE name='$ds_name'");
+#    return get_string($sth);
+#}
+
+sub get_sql_name_for_dataset {
     my ($dbh,$ds_name) = @_;
     my $sth = $dbh->prepare("SELECT sql_name FROM dataset_names WHERE name='$ds_name'");
-    get_string($sth);
+    return get_string($sth);
+}
+
+sub get_species_name_for_dataset {
+    my ($dbh,$ds_name) = @_;
+    my $sth = $dbh->prepare("SELECT species_name FROM dataset_names WHERE name='$ds_name'");
+    return get_string($sth);
 }
 
 sub file_to_bytes {

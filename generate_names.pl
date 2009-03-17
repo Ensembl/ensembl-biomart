@@ -97,7 +97,14 @@ drop_and_create_table($mart_handle, $names_table,
 my $names_insert = $mart_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,?,?,?,?,NULL)");
 
 my @src_tables = get_tables($mart_handle);
-my @src_dbs = get_databases($mart_handle);
+my @src_dbs;
+foreach my $db (get_databases($mart_handle)) {
+    if($db =~ m/_52_/) {
+	print "$db\n";
+	push @src_dbs, $db;
+    }
+}
+
 
 $logger->info("Listing datasets from $mart_db");
 # 1. identify datasets based on main tables
