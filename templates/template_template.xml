@@ -1401,6 +1401,50 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with Protein feature blastprodom ID(s)" displayType="list" field="protein_feature_blastprodom_bool" internalName="with_blastprodom" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Protein feature brigpepP ID(s)" displayType="list" field="protein_feature_brigpepP_bool" internalName="with_brigpepP" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Protein feature GadflyP ID(s)" displayType="list" field="protein_feature_GadflyP_bool" internalName="with_GadflyP" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Protein feature gene3d ID(s)" displayType="list" field="protein_feature_gene3d_bool" internalName="with_gene3d" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Protein feature hmmpanther ID(s)" displayType="list" field="protein_feature_hmmpanther_bool" internalName="with_hmmpanther" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Protein feature ipi_humanP ID(s)" displayType="list" field="protein_feature_ipi_humanP_bool" internalName="with_ipi_humanP" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Protein feature remaneiP ID(s)" displayType="list" field="protein_feature_remaneiP_bool" internalName="with_remaneiP" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Protein feature slimswissprotP ID(s)" displayType="list" field="protein_feature_slimswissprotP_bool" internalName="with_slimswissprotP" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Protein feature slimtremblP ID(s)" displayType="list" field="protein_feature_slimtremblP_bool" internalName="with_slimtremblP" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Protein feature wormpepP ID(s)" displayType="list" field="protein_feature_wormpepP_bool" internalName="with_wormpepP" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Protein feature yeastP ID(s)" displayType="list" field="protein_feature_yeastP_bool" internalName="with_yeastP" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection description="Limit to genes with these family or domain IDs:" displayName="Limit to genes with these family or domain IDs:" internalName="family_domain_id_list">
@@ -1884,6 +1928,17 @@
         <AttributeDescription displayName="Prosite ID" field="hit_id_1048" internalName="prosite" key="translation_id_1068_key" linkoutURL="exturl|http://us.expasy.org/cgi-bin/nicesite.pl?%s" maxLength="7" tableConstraint="protein_feature_pfscan__dm"/>
         <AttributeDescription displayName="PRINTS ID" field="hit_id_1048" internalName="prints" key="translation_id_1068_key" linkoutURL="exturl|http://umber.sbs.man.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?display_opts=Prints&amp;category=None&amp;queryform=false&amp;prints_accn=%s" maxLength="7" tableConstraint="protein_feature_Prints__dm"/>
         <AttributeDescription displayName="PFAM ID" field="hit_id_1048" internalName="pfam" key="translation_id_1068_key" linkoutURL="exturl|http://pfam.sanger.ac.uk/family?acc=%s" maxLength="7" tableConstraint="protein_feature_Pfam__dm"/>
+<AttributeDescription displayName="blastprodom ID" field="hit_id_1048" internalName="blastprodom" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_blastprodom__dm"/>
+<AttributeDescription displayName="brigpepP ID" field="hit_id_1048" internalName="brigpepP" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_brigpepP__dm"/>
+<AttributeDescription displayName="GadflyP ID" field="hit_id_1048" internalName="GadflyP" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_GadflyP__dm"/>
+<AttributeDescription displayName="gene3d ID" field="hit_id_1048" internalName="gene3d" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_gene3d__dm"/>
+<AttributeDescription displayName="hmmpanther ID" field="hit_id_1048" internalName="hmmpanther" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_hmmpanther__dm"/>
+<AttributeDescription displayName="ipi_humanP ID" field="hit_id_1048" internalName="ipi_humanP" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature__ipi_humanP_dm"/>
+<AttributeDescription displayName="remaneiP ID" field="hit_id_1048" internalName="remaneiP" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_remaneiP__dm"/>
+<AttributeDescription displayName="slimswissprotP ID" field="hit_id_1048" internalName="slimswissprotP" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_slimswissprotP__dm"/>
+<AttributeDescription displayName="slimtremblP ID" field="hit_id_1048" internalName="slimtremblP" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_slimtremblP__dm"/>
+<AttributeDescription displayName="wormpepP ID" field="hit_id_1048" internalName="wormpepP" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_wormpepP__dm"/>
+<AttributeDescription displayName="yeastP ID" field="hit_id_1048" internalName="yeastP" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_yeastP__dm"/>
       </AttributeCollection>
       <AttributeCollection description="Interpro protein identifiers and data." displayName="Interpro Attributes" internalName="prot_interpro">
         <AttributeDescription description="InterPro Accession ID" displayName="Interpro ID" field="interpro_ac_1026" internalName="interpro" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/domainview?domainentry=%s" maxLength="9" tableConstraint="interpro__dm"/>
@@ -1943,7 +1998,7 @@
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
-  <AttributePage description="Details on Gene - SNP Associations" displayName="SNPs" internalName="snp" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls">
+  <AttributePage description="Details on Gene - SNP Associations" displayName="Variations" internalName="snp" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls">
     <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl Attributes" internalName="ensembl_attributes">
         <AttributeDescription internalName="snp_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
