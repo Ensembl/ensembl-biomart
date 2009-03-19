@@ -31,8 +31,8 @@ my $db_pwd = 'iPBi22yI';
 #my $db_port = '3306';
 #my $db_user = 'eg';
 #my $db_pwd = 'eg';
-my $mart_db = 'bacterial_mart_52';
-my $release = '52';
+my $mart_db = 'bacterial_mart_53';
+my $release = '53';
 
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
@@ -152,7 +152,7 @@ sub get_dataset_homolog_attribute {
     my $text = << "HOMOATT_END";
     <AttributeGroup displayName="$dataset->{species_name} ORTHOLOGS:" hidden="false" internalName="$dataset->{dataset}_orthologs">
       <AttributeCollection displayName="Ortholog Attributes" hidden="false" internalName="homologs_$dataset->{dataset}">
-        <AttributeDescription displayName="$dataset->{species_name} Ensembl Gene ID" field="stable_id_4016_r2" hidden="false" internalName="$dataset->{dataset}_ensembl_gene" key="gene_id_1020_key" linkoutURL="exturl|http://www.ensembl.org/Xenopus_tropicalis/geneview?gene=%s" maxLength="20" tableConstraint="homolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Ensembl Gene ID" field="stable_id_4016_r2" hidden="false" internalName="$dataset->{dataset}_gene" key="gene_id_1020_key" linkoutURL="exturl|*species2*/Gene/Summary?g=%s" maxLength="20" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Chromosome" field="chr_name_4016_r2" hidden="false" internalName="$dataset->{dataset}_chromosome" key="gene_id_1020_key" maxLength="9" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Chr Start (bp)" field="chr_start_4016_r2" hidden="false" internalName="$dataset->{dataset}_chrom_start" key="gene_id_1020_key" maxLength="10" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Chr End (bp)" field="chr_end_4016_r2" hidden="false" internalName="$dataset->{dataset}_chrom_end" key="gene_id_1020_key" maxLength="10" tableConstraint="homolog_$dataset->{dataset}__dm"/>
@@ -171,7 +171,7 @@ sub get_dataset_paralog_attribute {
     my $dataset = shift;
     my $text = << "PARAATT_END";
       <AttributeCollection displayName="$dataset->{species_name} Paralog Attributes" hidden="false" internalName="paralogs_xtropicalis">
-        <AttributeDescription displayName="$dataset->{species_name} Paralog Ensembl Gene ID" field="stable_id_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_ensembl_gene" key="gene_id_1020_key" linkoutURL="exturl|http://www.ensembl.org/*species2*/geneview?gene=%s" maxLength="140" tableConstraint="paralog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Paralog Ensembl Gene ID" field="stable_id_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_gene" key="gene_id_1020_key" linkoutURL="exturl|*species2*/Gene/Summary?g=%s" maxLength="140" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Paralog Chromosome" field="chr_name_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_chromosome" key="gene_id_1020_key" maxLength="40" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Paralog Chr Start (bp)" field="chr_start_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_chrom_start" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Paralog Chr End (bp)" field="chr_end_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_chrom_end" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{dataset}__dm"/>
@@ -300,30 +300,30 @@ sub write_metatables {
     my $meta_conf__dataset__main = $mart_handle->prepare("INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,'Ensembl Genes','TableSet',1,?)");
     my $meta_template__template__main = $mart_handle->prepare('INSERT INTO meta_template__template__main VALUES(?,?)');
     # populate dataset tables
-    my $i=0;
+    my $speciesId;
     foreach my $dataset (@$datasets) { 
-	$i++;
+	my $speciesId = $dataset->{species_id};
 	# meta_conf__xml__dm
 	$logger->info("Writing metadata for species ".$dataset->{species_id});
-	$meta_conf__xml__dm->execute($i,
+	$meta_conf__xml__dm->execute($speciesId,
 				     file_to_bytes("$pwd/output/$dataset->{dataset}.xml"),
 				     file_to_bytes("$pwd/output/$dataset->{dataset}.xml.gz"),
 				     file_to_bytes("$pwd/output/$dataset->{dataset}.xml.gz.md5")
 	    ) or croak "Could not update meta_conf__xml__dm";
 	# meta_conf__user__dm
-	$meta_conf__user__dm->execute($i) 
+	$meta_conf__user__dm->execute($speciesId) 
 	    or croak "Could not update meta_conf__user__dm";
 	# meta_conf__interface__dm
-	$meta_conf__interface__dm->execute($i)  
+	$meta_conf__interface__dm->execute($speciesId)  
 	    or croak "Could not update meta_conf__interface__dm";
 	# meta_conf__dataset__main 
 	$meta_conf__dataset__main->execute(
-	    $i,
+	    $speciesId,
 	    "$dataset->{dataset}_gene",
 	    "$dataset->{species_name} genes ($dataset->{version_num})",
 	    $dataset->{version_num}) or croak "Could not update meta_conf__dataset__main";
 	# meta_template__template__main
-	$meta_template__template__main->execute($i,$dataset_name)  
+	$meta_template__template__main->execute($speciesId,$dataset_name)  
 	    or croak "Could not update meta_template__template__dm";
     }
     $meta_conf__xml__dm->finish();

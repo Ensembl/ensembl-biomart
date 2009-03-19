@@ -11,15 +11,14 @@ use warnings;
 use strict;
 use DBI;
 use Carp;
-use Log::Log4perl qw(:easy);
 use List::MoreUtils qw(any);
 use Data::Dumper;
 use DbiUtils;
 use MartUtils;
 use Getopt::Long;
+use Log::Log4perl qw(:easy);
 
 Log::Log4perl->easy_init($DEBUG);
-
 my $logger = get_logger();
 
 # db params

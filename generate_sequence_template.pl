@@ -33,7 +33,7 @@ my @plant_db_patterns = ("oryza_sativa_japonica_","arabidopsis_thaliana_");
 my @db_patterns = undef;
 
 my $logger = get_logger();
-my $release = 51;
+my $release = 53;
 my $output_dir = "./output";
 my $mart_version = "0.7";
 
