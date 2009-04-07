@@ -50,7 +50,6 @@ create index %indexName% on %martSchema%.TEMP325(stable_id_4016_r3);
 create index %indexName% on %martSchema%.TEMP325(stable_id_4016_r2);
 create index %indexName% on %martSchema%.TEMP325(stable_id_4016_r1);
 rename table %martSchema%.TEMP325 to %martSchema%.%dataSet%__paralog_%speciesTld%__dm;
-create index %indexName% on %martSchema%.%dataSet%__paralog_%speciesTld%__dm(gene_id_1020_key);
 
 alter table %martSchema%.%dataSet%__gene__main add column (paralog_%speciesTld%_bool integer default 0);
 update %martSchema%.%dataSet%__gene__main a set paralog_%speciesTld%_bool=(select case count(1) when 0 then null else 1 end from %martSchema%.%dataSet%__paralog_%speciesTld%__dm b where a.gene_id_1020_key=b.gene_id_1020_key and not (b.chr_name_4016_r2 is null and b.stable_id_4016 is null and b.stable_id_4016_r3 is null and b.subtype_4014 is null and b.perc_cov_4015_r1 is null and b.perc_id_4015_r1 is null and b.stable_id_4016_r2 is null and b.ds_4014 is null and b.chr_start_4016_r2 is null and b.perc_id_4015 is null and b.chr_end_4016_r2 is null and b.perc_cov_4015 is null and b.stable_id_4016_r1 is null and b.dn_4014 is null));
@@ -58,10 +57,9 @@ create index %indexName% on %martSchema%.%dataSet%__gene__main(paralog_%speciesT
 
 alter table %martSchema%.%dataSet%__transcript__main add column (paralog_%speciesTld%_bool integer default 0);
 update %martSchema%.%dataSet%__transcript__main a set paralog_%speciesTld%_bool=(select case count(1) when 0 then null else 1 end from %martSchema%.%dataSet%__paralog_%speciesTld%__dm b where a.gene_id_1020_key=b.gene_id_1020_key and not (b.chr_name_4016_r2 is null and b.stable_id_4016 is null and b.stable_id_4016_r3 is null and b.subtype_4014 is null and b.perc_cov_4015_r1 is null and b.perc_id_4015_r1 is null and b.stable_id_4016_r2 is null and b.ds_4014 is null and b.chr_start_4016_r2 is null and b.perc_id_4015 is null and b.chr_end_4016_r2 is null and b.perc_cov_4015 is null and b.stable_id_4016_r1 is null and b.dn_4014 is null));
-create index %indexName% on %martSchema%.%dataSet%__transcript__main(paralog_%speciesTld%_bool);
 
 alter table %martSchema%.%dataSet%__translation__main add column (paralog_%speciesTld%_bool integer default 0);
 update %martSchema%.%dataSet%__translation__main a set paralog_%speciesTld%_bool=(select case count(1) when 0 then null else 1 end from %martSchema%.%dataSet%__paralog_%speciesTld%__dm b where a.gene_id_1020_key=b.gene_id_1020_key and not (b.chr_name_4016_r2 is null and b.stable_id_4016 is null and b.stable_id_4016_r3 is null and b.subtype_4014 is null and b.perc_cov_4015_r1 is null and b.perc_id_4015_r1 is null and b.stable_id_4016_r2 is null and b.ds_4014 is null and b.chr_start_4016_r2 is null and b.perc_id_4015 is null and b.chr_end_4016_r2 is null and b.perc_cov_4015 is null and b.stable_id_4016_r1 is null and b.dn_4014 is null));
-create index %indexName% on %martSchema%.%dataSet%__translation__main(paralog_%speciesTld%_bool);
+
 
 

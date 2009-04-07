@@ -22,7 +22,7 @@ Log::Log4perl->easy_init($DEBUG);
 my $logger = get_logger();
 
 # db params
-my $db_host = '127.0.0.1';
+my $db_host = 'mysql-eg-production-1';
 my $db_port = '4161';
 my $db_user = 'admin';
 my $db_pwd = 'iPBi22yI';

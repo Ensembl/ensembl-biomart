@@ -29,7 +29,7 @@ my $db_host = '127.0.0.1';
 my $db_port = '4161';
 my $db_user = 'admin';
 my $db_pwd = 'iPBi22yI';
-my $mart_db = 'bacterial_mart_52';
+my $mart_db = 'new_bacterial_mart_52';
 my $compara_db ='ensembl_compara_bacteria_homology_1_52';
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
@@ -178,8 +178,8 @@ for my $dataset (@datasets) {
     if($method_link_species_id) {	
 if($id) {
 	$logger->info("Writing paralogs for $dataset with id ${clade}_${id}");
-}
-	write_species($dataset, $method_link_species_id, $dataset,$dataset, $paralog_sql);
+	write_species($dataset, $method_link_species_id, $dataset,"${clade}_$id", $paralog_sql);
+	$logger->info("Completed writing paralogs for $dataset with id ${clade}_${id}");
     }
 }
 $logger->info("Completed processing");

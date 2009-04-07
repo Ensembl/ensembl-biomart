@@ -24,7 +24,7 @@ Log::Log4perl->easy_init($DEBUG);
 my $logger = get_logger();
 
 # db params
-my $db_host = '127.0.0.1';
+my $db_host = 'mysql-eg-production-1';
 my $db_port = '4161';
 my $db_user = 'admin';
 my $db_pwd = 'iPBi22yI';
@@ -96,16 +96,13 @@ sub write_replace_file {
 
 sub get_dataset_element {
     my $dataset = shift;
-    my $colstr = '';
-    if(defined $dataset->{collection}) {
-	$colstr = '/'.$dataset->{collection};
-    }
+
     '<DynamicDataset aliases="mouse_formatter1=,mouse_formatter2=,mouse_formatter3=,species1='.
 	${$dataset}{species_name}.
 	',species2='.$dataset->{species_uc_name}.
 	',species3='.$dataset->{dataset}.
 	',species4='.$dataset->{short_name}.
-	',collection_path='.$colstr.
+	',collection_path='.$dataset->{colstr}.
 	',version='.$dataset->{version_num}.
 	',link_version='.$dataset->{dataset}.
 	'_'.$release.',default=true" internalName="'.
@@ -367,7 +364,11 @@ foreach my $dataset (get_dataset_names($mart_handle)) {
     $dataset_names{species_uc_name} = $dataset_names{species_name};
     $dataset_names{species_uc_name} =~ s/\s+/_/g;
     $dataset_names{short_name} = get_short_name($dataset_names{species_name},$dataset_names{species_id});
-    #$logger->debug(join(',',values(%dataset_names)));
+    $dataset_names{colstr} = '';
+    if(defined $dataset_names{collection}) {
+	$dataset_names{colstr} = '/'.$dataset_names{collection};
+    }
+    $logger->debug(join(',',values(%dataset_names)));
     push(@datasets,\%dataset_names);
     write_dataset_xml(\%dataset_names)
 }

@@ -26,6 +26,7 @@ Log::Log4perl->easy_init($DEBUG);
 # to filter out a subset of databases
 
 my @protist_db_patterns   = ("plasmodium_vivax_","plasmodium_knowlesi_","plasmodium_falciparum_");
+my @metazoa_db_patterns   = ("culex_","drosophila_","anopheles_","aedes_","caenorhabditis_","ixodes_");
 my @fungal_db_patterns    = ("schizosaccharomyces_pombe_","saccharomyces_cerevisiae_");
 my @bacterial_db_patterns = ("bacillus_collection_","escherichia_shigella_collection_","mycobacterium_collection_","neisseria_collection_","pyrococcus_collection_","staphylococcus_collection_","streptococcus_collection_");
 my @plant_db_patterns = ("oryza_sativa_japonica_","arabidopsis_thaliana_");
@@ -34,9 +35,9 @@ my @db_patterns = undef;
 
 my $logger = get_logger();
 my $release = 53;
+
 my $output_dir = "./output";
 my $mart_version = "0.7";
-
 
 sub write_dataset_xml {
     my $dataset_names = shift;
@@ -204,16 +205,23 @@ sub get_short_name {
 
 
 # db params
-#my $db_host = 'mysql-eg-devel-1.ebi.ac.uk';
-#my $db_port = '4126';
-#my $db_user = 'admin';
-#my $db_pwd = 'tGc3Vs2O';
-my $db_host = 'mysql-eg-staging-1.ebi.ac.uk';
-my $db_port = '4160';
+my $db_host = 'mysql-eg-production-1';
+my $db_port = '4161';
 my $db_user = 'admin';
-my $db_pwd = '6KSFrax4';
+my $db_pwd = 'iPBi22yI';
+#my $mart_db = 'bacterial_sequence_mart_52';
+my $release = '52';
 
-my $seq_mart_db = 'ensembl_bacterial_sequence_mart_51';
+##my $db_host = 'mysql-eg-devel-1.ebi.ac.uk';
+##my $db_port = '4126';
+##my $db_user = 'admin';
+##my $db_pwd = 'tGc3Vs2O';
+#my $db_host = 'mysql-eg-staging-1.ebi.ac.uk';
+#my $db_port = '4160';
+#my $db_user = 'admin';
+#my $db_pwd = '6KSFrax4';
+
+my $seq_mart_db = 'ensembl_bacterial_sequence_mart_52';
 
 sub usage {
     print "Usage: $0 [-h <host>] [-port <port>] [-u <user>] [-pwd <pwd>] [-seq_mart <target mart database>] [-release <release number>]\n";
@@ -253,6 +261,9 @@ elsif ($seq_mart_db =~ /fungal/i) {
 elsif ($seq_mart_db =~ /plant/i) {
     @db_patterns = @plant_db_patterns;
 }
+elsif ($seq_mart_db =~ /metazoa/i) {
+    @db_patterns = @metazoa_db_patterns;
+}
 else {
     print STDERR "sequence mart db name, $seq_mart_db\n";
     print STDERR "sequence mart db name doesn't match a known pattern, so all databases on the server will be taken into account\n";
@@ -281,6 +292,7 @@ Bio::EnsEMBL::Registry->load_registry_from_db(
 my $species_names_aref = get_all_species();
 
 my @datasets = ();
+my $i=0;
 foreach my $species_name (@$species_names_aref) {
     $logger->info("Processing species, '$species_name'");
 
@@ -303,7 +315,9 @@ foreach my $species_name (@$species_names_aref) {
         die "meta_container couldn't be instanciated for species, \"$species_name\"\n";
     }
     my $dataset_href = build_dataset_href ($meta_container,$logger);
-    
+    if(!$dataset_href->{species_id}) {
+	$dataset_href->{species_id} = ++$i;
+    }
     push(@datasets,$dataset_href);
     write_dataset_xml($dataset_href);
 }

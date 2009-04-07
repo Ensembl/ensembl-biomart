@@ -158,10 +158,6 @@ sub build_dataset_href {
 	    print STDERR "species.proteome_id' meta attribute is required in a multispecies database context\n";
 	    die "'species.proteome_id' meta attribute not defined for species, '$species_name'!\n";
 	}
-	else {
-	    # set it arbitrarily to 1!
-	    $species_id = 1;
-	}
     }
 
     print STDERR "species_id, $species_id\n";
