@@ -498,19 +498,19 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with Wormpep id ID(s)" displayType="list" field="ox_wormpep_id_bool" internalName="with_wormpep_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with WormPep ID(s)" displayType="list" field="ox_wormpep_id_bool" internalName="with_wormpep_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with Wormbase transcript ID(s)" displayType="list" field="ox_wormbase_transcript_bool" internalName="with_wormbase_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with WormBase transcript ID(s)" displayType="list" field="ox_wormbase_transcript_bool" internalName="with_wormbase_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with Wormbase locus ID(s)" displayType="list" field="ox_wormbase_locus_bool" internalName="with_wormbase_locus" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with WormBase locus ID(s)" displayType="list" field="ox_wormbase_locus_bool" internalName="with_wormbase_locus" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with Wormbase gene ID(s)" displayType="list" field="ox_wormbase_gene_bool" internalName="with_wormbase_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with WormBase gene ID(s)" displayType="list" field="ox_wormbase_gene_bool" internalName="with_wormbase_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -1053,12 +1053,12 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotVarsplic__dm"/>
 	  </Option>
           <Option displayName="Vega mouse transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="vega_mouse_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Vega_mouse_transcript__dm" type="list"/>
-          <Option checkForNulls="true" displayName="Wormbase gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormbase_gene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_gene__dm" type="list">
+          <Option checkForNulls="true" displayName="WormBase gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormbase_gene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_gene__dm" type="list">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_gene" key="gene_id_1020_key" tableConstraint="ox_wormbase_gene__dm"/>
 	  </Option>
-          <Option displayName="Wormbase locus ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormbase_locus" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_locus__dm" type="list"/>
-          <Option checkForNulls="true" displayName="Wormbase transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormbase_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_transcript__dm" type="list"/>
-          <Option displayName="Wormpep id ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormpep_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormpep_id__dm" type="list"/>
+          <Option displayName="WormBase locus ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormbase_locus" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_locus__dm" type="list"/>
+          <Option checkForNulls="true" displayName="WormBase transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormbase_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_transcript__dm" type="list"/>
+          <Option displayName="WormPep ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormpep_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormpep_id__dm" type="list"/>
           <Option displayName="Xenopus jamboree ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="xenopus_jamboree" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Xenopus_Jamboree__dm" type="list"/>
           <Option checkForNulls="true" displayName="ZFIN ID" displayType="text" field="dbprimary_acc_1074" internalName="zfin_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ZFIN_ID__dm" type="list"/>
           <Option checkForNulls="true" displayName="ZFIN symbol" displayType="text" field="display_label_1074" internalName="zfin_symbol" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ZFIN_ID__dm" type="list"/>
@@ -1437,7 +1437,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with Protein feature wormpepP ID(s)" displayType="list" field="protein_feature_wormpepP_bool" internalName="with_wormpepP" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with Protein feature WormPepP ID(s)" displayType="list" field="protein_feature_wormpepP_bool" internalName="with_wormpepP" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -1937,7 +1937,7 @@
 <AttributeDescription displayName="remaneiP ID" field="hit_id_1048" internalName="remaneiP" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_remaneiP__dm"/>
 <AttributeDescription displayName="slimswissprotP ID" field="hit_id_1048" internalName="slimswissprotP" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_slimswissprotP__dm"/>
 <AttributeDescription displayName="slimtremblP ID" field="hit_id_1048" internalName="slimtremblP" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_slimtremblP__dm"/>
-<AttributeDescription displayName="wormpepP ID" field="hit_id_1048" internalName="wormpepP" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_wormpepP__dm"/>
+<AttributeDescription displayName="WormPepP ID" field="hit_id_1048" internalName="wormpepP" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_wormpepP__dm"/>
 <AttributeDescription displayName="yeastP ID" field="hit_id_1048" internalName="yeastP" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_yeastP__dm"/>
       </AttributeCollection>
       <AttributeCollection description="Interpro protein identifiers and data." displayName="Interpro Attributes" internalName="prot_interpro">
