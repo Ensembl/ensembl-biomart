@@ -31,8 +31,8 @@ my $db_pwd = 'iPBi22yI';
 #my $db_port = '3306';
 #my $db_user = 'eg';
 #my $db_pwd = 'eg';
-my $mart_db = 'bacterial_mart_53';
-my $release = '53';
+my $mart_db = 'bacterial_mart_52';
+my $release = '52';
 
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
