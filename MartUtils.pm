@@ -111,7 +111,7 @@ sub get_ensembl_db {
 # Build the dataset hash
 # Assume we are dealing with a Multispecies database at the moment
 # not anymore !
-# should be workign fine in all cases (tested on both protist and bacterial)
+# should be working fine in all cases (tested on both protist and bacterial)
 sub build_dataset_href {
     my ($meta_container, $logger) = @_;
     my $dataset_href = {};
@@ -122,10 +122,22 @@ sub build_dataset_href {
     
     print STDERR "src_db, $src_db\n";
     
+    my @metazoa_db_patterns = ("culex_","drosophila_","anopheles_","aedes_","caenorhabditis_","ixodes_");
+    my @fungal_db_patterns  = ("schizosaccharomyces_pombe_","saccharomyces_cerevisiae_");
+
     my $formatted_species_name = undef;
     if (! $is_multispecies) {
 	$species_name =~ /^(\w)[^_]+_(.+)/;
 	$formatted_species_name = $1 . $2;	
+
+	if (contains (\@metazoa_db_patterns, $src_db)) {
+	    # Add a prefix 'eg_' to avoid conflicting dataset names in Biomart.org!
+	    $formatted_species_name = "eg_" . $formatted_species_name;
+	}
+	elsif (contains (\@fungal_db_patterns, $src_db)) {
+	    # Add a prefix 'eg_' to avoid conflicting dataset names in Biomart.org!
+	    $formatted_species_name = "eg_" . $formatted_species_name;
+	}
     }
     else {
 	if (! defined @{$meta_container->list_value_by_key('species.sql_name')}[0]) {
@@ -160,8 +172,6 @@ sub build_dataset_href {
 	}
     }
 
-    print STDERR "species_id, $species_id\n";
-    
     my $baseset = undef;
     if ($is_multispecies) {
 	if ($src_db =~ /^(\w)\w+_(\w+)_collection.+$/) {
@@ -227,6 +237,19 @@ sub get_all_species {
     }
 
     return $species_aref;
+}
+
+sub contains {
+    my $array_ref = shift;
+    my $element = shift;
+
+    foreach my $item (@$array_ref) {
+	if ($element  =~ /^$item/i) {
+	    return 1;
+	}
+    }
+
+    return 0;
 }
 
 1;

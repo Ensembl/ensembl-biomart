@@ -203,14 +203,12 @@ sub get_short_name {
 } 
 
 
-
 # db params
 my $db_host = 'mysql-eg-production-1';
 my $db_port = '4161';
 my $db_user = 'admin';
 my $db_pwd = 'iPBi22yI';
 #my $mart_db = 'bacterial_sequence_mart_52';
-my $release = '52';
 
 ##my $db_host = 'mysql-eg-devel-1.ebi.ac.uk';
 ##my $db_port = '4126';
