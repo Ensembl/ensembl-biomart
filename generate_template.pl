@@ -26,13 +26,11 @@ my $logger = get_logger();
 # db params
 my $db_host = 'mysql-eg-production-1';
 my $db_port = '4161';
-my $db_user = 'admin';
-my $db_pwd = 'iPBi22yI';
-#my $db_port = '3306';
-#my $db_user = 'eg';
-#my $db_pwd = 'eg';
-my $mart_db = 'bacterial_mart_52';
-my $release = '52';
+my $db_user = 'ensrw';
+my $db_pwd = 'writ3r';
+my $mart_db;
+my $release = '54';
+my $template_template_file;
 
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
@@ -40,7 +38,8 @@ sub usage {
     print "-P <port> Default is $db_port\n";
     print "-u <host> Default is $db_user\n";
     print "-p <password> Default is top secret unless you know cat\n";
-    print "-mart <mart> Default is $mart_db\n";
+    print "-mart <mart>\n";
+    print "-template <template>\n";
     print "-release <releaseN> Default is $release\n";
     exit 1;
 };
@@ -52,10 +51,11 @@ my $options_okay = GetOptions (
     "p=s"=>\$db_pwd,
     "release=s"=>\$release,
     "mart=s"=>\$mart_db,
+    "template=s"=>\$template_template_file,
     "help"=>sub {usage()}
     );
 
-if(!$options_okay) {
+if(!$options_okay || !$template_template_file || !$mart_db) {
     usage();
 }
 
@@ -211,7 +211,7 @@ sub write_template_xml {
 	'%exportables%'=>$exportables_text,
 	'%exportables_link%'=>$exportables_link_text
 	);
-    write_replace_file('templates/template_template.xml','output/template.xml',\%placeholders);
+    write_replace_file($template_template_file,'output/template.xml',\%placeholders);
     `gzip -c output/template.xml > output/template.xml.gz`;
 }
 
@@ -368,7 +368,7 @@ foreach my $dataset (get_dataset_names($mart_handle)) {
     if(defined $dataset_names{collection}) {
 	$dataset_names{colstr} = '/'.$dataset_names{collection};
     }
-    $logger->debug(join(',',values(%dataset_names)));
+    #$logger->debug(join(',',values(%dataset_names)));
     push(@datasets,\%dataset_names);
     write_dataset_xml(\%dataset_names)
 }
