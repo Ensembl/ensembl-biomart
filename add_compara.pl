@@ -25,12 +25,12 @@ my $logger = get_logger();
 
 # db params
 
-my $db_host = '127.0.0.1';
+my $db_host = 'mysql-eg-production-1.ebi.ac.uk';
 my $db_port = '4161';
-my $db_user = 'admin';
-my $db_pwd = 'iPBi22yI';
-my $mart_db = 'new_bacterial_mart_52';
-my $compara_db ='ensembl_compara_bacteria_homology_1_52';
+my $db_user = 'ensrw';
+my $db_pwd = 'writ3r';
+my $mart_db = 'bacterial_mart_54';
+my $compara_db ='ensembl_compara_bacteria_2_54';
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
     print "-h <host> Default is $db_host\n";
@@ -64,13 +64,16 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
 
 sub get_species_sets {
     my ($sth,$dataset,$dataset2) = @_;
+    $dataset=$dataset || '';
+#   print "dataset $dataset2\n";
     my @species_sets = ();
     $sth->execute($dataset,$dataset2,$dataset,$dataset2);
     while(my @data = $sth->fetchrow_array()) {
-	my $tld = $data[2];
-	if(!$tld) {
-	    $tld= $data[3];
-	}
+	my $tld = $data[3];
+#	print "Answer=".Dumper(@data);
+#	if(!$tld) {
+#	    $tld= $data[3];
+#}
 	push(@species_sets,{id=>$data[0],name=>$data[1], tld=>$tld});       
     }    
     @species_sets;
@@ -80,6 +83,7 @@ sub write_species {
     my ($dataset, $species_id, $species_name, $speciesTld, $sql_file_name) = @_;
     my $ds = $dataset.'_gene';
     open my $sql_file, '<', $sql_file_name or croak "Could not open SQL file $sql_file_name for reading";
+    print "Writing species $dataset $species_id $species_name $speciesTld\n";
     my $indexN = 0;
     while (my $sql = <$sql_file>) {
 	chomp($sql);
@@ -151,6 +155,7 @@ my $get_species_id_sth = $mart_handle->prepare('select species_id from dataset_n
 my $get_species_clade_sth = $mart_handle->prepare('select src_dataset from dataset_names where name=?');
 
 # iterate over each dataset
+#my @datasets = grep{m/d.*eg/}get_dataset_names($mart_handle);
 my @datasets = get_dataset_names($mart_handle);
 for my $dataset (@datasets) {
     my $ds_name_sql = get_sql_name_for_dataset($mart_handle,$dataset);
@@ -166,6 +171,7 @@ for my $dataset (@datasets) {
     }
     # work out species name from $dataset
     # get list of method_link_species_set_id/name pairs for homolog partners
+#print "$species_homolog_sql $ds_name_sql $ds_name_full\n";
     for my $species_set (get_species_sets($species_homolog_sth,$ds_name_sql,$ds_name_full)) {
 	$logger->info('Processing homologs for '.$species_set->{name}.' as '.$species_set->{tld});
 	write_species($dataset, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homolog_sql);
@@ -177,10 +183,11 @@ for my $dataset (@datasets) {
     my $method_link_species_id = get_string($species_paralog_sth,$ds_name_sql,$ds_name_full,$ds_name_sql,$ds_name_full);
     if($method_link_species_id) {	
 if($id) {
-	$logger->info("Writing paralogs for $dataset with id ${clade}_${id}");
-	write_species($dataset, $method_link_species_id, $dataset,"${clade}_$id", $paralog_sql);
-	$logger->info("Completed writing paralogs for $dataset with id ${clade}_${id}");
+	$logger->info("Writing paralogs for $dataset with id $dataset");
+	write_species($dataset, $method_link_species_id, $dataset, $dataset, $paralog_sql);
+	$logger->info("Completed writing paralogs for $dataset with id $dataset");
     }
+}
 }
 $logger->info("Completed processing");
 $species_homolog_sth->finish() or carp "Could not close statement handle";
