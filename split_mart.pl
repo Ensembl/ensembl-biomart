@@ -24,10 +24,11 @@ my $logger = get_logger();
 # db params
 my $db_host = 'mysql-eg-production-1';
 my $db_port = '4161';
-my $db_user = 'admin';
-my $db_pwd = 'iPBi22yI';
-my $src_mart_db = 'base_bacterial_mart_52';
-my $target_mart_db = 'new_bacterial_mart_52';
+my $db_user = 'ensrw';
+my $db_pwd = 'writ3r';
+my $src_mart_db = 'base_bacterial_mart_54';
+my $target_mart_db = 'bacterial_mart_54';
+my $release = 54;
 
 my %table_res = (
     qr/protein_feature/ => {
@@ -67,6 +68,7 @@ my $options_okay = GetOptions (
     "p=s"=>\$db_pwd,
     "src_mart=s"=>\$src_mart_db,
     "target_mart=s"=>\$target_mart_db,
+    "release=s"=>\$release,
     "help"=>sub {usage()}
     );
 
@@ -139,7 +141,7 @@ foreach my $dataset (@datasets) {
 
     $logger->info("Splitting $dataset");
     # get original database
-    my $ens_db = get_ensembl_db_collection(\@src_dbs,$dataset);
+    my $ens_db = get_ensembl_db_collection(\@src_dbs,$dataset,$release);
     if(!$ens_db) {
 	croak "Could not find original source db for dataset $dataset\n";
     }   

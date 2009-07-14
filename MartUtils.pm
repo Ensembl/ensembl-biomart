@@ -72,20 +72,20 @@ sub get_sequence_datasets {
 }
 
 sub get_ensembl_db_single {
-    my ($src_dbs,$dataset) = @_;
+    my ($src_dbs,$dataset,$release) = @_;
     return get_ensembl_db($src_dbs,$dataset, sub {
 	my $var = shift;
-	$var =~ s/^(.)[^_]*_([^_]+)_core_*\d*_[0-9]+_[0-9]+[a-z]*$/$1$2/;
+	$var =~ s/^(.)[^_]*_([^_]+)_core_*\d*_($release)_[0-9]+[a-z]*$/$1$2/;
 	return $var;
 			  }
 	);    
 }
 
 sub get_ensembl_db_collection {
-    my ($src_dbs,$dataset) = @_;
+    my ($src_dbs,$dataset,$release) = @_;
     return get_ensembl_db($src_dbs,$dataset,  sub {
 	my $var = shift;
-	$var =~ s/^(...).*_collection_core_*\d*_[0-9]+_[0-9]+[a-z]*$/$1/;
+	$var =~ s/^(...).*_collection_core_*\d*_($release)_[0-9]+[a-z]*$/$1/;
 	return $var;
 			  }
 	);
