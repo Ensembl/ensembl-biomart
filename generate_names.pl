@@ -25,9 +25,11 @@ my $logger = get_logger();
 # db params
 my $db_host = 'mysql-eg-production-1';
 my $db_port = '4161';
-my $db_user = 'admin';
-my $db_pwd = 'iPBi22yI';
-my $mart_db = 'protist_mart_52';
+my $db_user = 'ensrw';
+my $db_pwd = 'writ3r';
+my $mart_db = 'protist_mart_54';
+my $release = 54;
+my $suffix = '';
 
 my %table_res = (
     qr/protein_feature/ => {
@@ -65,6 +67,8 @@ my $options_okay = GetOptions (
     "u=s"=>\$db_user,
     "p=s"=>\$db_pwd,
     "mart=s"=>\$mart_db,
+    "release=s"=>\$release,
+    "suffix=s"=>\$suffix,
     "help"=>sub {usage()}
     );
 
@@ -99,7 +103,7 @@ my $names_insert = $mart_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,
 my @src_tables = get_tables($mart_handle);
 my @src_dbs;
 foreach my $db (get_databases($mart_handle)) {
-    if($db =~ m/_52_/) {
+    if($db =~ m/core_[0-9]+_($release)_[0-9A-z]+/) {
 	print "$db\n";
 	push @src_dbs, $db;
     }
@@ -117,9 +121,11 @@ foreach my $dataset (@datasets) {
 
     $logger->info("Naming $dataset");
     # get original database
-    my $ens_db = get_ensembl_db_single(\@src_dbs,$dataset);
+    my $base_datasetname = $dataset;
+    $base_datasetname =~ s/$suffix//;
+    my $ens_db = get_ensembl_db_single(\@src_dbs,$base_datasetname,$release);
     if(!$ens_db) {
-	croak "Could not find original source db for dataset $dataset\n";
+	croak "Could not find original source db for dataset $base_datasetname\n";
     }   
     $logger->debug("$dataset derived from $ens_db");
     my $ens_db_string =  "DBI:mysql:$ens_db:$db_host:$db_port";
@@ -128,9 +134,9 @@ foreach my $dataset (@datasets) {
 	) or croak "Could not connect to $ens_db_string";
 
     # get hash of species IDs
-    my %species_ids = query_to_hash($ens_dbh,"select species_id,meta_value from meta where meta_key='species.sql_name'");
+    my @species_ids = query_to_strings($ens_dbh,"select distinct(species_id) from meta where species_id is not null");
 
-    foreach my $species_id (keys (%species_ids)) {
+    foreach my $species_id (@species_ids) {
 
 	## use the species ID to get a hash of everything we need and write it into the names_table
 	my %species_names = query_to_hash($ens_dbh,"select meta_key,meta_value from meta where species_id='$species_id'");	
@@ -140,9 +146,9 @@ foreach my $dataset (@datasets) {
 	    $dataset,
 	    $ens_db,
 	    $species_names{'species.proteome_id'},
-	    $species_names{'species.db_name'},
+	    $species_names{'species.db_name'} || $species_names{'species.ensembl_alias_name'},
 	    $species_names{'species.sql_name'},
-	    $species_names{'genebuild.version'}
+	    $species_names{'assembly.default'}  || $species_names{'genebuild.version'} 
 	    ); 
     }
 	
