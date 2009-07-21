@@ -148,7 +148,7 @@ foreach my $dataset (@datasets) {
 	    $species_names{'species.proteome_id'},
 	    $species_names{'species.db_name'} || $species_names{'species.ensembl_alias_name'},
 	    $species_names{'species.sql_name'},
-	    $species_names{'assembly.default'}  || $species_names{'genebuild.version'} 
+	    $species_names{'assembly.name'}  || $species_names{'genebuild.version'} 
 	    ); 
     }
 	
