@@ -131,12 +131,12 @@ sub build_dataset_href {
 	$formatted_species_name = $1 . $2;	
 
 	if (contains (\@metazoa_db_patterns, $src_db)) {
-	    # Add a prefix 'eg_' to avoid conflicting dataset names in Biomart.org!
-	    $formatted_species_name = "eg_" . $formatted_species_name;
+	    # Add a suffix '_eg' to avoid conflicting dataset names in Biomart.org!
+	    $formatted_species_name = $formatted_species_name . "_eg";
 	}
 	elsif (contains (\@fungal_db_patterns, $src_db)) {
-	    # Add a prefix 'eg_' to avoid conflicting dataset names in Biomart.org!
-	    $formatted_species_name = "eg_" . $formatted_species_name;
+	    # Add suffix '_eg' to avoid conflicting dataset names in Biomart.org!
+	    $formatted_species_name = $formatted_species_name . "_eg";
 	}
     }
     else {
