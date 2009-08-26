@@ -123,18 +123,23 @@ sub build_dataset_href {
     print STDERR "src_db, $src_db\n";
     
     my @metazoa_db_patterns = ("culex_","drosophila_","anopheles_","aedes_","caenorhabditis_","ixodes_");
-    my @fungal_db_patterns  = ("schizosaccharomyces_pombe_","saccharomyces_cerevisiae_");
+    my @fungal_db_patterns  = ("schizosaccharomyces_pombe_","saccharomyces_cerevisiae_","aspergillus","neosartorya");
+    my @plant_db_patterns  = ("arabidopsis_","oryza_","vitis_","sorghum","populus","brachypodium");
 
     my $formatted_species_name = undef;
     if (! $is_multispecies) {
 	$species_name =~ /^(\w)[^_]+_(.+)/;
-	$formatted_species_name = $1 . $2;	
+	$formatted_species_name = $1 . $2;
 
 	if (contains (\@metazoa_db_patterns, $src_db)) {
 	    # Add a suffix '_eg' to avoid conflicting dataset names in Biomart.org!
 	    $formatted_species_name = $formatted_species_name . "_eg";
 	}
 	elsif (contains (\@fungal_db_patterns, $src_db)) {
+	    # Add suffix '_eg' to avoid conflicting dataset names in Biomart.org!
+	    $formatted_species_name = $formatted_species_name . "_eg";
+	}
+	elsif (contains (\@plant_db_patterns, $src_db)) {
 	    # Add suffix '_eg' to avoid conflicting dataset names in Biomart.org!
 	    $formatted_species_name = $formatted_species_name . "_eg";
 	}
