@@ -29,8 +29,8 @@ my $db_host = 'mysql-eg-production-1.ebi.ac.uk';
 my $db_port = '4161';
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3r';
-my $mart_db = 'bacterial_mart_54';
-my $compara_db ='ensembl_compara_bacteria_2_54';
+my $mart_db = 'bacterial_mart_3';
+my $compara_db ='ensembl_compara_bacteria_3_55';
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
     print "-h <host> Default is $db_host\n";
