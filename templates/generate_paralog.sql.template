@@ -1,4 +1,4 @@
-drop table if exists %martSchema%.TEMP300, %martSchema%.TEMP303, %martSchema%.TEMP304, %martSchema%.TEMP306, %martSchema%.TEMP310, %martSchema%.TEMP314, %martSchema%.TEMP316, %martSchema%.TEMP320, %martSchema%.TEMP324, %martSchema%.TEMP325, %martSchema%.%dataSet%__paralog_%speciesTld%__dm;
+drop table if exists %martSchema%.TEMP300, %martSchema%.TEMP303, %martSchema%.TEMP304, %martSchema%.TEMP306, %martSchema%.TEMP310, %martSchema%.TEMP314, %martSchema%.TEMP316, %martSchema%.TEMP320, %martSchema%.TEMP324, %martSchema%.TEMP325, %martSchema%.%dataSet%__paralog_%speciesTld%__dm, %martSchema%.para_TEMP;
 create table %martSchema%.TEMP300 as select a.species_set_id as species_set_id_4019,a.method_link_id as method_link_id_4019,a.method_link_species_set_id as method_link_species_set_id_4019 from %srcSchema%.method_link_species_set as a where a.method_link_species_set_id='%method_link_species_set_id%';
 create index %indexName% on %martSchema%.TEMP300(method_link_species_set_id_4019);
 create table %martSchema%.TEMP303 as select a.*,b.ds as ds_4014,b.dn as dn_4014,b.subtype as subtype_4014,b.homology_id as homology_id_4014 from %martSchema%.TEMP300 as a inner join %srcSchema%.homology as b on a.method_link_species_set_id_4019=b.method_link_species_set_id;
@@ -52,14 +52,18 @@ create index %indexName% on %martSchema%.TEMP325(stable_id_4016_r1);
 rename table %martSchema%.TEMP325 to %martSchema%.%dataSet%__paralog_%speciesTld%__dm;
 
 alter table %martSchema%.%dataSet%__gene__main add column (paralog_%speciesTld%_bool integer default 0);
-update %martSchema%.%dataSet%__gene__main a set paralog_%speciesTld%_bool=(select case count(1) when 0 then null else 1 end from %martSchema%.%dataSet%__paralog_%speciesTld%__dm b where a.gene_id_1020_key=b.gene_id_1020_key and not (b.chr_name_4016_r2 is null and b.stable_id_4016 is null and b.stable_id_4016_r3 is null and b.subtype_4014 is null and b.perc_cov_4015_r1 is null and b.perc_id_4015_r1 is null and b.stable_id_4016_r2 is null and b.ds_4014 is null and b.chr_start_4016_r2 is null and b.perc_id_4015 is null and b.chr_end_4016_r2 is null and b.perc_cov_4015 is null and b.stable_id_4016_r1 is null and b.dn_4014 is null));
+
+create table %martSchema%.para_TEMP as select a.gene_id_1020_key from %martSchema%.%dataSet%__paralog_%speciesTld%__dm b, plant_mart_3.alyrata_eg_gene__gene__main a where a.gene_id_1020_key=b.gene_id_1020_key and not (b.chr_name_4016_r2 is null and b.stable_id_4016 is null and b.stable_id_4016_r3 is null and b.subtype_4014 is null and b.perc_cov_4015_r1 is null and b.perc_id_4015_r1 is null and b.stable_id_4016_r2 is null and b.ds_4014 is null and b.chr_start_4016_r2 is null and b.perc_id_4015 is null and b.chr_end_4016_r2 is null and b.perc_cov_4015 is null and b.stable_id_4016_r1 is null and b.dn_4014 is null);
+
+update %martSchema%.%dataSet%__gene__main g join %martSchema%.%dataSet%__paralog_%speciesTld%__dm p using (gene_id_1020_key) set g.paralog_%speciesTld%_bool=1; 
 create index %indexName% on %martSchema%.%dataSet%__gene__main(paralog_%speciesTld%_bool);
 
 alter table %martSchema%.%dataSet%__transcript__main add column (paralog_%speciesTld%_bool integer default 0);
-update %martSchema%.%dataSet%__transcript__main a set paralog_%speciesTld%_bool=(select case count(1) when 0 then null else 1 end from %martSchema%.%dataSet%__paralog_%speciesTld%__dm b where a.gene_id_1020_key=b.gene_id_1020_key and not (b.chr_name_4016_r2 is null and b.stable_id_4016 is null and b.stable_id_4016_r3 is null and b.subtype_4014 is null and b.perc_cov_4015_r1 is null and b.perc_id_4015_r1 is null and b.stable_id_4016_r2 is null and b.ds_4014 is null and b.chr_start_4016_r2 is null and b.perc_id_4015 is null and b.chr_end_4016_r2 is null and b.perc_cov_4015 is null and b.stable_id_4016_r1 is null and b.dn_4014 is null));
+update %martSchema%.%dataSet%__transcript__main a join %martSchema%.para_TEMP using (gene_id_1020_key) set paralog_%speciesTld%_bool=1;
 
 alter table %martSchema%.%dataSet%__translation__main add column (paralog_%speciesTld%_bool integer default 0);
-update %martSchema%.%dataSet%__translation__main a set paralog_%speciesTld%_bool=(select case count(1) when 0 then null else 1 end from %martSchema%.%dataSet%__paralog_%speciesTld%__dm b where a.gene_id_1020_key=b.gene_id_1020_key and not (b.chr_name_4016_r2 is null and b.stable_id_4016 is null and b.stable_id_4016_r3 is null and b.subtype_4014 is null and b.perc_cov_4015_r1 is null and b.perc_id_4015_r1 is null and b.stable_id_4016_r2 is null and b.ds_4014 is null and b.chr_start_4016_r2 is null and b.perc_id_4015 is null and b.chr_end_4016_r2 is null and b.perc_cov_4015 is null and b.stable_id_4016_r1 is null and b.dn_4014 is null));
+update %martSchema%.%dataSet%__translation__main a join %martSchema%.para_TEMP using (gene_id_1020_key) set paralog_%speciesTld%_bool=1;
 
+drop table %martSchema%.para_TEMP;
 
 
