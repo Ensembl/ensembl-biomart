@@ -24,12 +24,12 @@ Log::Log4perl->easy_init($DEBUG);
 my $logger = get_logger();
 
 # db params
-my $db_host = 'mysql-eg-production-1';
+my $db_host = '127.0.0.1';
 my $db_port = '4161';
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3r';
 my $mart_db;
-my $release = '54';
+my $release = '55';
 my $template_template_file;
 
 sub usage {
@@ -149,7 +149,7 @@ sub get_dataset_homolog_attribute {
     my $text = << "HOMOATT_END";
     <AttributeGroup displayName="$dataset->{species_name} ORTHOLOGS:" hidden="false" internalName="$dataset->{dataset}_orthologs">
       <AttributeCollection displayName="Ortholog Attributes" hidden="false" internalName="homologs_$dataset->{dataset}">
-        <AttributeDescription displayName="$dataset->{species_name} Ensembl Gene ID" field="stable_id_4016_r2" hidden="false" internalName="$dataset->{dataset}_gene" key="gene_id_1020_key" linkoutURL="exturl|*species2*/Gene/Summary?g=%s" maxLength="20" tableConstraint="homolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Ensembl Gene ID" field="stable_id_4016_r2" hidden="false" internalName="$dataset->{dataset}_gene" key="gene_id_1020_key" linkoutURL="exturl|/$dataset->{species_uc_name}/Gene/Summary?g=%s" maxLength="20" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Chromosome" field="chr_name_4016_r2" hidden="false" internalName="$dataset->{dataset}_chromosome" key="gene_id_1020_key" maxLength="9" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Chr Start (bp)" field="chr_start_4016_r2" hidden="false" internalName="$dataset->{dataset}_chrom_start" key="gene_id_1020_key" maxLength="10" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Chr End (bp)" field="chr_end_4016_r2" hidden="false" internalName="$dataset->{dataset}_chrom_end" key="gene_id_1020_key" maxLength="10" tableConstraint="homolog_$dataset->{dataset}__dm"/>
@@ -194,6 +194,7 @@ sub write_template_xml {
     my $exportables_text='';
     my $exportables_link_text='';
     foreach my $dataset (@$datasets) {
+	print "Generating elems for ".$dataset->{dataset}."\n";
 	$datasets_text .= get_dataset_element($dataset)
 	    ."\n";
 	$exportables_text .= get_dataset_exportable($dataset);
