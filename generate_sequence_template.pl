@@ -27,9 +27,9 @@ Log::Log4perl->easy_init($DEBUG);
 
 my @protist_db_patterns   = ("plasmodium_vivax_","plasmodium_knowlesi_","plasmodium_falciparum_");
 my @metazoa_db_patterns   = ("culex_","drosophila_","anopheles_","aedes_","caenorhabditis_","ixodes_");
-my @fungal_db_patterns    = ("schizosaccharomyces_pombe_","saccharomyces_cerevisiae_");
+my @fungal_db_patterns    = ("schizosaccharomyces_pombe_","saccharomyces_cerevisiae_","aspergillus_","neosartorya_");
 my @bacterial_db_patterns = ("bacillus_collection_","escherichia_shigella_collection_","mycobacterium_collection_","neisseria_collection_","pyrococcus_collection_","staphylococcus_collection_","streptococcus_collection_");
-my @plant_db_patterns = ("oryza_sativa_japonica_","arabidopsis_thaliana_");
+my @plant_db_patterns = ("oryza_","arabidopsis_","vitis_","sorghum_","populus_","brachypodium_");
 
 my @db_patterns = undef;
 
@@ -291,7 +291,7 @@ foreach my $species_name (@$species_names_aref) {
     
     my $core_dbname = $dba->{_dbc}->{_dbname};
     if (@db_patterns) {
-	if (! contains(\@db_patterns, $core_dbname)) {
+	if (! array_contains(\@db_patterns, $core_dbname)) {
 	    print STDERR "species, '$species_name', from db, $core_dbname, is filtered out\n";
 	    next;
 	}
@@ -321,7 +321,7 @@ $seq_mart_handle->disconnect() or croak "Could not close handle to $seq_mart_str
 
 ######
 
-sub contains {
+sub array_contains {
     my $array_ref = shift;
     my $element = shift;
 
