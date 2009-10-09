@@ -27,8 +27,8 @@ my $db_host = 'mysql-eg-production-1';
 my $db_port = '4161';
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3r';
-my $mart_db = 'protist_mart_54';
-my $release = 54;
+my $mart_db = 'protist_mart_3';
+my $release = 55;
 my $suffix = '';
 
 my %table_res = (
@@ -117,6 +117,21 @@ my @datasets = get_datasets(\@src_tables);
 my $dataset_basename = 'gene';
 
 # 2. for each dataset
+
+
+my $pId;
+if ($mart_db =~ m/protist/) {
+    $pId = 10000;
+} elsif ($mart_db =~ m/plant/) {
+    $pId = 20000;
+} elsif ($mart_db =~ m/metazoa/) {
+    $pId = 30000;
+} elsif ($mart_db =~ m/fung/) {
+    $pId = 40000;
+} else {
+    croak "Don't know how to deal with mart $mart_db - doesn't match known divisions\n";
+}
+ 
 foreach my $dataset (@datasets) {
 
     $logger->info("Naming $dataset");
@@ -145,9 +160,9 @@ foreach my $dataset (@datasets) {
 	    $dataset,
 	    $dataset,
 	    $ens_db,
-	    $species_names{'species.proteome_id'},
+	    $species_names{'species.proteome_id'} || ++$pId,
 	    $species_names{'species.db_name'} || $species_names{'species.ensembl_alias_name'},
-	    $species_names{'species.sql_name'},
+	    $species_names{'species.compara_name'} || $species_names{'species.sql_name'},
 	    $species_names{'assembly.name'}  || $species_names{'genebuild.version'} 
 	    ); 
     }
