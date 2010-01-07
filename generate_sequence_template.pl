@@ -25,16 +25,17 @@ Log::Log4perl->easy_init($DEBUG);
 # e.g. plant or protist or fungal or bacterial mode
 # to filter out a subset of databases
 
-my @protist_db_patterns   = ("plasmodium_vivax_","plasmodium_knowlesi_","plasmodium_falciparum_");
+my @protist_db_patterns   = ("plasmodium_vivax_","plasmodium_knowlesi_","plasmodium_falciparum_","dictyostelium_");
 my @metazoa_db_patterns   = ("culex_","drosophila_","anopheles_","aedes_","caenorhabditis_","ixodes_");
-my @fungal_db_patterns    = ("schizosaccharomyces_pombe_","saccharomyces_cerevisiae_","aspergillus_","neosartorya_");
-my @bacterial_db_patterns = ("bacillus_collection_","escherichia_shigella_collection_","mycobacterium_collection_","neisseria_collection_","pyrococcus_collection_","staphylococcus_collection_","streptococcus_collection_");
-my @plant_db_patterns = ("oryza_","arabidopsis_","vitis_","sorghum_","populus_","brachypodium_");
+my @fungal_db_patterns    = ("schizosaccharomyces_pombe_","saccharomyces_cerevisiae_","aspergillus_","neosartorya_","neurospora_");
+my @bacterial_db_patterns = ("bacillus_collection_","escherichia_shigella_collection_","mycobacterium_collection_","neisseria_collection_","pyrococcus_collection_","staphylococcus_collection_","streptococcus_collection_","buchnera_collection","borrelia_collection","wolbachia_collection");
+my @plant_db_patterns     = ("oryza_","arabidopsis_","vitis_","sorghum_","populus_","brachypodium_");
 
 my @db_patterns = undef;
+my $division = undef;
 
 my $logger = get_logger();
-my $release = 54;
+my $release = 56;
 
 my $output_dir = "./output";
 my $mart_version = "0.7";
@@ -204,21 +205,21 @@ sub get_short_name {
 
 
 # db params
-my $db_host = 'mysql-eg-production-1';
-my $db_port = '4161';
-my $db_user = 'ensrw';
-my $db_pwd = 'writ3r';
+my $db_host;
+my $db_port;
+my $db_user;
+my $db_pwd;
 
-my $seq_mart_db = 'ensembl_bacterial_sequence_mart_54';
+my $seq_mart_db;
 
 sub usage {
-    print "Usage: $0 [-h <host>] [-port <port>] [-u <user>] [-pwd <pwd>] [-seq_mart <target mart database>] [-release <release number>]\n";
-    print "-h <host> Default is $db_host\n";
-    print "-port <port> Default is $db_port\n";
-    print "-u <host> Default is $db_user\n";
-    print "-pwd <password> Default is top secret unless you know cat\n";
-    print "-seq_mart <mart> Default is $seq_mart_db\n";
-    print "-release <ensembl release number> Default is $release\n";
+    print "Usage: $0 -h <host> -port <port> -u <user> -pwd <pwd> -seq_mart <target mart database> -release <release number>\n";
+    print "-h <host>\n";
+    print "-port <port>\n";
+    print "-u <host>\n";
+    print "-pwd <password>\n";
+    print "-seq_mart <mart>\n";
+    print "-release <ensembl release number>\n";
     exit 1;
 };
 
@@ -239,23 +240,30 @@ if(!$options_okay) {
 # Set the db_patterns, depending on the database mart name
 if ($seq_mart_db =~ /bacterial/i) {
     @db_patterns = @bacterial_db_patterns;
+    $division = "EnsemblBacteria";
 }
 elsif ($seq_mart_db =~ /protist/i) {
     @db_patterns = @protist_db_patterns;
+    $division = "EnsemblProtist";
 }
 elsif ($seq_mart_db =~ /fungal/i) {
     @db_patterns = @fungal_db_patterns;
+    $division = "EnsemblProtist";
 }
 elsif ($seq_mart_db =~ /plant/i) {
     @db_patterns = @plant_db_patterns;
+    $division = "EnsemblPlant";
 }
 elsif ($seq_mart_db =~ /metazoa/i) {
     @db_patterns = @metazoa_db_patterns;
+    $division = "EnsemblMetzoa";
 }
 else {
     print STDERR "sequence mart db name, $seq_mart_db\n";
     print STDERR "sequence mart db name doesn't match a known pattern, so all databases on the server will be taken into account\n";
 }
+
+print STDERR "Set Ensembldivision to '$division'\n";
 
 print STDERR "working with release, $release\n";
 
@@ -290,6 +298,9 @@ foreach my $species_name (@$species_names_aref) {
     my $dba = Bio::EnsEMBL::Registry->get_DBAdaptor($species_name, "core");
     
     my $core_dbname = $dba->{_dbc}->{_dbname};
+    
+    # Todo: Replace db_patterns code by matching meta attribute 'species.division' against $division
+    
     if (@db_patterns) {
 	if (! array_contains(\@db_patterns, $core_dbname)) {
 	    print STDERR "species, '$species_name', from db, $core_dbname, is filtered out\n";
