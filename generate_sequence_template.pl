@@ -21,6 +21,9 @@ use Bio::EnsEMBL::Registry;
 
 Log::Log4perl->easy_init($DEBUG);
 
+# Todo: Use 'species.division' meta attribute instead
+
+# @deprecated
 # db_patterns added so we can filter species into groups
 # e.g. plant or protist or fungal or bacterial mode
 # to filter out a subset of databases
@@ -244,26 +247,26 @@ if ($seq_mart_db =~ /bacterial/i) {
 }
 elsif ($seq_mart_db =~ /protist/i) {
     @db_patterns = @protist_db_patterns;
-    $division = "EnsemblProtist";
+    $division = "EnsemblProtists";
 }
 elsif ($seq_mart_db =~ /fungal/i) {
     @db_patterns = @fungal_db_patterns;
-    $division = "EnsemblProtist";
+    $division = "EnsemblFungi";
 }
 elsif ($seq_mart_db =~ /plant/i) {
     @db_patterns = @plant_db_patterns;
-    $division = "EnsemblPlant";
+    $division = "EnsemblPlants";
 }
 elsif ($seq_mart_db =~ /metazoa/i) {
     @db_patterns = @metazoa_db_patterns;
-    $division = "EnsemblMetzoa";
+    $division = "EnsemblMetazoa";
 }
 else {
     print STDERR "sequence mart db name, $seq_mart_db\n";
     print STDERR "sequence mart db name doesn't match a known pattern, so all databases on the server will be taken into account\n";
 }
 
-print STDERR "Set Ensembldivision to '$division'\n";
+print STDERR "Set Ensembl division to '$division'\n";
 
 print STDERR "working with release, $release\n";
 
@@ -285,34 +288,39 @@ Bio::EnsEMBL::Registry->load_registry_from_db(
                                               -pass => $db_pwd,
                                               -port => $db_port,
                                               -db_version => $release);
-my $species_names_aref = get_all_species();
+# Get all species for the given Ensembl division
+my $species_names_aref = get_all_species($division);
 
 my @datasets = ();
 my $i=0;
 foreach my $species_name (@$species_names_aref) {
     $logger->info("Processing species, '$species_name'");
 
-    
     # Filter out the species we don't in, if db_patterns array is defined
     
     my $dba = Bio::EnsEMBL::Registry->get_DBAdaptor($species_name, "core");
     
-    my $core_dbname = $dba->{_dbc}->{_dbname};
+    my $core_dbname = $dba->dbc->dbname;
     
-    # Todo: Replace db_patterns code by matching meta attribute 'species.division' against $division
+    # Todo: deprecate this code, assuming all core dbs have a 'species.division' meta attribute
     
-    if (@db_patterns) {
-	if (! array_contains(\@db_patterns, $core_dbname)) {
-	    print STDERR "species, '$species_name', from db, $core_dbname, is filtered out\n";
-	    next;
-	}
-    }
-
     my $meta_container =
 	Bio::EnsEMBL::Registry->get_adaptor( "$species_name", 'Core', 'MetaContainer' );
     if (! defined $meta_container) {
         die "meta_container couldn't be instanciated for species, \"$species_name\"\n";
     }
+    if (! defined @{$meta_container->list_value_by_key('species.division')}[0]) {
+
+	print STDERR "no 'species.division' meta attribute, so using db_patterns matching instead\n";
+
+	if (@db_patterns) {
+	    if (! array_contains(\@db_patterns, $core_dbname)) {
+		print STDERR "species, '$species_name', from db, $core_dbname, is filtered out\n";
+		next;
+	    }
+	}
+    }
+
     my $dataset_href = build_dataset_href ($meta_container,$logger);
     if(!$dataset_href->{species_id}) {
 	$dataset_href->{species_id} = ++$i;

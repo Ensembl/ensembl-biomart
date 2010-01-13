@@ -225,6 +225,10 @@ sub build_dataset_href {
 
 
 sub get_all_species {
+
+    # the Ensembl division, optional
+    my $division = shift;
+
     my $species_aref = [];
     my %hash;
 
@@ -234,10 +238,24 @@ sub get_all_species {
                 print STDERR "ignoring it!\n";
             }
             else{
-                push @$species_aref, $adap->species;
-                $hash{$adap->species} = 1;
+		if (defined $division) {
+		    my $meta_container = Bio::EnsEMBL::Registry->get_adaptor( $adap->species, 'Core', 'MetaContainer' );
+		    if (defined @{$meta_container->list_value_by_key('species.division')}[0]) {
+			my $species_division = @{$meta_container->list_value_by_key('species.division')}[0];
+			if ($division eq $species_division) {
+			    push @$species_aref, $adap->species;
+			    $hash{$adap->species} = 1;
+			}
+		    }
+		}
+		else {
+		    push @$species_aref, $adap->species;
+		    $hash{$adap->species} = 1;
+		}
             }
         }
+
+	$adap->dbc->disconnect_if_idle;
 
     }
 
