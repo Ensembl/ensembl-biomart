@@ -131,17 +131,31 @@ sub build_dataset_href {
 	$species_name =~ /^(\w)[^_]+_(.+)/;
 	$formatted_species_name = $1 . $2;
 
-	if (contains (\@metazoa_db_patterns, $src_db)) {
-	    # Add a suffix '_eg' to avoid conflicting dataset names in Biomart.org!
-	    $formatted_species_name = $formatted_species_name . "_eg";
+	if (defined @{$meta_container->list_value_by_key('species.division')}[0]) {
+	    my $division_value = @{$meta_container->list_value_by_key('species.division')}[0];
+	    if ($division_value =~ /ensemblmetazoa|ensemblplants|ensemblfungi/i) {
+		# Add a suffix '_eg' to avoid conflicting dataset names in Biomart.org!
+		$formatted_species_name = $formatted_species_name . "_eg";
+	    }
 	}
-	elsif (contains (\@fungal_db_patterns, $src_db)) {
-	    # Add suffix '_eg' to avoid conflicting dataset names in Biomart.org!
-	    $formatted_species_name = $formatted_species_name . "_eg";
-	}
-	elsif (contains (\@plant_db_patterns, $src_db)) {
-	    # Add suffix '_eg' to avoid conflicting dataset names in Biomart.org!
-	    $formatted_species_name = $formatted_species_name . "_eg";
+	else {
+	    
+	    # Todo: Deprecate this code
+
+	    print STDERR "'species.division' meta attribute not defined, using db_patterns instead\n";
+
+	    if (contains (\@metazoa_db_patterns, $src_db)) {
+		# Add a suffix '_eg' to avoid conflicting dataset names in Biomart.org!
+		$formatted_species_name = $formatted_species_name . "_eg";
+	    }
+	    elsif (contains (\@fungal_db_patterns, $src_db)) {
+		# Add suffix '_eg' to avoid conflicting dataset names in Biomart.org!
+		$formatted_species_name = $formatted_species_name . "_eg";
+	    }
+	    elsif (contains (\@plant_db_patterns, $src_db)) {
+		# Add suffix '_eg' to avoid conflicting dataset names in Biomart.org!
+		$formatted_species_name = $formatted_species_name . "_eg";
+	    }
 	}
     }
     else {
