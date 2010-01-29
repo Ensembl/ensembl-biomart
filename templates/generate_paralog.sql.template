@@ -53,7 +53,7 @@ rename table %martSchema%.TEMP325 to %martSchema%.%dataSet%__paralog_%speciesTld
 
 alter table %martSchema%.%dataSet%__gene__main add column (paralog_%speciesTld%_bool integer default 0);
 
-create table %martSchema%.para_TEMP as select a.gene_id_1020_key from %martSchema%.%dataSet%__paralog_%speciesTld%__dm b, plant_mart_3.alyrata_eg_gene__gene__main a where a.gene_id_1020_key=b.gene_id_1020_key and not (b.chr_name_4016_r2 is null and b.stable_id_4016 is null and b.stable_id_4016_r3 is null and b.subtype_4014 is null and b.perc_cov_4015_r1 is null and b.perc_id_4015_r1 is null and b.stable_id_4016_r2 is null and b.ds_4014 is null and b.chr_start_4016_r2 is null and b.perc_id_4015 is null and b.chr_end_4016_r2 is null and b.perc_cov_4015 is null and b.stable_id_4016_r1 is null and b.dn_4014 is null);
+create table %martSchema%.para_TEMP as select a.gene_id_1020_key from %martSchema%.%dataSet%__paralog_%speciesTld%__dm b, %martSchema%.%speciesTld%_gene__gene__main a where a.gene_id_1020_key=b.gene_id_1020_key and not (b.chr_name_4016_r2 is null and b.stable_id_4016 is null and b.stable_id_4016_r3 is null and b.subtype_4014 is null and b.perc_cov_4015_r1 is null and b.perc_id_4015_r1 is null and b.stable_id_4016_r2 is null and b.ds_4014 is null and b.chr_start_4016_r2 is null and b.perc_id_4015 is null and b.chr_end_4016_r2 is null and b.perc_cov_4015 is null and b.stable_id_4016_r1 is null and b.dn_4014 is null);
 
 update %martSchema%.%dataSet%__gene__main g join %martSchema%.%dataSet%__paralog_%speciesTld%__dm p using (gene_id_1020_key) set g.paralog_%speciesTld%_bool=1; 
 create index %indexName% on %martSchema%.%dataSet%__gene__main(paralog_%speciesTld%_bool);
