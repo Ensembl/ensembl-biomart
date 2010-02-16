@@ -22,13 +22,13 @@ Log::Log4perl->easy_init($DEBUG);
 my $logger = get_logger();
 
 # db params
-my $db_host = 'mysql-eg-production-1';
-my $db_port = '4161';
+my $db_host = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
+my $db_port = '4238';
 my $db_user = 'ensrw';
-my $db_pwd = 'writ3r';
-my $src_mart_db = 'base_bacterial_mart_54';
-my $target_mart_db = 'bacterial_mart_54';
-my $release = 54;
+my $db_pwd = 'writ3rp1';
+my $src_mart_db = 'base_bacterial_mart_4';
+my $target_mart_db = 'bacterial_mart_4';
+my $release = 56;
 
 my %table_res = (
     qr/protein_feature/ => {
