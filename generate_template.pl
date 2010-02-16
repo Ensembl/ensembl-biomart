@@ -25,11 +25,11 @@ my $logger = get_logger();
 
 # db params
 my $db_host = '127.0.0.1';
-my $db_port = '4161';
+my $db_port = '4238';
 my $db_user = 'ensrw';
-my $db_pwd = 'writ3r';
-my $mart_db;
-my $release = '55';
+my $db_pwd = 'writ3rp1';
+my $mart_db = 'metazoa_mart_4';
+my $release = '56';
 my $template_template_file;
 
 sub usage {
@@ -155,9 +155,11 @@ sub get_dataset_homolog_attribute {
         <AttributeDescription displayName="$dataset->{species_name} Chr End (bp)" field="chr_end_4016_r2" hidden="false" internalName="$dataset->{dataset}_chrom_end" key="gene_id_1020_key" maxLength="10" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="Orthology Type" field="description_4014" hidden="false" internalName="$dataset->{dataset}_orthology_type" key="gene_id_1020_key" maxLength="15" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="Ensembl Peptide ID" field="stable_id_4016_r1" hidden="false" internalName="$dataset->{dataset}_ensembl_peptide" key="gene_id_1020_key" maxLength="20" tableConstraint="homolog_$dataset->{dataset}__dm"/>
-        <AttributeDescription displayName="% Identity" field="perc_id_4015" hidden="false" internalName="$dataset->{dataset}_percent_identity" key="gene_id_1020_key" maxLength="3" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Ensembl Peptide ID" field="stable_id_4016_r3" hidden="false" internalName="$dataset->{dataset}_homolog_ensembl_peptide" key="gene_id_1020_key" maxLength="20" tableConstraint="homolog_$dataset->{dataset}__dm"/>
-        <AttributeDescription displayName="$dataset->{species_name} % Identity" field="perc_id_4015_r1" hidden="false" internalName="$dataset->{dataset}_homolog_percent_identity" key="gene_id_1020_key" maxLength="3" tableConstraint="homolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Bootstrap/Duplication Confidence Score Type" field="tag_4060" internalName="homolog_$dataset->{dataset}__dm_tag_4060" key="gene_id_1020_key" maxLength="50" tableConstraint="homolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Bootstrap/Duplication Confidence Score" field="value_4060" internalName="homolog_$dataset->{dataset}__dm_value_4060" key="gene_id_1020_key" maxLength="255" tableConstraint="homolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="% Identity" field="perc_id_4015" hidden="false" internalName="$dataset->{dataset}_percent_identity" key="gene_id_1020_key" maxLength="3" tableConstraint="homolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} % Identity" field="perc_id_4015_r1" internalName="homolog_$dataset->{dataset}__dm_perc_id_4015_r1" key="gene_id_1020_key" maxLength="10" tableConstraint="homolog_$dataset->{dataset}__dm"/>
       </AttributeCollection>
     </AttributeGroup>
 HOMOATT_END
@@ -179,6 +181,8 @@ sub get_dataset_paralog_attribute {
         <AttributeDescription displayName="$dataset->{species_name} Paralog % Coverage" field="perc_cov_4015_r1" hidden="false" internalName="$dataset->{dataset}_paralog_paralog_percent_coverage" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Paralog % Identity" field="perc_id_4015_r1" hidden="false" internalName="$dataset->{dataset}_paralog_paralog_percent_identity" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="Ancestor" field="subtype_4014" hidden="false" internalName="$dataset->{dataset}_paralog_ancestor" key="gene_id_1020_key" maxLength="24" tableConstraint="paralog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Bootstrap/Duplication Confidence Score Type" field="tag_4060" internalName="paralog_$dataset->{dataset}__dm_tag_4060" key="gene_id_1020_key" maxLength="50" tableConstraint="paralog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Bootstrap/Duplication Confidence Score" field="value_4060" internalName="paralog_$dataset->{dataset}__dm_value_4060" key="gene_id_1020_key" maxLength="255" tableConstraint="paralog_$dataset->{dataset}__dm"/>
       </AttributeCollection>
 PARAATT_END
     $text;

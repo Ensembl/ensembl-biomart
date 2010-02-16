@@ -25,12 +25,12 @@ my $logger = get_logger();
 
 # db params
 
-my $db_host = 'mysql-eg-production-1.ebi.ac.uk';
-my $db_port = '4161';
+my $db_host = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
+my $db_port = '4238';
 my $db_user = 'ensrw';
-my $db_pwd = 'writ3r';
-my $mart_db = 'bacterial_mart_3';
-my $compara_db ='ensembl_compara_bacteria_3_55';
+my $db_pwd = 'writ3rp1';
+my $mart_db = 'metazoa_mart_4';
+my $compara_db ='ensembl_compara_metazoa_4_56';
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
     print "-h <host> Default is $db_host\n";
@@ -121,8 +121,10 @@ select distinct (ss.species_set_id) from
 join $compara_db.genome_db gg
      using (genome_db_id)
 where (gg.name=? or gg.name=?)
+AND gg.assembly_default=1
 )
 AND g.name<>? AND g.name<>?
+AND g.assembly_default=1
 AND m.type='ENSEMBL_ORTHOLOGUES'
 };
 print $species_homolog_sql;
@@ -140,11 +142,14 @@ select distinct (ss.species_set_id) from
 join $compara_db.genome_db gg
      using (genome_db_id)
 where (gg.name=? or gg.name=?)
+AND gg.assembly_default=1
 )
 AND (g.name=? OR g.name=?) AND m.type='ENSEMBL_PARALOGUES'
+AND g.assembly_default=1
 and ms.method_link_species_set_id in 
 (select method_link_species_set_id  from $compara_db.homology where description='within_species_paralog')
 };
+print $species_paralog_sql;
 
 my $species_homolog_sth = $mart_handle->prepare($species_homolog_sql);
 my $species_paralog_sth = $mart_handle->prepare($species_paralog_sql);
@@ -179,15 +184,13 @@ for my $dataset (@datasets) {
     # get paralogs
     my $id = get_string($get_species_id_sth,$dataset);
     my $clade = get_string($get_species_clade_sth,$dataset);
-    $logger->info("Processing paralogs for $dataset");
+    $logger->info("Processing paralogs for $dataset with $ds_name_sql ,$ds_name_full\n");
     my $method_link_species_id = get_string($species_paralog_sth,$ds_name_sql,$ds_name_full,$ds_name_sql,$ds_name_full);
-    if($method_link_species_id) {	
-if($id) {
+    if($method_link_species_id && $id) {
 	$logger->info("Writing paralogs for $dataset with id $dataset");
 	write_species($dataset, $method_link_species_id, $dataset, $dataset, $paralog_sql);
 	$logger->info("Completed writing paralogs for $dataset with id $dataset");
     }
-}
 }
 $logger->info("Completed processing");
 $species_homolog_sth->finish() or carp "Could not close statement handle";
