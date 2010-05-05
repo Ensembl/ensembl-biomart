@@ -102,6 +102,7 @@ drop_and_create_table($target_handle, $names_table,
 		       'src_dataset varchar(100)',
 		       'src_db varchar(100)',
 		       'species_id varchar(100)',
+		       'tax_id int(10)',
 		       'species_name varchar(100)',
 		       'sql_name varchar(100)',
 		       'version varchar(100)',
@@ -110,7 +111,7 @@ drop_and_create_table($target_handle, $names_table,
 		      'ENGINE=MyISAM DEFAULT CHARSET=latin1'
     );
 
-my $names_insert = $target_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,?,?,?,?,?)");
+my $names_insert = $target_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,?,?,?,?,?,?)");
 
 my @src_tables = get_tables($src_handle);
 my @src_dbs = get_databases($src_handle);
@@ -179,6 +180,7 @@ foreach my $dataset (@datasets) {
 	    $dataset,
 	    $ens_db,
 	    $species_names{'species.proteome_id'},
+	    $species_names{'species.taxonomy_id'},
 	    $species_names{'species.db_name'},
 	    $species_names{'species.sql_name'},
 	    $species_names{'assembly.name'}|| $species_names{'genebuild.version'},

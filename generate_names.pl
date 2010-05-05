@@ -23,12 +23,12 @@ Log::Log4perl->easy_init($DEBUG);
 my $logger = get_logger();
 
 # db params
-my $db_host = 'mysql-eg-production-1';
-my $db_port = '4161';
+my $db_host = '127.0.0.1';
+my $db_port = '4238';
 my $db_user = 'ensrw';
-my $db_pwd = 'writ3r';
-my $mart_db = 'protist_mart_3';
-my $release = 55;
+my $db_pwd = 'writ3rp1';
+my $mart_db = 'protist_mart_4';
+my $release = 58;
 my $suffix = '';
 
 my %table_res = (
@@ -90,6 +90,7 @@ drop_and_create_table($mart_handle, $names_table,
 		       'src_dataset varchar(100)',
 		       'src_db varchar(100)',
 		       'species_id varchar(100)',
+		       'tax_id int(10)',
 		       'species_name varchar(100)',
 		       'sql_name varchar(100)',
 		       'version varchar(100)',
@@ -98,7 +99,7 @@ drop_and_create_table($mart_handle, $names_table,
 		      'ENGINE=MyISAM DEFAULT CHARSET=latin1'
     );
 
-my $names_insert = $mart_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,?,?,?,?,NULL)");
+my $names_insert = $mart_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,?,?,?,?,?,NULL)");
 
 my @src_tables = get_tables($mart_handle);
 my @src_dbs;
@@ -161,6 +162,7 @@ foreach my $dataset (@datasets) {
 	    $dataset,
 	    $ens_db,
 	    $species_names{'species.proteome_id'} || ++$pId,
+	    $species_names{'species.taxonomy_id'},
 	    $species_names{'species.db_name'} || $species_names{'species.ensembl_alias_name'},
 	    $species_names{'species.compara_name'} || $species_names{'species.sql_name'},
 	    $species_names{'assembly.name'}  || $species_names{'genebuild.version'} 
