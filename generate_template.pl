@@ -28,8 +28,8 @@ my $db_host = '127.0.0.1';
 my $db_port = '4238';
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3rp1';
-my $mart_db = 'metazoa_mart_4';
-my $release = '56';
+my $mart_db = 'metazoa_mart_5';
+my $release = '58';
 my $template_template_file;
 
 sub usage {
@@ -75,7 +75,8 @@ sub write_dataset_xml {
     close($template_file);
     close($dataset_file);
     `gzip -c $fname > $fname.gz`;
-    `md5sum $fname.gz > $fname.gz.md5`;}
+    `md5sum $fname.gz > $fname.gz.md5`;
+}
 
 sub write_replace_file {
     my ($template,$output,$placeholders) = @_;
@@ -85,9 +86,12 @@ sub write_replace_file {
 	foreach my $placeholder (keys(%$placeholders)) {
 	    my $contents = $placeholders->{$placeholder};
 	    if ($content =~ m/$placeholder/) {
-		$content =~ s/$placeholder/$contents/;
+		$content =~ s/$placeholder/$contents/g;
 	    }
 	}
+	if($content =~ m/(.*tableConstraint=")([^"]+)(".*)/) {
+	    $content = $1 . lc($2) . $3;
+	}	    
         print $output_file $content;
     }
     close($output_file);
@@ -102,8 +106,9 @@ sub get_dataset_element {
 	',species2='.$dataset->{species_uc_name}.
 	',species3='.$dataset->{dataset}.
 	',species4='.$dataset->{short_name}.
-	',collection_path='.$dataset->{colstr}.
+	',collection_path='.$dataset->{colstr}?$dataset->{colstr}:''.
 	',version='.$dataset->{version_num}.
+	',tax_id='.$dataset->{tax_id}.
 	',link_version='.$dataset->{dataset}.
 	'_'.$release.',default=true" internalName="'.
 	$dataset->{dataset}.'_gene"/>'
@@ -209,12 +214,12 @@ sub write_template_xml {
 	$paralogy_attributes_text .= get_dataset_paralog_attribute($dataset);
     }
     my %placeholders = (
-	'%datasets%'=>$datasets_text,
-	'%homology_filters%'=>$homology_filters_text,
-	'%homology_attributes%'=>$homology_attributes_text,
-	'%paralogy_attributes%'=>$paralogy_attributes_text,
-	'%exportables%'=>$exportables_text,
-	'%exportables_link%'=>$exportables_link_text
+	'.*<Replace id="datasets"/>'=>$datasets_text,
+	'.*<Replace id="homology_filters"/>'=>$homology_filters_text,
+	'.*<Replace id="homology_attributes"/>'=>$homology_attributes_text,
+	'.*<Replace id="paralogy_attributes"/>'=>$paralogy_attributes_text,
+	'.*<Replace id="exportables"/>'=>$exportables_text,
+	'.*<Replace id="exportables_link"/>'=>$exportables_link_text
 	);
     write_replace_file($template_template_file,'output/template.xml',\%placeholders);
     `gzip -c output/template.xml > output/template.xml.gz`;
@@ -380,8 +385,11 @@ foreach my $dataset (get_dataset_names($mart_handle)) {
 }
 $dataset_sth->finish();
 
+@datasets = sort {$a->{species_name} cmp $b->{species_name}} @datasets;
+
 # 2. write template files
 write_template_xml(\@datasets);
+
 
 write_metatables($mart_handle, \@datasets);
 
