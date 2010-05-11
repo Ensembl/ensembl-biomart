@@ -106,7 +106,7 @@ sub get_dataset_element {
 	',species2='.$dataset->{species_uc_name}.
 	',species3='.$dataset->{dataset}.
 	',species4='.$dataset->{short_name}.
-	',collection_path='.$dataset->{colstr}?$dataset->{colstr}:''.
+	',collection_path='.$dataset->{colstr}.
 	',version='.$dataset->{version_num}.
 	',tax_id='.$dataset->{tax_id}.
 	',link_version='.$dataset->{dataset}.
