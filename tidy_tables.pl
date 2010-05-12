@@ -23,11 +23,11 @@ Log::Log4perl->easy_init($DEBUG);
 my $logger = get_logger();
 
 # db params
-my $db_host = '127.0.0.1';
+my $db_host = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
 my $db_port = '4238';
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3rp1';
-my $mart_db = 'protist_mart_4';
+my $mart_db = 'protist_mart_5';
 
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
@@ -80,6 +80,16 @@ for my $table (@tables) {
     $logger->info("Dropping empty table $table");
     $mart_handle->do("DROP TABLE $table");    
 }
+
+# 3. rename tables to lowercase
+foreach my $table (get_tables($mart_handle)) {
+    if($table =~ m/[A-Z]+/) {
+	my $sql = "RENAME TABLE $table TO ".lc($table);
+	print $sql."\n"; 
+	$mart_handle->do($sql);
+    }
+}
+
 $mart_handle->disconnect();
 
 $logger->info("Complete");
