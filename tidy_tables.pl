@@ -81,9 +81,13 @@ for my $table (@tables) {
     $mart_handle->do("DROP TABLE $table");    
 }
 
-# 3. rename tables to lowercase
+# 3. remove TEMP tables and rename tables to lowercase
 foreach my $table (get_tables($mart_handle)) {
-    if($table =~ m/[A-Z]+/) {
+    if($table =~ /TEMP/) {
+	my $sql = "DROP TABLE $table";
+	print $sql."\n"; 
+	$mart_handle->do($sql);
+    } elsif($table =~ m/[A-Z]+/) {
 	my $sql = "RENAME TABLE $table TO ".lc($table);
 	print $sql."\n"; 
 	$mart_handle->do($sql);
