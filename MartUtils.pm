@@ -122,10 +122,6 @@ sub build_dataset_href {
     
     print STDERR "src_db, $src_db\n";
     
-    my @metazoa_db_patterns = ("culex_","drosophila_","anopheles_","aedes_","caenorhabditis_","ixodes_");
-    my @fungal_db_patterns  = ("schizosaccharomyces_pombe_","saccharomyces_cerevisiae_","aspergillus","neosartorya");
-    my @plant_db_patterns  = ("arabidopsis_","oryza_","vitis_","sorghum","populus","brachypodium");
-
     my $formatted_species_name = undef;
     if (! $is_multispecies) {
 	$species_name =~ /^(\w)[^_]+_(.+)/;
@@ -139,28 +135,12 @@ sub build_dataset_href {
 	    }
 	}
 	else {
-	    
-	    # Todo: Deprecate this code
-
-	    print STDERR "'species.division' meta attribute not defined, using db_patterns instead\n";
-
-	    if (contains (\@metazoa_db_patterns, $src_db)) {
-		# Add a suffix '_eg' to avoid conflicting dataset names in Biomart.org!
-		$formatted_species_name = $formatted_species_name . "_eg";
-	    }
-	    elsif (contains (\@fungal_db_patterns, $src_db)) {
-		# Add suffix '_eg' to avoid conflicting dataset names in Biomart.org!
-		$formatted_species_name = $formatted_species_name . "_eg";
-	    }
-	    elsif (contains (\@plant_db_patterns, $src_db)) {
-		# Add suffix '_eg' to avoid conflicting dataset names in Biomart.org!
-		$formatted_species_name = $formatted_species_name . "_eg";
-	    }
+	    die "'species.division' meta attribute not defined!\n";
 	}
     }
     else {
-	if (! defined @{$meta_container->list_value_by_key('species.sql_name')}[0]) {
-	    warn "'species.sql_name' meta attribute not defined for species, '$species_name'!\n";
+	if (! defined @{$meta_container->list_value_by_key('species.production_name')}[0]) {
+	    warn "'species.production_name' meta attribute not defined for species, '$species_name'!\n";
 	    die "not allowed for a multispecies database";
        	}
 	else {
@@ -168,7 +148,7 @@ sub build_dataset_href {
 	    # e.g. 'bac_130'
 	    
 	    # Was:
-	    # $formatted_species_name = @{$meta_container->list_value_by_key('species.sql_name')}[0];
+	    # $formatted_species_name = @{$meta_container->list_value_by_key('species.production_name')}[0];
 	    
 	    # Now: 
 	    $src_db =~ /^(\w\w\w).+/;
@@ -228,6 +208,7 @@ sub build_dataset_href {
     ($dataset_href->{baseset}, $dataset_href->{src_db},$dataset_href->{species_id},$dataset_href->{species_name},$dataset_href->{version_num}) = ($baseset,$src_db,$species_id,$species_name,$version_num);
     $dataset_href->{species_uc_name} = $dataset_href->{species_name};
     $dataset_href->{species_uc_name} =~ s/\s+/_/g;
+
     $dataset_href->{short_name} = get_short_name($dataset_href->{species_name},$dataset_href->{species_id});
 
     if (defined $logger) {
