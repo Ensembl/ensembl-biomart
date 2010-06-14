@@ -21,20 +21,6 @@ use Bio::EnsEMBL::Registry;
 
 Log::Log4perl->easy_init($DEBUG);
 
-# Todo: Use 'species.division' meta attribute instead
-
-# @deprecated
-# db_patterns added so we can filter species into groups
-# e.g. plant or protist or fungal or bacterial mode
-# to filter out a subset of databases
-
-my @protist_db_patterns   = ("plasmodium_vivax_","plasmodium_knowlesi_","plasmodium_falciparum_","dictyostelium_");
-my @metazoa_db_patterns   = ("culex_","drosophila_","anopheles_","aedes_","caenorhabditis_","ixodes_");
-my @fungal_db_patterns    = ("schizosaccharomyces_pombe_","saccharomyces_cerevisiae_","aspergillus_","neosartorya_","neurospora_");
-my @bacterial_db_patterns = ("bacillus_collection_","escherichia_shigella_collection_","mycobacterium_collection_","neisseria_collection_","pyrococcus_collection_","staphylococcus_collection_","streptococcus_collection_","buchnera_collection","borrelia_collection","wolbachia_collection");
-my @plant_db_patterns     = ("oryza_","arabidopsis_","vitis_","sorghum_","populus_","brachypodium_");
-
-my @db_patterns = undef;
 my $division = undef;
 
 my $logger = get_logger();
@@ -148,56 +134,65 @@ sub write_metatables {
     $seq_mart_handle->do("INSERT INTO meta_version__version__main VALUES ('$mart_version')");
     ## meta_template__xml__dm
 
-    my $meta_conf__xml__dm       = $seq_mart_handle->prepare('INSERT INTO meta_conf__xml__dm VALUES (?,?,?,?)');
-    my $meta_conf__user__dm      = $seq_mart_handle->prepare('INSERT INTO meta_conf__user__dm VALUES(?,\'default\')');
-    my $meta_conf__interface__dm = $seq_mart_handle->prepare('INSERT INTO meta_conf__interface__dm VALUES(?,\'default\')');
-    my $meta_conf__dataset__main = $seq_mart_handle->prepare("INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,'Ensembl Sequences','GenomicSequence',0,?)");
-    my $meta_template__template__main = $seq_mart_handle->prepare('INSERT INTO meta_template__template__main VALUES(?,?)');
-    
+    my $meta_conf__xml__dm_sth       = $seq_mart_handle->prepare('INSERT INTO meta_conf__xml__dm VALUES (?,?,?,?)');
+    my $meta_conf__user__dm_sth      = $seq_mart_handle->prepare('INSERT INTO meta_conf__user__dm VALUES(?,\'default\')');
+    my $meta_conf__interface__dm_sth = $seq_mart_handle->prepare('INSERT INTO meta_conf__interface__dm VALUES(?,\'default\')');
+    my $meta_conf__dataset__main_sth = $seq_mart_handle->prepare("INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,'Ensembl Sequences','GenomicSequence',0,?)");
+    my $meta_template__template__main_sth = $seq_mart_handle->prepare('INSERT INTO meta_template__template__main VALUES(?,?)');
+    my $meta_template__xml__main_sth = $seq_mart_handle->prepare('INSERT INTO meta_template__xml__dm VALUES (?,?)');
+
     foreach my $dataset_href (@$datasets_aref) {
 	
 	my $template_filename = $dataset_href->{template};
 	my $dataset_name      = $dataset_href->{dataset};
 
-	my $sth = $seq_mart_handle->prepare('INSERT INTO meta_template__xml__dm VALUES (?,?)');
-	$sth->execute($dataset_href->{dataset}, file_to_bytes("$pwd/$output_dir/" . $template_filename)) 
-	    or croak "Could not load template file,$template_filename, into meta_template__xml__dm";
-	$sth->finish();
+	my $compressed_template_path = "$pwd/$output_dir/" . $template_filename . ".gz";
+
+	if (! -f $compressed_template_path) {
+	    die "Could not find compressed template file, $compressed_template_path!\n";
+	}
+	else {
+	    $logger->info ("populating compressed template file, $template_filename.gz, into meta_template__xml__dm\n");
+	}
+	
+	$meta_template__xml__main_sth->execute($dataset_href->{dataset}, file_to_bytes($compressed_template_path)) 
+	    or croak "Could not load compressed template file, $compressed_template_path, into meta_template__xml__dm";
  
 	$logger->info("Populating dataset tables");
 	
 	# meta_conf__xml__dm
-	$meta_conf__xml__dm->execute($dataset_href->{species_id},
+	$meta_conf__xml__dm_sth->execute($dataset_href->{species_id},
 				     file_to_bytes("$pwd/$output_dir/$dataset_href->{dataset}.xml"),
 				     file_to_bytes("$pwd/$output_dir/$dataset_href->{dataset}.xml.gz"),
 				     file_to_bytes("$pwd/$output_dir/$dataset_href->{dataset}.xml.gz.md5")
 				     ) or croak "Could not update meta_conf__xml__dm";
 	# meta_conf__user__dm
-	$meta_conf__user__dm->execute($dataset_href->{species_id}) 
+	$meta_conf__user__dm_sth->execute($dataset_href->{species_id}) 
 	    or croak "Could not update meta_conf__user__dm";
 
 	# meta_conf__interface__dm
-	$meta_conf__interface__dm->execute($dataset_href->{species_id})  
+	$meta_conf__interface__dm_sth->execute($dataset_href->{species_id})  
 	    or croak "Could not update meta_conf__interface__dm";
 
 	# meta_conf__dataset__main 
-	$meta_conf__dataset__main->execute(
+	$meta_conf__dataset__main_sth->execute(
 					   $dataset_href->{species_id},
 					   "$dataset_href->{dataset}",
 					   "$dataset_href->{species_name} sequences ($dataset_href->{version_num})",
 					   $dataset_href->{version_num}) or croak "Could not update meta_conf__dataset__main";
 
 	# meta_template__template__main
-	$meta_template__template__main->execute($dataset_href->{species_id},$dataset_name)  
+	$meta_template__template__main_sth->execute($dataset_href->{species_id},$dataset_name)  
 		or croak "Could not update meta_template__template__dm";
     }
 
-    $meta_conf__xml__dm->finish();
-    $meta_conf__user__dm->finish();
-    $meta_conf__interface__dm->finish();
-    $meta_conf__dataset__main->finish();
-    $meta_template__template__main->finish();
-
+    $meta_conf__xml__dm_sth->finish();
+    $meta_conf__user__dm_sth->finish();
+    $meta_conf__interface__dm_sth->finish();
+    $meta_conf__dataset__main_sth->finish();
+    $meta_template__template__main_sth->finish();
+    $meta_template__xml__main_sth->finish();
+    
     $logger->info("Population complete");
 }
 
@@ -242,23 +237,18 @@ if(!$options_okay) {
 
 # Set the db_patterns, depending on the database mart name
 if ($seq_mart_db =~ /bacterial/i) {
-    @db_patterns = @bacterial_db_patterns;
     $division = "EnsemblBacteria";
 }
 elsif ($seq_mart_db =~ /protist/i) {
-    @db_patterns = @protist_db_patterns;
     $division = "EnsemblProtists";
 }
 elsif ($seq_mart_db =~ /fungal/i) {
-    @db_patterns = @fungal_db_patterns;
     $division = "EnsemblFungi";
 }
 elsif ($seq_mart_db =~ /plant/i) {
-    @db_patterns = @plant_db_patterns;
     $division = "EnsemblPlants";
 }
 elsif ($seq_mart_db =~ /metazoa/i) {
-    @db_patterns = @metazoa_db_patterns;
     $division = "EnsemblMetazoa";
 }
 else {
@@ -302,23 +292,13 @@ foreach my $species_name (@$species_names_aref) {
     
     my $core_dbname = $dba->dbc->dbname;
     
-    # Todo: deprecate this code, assuming all core dbs have a 'species.division' meta attribute
-    
     my $meta_container =
 	Bio::EnsEMBL::Registry->get_adaptor( "$species_name", 'Core', 'MetaContainer' );
     if (! defined $meta_container) {
         die "meta_container couldn't be instanciated for species, \"$species_name\"\n";
     }
     if (! defined @{$meta_container->list_value_by_key('species.division')}[0]) {
-
-	print STDERR "no 'species.division' meta attribute, so using db_patterns matching instead\n";
-
-	if (@db_patterns) {
-	    if (! array_contains(\@db_patterns, $core_dbname)) {
-		print STDERR "species, '$species_name', from db, $core_dbname, is filtered out\n";
-		next;
-	    }
-	}
+	die "no 'species.division' meta attribute for db, $core_dbname and species, $species_name!\n";
     }
 
     my $dataset_href = build_dataset_href ($meta_container,$logger);
