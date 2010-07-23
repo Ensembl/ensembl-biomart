@@ -199,10 +199,14 @@ sub build_dataset_href {
     my $template_filename = $formatted_species_name . "_genomic_sequence_template.template.xml";
     $dataset_href->{template}=$template_filename;
     $dataset_href->{short_species_name}=$formatted_species_name;
+    $dataset_href->{species_id} = $species_id;
+    $dataset_href->{species_name} = $species_name;
     
     if (defined $logger) {
 	$logger->info("dataset name: " . $dataset_href->{dataset});
 	$logger->info("template filename, $template_filename");
+	$logger->info("species_name, " . $dataset_href->{species_name});
+	#$logger->info("species_id, " . $dataset_href->{species_id});
     }
 
     ($dataset_href->{baseset}, $dataset_href->{src_db},$dataset_href->{species_id},$dataset_href->{species_name},$dataset_href->{version_num}) = ($baseset,$src_db,$species_id,$species_name,$version_num);
