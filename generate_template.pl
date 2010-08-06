@@ -29,7 +29,7 @@ my $db_port = '4238';
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3rp1';
 my $mart_db = 'metazoa_mart_5';
-my $release = '58';
+my $release = '59';
 my $template_template_file;
 
 sub usage {
@@ -86,11 +86,13 @@ sub write_replace_file {
 	foreach my $placeholder (keys(%$placeholders)) {
 	    my $contents = $placeholders->{$placeholder};
 	    if ($content =~ m/$placeholder/) {
-		$content =~ s/$placeholder/$contents/g;
+		$content =~ s/$placeholder/$contents/;
 	    }
 	}
-	if($content =~ m/(.*tableConstraint=")([^"]+)(".*)/) {
+	if($content =~ m/(.*tableConstraint=")([^"]+)(".*)/s) {
+	    print $content;
 	    $content = $1 . lc($2) . $3;
+	    print $content;
 	}	    
         print $output_file $content;
     }
@@ -102,13 +104,13 @@ sub get_dataset_element {
     my $dataset = shift;
 
     '<DynamicDataset aliases="mouse_formatter1=,mouse_formatter2=,mouse_formatter3=,species1='.
-	${$dataset}{species_name}.
+	$dataset->{species_name}.
 	',species2='.$dataset->{species_uc_name}.
 	',species3='.$dataset->{dataset}.
 	',species4='.$dataset->{short_name}.
 	',collection_path='.$dataset->{colstr}.
 	',version='.$dataset->{version_num}.
-	',tax_id='.$dataset->{tax_id}.
+#	',tax_id='.$dataset->{tax_id}.
 	',link_version='.$dataset->{dataset}.
 	'_'.$release.',default=true" internalName="'.
 	$dataset->{dataset}.'_gene"/>'
@@ -203,16 +205,16 @@ sub write_template_xml {
     my $exportables_text='';
     my $exportables_link_text='';
     foreach my $dataset (@$datasets) {
-	print "Generating elems for ".$dataset->{dataset}."\n";
-	$datasets_text .= get_dataset_element($dataset)
-	    ."\n";
+	print "Generating elems for ".$dataset->{dataset};
+	print Dumper($dataset);
+	$datasets_text .= get_dataset_element($dataset);
 	$exportables_text .= get_dataset_exportable($dataset);
 	$exportables_link_text .= get_dataset_exportable_link($dataset);
 	$homology_filters_text .= get_dataset_homolog_filter($dataset);
 	$homology_filters_text .= get_dataset_paralog_filter($dataset);
 	$homology_attributes_text .= get_dataset_homolog_attribute($dataset);
 	$paralogy_attributes_text .= get_dataset_paralog_attribute($dataset);
-    }
+   }
     my %placeholders = (
 	'.*<Replace id="datasets"/>'=>$datasets_text,
 	'.*<Replace id="homology_filters"/>'=>$homology_filters_text,
@@ -359,7 +361,7 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
     ) or croak "Could not connect to $mart_string";
 
 my @datasets = ();
-my $dataset_sth = $mart_handle->prepare('SELECT src_dataset,src_db,species_id,species_name,version,collection FROM dataset_names WHERE name=?');
+my $dataset_sth = $mart_handle->prepare('SELECT src_dataset,src_db,species_id,species_name,version,collection,sql_name FROM dataset_names WHERE name=?');
 
 # get names of datasets from names table
 my $i=0;
@@ -368,12 +370,14 @@ foreach my $dataset (get_dataset_names($mart_handle)) {
     # get other naming info from names table
     my %dataset_names = ();
     $dataset_names{dataset}=$dataset;
-    ($dataset_names{baseset}, $dataset_names{src_db},$dataset_names{species_id},$dataset_names{species_name},$dataset_names{version_num},$dataset_names{collection}) = get_row($dataset_sth,$dataset);
+    ($dataset_names{baseset}, $dataset_names{src_db},$dataset_names{species_id},$dataset_names{species_name},$dataset_names{version_num},$dataset_names{collection},$dataset_names{species_uc_name}) = get_row($dataset_sth,$dataset);
     if(!$dataset_names{species_id}) {
 	$dataset_names{species_id} = ++$i;
     }
-    $dataset_names{species_uc_name} = $dataset_names{species_name};
-    $dataset_names{species_uc_name} =~ s/\s+/_/g;
+    if(!$dataset_names{species_uc_name}) {
+	$dataset_names{species_uc_name} = $dataset_names{species_name};
+	$dataset_names{species_uc_name} =~ s/\s+/_/g;
+    }
     $dataset_names{short_name} = get_short_name($dataset_names{species_name},$dataset_names{species_id});
     $dataset_names{colstr} = '';
     if(defined $dataset_names{collection}) {
