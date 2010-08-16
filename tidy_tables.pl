@@ -27,7 +27,7 @@ my $db_host = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
 my $db_port = '4238';
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3rp1';
-my $mart_db = 'protist_mart_5';
+my $mart_db = 'bacterial_mart_5';
 
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
@@ -60,22 +60,22 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
 $mart_handle->do("use $mart_db");
 
 # 1. delete from tables in hash 
-my %tables_to_tidy = {
+my %tables_to_tidy = (
     '%__transcript_variation__dm'=>'seq_region_id_2026',
-    '%__splicing_event__dm'=>'type_1078'
-};
+    '%__splicing_event__dm'=>'name_1078'
+);
 
 for my $table_pattern (keys %tables_to_tidy) {
     $logger->info("FInding tables like $table_pattern");
-    for my $table (query_to_strings("show tables like $table_pattern")) {
-	my $col = $tables_to_tidy{$table};
+    my $col = $tables_to_tidy{$table_pattern};
+    for my $table (query_to_strings($mart_handle,"show tables like '$table_pattern'")) {
 	$logger->info("Deleting rows from $table where $col is null");
 	$mart_handle->do("DELETE FROM $table WHERE $col IS NULL");
     }
 }
 
 # 2. find empty tables and drop them
-my @tables = query_to_strings("select table_name from information_schema.tables where table_schema='$mart_db' and TABLE_ROWS=0");
+my @tables = query_to_strings($mart_handle,"select table_name from information_schema.tables where table_schema='$mart_db' and TABLE_ROWS=0");
 for my $table (@tables) {
     $logger->info("Dropping empty table $table");
     $mart_handle->do("DROP TABLE $table");    
