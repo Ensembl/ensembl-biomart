@@ -27,8 +27,8 @@ my $db_host = '127.0.0.1';
 my $db_port = '4238';
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3rp1';
-my $mart_db = 'protist_mart_4';
-my $release = 58;
+my $mart_db = 'fungal_mart_6';
+my $release = 59;
 my $suffix = '';
 
 my %table_res = (
@@ -164,7 +164,7 @@ foreach my $dataset (@datasets) {
 	    $species_names{'species.proteome_id'} || ++$pId,
 	    $species_names{'species.taxonomy_id'},
 	    $species_names{'species.ensembl_alias_name'},
-	    $species_names{'species.compara_name'} || $species_names{'species.sql_name'},
+	    $species_names{'species.production_name'},
 	    $species_names{'assembly.name'}  || $species_names{'genebuild.version'} 
 	    ); 
     }
