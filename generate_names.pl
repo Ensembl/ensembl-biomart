@@ -27,8 +27,8 @@ my $db_host = '127.0.0.1';
 my $db_port = '4238';
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3rp1';
-my $mart_db = 'fungal_mart_6';
-my $release = 59;
+my $mart_db = 'fungal_mart_7';
+my $release = 60;
 my $suffix = '';
 
 my %table_res = (
@@ -52,12 +52,14 @@ sub transform_table {
 }
 
 sub usage {
-    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
+    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-mart <target mart>] [-release <e! release>] [-suffix <dataset suffix>]\n";
     print "-h <host> Default is $db_host\n";
     print "-P <port> Default is $db_port\n";
     print "-u <host> Default is $db_user\n";
     print "-p <password> Default is top secret unless you know cat\n";
     print "-mart <target mart> Default is $mart_db\n";
+    print "-release <ensembl release> Default is $release\n";
+    print "-suffix <dataset suffix> e.g. '_eg' Default is ''\n";
     exit 1;
 };
 
