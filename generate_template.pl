@@ -25,13 +25,15 @@ my $logger = get_logger();
 
 # db params
 my $db_host = '127.0.0.1';
-my $db_port = '4238';
+my $db_port = '4275';
 my $db_user = 'ensrw';
-my $db_pwd = 'writ3rp1';
-my $mart_db = 'metazoa_mart_5';
+my $db_pwd = 'writ3rs2';
+my $mart_db = 'bacterial_mart_5';
 my $release = '59';
 my $template_template_file;
-
+my $ds_name = 'gene';
+my $template_file_name = 'templates/dataset_template.xml';
+my $description = 'genes';
 sub usage {
     print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
     print "-h <host> Default is $db_host\n";
@@ -40,18 +42,22 @@ sub usage {
     print "-p <password> Default is top secret unless you know cat\n";
     print "-mart <mart>\n";
     print "-template <template>\n";
+    print "-ds_template <dstemplate>\n";
     print "-release <releaseN> Default is $release\n";
     exit 1;
 };
 
 my $options_okay = GetOptions (
-    "h=s"=>\$db_host,
-    "P=s"=>\$db_port,
-    "u=s"=>\$db_user,
-    "p=s"=>\$db_pwd,
+    "host=s"=>\$db_host,
+    "port=s"=>\$db_port,
+    "user=s"=>\$db_user,
+    "pass=s"=>\$db_pwd,
     "release=s"=>\$release,
     "mart=s"=>\$mart_db,
+    "dataset=s"=>\$ds_name,
     "template=s"=>\$template_template_file,
+    "ds_template=s"=>\$template_file_name,
+    "description=s"=>\$description,
     "help"=>sub {usage()}
     );
 
@@ -63,10 +69,9 @@ sub write_dataset_xml {
     my $dataset_names = shift;
     my $fname = './output/'.$dataset_names->{dataset}.'.xml';
     open my $dataset_file, '>', $fname or croak "Could not open $fname for writing"; 
-    my $template_file_name = 'templates/dataset_template.xml';
     open my $template_file, '<', $template_file_name or croak "Could not open $template_file_name";
     while (my $line = <$template_file>) {
-	$line =~ s/%name%/$$dataset_names{dataset}_gene/g;
+	$line =~ s/%name%/$$dataset_names{dataset}_${ds_name}/g;
 	$line =~ s/%id%/$$dataset_names{species_id}/g;
 	$line =~ s/%des%/$$dataset_names{species_name}/g;
 	$line =~ s/%version%/$$dataset_names{version_num}/g;     
@@ -90,9 +95,7 @@ sub write_replace_file {
 	    }
 	}
 	if($content =~ m/(.*tableConstraint=")([^"]+)(".*)/s) {
-	    print $content;
 	    $content = $1 . lc($2) . $3;
-	    print $content;
 	}	    
         print $output_file $content;
     }
@@ -113,7 +116,7 @@ sub get_dataset_element {
 #	',tax_id='.$dataset->{tax_id}.
 	',link_version='.$dataset->{dataset}.
 	'_'.$release.',default=true" internalName="'.
-	$dataset->{dataset}.'_gene"/>'
+	$dataset->{dataset}.'_'.$ds_name.'"/>'
 }
 
 sub get_dataset_exportable {
@@ -156,7 +159,7 @@ sub get_dataset_homolog_attribute {
     my $text = << "HOMOATT_END";
     <AttributeGroup displayName="$dataset->{species_name} ORTHOLOGS:" hidden="false" internalName="$dataset->{dataset}_orthologs">
       <AttributeCollection displayName="Ortholog Attributes" hidden="false" internalName="homologs_$dataset->{dataset}">
-        <AttributeDescription displayName="$dataset->{species_name} Ensembl Gene ID" field="stable_id_4016_r2" hidden="false" internalName="$dataset->{dataset}_gene" key="gene_id_1020_key" linkoutURL="exturl|/$dataset->{species_uc_name}/Gene/Summary?g=%s" maxLength="20" tableConstraint="homolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Ensembl Gene ID" field="stable_id_4016_r2" hidden="false" internalName="$dataset->{dataset}_${ds_name}" key="gene_id_1020_key" linkoutURL="exturl1|$dataset->{species_uc_name}/Gene/Summary?g=%s" maxLength="20" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Chromosome" field="chr_name_4016_r2" hidden="false" internalName="$dataset->{dataset}_chromosome" key="gene_id_1020_key" maxLength="9" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Chr Start (bp)" field="chr_start_4016_r2" hidden="false" internalName="$dataset->{dataset}_chrom_start" key="gene_id_1020_key" maxLength="10" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Chr End (bp)" field="chr_end_4016_r2" hidden="false" internalName="$dataset->{dataset}_chrom_end" key="gene_id_1020_key" maxLength="10" tableConstraint="homolog_$dataset->{dataset}__dm"/>
@@ -177,7 +180,7 @@ sub get_dataset_paralog_attribute {
     my $dataset = shift;
     my $text = << "PARAATT_END";
       <AttributeCollection displayName="$dataset->{species_name} Paralog Attributes" hidden="false" internalName="paralogs_$dataset->{dataset}">
-        <AttributeDescription displayName="$dataset->{species_name} Paralog Ensembl Gene ID" field="stable_id_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_gene" key="gene_id_1020_key" linkoutURL="exturl|*species2*/Gene/Summary?g=%s" maxLength="140" tableConstraint="paralog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Paralog Ensembl Gene ID" field="stable_id_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_gene" key="gene_id_1020_key" linkoutURL="exturl1|*species2*/Gene/Summary?g=%s" maxLength="140" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Paralog Chromosome" field="chr_name_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_chromosome" key="gene_id_1020_key" maxLength="40" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Paralog Chr Start (bp)" field="chr_start_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_chrom_start" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Paralog Chr End (bp)" field="chr_end_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_chrom_end" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{dataset}__dm"/>
@@ -296,9 +299,8 @@ sub write_metatables {
     ## meta_version__version__main
     $mart_handle->do("INSERT INTO meta_version__version__main VALUES ('0.6')");
     ## meta_template__xml__dm
-    my $dataset_name = 'gene';
     my $sth = $mart_handle->prepare('INSERT INTO meta_template__xml__dm VALUES (?,?)');
-    $sth->execute($dataset_name, file_to_bytes("$pwd/output/template.xml.gz")) 
+    $sth->execute($ds_name, file_to_bytes("$pwd/output/template.xml.gz")) 
 		  or croak "Could not load file into meta_template__xml__dm";
     $sth->finish();
  
@@ -306,7 +308,7 @@ sub write_metatables {
     my $meta_conf__xml__dm = $mart_handle->prepare('INSERT INTO meta_conf__xml__dm VALUES (?,?,?,?)');
     my $meta_conf__user__dm = $mart_handle->prepare('INSERT INTO meta_conf__user__dm VALUES(?,\'default\')');
     my $meta_conf__interface__dm = $mart_handle->prepare('INSERT INTO meta_conf__interface__dm VALUES(?,\'default\')');
-    my $meta_conf__dataset__main = $mart_handle->prepare("INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,'Ensembl Genes','TableSet',1,?)");
+    my $meta_conf__dataset__main = $mart_handle->prepare("INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,'Ensembl $description','TableSet',1,?)");
     my $meta_template__template__main = $mart_handle->prepare('INSERT INTO meta_template__template__main VALUES(?,?)');
     # populate dataset tables
     my $speciesId;
@@ -329,11 +331,11 @@ sub write_metatables {
 	print Dumper($dataset);
 	$meta_conf__dataset__main->execute(
 	    $speciesId,
-	    "$dataset->{dataset}_gene",
-	    "$dataset->{species_name} genes ($dataset->{version_num})",
+	    "$dataset->{dataset}_$ds_name",
+	    "$dataset->{species_name} $description ($dataset->{version_num})",
 	    $dataset->{version_num}) or croak "Could not update meta_conf__dataset__main";
 	# meta_template__template__main
-	$meta_template__template__main->execute($speciesId,$dataset_name)  
+	$meta_template__template__main->execute($speciesId,$ds_name)  
 	    or croak "Could not update meta_template__template__dm";
     }
     $meta_conf__xml__dm->finish();

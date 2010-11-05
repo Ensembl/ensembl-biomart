@@ -49,7 +49,8 @@ sub get_dataset_names {
 
 sub get_datasets {
     my $src_tables = shift;
-    my $regexp = 'gene__gene__main';
+    my $regexp = shift;
+    print $regexp."\n";
     return get_datasets_regexp ($src_tables, $regexp);
 }
 
@@ -58,7 +59,7 @@ sub get_datasets_regexp {
     my $regexp = shift;
     my @datasets = ();
     foreach my $src_table (@$src_tables_aref) {
-	if( $src_table =~ m/(.*)_$regexp/ ) {
+	if( $src_table =~ m/(.*)$regexp/ ) {
 	    push @datasets,$1;
 	}
     }

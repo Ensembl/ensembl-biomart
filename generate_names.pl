@@ -30,6 +30,8 @@ my $db_pwd = 'writ3rp1';
 my $mart_db = 'fungal_mart_7';
 my $release = 60;
 my $suffix = '';
+my $dataset_basename = 'gene';
+my $main = 'gene__main';
 
 my %table_res = (
     qr/protein_feature/ => {
@@ -52,11 +54,11 @@ sub transform_table {
 }
 
 sub usage {
-    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-mart <target mart>] [-release <e! release>] [-suffix <dataset suffix>]\n";
-    print "-h <host> Default is $db_host\n";
-    print "-P <port> Default is $db_port\n";
-    print "-u <host> Default is $db_user\n";
-    print "-p <password> Default is top secret unless you know cat\n";
+    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
+    print "-host <host> Default is $db_host\n";
+    print "-port <port> Default is $db_port\n";
+    print "-user <host> Default is $db_user\n";
+    print "-pass <password> Default is top secret unless you know cat\n";
     print "-mart <target mart> Default is $mart_db\n";
     print "-release <ensembl release> Default is $release\n";
     print "-suffix <dataset suffix> e.g. '_eg' Default is ''\n";
@@ -64,13 +66,15 @@ sub usage {
 };
 
 my $options_okay = GetOptions (
-    "h=s"=>\$db_host,
-    "P=s"=>\$db_port,
-    "u=s"=>\$db_user,
-    "p=s"=>\$db_pwd,
+    "host=s"=>\$db_host,
+    "port=s"=>\$db_port,
+    "user=s"=>\$db_user,
+    "pass=s"=>\$db_pwd,
     "mart=s"=>\$mart_db,
     "release=s"=>\$release,
     "suffix=s"=>\$suffix,
+    "name=s"=>\$dataset_basename,
+    "main=s"=>\$main,
     "help"=>sub {usage()}
     );
 
@@ -105,8 +109,9 @@ my $names_insert = $mart_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,
 
 my @src_tables = get_tables($mart_handle);
 my @src_dbs;
+my $regexp = ".*_core_[0-9]+_${release}_.*";
 foreach my $db (get_databases($mart_handle)) {
-    if($db =~ m/core_[0-9]+_($release)_[0-9A-z]+/) {
+    if($db =~ /$regexp/) {
 	print "$db\n";
 	push @src_dbs, $db;
     }
@@ -115,9 +120,8 @@ foreach my $db (get_databases($mart_handle)) {
 
 $logger->info("Listing datasets from $mart_db");
 # 1. identify datasets based on main tables
-my @datasets = get_datasets(\@src_tables);
-
-my $dataset_basename = 'gene';
+my $re = '_'.$dataset_basename.'__'.$main;
+my @datasets = get_datasets(\@src_tables,$re);
 
 # 2. for each dataset
 
