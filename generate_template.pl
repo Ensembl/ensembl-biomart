@@ -1,3 +1,4 @@
+
 #!/bin/env perl
 
 # $Source$
@@ -29,21 +30,21 @@ my $db_port = '4275';
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3rs2';
 my $mart_db = 'bacterial_mart_5';
-my $release = '59';
+my $release = '60';
 my $template_template_file;
 my $ds_name = 'gene';
 my $template_file_name = 'templates/dataset_template.xml';
 my $description = 'genes';
 sub usage {
-    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
+    print "Usage: $0 [-host <host>] [-port <port>] [-user <user>] [-pass <pwd>] [-mart <target mart db>] [-release <e! release number>] [-description <description>] [-dataset <dataset name>] [ds_template] <datanase name template>\n";
     print "-h <host> Default is $db_host\n";
     print "-P <port> Default is $db_port\n";
     print "-u <host> Default is $db_user\n";
     print "-p <password> Default is top secret unless you know cat\n";
     print "-mart <mart>\n";
     print "-template <template>\n";
-    print "-ds_template <dstemplate>\n";
-    print "-release <releaseN> Default is $release\n";
+    print "-ds_template <ds template>\n";
+    print "-release <e! releaseN> Default is $release\n";
     exit 1;
 };
 
