@@ -27,12 +27,15 @@ set DB_PORT = 4238
 set DB_USER = ensrw
 set DB_PASS = writ3rp1
 
-#perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart bacterial_sequence_mart_${EG_RELEASE} -release $RELEASE
+# perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart bacterial_sequence_mart_${EG_RELEASE} -release $RELEASE
 
-#perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart protist_sequence_mart_${EG_RELEASE} -release $RELEASE
+echo "Running perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart protist_sequence_mart_${EG_RELEASE} -release $RELEASE"
 
-perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart fungal_sequence_mart_${EG_RELEASE} -release $RELEASE
+perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart protist_sequence_mart_${EG_RELEASE} -release $RELEASE
 
-#perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart plant_sequence_mart_${EG_RELEASE} -release $RELEASE
+# perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart fungal_sequence_mart_${EG_RELEASE} -release $RELEASE
 
-#perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart metazoa_sequence_mart_${EG_RELEASE} -release $RELEASE
+# perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart plant_sequence_mart_${EG_RELEASE} -release $RELEASE
+
+# perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart metazoa_sequence_mart_${EG_RELEASE} -release $RELEASE
+

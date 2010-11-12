@@ -21,10 +21,10 @@ use Bio::EnsEMBL::Registry;
 
 Log::Log4perl->easy_init($DEBUG);
 
-my $division = undef;
+my $division = '';
 
 my $logger = get_logger();
-my $release = 56;
+my $release = 60;
 
 my $output_dir = "./output";
 my $mart_version = "0.7";
@@ -253,7 +253,7 @@ elsif ($seq_mart_db =~ /metazoa/i) {
 }
 else {
     print STDERR "sequence mart db name, $seq_mart_db\n";
-    print STDERR "sequence mart db name doesn't match a known pattern, so all databases on the server will be taken into account\n";
+    print STDERR "sequence mart db name doesn't match a known division, so all databases on the server will be taken into account\n";
 }
 
 print STDERR "Set Ensembl division to '$division'\n";
@@ -296,9 +296,6 @@ foreach my $species_name (@$species_names_aref) {
 	Bio::EnsEMBL::Registry->get_adaptor( "$species_name", 'Core', 'MetaContainer' );
     if (! defined $meta_container) {
         die "meta_container couldn't be instanciated for species, \"$species_name\"\n";
-    }
-    if (! defined @{$meta_container->list_value_by_key('species.division')}[0]) {
-	die "no 'species.division' meta attribute for db, $core_dbname and species, $species_name!\n";
     }
 
     my $dataset_href = build_dataset_href ($meta_container,$logger);

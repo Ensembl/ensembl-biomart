@@ -110,9 +110,6 @@ sub get_ensembl_db {
 }
 
 # Build the dataset hash
-# Assume we are dealing with a Multispecies database at the moment
-# not anymore !
-# should be working fine in all cases (tested on both protist and bacterial)
 sub build_dataset_href {
     my ($meta_container, $logger) = @_;
     my $dataset_href = {};
@@ -134,9 +131,6 @@ sub build_dataset_href {
 		# Add a suffix '_eg' to avoid conflicting dataset names in Biomart.org!
 		$formatted_species_name = $formatted_species_name . "_eg";
 	    }
-	}
-	else {
-	    die "'species.division' meta attribute not defined!\n";
 	}
     }
     else {
@@ -238,7 +232,7 @@ sub get_all_species {
                 print STDERR "ignoring it!\n";
             }
             else{
-		if (defined $division) {
+		if (defined $division || ($division ne "")) {
 		    my $meta_container = Bio::EnsEMBL::Registry->get_adaptor( $adap->species, 'Core', 'MetaContainer' );
 		    if (defined @{$meta_container->list_value_by_key('species.division')}[0]) {
 			my $species_division = @{$meta_container->list_value_by_key('species.division')}[0];
