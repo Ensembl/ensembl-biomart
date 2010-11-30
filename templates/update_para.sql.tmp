@@ -1,0 +1,12 @@
+drop table if exists %martSchema%.para_TEMP;
+create table %martSchema%.para_TEMP as select a.gene_id_1020_key from %martSchema%.%dataSet%__paralog_%speciesTld%__dm b, %martSchema%.%dataSet%__gene__main a where a.gene_id_1020_key=b.gene_id_1020_key and not (b.chr_name_4016_r2 is null and b.stable_id_4016 is null and b.stable_id_4016_r3 is null and b.subtype_4014 is null and b.perc_cov_4015_r1 is null and b.perc_id_4015_r1 is null and b.stable_id_4016_r2 is null and b.ds_4014 is null and b.chr_start_4016_r2 is null and b.perc_id_4015 is null and b.chr_end_4016_r2 is null and b.perc_cov_4015 is null and b.stable_id_4016_r1 is null and b.dn_4014 is null);
+
+create index pkey on %martSchema%.para_TEMP (gene_id_1020_key);  
+
+update %martSchema%.%dataSet%__gene__main g join %martSchema%.%dataSet%__paralog_%speciesTld%__dm p using (gene_id_1020_key) set g.paralog_%speciesTld%_bool=1; 
+
+update %martSchema%.%dataSet%__transcript__main a join %martSchema%.para_TEMP using (gene_id_1020_key) set paralog_%speciesTld%_bool=1;
+
+update %martSchema%.%dataSet%__translation__main a join %martSchema%.para_TEMP using (gene_id_1020_key) set paralog_%speciesTld%_bool=1;
+
+drop table %martSchema%.para_TEMP;
