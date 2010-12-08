@@ -192,13 +192,10 @@ public class DatabaseDatasetConfigUtils {
 		return exists;
 	}
 
-	//Set<String>
 	private Set tables = null;
 
 	private Set getTables() throws SQLException {
 		if (tables == null) {
-			System.err.println("Retrieving table list for "
-					+ this.getSchema()[0]);
 			tables = new HashSet();
 			Connection conn = null;
 			ResultSet vr = null;
@@ -210,8 +207,6 @@ public class DatabaseDatasetConfigUtils {
 				while (vr.next()) {
 					tables.add(vr.getString(3));
 				}
-				System.err.println("Retrieved " + tables.size() + " for "
-						+ this.getSchema()[0]);
 			} finally {
 				try {
 					if (vr != null)
@@ -224,10 +219,8 @@ public class DatabaseDatasetConfigUtils {
 		return tables;
 	}
 
-	//	private Map<String,SoftReference<Map<String, Set<String>>>> tableColumns;
 	private Map tableColumns;
 
-	//	private Map<String, Set<String>> getTableColumns(String dset,
 	private Map getTableColumns(String dset,
 			final String schema, final String catalog, final Connection conn)
 			throws SQLException {
@@ -236,41 +229,32 @@ public class DatabaseDatasetConfigUtils {
 			tableColumns = new HashMap();
 		}
 		Map tableColumnsForSet = null;
-		//Map<String,Set<String>> tableColumnsForSet = null;
-		//SoftReference<Map<String, Set<String>>> tcRef = tableColumns.get(dset);
 		SoftReference tcRef = (SoftReference)(tableColumns.get(dset));
 		if(tcRef!=null) {
 			tableColumnsForSet = (Map)(tcRef.get());
 		}
 		if(tableColumnsForSet==null) {
-			//tableColumnsForSet  =new HashMap<String,Set<String>>();
 			tableColumnsForSet  =new HashMap();
-			//System.out.println("Fetching all table columns for " + dset);
-			//tableColumnsForSet = new HashMap<String, Set<String>>();
 			tableColumnsForSet = new HashMap();
 			final ResultSet rs = conn.getMetaData().getColumns(catalog, schema,
 					dset + "%", "%");
 
 			while (rs.next()) {
-				final String columnName = rs.getString(4);
-				final String tableName = rs.getString(3);
+				final String columnName = rs.getString(4).toLowerCase();
+				final String tableName = rs.getString(3).toLowerCase();
 				Set cols = (Set)(tableColumnsForSet.get(tableName));
 				if (cols == null) {
-					//<String>
 					cols = new HashSet();
 					tableColumnsForSet.put(tableName, cols);
 				}
 				cols.add(columnName);
 			}
 			rs.close();
-			//System.out.println("Fetched all table columns for "+dset);
-			//<Map<String,Set<String>>>
 			tableColumns.put(dset, new SoftReference(tableColumnsForSet));
 		}
 		return tableColumnsForSet;
 	}
 
-	//Set<String>
 	private Set getMainTables(String dataSet, final String schema,
 			final String catalog, final Connection conn) throws SQLException {
 		Set subs = new HashSet();
@@ -285,17 +269,6 @@ public class DatabaseDatasetConfigUtils {
 		}
 		return subs;
 	}
-
-	// private boolean tableExists(String table) throws SQLException {
-	// if (!getTables().contains(table)) {
-	// if (this.logger.isLoggable(Level.FINE))
-	// this.logger.fine("Table " + table + " does not exist, using "
-	// + this.BASEMETATABLE + " instead\n");
-	// return false;
-	// } else {
-	// return true;
-	// }
-	// }
 
 	private boolean tableExists(final String table) throws SQLException {
 		String tcheck = null;
@@ -2519,12 +2492,14 @@ public class DatabaseDatasetConfigUtils {
 							final SpecificFilterContent sf = configAtt
 									.getSpecificFilterContent(dsConfig
 											.getDataset());
-							if (sf == null) {
-								configCollection
-										.removeFilterDescription(configAtt);
-								continue;
-							}
+//							if (sf == null) {
+//								configCollection
+//										.removeFilterDescription(configAtt);
+//								continue;
+//							}
 
+							//dstaines change
+								if(sf!=null) {
 							final Option[] options = sf.getOptions();
 							for (int r = 0; r < options.length; r++)
 								configAtt.addOption(new Option(options[r]));
@@ -2533,8 +2508,10 @@ public class DatabaseDatasetConfigUtils {
 									dsConfig.getDataset()).resolveText(
 									configAtt, sf);
 
-							// Remove specifics.
-							configAtt.getSpecificFilterContents().clear();
+							
+								} 
+								// Remove specifics.
+								configAtt.getSpecificFilterContents().clear();
 						}
 
 						if (configAtt.getTableConstraint() != null
@@ -2571,15 +2548,11 @@ public class DatabaseDatasetConfigUtils {
 										.getSpecificOptionContent(dsConfig
 												.getDataset());
 
-								if (sf == null) {
-									parent.removeOption(option);
-									continue;
-								}
-
+								if (sf != null) {
 								templateConfig.getDynamicDataset(
 										dsConfig.getDataset()).resolveText(
 										option, sf);
-
+								}
 								// Remove specifics.
 								option.getSpecificOptionContents().clear();
 							}
@@ -2628,16 +2601,19 @@ public class DatabaseDatasetConfigUtils {
 							final SpecificAttributeContent sf = configAtt
 									.getSpecificAttributeContent(dsConfig
 											.getDataset());
-							if (sf == null) {
-								configCollection
-										.removeAttributeDescription(configAtt);
-								continue;
-							}
-
+							//dstaines change for EG - I don't want to have to put in 50 different specific contents
+//							if (sf == null) {
+//								configCollection
+//										.removeAttributeDescription(configAtt);
+//								continue;
+//							}
+							
+							if(sf!=null) {
 							templateConfig.getDynamicDataset(
 									dsConfig.getDataset()).resolveText(
 									configAtt, sf);
 
+							} 
 							// Remove specifics.
 							configAtt.getSpecificAttributeContents().clear();
 						}
@@ -3124,15 +3100,19 @@ public class DatabaseDatasetConfigUtils {
 			ps1.setString(1, displayName);
 			ps1.setString(2, dataset);
 			ps1.setString(3, description);
-			ps2.setString(1, datasetID);
+			ps2.setInt(1, Integer.parseInt(datasetID));
+			//ps2.setString(1, datasetID);
+//			ps2.setClob(2, (Clob) new ByteArrayInputStream(uncompressedXML));
 			ps2.setBinaryStream(2, new ByteArrayInputStream(uncompressedXML),
 					uncompressedXML.length);// uncompressed
 			ps2.setBinaryStream(3, new ByteArrayInputStream(xml), xml.length);// compressed
 			ps2.setBytes(4, md5);
 			ps1.setString(4, type);
-			ps1.setString(5, visible);
+//			ps1.setString(5, visible);
+			ps1.setInt(5, Integer.parseInt(visible));
 			ps1.setString(6, version);
-			ps1.setString(7, datasetID);
+			ps1.setInt(7, Integer.parseInt(datasetID));
+//			ps1.setString(7, datasetID);
 
 			// Timestamp tstamp = new Timestamp(System.currentTimeMillis());
 			ps1.setTimestamp(8, tstamp);
@@ -3896,9 +3876,11 @@ public class DatabaseDatasetConfigUtils {
 	public Document getDatasetConfigDocumentByDatasetID(final String user,
 			final String dataset, final String datasetID, final String schema)
 			throws ConfigurationException {
-		if (this.dsource.getJdbcDriverClassName().indexOf("oracle") >= 0)
+		if (this.dsource.getJdbcDriverClassName().indexOf("oracle") >= 0) {
+			System.out.println("Driver is Oracle");
 			return this.getDatasetConfigDocumentByDatasetIDOracle(user,
 					dataset, datasetID);
+		}
 
 		Connection conn = null;
 		try {
@@ -3913,14 +3895,14 @@ public class DatabaseDatasetConfigUtils {
 					+ metatable
 					+ " md where md.dataset_id_key=mx.dataset_id_key and md.dataset_id_key = ? and md.dataset = ?";
 
-			if (this.logger.isLoggable(Level.FINE))
-				this.logger.fine("Using " + sql
+				this.logger.info("Using " + sql
 						+ " to get DatasetConfig for datasetID " + datasetID
 						+ "and dataset " + dataset + "\n");
 
 			conn = this.dsource.getConnection();
 			final PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, datasetID);
+			//ps.setString(1, datasetID);
+			ps.setInt(1,Integer.parseInt(datasetID));
 			ps.setString(2, dataset);
 
 			final ResultSet rs = ps.executeQuery();
@@ -3942,7 +3924,12 @@ public class DatabaseDatasetConfigUtils {
 			else
 				rstream = new ByteArrayInputStream(stream);
 			conn.close();
-			return this.dscutils.getDocumentForXMLStream(rstream);
+			Document doc = this.dscutils.getDocumentForXMLStream(rstream);
+			if(doc==null) {
+				System.err.println("Doc is null for datasetID " + datasetID
+						+ "and dataset " + dataset);
+			}
+			return doc;
 		} catch (final SQLException e) {
 			throw new ConfigurationException(
 					"Caught SQL Exception during fetch of requested DatasetConfig: "
@@ -3966,7 +3953,9 @@ public class DatabaseDatasetConfigUtils {
 	 */
 	public DatasetConfig getXSLTransformedConfig(final DatasetConfig config)
 			throws ConfigurationException {
+		
 		try {
+			
 			final Document sourceDoc = MartEditor.getDatasetConfigXMLUtils()
 					.getDocumentForDatasetConfig(config);
 			// Element thisElement = sourceDoc.getRootElement();
@@ -4019,6 +4008,7 @@ public class DatabaseDatasetConfigUtils {
 					"Caught Exception during transformation of requested DatasetConfig: "
 							+ e.getMessage(), e);
 		}
+		
 	}
 
 	/**
@@ -4419,8 +4409,9 @@ public class DatabaseDatasetConfigUtils {
 			// ps.setString(1, internalName);
 			// if (displayName != null)
 			// ps.setString(3, displayName);
-			ps.setString(1, datasetID);
-
+			//ps.setString(1, datasetID);
+			ps.setInt(1, Integer.parseInt(datasetID));
+			
 			final ResultSet rs = ps.executeQuery();
 			rs.next();
 			ret = rs.getInt(1);
@@ -4478,10 +4469,12 @@ public class DatabaseDatasetConfigUtils {
 		try {
 			conn = this.dsource.getConnection();
 			PreparedStatement ds = conn.prepareStatement(deleteSQL1);
-			ds.setString(1, datasetID);
+			//ds.setString(1, datasetID);
+			ds.setInt(1, Integer.parseInt(datasetID));
 			rowsdeleted = ds.executeUpdate();
 			ds = conn.prepareStatement(deleteSQL2);
-			ds.setString(1, datasetID);
+			//ds.setString(1, datasetID);
+			ds.setInt(1, Integer.parseInt(datasetID));
 			ds.executeUpdate();
 			ds.close();
 		} catch (final SQLException e) {
@@ -4760,7 +4753,8 @@ public class DatabaseDatasetConfigUtils {
 				+ "."
 				+ this.MARTXMLTABLE
 				+ "(dataset_id_key integer,"
-				+ "xml text, compressed_xml bytea, message_digest bytea,UNIQUE (dataset_id_key))";
+//				+ "xml text, compressed_xml bytea, message_digest bytea,UNIQUE (dataset_id_key))";
+				+ "xml bytea, compressed_xml bytea, message_digest bytea,UNIQUE (dataset_id_key))";
 		final String POSTGRES_USER = CREATETABLE
 				+ "."
 				+ this.MARTUSERTABLE
@@ -6564,7 +6558,7 @@ public class DatabaseDatasetConfigUtils {
 			for (Iterator i = mainNames.iterator(); i.hasNext(); ) {
 				tableName = (String)i.next();
 				Set columns = (Set)getTableColumns(dset, schema, catalog,
-						conn).get(tableName);
+						conn).get(tableName.toLowerCase());
 				if (columns != null) {
 					String columnName = null;
 					for (Iterator i2 = columns.iterator(); i2.hasNext(); ) {
@@ -6583,7 +6577,7 @@ public class DatabaseDatasetConfigUtils {
 		} else {
 			String tableName = tableConstraint;
 			Set columns = (Set)getTableColumns(dset, schema, catalog, conn)
-					.get(tableConstraint);
+					.get(tableConstraint.toLowerCase());
 			if (columns != null) {
 				String columnName = null;
 				for(Iterator i=columns.iterator(); i.hasNext(); ) {
@@ -6706,7 +6700,11 @@ public class DatabaseDatasetConfigUtils {
 
 			while (rsTab.next()) {
 				final String tableName = rsTab.getString(3);
-				potentials.add(tableName);
+//				potentials.add(tableName);
+				final String tableDataset = tableName.split("__")[0];
+				if (datasetName == null || tableDataset.equals(datasetName))
+					potentials.add(tableName);
+
 			}
 			rsTab.close();
 
@@ -6717,7 +6715,10 @@ public class DatabaseDatasetConfigUtils {
 				// NN
 				// System.out.println(tableName);
 
-				if (!potentials.contains(tableName))
+				//if (!potentials.contains(tableName))
+				//	potentials.add(tableName);
+				final String tableDataset = tableName.split("__")[0];
+				if (datasetName == null || tableDataset.equals(datasetName.toUpperCase()))
 					potentials.add(tableName);
 			}
 			rsTab.close();
@@ -6770,8 +6771,10 @@ public class DatabaseDatasetConfigUtils {
 				final String tableName = rsTab.getString(3);
 
 				// System.out.println("tableName "+tableName);
-
-				potentials.add(tableName);
+				//modified by yong liang for #25
+				final String tableDataset = tableName.split("__")[0];
+				if (datasetName == null || tableDataset.equals(datasetName))
+					potentials.add(tableName);
 			}
 			rsTab.close();
 
@@ -6782,7 +6785,10 @@ public class DatabaseDatasetConfigUtils {
 				// NN
 				// System.out.println(tableName);
 
-				if (!potentials.contains(tableName))
+//				if (!potentials.contains(tableName))
+//					potentials.add(tableName);
+				final String tableDataset = tableName.split("__")[0];
+				if (datasetName == null || tableDataset.equals(datasetName.toUpperCase()))
 					potentials.add(tableName);
 			}
 			rsTab.close();
@@ -7490,6 +7496,7 @@ public class DatabaseDatasetConfigUtils {
 												cname, shortTableName, null);
 							// System.out.println(currFilt);
 							if (currFilt == null) {
+								System.err.println("Found new filter "+cname);
 								if (filtMap.containsKey(cname))
 									duplicated = 1;
 								filtMap.put(cname, "1");
@@ -7551,9 +7558,13 @@ public class DatabaseDatasetConfigUtils {
 							if (currFilt != null)
 								newOption = false;
 
-							if (newOption) // option with this field and table
+							if (newOption) {
+								// option with this field and table
 								// name doesn't already exist
 								fdBools.addOption(opBool);
+								System.err.println("Found new option "+opBool);
+
+							}
 
 						}
 					}
@@ -7618,8 +7629,10 @@ public class DatabaseDatasetConfigUtils {
 							if (currFilt != null)
 								newOption = false;
 
-							if (newOption)
+							if (newOption) {
+								System.err.println("Found new option "+op);
 								fdLists.addOption(op);
+							}
 
 						}
 					}
@@ -7637,6 +7650,8 @@ public class DatabaseDatasetConfigUtils {
 								.getFilterDescriptionByFieldNameTableConstraint(
 										cname, shortTableName, null);
 						if (currFilt == null) {
+							System.err.println("Found new filter "+cname);
+
 							if (filtMap.containsKey(cname))
 								duplicated = 1;
 							filtMap.put(cname, "1");
