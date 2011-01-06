@@ -80,11 +80,11 @@ my $doc = $parser->parsefile ($template);
 # create hash of filters and attributes:
 ## Option with tableConstraint="main" and field="ox_whatever_bool"
 
-my $re = qr/ox_.*_bool/;
+my $re = qr/(ox|efg)_.*_bool/;
 my %f_nodes = map { my $t = $_->{field}; $t =~ s/_bool//; lc $t => 1} grep {$_->{table} eq "main" && $_->{field} =~ /$re/ } @{search_nodes($doc,"Option")};
 
 ## Option with tableConstraint="ox_whatever"
-$re = qr/ox_.*/;
+$re = qr/(ox|efg)_.*/;
 my %o_nodes =  map { $_->{table} =~ s/__dm//;$_->{table} => 1 } grep {$_->{table} =~ /$re/ } @{search_nodes($doc,"Option")};
 ## Attribute with tableConstraint="ox_whatever"
 my %a_nodes = map { $_->{table} =~ s/__dm//; $_->{table} => 1 } grep {$_->{table} =~ /$re/ } @{search_nodes($doc,"AttributeDescription")};
@@ -99,26 +99,37 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
 $mart_handle->do("use $mart_db");
 # get tables
 my %tabs = map{$_ =~ s/.*gene__(ox_.*)__dm/$1/; lc($_)=>1} query_to_strings($mart_handle,"show tables like '%__ox_%__dm'");
+my %tabs2 = map{$_ =~ s/.*gene__(efg_.*)__dm/$1/; lc($_)=>1} query_to_strings($mart_handle,"show tables like '%__efg_%__dm'");
 my $missing = {};
-for my $table (keys %tabs) {
-    if(!$f_nodes{$table}) {
-	push @{$missing->{filter}}, $table;
-    }
-    if(!$o_nodes{$table}) {
-	push @{$missing->{option}}, $table;
-    }
-    if(!$a_nodes{$table}) {
-	push @{$missing->{attribute}}, $table;
+for my $tab (\%tabs,\%tabs2) {
+    for my $table (keys %$tab) {
+	if(!$f_nodes{$table}) {
+	    push @{$missing->{filter}}, $table;
+	}
+	if(!$o_nodes{$table}) {
+	    push @{$missing->{option}}, $table;
+	}
+	if(!$a_nodes{$table}) {
+	    push @{$missing->{attribute}}, $table;
+	}
     }
 }
 
+my $key;
+my $field;
 if(defined $missing->{filter}) {
     print "Missing boolean filters:\n";
     for my $table (sort @{$missing->{filter}}) {
 	my $name= $table;
-	$name =~ s/ox_//;
+	if($name =~ /efg_/) {
+	    $name =~ s/efg_//;
+	    $key = "transcript_id_1064_key";
+	} else {
+	    $name =~ s/ox_//;
+	    $key="gene_id_1020_key";
+	}
 	my $opt = <<END;
-          <Option displayName="with $name ID(s)" displayType="list" field="${table}_bool" internalName="with_$name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with $name ID(s)" displayType="list" field="${table}_bool" internalName="with_$name" isSelectable="true" key="$key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -130,9 +141,17 @@ if(defined $missing->{option}) {
     print "Missing list filters:\n";
     for my $table (sort @{$missing->{option}}) {
 	my $name= $table;
-	$name =~ s/ox_//;
+	if($name =~ /efg_/) {
+	    $name =~ s/efg_//;
+	    $key = "transcript_id_1064_key";
+	    $field="display_label_11056";
+	} else {
+	    $name =~ s/ox_//;
+	    $key="gene_id_1020_key";
+	    $field="dbprimary_acc_1074";
+	}
 	my $opt = <<END;
-	<Option checkForNulls="true" displayName="$name ID(s)" description="Filter to include genes with $name IDs" displayType="text" field="dbprimary_acc_1074" internalName="$name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="${table}__dm" type="list"/>
+	<Option checkForNulls="true" displayName="$name ID(s)" displayType="text" field="$field" internalName="$name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="${table}__dm" type="list"/>
 END
 	print $opt;
     }
@@ -142,9 +161,17 @@ if(defined $missing->{attribute}) {
     
     for my $table (sort @{$missing->{attribute}}) {
 	my $name= $table;
-	$name =~ s/ox_//;
+	if($name =~ /efg_/) {
+	    $name =~ s/efg_//;
+	    $key = "transcript_id_1064_key";
+	    $field="display_label_11056";
+	} else {
+	    $name =~ s/ox_//;
+	    $key="gene_id_1020_key";
+	    $field="dbprimary_acc_1074";
+	}
 	my $opt = <<END;
-        <AttributeDescription checkForNulls="true" displayName="$name ID" field="dbprimary_acc_1074" internalName="$name" key="gene_id_1020_key" maxLength="40" tableConstraint="${table}__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="$name ID" field="$field" internalName="$name" key="$key" maxLength="40" tableConstraint="${table}__dm"/>
 END
 print $opt;
     }
