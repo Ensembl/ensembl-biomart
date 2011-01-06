@@ -78,6 +78,7 @@ public class DatabaseDatasetConfigUtils {
 	private class DescriptionValidity {
 		boolean fieldValid = false;
 		boolean tableValid = false;
+
 	}
 
 	private final String SOFTWAREVERSION = "0.6";
@@ -130,14 +131,14 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Constructor for a DatabaseDatasetConfigUtils object to obtain
 	 * DatasetConfig related information from a Mart Database host.
-	 *
-	 * @param dscutils -
-	 *            DatasetConfigXMLUtils object for parsing XML
-	 * @param dsource -
-	 *            DetailedDataSource object with connection to a Mart Database
+	 * 
+	 * @param dscutils
+	 *            - DatasetConfigXMLUtils object for parsing XML
+	 * @param dsource
+	 *            - DetailedDataSource object with connection to a Mart Database
 	 *            host.
-	 * @param readonly -
-	 *            true if this is a read-only connection (meta tables will not
+	 * @param readonly
+	 *            - true if this is a read-only connection (meta tables will not
 	 *            be altered).
 	 */
 	public DatabaseDatasetConfigUtils(final DatasetConfigXMLUtils dscutils,
@@ -159,9 +160,9 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Verify if a meta_configuration_[user] table exists. Returns false if user
 	 * is null, or if the table does not exist.
-	 *
-	 * @param user -
-	 *            user to query
+	 * 
+	 * @param user
+	 *            - user to query
 	 * @return true if meta_configuration_[user] exists, false otherwise
 	 */
 	public boolean datasetConfigUserTableExists(final String user) {
@@ -221,20 +222,20 @@ public class DatabaseDatasetConfigUtils {
 
 	private Map tableColumns;
 
-	private Map getTableColumns(String dset,
-			final String schema, final String catalog, final Connection conn)
-			throws SQLException {
+	private Map getTableColumns(String dset, final String schema,
+			final String catalog, final Connection conn) throws SQLException {
 		if (tableColumns == null) {
-			//tableColumns = new HashMap<String,SoftReference<Map<String, Set<String>>>>();
+			// tableColumns = new HashMap<String,SoftReference<Map<String,
+			// Set<String>>>>();
 			tableColumns = new HashMap();
 		}
 		Map tableColumnsForSet = null;
-		SoftReference tcRef = (SoftReference)(tableColumns.get(dset));
-		if(tcRef!=null) {
-			tableColumnsForSet = (Map)(tcRef.get());
+		SoftReference tcRef = (SoftReference) (tableColumns.get(dset));
+		if (tcRef != null) {
+			tableColumnsForSet = (Map) (tcRef.get());
 		}
-		if(tableColumnsForSet==null) {
-			tableColumnsForSet  =new HashMap();
+		if (tableColumnsForSet == null) {
+			tableColumnsForSet = new HashMap();
 			tableColumnsForSet = new HashMap();
 			final ResultSet rs = conn.getMetaData().getColumns(catalog, schema,
 					dset + "%", "%");
@@ -242,7 +243,7 @@ public class DatabaseDatasetConfigUtils {
 			while (rs.next()) {
 				final String columnName = rs.getString(4).toLowerCase();
 				final String tableName = rs.getString(3).toLowerCase();
-				Set cols = (Set)(tableColumnsForSet.get(tableName));
+				Set cols = (Set) (tableColumnsForSet.get(tableName));
 				if (cols == null) {
 					cols = new HashSet();
 					tableColumnsForSet.put(tableName, cols);
@@ -260,9 +261,9 @@ public class DatabaseDatasetConfigUtils {
 		Set subs = new HashSet();
 		String pat = "^" + dataSet + ".*__main$";
 		String tableName = null;
-		for(Iterator i =  getTableColumns(dataSet, schema, catalog, conn)
+		for (Iterator i = getTableColumns(dataSet, schema, catalog, conn)
 				.keySet().iterator(); i.hasNext();) {
-			tableName = (String)i.next();
+			tableName = (String) i.next();
 			if (tableName.matches(pat)) {
 				subs.add(tableName);
 			}
@@ -391,7 +392,7 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Determine if meta_configuration exists in a Mart Database defined by the
 	 * given DetailedDataSource.
-	 *
+	 * 
 	 * @return true if meta_configuration exists, false if it does not exist
 	 * @throws ConfigurationException
 	 *             for all underlying Exceptions
@@ -420,7 +421,7 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Determine if meta_template__template__main exists in a Mart Database
 	 * defined by the given DetailedDataSource.
-	 *
+	 * 
 	 * @return true if meta_template__template__main exists, false if it does
 	 *         not exist
 	 * @throws ConfigurationException
@@ -454,21 +455,21 @@ public class DatabaseDatasetConfigUtils {
 	 * the target, otherwise, meta_configuration is the target. Along with the
 	 * internalName and displayName of the XML, an MD5 messageDigest of the xml
 	 * is computed, and stored as well.
-	 *
-	 * @param user --
-	 *            Specific User to look for meta_configuration_[user] table, if
-	 *            null, or non-existent, uses meta_configuration
-	 * @param internalName --
-	 *            internalName of the DatasetConfigXML being stored.
-	 * @param displayName --
-	 *            displayName of the DatasetConfig XML being stored.
-	 * @param dataset --
-	 *            dataset of the DatasetConfig XML being stored
-	 * @param doc -
-	 *            JDOM Document object representing the XML for the
+	 * 
+	 * @param user
+	 *            -- Specific User to look for meta_configuration_[user] table,
+	 *            if null, or non-existent, uses meta_configuration
+	 * @param internalName
+	 *            -- internalName of the DatasetConfigXML being stored.
+	 * @param displayName
+	 *            -- displayName of the DatasetConfig XML being stored.
+	 * @param dataset
+	 *            -- dataset of the DatasetConfig XML being stored
+	 * @param doc
+	 *            - JDOM Document object representing the XML for the
 	 *            DatasetConfig
-	 * @param compress --
-	 *            if true, the XML is compressed using GZIP.
+	 * @param compress
+	 *            -- if true, the XML is compressed using GZIP.
 	 * @throws ConfigurationException
 	 *             when no meta_configuration table exists, and for all
 	 *             underlying Exceptions
@@ -877,10 +878,11 @@ public class DatabaseDatasetConfigUtils {
 		 * apage.getAllAttributeDescriptions(); for (Iterator iter =
 		 * testAtts.iterator(); iter.hasNext();) { AttributeDescription testAD =
 		 * (AttributeDescription) iter.next(); if
-		 * (!((testAD.getTableConstraint()+"."+testAD.getField()).equals(testName)))
-		 * continue; if (first != 0){ // TODO Remove attribute } first++; } } } }
-		 * else{ JOptionPane.showMessageDialog(null, "No Export performed",
-		 * "ERROR", 0); return;//no export performed } }
+		 * (!((testAD.getTableConstraint()
+		 * +"."+testAD.getField()).equals(testName))) continue; if (first != 0){
+		 * // TODO Remove attribute } first++; } } } } else{
+		 * JOptionPane.showMessageDialog(null, "No Export performed", "ERROR",
+		 * 0); return;//no export performed } }
 		 */
 
 		if (duplicationString != "") {
@@ -1101,7 +1103,9 @@ public class DatabaseDatasetConfigUtils {
 			 * (op.getTableConstraint() == null){ // fd.removeOption(op);
 			 * continue; } // if a filter option remove dataset part from
 			 * tableConstraint //if (!op.getTableConstraint().equals("main")) //
-			 * op.setTableConstraint(op.getTableConstraint().split("__")[1]+"__"+op.getTableConstraint().split("__")[2]);
+			 * op
+			 * .setTableConstraint(op.getTableConstraint().split("__")[1]+"__"+
+			 * op.getTableConstraint().split("__")[2]);
 			 * //op.setOtherFilters(""); }
 			 */
 		}
@@ -1748,25 +1752,26 @@ public class DatabaseDatasetConfigUtils {
 			 * duplicationString, "Make Unique?", JOptionPane.YES_NO_OPTION); //
 			 * make unique code if (choice == 0){ System.out.println("MAKING
 			 * UNIQUE"); String testName, datasetName; int i;
-			 *
+			 * 
 			 * adaptor= new
 			 * DatabaseDSConfigAdaptor(MartEditor.getDetailedDataSource(),user,
 			 * martUser, true, false, true);
-			 *
+			 * 
 			 * String[] dsList = new String[brokenDatasets.size()];
 			 * brokenDatasets.toArray(dsList);
-			 *
+			 * 
 			 * for (i = 0; i < dsList.length; i++){ config =
-			 * adaptor.getDatasetConfigByDatasetInternalName(dsList[i],"default"); //
-			 * convert config to latest version using xslt config =
-			 * MartEditor.getDatabaseDatasetConfigUtils().getUpdatedConfig(config);
-			 * dbutils.storeDatasetConfiguration( user,
+			 * adaptor.getDatasetConfigByDatasetInternalName
+			 * (dsList[i],"default"); // convert config to latest version using
+			 * xslt config =
+			 * MartEditor.getDatabaseDatasetConfigUtils().getUpdatedConfig
+			 * (config); dbutils.storeDatasetConfiguration( user,
 			 * config.getInternalName(), config.getDisplayName(),
 			 * config.getDataset(), config.getDescription(),
-			 * MartEditor.getDatasetConfigXMLUtils().getDocumentForDatasetConfig(config),
-			 * true, config.getType(), config.getVisible(), config.getVersion(),
-			 * config.getDatasetID(), config.getMartUsers(),
-			 * config.getInterfaces(), config); } } else{
+			 * MartEditor.getDatasetConfigXMLUtils
+			 * ().getDocumentForDatasetConfig(config), true, config.getType(),
+			 * config.getVisible(), config.getVersion(), config.getDatasetID(),
+			 * config.getMartUsers(), config.getInterfaces(), config); } } else{
 			 * JOptionPane.showMessageDialog(null, "No Export performed",
 			 * "ERROR", 0); return false;//no export performed }
 			 */
@@ -1871,14 +1876,15 @@ public class DatabaseDatasetConfigUtils {
 	 * configAtt.getTableConstraint()==null ||
 	 * (configAtt.getPointerDataset()!=null &&
 	 * !"".equals(configAtt.getPointerDataset()))) return;
-	 *
-	 *
+	 * 
+	 * 
 	 * String configAttName = configAtt.getInternalName(); String configAttTC;
 	 * if (configAtt.getTableConstraint().equals("main")) configAttTC = "main";
 	 * else configAttTC =
-	 * configAtt.getTableConstraint().split("__")[1]+"__"+configAtt.getTableConstraint().split("__")[2];//
-	 * template stores w/o the dataset part
-	 *
+	 * configAtt.getTableConstraint().split("__")[1]+"__"+configAtt
+	 * .getTableConstraint().split("__")[2];// template stores w/o the dataset
+	 * part
+	 * 
 	 * String configAttField = configAtt.getField(); AttributePage configPage =
 	 * dsConfig.getPageForAttribute(configAttName); String configPageName =
 	 * configPage.getInternalName(); AttributeGroup configGroup =
@@ -1886,13 +1892,14 @@ public class DatabaseDatasetConfigUtils {
 	 * configGroup.getInternalName(); AttributeCollection configCollection =
 	 * dsConfig.getCollectionForAttribute(configAttName); String
 	 * configCollectionName = configCollection.getInternalName();
-	 *
+	 * 
 	 * if
-	 * (templateConfig.supportsAttributeDescription(configAttField,configAttTC)){
-	 * //System.out.println("1 - make sure dsConfig has same structure as
+	 * (templateConfig.supportsAttributeDescription(configAttField,configAttTC
+	 * )){ //System.out.println("1 - make sure dsConfig has same structure as
 	 * templateConfig for this attribute:" //
-	 * +configAtt.getInternalName()+":"+configAtt.getDisplayName()+":"+dsConfig.getDataset()); //
-	 * remove att from old hierarchy in dsConfig
+	 * +configAtt.getInternalName()+":"+configAtt
+	 * .getDisplayName()+":"+dsConfig.getDataset()); // remove att from old
+	 * hierarchy in dsConfig
 	 * configCollection.removeAttributeDescription(configAtt); if
 	 * (!(configCollection.getAttributeDescriptions().size() > 0)){
 	 * configGroup.removeAttributeCollection(configCollection); if
@@ -1902,22 +1909,25 @@ public class DatabaseDatasetConfigUtils {
 	 * dsConfig.removeAttributePage(configPage); } } } // need to make sure get
 	 * right template attribute: if more than one exists take the one with
 	 * matching // internalName as well AttributeDescription templateAttribute =
-	 * templateConfig.getAttributeDescriptionByFieldNameTableConstraintInternalName(configAttField,configAttTC,configAttName);
-	 *
+	 * templateConfig
+	 * .getAttributeDescriptionByFieldNameTableConstraintInternalName
+	 * (configAttField,configAttTC,configAttName);
+	 * 
 	 * //AttributeDescription templateAttribute =
-	 * templateConfig.getAttributeDescriptionByFieldNameTableConstraint(configAttField,configAttTC);
-	 * AttributePage templatePage =
+	 * templateConfig.getAttributeDescriptionByFieldNameTableConstraint
+	 * (configAttField,configAttTC); AttributePage templatePage =
 	 * templateConfig.getPageForAttribute(templateAttribute.getInternalName());
 	 * AttributeGroup templateGroup =
 	 * templateConfig.getGroupForAttribute(templateAttribute.getInternalName());
 	 * AttributeCollection templateCollection =
-	 * templateConfig.getCollectionForAttribute(templateAttribute.getInternalName());
-	 *
+	 * templateConfig.getCollectionForAttribute
+	 * (templateAttribute.getInternalName());
+	 * 
 	 * AttributeDescription configAttToAdd = new
 	 * AttributeDescription(templateAttribute);
 	 * configAttToAdd.setTableConstraint(configAtt.getTableConstraint());
 	 * configAttToAdd.setField(configAtt.getField());
-	 *
+	 * 
 	 * //if (configAtt.getLinkoutURL() != null &&
 	 * !configAtt.getLinkoutURL().equals("")) //
 	 * configAttToAdd.setLinkoutURL(configAtt.getLinkoutURL()); // dynamic
@@ -1927,34 +1937,39 @@ public class DatabaseDatasetConfigUtils {
 	 * templateAttribute.setLinkoutURL("");// avoids template problems if
 	 * (templateAttribute.getDynamicAttributeContents().size() > 0){ // already
 	 * got multiple settings for this attribute if
-	 * (!templateAttribute.containsDynamicAttributeContent(dsConfig.getDataset()))
-	 * templateAttribute.addDynamicAttributeContent(new
-	 * DynamicAttributeContent(dsConfig.getDataset(),configAtt.getLinkoutURL()));
-	 *
-	 * configAttToAdd.setLinkoutURL(templateAttribute.getDynamicAttributeContentByInternalName(dsConfig.getDataset()).getLinkoutURL()); }
-	 * else if
-	 * (!configAtt.getLinkoutURL().equals(templateAttribute.getLinkoutURL())){ //
-	 * if this config has a different setting then start using dynamic objects //
-	 * create dynamic objects - add one per existing dataset set to current
-	 * template linkoutURL String[] datasetNames =
+	 * (!templateAttribute.containsDynamicAttributeContent
+	 * (dsConfig.getDataset())) templateAttribute.addDynamicAttributeContent(new
+	 * DynamicAttributeContent
+	 * (dsConfig.getDataset(),configAtt.getLinkoutURL()));
+	 * 
+	 * configAttToAdd.setLinkoutURL(templateAttribute.
+	 * getDynamicAttributeContentByInternalName
+	 * (dsConfig.getDataset()).getLinkoutURL()); } else if
+	 * (!configAtt.getLinkoutURL().equals(templateAttribute.getLinkoutURL())){
+	 * // if this config has a different setting then start using dynamic
+	 * objects // create dynamic objects - add one per existing dataset set to
+	 * current template linkoutURL String[] datasetNames =
 	 * getDatasetNamesForTemplate(dsConfig.getTemplate()); // if only one ds, do
 	 * a straight copy. if (datasetNames.length<2) {
 	 * configAttToAdd.setLinkoutURL(templateAttribute.getLinkoutURL()); } else {
 	 * for (int j = 0; j < datasetNames.length; j++){ String datasetName =
 	 * datasetNames[j]; if (datasetName.equals(dsConfig.getDataset())) continue;
 	 * templateAttribute.addDynamicAttributeContent(new
-	 * DynamicAttributeContent(datasetName,templateAttribute.getLinkoutURL())); }
-	 * templateAttribute.setLinkoutURL("MULTI");
-	 *
+	 * DynamicAttributeContent(datasetName,templateAttribute.getLinkoutURL()));
+	 * } templateAttribute.setLinkoutURL("MULTI");
+	 * 
 	 * templateAttribute.addDynamicAttributeContent(new
-	 * DynamicAttributeContent(dsConfig.getDataset(),configAtt.getLinkoutURL()));
-	 * configAttToAdd.setLinkoutURL(templateAttribute.getDynamicAttributeContentByInternalName(dsConfig.getDataset()).getLinkoutURL()); } }
-	 *
+	 * DynamicAttributeContent(dsConfig
+	 * .getDataset(),configAtt.getLinkoutURL()));
+	 * configAttToAdd.setLinkoutURL(templateAttribute
+	 * .getDynamicAttributeContentByInternalName
+	 * (dsConfig.getDataset()).getLinkoutURL()); } }
+	 * 
 	 * AttributePage dsConfigPage =
 	 * dsConfig.getAttributePageByInternalName(templatePage.getInternalName());
 	 * if (dsConfigPage == null){ dsConfigPage = new
-	 * AttributePage(templatePage.getInternalName(),templatePage.getDisplayName(),
-	 * templatePage.getDescription(),
+	 * AttributePage(templatePage.getInternalName
+	 * (),templatePage.getDisplayName(), templatePage.getDescription(),
 	 * templatePage.getOutFormats(),templatePage.getMaxSelectString());
 	 * AttributeGroup dsConfigGroup = new
 	 * AttributeGroup(templateGroup.getInternalName(),
@@ -1962,7 +1977,7 @@ public class DatabaseDatasetConfigUtils {
 	 * AttributeCollection dsConfigCollection = new
 	 * AttributeCollection(templateCollection.getInternalName(), "",
 	 * templateCollection.getDisplayName(),templateCollection.getDescription());
-	 *
+	 * 
 	 * if (templatePage.getHidden() != null)
 	 * dsConfigPage.setHidden(templatePage.getHidden()); if
 	 * (templatePage.getDisplay() != null)
@@ -1979,7 +1994,7 @@ public class DatabaseDatasetConfigUtils {
 	 * configAttToAdd.setHidden(templateAttribute.getHidden()); if
 	 * (configAtt.getHidden() != null && configAtt.getHidden().equals("true"))
 	 * configAttToAdd.setHidden("true");
-	 *
+	 * 
 	 * dsConfig.addAttributePage(dsConfigPage);
 	 * dsConfigPage.addAttributeGroup(dsConfigGroup);
 	 * dsConfigGroup.addAttributeCollection(dsConfigCollection);
@@ -1993,16 +2008,17 @@ public class DatabaseDatasetConfigUtils {
 	 * dsConfigPage.setOutFormats(templatePage.getOutFormats()); if
 	 * (templatePage.getMaxSelectString() != null)
 	 * dsConfigPage.setMaxSelect(templatePage.getMaxSelectString());
-	 *
+	 * 
 	 * AttributeGroup dsConfigGroup = (AttributeGroup)
 	 * dsConfigPage.getAttributeGroupByName(templateGroup.getInternalName()); if
 	 * (dsConfigGroup == null){ dsConfigGroup = new
-	 * AttributeGroup(templateGroup.getInternalName(),templateGroup.getDisplayName(),
+	 * AttributeGroup(templateGroup.
+	 * getInternalName(),templateGroup.getDisplayName(),
 	 * templateGroup.getDescription(), ""); AttributeCollection
 	 * dsConfigCollection = new
 	 * AttributeCollection(templateCollection.getInternalName(), "",
 	 * templateCollection.getDisplayName(),templateCollection.getDescription());
-	 *
+	 * 
 	 * if (templateGroup.getHidden() != null)
 	 * dsConfigGroup.setHidden(templateGroup.getHidden()); if
 	 * (templateCollection.getHidden() != null)
@@ -2029,16 +2045,17 @@ public class DatabaseDatasetConfigUtils {
 	 * (templateGroup.getMaxSelectString() != null)
 	 * dsConfigGroup.setMaxSelect(templateGroup.getMaxSelectString());
 	 * AttributeCollection dsConfigCollection = (AttributeCollection)
-	 * dsConfigGroup.getAttributeCollectionByName(templateCollection.getInternalName());
-	 * if (dsConfigCollection == null){ dsConfigCollection = new
+	 * dsConfigGroup
+	 * .getAttributeCollectionByName(templateCollection.getInternalName()); if
+	 * (dsConfigCollection == null){ dsConfigCollection = new
 	 * AttributeCollection(templateCollection.getInternalName(),"",
 	 * templateCollection.getDisplayName(),templateCollection.getDescription());
-	 *
+	 * 
 	 * if (templateCollection.getHidden() != null)
 	 * dsConfigCollection.setHidden(templateCollection.getHidden()); if
 	 * (templateAttribute.getHidden() != null)
 	 * configAttToAdd.setHidden(templateAttribute.getHidden());
-	 *
+	 * 
 	 * if (templateCollection.getMaxSelectString() != null)
 	 * dsConfigCollection.setMaxSelect(templateCollection.getMaxSelectString());
 	 * if (configAtt.getHidden() != null &&
@@ -2059,12 +2076,12 @@ public class DatabaseDatasetConfigUtils {
 	 * configAttToAdd.setHidden("true"); // put in a check for this and FILTERS
 	 * that the same configAtt not already added // this can happen when
 	 * original config has duplicate filters and atts in terms of TC and Fields
-	 * if
-	 * (!dsConfigCollection.containsAttributeDescription(configAttToAdd.getInternalName()))
+	 * if(!dsConfigCollection.containsAttributeDescription(configAttToAdd.
+	 * getInternalName()))
 	 * dsConfigCollection.addAttributeDescription(configAttToAdd); } } } } else{
 	 * //System.out.println("2 - make sure templateConfig has same structure as
 	 * dsConfig for this attribute:"+configAtt.getInternalName());
-	 *
+	 * 
 	 * AttributePage templatePage =
 	 * templateConfig.getAttributePageByInternalName(configPageName); if
 	 * (templatePage == null){ templatePage = new
@@ -2073,17 +2090,18 @@ public class DatabaseDatasetConfigUtils {
 	 * configPage.getMaxSelectString()); if (configPage.getHidden() != null)
 	 * templatePage.setHidden(configPage.getHidden());
 	 * templateConfig.addAttributePage(templatePage); }
-	 *
+	 * 
 	 * AttributeGroup templateGroup = (AttributeGroup)
-	 * templatePage.getAttributeGroupByName(configGroupName); if (templateGroup ==
-	 * null){ templateGroup = new AttributeGroup(configGroup.getInternalName(),
+	 * templatePage.getAttributeGroupByName(configGroupName); if (templateGroup
+	 * == null){ templateGroup = new
+	 * AttributeGroup(configGroup.getInternalName(),
 	 * configGroup.getDisplayName(), configGroup.getDescription()); if
 	 * (configGroup.getHidden() != null)
 	 * templateGroup.setHidden(configGroup.getHidden()); if
 	 * (configGroup.getMaxSelectString() != null)
 	 * templateGroup.setMaxSelect(configGroup.getMaxSelectString());
 	 * templatePage.addAttributeGroup(templateGroup); }
-	 *
+	 * 
 	 * AttributeCollection templateCollection = (AttributeCollection)
 	 * templateGroup.getAttributeCollectionByName(configCollectionName); if
 	 * (templateCollection == null){ templateCollection = new
@@ -2094,21 +2112,24 @@ public class DatabaseDatasetConfigUtils {
 	 * (configCollection.getMaxSelectString() != null)
 	 * templateCollection.setMaxSelect(configCollection.getMaxSelectString());
 	 * templateGroup.addAttributeCollection(templateCollection); }
-	 *
+	 * 
 	 * AttributeDescription templateAttToAdd = new
 	 * AttributeDescription(configAtt); if
 	 * (templateAttToAdd.getTableConstraint() != null &&
 	 * !templateAttToAdd.getTableConstraint().equals("") &&
 	 * !templateAttToAdd.getTableConstraint().equals("main"))
-	 * templateAttToAdd.setTableConstraint(templateAttToAdd.getTableConstraint().split("__")[1]+"__"+templateAttToAdd.getTableConstraint().split("__")[2]);
+	 * templateAttToAdd.setTableConstraint
+	 * (templateAttToAdd.getTableConstraint().
+	 * split("__")[1]+"__"+templateAttToAdd
+	 * .getTableConstraint().split("__")[2]);
 	 * //templateAttToAdd.setLinkoutURL("");
-	 *
+	 * 
 	 * if (configAtt.getHidden() != null)
 	 * templateAttToAdd.setHidden(configAtt.getHidden());
 	 * templateCollection.addAttributeDescription(templateAttToAdd); } }
-	 *
-	 *
-	 *
+	 * 
+	 * 
+	 * 
 	 * private void updateFilterToTemplate(FilterDescription
 	 * configAtt,DatasetConfig dsConfig, DatasetConfig templateConfig, String
 	 * upstreamFilterName) throws ConfigurationException, SQLException{ // Skip
@@ -2116,14 +2137,15 @@ public class DatabaseDatasetConfigUtils {
 	 * configAtt.getTableConstraint()==null ||
 	 * (configAtt.getPointerDataset()!=null &&
 	 * !"".equals(configAtt.getPointerDataset()))) return;
-	 *
+	 * 
 	 * String configAttName = configAtt.getInternalName(); String configAttTC;
 	 * //System.out.println(configAttName+":"+configAtt.getTableConstraint());
 	 * if (configAtt.getTableConstraint().equals("main")) configAttTC = "main";
 	 * else configAttTC =
-	 * configAtt.getTableConstraint().split("__")[1]+"__"+configAtt.getTableConstraint().split("__")[2];//
-	 * template stores w/o the dataset part
-	 *
+	 * configAtt.getTableConstraint().split("__")[1]+"__"+configAtt
+	 * .getTableConstraint().split("__")[2];// template stores w/o the dataset
+	 * part
+	 * 
 	 * String configAttField = configAtt.getField(); FilterPage configPage =
 	 * dsConfig.getPageForFilter(configAttName); String configPageName =
 	 * configPage.getInternalName(); FilterGroup configGroup =
@@ -2131,14 +2153,17 @@ public class DatabaseDatasetConfigUtils {
 	 * configGroup.getInternalName(); FilterCollection configCollection =
 	 * dsConfig.getCollectionForFilter(configAttName); String
 	 * configCollectionName = configCollection.getInternalName(); if
-	 * (templateConfig.supportsFilterDescription(configAttField,configAttTC,configAtt.getQualifier())){//
-	 * will find option filters as well //System.out.println("1 - make sure
-	 * dsConfig has same structure as templateConfig for this filter:" //
-	 * +configAtt.getInternalName()+":"+configAtt.getDisplayName()+":"+dsConfig.getDataset()+":"+upstreamFilterName); //
+	 * (templateConfig
+	 * .supportsFilterDescription(configAttField,configAttTC,configAtt
+	 * .getQualifier())){// will find option filters as well
+	 * //System.out.println("1 - make sure dsConfig has same structure as
+	 * templateConfig for this filter:" //
+	 * +configAtt.getInternalName()+":"+configAtt
+	 * .getDisplayName()+":"+dsConfig.getDataset()+":"+upstreamFilterName); //
 	 * remove att from old hierarchy in dsConfig
-	 *
+	 * 
 	 * FilterDescription upstreamFilter = null; if (upstreamFilterName != null){
-	 *
+	 * 
 	 * upstreamFilter =
 	 * configCollection.getFilterDescriptionByInternalName(upstreamFilterName);
 	 * //System.out.println("GOT "+upstreamFilter.getInternalName()+ "FOR
@@ -2147,26 +2172,27 @@ public class DatabaseDatasetConfigUtils {
 	 * (!(upstreamFilter.getOptions().length > 0)){
 	 * configCollection.removeFilterDescription(upstreamFilter); } } else{
 	 * configCollection.removeFilterDescription(configAtt); }
-	 *
+	 * 
 	 * if (!(configCollection.getFilterDescriptions().size() > 0)){
 	 * configGroup.removeFilterCollection(configCollection); if
 	 * (!(configGroup.getFilterCollections().length > 0)){
 	 * configPage.removeFilterGroup(configGroup); if
 	 * (!(configPage.getFilterGroups().size() > 0)){
 	 * dsConfig.removeFilterPage(configPage); } } }
-	 *
+	 * 
 	 * FilterDescription templateFilter =
-	 * templateConfig.getFilterDescriptionByFieldNameTableConstraintInternalName(configAttField,configAttTC,null,configAttName);
-	 *
+	 * templateConfig.getFilterDescriptionByFieldNameTableConstraintInternalName
+	 * (configAttField,configAttTC,null,configAttName);
+	 * 
 	 * FilterPage templatePage =
 	 * templateConfig.getPageForFilter(templateFilter.getInternalName());
 	 * FilterGroup templateGroup =
 	 * templateConfig.getGroupForFilter(templateFilter.getInternalName());
 	 * FilterCollection templateCollection =
 	 * templateConfig.getCollectionForFilter(templateFilter.getInternalName());
-	 *
+	 * 
 	 * FilterDescription configAttToAdd = null;
-	 *
+	 * 
 	 * if (templateFilter.getTableConstraint() == null){ // have recovered a
 	 * filter container for filter options // need to make sure a new filter
 	 * option is added to configAttToAdd Option[] ops =
@@ -2175,13 +2201,14 @@ public class DatabaseDatasetConfigUtils {
 	 * ops[j].getField().equals(configAttField)){ //Option opToAdd = ops[j];
 	 * Option opToAdd = new Option(ops[j]);
 	 * opToAdd.setTableConstraint(configAtt.getTableConstraint());
-	 *
+	 * 
 	 * if (configAtt.getHidden() != null &&
 	 * configAtt.getHidden().equals("true")) opToAdd.setHidden("true");
-	 *
+	 * 
 	 * FilterDescription configFilterList =
-	 * dsConfig.getFilterDescriptionByInternalName(templateFilter.getInternalName()); //
-	 * get bug below when filter has been removed by the //
+	 * dsConfig.getFilterDescriptionByInternalName
+	 * (templateFilter.getInternalName()); // get bug below when filter has been
+	 * removed by the //
 	 * configCollection.removeFilterDescription(upstreamFilter) call above //
 	 * therefore added extra clause to test it had options still if
 	 * (configFilterList != null && upstreamFilter != null &&
@@ -2207,11 +2234,13 @@ public class DatabaseDatasetConfigUtils {
 	 * DynamicFilterContent(dsConfig.getDataset(),configAtt.getOtherFilters()));
 	 * dynFilter.addOptions(configAtt.getOptions());
 	 * templateFilter.addDynamicFilterContent(dynFilter); }
-	 *
-	 * configAttToAdd.setOtherFilters(templateFilter.getDynamicFilterContentByInternalName(dsConfig.getDataset()).getOtherFilters());
-	 * configAttToAdd.removeOptions();
-	 * configAttToAdd.addOptions(templateFilter.getDynamicFilterContentByInternalName(dsConfig.getDataset()).getOptions()); }
-	 * else if
+	 * 
+	 * configAttToAdd.setOtherFilters(templateFilter.
+	 * getDynamicFilterContentByInternalName
+	 * (dsConfig.getDataset()).getOtherFilters());
+	 * configAttToAdd.removeOptions();configAttToAdd.addOptions(templateFilter.
+	 * getDynamicFilterContentByInternalName
+	 * (dsConfig.getDataset()).getOptions()); } else if
 	 * (!configAtt.getOtherFilters().equals(templateFilter.getOtherFilters()) ||
 	 * configAtt.getOptions().length > 0 || templateFilter.getOptions().length >
 	 * 0){ // if this config has a different setting then start using dynamic
@@ -2224,7 +2253,7 @@ public class DatabaseDatasetConfigUtils {
 	 * configAttToAdd.addOptions(templateFilter.getOptions()); } else { for (int
 	 * j = 0; j < datasetNames.length; j++){ String datasetName =
 	 * datasetNames[j]; if (datasetName.equals(dsConfig.getDataset())) continue;
-	 *
+	 * 
 	 * DynamicFilterContent dynFilter = new
 	 * DynamicFilterContent(datasetName,templateFilter.getOtherFilters());
 	 * dynFilter.addOptions(templateFilter.getOptions());
@@ -2232,36 +2261,38 @@ public class DatabaseDatasetConfigUtils {
 	 * //templateFilter.addDynamicFilterContent(new
 	 * DynamicFilterContent(datasetName,templateFilter.getOtherFilters())); }
 	 * templateFilter.removeOptions(); templateFilter.setOtherFilters("MULTI");
-	 *
+	 * 
 	 * DynamicFilterContent dynFilter = new
 	 * DynamicFilterContent(dsConfig.getDataset(),configAtt.getOtherFilters());
 	 * dynFilter.addOptions(configAtt.getOptions());
 	 * templateFilter.addDynamicFilterContent(dynFilter);
 	 * //templateFilter.addDynamicFilterContent(new
 	 * DynamicFilterContent(dsConfig.getDataset(),configAtt.getOtherFilters()));
-	 *
-	 * configAttToAdd.setOtherFilters(templateFilter.getDynamicFilterContentByInternalName(dsConfig.getDataset()).getOtherFilters());
-	 * configAttToAdd.removeOptions();
-	 * configAttToAdd.addOptions(templateFilter.getDynamicFilterContentByInternalName(dsConfig.getDataset()).getOptions()); } } /*
-	 * options now handled in dynamic content above if
-	 * (templateFilter.getType().equals("list")){ String colForDisplay = ""; if
-	 * (configAttToAdd.getColForDisplay() != null){ colForDisplay =
-	 * configAttToAdd.getColForDisplay(); }
-	 *
+	 * 
+	 * configAttToAdd.setOtherFilters(templateFilter.
+	 * getDynamicFilterContentByInternalName
+	 * (dsConfig.getDataset()).getOtherFilters());
+	 * configAttToAdd.removeOptions();configAttToAdd.addOptions(templateFilter.
+	 * getDynamicFilterContentByInternalName
+	 * (dsConfig.getDataset()).getOptions()); } } /* options now handled in
+	 * dynamic content above if (templateFilter.getType().equals("list")){
+	 * String colForDisplay = ""; if (configAttToAdd.getColForDisplay() !=
+	 * null){ colForDisplay = configAttToAdd.getColForDisplay(); }
+	 * 
 	 * Option[] options; if (configAtt.getOptions().length > 0){ options =
 	 * configAtt.getOptions(); } else{ options =
 	 * getOptions(configAttToAdd.getField(),
 	 * configAttToAdd.getTableConstraint(), configAttToAdd.getKey(), dsConfig,
 	 * colForDisplay); } for (int k = 0; k < options.length; k++) {
 	 * configAttToAdd.insertOption(k,options[k]); } } }
-	 *
-	 *
-	 *
-	 *
+	 * 
+	 * 
+	 * 
+	 * 
 	 * if (configAtt.getHidden() != null &&
 	 * configAtt.getHidden().equals("true")) configAttToAdd.setHidden("true");
-	 *
-	 *
+	 * 
+	 * 
 	 * FilterPage dsConfigPage =
 	 * dsConfig.getFilterPageByName(templatePage.getInternalName()); if
 	 * (dsConfigPage == null){ dsConfigPage = new
@@ -2272,7 +2303,7 @@ public class DatabaseDatasetConfigUtils {
 	 * FilterCollection dsConfigCollection = new
 	 * FilterCollection(templateCollection.getInternalName(),
 	 * templateCollection.getDisplayName(),templateCollection.getDescription());
-	 *
+	 * 
 	 * if (templatePage.getHidden() != null)
 	 * dsConfigPage.setHidden(templatePage.getHidden()); if
 	 * (templatePage.getDisplay() != null)
@@ -2293,15 +2324,16 @@ public class DatabaseDatasetConfigUtils {
 	 * dsConfigPage.setDisplayName(templatePage.getDisplayName()); if
 	 * (templatePage.getDescription() != null)
 	 * dsConfigPage.setDescription(templatePage.getDescription());
-	 *
+	 * 
 	 * FilterGroup dsConfigGroup = (FilterGroup)
 	 * dsConfigPage.getFilterGroupByName(templateGroup.getInternalName()); if
 	 * (dsConfigGroup == null){ dsConfigGroup = new
-	 * FilterGroup(templateGroup.getInternalName(),templateGroup.getDisplayName(),
-	 * templateGroup.getDescription()); FilterCollection dsConfigCollection =
-	 * new FilterCollection(templateCollection.getInternalName(),
+	 * FilterGroup(templateGroup.getInternalName
+	 * (),templateGroup.getDisplayName(), templateGroup.getDescription());
+	 * FilterCollection dsConfigCollection = new
+	 * FilterCollection(templateCollection.getInternalName(),
 	 * templateCollection.getDisplayName(),templateCollection.getDescription());
-	 *
+	 * 
 	 * if (templateGroup.getHidden() != null)
 	 * dsConfigGroup.setHidden(templateGroup.getHidden()); if
 	 * (templateCollection.getHidden() != null)
@@ -2318,11 +2350,12 @@ public class DatabaseDatasetConfigUtils {
 	 * (templateGroup.getDescription() != null)
 	 * dsConfigGroup.setDescription(templateGroup.getDescription());
 	 * FilterCollection dsConfigCollection = (FilterCollection)
-	 * dsConfigGroup.getFilterCollectionByName(templateCollection.getInternalName());
-	 * if (dsConfigCollection == null){ dsConfigCollection = new
+	 * dsConfigGroup.getFilterCollectionByName
+	 * (templateCollection.getInternalName()); if (dsConfigCollection == null){
+	 * dsConfigCollection = new
 	 * FilterCollection(templateCollection.getInternalName(),
 	 * templateCollection.getDisplayName(),templateCollection.getDescription());
-	 *
+	 * 
 	 * if (templateCollection.getHidden() != null)
 	 * dsConfigCollection.setHidden(templateCollection.getHidden()); if
 	 * (templateFilter.getHidden() != null)
@@ -2341,13 +2374,13 @@ public class DatabaseDatasetConfigUtils {
 	 * configAttToAdd.setHidden("true"); // put in a check for this and FILTERS
 	 * that the same configAtt not already added // this can happen when
 	 * original config has duplicate filters and atts in terms of TC and Fields
-	 *
+	 * 
 	 * if
-	 * (!dsConfigCollection.containsFilterDescription(configAttToAdd.getInternalName())){
-	 * dsConfigCollection.addFilterDescription(configAttToAdd); } } } } } else{
-	 * //System.out.println("2 - make sure templateConfig has same structure as
-	 * dsConfig for this filter:"+configAtt.getInternalName());
-	 *
+	 * (!dsConfigCollection.containsFilterDescription(configAttToAdd.getInternalName
+	 * ())){ dsConfigCollection.addFilterDescription(configAttToAdd); } } } } }
+	 * else{ //System.out.println("2 - make sure templateConfig has same
+	 * structure as dsConfig for this filter:"+configAtt.getInternalName());
+	 * 
 	 * FilterPage templatePage =
 	 * templateConfig.getFilterPageByName(configPageName); if (templatePage ==
 	 * null){ templatePage = new FilterPage(configPage.getInternalName(),
@@ -2355,7 +2388,7 @@ public class DatabaseDatasetConfigUtils {
 	 * (configPage.getHidden() != null)
 	 * templatePage.setHidden(configPage.getHidden());
 	 * templateConfig.addFilterPage(templatePage); }
-	 *
+	 * 
 	 * FilterGroup templateGroup = (FilterGroup)
 	 * templatePage.getFilterGroupByName(configGroupName); if (templateGroup ==
 	 * null){ templateGroup = new FilterGroup(configGroup.getInternalName(),
@@ -2363,7 +2396,7 @@ public class DatabaseDatasetConfigUtils {
 	 * (configGroup.getHidden() != null)
 	 * templateGroup.setHidden(configGroup.getHidden());
 	 * templatePage.addFilterGroup(templateGroup); }
-	 *
+	 * 
 	 * FilterCollection templateCollection = (FilterCollection)
 	 * templateGroup.getFilterCollectionByName(configCollectionName); if
 	 * (templateCollection == null){ templateCollection = new
@@ -2372,22 +2405,25 @@ public class DatabaseDatasetConfigUtils {
 	 * (configCollection.getHidden() != null)
 	 * templateCollection.setHidden(configCollection.getHidden());
 	 * templateGroup.addFilterCollection(templateCollection); }
-	 *
+	 * 
 	 * FilterDescription templateAttToAdd = new FilterDescription(configAtt); //
 	 * hack to fix broken types in existing XML as updateConfigToTemplate uses
 	 * list type to specify options if (templateAttToAdd.getType() != null &&
 	 * templateAttToAdd.getType().equals("list") &&
 	 * !(templateAttToAdd.getOptions().length > 0)){
 	 * templateAttToAdd.setType("text"); }
-	 *
+	 * 
 	 * //templateAttToAdd.setTableConstraint("");
 	 * //templateAttToAdd.setField(""); // remove dataset part from
 	 * tableConstraint if present if (templateAttToAdd.getTableConstraint() !=
 	 * null && !templateAttToAdd.getTableConstraint().equals("") &&
 	 * !templateAttToAdd.getTableConstraint().equals("main"))
-	 * templateAttToAdd.setTableConstraint(templateAttToAdd.getTableConstraint().split("__")[1]+"__"+templateAttToAdd.getTableConstraint().split("__")[2]);
+	 * templateAttToAdd.setTableConstraint
+	 * (templateAttToAdd.getTableConstraint().
+	 * split("__")[1]+"__"+templateAttToAdd
+	 * .getTableConstraint().split("__")[2]);
 	 * //templateAttToAdd.setOtherFilters("");
-	 *
+	 * 
 	 * Option[] ops = templateAttToAdd.getOptions(); for (int j = 0; j <
 	 * ops.length; j++){ Option op = ops[j]; // if a value option remove it if
 	 * (op.getTableConstraint() == null || op.getTableConstraint().equals("")){
@@ -2395,17 +2431,17 @@ public class DatabaseDatasetConfigUtils {
 	 * remove dataset part from tableConstraint if
 	 * (!op.getTableConstraint().equals("main")){
 	 * //System.out.println(op.getDisplayName()+":"+op.getTableConstraint());
-	 * op.setTableConstraint(op.getTableConstraint().split("__")[1]+"__"+op.getTableConstraint().split("__")[2]); }
-	 * //op.setOtherFilters(""); }
-	 *
+	 * op.setTableConstraint(op.getTableConstraint().split("__")[1]+"__"+op.
+	 * getTableConstraint().split("__")[2]); } //op.setOtherFilters(""); }
+	 * 
 	 * if (configAtt.getHidden() != null)
 	 * templateAttToAdd.setHidden(configAtt.getHidden()); // need to test if
 	 * needs to be an option instead if (upstreamFilterName != null){
 	 * FilterDescription upstreamFilter =
 	 * configCollection.getFilterDescriptionByInternalName(upstreamFilterName);
 	 * FilterDescription templateFilter =
-	 * templateCollection.getFilterDescriptionByInternalName(upstreamFilterName);
-	 * if (templateFilter == null){ templateFilter = new
+	 * templateCollection.getFilterDescriptionByInternalName
+	 * (upstreamFilterName); if (templateFilter == null){ templateFilter = new
 	 * FilterDescription(upstreamFilter); templateFilter.removeOptions();
 	 * templateCollection.addFilterDescription(templateFilter); }
 	 * templateFilter.addOption(new Option(templateAttToAdd)); } else{
@@ -2492,26 +2528,25 @@ public class DatabaseDatasetConfigUtils {
 							final SpecificFilterContent sf = configAtt
 									.getSpecificFilterContent(dsConfig
 											.getDataset());
-//							if (sf == null) {
-//								configCollection
-//										.removeFilterDescription(configAtt);
-//								continue;
-//							}
+							// if (sf == null) {
+							// configCollection
+							// .removeFilterDescription(configAtt);
+							// continue;
+							// }
 
-							//dstaines change
-								if(sf!=null) {
-							final Option[] options = sf.getOptions();
-							for (int r = 0; r < options.length; r++)
-								configAtt.addOption(new Option(options[r]));
+							// dstaines change
+							if (sf != null) {
+								final Option[] options = sf.getOptions();
+								for (int r = 0; r < options.length; r++)
+									configAtt.addOption(new Option(options[r]));
 
-							templateConfig.getDynamicDataset(
-									dsConfig.getDataset()).resolveText(
-									configAtt, sf);
+								templateConfig.getDynamicDataset(
+										dsConfig.getDataset()).resolveText(
+										configAtt, sf);
 
-							
-								} 
-								// Remove specifics.
-								configAtt.getSpecificFilterContents().clear();
+							}
+							// Remove specifics.
+							configAtt.getSpecificFilterContents().clear();
 						}
 
 						if (configAtt.getTableConstraint() != null
@@ -2549,9 +2584,9 @@ public class DatabaseDatasetConfigUtils {
 												.getDataset());
 
 								if (sf != null) {
-								templateConfig.getDynamicDataset(
-										dsConfig.getDataset()).resolveText(
-										option, sf);
+									templateConfig.getDynamicDataset(
+											dsConfig.getDataset()).resolveText(
+											option, sf);
 								}
 								// Remove specifics.
 								option.getSpecificOptionContents().clear();
@@ -2601,19 +2636,20 @@ public class DatabaseDatasetConfigUtils {
 							final SpecificAttributeContent sf = configAtt
 									.getSpecificAttributeContent(dsConfig
 											.getDataset());
-							//dstaines change for EG - I don't want to have to put in 50 different specific contents
-//							if (sf == null) {
-//								configCollection
-//										.removeAttributeDescription(configAtt);
-//								continue;
-//							}
-							
-							if(sf!=null) {
-							templateConfig.getDynamicDataset(
-									dsConfig.getDataset()).resolveText(
-									configAtt, sf);
+							// dstaines change for EG - I don't want to have to
+							// put in 50 different specific contents
+							// if (sf == null) {
+							// configCollection
+							// .removeAttributeDescription(configAtt);
+							// continue;
+							// }
 
-							} 
+							if (sf != null) {
+								templateConfig.getDynamicDataset(
+										dsConfig.getDataset()).resolveText(
+										configAtt, sf);
+
+							}
 							// Remove specifics.
 							configAtt.getSpecificAttributeContents().clear();
 						}
@@ -2806,9 +2842,9 @@ public class DatabaseDatasetConfigUtils {
 
 	/*
 	 * public int templateTest(String template) throws ConfigurationException{
-	 * Connection conn = null; try { conn = dsource.getConnection(); String sql =
-	 * "SELECT count(*) FROM "+getSchema()[0]+"."+MARTTEMPLATEMAINTABLE+" WHERE
-	 * template='"+template+"'"; PreparedStatement ps =
+	 * Connection conn = null; try { conn = dsource.getConnection(); String sql
+	 * = "SELECT count(*) FROM "+getSchema()[0]+"."+MARTTEMPLATEMAINTABLE+"
+	 * WHERE template='"+template+"'"; PreparedStatement ps =
 	 * conn.prepareStatement(sql); ResultSet rs = ps.executeQuery(); rs.next();
 	 * int result = rs.getInt(1); return result; } catch (SQLException e) {
 	 * throw new ConfigurationException( "Caught SQLException performing
@@ -3005,12 +3041,13 @@ public class DatabaseDatasetConfigUtils {
 			 * dataset:template do not get template merging //
 			 * System.out.println("SHOULD MERGE CONFIG AND TEMPLATE TOGETHER
 			 * NOW");
-			 *
+			 * 
 			 * dsConfig = updateConfigToTemplate(dsConfig,1); // convert config
 			 * to latest version using xslt dsConfig =
 			 * getXSLTransformedConfig(dsConfig); doc =
-			 * MartEditor.getDatasetConfigXMLUtils().getDocumentForDatasetConfig(dsConfig); }
-			 * else{ generateTemplateXML(dsConfig); }
+			 * MartEditor.getDatasetConfigXMLUtils
+			 * ().getDocumentForDatasetConfig(dsConfig); } else{
+			 * generateTemplateXML(dsConfig); }
 			 */
 
 			// trial move from above
@@ -3101,18 +3138,18 @@ public class DatabaseDatasetConfigUtils {
 			ps1.setString(2, dataset);
 			ps1.setString(3, description);
 			ps2.setInt(1, Integer.parseInt(datasetID));
-			//ps2.setString(1, datasetID);
-//			ps2.setClob(2, (Clob) new ByteArrayInputStream(uncompressedXML));
+			// ps2.setString(1, datasetID);
+			// ps2.setClob(2, (Clob) new ByteArrayInputStream(uncompressedXML));
 			ps2.setBinaryStream(2, new ByteArrayInputStream(uncompressedXML),
 					uncompressedXML.length);// uncompressed
 			ps2.setBinaryStream(3, new ByteArrayInputStream(xml), xml.length);// compressed
 			ps2.setBytes(4, md5);
 			ps1.setString(4, type);
-//			ps1.setString(5, visible);
+			// ps1.setString(5, visible);
 			ps1.setInt(5, Integer.parseInt(visible));
 			ps1.setString(6, version);
 			ps1.setInt(7, Integer.parseInt(datasetID));
-//			ps1.setString(7, datasetID);
+			// ps1.setString(7, datasetID);
 
 			// Timestamp tstamp = new Timestamp(System.currentTimeMillis());
 			ps1.setTimestamp(8, tstamp);
@@ -3254,14 +3291,15 @@ public class DatabaseDatasetConfigUtils {
 			 * ResultSet rs = ps.executeQuery(); rs.next(); int result =
 			 * rs.getInt(1); if (result > 1){//usual 1:1 dataset:template do not
 			 * get template merging System.out.println("SHOULD MERGE CONFIG AND
-			 * TEMPLATE TOGETHER NOW"); /* Merge dsConfig and existing template: -
-			 * completely new filters and atts get added to template - existing
-			 * ones get fitted to template layout in dsConfig - method should
-			 * store template XML once done and return edited dsConfig
-			 *
+			 * TEMPLATE TOGETHER NOW"); /* Merge dsConfig and existing template:
+			 * - completely new filters and atts get added to template -
+			 * existing ones get fitted to template layout in dsConfig - method
+			 * should store template XML once done and return edited dsConfig
+			 * 
 			 * dsConfig = updateConfigToTemplate(dsConfig); doc =
-			 * MartEditor.getDatasetConfigXMLUtils().getDocumentForDatasetConfig(dsConfig); }
-			 * else{ System.out.println("OVERWRITE TEMPLATE WITH THIS LAYOUT");
+			 * MartEditor.getDatasetConfigXMLUtils
+			 * ().getDocumentForDatasetConfig(dsConfig); } else{
+			 * System.out.println("OVERWRITE TEMPLATE WITH THIS LAYOUT");
 			 * generateTemplateXML(dsConfig); }
 			 */
 
@@ -3573,10 +3611,11 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Returns all template names from the meta_template__xml__dm table for the
 	 * given user.
-	 *
-	 * @param user --
-	 *            user for meta_configuration table, if meta_configuration_user
-	 *            does not exist, meta_configuration is attempted.
+	 * 
+	 * @param user
+	 *            -- user for meta_configuration table, if
+	 *            meta_configuration_user does not exist, meta_configuration is
+	 *            attempted.
 	 * @return String[] dataset names
 	 * @throws ConfigurationException
 	 *             when valid meta_configuration table does not exist, and for
@@ -3613,8 +3652,9 @@ public class DatabaseDatasetConfigUtils {
 
 	/**
 	 * Returns all datasets names for the given template
-	 *
-	 * @param template.
+	 * 
+	 * @param template
+	 *            .
 	 * @return String[] dataset names
 	 * @throws ConfigurationException
 	 *             when valid meta_configuration table does not exist, and for
@@ -3662,7 +3702,7 @@ public class DatabaseDatasetConfigUtils {
 	 * Returns either the template from the meta_template__template__main table
 	 * or if there is noy yet a template the dataset name from
 	 * meta_conf__dataset__main table.
-	 *
+	 * 
 	 * @return HashMap keyed on config name with value = 1 if a template, 0 if
 	 *         just a datasetConfig
 	 * @throws ConfigurationException
@@ -3711,10 +3751,11 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Returns all dataset names from the meta_configuration table for the given
 	 * user.
-	 *
-	 * @param user --
-	 *            user for meta_configuration table, if meta_configuration_user
-	 *            does not exist, meta_configuration is attempted.
+	 * 
+	 * @param user
+	 *            -- user for meta_configuration table, if
+	 *            meta_configuration_user does not exist, meta_configuration is
+	 *            attempted.
 	 * @return String[] dataset names
 	 * @throws ConfigurationException
 	 *             when valid meta_configuration table does not exist, and for
@@ -3738,12 +3779,13 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Returns all of the internalNames for the given dataset, as stored in the
 	 * meta_configuration table for the Mart Database for the given user.
-	 *
-	 * @param user --
-	 *            user for meta_configuration table, if meta_configuration_user
-	 *            does not exist, meta_configuration is attempted.
-	 * @param dataset --
-	 *            dataset for which internalNames are requested
+	 * 
+	 * @param user
+	 *            -- user for meta_configuration table, if
+	 *            meta_configuration_user does not exist, meta_configuration is
+	 *            attempted.
+	 * @param dataset
+	 *            -- dataset for which internalNames are requested
 	 * @return String[] containing all of the internalNames for the requested
 	 *         dataset.
 	 * @throws ConfigurationException
@@ -3755,27 +3797,28 @@ public class DatabaseDatasetConfigUtils {
 	 * dataset) throws ConfigurationException { if
 	 * (!configInfo.containsKey(user))
 	 * initMartConfigForUser(user,getSchema()[0],"");
-	 *
+	 * 
 	 * HashMap userMap = (HashMap) configInfo.get(user);
-	 *
+	 * 
 	 * if (!userMap.containsKey(dataset))
 	 * initMartConfigForUser(user,getSchema()[0],"");
-	 *
+	 * 
 	 * if (!userMap.containsKey(dataset)) return new String[0];
-	 *
+	 * 
 	 * HashMap dsetMap = (HashMap) userMap.get(dataset);
-	 *
+	 * 
 	 * //sorted alphabetically SortedSet names = new TreeSet(dsetMap.keySet());
-	 *
-	 * String[] ret = new String[names.size()]; names.toArray(ret); return ret; }
+	 * 
+	 * String[] ret = new String[names.size()]; names.toArray(ret); return ret;
+	 * }
 	 */
 
 	/**
 	 * Returns all of the datsetIDs for the given dataset, as stored in the
 	 * meta_configuration table for the Mart Database.
-	 *
-	 * @param dataset --
-	 *            dataset for which datasetIDs are requested
+	 * 
+	 * @param dataset
+	 *            -- dataset for which datasetIDs are requested
 	 * @return String[] containing all of the datasetIDs for the requested
 	 *         dataset.
 	 * @throws ConfigurationException
@@ -3809,14 +3852,14 @@ public class DatabaseDatasetConfigUtils {
 	 * Returns a DatasetConfig object from the Mart Database using a supplied
 	 * DetailedDataSource for a given user, defined with the given internalName
 	 * and dataset.
-	 *
-	 * @param user --
-	 *            Specific User to look for meta_configuration_[user] table, if
-	 *            null, or non-existent, uses meta_configuration
-	 * @param dataset --
-	 *            dataset for which DatasetConfig is requested
-	 * @param internalName --
-	 *            internalName of desired DatasetConfig object
+	 * 
+	 * @param user
+	 *            -- Specific User to look for meta_configuration_[user] table,
+	 *            if null, or non-existent, uses meta_configuration
+	 * @param dataset
+	 *            -- dataset for which DatasetConfig is requested
+	 * @param internalName
+	 *            -- internalName of desired DatasetConfig object
 	 * @return DatasetConfig defined by given internalName
 	 * @throws ConfigurationException
 	 *             when valid meta_configuration tables are absent, and for all
@@ -3859,14 +3902,14 @@ public class DatabaseDatasetConfigUtils {
 	 * Returns a DatasetConfig JDOM Document from the Mart Database using a
 	 * supplied DetailedDataSource for a given user, defined with the given
 	 * internalName and dataset.
-	 *
-	 * @param user --
-	 *            Specific User to look for meta_configuration_[user] table, if
-	 *            null, or non-existent, uses meta_configuration
-	 * @param dataset --
-	 *            dataset for which DatasetConfig document is requested
-	 * @param internalName --
-	 *            internalName of desired DatasetConfig document
+	 * 
+	 * @param user
+	 *            -- Specific User to look for meta_configuration_[user] table,
+	 *            if null, or non-existent, uses meta_configuration
+	 * @param dataset
+	 *            -- dataset for which DatasetConfig document is requested
+	 * @param internalName
+	 *            -- internalName of desired DatasetConfig document
 	 * @return DatasetConfig JDOM Document defined by given displayName and
 	 *         dataset
 	 * @throws ConfigurationException
@@ -3895,14 +3938,14 @@ public class DatabaseDatasetConfigUtils {
 					+ metatable
 					+ " md where md.dataset_id_key=mx.dataset_id_key and md.dataset_id_key = ? and md.dataset = ?";
 
-				this.logger.info("Using " + sql
-						+ " to get DatasetConfig for datasetID " + datasetID
-						+ "and dataset " + dataset + "\n");
+			this.logger.info("Using " + sql
+					+ " to get DatasetConfig for datasetID " + datasetID
+					+ "and dataset " + dataset + "\n");
 
 			conn = this.dsource.getConnection();
 			final PreparedStatement ps = conn.prepareStatement(sql);
-			//ps.setString(1, datasetID);
-			ps.setInt(1,Integer.parseInt(datasetID));
+			// ps.setString(1, datasetID);
+			ps.setInt(1, Integer.parseInt(datasetID));
 			ps.setString(2, dataset);
 
 			final ResultSet rs = ps.executeQuery();
@@ -3925,7 +3968,7 @@ public class DatabaseDatasetConfigUtils {
 				rstream = new ByteArrayInputStream(stream);
 			conn.close();
 			Document doc = this.dscutils.getDocumentForXMLStream(rstream);
-			if(doc==null) {
+			if (doc == null) {
 				System.err.println("Doc is null for datasetID " + datasetID
 						+ "and dataset " + dataset);
 			}
@@ -3945,7 +3988,7 @@ public class DatabaseDatasetConfigUtils {
 
 	/**
 	 * ...
-	 *
+	 * 
 	 * @param config
 	 * @return DatasetConfig JDOM Document
 	 * @throws ConfigurationException
@@ -3953,9 +3996,9 @@ public class DatabaseDatasetConfigUtils {
 	 */
 	public DatasetConfig getXSLTransformedConfig(final DatasetConfig config)
 			throws ConfigurationException {
-		
+
 		try {
-			
+
 			final Document sourceDoc = MartEditor.getDatasetConfigXMLUtils()
 					.getDocumentForDatasetConfig(config);
 			// Element thisElement = sourceDoc.getRootElement();
@@ -4008,21 +4051,21 @@ public class DatabaseDatasetConfigUtils {
 					"Caught Exception during transformation of requested DatasetConfig: "
 							+ e.getMessage(), e);
 		}
-		
+
 	}
 
 	/**
 	 * Returns a DatasetConfig JDOM Document from the Mart Database using a
 	 * supplied DetailedDataSource for a given user, defined with the given
 	 * internalName and dataset.
-	 *
-	 * @param user --
-	 *            Specific User to look for meta_configuration_[user] table, if
-	 *            null, or non-existent, uses meta_configuration
-	 * @param dataset --
-	 *            dataset for which DatasetConfig document is requested
-	 * @param internalName --
-	 *            internalName of desired DatasetConfig document
+	 * 
+	 * @param user
+	 *            -- Specific User to look for meta_configuration_[user] table,
+	 *            if null, or non-existent, uses meta_configuration
+	 * @param dataset
+	 *            -- dataset for which DatasetConfig document is requested
+	 * @param internalName
+	 *            -- internalName of desired DatasetConfig document
 	 * @return DatasetConfig JDOM Document defined by given displayName and
 	 *         dataset
 	 * @throws ConfigurationException
@@ -4139,14 +4182,14 @@ public class DatabaseDatasetConfigUtils {
 	 * Returns a DatasetConfig object from the Mart Database using a supplied
 	 * DetailedDataSource for a given user, defined with the given dataset and
 	 * displayName
-	 *
-	 * @param dataset --
-	 *            dataset for which DatsetConfig is requested
-	 * @param user --
-	 *            Specific User to look for meta_configuration_[user] table, if
-	 *            null, or non-existent, uses meta_configuration
-	 * @param displayName --
-	 *            String displayName for requested DatasetConfig
+	 * 
+	 * @param dataset
+	 *            -- dataset for which DatsetConfig is requested
+	 * @param user
+	 *            -- Specific User to look for meta_configuration_[user] table,
+	 *            if null, or non-existent, uses meta_configuration
+	 * @param displayName
+	 *            -- String displayName for requested DatasetConfig
 	 * @return DatasetConfig with given displayName and dataset
 	 * @throws ConfigurationException
 	 *             when valid meta_configuration tables are absent, and for all
@@ -4199,14 +4242,14 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Returns a DatasetConfig JDOM Document for a given user, dataset, and
 	 * displayName
-	 *
-	 * @param user --
-	 *            mart user. Determines which meta table to extract
+	 * 
+	 * @param user
+	 *            -- mart user. Determines which meta table to extract
 	 *            DatasetConfig information from.
-	 * @param dataset --
-	 *            dataset of required DatasetConfig
-	 * @param displayName --
-	 *            displayName of required DatasetConfig
+	 * @param dataset
+	 *            -- dataset of required DatasetConfig
+	 * @param displayName
+	 *            -- displayName of required DatasetConfig
 	 * @return JDOM Document for required DatasetConfig XML
 	 * @throws ConfigurationException
 	 *             for all underlying Exceptions
@@ -4332,14 +4375,14 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Get a message digest for a given DatasetConfig, given by dataset and
 	 * internalName
-	 *
-	 * @param user --
-	 *            user for meta_configuration_[user] table, if null,
+	 * 
+	 * @param user
+	 *            -- user for meta_configuration_[user] table, if null,
 	 *            meta_configuration is attempted
-	 * @param dataset --
-	 *            dataset for which digest is requested
-	 * @param internalName --
-	 *            internalName for DatasetConfig digest desired.
+	 * @param dataset
+	 *            -- dataset for which digest is requested
+	 * @param internalName
+	 *            -- internalName for DatasetConfig digest desired.
 	 * @return byte[] digest for given dataset and displayName
 	 * @throws ConfigurationException
 	 *             for all underlying Exceptions
@@ -4359,11 +4402,11 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Determine if a DatasetConfig in memory is different from the one in the
 	 * database by comparing the MD5SUMs
-	 *
-	 * @param user -
-	 *            user in database
-	 * @param dsc -
-	 *            DatasetConfig
+	 * 
+	 * @param user
+	 *            - user in database
+	 * @param dsc
+	 *            - DatasetConfig
 	 * @return true if equal, false otherwise
 	 * @throws ConfigurationException
 	 *             for all underlying exceptions
@@ -4409,9 +4452,9 @@ public class DatabaseDatasetConfigUtils {
 			// ps.setString(1, internalName);
 			// if (displayName != null)
 			// ps.setString(3, displayName);
-			//ps.setString(1, datasetID);
+			// ps.setString(1, datasetID);
 			ps.setInt(1, Integer.parseInt(datasetID));
-			
+
 			final ResultSet rs = ps.executeQuery();
 			rs.next();
 			ret = rs.getInt(1);
@@ -4432,15 +4475,17 @@ public class DatabaseDatasetConfigUtils {
 	 * internalName and displayName. Throws an error if the rows deleted do not
 	 * equal the number of rows obtained using
 	 * DatabaseDatasetConfigAdaptor.getDSConfigEntryCountFor().
-	 *
-	 * @param metatable -
-	 *            meta_configuration table to use to delete entries
-	 * @param dataset -
-	 *            dataset for DatasetConfig entries to delete from metatable
-	 * @param internalName -
-	 *            internalName of DatasetConfig entries to delete from metatable
-	 * @param displayName -
-	 *            displayName of DatasetConfig entries to delete from metatable
+	 * 
+	 * @param metatable
+	 *            - meta_configuration table to use to delete entries
+	 * @param dataset
+	 *            - dataset for DatasetConfig entries to delete from metatable
+	 * @param internalName
+	 *            - internalName of DatasetConfig entries to delete from
+	 *            metatable
+	 * @param displayName
+	 *            - displayName of DatasetConfig entries to delete from
+	 *            metatable
 	 * @throws ConfigurationException
 	 *             if number of rows to delete doesnt match number returned by
 	 *             getDSConfigEntryCountFor()
@@ -4469,11 +4514,11 @@ public class DatabaseDatasetConfigUtils {
 		try {
 			conn = this.dsource.getConnection();
 			PreparedStatement ds = conn.prepareStatement(deleteSQL1);
-			//ds.setString(1, datasetID);
+			// ds.setString(1, datasetID);
 			ds.setInt(1, Integer.parseInt(datasetID));
 			rowsdeleted = ds.executeUpdate();
 			ds = conn.prepareStatement(deleteSQL2);
-			//ds.setString(1, datasetID);
+			// ds.setString(1, datasetID);
 			ds.setInt(1, Integer.parseInt(datasetID));
 			ds.executeUpdate();
 			ds.close();
@@ -4493,9 +4538,9 @@ public class DatabaseDatasetConfigUtils {
 
 	/**
 	 * Removes all records in a given metatable for the given dataset
-	 *
-	 * @param dataset -
-	 *            dataset for DatasetConfig entries to delete from metatable
+	 * 
+	 * @param dataset
+	 *            - dataset for DatasetConfig entries to delete from metatable
 	 * @throws ConfigurationException
 	 *             if number of rows to delete doesnt match number returned by
 	 *             getDSConfigEntryCountFor()
@@ -4505,14 +4550,14 @@ public class DatabaseDatasetConfigUtils {
 	 * ConfigurationException { String deleteSQL1 = "delete from " +
 	 * BASEMETATABLE + DELETEDATASETCONFIG; String deleteSQL2 = "delete from " +
 	 * getSchema()[0] + "."+MARTXMLTABLE+" " + DELETEDATASETCONFIG;
-	 *
+	 * 
 	 * Connection conn = null; try { conn = dsource.getConnection();
 	 * PreparedStatement ds = conn.prepareStatement(deleteSQL1); ds.setString(1,
 	 * dataset); ds.executeUpdate(); ds.close(); ds =
 	 * conn.prepareStatement(deleteSQL2); ds.setString(1, dataset);
 	 * ds.executeUpdate(); ds.close(); } catch (SQLException e) { throw new
-	 * ConfigurationException("Caught SQLException during delete\n"); } finally {
-	 * DetailedDataSource.close(conn); } }
+	 * ConfigurationException("Caught SQLException during delete\n"); } finally
+	 * { DetailedDataSource.close(conn); } }
 	 */
 
 	/*
@@ -4520,12 +4565,12 @@ public class DatabaseDatasetConfigUtils {
 	 * ConfigurationException{ // needs to create meta tables in do not exist
 	 * (eg. xml from file) if (!baseDSConfigTableExists())
 	 * createMetaTables(dsource.getUser());
-	 *
-	 *
+	 * 
+	 * 
 	 * String sql = "select count(*) from " + getSchema()[0] +
-	 * "."+BASEMETATABLE+" where dataset_id_key = '" + datasetID+"' and dataset != '" +
-	 * datasetName + "'"; Connection conn = null; try { conn =
-	 * dsource.getConnection(); PreparedStatement ps =
+	 * "."+BASEMETATABLE+" where dataset_id_key = '" +
+	 * datasetID+"' and dataset != '" + datasetName + "'"; Connection conn =
+	 * null; try { conn = dsource.getConnection(); PreparedStatement ps =
 	 * conn.prepareStatement(sql); ResultSet rs = ps.executeQuery(); rs.next();
 	 * int result = rs.getInt(1); return result; } catch (SQLException e) {
 	 * throw new ConfigurationException("Caught SQLException during ps.execule:
@@ -4535,11 +4580,12 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Removes all records in a given metatable for the given dataset and
 	 * internal name
-	 *
-	 * @param dataset -
-	 *            dataset for DatasetConfig entries to delete from metatable
-	 * @param internalName -
-	 *            internal name for DatasetConfig entry to delete from metatable
+	 * 
+	 * @param dataset
+	 *            - dataset for DatasetConfig entries to delete from metatable
+	 * @param internalName
+	 *            - internal name for DatasetConfig entry to delete from
+	 *            metatable
 	 * @throws ConfigurationException
 	 *             if number of rows to delete doesnt match number returned by
 	 *             getDSConfigEntryCountFor()
@@ -4612,9 +4658,9 @@ public class DatabaseDatasetConfigUtils {
 
 	/**
 	 * Removes all records in a given metatable for the given template
-	 *
-	 * @param template -
-	 *            template for TemplateConfig entries to delete from metatable
+	 * 
+	 * @param template
+	 *            - template for TemplateConfig entries to delete from metatable
 	 * @throws ConfigurationException
 	 *             if something goes wrong
 	 */
@@ -4666,10 +4712,10 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Get the correct DatasetConfig table for a given user in the Mart Database
 	 * stored in the given DetailedDataSource.
-	 *
-	 * @param user --
-	 *            user to retrieve a DatasetConfig table. If user is null, or if
-	 *            meta_configuration_[user] does not exist returns
+	 * 
+	 * @param user
+	 *            -- user to retrieve a DatasetConfig table. If user is null, or
+	 *            if meta_configuration_[user] does not exist returns
 	 *            DatabaseDatasetConfigUtils.BASEMETATABLE.
 	 * @return String meta table name
 	 * @throws ConfigurationException
@@ -4753,7 +4799,8 @@ public class DatabaseDatasetConfigUtils {
 				+ "."
 				+ this.MARTXMLTABLE
 				+ "(dataset_id_key integer,"
-//				+ "xml text, compressed_xml bytea, message_digest bytea,UNIQUE (dataset_id_key))";
+				// +
+				// "xml text, compressed_xml bytea, message_digest bytea,UNIQUE (dataset_id_key))";
 				+ "xml bytea, compressed_xml bytea, message_digest bytea,UNIQUE (dataset_id_key))";
 		final String POSTGRES_USER = CREATETABLE
 				+ "."
@@ -4807,27 +4854,30 @@ public class DatabaseDatasetConfigUtils {
 							/*
 							 * Decided no need to delete existing templates from
 							 * now on as 0.5 and 0.6 are compatible now
-							 *
+							 * 
 							 * final String TEMPLATEMAIN = "delete from
-							 * "+this.getSchema()[0]+"."+this.MARTTEMPLATEMAINTABLE;
-							 * final String TEMPLATEDM = "delete from
-							 * "+this.getSchema()[0]+"."+this.MARTTEMPLATEDMTABLE;
-							 * final String VERSIONSQL = "update
+							 * "+this.getSchema()[0]+"
+							 * ."+this.MARTTEMPLATEMAINTABLE; final String
+							 * TEMPLATEDM = "delete from
+							 * "+this.getSchema()[0]+".
+							 * "+this.MARTTEMPLATEDMTABLE; final String
+							 * VERSIONSQL = "update
 							 * "+this.getSchema()[0]+"."+this.MARTVERSIONTABLE+"
 							 * set version='"+this.SOFTWAREVERSION+"'";
-							 *
+							 * 
 							 * if (JOptionPane.showConfirmDialog(null,"WARNING -
 							 * EXISTING TEMPLATES ARE NOT
 							 * "+this.SOFTWAREVERSION+" COMPATIBLE AND NEED
 							 * DELETING.\n" + "Are you sure you want to do
-							 * this?","DELETE
-							 * TEMPLATES?",JOptionPane.YES_NO_OPTION)!=JOptionPane.YES_OPTION)
+							 * this?","DELETETEMPLATES?
+							 * ",JOptionPane.YES_NO_OPTION)!=JOptionPane.YES_OPTION)
 							 * return metatable;
-							 *
+							 * 
 							 * //System.out.println("THE VERSIONS DO NOT MATCH
 							 * FOR DB - LINES TO RUN (NOT PUT IN
-							 * YET)\n"+TEMPLATEMAIN+"\n"+TEMPLATEDM+"\n"+VERSIONSQL);
-							 * final PreparedStatement
+							 * YET)\n"+TEMPLATEMAIN+"
+							 * \n"+TEMPLATEDM+"\n"+VERSIONSQL); final
+							 * PreparedStatement
 							 * ps1=conn.prepareStatement(TEMPLATEMAIN);
 							 * ps1.executeUpdate(); final PreparedStatement
 							 * ps2=conn.prepareStatement(TEMPLATEDM);
@@ -5085,20 +5135,20 @@ public class DatabaseDatasetConfigUtils {
 		 * DATASET OPTIONS DO NOT EXIST boolean hasBrokenOptions = false;
 		 * Option[] options = validatedDatasetConfig.getOptions(); HashMap
 		 * brokenOptions = new HashMap();
-		 *
+		 * 
 		 * for (int i = 0, n = options.length; i < n; i++) { Option
 		 * validatedOption = getValidatedOption(schema, catalog, options[i],
 		 * dset, conn,mains,keys);
-		 *
+		 * 
 		 * if (validatedOption.isBroken()) { hasBrokenOptions = true;
 		 * brokenOptions.put(new Integer(i), validatedOption); } }
-		 *
+		 * 
 		 * if (hasBrokenOptions) { validatedDatasetConfig.setOptionsBroken();
-		 *
+		 * 
 		 * for (Iterator iter = brokenOptions.keySet().iterator();
 		 * iter.hasNext();) { Integer position = (Integer) iter.next(); Option
 		 * brokenOption = (Option) brokenOptions.get(position);
-		 *
+		 * 
 		 * validatedDatasetConfig.removeOption(options[position.intValue()]);
 		 * validatedDatasetConfig.insertOption(position.intValue(),
 		 * brokenOption); } }
@@ -5571,14 +5621,28 @@ public class DatabaseDatasetConfigUtils {
 					if (keys[i].equals(validatedFilter.getKey()))
 						break;
 				}
-			}else if( desVal.fieldValid && desVal.tableValid && validatedFilter.getKey()!=null){
-					// DMS says check the key too!
-					DescriptionValidity keyVal =  validateDescription(schema, catalog, dset,
-							conn, validatedFilter.getKey(), tableConstraint);
-					if(!keyVal.fieldValid || !keyVal.tableValid) {
-						System.err.println("Filter key "+validatedFilter.getKey()+" does not exist for table "+tableConstraint);
+			} else if (desVal.fieldValid && desVal.tableValid
+					&& validatedFilter.getKey() != null) {
+				// DMS says check the key too!
+				DescriptionValidity keyVal = validateDescription(schema,
+						catalog, dset, conn, validatedFilter.getKey(),
+						tableConstraint);
+
+				if (!keyVal.fieldValid || !keyVal.tableValid) {
+					String suggestedKey = suggestKeyFix(schema, catalog, dset,
+							conn, tableConstraint);
+					System.err.println(dset+"_"+tableConstraint+"."+ validatedFilter.getKey()
+							+ " does not exist for "+" filter " + validatedFilter.getInternalName());
+					if (suggestedKey != null) {
+						System.err.println("<SpecificFilterContent key=\""
+								+ suggestedKey + "\" field=\""
+								+ validatedFilter.getField()
+								+ "\" internalName=\"" + dset + "\" />");
+						validatedFilter.setKey(suggestedKey);
 					}
 				}
+
+			}
 			if ("true".equals(validatedFilter.getCheckForNulls()) && fieldValid
 					&& tableValid && this.isAllNull(field, tableConstraint)) {
 				fieldValid = false;
@@ -5597,7 +5661,7 @@ public class DatabaseDatasetConfigUtils {
 				// update
 			}
 
-			//System.out.println(tableConstraint+"."+field+"="+tableValid+"/"+fieldValid);
+			// System.out.println(tableConstraint+"."+field+"="+tableValid+"/"+fieldValid);
 
 			if (!(fieldValid && tableValid)) {
 				validatedFilter.setFieldBroken();
@@ -6095,19 +6159,60 @@ public class DatabaseDatasetConfigUtils {
 			// tableValid = false if all nulls
 			if (tableConstraint.equals("main")) {
 				// tableConstraint = [] mains;
+				boolean found = false;
 				for (int i = 0; i < keys.length; i++) {
 					tableConstraint = mains[i];
-					if (keys[i].equals(validatedOption.getKey()))
+					if (keys[i].equals(validatedOption.getKey())) {
+						found = true;
 						break;
+					}
 				}
-			} else if( desVal.fieldValid && desVal.tableValid && validatedOption.getKey()!=null){
-						// DMS says check the key too!
-						DescriptionValidity keyVal =  validateDescription(schema, catalog, dset,
-								conn, validatedOption.getKey(), tableConstraint);
-						if(!keyVal.fieldValid || !keyVal.tableValid) {
-							System.err.println("Option key "+validatedOption.getKey()+" does not exist for table "+tableConstraint);
+				if(found) {
+					DescriptionValidity keyVal = validateDescription(schema,
+							catalog, dset, conn, validatedOption.getKey(),
+							tableConstraint);
+					if (!keyVal.fieldValid) {
+						String suggestedKey = suggestKeyFix(schema, catalog, dset,
+								conn, tableConstraint);
+						System.err.println(dset+"_"+tableConstraint+"."+ validatedOption.getKey()
+								+ " does not exist for "+" option " + validatedOption.getInternalName());
+						if (suggestedKey != null) {
+							System.err.println("<SpecificOptionContent key=\""
+									+ suggestedKey + "\" field=\""
+									+ validatedOption.getField()
+									+ "\" internalName=\"" + dset + "\" />");
+							validatedOption.setKey(suggestedKey);
 						}
 					}
+					if (!keyVal.tableValid) {
+						System.err.println("Incorrect table for key "
+								+ validatedOption.getKey());
+					}
+				}
+			} else if (desVal.fieldValid && desVal.tableValid
+					&& validatedOption.getKey() != null) {
+				// DMS says check the key too!
+				DescriptionValidity keyVal = validateDescription(schema,
+						catalog, dset, conn, validatedOption.getKey(),
+						tableConstraint);
+				if (!keyVal.fieldValid) {
+					String suggestedKey = suggestKeyFix(schema, catalog, dset,
+							conn, tableConstraint);
+					System.err.println(dset+"_"+tableConstraint+"."+ validatedOption.getKey()
+							+ " does not exist for "+" option " + validatedOption.getInternalName());
+					if (suggestedKey != null) {
+						System.err.println("<SpecificOptionContent key=\""
+								+ suggestedKey + "\" field=\""
+								+ validatedOption.getField()
+								+ "\" internalName=\"" + dset + "\" />");
+						validatedOption.setKey(suggestedKey);
+					}
+				}
+				if (!keyVal.tableValid) {
+					System.err.println("Incorrect table for key "
+							+ validatedOption.getKey());
+				}
+			}
 			if ("true".equals(validatedOption.getCheckForNulls()) && fieldValid
 					&& tableValid && this.isAllNull(field, tableConstraint)) {
 				fieldValid = false;
@@ -6203,6 +6308,22 @@ public class DatabaseDatasetConfigUtils {
 		}
 
 		return validatedOption;
+	}
+
+	private String suggestKeyFix(final String schema, final String catalog,
+			final String dset, final Connection conn, String tableConstraint)
+			throws SQLException {
+		Set columns = (Set) getTableColumns(dset, schema, catalog, conn).get(
+				tableConstraint.toLowerCase());
+		String key = null;
+		for (Object col : columns) {
+			String c = (String)col;
+			if (c.matches(".*_key$")) {
+				key = (String) col;
+				break;
+			}
+		}
+		return key;
 	}
 
 	private boolean pruneBrokenOptions(final FilterDescription original,
@@ -6514,12 +6635,23 @@ public class DatabaseDatasetConfigUtils {
 				if (keys[i].equals(validatedAttribute.getKey()))
 					break;
 			}
-		} else if( desVal.fieldValid && desVal.tableValid && validatedAttribute.getKey()!=null){
+		} else if (desVal.fieldValid && desVal.tableValid
+				&& validatedAttribute.getKey() != null) {
 			// DMS says check the key too!
-			DescriptionValidity keyVal =  validateDescription(schema, catalog, dset,
-					conn, validatedAttribute.getKey(), tableConstraint);
-			if(!keyVal.fieldValid || !keyVal.tableValid) {
-				System.err.println("Key "+validatedAttribute.getKey()+" does not exist for table "+tableConstraint);
+			DescriptionValidity keyVal = validateDescription(schema, catalog,
+					dset, conn, validatedAttribute.getKey(), tableConstraint);
+			if (!keyVal.fieldValid || !keyVal.tableValid) {
+				String suggestedKey = suggestKeyFix(schema, catalog, dset,
+						conn, tableConstraint);
+				System.err.println(dset+"_"+tableConstraint+"."+ validatedAttribute.getKey()
+						+ " does not exist for "+" attribute " + validatedAttribute.getInternalName());
+				if (suggestedKey != null) {
+					System.err.println("<SpecificAttributeContent key=\""
+							+ suggestedKey + "\" field=\""
+							+ validatedAttribute.getField()
+							+ "\" internalName=\"" + dset + "\" />");
+					validatedAttribute.setKey(suggestedKey);
+				}
 			}
 		}
 		if ("true".equals(validatedAttribute.getCheckForNulls()) && fieldValid
@@ -6528,7 +6660,7 @@ public class DatabaseDatasetConfigUtils {
 			tableValid = false;
 		}
 
-		//System.out.println(dset+"\t"+tableConstraint+"\t"+tableValid+"\t"+field+"\t"+fieldValid);
+		// System.out.println(dset+"\t"+tableConstraint+"\t"+tableValid+"\t"+field+"\t"+fieldValid);
 
 		if (!fieldValid || !tableValid)
 			validatedAttribute.setHidden("true");
@@ -6544,7 +6676,6 @@ public class DatabaseDatasetConfigUtils {
 			validatedAttribute.setTableConstraintBroken();
 		}
 
-
 		return validatedAttribute;
 	}
 
@@ -6555,14 +6686,14 @@ public class DatabaseDatasetConfigUtils {
 		if (tableConstraint.equals("main")) {
 			Set mainNames = getMainTables(dset, schema, catalog, conn);
 			String tableName = null;
-			for (Iterator i = mainNames.iterator(); i.hasNext(); ) {
-				tableName = (String)i.next();
-				Set columns = (Set)getTableColumns(dset, schema, catalog,
-						conn).get(tableName.toLowerCase());
+			for (Iterator i = mainNames.iterator(); i.hasNext();) {
+				tableName = (String) i.next();
+				Set columns = (Set) getTableColumns(dset, schema, catalog, conn)
+						.get(tableName.toLowerCase());
 				if (columns != null) {
 					String columnName = null;
-					for (Iterator i2 = columns.iterator(); i2.hasNext(); ) {
-						columnName = (String)i2.next();
+					for (Iterator i2 = columns.iterator(); i2.hasNext();) {
+						columnName = (String) i2.next();
 						final boolean[] valid = this.isValidDescription(
 								columnName, field, tableName, tableConstraint);
 						desVal.fieldValid = valid[0];
@@ -6576,12 +6707,12 @@ public class DatabaseDatasetConfigUtils {
 			}
 		} else {
 			String tableName = tableConstraint;
-			Set columns = (Set)getTableColumns(dset, schema, catalog, conn)
+			Set columns = (Set) getTableColumns(dset, schema, catalog, conn)
 					.get(tableConstraint.toLowerCase());
 			if (columns != null) {
 				String columnName = null;
-				for(Iterator i=columns.iterator(); i.hasNext(); ) {
-					columnName = (String)i.next();
+				for (Iterator i = columns.iterator(); i.hasNext();) {
+					columnName = (String) i.next();
 					final boolean[] valid = this.isValidDescription(columnName,
 							field, tableName, tableConstraint);
 					desVal.fieldValid = valid[0];
@@ -6591,7 +6722,7 @@ public class DatabaseDatasetConfigUtils {
 				}
 			}
 		}
-		//System.out.println(tableConstraint+"."+field+"="+desVal.tableValid+"/"+desVal.fieldValid);
+		// System.out.println(tableConstraint+"."+field+"="+desVal.tableValid+"/"+desVal.fieldValid);
 		return desVal;
 	}
 
@@ -6627,9 +6758,9 @@ public class DatabaseDatasetConfigUtils {
 	 * compliant database hosted on a given DetailedDataSource. These names can
 	 * be used as an argument to getNaiveMainTablesFor,
 	 * getNaiveDimensionTablesFor and getNaiveDatasetConfigFor.
-	 *
-	 * @param schema --
-	 *            name of the RDBMS instance to search for potential datasets
+	 * 
+	 * @param schema
+	 *            -- name of the RDBMS instance to search for potential datasets
 	 * @return String[] of potential dataset names
 	 * @throws SQLException
 	 */
@@ -6663,12 +6794,12 @@ public class DatabaseDatasetConfigUtils {
 	 * database, hosted on a given RDBMS, with an (optional) datasetName to key
 	 * upon. With no datasetName, all possible main tables from the database are
 	 * returned.
-	 *
-	 * @param schema --
-	 *            name of the RDBMS instance to search for potential tables
-	 * @param datasetName --
-	 *            name of the dataset to constrain the search (can be a result
-	 *            of getNaiveDatasetNamesFor, or null)
+	 * 
+	 * @param schema
+	 *            -- name of the RDBMS instance to search for potential tables
+	 * @param datasetName
+	 *            -- name of the dataset to constrain the search (can be a
+	 *            result of getNaiveDatasetNamesFor, or null)
 	 * @return String[] of potential main table names
 	 * @throws SQLException
 	 */
@@ -6700,7 +6831,7 @@ public class DatabaseDatasetConfigUtils {
 
 			while (rsTab.next()) {
 				final String tableName = rsTab.getString(3);
-//				potentials.add(tableName);
+				// potentials.add(tableName);
 				final String tableDataset = tableName.split("__")[0];
 				if (datasetName == null || tableDataset.equals(datasetName))
 					potentials.add(tableName);
@@ -6715,10 +6846,11 @@ public class DatabaseDatasetConfigUtils {
 				// NN
 				// System.out.println(tableName);
 
-				//if (!potentials.contains(tableName))
-				//	potentials.add(tableName);
+				// if (!potentials.contains(tableName))
+				// potentials.add(tableName);
 				final String tableDataset = tableName.split("__")[0];
-				if (datasetName == null || tableDataset.equals(datasetName.toUpperCase()))
+				if (datasetName == null
+						|| tableDataset.equals(datasetName.toUpperCase()))
 					potentials.add(tableName);
 			}
 			rsTab.close();
@@ -6771,7 +6903,7 @@ public class DatabaseDatasetConfigUtils {
 				final String tableName = rsTab.getString(3);
 
 				// System.out.println("tableName "+tableName);
-				//modified by yong liang for #25
+				// modified by yong liang for #25
 				final String tableDataset = tableName.split("__")[0];
 				if (datasetName == null || tableDataset.equals(datasetName))
 					potentials.add(tableName);
@@ -6785,10 +6917,11 @@ public class DatabaseDatasetConfigUtils {
 				// NN
 				// System.out.println(tableName);
 
-//				if (!potentials.contains(tableName))
-//					potentials.add(tableName);
+				// if (!potentials.contains(tableName))
+				// potentials.add(tableName);
 				final String tableDataset = tableName.split("__")[0];
-				if (datasetName == null || tableDataset.equals(datasetName.toUpperCase()))
+				if (datasetName == null
+						|| tableDataset.equals(datasetName.toUpperCase()))
 					potentials.add(tableName);
 			}
 			rsTab.close();
@@ -6806,12 +6939,12 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Retruns a String[] of main tables sorted on the number of join keys they
 	 * contain
-	 *
-	 * @param databaseName --
-	 *            name of the RDBMS instance to search for potential tables
-	 * @param datasetName --
-	 *            name of the dataset to constrain the search (can be a result
-	 *            of getNaiveDatasetNamesFor, or null)
+	 * 
+	 * @param databaseName
+	 *            -- name of the RDBMS instance to search for potential tables
+	 * @param datasetName
+	 *            -- name of the dataset to constrain the search (can be a
+	 *            result of getNaiveDatasetNamesFor, or null)
 	 * @return String[] of potential main table names
 	 * @throws SQLException
 	 */
@@ -6870,12 +7003,12 @@ public class DatabaseDatasetConfigUtils {
 	 * Returns a String[] of potential dimension tables from a given Mart
 	 * Compliant database, hosted on a given RDBMS, constrained to an (optional)
 	 * dataset.
-	 *
-	 * @param databaseName --
-	 *            name of the RDBMS instance to search for potential tables
-	 * @param datasetName --
-	 *            name of the dataset to constrain the search (can be a result
-	 *            of getNaiveDatasetNamesFor, or null)
+	 * 
+	 * @param databaseName
+	 *            -- name of the RDBMS instance to search for potential tables
+	 * @param datasetName
+	 *            -- name of the dataset to constrain the search (can be a
+	 *            result of getNaiveDatasetNamesFor, or null)
 	 * @return String[] of potential dimension table names
 	 * @throws SQLException
 	 */
@@ -6931,12 +7064,12 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Returns a TableDescription object describing a particular table in a
 	 * given database, hosted on a given RDBMS.
-	 *
-	 * @param schema --
-	 *            name of the RDBMS instance housing the requested table
-	 * @param tableName --
-	 *            name of the desired table, as might be returned by a call to
-	 *            getXXXTablesFor
+	 * 
+	 * @param schema
+	 *            -- name of the RDBMS instance housing the requested table
+	 * @param tableName
+	 *            -- name of the desired table, as might be returned by a call
+	 *            to getXXXTablesFor
 	 * @return TableDescription object describing the table
 	 * @throws SQLException
 	 */
@@ -6974,12 +7107,12 @@ public class DatabaseDatasetConfigUtils {
 	/**
 	 * Returns a Naive DatasetConfig for a given dataset within a given Mart
 	 * Compliant database, hosted on a given RDBMS.
-	 *
-	 * @param schema --
-	 *            name of the RDBMS instance to search for potential tables
-	 * @param datasetName --
-	 *            name of the dataset to constrain the search (can be a result
-	 *            of getNaiveDatasetNamesFor, or null)
+	 * 
+	 * @param schema
+	 *            -- name of the RDBMS instance to search for potential tables
+	 * @param datasetName
+	 *            -- name of the dataset to constrain the search (can be a
+	 *            result of getNaiveDatasetNamesFor, or null)
 	 * @return DatasetConfig nievely generated
 	 * @throws ConfigurationException
 	 * @throws SQLException
@@ -7496,7 +7629,7 @@ public class DatabaseDatasetConfigUtils {
 												cname, shortTableName, null);
 							// System.out.println(currFilt);
 							if (currFilt == null) {
-								System.err.println("Found new filter "+cname);
+								System.err.println("Found new filter " + cname);
 								if (filtMap.containsKey(cname))
 									duplicated = 1;
 								filtMap.put(cname, "1");
@@ -7562,7 +7695,8 @@ public class DatabaseDatasetConfigUtils {
 								// option with this field and table
 								// name doesn't already exist
 								fdBools.addOption(opBool);
-								System.err.println("Found new option "+opBool);
+								System.err
+										.println("Found new option " + opBool);
 
 							}
 
@@ -7630,7 +7764,7 @@ public class DatabaseDatasetConfigUtils {
 								newOption = false;
 
 							if (newOption) {
-								System.err.println("Found new option "+op);
+								System.err.println("Found new option " + op);
 								fdLists.addOption(op);
 							}
 
@@ -7650,7 +7784,7 @@ public class DatabaseDatasetConfigUtils {
 								.getFilterDescriptionByFieldNameTableConstraint(
 										cname, shortTableName, null);
 						if (currFilt == null) {
-							System.err.println("Found new filter "+cname);
+							System.err.println("Found new filter " + cname);
 
 							if (filtMap.containsKey(cname))
 								duplicated = 1;
@@ -7704,22 +7838,22 @@ public class DatabaseDatasetConfigUtils {
 	/*
 	 * private void updateDropDown(DatasetConfig dsConfig, FilterDescription
 	 * fd1) throws ConfigurationException, SQLException {
-	 *
+	 * 
 	 * System.out.println("UPDATING OPTION " + fd1.getInternalName());
-	 *
+	 * 
 	 * Option[] ops = fd1.getOptions(); System.out.println("LENGTH
 	 * "+ops.length);
-	 *
-	 *
+	 * 
+	 * 
 	 * if (ops[0].getTableConstraint() != null) return; // drop down lists of
 	 * options shouldn't be updated
-	 *
+	 * 
 	 * PushAction[] pas = ops[0].getPushActions();
-	 *
+	 * 
 	 * PushAction[] pas2 = null; if (pas.length > 0){ Option[] paOps =
 	 * pas[0].getOptions(); if (paOps.length > 0) pas2 =
 	 * paOps[0].getPushActions(); }
-	 *
+	 * 
 	 * System.out.println("REMOVING OPS STARTED"); fd1.removeOptions(); //for
 	 * (int i = 0; i < ops.length; i++) { // fd1.removeOption(ops[i]); //}
 	 * System.out.println("REMOVING FINISHED"); String field = fd1.getField();
@@ -7727,20 +7861,20 @@ public class DatabaseDatasetConfigUtils {
 	 * fd1.getKey(); fd1.setType("list"); fd1.setDisplayType("list");
 	 * fd1.setStyle("menu"); fd1.setQualifier("="); fd1.setLegalQualifiers("=");
 	 * String colForDisplay = fd1.getColForDisplay();
-	 *
+	 * 
 	 * Option[] options = getOptions(field, tableName, joinKey, dsConfig,
 	 * colForDisplay);
-	 *
+	 * 
 	 * fd1.addOptions(options); // update push actions if any
-	 *
+	 * 
 	 * for (int k = 0; k < pas.length; k++) {
-	 *
+	 * 
 	 * String ref = pas[k].getRef();
-	 *
-	 *
-	 *
+	 * 
+	 * 
+	 * 
 	 * FilterDescription fd2 = dsConfig.getFilterDescriptionByInternalName(ref);
-	 *
+	 * 
 	 * if (fd2 != null){// because of martp placeholders
 	 * updatePushAction(dsConfig, fd1, fd2,""); } } Option[] newOps =
 	 * fd1.getOptions(); for (int k = 0; k < newOps.length; k++) { for (int l =
@@ -7748,33 +7882,33 @@ public class DatabaseDatasetConfigUtils {
 	 * newOps[k].getPushActions(); PushAction newPa = null; for (int z = 0; z <
 	 * newPas.length; z++) { if (newPas[z].getRef().equals(pas[l].getRef())) {
 	 * newPa = newPas[z]; break; } }
-	 *
+	 * 
 	 * for (int m = 0; m < pas2.length; m++) { String ref2 = pas2[m].getRef();
 	 * FilterDescription fd3 =
 	 * dsConfig.getFilterDescriptionByInternalName(ref2);
 	 * //System.out.println("LOOKING FOR " + ref2 + " IN " +
 	 * dsConfig.getDataset()); if (fd3 == null){ //System.out.println("NOT
 	 * FOUND"); continue; } updatePushAction(dsConfig, newPa, fd3,""); } } } }
-	 *
+	 * 
 	 * private void updatePushAction(DatasetConfig dsConfig,
 	 * BaseConfigurationObject bo, FilterDescription fd2, String orderBy) throws
 	 * ConfigurationException, SQLException { //System.out.println(fd2);
 	 * fd2.setType("drop_down_basic_filter");
-	 *
+	 * 
 	 * String pushField = fd2.getField(); String pushColForDisplay =
 	 * fd2.getColForDisplay(); String pushInternalName = fd2.getInternalName();
 	 * if (pushInternalName.matches("\\w+\\.\\w+")) pushInternalName =
 	 * pushInternalName.split("\\.")[0]+"__"+pushInternalName.split("\\.")[1];
 	 * String pushTableName = fd2.getTableConstraint();
-	 *
+	 * 
 	 * if (pushTableName.equals("main")){ String[] mains =
 	 * dsConfig.getStarBases(); pushTableName = mains[0]; }
-	 *
+	 * 
 	 * //String orderSQL = JOptionPane.showInputDialog("Optional column name to
 	 * order " + pushInternalName + " :"); // can add push actions to existing
 	 * push actions so need to know the class of the node String className =
 	 * bo.getClass().getName(); String field; Option[] options;
-	 *
+	 * 
 	 * if (className.equals("org.ensembl.mart.lib.config.FilterDescription")) {
 	 * FilterDescription fd1 = (FilterDescription) bo; field = fd1.getField();
 	 * //if (!fd1.getTableConstraint().equals(pushTableName)) // field =
@@ -7782,16 +7916,16 @@ public class DatabaseDatasetConfigUtils {
 	 * (PushAction) bo; String intName = pa1.getInternalName(); field =
 	 * intName.split("_push")[0]; //if (field.startsWith("glook_")) { // field =
 	 * field.replaceFirst("glook_", ""); //} options = pa1.getOptions(); }
-	 *
-	 *
+	 * 
+	 * 
 	 * for (int i = 0; i < options.length; i++) { Option op = options[i]; String
 	 * opName = op.getInternalName(); PushAction pa = new
 	 * PushAction(pushInternalName + "_push_" + opName, null, null,
 	 * pushInternalName, orderBy);
-	 *
+	 * 
 	 * pa.addOptions(getLookupOptions(pushField, pushTableName, field, opName,
 	 * orderBy,getSchema()[0],pushColForDisplay));
-	 *
+	 * 
 	 * if (pa.getOptions().length > 0) { //System.out.println("ADDING PA\t" +
 	 * op.getInternalName()); op.addPushAction(pa); } } }
 	 */
@@ -8015,16 +8149,16 @@ public class DatabaseDatasetConfigUtils {
 	 * public Option[] getOntologyOptions(String ontologyTable, String ontology,
 	 * String vocabTable, String nodeTable) throws SQLException,
 	 * ConfigurationException {
-	 *
-	 * Connection conn = dsource.getConnection(); String sql = "SELECT id FROM " +
-	 * ontologyTable + " WHERE name = '" + ontology+"'"; PreparedStatement ps =
-	 * conn.prepareStatement(sql); ResultSet rs = ps.executeQuery(); rs.next();
-	 * String ontologyId = rs.getString(1);
-	 *
-	 * //String[] tableParts = ontologyTable.split("evoc"); //String vocabTable =
-	 * tableParts[0]+"evoc_vocabulary__evoc_vocabulary__main"; //String
+	 * 
+	 * Connection conn = dsource.getConnection(); String sql = "SELECT id FROM "
+	 * + ontologyTable + " WHERE name = '" + ontology+"'"; PreparedStatement ps
+	 * = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery();
+	 * rs.next(); String ontologyId = rs.getString(1);
+	 * 
+	 * //String[] tableParts = ontologyTable.split("evoc"); //String vocabTable
+	 * = tableParts[0]+"evoc_vocabulary__evoc_vocabulary__main"; //String
 	 * nodeTable = tableParts[0]+"evoc_node__evoc_node__main";
-	 *
+	 * 
 	 * Option[] retOptions =
 	 * recurseOntology(ontologyId,"0",vocabTable,nodeTable,conn);
 	 * DetailedDataSource.close(conn); return retOptions; }
@@ -8085,18 +8219,18 @@ public class DatabaseDatasetConfigUtils {
 	 * private Option[] recurseOntology(String ontologyId, String parentId,
 	 * String vocabTable, String nodeTable, Connection conn) throws
 	 * SQLException{
-	 *
+	 * 
 	 * List options = new ArrayList();
-	 *
+	 * 
 	 * String sql = "SELECT ct.term, c.id, c.parent_id, c.ontology_id FROM
 	 * "+vocabTable+" ct, "+nodeTable+ " c WHERE c.parent_id = "+parentId+" AND
 	 * c.ontology_id = "+ontologyId+" AND c.id = ct.node_id"; PreparedStatement
 	 * ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery(); String
 	 * value; Option op; while (rs.next()) { value = rs.getString(1); op = new
-	 * Option(); op.setDisplayName(value); String intName = value.replaceAll(" ",
-	 * "_"); op.setInternalName(intName.toLowerCase()); op.setValue(value);
-	 * op.setSelectable("true"); // recurse here to add in suboptions Option[]
-	 * subOps =
+	 * Option(); op.setDisplayName(value); String intName =
+	 * value.replaceAll(" ", "_"); op.setInternalName(intName.toLowerCase());
+	 * op.setValue(value); op.setSelectable("true"); // recurse here to add in
+	 * suboptions Option[] subOps =
 	 * recurseOntology(ontologyId,rs.getString(2),vocabTable,nodeTable,conn);
 	 * op.addOptions(subOps); options.add(op); } Option[] retOptions = new
 	 * Option[options.size()]; options.toArray(retOptions); return retOptions; }
