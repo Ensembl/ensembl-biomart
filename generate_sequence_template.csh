@@ -40,13 +40,13 @@ else if ( "$EG_DIVISION" == "Protist" ) then
 	echo "Running perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart protist_sequence_mart_${EG_RELEASE} -release $RELEASE"
 	perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart protist_sequence_mart_${EG_RELEASE} -release $RELEASE
 else if ( "$EG_DIVISION" == "Fungi" ) then
-	"Running perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart fungi_sequence_mart_${EG_RELEASE} -release $RELEASE"
+	echo "Running perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart fungi_sequence_mart_${EG_RELEASE} -release $RELEASE"
 	perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart fungal_sequence_mart_${EG_RELEASE} -release $RELEASE
 else if ( "$EG_DIVISION" == "Plants" ) then
-	"Running perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart plant_sequence_mart_${EG_RELEASE} -release $RELEASE"
+	echo "Running perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart plant_sequence_mart_${EG_RELEASE} -release $RELEASE"
 	perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart plant_sequence_mart_${EG_RELEASE} -release $RELEASE
 else if ( "$EG_DIVISION" == "Metazoa" ) then
-	"Running perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart metazoa_sequence_mart_${EG_RELEASE} -release $RELEASE"
+	echo "Running perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart metazoa_sequence_mart_${EG_RELEASE} -release $RELEASE"
 	perl generate_sequence_template.pl -h $DB_HOST -port $DB_PORT -u $DB_USER -pwd $DB_PASS -seq_mart metazoa_sequence_mart_${EG_RELEASE} -release $RELEASE
 else
 	echo "DIVISION is unknown, $EG_DIVISION"
