@@ -20,8 +20,13 @@ endif
 
 #set DB_HOST = mysql-eg-staging-1
 #set DB_PORT = 4160
-#set DB_USER = admin
-#set DB_PASS = RilfI941
+#set DB_USER = ensrw
+#set DB_PASS = writ3r
+
+#set DB_HOST = mysql-eg-staging-2
+#set DB_PORT = 4275
+#set DB_USER = ensrw
+#set DB_PASS = writ3rs2
 
 set DB_HOST = mysql-cluster-eg-prod-1.ebi.ac.uk
 set DB_PORT = 4238
