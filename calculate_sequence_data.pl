@@ -9,7 +9,7 @@
 
 use warnings;
 use strict;
-use DBI;
+
 use Carp;
 use Log::Log4perl qw(:easy);
 use List::MoreUtils qw(any);
@@ -25,7 +25,7 @@ my $logger = get_logger();
 
 # db params
 my $db_host          = 'mysql-eg-staging-1.ebi.ac.uk';
-my $db_port          = '4160';
+my $db_port          = 4160;
 my $db_user          = 'ensrw';
 my $db_pwd           = 'writ3r';
 my $mart_db          = 'metazoa_mart_7';
@@ -33,24 +33,24 @@ my $release          = 60;
 my $dataset_basename = 'gene';
 
 sub usage {
-    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
+    print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-p <pwd>] [-mart <mart db>] [-release <e! release>] [-dataset_basename <basename>]\n";
     print "-h <host> Default is $db_host\n";
-    print "-P <port> Default is $db_port\n";
+    print "-port <port> Default is $db_port\n";
     print "-u <host> Default is $db_user\n";
     print "-p <password> Default is top secret unless you know cat\n";
     print "-mart <mart_db> Default is $mart_db\n";
-     print "-release  <mart_db> Default is $release\n";
-      print "-dataset_basename <mart_db> Default is $dataset_basename\n";
+    print "-release <e! release> Default is $release\n";
+    print "-dataset_basename <dataset basename> Default is $dataset_basename\n";
     exit 1;
 };
 
 my $options_okay = GetOptions (
     "h=s"=>\$db_host,
-    "P=s"=>\$db_port,
+    "port=i"=>\$db_port,
     "u=s"=>\$db_user,
     "p=s"=>\$db_pwd,
     "mart=s"=>\$mart_db,
-    "release=s"=>\$release,
+    "release=i"=>\$release,
     "dataset_basename=s"=>\$dataset_basename,
     "help"=>sub {usage()}
     );
@@ -63,7 +63,7 @@ if(!$options_okay) {
 my $mart_string = "DBI:mysql:$mart_db:$db_host:$db_port";
 my $mart_handle =
      DBI->connect( $mart_string, $db_user, $db_pwd, { RaiseError => 1 } )
-  or croak "Could not connect to $mart_string";
+  or croak "Could not connect to $mart_string with db_user, $db_user and db_pwd, $db_pwd";
 
 # load registry
 Bio::EnsEMBL::Registry->load_registry_from_db( -host       => $db_host,

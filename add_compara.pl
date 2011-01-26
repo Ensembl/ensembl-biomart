@@ -26,15 +26,15 @@ my $logger = get_logger();
 # db params
 
 my $db_host = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
-my $db_port = '4238';
+my $db_port = 4238;
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3rp1';
 my $mart_db = 'metazoa_mart_4';
 my $compara_db ='ensembl_compara_metazoa_4_56';
 sub usage {
-    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
+    print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-p <pwd>] [-mart <mart>] [-compara <compara db>]\n";
     print "-h <host> Default is $db_host\n";
-    print "-P <port> Default is $db_port\n";
+    print "-port <port> Default is $db_port\n";
     print "-u <host> Default is $db_user\n";
     print "-p <password> Default is top secret unless you know cat\n";
     print "-mart <mart_db> Default is $mart_db\n";
@@ -44,7 +44,7 @@ sub usage {
 
 my $options_okay = GetOptions (
     "h=s"=>\$db_host,
-    "P=s"=>\$db_port,
+    "port=i"=>\$db_port,
     "u=s"=>\$db_user,
     "p=s"=>\$db_pwd,
     "mart=s"=>\$mart_db,
