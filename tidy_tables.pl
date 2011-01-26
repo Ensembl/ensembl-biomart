@@ -30,18 +30,19 @@ my $db_pwd = 'writ3rp1';
 my $mart_db = 'bacterial_mart_5';
 
 sub usage {
-    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
+    print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-p <pwd>] [-mart <mart db>] [-help]\n";
     print "-h <host> Default is $db_host\n";
-    print "-P <port> Default is $db_port\n";
+    print "-port <port> Default is $db_port\n";
     print "-u <host> Default is $db_user\n";
     print "-p <password> Default is top secret unless you know cat\n";
     print "-mart <target mart> Default is $mart_db\n";
+    print "-help - this usage\n";
     exit 1;
 };
 
 my $options_okay = GetOptions (
     "h=s"=>\$db_host,
-    "P=s"=>\$db_port,
+    "port=s"=>\$db_port,
     "u=s"=>\$db_user,
     "p=s"=>\$db_pwd,
     "mart=s"=>\$mart_db,
