@@ -25,45 +25,48 @@ my $logger = get_logger();
 
 # db params
 my $db_host = '127.0.0.1';
-my $db_port = '4160';
+my $db_port = 4160;
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3r';
 my $mart_db = 'bacterial_mart_5';
-my $release = '60';
+my $release = 60;
 my $template_template_file = "templates/eg_template_template.xml";
 my $ds_name = 'gene';
 my $template_file_name = 'templates/dataset_template.xml';
 my $description = 'genes';
 sub usage {
-    print "Usage: $0 [-h <host>] [-port <port>] [-u <user>] [-p <pwd>] [-mart <mart db>] [-release <e! release number>] [-template <template file path>] [-description <description>] [-dataset <dataset name>] [-ds_template] <datanase name template>\n";
-    print "-h <host> Default is $db_host\n";
+    print "Usage: $0 [-host <host>] [-port <port>] [-user <user>] [-pass <pwd>] [-mart <mart db>] [-release <e! release number>] [-template <template file path>] [-description <description>] [-dataset <dataset name>] [-ds_template <datanase name template>]\n";
+    print "-host <host> Default is $db_host\n";
     print "-port <port> Default is $db_port\n";
-    print "-u <host> Default is $db_user\n";
-    print "-p <password> Default is top secret unless you know cat\n";
+    print "-user <host> Default is $db_user\n";
+    print "-pass <password> Default is top secret unless you know cat\n";
     print "-mart <mart db>\n";
     print "-template <template file path>\n";
     print "-ds_template <ds template>\n";
     print "-dataset <dataset name>\n";
     print "-description <description>\n";
-    print "-release <e! releaseN> Default is $release\n";
+    print "-release <e! releaseN> Default is 60\n";
     exit 1;
 };
 
 my $options_okay = GetOptions (
     "host=s"=>\$db_host,
-    "port=s"=>\$db_port,
+    "port=i"=>\$db_port,
     "user=s"=>\$db_user,
     "pass=s"=>\$db_pwd,
-    "release=s"=>\$release,
+    "release=i"=>\$release,
     "mart=s"=>\$mart_db,
     "dataset=s"=>\$ds_name,
     "template=s"=>\$template_template_file,
     "ds_template=s"=>\$template_file_name,
     "description=s"=>\$description,
-    "help"=>sub {usage()}
+    "h|help"=>sub {usage()}
     );
 
-if(!$options_okay || !$template_template_file || !$mart_db) {
+print STDERR "pass: $db_pwd, mart_db, $mart_db, template_template_file, $template_template_file\n";
+
+if(! defined $db_host || ! defined $db_port || ! defined $db_pwd || ! defined $template_template_file || ! defined $mart_db) {
+    print STDERR "missing arguments\n";
     usage();
 }
 
@@ -76,7 +79,7 @@ sub write_dataset_xml {
 	$line =~ s/%name%/$$dataset_names{dataset}_${ds_name}/g;
 	$line =~ s/%id%/$$dataset_names{species_id}/g;
 	$line =~ s/%des%/$$dataset_names{species_name}/g;
-	$line =~ s/%version%/$$dataset_names{version_num}/g;     
+	$line =~ s/%version%/$$dataset_names{version_num}/g;
 	print $dataset_file $line;
     }
     close($template_file);
