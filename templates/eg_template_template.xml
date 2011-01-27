@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
-<DatasetConfig dataset="gene_template" datasetID="87" defaultDataset="*default*" description="Ensembl Genes" displayName="*species1* genes (*version*)" entryLabel="Genes" interfaces="default" internalName="template" martUsers="default" modified="2006-10-02 16:13:46" softwareVersion="0.6" template="gene" type="TableSet" version="*version*" visible="1">
+<DatasetConfig dataset="gene_template" datasetID="87" defaultDataset="*default*" description="Ensembl Genes" displayName="*species1* genes (*version*)" entryLabel="Genes" interfaces="default" internalName="template" martUsers="default" modified="2006-10-02 16:13:46" softwareVersion="0.7" template="gene" type="TableSet" version="*version*" visible="1">
   <Replace id="datasets"/>
   <Importable description="a" filters="evoc" internalName="evoc" linkName="evoc" name="evoc" type="link"/>
   <Importable filters="link_go_biological_process" internalName="go_biological_process" linkName="go_biological_process" name="go_biological_process" type="link"/>
