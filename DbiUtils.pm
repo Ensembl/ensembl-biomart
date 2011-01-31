@@ -81,7 +81,7 @@ sub get_strings {
     while(my @data = $sth->fetchrow_array()) {
 	push(@strings,$data[0]);
     }    
-    @strings;
+    return @strings;
 }
 
 sub get_row {
