@@ -12,7 +12,9 @@
   <Importable filters="ensembl_gene_id" internalName="wormbase_gene_seq_id" linkName="wormbase_gene_seq_id" linkVersion="*link_version2*" name="wormbase_gene_seq_id" type="link"/>
   <Importable filters="chromosome_name,start,end" internalName="ensembl_das_chr" linkName="ensembl_das_chr" name="ensembl_das_chr" type="dasChr"/>
   <Importable filters="ensembl_gene_id" internalName="ensembl_das_gene" linkName="ensembl_das_gene" name="ensembl_das_gene" type="dasGene"/>
+<!--
   <Importable filters="link_probe_set" internalName="probe_set" linkName="probe_set" name="probe_set" type="link"/>
+-->
   <Importable filters="link_ensembl_gene_id" internalName="gene_stable_id" linkName="*species3*_gene_stable_id" name="*species3*_gene_stable_id" type="link"/>
   <Importable filters="link_development_stage" internalName="development_stage_term" linkName="development_stage_term" name="development_stage_term" type="link"/>
   <Importable filters="link_anatomical_system" internalName="anatomical_system_term" linkName="anatomical_system_term" name="anatomical_system_term" type="link"/>
@@ -31,13 +33,15 @@
   <Importable filters="chromosome_name,start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link"/>
   <Importable filters="chromosome_name,end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link"/>
   <Importable filters="chromosome_name,start,end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link"/>
+<!--
   <Exportable attributes="link_probe" internalName="probe_one" linkName="probe_one" linkVersion="*link_version*" name="probe_one" type="link"/>
   <Exportable attributes="link_probe_set" internalName="probe_set_one" linkName="probe_set_one" linkVersion="*link_version*" name="probe_set_one" type="link"/>
+-->
   <Exportable attributes="chromosome_name,start_position,end_position" internalName="genomic_region" linkName="genomic_region" linkVersion="*link_version*" name="genomic_region" type="link"/>
   <Exportable attributes="rgd" internalName="rgd_id" linkName="rgd_id" name="rgd_id" type="link"/>
   <Exportable attributes="external_id" internalName="refsnp_id" linkName="refsnp_id" name="refsnp_id" type="link"/>
   <Exportable attributes="mgi_symbol" internalName="mgi_symbol" linkName="mgi_symbol" name="mgi_symbol" type="link"/>
-  <Exportable attributes="uniprot_swissprot" internalName="uniprot_swissprot" linkName="uniprot_swissprot" name="uniprot_swissprot" type="link"/>
+  <Exportable attributes="uniprot_swissprot_accession" internalName="uniprot_swissprot" linkName="uniprot_swissprot" name="uniprot_swissprot" type="link"/>
   <Exportable attributes="entrezgene" internalName="entrezgene" linkName="entrezgene" name="entrezgene" type="link"/>
   <Exportable attributes="ensembl_gene_id" internalName="wormbase_gene_seq_id" linkName="wormbase_gene_seq_id" linkVersion="*link_version*" name="wormbase_gene_seq_id" type="link"/>
   <Exportable attributes="ensembl_gene_id,start_position,end_position,strand,ensembl_transcript_id,transcript_start,transcript_end,ensembl_exon_id,exon_chrom_start,exon_chrom_end" internalName="ensembl_das_chr" linkName="ensembl_das_chr" name="ensembl_das_chr" pointer="true" type="dasChr"/>
@@ -63,6 +67,10 @@
   <FilterPage displayName="FILTERS FOR LINKS" hideDisplay="true" internalName="link_filters">
     <FilterGroup description="Filters for Links" hideDisplay="true" internalName="link_filters">
       <FilterCollection hideDisplay="true" internalName="link_filters">
+<!--
+        <FilterDescription internalName="link_probe" pointerFilter="probe" pointerDataset="*species3*_probe" pointerInterface="default"/>
+        <FilterDescription internalName="link_probe_set" pointerFilter="probe_set" pointerDataset="*species3*_probe_set" pointerInterface="default"/>
+-->
         <FilterDescription displayType="text" field="stable_id_1066" hideDisplay="true" internalName="link_ensembl_transcript_stable_id" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="main" type="text"/>
         <FilterDescription displayType="text" field="gene_id_1020_key" hideDisplay="true" internalName="gene_id" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
         <FilterDescription displayType="text" field="transcript_id_1064_key" hideDisplay="true" internalName="transcript_id" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
@@ -3954,7 +3962,9 @@
         <AttributeDescription hidden="false" internalName="homologs_description" pointerAttribute="description" pointerDataset="*species3*_gene" pointerInterface="default"/>
       </AttributeCollection>
     </AttributeGroup>
+    <AttributeGroup displayName="ORTHOLOGS:" hidden="false" internalName="orthologs">
     <Replace id="homology_attributes"/>
+    </AttributeGroup>
     <AttributeGroup displayName="PARALOGS:" hidden="false" internalName="paralogs">
       <Replace id="paralogy_attributes"/>
     </AttributeGroup>
@@ -4035,8 +4045,10 @@
   <AttributePage displayName="ATTRIBUTES FOR LINKS" hideDisplay="true" internalName="link_attributes">
     <AttributeGroup description="Attributes for Links" displayName="Link Attributes" hideDisplay="true" internalName="link_attributes">
       <AttributeCollection hideDisplay="true" internalName="link_attributes">
+<!--
         <AttributeDescription internalName="link_probe" pointerAttribute="probe" pointerDataset="*species3*_probe" pointerInterface="default"/>
         <AttributeDescription internalName="link_probe_set" pointerAttribute="probe_set" pointerDataset="*species3*_probe_set" pointerInterface="default"/>
+-->
         <AttributeDescription displayName="complete5" field="value_1060" hidden="false" hideDisplay="true" internalName="complete5" key="translation_id_1068_key" maxLength="10" tableConstraint="main"/>
         <AttributeDescription displayName="seq_edits" field="value_1069" hidden="false" hideDisplay="true" internalName="seq_edits" key="translation_id_1068_key" maxLength="255" tableConstraint="main"/>
         <AttributeDescription displayName="codon_table_id" field="value_1060" hidden="false" hideDisplay="true" internalName="codon_table_id" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm"/>

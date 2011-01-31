@@ -25,11 +25,11 @@ my $logger = get_logger();
 
 # db params
 my $db_host = '127.0.0.1';
-my $db_port = 4160;
+my $db_port = 4238;
 my $db_user = 'ensrw';
-my $db_pwd = 'writ3r';
-my $mart_db = 'bacterial_mart_5';
-my $release = 60;
+my $db_pwd = 'writ3rp1';
+my $mart_db = 'fungal_mart_8';
+my $release = 61;
 my $template_template_file = "templates/eg_template_template.xml";
 my $ds_name = 'gene';
 my $template_file_name = 'templates/dataset_template.xml';
@@ -167,7 +167,7 @@ sub get_dataset_homolog_attribute {
         <AttributeDescription displayName="Stable id 4016" field="stable_id_4016" hidden="true" internalName="homolog_$dataset->{dataset}__dm_stable_id_4016" key="gene_id_1020_key" maxLength="128" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="Member id 4015 r1" field="member_id_4015_r1" hidden="true" internalName="homolog_$dataset->{dataset}__dm_member_id_4015_r1" key="gene_id_1020_key" maxLength="10" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="Perc cov 4015 r1" field="perc_cov_4015_r1" hidden="true" internalName="homolog_$dataset->{dataset}__dm_perc_cov_4015_r1" key="gene_id_1020_key" maxLength="10" tableConstraint="homolog_$dataset->{dataset}__dm"/>
-        <AttributeDescription displayName="$dataset->{species_name} Ensembl Gene ID" field="stable_id_4016_r2" internalName="$dataset->{dataset}_ensembl_gene" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/Gene/Summary?g=%s" maxLength="128" tableConstraint="homolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Ensembl Gene ID" field="stable_id_4016_r2" internalName="$dataset->{dataset}_gene" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/Gene/Summary?g=%s" maxLength="128" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="Representative Protein or Transcript ID" field="stable_id_4016_r1" hidden="false" internalName="homolog_$dataset->{dataset}__dm_stable_id_4016_r1" key="gene_id_1020_key" maxLength="128" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Ensembl Protein ID" field="stable_id_4016_r3" internalName="$dataset->{dataset}_homolog_ensembl_peptide" key="gene_id_1020_key" maxLength="128" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Chromosome" field="chr_name_4016_r2" internalName="$dataset->{dataset}_chromosome" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/Location/View?r=%s"  maxLength="40" tableConstraint="homolog_$dataset->{dataset}__dm"/>
@@ -190,7 +190,7 @@ sub get_dataset_paralog_attribute {
     my $dataset = shift;
     my $text = << "PARAATT_END";
       <AttributeCollection displayName="$dataset->{species_name} Paralog Attributes" hidden="false" internalName="paralogs_$dataset->{dataset}">
-        <AttributeDescription displayName="$dataset->{species_name} Paralog Ensembl Gene ID" field="stable_id_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_ensembl_gene" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/Gene/Summary?g=%s" maxLength="140" tableConstraint="paralog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Paralog Ensembl Gene ID" field="stable_id_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_gene" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/Gene/Summary?g=%s" maxLength="140" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Paralog Chromosome" field="chr_name_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_chromosome" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/Location/View?r=$dataset->{dataset}_paralog_chromosome" maxLength="40" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Paralog Chr Start (bp)" field="chr_start_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_chrom_start" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Paralog Chr End (bp)" field="chr_end_4016_r2" hidden="false" internalName="$dataset->{dataset}_paralog_chrom_end" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/Location/View?r=$dataset->{dataset}_paralog_chromosome:$dataset->{dataset}_paralog_chrom_start-$dataset->{dataset}_paralog_chrom_end" maxLength="10" tableConstraint="paralog_$dataset->{dataset}__dm"/>
