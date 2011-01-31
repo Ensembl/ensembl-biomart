@@ -278,6 +278,8 @@ Bio::EnsEMBL::Registry->load_registry_from_db(
                                               -pass => $db_pwd,
                                               -port => $db_port,
                                               -db_version => $release);
+Bio::EnsEMBL::Registry->set_disconnect_when_inactive(1);
+
 # Get all species for the given Ensembl division
 my $species_names_aref = get_all_species($division);
 
