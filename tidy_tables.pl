@@ -62,7 +62,8 @@ $mart_handle->do("use $mart_db");
 
 # 1. delete from tables in hash 
 my %tables_to_tidy = (
-    '%__transcript_variation__dm'=>'seq_region_id_2026',
+    '%_transcript_variation__dm'=>'seq_region_id_2026',
+    '%_transcript_variation_som__dm'=>'seq_region_id_2026',
     '%__splicing_event__dm'=>'name_1078'
 );
 
