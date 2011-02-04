@@ -10,12 +10,16 @@ set RELEASE = $1
 set EG_RELEASE = $2
 set EG_DIVISION = $3
 
-if ( -d "/nfs/panda/production/ensembl_genomes/ensembl/code/ensembl-${RELEASE}" ) then
+setenv PATH /nfs/panda/ensemblgenomes/perl/default/bin:$PATH
+
+setenv PERL5LIB /nfs/panda/ensemblgenomes/perl/cpan/core/lib/perl5:/nfs/panda/ensemblgenomes/apis/bioperl/ensembl-stable
+
+if ( -d "/nfs/panda/ensemblgenomes/apis/ensembl/${RELEASE}" ) then
 	echo "Using ensembl-${RELEASE}"
-	setenv PERL5LIB /nfs/panda/production/ensembl_genomes/ensembl/code/ensembl-${RELEASE}/modules:$PERL5LIB
+	setenv PERL5LIB /nfs/panda/ensemblgenomes/apis/ensembl/${RELEASE}/modules:$PERL5LIB
 else
 	echo "Using ensembl-head"
-	setenv PERL5LIB /nfs/panda/production/ensembl_genomes/ensembl/code/ensembl-head/modules:$PERL5LIB
+	setenv PERL5LIB /nfs/panda/ensemblgenomes/production/mart/sequence_mart/ensembl-head/modules:$PERL5LIB
 endif
 
 #set DB_HOST = mysql-eg-staging-1
