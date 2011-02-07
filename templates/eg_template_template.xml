@@ -117,17 +117,17 @@
       </FilterCollection>
       <FilterCollection displayName="Encode type" hidden="false" internalName="encode_type_col">
         <FilterDescription internalName="hsapiens_encode.type" pointerDataset="*species3*_encode" pointerFilter="type" pointerInterface="default" type="text">
-          <SpecificFilterContent internalName="hsapiens_gene_ensembl"/>
+          <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Encode region" internalName="encode_region_col">
         <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species3*_encode" pointerFilter="encode_region" pointerInterface="default">
-          <SpecificFilterContent internalName="hsapiens_gene_ensembl"/>
+          <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="In encode region" hidden="false" internalName="encode_boolean">
         <FilterDescription description="Include/Exclude Entries in an Encode Region" displayName="In encode region" displayType="list" field="is_encode_bool" hidden="false" internalName="in_encode_region" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-          <SpecificFilterContent field="is_encode_bool" internalName="hsapiens_gene_ensembl" key="gene_id_1020_key" tableConstraint="main">
+          <SpecificFilterContent field="is_encode_bool" internalName="hsapiens_gene" key="gene_id_1020_key" tableConstraint="main">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </SpecificFilterContent>
@@ -139,7 +139,7 @@
       </FilterCollection>
       <FilterCollection displayName="Genomic features" internalName="miscfeature_type">
         <FilterDescription displayName="Type of feature" displayType="list" field="feature_type" internalName="feature_type" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="gene_miscfeature__dm" type="list">
-          <SpecificFilterContent displayType="list" field="feature_type" internalName="hsapiens_gene_ensembl" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" type="list">
+          <SpecificFilterContent displayType="list" field="feature_type" internalName="hsapiens_gene" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" type="list">
             <Option displayName="Alt well name" hidden="true" internalName="alt_well_name" isSelectable="true" value="Alt well name"/>
             <Option displayName="BACend well name" hidden="true" internalName="bacend_well_name" isSelectable="true" value="BACend well name"/>
             <Option displayName="Clone name" internalName="clone_name" isSelectable="true" value="Clone name"/>
@@ -154,7 +154,7 @@
             <Option displayName="Type of feature" hidden="true" internalName="type_of_feature" isSelectable="true" value="Type of feature"/>
             <Option displayName="Well plate name" hidden="true" internalName="well_plate_name" isSelectable="true" value="Well plate name"/>
           </SpecificFilterContent>
-          <SpecificFilterContent displayType="list" field="feature_type" internalName="mmusculus_gene_ensembl" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" type="list">
+          <SpecificFilterContent displayType="list" field="feature_type" internalName="mmusculus_gene" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" type="list">
             <Option displayName="Accession length" hidden="true" internalName="accession_length" isSelectable="true" value="Accession length"/>
             <Option displayName="Alt ENA acc" hidden="true" internalName="alt_embl_acc" isSelectable="true" value="Alt ENA acc"/>
             <Option displayName="Alt org" hidden="true" internalName="alt_org" isSelectable="true" value="Alt org"/>
@@ -180,8 +180,8 @@
         </FilterDescription>
         <FilterDescription displayName="ID(s)" displayType="text" field="feature_value" internalName="feature_value" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="gene_miscfeature__dm" type="list">
           <SpecificFilterContent field="feature_value" internalName="agambiae_gene" key="gene_id_1020_key" tableConstraint="gene_miscfeature__dm"/>
-          <SpecificFilterContent field="feature_value" internalName="mmusculus_gene_ensembl" key="gene_id_1020_key" tableConstraint="gene_miscfeature__dm"/>
-          <SpecificFilterContent field="feature_value" internalName="hsapiens_gene_ensembl" key="gene_id_1020_key" tableConstraint="gene_miscfeature__dm"/>
+          <SpecificFilterContent field="feature_value" internalName="mmusculus_gene" key="gene_id_1020_key" tableConstraint="gene_miscfeature__dm"/>
+          <SpecificFilterContent field="feature_value" internalName="hsapiens_gene" key="gene_id_1020_key" tableConstraint="gene_miscfeature__dm"/>
           <SpecificFilterContent field="feature_value" internalName="agambiae_eg_gene" key="gene_id_1020_key"/>
           <SpecificFilterContent field="feature_value" internalName="aaegypti_eg_gene" key="gene_id_1020_key"/>
           <SpecificFilterContent field="feature_value" internalName="iscapularis_eg_gene" key="gene_id_1020_key"/>
@@ -2377,52 +2377,52 @@
     <FilterGroup description="Filter for Genes based on Expression Patters, using Controlled Vocabularies." displayName="EXPRESSION:" internalName="expression" hideDisplay="true">
       <FilterCollection displayName="eGenetics/SANBI EST anatomical system data" internalName="est_anatomical_system" hideDisplay="true">
         <FilterDescription internalName="est_anatomical_system_term" pointerDataset="hsap_evoc_AnatomicalSystem" pointerFilter="anatomical_system_term" pointerInterface="default">
-          <SpecificFilterContent internalName="hsapiens_gene_ensembl"/>
+          <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="eGenetics/SANBI EST development stage data" internalName="est_development_stage" hideDisplay="true">
         <FilterDescription internalName="est_development_stage_term" pointerDataset="hsap_evoc_DevelopmentStage" pointerFilter="development_stage_term" pointerInterface="default">
-          <SpecificFilterContent internalName="hsapiens_gene_ensembl"/>
+          <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="eGenetics/SANBI EST cell type data" internalName="est_cell_type" hideDisplay="true">
         <FilterDescription internalName="est_cell_type_term" pointerDataset="hsap_evoc_CellType" pointerFilter="cell_type_term" pointerInterface="default">
-          <SpecificFilterContent internalName="hsapiens_gene_ensembl"/>
+          <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="eGenetics/SANBI EST pathology data" internalName="est_pathology" hideDisplay="true">
         <FilterDescription internalName="est_pathology_term" pointerDataset="hsap_evoc_Pathology" pointerFilter="pathology_term" pointerInterface="default">
-          <SpecificFilterContent internalName="hsapiens_gene_ensembl"/>
+          <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="GNF anatomical system data" internalName="gnf_anatomical_system" hideDisplay="true">
         <FilterDescription internalName="gnf_anatomical_system_term" pointerDataset="hsap_evoc_AnatomicalSystem" pointerFilter="anatomical_system_term_copy" pointerInterface="default">
-          <SpecificFilterContent internalName="hsapiens_gene_ensembl"/>
+          <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="GNF development stage data" internalName="gnf_development_stage" hideDisplay="true">
         <FilterDescription internalName="gnf_development_stage_term" pointerDataset="hsap_evoc_DevelopmentStage" pointerFilter="development_stage_term_copy" pointerInterface="default">
-          <SpecificFilterContent internalName="hsapiens_gene_ensembl"/>
+          <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="GNF cell type data" internalName="gnf_cell_type" hideDisplay="true">
         <FilterDescription internalName="gnf_cell_type_term" pointerDataset="hsap_evoc_CellType" pointerFilter="cell_type_term_copy" pointerInterface="default">
-          <SpecificFilterContent internalName="hsapiens_gene_ensembl"/>
+          <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="GNF pathology data" internalName="gnf_pathology" hideDisplay="true">
         <FilterDescription internalName="gnf_pathology_term" pointerDataset="hsap_evoc_Pathology" pointerFilter="pathology_term_copy" pointerInterface="default">
-          <SpecificFilterContent internalName="hsapiens_gene_ensembl"/>
+          <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="ZFIN anatomical system data" internalName="zfin_anatomical_system" hideDisplay="true">
         <FilterDescription internalName="zfin_anatomical_system_term" pointerDataset="drer_evoc_AnatomicalTerms" pointerFilter="zfin_anatomical_terms_term" pointerInterface="default">
-          <SpecificFilterContent internalName="drerio_gene_ensembl"/>
+          <SpecificFilterContent internalName="drerio_gene"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="ZFIN development stage data" internalName="zfin_development_stage" hideDisplay="true">
         <FilterDescription internalName="zfin_development_stage_term" pointerDataset="drer_evoc_DevelopmentalStage" pointerFilter="zfin_developmental_stage_term" pointerInterface="default">
-          <SpecificFilterContent internalName="drerio_gene_ensembl"/>
+          <SpecificFilterContent internalName="drerio_gene"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
@@ -2830,7 +2830,7 @@
       </FilterCollection>
       <FilterCollection displayName="Somatic variation source" internalName="somatic_source">
         <FilterDescription displayName="limit to genes with somatic variation data sources" displayType="list" field="name_2021" internalName="somatic_variation_source" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="mart_transcript_variation_som__dm" type="list">
-          <SpecificFilterContent displayType="list" field="name_2021" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="mart_transcript_variation_som__dm" type="list">
+          <SpecificFilterContent displayType="list" field="name_2021" internalName="hsapiens_gene" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="mart_transcript_variation_som__dm" type="list">
             <Option displayName="COSMIC" internalName="COSMIC" isSelectable="true" value="COSMIC"/>
           </SpecificFilterContent>
         </FilterDescription>
@@ -3802,23 +3802,23 @@
   <AttributePage description="Details on Gene - SNP Associations" displayName="Variation" internalName="snp" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls">
     <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes">
-        <AttributeDescription internalName="snp_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_ensembl_transcript_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_ensembl_peptide_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="sequence_canonical_transcript_id" pointerAttribute="canonical_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_chromosome_name" pointerAttribute="chromosome_name" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_start_position" pointerAttribute="start_position" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_end_position" pointerAttribute="end_position" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_strand" pointerAttribute="strand" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_band" pointerAttribute="band" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_external_gene_id" pointerAttribute="external_gene_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_external_gene_db" pointerAttribute="external_gene_db" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_ensembl_CDS_length" pointerAttribute="ensembl_CDS_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_ensembl_cDNA_length" pointerAttribute="ensembl_cDNA_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_ensembl_peptide_length" pointerAttribute="ensembl_peptide_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_transcript_count" pointerAttribute="transcript_count" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_percentage_gc_content" pointerAttribute="percentage_gc_content" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_description" pointerAttribute="description" pointerDataset="*species3*_gene_ensembl" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_ensembl_transcript_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_ensembl_peptide_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="sequence_canonical_transcript_id" pointerAttribute="canonical_transcript_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_chromosome_name" pointerAttribute="chromosome_name" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_start_position" pointerAttribute="start_position" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_end_position" pointerAttribute="end_position" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_strand" pointerAttribute="strand" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_band" pointerAttribute="band" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_external_gene_id" pointerAttribute="external_gene_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_external_gene_db" pointerAttribute="external_gene_db" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_ensembl_CDS_length" pointerAttribute="ensembl_CDS_length" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_ensembl_cDNA_length" pointerAttribute="ensembl_cDNA_length" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_ensembl_peptide_length" pointerAttribute="ensembl_peptide_length" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_transcript_count" pointerAttribute="transcript_count" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_percentage_gc_content" pointerAttribute="percentage_gc_content" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_description" pointerAttribute="description" pointerDataset="*species3*_gene" pointerInterface="default"/>
       </AttributeCollection>
       <AttributeCollection displayName="Gene Variation" internalName="gene_snp_atts">
         <AttributeDescription displayName="Synonymous Variation count" field="synsnpcount" internalName="synonymous_snp_count" key="transcript_id_1064_key" maxLength="3" tableConstraint="main"/>
@@ -3851,53 +3851,53 @@
     <AttributeGroup displayName="SOMATIC VARIATION INFORMATION:" internalName="gene_somatic">
       <AttributeCollection displayName="Variation" internalName="somaticatts">
         <AttributeDescription displayName="Variant Source" field="name_2021" internalName="somatic_source_name" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="name_2021" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="name_2021" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="Source description" field="description_2021" internalName="somatic_source_description" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="description_2021" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="description_2021" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="Reference ID" field="name_2025" internalName="somatic_reference_id" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="100" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="name_2025" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="name_2025" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription description="Snp Allele" displayName="Allele" field="allele_string_2026" internalName="somatic_allele" key="transcript_id_1064_key" maxLength="15" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="allele_string_2026" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="allele_string_2026" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="Validation status" field="validation_status_2026" internalName="somatic_validated" key="transcript_id_1064_key" maxLength="40" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="validation_status_2026" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="validation_status_2026" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="Mapweight" field="map_weight_2026" internalName="somatic_mapweight" key="transcript_id_1064_key" maxLength="5" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="map_weight_2026" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="map_weight_2026" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="fpcctg name" field="fpcctg_name" hidden="false" internalName="somatic_fpcctg_name" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="fpcctg_name" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="fpcctg_name" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
       </AttributeCollection>
       <AttributeCollection displayName="Variation Location" internalName="somaticloacatts">
         <AttributeDescription description="Start of SNP on Transcript in Chromosomal Coordinates" displayName="Transcript location (bp)" field="cdna_start_2076" internalName="somatic_transcript_location" key="transcript_id_1064_key" maxLength="10" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="cdna_start_2076" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="cdna_start_2076" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription description="Orientation of the SNP on the Transcript" displayName="Variation Chromosome Strand" field="seq_region_strand_2026" internalName="somatic_snp_chromosome_strand" key="transcript_id_1064_key" maxLength="4" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="seq_region_strand_2026" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="seq_region_strand_2026" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription description="Location of the SNP in the peptide" displayName="Protein location (aa)" field="translation_start_2076" internalName="somatic_peptide_location" key="transcript_id_1064_key" maxLength="10" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="translation_start_2076" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="translation_start_2076" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription description="Start of the SNP on the Chromosome in Chromosomal Coordinates" displayName="Chromosome Location (bp)" field="seq_region_start_2026" internalName="somatic_chromosome_location" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?c=%s:%s;w=1000|chromosome_name|chromosome_location" maxLength="20" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="seq_region_start_2026" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="seq_region_start_2026" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
       </AttributeCollection>
       <AttributeCollection displayName="Gene Location and Effect " internalName="gene_loc_eff_atts">
         <AttributeDescription displayName="Protein Allele" field="peptide_allele_string_2076" internalName="somatic_peptide_shift" key="transcript_id_1064_key" maxLength="100" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="peptide_allele_string_2076" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="peptide_allele_string_2076" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="Consequence Type (Transcript Variation)" field="mart_consequence_type_2076" hidden="false" internalName="somatic_synonymous_status" key="transcript_id_1064_key" maxLength="8" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="mart_consequence_type_2076" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="mart_consequence_type_2076" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="CDS Start" field="cds_start_2076" internalName="somatic_cds_start_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="cds_start_2076" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="cds_start_2076" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="CDS End" field="cds_end_2076" internalName="somatic_cds_end_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="cds_end_2076" internalName="hsapiens_gene_ensembl" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
+          <SpecificAttributeContent field="cds_end_2076" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
       </AttributeCollection>
     </AttributeGroup>
