@@ -16,7 +16,7 @@ setenv PERL5LIB /nfs/panda/ensemblgenomes/perl/cpan/core/lib/perl5:/nfs/panda/en
 
 if ( -d "/nfs/panda/ensemblgenomes/apis/ensembl/${RELEASE}" ) then
 	echo "Using ensembl-${RELEASE}"
-	setenv PERL5LIB /nfs/panda/ensemblgenomes/apis/ensembl/${RELEASE}/modules:$PERL5LIB
+	setenv PERL5LIB /nfs/panda/ensemblgenomes/apis/ensembl/${RELEASE}/ensembl/modules:$PERL5LIB
 else
 	echo "Using ensembl-head"
 	setenv PERL5LIB /nfs/panda/ensemblgenomes/production/mart/sequence_mart/ensembl-head/modules:$PERL5LIB
