@@ -558,13 +558,13 @@ public class DatabaseDatasetConfigUtils {
 
 						// don't allow any duplication of TC and field, even for
 						// hidden atts
-						if (descriptionsTCFieldMap.containsKey(testAD
-								.getTableConstraint()
-								+ "." + testAD.getField()))
-							attributeDuplicationTCFieldMap.put(testAD
-									.getTableConstraint()
-									+ "." + testAD.getField(), dsConfig
-									.getDataset());
+						if (descriptionsTCFieldMap
+								.containsKey(testAD.getTableConstraint() + "."
+										+ testAD.getField()))
+							attributeDuplicationTCFieldMap.put(
+									testAD.getTableConstraint() + "."
+											+ testAD.getField(),
+									dsConfig.getDataset());
 						descriptionsTCFieldMap.put(testAD.getTableConstraint()
 								+ "." + testAD.getField(), "1");
 
@@ -578,8 +578,9 @@ public class DatabaseDatasetConfigUtils {
 									+ apage.getInternalName() + "\n";
 						if (descriptionsMap.containsKey(testAD
 								.getInternalName()))
-							attributeDuplicationMap.put(testAD
-									.getInternalName(), dsConfig.getDataset());
+							attributeDuplicationMap.put(
+									testAD.getInternalName(),
+									dsConfig.getDataset());
 						descriptionsMap.put(testAD.getInternalName(), "1");
 
 						if (dsConfig.getType().equals("GenomicSequence"))
@@ -624,8 +625,9 @@ public class DatabaseDatasetConfigUtils {
 									+ apage.getInternalName() + "\n";
 						if (descriptionsMap.containsKey(testAD
 								.getInternalName()))
-							attributeListDuplicationMap.put(testAD
-									.getInternalName(), dsConfig.getDataset());
+							attributeListDuplicationMap.put(
+									testAD.getInternalName(),
+									dsConfig.getDataset());
 						descriptionsMap.put(testAD.getInternalName(), "1");
 
 						if (dsConfig.getType().equals("GenomicSequence"))
@@ -771,9 +773,9 @@ public class DatabaseDatasetConfigUtils {
 									continue;
 								if (descriptionsMap.containsKey(op
 										.getInternalName()))
-									filterDuplicationMap.put(op
-											.getInternalName(), dsConfig
-											.getDataset());
+									filterDuplicationMap.put(
+											op.getInternalName(),
+											dsConfig.getDataset());
 								descriptionsMap.put(op.getInternalName(), "1");
 							}
 					}
@@ -1184,8 +1186,8 @@ public class DatabaseDatasetConfigUtils {
 			final GZIPOutputStream gout = new GZIPOutputStream(bout);
 			final DigestOutputStream out = new DigestOutputStream(gout,
 					md5digest);
-			final XMLOutputter xout = new XMLOutputter(org.jdom.output.Format
-					.getRawFormat());
+			final XMLOutputter xout = new XMLOutputter(
+					org.jdom.output.Format.getRawFormat());
 			xout.output(doc, out);
 			gout.finish();
 			final byte[] xml = bout.toByteArray();
@@ -1200,9 +1202,7 @@ public class DatabaseDatasetConfigUtils {
 			if (this.dsource.getJdbcDriverClassName().indexOf("oracle") >= 0)
 				ps.setBlob(2, BLOB.empty_lob());// oracle hack
 			else
-				ps
-						.setBinaryStream(2, new ByteArrayInputStream(xml),
-								xml.length);
+				ps.setBinaryStream(2, new ByteArrayInputStream(xml), xml.length);
 			ps.executeUpdate();
 			ps.close();
 
@@ -1282,14 +1282,15 @@ public class DatabaseDatasetConfigUtils {
 				final AttributeCollection acollection = config
 						.getCollectionForAttribute(ad.getInternalName());
 
-				attributeDuplicationTCFieldMap.put(ad.getTableConstraint()
-						+ "." + ad.getField(), apage.getInternalName() + "->"
-						+ agroup.getInternalName() + "->"
-						+ acollection.getInternalName() + "->"
-						+ ad.getInternalName());
+				attributeDuplicationTCFieldMap.put(
+						ad.getTableConstraint() + "." + ad.getField(),
+						apage.getInternalName() + "->"
+								+ agroup.getInternalName() + "->"
+								+ acollection.getInternalName() + "->"
+								+ ad.getInternalName());
 			}
-			descriptionsTCFieldMap.put(ad.getTableConstraint() + "."
-					+ ad.getField(), "1");
+			descriptionsTCFieldMap.put(
+					ad.getTableConstraint() + "." + ad.getField(), "1");
 		}
 
 		if (attributeDuplicationTCFieldMap.size() > 0) {
@@ -1357,8 +1358,7 @@ public class DatabaseDatasetConfigUtils {
 							.getTableConstraint()
 							+ "."
 							+ ops[j].getField()
-							+ "."
-							+ ops[j].getQualifier())) {
+							+ "." + ops[j].getQualifier())) {
 						final FilterPage fpage = config.getPageForFilter(ops[j]
 								.getInternalName());
 						final FilterGroup fgroup = config
@@ -1367,33 +1367,29 @@ public class DatabaseDatasetConfigUtils {
 								.getCollectionForFilter(ops[j]
 										.getInternalName());
 
-						filterDuplicationTCFieldMap.put(ops[j]
-								.getTableConstraint()
-								+ "."
-								+ ops[j].getField()
-								+ "."
-								+ ops[j].getQualifier(), fpage
-								.getInternalName()
-								+ "->"
-								+ fgroup.getInternalName()
-								+ "->"
-								+ fcollection.getInternalName()
-								+ "->"
-								+ ops[j].getInternalName());
+						filterDuplicationTCFieldMap.put(
+								ops[j].getTableConstraint() + "."
+										+ ops[j].getField() + "."
+										+ ops[j].getQualifier(),
+								fpage.getInternalName() + "->"
+										+ fgroup.getInternalName() + "->"
+										+ fcollection.getInternalName() + "->"
+										+ ops[j].getInternalName());
 					}
-					filterDescriptionsTCFieldMap.put(ops[j]
-							.getTableConstraint()
-							+ "."
-							+ ops[j].getField()
-							+ "."
-							+ ops[j].getQualifier(), "1");
+					filterDescriptionsTCFieldMap.put(
+							ops[j].getTableConstraint() + "."
+									+ ops[j].getField() + "."
+									+ ops[j].getQualifier(), "1");
 				}
 				continue;
 			}
 			// don't allow any duplication of TC and field, even for hidden atts
 			if (filterDescriptionsTCFieldMap.containsKey(fd
 					.getTableConstraint()
-					+ "." + fd.getField() + "." + fd.getQualifier())) {
+					+ "."
+					+ fd.getField()
+					+ "."
+					+ fd.getQualifier())) {
 				final FilterPage fpage = config.getPageForFilter(fd
 						.getInternalName());
 				final FilterGroup fgroup = config.getGroupForFilter(fd
@@ -1401,18 +1397,17 @@ public class DatabaseDatasetConfigUtils {
 				final FilterCollection fcollection = config
 						.getCollectionForFilter(fd.getInternalName());
 
-				filterDuplicationTCFieldMap.put(fd.getTableConstraint() + "."
-						+ fd.getField() + "." + fd.getQualifier(), fpage
-						.getInternalName()
-						+ "->"
-						+ fgroup.getInternalName()
-						+ "->"
-						+ fcollection.getInternalName()
-						+ "->"
-						+ fd.getInternalName());
+				filterDuplicationTCFieldMap.put(
+						fd.getTableConstraint() + "." + fd.getField() + "."
+								+ fd.getQualifier(),
+						fpage.getInternalName() + "->"
+								+ fgroup.getInternalName() + "->"
+								+ fcollection.getInternalName() + "->"
+								+ fd.getInternalName());
 			}
-			filterDescriptionsTCFieldMap.put(fd.getTableConstraint() + "."
-					+ fd.getField() + "." + fd.getQualifier(), "1");
+			filterDescriptionsTCFieldMap.put(
+					fd.getTableConstraint() + "." + fd.getField() + "."
+							+ fd.getQualifier(), "1");
 		}
 
 		if (filterDuplicationTCFieldMap.size() > 0) {
@@ -1501,8 +1496,9 @@ public class DatabaseDatasetConfigUtils {
 							// "Attribute " + testAD.getInternalName() + " in
 							// dataset " + config.getDataset() +
 							// " and page " + apage.getInternalName() + "\n";
-							attributeDuplicationMap.put(testAD
-									.getInternalName(), config.getDataset());
+							attributeDuplicationMap.put(
+									testAD.getInternalName(),
+									config.getDataset());
 						// brokenDatasets.add(config.getDataset());
 						descriptionsMap.put(testAD.getInternalName(), "1");
 
@@ -1552,8 +1548,9 @@ public class DatabaseDatasetConfigUtils {
 							// "Attribute " + testAD.getInternalName() + " in
 							// dataset " + config.getDataset() +
 							// " and page " + apage.getInternalName() + "\n";
-							attributeListDuplicationMap.put(testAD
-									.getInternalName(), config.getDataset());
+							attributeListDuplicationMap.put(
+									testAD.getInternalName(),
+									config.getDataset());
 						// brokenDatasets.add(config.getDataset());
 						descriptionsMap.put(testAD.getInternalName(), "1");
 
@@ -1684,9 +1681,9 @@ public class DatabaseDatasetConfigUtils {
 									// filterDuplicationString +
 									// op.getInternalName() + " in dataset " +
 									// config.getDataset() + "\n";
-									filterDuplicationMap.put(op
-											.getInternalName(), config
-											.getDataset());
+									filterDuplicationMap.put(
+											op.getInternalName(),
+											config.getDataset());
 								// brokenDatasets.add(config.getDataset());
 								descriptionsMap.put(op.getInternalName(), "1");
 							}
@@ -1789,9 +1786,9 @@ public class DatabaseDatasetConfigUtils {
 
 		// extract all the dataset configs matching template and call
 		// updateConfigToTemplate storing each one as returned
-		final DSConfigAdaptor adaptor = new DatabaseDSConfigAdaptor(MartEditor
-				.getDetailedDataSource(), MartEditor.getUser(), MartEditor
-				.getMartUser(), true, false, true, true);
+		final DSConfigAdaptor adaptor = new DatabaseDSConfigAdaptor(
+				MartEditor.getDetailedDataSource(), MartEditor.getUser(),
+				MartEditor.getMartUser(), true, false, true, true);
 
 		final String[] dsNames = templateConfig.getDynamicDatasetNames();
 		final List goodIds = new ArrayList();
@@ -1816,12 +1813,12 @@ public class DatabaseDatasetConfigUtils {
 					+ ":" + dsConfig.getVersion());
 			this.storeDatasetConfiguration(MartEditor.getUser(), dsConfig
 					.getInternalName(), dsConfig.getDisplayName(), dsConfig
-					.getDataset(), dsConfig.getDescription(), MartEditor
-					.getDatasetConfigXMLUtils().getDocumentForDatasetConfig(
-							dsConfig), true, dsConfig.getType(), dsConfig
-					.getVisible(), dsConfig.getVersion(), dsConfig
-					.getDatasetID(), dsConfig.getMartUsers(), dsConfig
-					.getInterfaces(), dsConfig);
+					.getDataset(), dsConfig.getDescription(),
+					MartEditor.getDatasetConfigXMLUtils()
+							.getDocumentForDatasetConfig(dsConfig), true,
+					dsConfig.getType(), dsConfig.getVisible(), dsConfig
+							.getVersion(), dsConfig.getDatasetID(), dsConfig
+							.getMartUsers(), dsConfig.getInterfaces(), dsConfig);
 		}
 
 		// Dump all datasets referring to this template that don't do so
@@ -1859,8 +1856,8 @@ public class DatabaseDatasetConfigUtils {
 		// Drop bad things.
 		for (final Iterator i = dropIds.iterator(); i.hasNext();) {
 			final String[] bits = (String[]) i.next();
-			this.deleteDatasetConfigsForDatasetID(bits[0], bits[1], MartEditor
-					.getUser(), null);
+			this.deleteDatasetConfigsForDatasetID(bits[0], bits[1],
+					MartEditor.getUser(), null);
 		}
 
 		// Repeat.
@@ -2528,13 +2525,13 @@ public class DatabaseDatasetConfigUtils {
 							final SpecificFilterContent sf = configAtt
 									.getSpecificFilterContent(dsConfig
 											.getDataset());
-							// if (sf == null) {
-							// configCollection
-							// .removeFilterDescription(configAtt);
-							// continue;
-							// }
-
 							// dstaines change
+							if (!configAtt.isUseDefault() && sf == null) {
+								configCollection
+										.removeFilterDescription(configAtt);
+								continue;
+							}
+
 							if (sf != null) {
 								final Option[] options = sf.getOptions();
 								for (int r = 0; r < options.length; r++)
@@ -2556,8 +2553,8 @@ public class DatabaseDatasetConfigUtils {
 									+ "__" + configAtt.getTableConstraint());
 
 						// Resolve options.
-						final List options = new ArrayList(Arrays
-								.asList(configAtt.getOptions()));
+						final List options = new ArrayList(
+								Arrays.asList(configAtt.getOptions()));
 						final class placeholder {
 							private QueryFilterSettings parent;
 
@@ -2638,11 +2635,11 @@ public class DatabaseDatasetConfigUtils {
 											.getDataset());
 							// dstaines change for EG - I don't want to have to
 							// put in 50 different specific contents
-							// if (sf == null) {
-							// configCollection
-							// .removeAttributeDescription(configAtt);
-							// continue;
-							// }
+							if (!configAtt.isUseDefault() && sf == null) {
+								configCollection
+										.removeAttributeDescription(configAtt);
+								continue;
+							}
 
 							if (sf != null) {
 								templateConfig.getDynamicDataset(
@@ -2739,12 +2736,11 @@ public class DatabaseDatasetConfigUtils {
 							if (validAttrs.getFilterDescriptionByInternalName(
 									attr.getInternalName())
 									.isBrokenExceptOpts()
-									|| this
-											.pruneBrokenOptions(
-													attr,
-													validAttrs
-															.getFilterDescriptionByInternalName(attr
-																	.getInternalName())))
+									|| this.pruneBrokenOptions(
+											attr,
+											validAttrs
+													.getFilterDescriptionByInternalName(attr
+															.getInternalName())))
 								acolls[ci].removeFilterDescription(attr);
 						}
 						if (!(acolls[ci].getFilterDescriptions().size() > 0))
@@ -2770,8 +2766,10 @@ public class DatabaseDatasetConfigUtils {
 					if (!dsConfig.containsFilterDescription(filterNames[j])
 							|| dsConfig.getFilterDescriptionByInternalName(
 									filterNames[j]).getHidden() != null
-							&& dsConfig.getFilterDescriptionByInternalName(
-									filterNames[j]).getHidden().equals("true"))
+							&& dsConfig
+									.getFilterDescriptionByInternalName(
+											filterNames[j]).getHidden()
+									.equals("true"))
 						continue OUTER;
 
 				// if passsed all above tests then add template Importable to
@@ -3093,8 +3091,8 @@ public class DatabaseDatasetConfigUtils {
 			// should calculate digest on unzipped data, eg, bytes before they
 			// are sent to gout.write
 
-			final XMLOutputter xout = new XMLOutputter(org.jdom.output.Format
-					.getRawFormat());
+			final XMLOutputter xout = new XMLOutputter(
+					org.jdom.output.Format.getRawFormat());
 
 			xout.output(doc, out);
 			gout.finish();
@@ -3106,8 +3104,8 @@ public class DatabaseDatasetConfigUtils {
 			final ByteArrayOutputStream bout2 = new ByteArrayOutputStream();
 			final DigestOutputStream dout = new DigestOutputStream(bout2,
 					md5digest);
-			final XMLOutputter xout2 = new XMLOutputter(org.jdom.output.Format
-					.getRawFormat());
+			final XMLOutputter xout2 = new XMLOutputter(
+					org.jdom.output.Format.getRawFormat());
 			xout2.output(doc, dout);
 
 			final byte[] uncompressedXML = bout2.toByteArray();
@@ -3342,8 +3340,8 @@ public class DatabaseDatasetConfigUtils {
 			// should calculate digest on unzipped data, eg, bytes before they
 			// are sent to gout.write
 
-			final XMLOutputter xout = new XMLOutputter(org.jdom.output.Format
-					.getRawFormat());
+			final XMLOutputter xout = new XMLOutputter(
+					org.jdom.output.Format.getRawFormat());
 
 			xout.output(doc, out);
 			gout.finish();
@@ -4025,16 +4023,17 @@ public class DatabaseDatasetConfigUtils {
 			// Final result - currently 0.6 output
 			final Document resultDoc = out06.getDocument();
 
-			final DatasetConfig newConfig = new DatasetConfig(config
-					.getInternalName(), config.getDisplayName(), config
-					.getDataset(), config.getDescription(), config.getType(),
-					config.getVisible(), config.getVisibleFilterPage(), config
-							.getVersion(), config.getOptionalParameter(),
-					config.getDatasetID(), config.getModified(), config
-							.getMartUsers(), config.getInterfaces(), config
-							.getprimaryKeyRestriction(), config.getTemplate(),
-					this.SOFTWAREVERSION, config.getNoCount(), config
-							.getEntryLabel(), config.getSplitNameUsing());
+			final DatasetConfig newConfig = new DatasetConfig(
+					config.getInternalName(), config.getDisplayName(),
+					config.getDataset(), config.getDescription(),
+					config.getType(), config.getVisible(),
+					config.getVisibleFilterPage(), config.getVersion(),
+					config.getOptionalParameter(), config.getDatasetID(),
+					config.getModified(), config.getMartUsers(),
+					config.getInterfaces(), config.getprimaryKeyRestriction(),
+					config.getTemplate(), this.SOFTWAREVERSION,
+					config.getNoCount(), config.getEntryLabel(),
+					config.getSplitNameUsing());
 			this.dscutils.loadDatasetConfigWithDocument(newConfig, resultDoc);
 			newConfig.setTemplate(config.getTemplate());// hack as for some
 			// reason sourceDoc has
@@ -4671,11 +4670,11 @@ public class DatabaseDatasetConfigUtils {
 		final String[] dsNs = this.getDatasetNamesForTemplate(template);
 		for (int i = 0; i < dsNs.length; i++) {
 			final String dsN = dsNs[i];
-			final String[] ids = this.getAllDatasetIDsForDataset(MartEditor
-					.getUser(), dsN);
+			final String[] ids = this.getAllDatasetIDsForDataset(
+					MartEditor.getUser(), dsN);
 			for (int j = 0; j < ids.length; j++)
-				this.deleteDatasetConfigsForDatasetID(dsN, ids[j], MartEditor
-						.getUser(), template);
+				this.deleteDatasetConfigsForDatasetID(dsN, ids[j],
+						MartEditor.getUser(), template);
 		}
 
 		final String deleteTemplateSQL = "delete from " + this.getSchema()[0]
@@ -5535,8 +5534,9 @@ public class DatabaseDatasetConfigUtils {
 							.removeFilterDescription((FilterDescription) allFilts
 									.get(position.intValue()));
 
-					validatedFilterCollection.insertFilterDescription(position
-							.intValue(), (FilterDescription) brokenFilter);
+					validatedFilterCollection.insertFilterDescription(
+							position.intValue(),
+							(FilterDescription) brokenFilter);
 					allFilts.remove(position.intValue());
 					allFilts.add(position.intValue(), brokenFilter);
 				} // else not needed yet
@@ -5631,8 +5631,9 @@ public class DatabaseDatasetConfigUtils {
 				if (!keyVal.fieldValid || !keyVal.tableValid) {
 					String suggestedKey = suggestKeyFix(schema, catalog, dset,
 							conn, tableConstraint);
-					System.err.println(dset+"_"+tableConstraint+"."+ validatedFilter.getKey()
-							+ " does not exist for "+" filter " + validatedFilter.getInternalName());
+					System.err.println(dset + "_" + tableConstraint + "."
+							+ validatedFilter.getKey() + " does not exist for "
+							+ " filter " + validatedFilter.getInternalName());
 					if (suggestedKey != null) {
 						System.err.println("<SpecificFilterContent key=\""
 								+ suggestedKey + "\" field=\""
@@ -5728,8 +5729,8 @@ public class DatabaseDatasetConfigUtils {
 				ops = this.getOptions(field, tableName, joinKey, otherDataset,
 						otherDataset.getDataset(), colForDisplay);
 			else
-				ops = this.getOptions(field, tableName, joinKey, dsv, dsv
-						.getDataset(), colForDisplay);
+				ops = this.getOptions(field, tableName, joinKey, dsv,
+						dsv.getDataset(), colForDisplay);
 			// add back any options
 			final HashMap valMap = new HashMap();// use to keep options in
 			// existing order if
@@ -5741,8 +5742,8 @@ public class DatabaseDatasetConfigUtils {
 			for (j = 0; j < oldOptionOrder.length; j++)
 				if (valMap.containsKey(oldOptionOrder[j])) {
 					// System.out.println("ADDING OPTIONS BACK 1 ");
-					validatedFilter.insertOption(k, (Option) valMap
-							.get(oldOptionOrder[j]));
+					validatedFilter.insertOption(k,
+							(Option) valMap.get(oldOptionOrder[j]));
 					k++;
 					valMap.remove(oldOptionOrder[j]);
 				}
@@ -5875,15 +5876,13 @@ public class DatabaseDatasetConfigUtils {
 									this.dscutils
 											.loadDatasetConfigWithDocument(
 													secOtherDataset,
-													this
-															.getDatasetConfigDocumentByDatasetID(
-																	null,
-																	secOtherFilters[p]
-																			.split("\\.")[0],
-																	secOtherDataset
-																			.getDatasetID(),
-																	this
-																			.getSchema()[0]));
+													this.getDatasetConfigDocumentByDatasetID(
+															null,
+															secOtherFilters[p]
+																	.split("\\.")[0],
+															secOtherDataset
+																	.getDatasetID(),
+															this.getSchema()[0]));
 									if (secOtherDataset
 											.containsFilterDescription(secFilter2))
 										fd3 = secOtherDataset
@@ -5966,8 +5965,8 @@ public class DatabaseDatasetConfigUtils {
 
 						// System.out.println("2A"+pushField+"\t"+pushTableName+"\t"+field+"\t"+opName+"\t"+orderSQL);
 						pa.addOptions(this.getLookupOptions(pushField,
-								pushTableName, dsv, fd2.getKey(), dsv
-										.getDataset(), field, opName, orderSQL,
+								pushTableName, dsv, fd2.getKey(),
+								dsv.getDataset(), field, opName, orderSQL,
 								schema, pushColForDisplay));
 						// ADD ANY SECONDARY PUSH ACTION
 						for (int p = 0; p < secondaryPushActions.length; p++) {
@@ -5990,15 +5989,13 @@ public class DatabaseDatasetConfigUtils {
 									this.dscutils
 											.loadDatasetConfigWithDocument(
 													secOtherDataset,
-													this
-															.getDatasetConfigDocumentByDatasetID(
-																	null,
-																	secOtherFilters[p]
-																			.split("\\.")[0],
-																	secOtherDataset
-																			.getDatasetID(),
-																	this
-																			.getSchema()[0]));
+													this.getDatasetConfigDocumentByDatasetID(
+															null,
+															secOtherFilters[p]
+																	.split("\\.")[0],
+															secOtherDataset
+																	.getDatasetID(),
+															this.getSchema()[0]));
 									if (secOtherDataset
 											.containsFilterDescription(secFilter2))
 										fd3 = secOtherDataset
@@ -6167,15 +6164,17 @@ public class DatabaseDatasetConfigUtils {
 						break;
 					}
 				}
-				if(found) {
+				if (found) {
 					DescriptionValidity keyVal = validateDescription(schema,
 							catalog, dset, conn, validatedOption.getKey(),
 							tableConstraint);
 					if (!keyVal.fieldValid) {
-						String suggestedKey = suggestKeyFix(schema, catalog, dset,
-								conn, tableConstraint);
-						System.err.println(dset+"_"+tableConstraint+"."+ validatedOption.getKey()
-								+ " does not exist for "+" option " + validatedOption.getInternalName());
+						String suggestedKey = suggestKeyFix(schema, catalog,
+								dset, conn, tableConstraint);
+						System.err.println(dset + "_" + tableConstraint + "."
+								+ validatedOption.getKey()
+								+ " does not exist for " + " option "
+								+ validatedOption.getInternalName());
 						if (suggestedKey != null) {
 							System.err.println("<SpecificOptionContent key=\""
 									+ suggestedKey + "\" field=\""
@@ -6198,8 +6197,9 @@ public class DatabaseDatasetConfigUtils {
 				if (!keyVal.fieldValid) {
 					String suggestedKey = suggestKeyFix(schema, catalog, dset,
 							conn, tableConstraint);
-					System.err.println(dset+"_"+tableConstraint+"."+ validatedOption.getKey()
-							+ " does not exist for "+" option " + validatedOption.getInternalName());
+					System.err.println(dset + "_" + tableConstraint + "."
+							+ validatedOption.getKey() + " does not exist for "
+							+ " option " + validatedOption.getInternalName());
 					if (suggestedKey != null) {
 						System.err.println("<SpecificOptionContent key=\""
 								+ suggestedKey + "\" field=\""
@@ -6317,7 +6317,7 @@ public class DatabaseDatasetConfigUtils {
 				tableConstraint.toLowerCase());
 		String key = null;
 		for (Object col : columns) {
-			String c = (String)col;
+			String c = (String) col;
 			if (c.matches(".*_key$")) {
 				key = (String) col;
 				break;
@@ -6643,8 +6643,9 @@ public class DatabaseDatasetConfigUtils {
 			if (!keyVal.fieldValid || !keyVal.tableValid) {
 				String suggestedKey = suggestKeyFix(schema, catalog, dset,
 						conn, tableConstraint);
-				System.err.println(dset+"_"+tableConstraint+"."+ validatedAttribute.getKey()
-						+ " does not exist for "+" attribute " + validatedAttribute.getInternalName());
+				System.err.println(dset + "_" + tableConstraint + "."
+						+ validatedAttribute.getKey() + " does not exist for "
+						+ " attribute " + validatedAttribute.getInternalName());
 				if (suggestedKey != null) {
 					System.err.println("<SpecificAttributeContent key=\""
 							+ suggestedKey + "\" field=\""
@@ -7125,8 +7126,8 @@ public class DatabaseDatasetConfigUtils {
 		final Connection conn = this.dsource.getConnection();
 
 		final DatasetConfig dsv = new DatasetConfig("default", datasetName,
-				datasetName, "", "TableSet", "1", "", "", "", "", tstamp
-						.toString(), "default", "default", "", datasetName,
+				datasetName, "", "TableSet", "1", "", "", "", "",
+				tstamp.toString(), "default", "default", "", datasetName,
 				this.SOFTWAREVERSION, "", "", "");
 
 		final AttributePage ap = new AttributePage();
@@ -7156,8 +7157,8 @@ public class DatabaseDatasetConfigUtils {
 		final List mainTables = new ArrayList();
 		final List finalMains = new ArrayList();
 
-		mainTables.addAll(Arrays.asList(this.sortNaiveMainTables(this
-				.getNaiveMainTablesFor(schema, datasetName), schema)));
+		mainTables.addAll(Arrays.asList(this.sortNaiveMainTables(
+				this.getNaiveMainTablesFor(schema, datasetName), schema)));
 
 		final List primaryKeys = new ArrayList();
 		for (int i = 0, n = mainTables.size(); i < n; i++) {
@@ -7427,8 +7428,8 @@ public class DatabaseDatasetConfigUtils {
 				thingsToChange.addAll(Arrays.asList(((FilterDescription) obj)
 						.getOptions()));
 			else if (obj instanceof Option) {
-				thingsToChange.addAll(Arrays
-						.asList(((Option) obj).getOptions()));
+				thingsToChange
+						.addAll(Arrays.asList(((Option) obj).getOptions()));
 				thingsToChange.addAll(Arrays.asList(((Option) obj)
 						.getPushActions()));
 			} else if (obj instanceof PushAction)
@@ -7485,8 +7486,8 @@ public class DatabaseDatasetConfigUtils {
 		// primaryKeys should be in this same order
 
 		final List starbases = new ArrayList();
-		starbases.addAll(Arrays.asList(this.sortNaiveMainTables(this
-				.getNaiveMainTablesFor(schema, datasetName), schema)));
+		starbases.addAll(Arrays.asList(this.sortNaiveMainTables(
+				this.getNaiveMainTablesFor(schema, datasetName), schema)));
 
 		final List primaryKeys = new ArrayList();
 
@@ -7995,9 +7996,7 @@ public class DatabaseDatasetConfigUtils {
 		String descriptiveName = columnName;
 		if (columnName.endsWith("_bool")) {
 			if (duplicated == 1)
-				filt
-						.setInternalName(tableName + "_"
-								+ columnName.toLowerCase());
+				filt.setInternalName(tableName + "_" + columnName.toLowerCase());
 			else {
 				final String internalName = columnName
 						.replaceFirst("_bool", "").toLowerCase();
@@ -8044,9 +8043,7 @@ public class DatabaseDatasetConfigUtils {
 					+ descriptiveName.substring(1);
 		} else {
 			if (duplicated == 1)
-				filt
-						.setInternalName(tableName + "_"
-								+ columnName.toLowerCase());
+				filt.setInternalName(tableName + "_" + columnName.toLowerCase());
 			else
 				filt.setInternalName(columnName.toLowerCase());
 			filt.setType(this.DEFAULTTYPE);
@@ -8092,56 +8089,69 @@ public class DatabaseDatasetConfigUtils {
 				tableName = dataset + "__" + tableName.split("__")[0] + "__"
 						+ tableName.split("__")[1];
 
-		final Connection conn = this.dsource.getConnection();
-		String sql;
-		if (colForDisplay != null && !colForDisplay.equals(""))
-			sql = "SELECT DISTINCT " + columnName + "," + colForDisplay
-					+ " FROM " + this.getSchema()[0] + "." + tableName
-					+ " WHERE " + columnName + " IS NOT NULL ORDER BY "
-					+ colForDisplay;
-		else
-			sql = "SELECT DISTINCT " + columnName + " FROM "
-					+ this.getSchema()[0] + "." + tableName + " WHERE "
-					+ columnName + " IS NOT NULL ORDER BY " + columnName;
-		// System.out.println(sql);
-		final PreparedStatement ps = conn.prepareStatement(sql);
-		final ResultSet rs = ps.executeQuery();
-		String value;
-		Option op;
-		while (rs.next()) {
-			value = rs.getString(1);
+		// does this table actually exist?
+		if (!tableExists(tableName)) {
 
-			// fix for an empty string
-			if (value.length() == 0) {
-				System.out
-						.println("MAKE DROP DOWN WARNING: Detected empty string(s) in "
-								+ tableName + "." + columnName);
-				continue;
+			logger.warning("Cannot get options as table " + tableName
+					+ " does not exist");
+
+		} else {
+
+			logger.info("Retrieving options from table " + tableName);
+			final Connection conn = this.dsource.getConnection();
+			String sql;
+			if (colForDisplay != null && !colForDisplay.equals(""))
+				sql = "SELECT DISTINCT " + columnName + "," + colForDisplay
+						+ " FROM " + this.getSchema()[0] + "." + tableName
+						+ " WHERE " + columnName + " IS NOT NULL ORDER BY "
+						+ colForDisplay;
+			else
+				sql = "SELECT DISTINCT " + columnName + " FROM "
+						+ this.getSchema()[0] + "." + tableName + " WHERE "
+						+ columnName + " IS NOT NULL ORDER BY " + columnName;
+			// System.out.println(sql);
+			final PreparedStatement ps = conn.prepareStatement(sql);
+			final ResultSet rs = ps.executeQuery();
+			String value;
+			Option op;
+			while (rs.next()) {
+				value = rs.getString(1);
+
+				// fix for an empty string
+				if (value.length() == 0) {
+					System.out
+							.println("MAKE DROP DOWN WARNING: Detected empty string(s) in "
+									+ tableName + "." + columnName);
+					continue;
+				}
+
+				op = new Option();
+
+				// if (!colForDisplay.equals("")){
+				if (colForDisplay != null && !colForDisplay.equals(""))
+					op.setDisplayName(rs.getString(2));
+				else
+					op.setDisplayName(value);
+				final String intName = value.replaceAll(" ", "_");
+				// op.setInternalName(intName.toLowerCase());
+				op.setInternalName(intName);// breaks push action if make lower
+											// case
+				// NN
+				// if (!(columnName.startsWith("silent_") ||
+				// columnName.startsWith("SILENT_"))) //prob. not needed, to
+				// check
+				// if (!columnName.startsWith("silent_"))
+				op.setValue(value);
+				// op.setValue(intName);
+				op.setSelectable("true");
+				options.add(op);
 			}
 
-			op = new Option();
-
-			// if (!colForDisplay.equals("")){
-			if (colForDisplay != null && !colForDisplay.equals(""))
-				op.setDisplayName(rs.getString(2));
-			else
-				op.setDisplayName(value);
-			final String intName = value.replaceAll(" ", "_");
-			// op.setInternalName(intName.toLowerCase());
-			op.setInternalName(intName);// breaks push action if make lower case
-			// NN
-			// if (!(columnName.startsWith("silent_") ||
-			// columnName.startsWith("SILENT_"))) //prob. not needed, to check
-			// if (!columnName.startsWith("silent_"))
-			op.setValue(value);
-			// op.setValue(intName);
-			op.setSelectable("true");
-			options.add(op);
+			DetailedDataSource.close(conn);
 		}
 
 		final Option[] retOptions = new Option[options.size()];
 		options.toArray(retOptions);
-		DetailedDataSource.close(conn);
 		return retOptions;
 	}
 
