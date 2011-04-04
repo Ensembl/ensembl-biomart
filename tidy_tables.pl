@@ -64,7 +64,8 @@ $mart_handle->do("use $mart_db");
 my %tables_to_tidy = (
     '%_transcript_variation__dm'=>'seq_region_id_2026',
     '%_transcript_variation_som__dm'=>'seq_region_id_2026',
-    '%__splicing_event__dm'=>'name_1078'
+    '%__splicing_event__dm'=>'name_1078',
+    '%__splicing_event_feature__dm'=>'seq_region_start_1015'
 );
 
 for my $table_pattern (keys %tables_to_tidy) {
