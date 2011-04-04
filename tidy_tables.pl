@@ -61,12 +61,40 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
 $mart_handle->do("use $mart_db");
 
 # 1. delete from tables in hash 
-my %tables_to_tidy = (
-    '%_transcript_variation__dm'=>'seq_region_id_2026',
-    '%_transcript_variation_som__dm'=>'seq_region_id_2026',
-    '%__splicing_event__dm'=>'name_1078',
-    '%__splicing_event_feature__dm'=>'seq_region_start_1015'
-);
+my %tables_to_tidy;
+
+if($mart_db =~ /_snp_mart/) {
+    %tables_to_tidy = (
+	'%__mpoly__dm'=>'name_2019',
+	'%__variation_set_variation__dm'=>'description_2077',
+	'%__variation_annotation__dm'=>'description_2021',
+	'%__variation_annotation__dm'=>'name_2033'
+    );
+} else {
+    %tables_to_tidy = (
+	'%_transcript_variation__dm'=>'seq_region_id_2026',
+	'%_transcript_variation_som__dm'=>'seq_region_id_2026',
+	'%__splicing_event__dm'=>'name_1078',
+	'%__exp_atlas_diseasestate__dm'=>'stable_id_1066',
+	'%__exp_atlas_organismpart__dm'=>'stable_id_1066',
+	'%__exp_atlas_celltype__dm'=>'stable_id_1066',
+	'%__exp_atlas_celltype__dm'=>'stable_id_1066',
+	'%__exp_atlas_diseasestate__dm'=>'stable_id_1066',
+	'%__exp_atlas_organismpart__dm'=>'stable_id_1066',
+	'%__exp_est_AnatomicalSystem__dm'=>'stable_id_1066',
+	'%__exp_est_AssociatedWith__dm'=>'stable_id_1066',
+	'%__exp_est_CellType__dm'=>'stable_id_1066',
+	'%__exp_est_DevelopmentStage__dm'=>'stable_id_1066',
+	'%__exp_est_ExperimentalTechnique__dm'=>'stable_id_1066',
+	'%__exp_est_MicroarrayPlatform__dm'=>'stable_id_1066',
+	'%__exp_est_Pathology__dm'=>'stable_id_1066',
+	'%__exp_est_Pooling__dm'=>'stable_id_1066',
+	'%__exp_est_TissuePreparation__dm'=>'stable_id_1066',
+	'%__exp_est_Treatment__dm'=>'stable_id_1066',
+	'%__exp_zfin_AnatomicalTerms__dm'=>'stable_id_1066',
+	'%__exp_zfin_DevelopmentalStage__dm'=>'stable_id_1066'
+	);
+}
 
 for my $table_pattern (keys %tables_to_tidy) {
     $logger->info("FInding tables like $table_pattern");
