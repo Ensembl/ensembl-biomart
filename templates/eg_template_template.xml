@@ -59,10 +59,10 @@
   <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id" internalName="coding_transcript_flank" linkName="coding_transcript_flank" linkVersion="*link_version*" name="coding_transcript_flank" orderBy="ensembl_transcript_id,rank" type="link"/>
   <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id" internalName="3utr" linkName="3utr" linkVersion="*link_version*" name="3utr" orderBy="ensembl_transcript_id,rank" type="link"/>
   <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id" internalName="5utr" linkName="5utr" linkVersion="*link_version*" name="5utr" orderBy="ensembl_transcript_id,rank" type="link"/>
-  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand,rank" internalName="cdna" linkName="cdna" linkVersion="*link_version*" name="cdna" orderBy="ensembl_transcript_id" type="link"/>
-  <Exportable attributes="exon_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand" internalName="gene_exon" linkName="gene_exon" linkVersion="*link_version*" name="gene_exon" orderBy="exon_id" type="link"/>
-  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,codon_table_id,seq_edits" default="1" internalName="peptide" linkName="peptide" linkVersion="*link_version*" name="peptide" orderBy="ensembl_transcript_id,rank" type="link"/>
-  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase" internalName="coding" linkName="coding" linkVersion="*link_version*" name="coding" orderBy="ensembl_transcript_id,rank" type="link"/>
+  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand,rank,rna_seq_edits" internalName="cdna" linkName="cdna" linkVersion="*link_version*" name="cdna" orderBy="ensembl_transcript_id" type="link"/>
+  <Exportable attributes="exon_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand,rna_seq_edits" internalName="gene_exon" linkName="gene_exon" linkVersion="*link_version*" name="gene_exon" orderBy="exon_id" type="link"/>
+  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,codon_table_id,seq_edits,rna_seq_edits" default="1" internalName="peptide" linkName="peptide" linkVersion="*link_version*" name="peptide" orderBy="ensembl_transcript_id,rank" type="link"/>
+  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,rna_seq_edits" internalName="coding" linkName="coding" linkVersion="*link_version*" name="coding" orderBy="ensembl_transcript_id,rank" type="link"/>
   <Replace id="exportables"/>
   <FilterPage displayName="FILTERS FOR LINKS" hideDisplay="true" internalName="link_filters">
     <FilterGroup description="Filters for Links" hideDisplay="true" internalName="link_filters">
@@ -71,6 +71,7 @@
         <FilterDescription internalName="link_probe" pointerFilter="probe" pointerDataset="*species3*_probe" pointerInterface="default"/>
         <FilterDescription internalName="link_probe_set" pointerFilter="probe_set" pointerDataset="*species3*_probe_set" pointerInterface="default"/>
 -->
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_go_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_GO__dm" type="text"/>
         <FilterDescription displayType="text" field="stable_id_1066" hideDisplay="true" internalName="link_ensembl_transcript_stable_id" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="main" type="text"/>
         <FilterDescription displayType="text" field="gene_id_1020_key" hideDisplay="true" internalName="gene_id" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
         <FilterDescription displayType="text" field="transcript_id_1064_key" hideDisplay="true" internalName="transcript_id" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
@@ -1630,6 +1631,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with GO ID(s)" displayType="list" field="go_GO_bool" internalName="with_go_go" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="ID list limit" internalName="id_list_limit">
@@ -1834,6 +1839,8 @@
             <SpecificOptionContent field="display_label_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="display_label_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
           </Option>
+          <Option description="Filter to include genes with supplied list of miRBase ID(s)" displayName="miRBase gene name" displayType="text" field="display_label_1074" internalName="mirbase_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_miRBase_gene_name__dm" type="list"/>
+          <Option description="Filter to include genes with supplied list of miRBase ID(s)" displayName="miRBase transcript name" displayType="text" field="display_label_1074" internalName="mirbase_transcript_name" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_miRBase_transcript_name__dm" type="list"/>
           <Option displayName="HAVANA transcript ID(s) (OTTT)" displayType="text" field="dbprimary_acc_1074" internalName="ottt" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_OTTT__dm" type="list"/>
           <Option displayName="HAVANA protein ID(s) (OTTP)" displayType="text" field="dbprimary_acc_1074" internalName="ottp" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_OTTP__dm" type="list"/>
           <Option displayName="HAVANA gene ID(s) (OTTG)" displayType="text" field="dbprimary_acc_1074" internalName="ottg" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_OTTG__dm" type="list"/>
@@ -2025,6 +2032,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="osativa_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotVarsplic__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotVarsplic__dm"/>
           </Option>
+        <AttributeDescription displayName="UniProtKB Gene Name" field="display_label_1074" internalName="uniprot_genename" key="translation_id_1068_key" linkoutURL="exturl|http://www.uniprot.org/uniprot/%s" maxLength="40" tableConstraint="ox_Uniprot_genename__dm"/>
           <Option displayName="Vega mouse transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="vega_mouse_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Vega_mouse_transcript__dm" type="list"/>
           <Option displayName="Vega Translation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="vega_translation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Vega_translation__dm" type="list"/>
           <Option checkForNulls="true" displayName="WormBase gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormbase_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_gene__dm" type="list">
@@ -2344,36 +2352,15 @@
       </FilterCollection>
     </FilterGroup>
     <FilterGroup description="Filters matching GO IDS, Terms, and Evidence Codes" displayName="GENE ONTOLOGY:" hidden="false" internalName="go">
-      <FilterCollection displayName="Evidence code (GO Biological process)" hidden="false" internalName="go_biol_process_evidence_code">
-        <FilterDescription displayName="Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="biol_process_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_biological_process__dm" type="list">
-          <SpecificFilterContent internalName="replaceMe"/>
+      <FilterCollection displayName="GO Evidence code" hidden="false" internalName="go_evidence_code">
+        <FilterDescription displayName="GO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="go_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_GO__dm" type="list">
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="GO Biological Process Term" hidden="false" internalName="go_biol_process_filters">
-        <FilterDescription hidden="false" internalName="biol_process" pointerDataset="closure_biological_process" pointerFilter="go_biological_process_parent_term" pointerInterface="default"/>
+      <FilterCollection displayName="GO Term Accession [e.g. GO:0050789]" hidden="false" internalName="go_filters">
+        <FilterDescription hidden="false" internalName="go_clos" multipleValues="1" pointerDataset="closure_GO" pointerFilter="go_parent_term" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="Evidence code (GO Cellular component)" hidden="false" internalName="go_cell_location_evidence_code">
-        <FilterDescription displayName="Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="cell_component_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_cellular_component__dm" type="list">
-          <SpecificFilterContent internalName="replaceMe"/>
-        </FilterDescription>
-      </FilterCollection>
-      <FilterCollection displayName="GO Cellular Component Term" hidden="false" internalName="go_cell_location_filters">
-        <FilterDescription hidden="false" internalName="cell_component" pointerDataset="closure_cellular_component" pointerFilter="go_cellular_component_parent_term" pointerInterface="default"/>
-      </FilterCollection>
-      <FilterCollection displayName="Evidence code (GO Molecular function)" hidden="false" internalName="go_mol_function_evidence_code">
-        <FilterDescription displayName="Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="mol_function_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_molecular_function__dm" type="list">
-          <SpecificFilterContent internalName="replaceMe"/>
-        </FilterDescription>
-      </FilterCollection>
-      <FilterCollection displayName="GO Molecular Function Term" hidden="false" internalName="go_mol_function_filters">
-        <FilterDescription hidden="false" internalName="mol_function" pointerDataset="closure_molecular_function" pointerFilter="go_molecular_function_parent_term" pointerInterface="default"/>
-      </FilterCollection>
-    </FilterGroup>
-    <FilterGroup description="Filter on multi species comparison relationships" displayName="MULTI SPECIES COMPARISONS:" hidden="false" internalName="multispecies">
-      <FilterCollection displayName="Homolog filters" hidden="false" internalName="homolog_filter_collection">
-        <FilterDescription displayType="container" hidden="false" internalName="homolog_filters" type="boolean_list">
-          <Replace id="homology_filters"/>
-        </FilterDescription>
+      <FilterCollection displayName="GO Term Name [e.g. regulation of biological process]" hidden="false" internalName="go_filters_name">
+        <FilterDescription hidden="false" internalName="go_name" pointerDataset="closure_GO" pointerFilter="go_parent_name" pointerInterface="default"/>
       </FilterCollection>
     </FilterGroup>
     <FilterGroup description="Filter for Genes based on Expression Patters, using Controlled Vocabularies." displayName="EXPRESSION:" internalName="expression" hideDisplay="true">
@@ -2962,27 +2949,13 @@
       </AttributeCollection>
     </AttributeGroup>
 -->
-    <AttributeGroup displayName="EXTERNAL:" internalName="external">
-      <AttributeCollection displayName="GO Biological Process (bp)" internalName="go_biological_process">
-        <AttributeDescription displayName="GO Term Accession (bp)" field="dbprimary_acc_1074" internalName="go_biological_process_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_biological_process__dm"/>
-        <AttributeDescription displayName="GO Term Name (bp)" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_biological_process__dm"/>
-        <AttributeDescription displayName="GO Term Definition (bp)" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_biological_process__dm"/>
-        <AttributeDescription displayName="GO Term Evidence Code (bp)" field="linkage_type_1024" internalName="go_biological_process_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_biological_process__dm"/>
-        <AttributeDescription displayName="GO Term Subsets (bp)" field="subsets_1006" hidden="true" internalName="subsets_1006" key="translation_id_1068_key" maxLength="14" tableConstraint="go_biological_process__dm"/>
-      </AttributeCollection>
-      <AttributeCollection displayName="GO Cellular Component (cc)" internalName="go_cellular_component">
-        <AttributeDescription displayName="GO Term Accession (cc)" field="dbprimary_acc_1074" internalName="go_cellular_component_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_cellular_component__dm"/>
-        <AttributeDescription displayName="GO Term Name" field="name_1006" internalName="go_cellular_component__dm_name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_cellular_component__dm"/>
-        <AttributeDescription displayName="GO Term Definition (cc)" field="definition_1006" internalName="go_cellular_component__dm_definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_cellular_component__dm"/>
-        <AttributeDescription displayName="GO Term Evidence Code (cc)" field="linkage_type_1024" internalName="go_cellular_component_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_cellular_component__dm"/>
-        <AttributeDescription displayName="Go Term Subsets (cc)" field="subsets_1006" hidden="true" internalName="go_cellular_component__dm_subsets_1006" key="translation_id_1068_key" maxLength="14" tableConstraint="go_cellular_component__dm"/>
-      </AttributeCollection>
-      <AttributeCollection displayName="GO Molecular Function (mf)" internalName="go_molecular_function">
-        <AttributeDescription displayName="GO Term Accession (mf)" field="dbprimary_acc_1074" internalName="go_molecular_function_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_molecular_function__dm"/>
-        <AttributeDescription displayName="GO Term Name (mf)" field="name_1006" internalName="go_molecular_function__dm_name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_molecular_function__dm"/>
-        <AttributeDescription displayName="GO Term Definition (mf)" field="definition_1006" internalName="go_molecular_function__dm_definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_molecular_function__dm"/>
-        <AttributeDescription displayName="GO Term Evidence Code (mf)" field="linkage_type_1024" internalName="go_molecular_function_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_molecular_function__dm"/>
-        <AttributeDescription displayName="GO Term Subsets (mf)" field="subsets_1006" hidden="true" internalName="go_molecular_function__dm_subsets_1006" key="translation_id_1068_key" maxLength="14" tableConstraint="go_molecular_function__dm"/>
+<AttributeGroup displayName="EXTERNAL:" internalName="external">
+      <AttributeCollection displayName="GO" internalName="go_closure">
+        <AttributeDescription displayName="GO Term Accession (bp)" field="dbprimary_acc_1074" internalName="go_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_GO__dm"/>
+        <AttributeDescription displayName="GO Term Name (bp)" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_GO__dm"/>
+        <AttributeDescription displayName="GO Term Definition (bp)" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_GO__dm"/>
+        <AttributeDescription displayName="GO Term Evidence Code (bp)" field="linkage_type_1024" internalName="go_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_GO__dm"/>
+        <AttributeDescription displayName="GO domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_GO__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="GOSlim GOA" internalName="goslim_goa">
         <AttributeDescription displayName="GOSlim GOA Accession(s)" field="dbprimary_acc_1074" internalName="goslim_goa_accession" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ox_goslim_goa__dm">
@@ -3834,7 +3807,7 @@
         <AttributeDescription displayName="Variation Source" field="name_2021" internalName="source_name" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Source description" field="description_2021" internalName="source_description" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription default="true" displayName="Reference ID" field="name_2025" internalName="external_id" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="100" tableConstraint="mart_transcript_variation__dm"/>
-        <AttributeDescription description="Snp Allele" displayName="Allele" field="allele_string_2026" internalName="allele" key="transcript_id_1064_key" maxLength="15" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription description="Snp Allele" displayName="Variant Alleles" field="allele_string_2026" internalName="allele" key="transcript_id_1064_key" maxLength="15" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Validation status" field="validation_status_2026" internalName="validated" key="transcript_id_1064_key" maxLength="40" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Mapweight" field="map_weight_2026" internalName="mapweight" key="transcript_id_1064_key" maxLength="5" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="fpcctg name" field="fpcctg_name" hidden="false" internalName="fpcctg_name" key="transcript_id_1064_key" maxLength="11" tableConstraint="snp__dm"/>
@@ -4055,6 +4028,7 @@
 -->
         <AttributeDescription displayName="complete5" field="value_1060" hidden="false" hideDisplay="true" internalName="complete5" key="translation_id_1068_key" maxLength="10" tableConstraint="main"/>
         <AttributeDescription displayName="seq_edits" field="value_1069" hidden="false" hideDisplay="true" internalName="seq_edits" key="translation_id_1068_key" maxLength="255" tableConstraint="main"/>
+        <AttributeDescription displayName="rna_seq_edits" field="value_1065" hidden="false" hideDisplay="true" internalName="rna_seq_edits" key="transcript_id_1064_key" maxLength="255" tableConstraint="main"/>
         <AttributeDescription displayName="codon_table_id" field="value_1060" hidden="false" hideDisplay="true" internalName="codon_table_id" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm"/>
         <AttributeDescription displayName="End exon id" field="end_exon_id_1068" hidden="false" hideDisplay="true" internalName="end_exon_id" key="translation_id_1068_key" maxLength="10" tableConstraint="main"/>
         <AttributeDescription displayName="Start exon id" field="start_exon_id_1068" hidden="false" hideDisplay="true" internalName="start_exon_id" key="translation_id_1068_key" maxLength="10" tableConstraint="main"/>
