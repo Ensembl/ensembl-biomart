@@ -140,33 +140,56 @@
           </Option>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Limit to variants with these IDs" internalName="snpfilter_collection">
-        <FilterDescription displayType="container" internalName="snpfilters" type="id_list">
+      <FilterCollection displayName="Filter by Variation ID (e.g. rs123, CM000001)" internalName="snpfilter_collection">
+        <FilterDescription displayType="container" displayName="Filter by Variation ID (e.g. rs123, CM000001)" internalName="snpfilters" type="id_list">
           <Option description="Variation stable IDs" displayName="Variation stable ID(s)" displayType="text" field="name_2025" internalName="refsnp" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list"/>
           <Option description="Perlegen IDs" displayName="Perlegen ID(s)" displayType="text" field="name_2030" internalName="perlegen" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="variation_synonym_perlegen__dm" type="list"/>
           <Option description="TBGI IDs" displayName="TBGI ID(s)" displayType="text" field="name_2030" internalName="tbgi" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="variation_synonym_tbgi__dm" type="list"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Validation status" internalName="validation_status">
-        <FilterDescription displayName="Validation status" displayType="list" field="validation_status_2025" internalName="validation_status" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list">
+        <FilterDescription displayName="Validation status" displayType="list" field="validation_status_2025" internalName="validation_status" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" isDefault="true">
 	  <SpecificFilterContent internalName="ReplaceMe"/>
 <!-- insert specific -->
         </FilterDescription>
       </FilterCollection>
+      <FilterCollection displayName="Study type" internalName="study_type">
+        <FilterDescription displayName="Study type" displayType="list" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list">
+	  <SpecificFilterContent internalName="ReplaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
       <FilterCollection displayName="Phenotype" internalName="phenotype_description">
-        <FilterDescription displayName="Phenotype description" displayType="list" field="description_2033" internalName="phenotype_description" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list">
+        <FilterDescription displayName="Phenotype description" displayType="list" field="description_2033" internalName="phenotype_description" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list" isDefault="true">
 	  <SpecificFilterContent internalName="ReplaceMe"/>
 <!-- insert specific -->
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Phenotype P value range" internalName="phenotype_pvalue">
-        <FilterDescription displayName="P value min" displayType="text" field="p_value_num_2035" internalName="p_value_min" key="variation_id_2025_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="variation_annotation__dm" type="text"/>
-        <FilterDescription displayName="P value max" displayType="text" field="p_value_num_2035" internalName="p_value_max" key="variation_id_2025_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="variation_annotation__dm" type="text"/>
+        <FilterDescription displayName="P value min" displayType="text" field="p_value_2035" internalName="p_value_min" key="variation_id_2025_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="variation_annotation__dm" type="text"/>
+        <FilterDescription displayName="P value max" displayType="text" field="p_value_2035" internalName="p_value_max" key="variation_id_2025_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="variation_annotation__dm" type="text"/>
       </FilterCollection>
       <FilterCollection displayName="Variation Set Name" internalName="variation_set">
-        <FilterDescription displayName="Variation Set Name" displayType="list" field="name_2077" internalName="variation_set_name" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_set_variation__dm" type="list">
+        <FilterDescription displayName="Variation Set Name" displayType="list" field="name_2077" internalName="variation_set_name" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_set_variation__dm" type="list" isDefault="true">
 	  <SpecificFilterContent internalName="ReplaceMe"/>
 <!-- insert specific -->
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="SIFT Prediction" internalName="sift">
+        <FilterDescription displayName="SIFT Prediction" displayType="list" field="sift_prediction_2090" internalName="sift_prediction" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
+          <SpecificFilterContent displayType="list" field="sift_prediction_2090" internalName="hsapiens_snp" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
+            <Option displayName="tolerated" internalName="tolerated" isSelectable="true" value="tolerated"/>
+            <Option displayName="deleterious" internalName="deleterious" isSelectable="true" value="deleterious"/>
+          </SpecificFilterContent>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="PolyPhen Prediction" internalName="polyphen">
+        <FilterDescription displayName="PolyPhen Prediction" displayType="list" field="polyphen_prediction_2090" internalName="polyphen_prediction" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
+          <SpecificFilterContent displayType="list" field="polyphen_prediction_2090" internalName="hsapiens_snp" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
+            <Option displayName="unknown" internalName="unknown" isSelectable="true" value="unknown"/>
+            <Option displayName="benign" internalName="benign" isSelectable="true" value="benign"/>
+            <Option displayName="possibly damaging" internalName="possibly_damaging" isSelectable="true" value="possibly damaging"/>
+            <Option displayName="probably damaging" internalName="probably_damaging" isSelectable="true" value="probably damaging"/>
+          </SpecificFilterContent>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Variations that have been validated" internalName="validated_snp">
@@ -176,7 +199,7 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Limit to variations from strain(s)" internalName="snp_strain_col">
-        <FilterDescription displayName="Reference strain" displayType="list" field="name_2019" internalName="reference_strain" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="poly__dm" type="list">
+        <FilterDescription displayName="Reference strain" displayType="list" field="name_2019" internalName="reference_strain" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="poly__dm" type="list" isDefault="true">
 	  <SpecificFilterContent internalName="ReplaceMe"/>
 <!-- insert specific
           <SpecificFilterContent displayType="list" field="name_2019" internalName="vvinifera_eg_snp" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="poly__dm" type="list">
@@ -208,34 +231,118 @@
 <!--	<FilterDescription displayName="Associated Gene ID(s):" internalName="external_gene_id" pointerDataset="*species3*_gene" pointerFilter="link_external_gene_id" pointerInterface="default" />
     legal_qualifiers="=,in" multipleValues="1" qualifier="=" type="list"/>-->
       </FilterCollection>
+
       <FilterCollection displayName="Consequence type" internalName="consequence_type">
-        <FilterDescription displayName="Consequence type" displayType="list" field="consequence_type_2024" internalName="consequence_type" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
-          <Option displayName="STOP_GAINED" internalName="STOP_GAINED" isSelectable="true" value="STOP_GAINED"/>
-          <Option displayName="STOP_LOST" internalName="STOP_LOST" isSelectable="true" value="STOP_LOST"/>
-          <Option displayName="COMPLEX_INDEL" internalName="COMPLEX_INDEL" isSelectable="true" value="COMPLEX_INDEL"/>
-          <Option displayName="FRAMESHIFT_CODING" internalName="FRAMESHIFT_CODING" isSelectable="true" value="FRAMESHIFT_CODING"/>
-          <Option displayName="STOP_GAINED,FRAMESHIFT_CODING" internalName="STOP_GAINED,FRAMESHIFT_CODING" isSelectable="true" value="STOP_GAINED,FRAMESHIFT_CODING"/>
-          <Option displayName="NON_SYNONYMOUS_CODING" internalName="NON_SYNONYMOUS_CODING" isSelectable="true" value="NON_SYNONYMOUS_CODING"/>
-          <Option displayName="STOP_GAINED,SPLICE_SITE" internalName="STOP_GAINED,SPLICE_SITE" isSelectable="true" value="STOP_GAINED,SPLICE_SITE"/>
-          <Option displayName="STOP_LOST,SPLICE_SITE" internalName="STOP_LOST,SPLICE_SITE" isSelectable="true" value="STOP_LOST,SPLICE_SITE"/>
-          <Option displayName="FRAMESHIFT_CODING,SPLICE_SITE" internalName="FRAMESHIFT_CODING,SPLICE_SITE" isSelectable="true" value="FRAMESHIFT_CODING,SPLICE_SITE"/>
-          <Option displayName="STOP_GAINED,FRAMESHIFT_CODING,SPLICE_SITE" internalName="STOP_GAINED,FRAMESHIFT_CODING,SPLICE_SITE" isSelectable="true" value="STOP_GAINED,FRAMESHIFT_CODING,SPLICE_SITE"/>
-          <Option displayName="NON_SYNONYMOUS_CODING,SPLICE_SITE" internalName="NON_SYNONYMOUS_CODING,SPLICE_SITE" isSelectable="true" value="NON_SYNONYMOUS_CODING,SPLICE_SITE"/>
-          <Option displayName="PARTIAL_CODON" internalName="PARTIAL_CODON" isSelectable="true" value="PARTIAL_CODON"/>
-          <Option displayName="SYNONYMOUS_CODING" internalName="SYNONYMOUS_CODING" isSelectable="true" value="SYNONYMOUS_CODING"/>
-          <Option displayName="SPLICE_SITE,SYNONYMOUS_CODING" internalName="SPLICE_SITE,SYNONYMOUS_CODING" isSelectable="true" value="SPLICE_SITE,SYNONYMOUS_CODING"/>
-          <Option displayName="REGULATORY_REGION" internalName="REGULATORY_REGION" isSelectable="true" value="REGULATORY_REGION"/>
-          <Option displayName="WITHIN_MATURE_miRNA" internalName="WITHIN_MATURE_miRNA" isSelectable="true" value="WITHIN_MATURE_miRNA"/>
-          <Option displayName="5PRIME_UTR" internalName="5PRIME_UTR" isSelectable="true" value="5PRIME_UTR"/>
-          <Option displayName="SPLICE_SITE,5PRIME_UTR" internalName="SPLICE_SITE,5PRIME_UTR" isSelectable="true" value="SPLICE_SITE,5PRIME_UTR"/>
+        <FilterDescription displayName="Consequence type" displayType="list" field="mart_consequence_type_2090" internalName="consequence_type" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
           <Option displayName="3PRIME_UTR" internalName="3PRIME_UTR" isSelectable="true" value="3PRIME_UTR"/>
-          <Option displayName="SPLICE_SITE,3PRIME_UTR" internalName="SPLICE_SITE,3PRIME_UTR" isSelectable="true" value="SPLICE_SITE,3PRIME_UTR"/>
-          <Option displayName="INTRONIC" internalName="INTRONIC" isSelectable="true" value="INTRONIC"/>
-          <Option displayName="ESSENTIAL_SPLICE_SITE,INTRONIC" internalName="ESSENTIAL_SPLICE_SITE,INTRONIC" isSelectable="true" value="ESSENTIAL_SPLICE_SITE,INTRONIC"/>
-          <Option displayName="SPLICE_SITE,INTRONIC" internalName="SPLICE_SITE,INTRONIC" isSelectable="true" value="SPLICE_SITE,INTRONIC"/>
-          <Option displayName="UPSTREAM" internalName="UPSTREAM" isSelectable="true" value="UPSTREAM"/>
+          <Option displayName="3PRIME_UTR&amp;SPLICE_SITE" internalName="3PRIME_UTR&amp;SPLICE_SITE" isSelectable="true" value="3PRIME_UTR&amp;SPLICE_SITE"/>
+          <Option displayName="5PRIME_UTR" internalName="5PRIME_UTR" isSelectable="true" value="5PRIME_UTR"/>
+          <Option displayName="5PRIME_UTR&amp;SPLICE_SITE" internalName="5PRIME_UTR&amp;SPLICE_SITE" isSelectable="true" value="5PRIME_UTR&amp;SPLICE_SITE"/>
+          <Option displayName="CODING_UNKNOWN" internalName="CODING_UNKNOWN" isSelectable="true" value="CODING_UNKNOWN"/>
+          <Option displayName="CODING_UNKNOWN&amp;3PRIME_UTR" internalName="CODING_UNKNOWN&amp;3PRIME_UTR" isSelectable="true" value="CODING_UNKNOWN&amp;3PRIME_UTR"/>
+          <Option displayName="CODING_UNKNOWN&amp;5PRIME_UTR" internalName="CODING_UNKNOWN&amp;5PRIME_UTR" isSelectable="true" value="CODING_UNKNOWN&amp;5PRIME_UTR"/>
+          <Option displayName="CODING_UNKNOWN&amp;NMD_TRANSCRIPT" internalName="CODING_UNKNOWN&amp;NMD_TRANSCRIPT" isSelectable="true" value="CODING_UNKNOWN&amp;NMD_TRANSCRIPT"/>
+          <Option displayName="CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR" internalName="CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR" isSelectable="true" value="CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR"/>
+          <Option displayName="CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR" internalName="CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR" isSelectable="true" value="CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR"/>
+          <Option displayName="CODING_UNKNOWN&amp;PARTIAL_CODON" internalName="CODING_UNKNOWN&amp;PARTIAL_CODON" isSelectable="true" value="CODING_UNKNOWN&amp;PARTIAL_CODON"/>
+          <Option displayName="CODING_UNKNOWN&amp;SPLICE_SITE" internalName="CODING_UNKNOWN&amp;SPLICE_SITE" isSelectable="true" value="CODING_UNKNOWN&amp;SPLICE_SITE"/>
+          <Option displayName="COMPLEX_INDEL&amp;3PRIME_UTR" internalName="COMPLEX_INDEL&amp;3PRIME_UTR" isSelectable="true" value="COMPLEX_INDEL&amp;3PRIME_UTR"/>
+          <Option displayName="COMPLEX_INDEL&amp;5PRIME_UTR" internalName="COMPLEX_INDEL&amp;5PRIME_UTR" isSelectable="true" value="COMPLEX_INDEL&amp;5PRIME_UTR"/>
+          <Option displayName="COMPLEX_INDEL&amp;CODING_UNKNOWN" internalName="COMPLEX_INDEL&amp;CODING_UNKNOWN" isSelectable="true" value="COMPLEX_INDEL&amp;CODING_UNKNOWN"/>
+          <Option displayName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;3PRIME_UTR" internalName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;3PRIME_UTR" isSelectable="true" value="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;3PRIME_UTR"/>
+          <Option displayName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;3PRIME_UTR&amp;SPLICE_SITE" internalName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;3PRIME_UTR&amp;SPLICE_SITE" isSelectable="true" value="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;3PRIME_UTR&amp;SPLICE_SITE"/>
+          <Option displayName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;5PRIME_UTR" internalName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;5PRIME_UTR" isSelectable="true" value="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;5PRIME_UTR"/>
+          <Option displayName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;5PRIME_UTR&amp;3PRIME_UTR" internalName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;5PRIME_UTR&amp;3PRIME_UTR" isSelectable="true" value="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;5PRIME_UTR&amp;3PRIME_UTR"/>
+          <Option displayName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;5PRIME_UTR&amp;SPLICE_SITE" internalName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;5PRIME_UTR&amp;SPLICE_SITE" isSelectable="true" value="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;5PRIME_UTR&amp;SPLICE_SITE"/>
+          <Option displayName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR" internalName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR" isSelectable="true" value="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR"/>
+          <Option displayName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR" internalName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR" isSelectable="true" value="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR"/>
+          <Option displayName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR&amp;SPLICE_SITE" internalName="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR&amp;SPLICE_SITE" isSelectable="true" value="COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR&amp;SPLICE_SITE"/>
+          <Option displayName="COMPLEX_INDEL&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR" internalName="COMPLEX_INDEL&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR" isSelectable="true" value="COMPLEX_INDEL&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR"/>
+          <Option displayName="COMPLEX_INDEL&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR" internalName="COMPLEX_INDEL&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR" isSelectable="true" value="COMPLEX_INDEL&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR"/>
           <Option displayName="DOWNSTREAM" internalName="DOWNSTREAM" isSelectable="true" value="DOWNSTREAM"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE" internalName="ESSENTIAL_SPLICE_SITE" isSelectable="true" value="ESSENTIAL_SPLICE_SITE"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;3PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;3PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;3PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;5PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;5PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;5PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN" internalName="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;3PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;3PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;3PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;5PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;5PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;5PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT" internalName="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;3PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;3PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;3PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;5PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;5PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;5PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN" internalName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;3PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;3PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;3PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;5PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;5PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;5PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT" internalName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;CODING_UNKNOWN&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;COMPLEX_INDEL&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;FRAMESHIFT_CODING" internalName="ESSENTIAL_SPLICE_SITE&amp;FRAMESHIFT_CODING" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;FRAMESHIFT_CODING"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;NMD_TRANSCRIPT" internalName="ESSENTIAL_SPLICE_SITE&amp;NMD_TRANSCRIPT" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;NMD_TRANSCRIPT"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;NMD_TRANSCRIPT&amp;3PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR" internalName="ESSENTIAL_SPLICE_SITE&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;NMD_TRANSCRIPT&amp;5PRIME_UTR"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;NON_SYNONYMOUS_CODING" internalName="ESSENTIAL_SPLICE_SITE&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;STOP_GAINED" internalName="ESSENTIAL_SPLICE_SITE&amp;STOP_GAINED" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;STOP_GAINED"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;SYNONYMOUS_CODING" internalName="ESSENTIAL_SPLICE_SITE&amp;SYNONYMOUS_CODING" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;SYNONYMOUS_CODING"/>
+          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;WITHIN_NON_CODING_GENE" internalName="ESSENTIAL_SPLICE_SITE&amp;WITHIN_NON_CODING_GENE" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;WITHIN_NON_CODING_GENE"/>
+          <Option displayName="FRAMESHIFT_CODING" internalName="FRAMESHIFT_CODING" isSelectable="true" value="FRAMESHIFT_CODING"/>
+          <Option displayName="FRAMESHIFT_CODING&amp;NMD_TRANSCRIPT" internalName="FRAMESHIFT_CODING&amp;NMD_TRANSCRIPT" isSelectable="true" value="FRAMESHIFT_CODING&amp;NMD_TRANSCRIPT"/>
+          <Option displayName="FRAMESHIFT_CODING&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE" internalName="FRAMESHIFT_CODING&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE" isSelectable="true" value="FRAMESHIFT_CODING&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE"/>
+          <Option displayName="FRAMESHIFT_CODING&amp;SPLICE_SITE" internalName="FRAMESHIFT_CODING&amp;SPLICE_SITE" isSelectable="true" value="FRAMESHIFT_CODING&amp;SPLICE_SITE"/>
+          <Option displayName="INTRONIC" internalName="INTRONIC" isSelectable="true" value="INTRONIC"/>
+          <Option displayName="INTRONIC&amp;SPLICE_SITE" internalName="INTRONIC&amp;SPLICE_SITE" isSelectable="true" value="INTRONIC&amp;SPLICE_SITE"/>
+          <Option displayName="NMD_TRANSCRIPT&amp;3PRIME_UTR" internalName="NMD_TRANSCRIPT&amp;3PRIME_UTR" isSelectable="true" value="NMD_TRANSCRIPT&amp;3PRIME_UTR"/>
+          <Option displayName="NMD_TRANSCRIPT&amp;3PRIME_UTR&amp;SPLICE_SITE" internalName="NMD_TRANSCRIPT&amp;3PRIME_UTR&amp;SPLICE_SITE" isSelectable="true" value="NMD_TRANSCRIPT&amp;3PRIME_UTR&amp;SPLICE_SITE"/>
+          <Option displayName="NMD_TRANSCRIPT&amp;5PRIME_UTR" internalName="NMD_TRANSCRIPT&amp;5PRIME_UTR" isSelectable="true" value="NMD_TRANSCRIPT&amp;5PRIME_UTR"/>
+          <Option displayName="NMD_TRANSCRIPT&amp;5PRIME_UTR&amp;SPLICE_SITE" internalName="NMD_TRANSCRIPT&amp;5PRIME_UTR&amp;SPLICE_SITE" isSelectable="true" value="NMD_TRANSCRIPT&amp;5PRIME_UTR&amp;SPLICE_SITE"/>
+          <Option displayName="NMD_TRANSCRIPT&amp;INTRONIC" internalName="NMD_TRANSCRIPT&amp;INTRONIC" isSelectable="true" value="NMD_TRANSCRIPT&amp;INTRONIC"/>
+          <Option displayName="NMD_TRANSCRIPT&amp;INTRONIC&amp;SPLICE_SITE" internalName="NMD_TRANSCRIPT&amp;INTRONIC&amp;SPLICE_SITE" isSelectable="true" value="NMD_TRANSCRIPT&amp;INTRONIC&amp;SPLICE_SITE"/>
+          <Option displayName="NMD_TRANSCRIPT&amp;NON_SYNONYMOUS_CODING" internalName="NMD_TRANSCRIPT&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="NMD_TRANSCRIPT&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="NMD_TRANSCRIPT&amp;SPLICE_SITE&amp;NON_SYNONYMOUS_CODING" internalName="NMD_TRANSCRIPT&amp;SPLICE_SITE&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="NMD_TRANSCRIPT&amp;SPLICE_SITE&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="NMD_TRANSCRIPT&amp;SPLICE_SITE&amp;SYNONYMOUS_CODING" internalName="NMD_TRANSCRIPT&amp;SPLICE_SITE&amp;SYNONYMOUS_CODING" isSelectable="true" value="NMD_TRANSCRIPT&amp;SPLICE_SITE&amp;SYNONYMOUS_CODING"/>
+          <Option displayName="NMD_TRANSCRIPT&amp;SYNONYMOUS_CODING" internalName="NMD_TRANSCRIPT&amp;SYNONYMOUS_CODING" isSelectable="true" value="NMD_TRANSCRIPT&amp;SYNONYMOUS_CODING"/>
+          <Option displayName="NMD_TRANSCRIPT&amp;SYNONYMOUS_CODING&amp;NON_SYNONYMOUS_CODING" internalName="NMD_TRANSCRIPT&amp;SYNONYMOUS_CODING&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="NMD_TRANSCRIPT&amp;SYNONYMOUS_CODING&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="NON_SYNONYMOUS_CODING" internalName="NON_SYNONYMOUS_CODING" isSelectable="true" value="NON_SYNONYMOUS_CODING"/>
+          <Option displayName="NON_SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT" internalName="NON_SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT" isSelectable="true" value="NON_SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT"/>
+          <Option displayName="NON_SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE" internalName="NON_SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE" isSelectable="true" value="NON_SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE"/>
+          <Option displayName="NON_SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT&amp;SYNONYMOUS_CODING" internalName="NON_SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT&amp;SYNONYMOUS_CODING" isSelectable="true" value="NON_SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT&amp;SYNONYMOUS_CODING"/>
+          <Option displayName="NON_SYNONYMOUS_CODING&amp;NON_SYNONYMOUS_CODING" internalName="NON_SYNONYMOUS_CODING&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="NON_SYNONYMOUS_CODING&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="NON_SYNONYMOUS_CODING&amp;SPLICE_SITE" internalName="NON_SYNONYMOUS_CODING&amp;SPLICE_SITE" isSelectable="true" value="NON_SYNONYMOUS_CODING&amp;SPLICE_SITE"/>
+          <Option displayName="PARTIAL_CODON" internalName="PARTIAL_CODON" isSelectable="true" value="PARTIAL_CODON"/>
+          <Option displayName="PARTIAL_CODON&amp;NON_SYNONYMOUS_CODING" internalName="PARTIAL_CODON&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="PARTIAL_CODON&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="SPLICE_SITE" internalName="SPLICE_SITE" isSelectable="true" value="SPLICE_SITE"/>
+          <Option displayName="SPLICE_SITE&amp;NON_SYNONYMOUS_CODING" internalName="SPLICE_SITE&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="SPLICE_SITE&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="SPLICE_SITE&amp;SYNONYMOUS_CODING" internalName="SPLICE_SITE&amp;SYNONYMOUS_CODING" isSelectable="true" value="SPLICE_SITE&amp;SYNONYMOUS_CODING"/>
+          <Option displayName="SPLICE_SITE&amp;UPSTREAM" internalName="SPLICE_SITE&amp;UPSTREAM" isSelectable="true" value="SPLICE_SITE&amp;UPSTREAM"/>
+          <Option displayName="STOP_GAINED" internalName="STOP_GAINED" isSelectable="true" value="STOP_GAINED"/>
+          <Option displayName="STOP_GAINED&amp;NMD_TRANSCRIPT" internalName="STOP_GAINED&amp;NMD_TRANSCRIPT" isSelectable="true" value="STOP_GAINED&amp;NMD_TRANSCRIPT"/>
+          <Option displayName="STOP_GAINED&amp;NMD_TRANSCRIPT&amp;NON_SYNONYMOUS_CODING" internalName="STOP_GAINED&amp;NMD_TRANSCRIPT&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="STOP_GAINED&amp;NMD_TRANSCRIPT&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="STOP_GAINED&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE" internalName="STOP_GAINED&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE" isSelectable="true" value="STOP_GAINED&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE"/>
+          <Option displayName="STOP_GAINED&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE&amp;NON_SYNONYMOUS_CODING" internalName="STOP_GAINED&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="STOP_GAINED&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="STOP_GAINED&amp;NON_SYNONYMOUS_CODING" internalName="STOP_GAINED&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="STOP_GAINED&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="STOP_GAINED&amp;PARTIAL_CODON&amp;NON_SYNONYMOUS_CODING" internalName="STOP_GAINED&amp;PARTIAL_CODON&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="STOP_GAINED&amp;PARTIAL_CODON&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="STOP_GAINED&amp;SPLICE_SITE" internalName="STOP_GAINED&amp;SPLICE_SITE" isSelectable="true" value="STOP_GAINED&amp;SPLICE_SITE"/>
+          <Option displayName="STOP_GAINED&amp;SPLICE_SITE&amp;NON_SYNONYMOUS_CODING" internalName="STOP_GAINED&amp;SPLICE_SITE&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="STOP_GAINED&amp;SPLICE_SITE&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="STOP_LOST" internalName="STOP_LOST" isSelectable="true" value="STOP_LOST"/>
+          <Option displayName="STOP_LOST&amp;NMD_TRANSCRIPT" internalName="STOP_LOST&amp;NMD_TRANSCRIPT" isSelectable="true" value="STOP_LOST&amp;NMD_TRANSCRIPT"/>
+          <Option displayName="STOP_LOST&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE" internalName="STOP_LOST&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE" isSelectable="true" value="STOP_LOST&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE"/>
+          <Option displayName="STOP_LOST&amp;NON_SYNONYMOUS_CODING" internalName="STOP_LOST&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="STOP_LOST&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="STOP_LOST&amp;SPLICE_SITE" internalName="STOP_LOST&amp;SPLICE_SITE" isSelectable="true" value="STOP_LOST&amp;SPLICE_SITE"/>
+          <Option displayName="STOP_LOST&amp;SPLICE_SITE&amp;NON_SYNONYMOUS_CODING" internalName="STOP_LOST&amp;SPLICE_SITE&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="STOP_LOST&amp;SPLICE_SITE&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="SYNONYMOUS_CODING" internalName="SYNONYMOUS_CODING" isSelectable="true" value="SYNONYMOUS_CODING"/>
+          <Option displayName="SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT" internalName="SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT" isSelectable="true" value="SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT"/>
+          <Option displayName="SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE" internalName="SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE" isSelectable="true" value="SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT&amp;SPLICE_SITE"/>
+          <Option displayName="SYNONYMOUS_CODING&amp;NON_SYNONYMOUS_CODING" internalName="SYNONYMOUS_CODING&amp;NON_SYNONYMOUS_CODING" isSelectable="true" value="SYNONYMOUS_CODING&amp;NON_SYNONYMOUS_CODING"/>
+          <Option displayName="SYNONYMOUS_CODING&amp;PARTIAL_CODON" internalName="SYNONYMOUS_CODING&amp;PARTIAL_CODON" isSelectable="true" value="SYNONYMOUS_CODING&amp;PARTIAL_CODON"/>
+          <Option displayName="SYNONYMOUS_CODING&amp;SPLICE_SITE" internalName="SYNONYMOUS_CODING&amp;SPLICE_SITE" isSelectable="true" value="SYNONYMOUS_CODING&amp;SPLICE_SITE"/>
+          <Option displayName="UPSTREAM" internalName="UPSTREAM" isSelectable="true" value="UPSTREAM"/>
+          <Option displayName="WITHIN_MATURE_miRNA" internalName="WITHIN_MATURE_miRNA" isSelectable="true" value="WITHIN_MATURE_miRNA"/>
           <Option displayName="WITHIN_NON_CODING_GENE" internalName="WITHIN_NON_CODING_GENE" isSelectable="true" value="WITHIN_NON_CODING_GENE"/>
+          <Option displayName="WITHIN_NON_CODING_GENE&amp;INTRONIC" internalName="WITHIN_NON_CODING_GENE&amp;INTRONIC" isSelectable="true" value="WITHIN_NON_CODING_GENE&amp;INTRONIC"/>
+          <Option displayName="WITHIN_NON_CODING_GENE&amp;INTRONIC&amp;SPLICE_SITE" internalName="WITHIN_NON_CODING_GENE&amp;INTRONIC&amp;SPLICE_SITE" isSelectable="true" value="WITHIN_NON_CODING_GENE&amp;INTRONIC&amp;SPLICE_SITE"/>
+          <Option displayName="WITHIN_NON_CODING_GENE&amp;SPLICE_SITE" internalName="WITHIN_NON_CODING_GENE&amp;SPLICE_SITE" isSelectable="true" value="WITHIN_NON_CODING_GENE&amp;SPLICE_SITE"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
@@ -256,8 +363,8 @@
         <AttributeDescription displayName="Associated gene" field="associated_gene_2035" internalName="associated_gene" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Mappings?source=dbSNP;v=%s|variation_names" maxLength="255" tableConstraint="variation_annotation__dm">
           <SpecificAttributeContent field="associated_gene_2035" internalName="hsapiens_snp" key="variation_id_2025_key" tableConstraint="variation_annotation__dm"/>
         </AttributeDescription>
-        <AttributeDescription displayName="Source ID(s)" field="local_stable_id_2035" internalName="ega_stable_id" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm">
-          <SpecificAttributeContent field="local_stable_id_2035" internalName="hsapiens_snp" key="variation_id_2025_key" tableConstraint="variation_annotation__dm"/>
+        <AttributeDescription displayName="Source ID(s)" field="local_stable_id_2035" hidden="true" internalName="ega_stable_id" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm">
+          <SpecificAttributeContent field="local_stable_id_2035" internalName="hsapiens_snp" hidden="true" key="variation_id_2025_key" tableConstraint="variation_annotation__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="Phenotype name" field="name_2033" internalName="phenotype_name" key="variation_id_2025_key" maxLength="50" tableConstraint="variation_annotation__dm">
           <SpecificAttributeContent field="name_2033" internalName="hsapiens_snp" key="variation_id_2025_key" tableConstraint="variation_annotation__dm"/>
@@ -333,17 +440,23 @@
     </AttributeGroup>
     <AttributeGroup displayName="GENE ASSOCIATED INFORMATION:" internalName="genesnpatts">
       <AttributeCollection displayName="For Ensembl Genes" internalName="ensemblatts" maxSelect="0">
-        <AttributeDescription displayName="Ensembl Gene ID" field="stable_id_1023" internalName="ensembl_gene_stable_id" key="variation_feature_id_2026_key" linkoutURL="exturl1|/*species2*/Gene/Summary?g=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm"/>
-<!--	<AttributeDescription displayName="Associated Gene Name" internalName="external_gene_id" pointerDataset="*species3*_gene" pointerFilter="external_gene_id" pointerInterface="default"/>-->
-        <AttributeDescription displayName="Ensembl Transcript ID" field="stable_id_1066" internalName="ensembl_transcript_stable_id" key="variation_feature_id_2026_key" linkoutURL="exturl1|/*species2*/Gene/Summary?t=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm"/>
-        <AttributeDescription displayName="Transcript strand" field="seq_region_strand_1064" internalName="ensembl_transcript_chrom_strand" key="variation_feature_id_2026_key" maxLength="2" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="Consequence to transcript" field="mart_consequence_type_2090" internalName="consequence_type_tv" key="variation_feature_id_2026_key" maxLength="22" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="Consequence specific allele" field="allele_string_2090" internalName="consequence_allele_string" key="variation_feature_id_2026_key" maxLength="255" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Biotype" field="biotype_1064" internalName="ensembl_type" key="variation_feature_id_2026_key" maxLength="40" tableConstraint="mart_transcript_variation__dm"/>
-        <AttributeDescription displayName="Consequence to transcript" field="consequence_type_2024" internalName="consequence_type_tv" key="variation_feature_id_2026_key" maxLength="22" tableConstraint="mart_transcript_variation__dm"/>
-        <AttributeDescription displayName="Peptide shift" field="peptide_allele_string_2024" internalName="ensembl_peptide_shift" key="variation_feature_id_2026_key" maxLength="255" tableConstraint="mart_transcript_variation__dm"/>
-        <AttributeDescription displayName="Variation start in cDNA (bp)" field="cdna_start_2024" internalName="cdna_start" key="variation_feature_id_2026_key" linkoutURL="exturl1|/*species2*/Location/View?db=vega;r=%s:%s-%s|chr_name|cdna_start|cdna_end" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
-        <AttributeDescription displayName="Variation end in cDNA (bp)" field="cdna_end_2024" internalName="cdna_end" key="variation_feature_id_2026_key" linkoutURL="exturl1|/*species2*/Location/View?db=vega;r=%s:%s-%s|chr_name|cdna_start|cdna_end" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
-        <AttributeDescription displayName="Variation start in translation (aa)" field="translation_start_2024" hidden="false" internalName="translation_start" key="variation_feature_id_2026_key" linkoutURL="exturl1|/*species2*/Location/View?db=vega;r=%s:%s-%s|chr_name|cdna_start|cdna_end" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
-        <AttributeDescription displayName="Variation end in translation (aa)" field="translation_end_2024" hidden="false" internalName="translation_end" key="variation_feature_id_2026_key" linkoutURL="exturl1|/*species2*/Location/View?db=vega;r=%s:%s-%s|chr_name|cdna_start|cdna_end" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="Transcript strand" field="seq_region_strand_1064" internalName="ensembl_transcript_chrom_strand" key="variation_feature_id_2026_key" maxLength="2" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="Ensembl Transcript ID" field="stable_id_1066" internalName="ensembl_transcript_stable_id" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Gene/Summary?t=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="Ensembl Gene ID" field="stable_id_1023" internalName="ensembl_gene_stable_id" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Gene/Summary?g=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="Peptide shift" field="peptide_allele_string_2090" internalName="ensembl_peptide_shift" key="variation_feature_id_2026_key" maxLength="255" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="Variation start in cDNA (bp)" field="cdna_start_2090" internalName="cdna_start" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Location/View?db=vega;r=%s:%s-%s|chr_name|cdna_start|cdna_end" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="Variation end in cDNA (bp)" field="cdna_end_2090" internalName="cdna_end" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Location/View?db=vega;r=%s:%s-%s|chr_name|cdna_start|cdna_end" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="Variation start in translation (aa)" field="translation_start_2090" hidden="false" internalName="translation_start" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Location/View?db=vega;r=%s:%s-%s|chr_name|cdna_start|cdna_end" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="Variation end in translation (aa)" field="translation_end_2090" hidden="false" internalName="translation_end" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Location/View?db=vega;r=%s:%s-%s|chr_name|cdna_start|cdna_end" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="Variation start in CDS (bp)" field="cds_start_2090" internalName="cds_start" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="Variation end in CDS (bp)" field="cds_end_2090" internalName="cds_end" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="PolyPhen prediction" field="polyphen_prediction_2090" internalName="polyphen_prediction" key="variation_feature_id_2026_key" maxLength="17" tableConstraint="mart_transcript_variation__dm">
+        </AttributeDescription>
+        <AttributeDescription displayName="SIFT prediction" field="sift_prediction_2090" internalName="sift_prediction" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="mart_transcript_variation__dm">
+        </AttributeDescription>
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
@@ -367,7 +480,7 @@
       </AttributeCollection>
     </AttributeGroup>
     <AttributeGroup displayName="VARIATION:" internalName="snp">
-      <AttributeCollection displayName="Variation Information" internalName="snpatts" maxSelect="0">
+      <AttributeCollection displayName="Variation Information" internalName="snpatts" maxSelct="0">
         <AttributeDescription default="true" internalName="snp_refsnp_id" pointerAttribute="refsnp_id" pointerDataset="*species3*_snp" pointerInterface="default"/>
         <AttributeDescription internalName="snp_allele" pointerAttribute="allele" pointerDataset="*species3*_snp" pointerInterface="default"/>
         <AttributeDescription internalName="snp_validated" pointerAttribute="validated" pointerDataset="*species3*_snp" pointerInterface="default"/>
