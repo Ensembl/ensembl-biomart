@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE DatasetConfig>
+<DatasetConfig dataset="%name%" datasetID="%id%" defaultDataset="*default*" description="Ensembl Variation"
+	displayName="%des% variation" entryLabel="Variation" interfaces="default" internalName="default" martUsers="default"
+	modified="2008-07-10 12:07:40" softwareVersion="0.1" template="variation" type="TableSet" version="%version%" visible="1">
+	<MainTable>%name%__variation__main</MainTable>
+	<MainTable>%name%__variation_feature__main</MainTable>
+	<Key>variation_id_2025_key</Key>
+	<Key>variation_feature_id_2026_key</Key>
+	<FilterPage displayName="DUMMY" hideDisplay="true"
+		internalName="dummy"/>
+	<AttributePage description="DUMMYA"
+		displayName="DUMMYA" internalName="DUMMYA"
+		outFormats="html,,txt,csv,,tsv,,xls"/>
+</DatasetConfig>
