@@ -127,7 +127,7 @@ sub build_dataset_href {
 
 	if (defined @{$meta_container->list_value_by_key('species.division')}[0]) {
 	    my $division_value = @{$meta_container->list_value_by_key('species.division')}[0];
-	    if ($division_value =~ /ensemblmetazoa|ensemblplants|ensemblfungi/i) {
+	    if ($division_value =~ /ensemblprotists|ensemblmetazoa|ensemblplants|ensemblfungi/i) {
 		# Add a suffix '_eg' to avoid conflicting dataset names in Biomart.org!
 		$formatted_species_name = $formatted_species_name . "_eg";
 	    }
