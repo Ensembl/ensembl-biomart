@@ -761,6 +761,10 @@
           <Option displayName="with predicted RefSeq DNA ID(s)" displayType="list" field="ox_refseq_dna_predicted_bool" internalName="with_refseq_dna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+            <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pberghei_eg_gene" />
+            <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pinfestans_eg_gene" />
+            <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene" />
+            <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pfalciparum_eg_gene" />
           </Option>
           <Option displayName="with UniGene ID(s)" displayType="list" field="ox_unigene_bool" internalName="with_unigene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -821,6 +825,11 @@
           <Option displayName="with EntrezGene ID(s)" displayType="list" field="ox_entrezgene_bool" internalName="with_entrezgene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+              <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pberghei_eg_gene" />
+              <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="psojae_eg_gene" />
+              <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pfalciparum_eg_gene" />
+              <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pinfestans_eg_gene" />
+
           </Option>
           <Option displayName="with GO ID(s)" displayType="list" field="ox_go_bool" internalName="with_go" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -1653,6 +1662,10 @@
         <AttributeDescription checkForNulls="true" displayName="Ensembl Human transcript" field="dbprimary_acc_1074" internalName="ens_hs_transcript" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Ens_Hs_transcript__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Ensembl Human protein" field="dbprimary_acc_1074" internalName="ens_hs_translation" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/protview?peptide=%s" maxLength="40" tableConstraint="ox_Ens_Hs_translation__dm"/>
         <AttributeDescription checkForNulls="true" displayName="EntrezGene ID" field="dbprimary_acc_1074" internalName="entrezgene" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?cmd=search&amp;db=gene&amp;term=%s[uid]" maxLength="40" tableConstraint="ox_EntrezGene__dm">
+        <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pberghei_eg_gene" />
+        <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="psojae_eg_gene" />
+        <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pfalciparum_eg_gene" />
+        <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pinfestans_eg_gene" />
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="FlyBase annotation id" field="dbprimary_acc_1074" internalName="flybase_annotation_id" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_annotation_id__dm"/>
         <AttributeDescription checkForNulls="true" displayName="FlyBase gene id" field="dbprimary_acc_1074" internalName="flybase_gene_id" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_gene_id__dm"/>
@@ -1735,6 +1748,10 @@
         <AttributeDescription checkForNulls="true" displayName="RefSeq DNA ID" field="dbprimary_acc_1074" internalName="refseq_dna" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_dna__dm">
 	</AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="RefSeq Predicted DNA ID" field="dbprimary_acc_1074" internalName="refseq_DNA_predicted" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_dna_predicted__dm">
+        <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pberghei_eg_gene" />
+        <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pfalciparum_eg_gene" />
+        <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene" />
+        <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pinfestans_eg_gene" />
 	</AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="RefSeq Protein ID" field="dbprimary_acc_1074" internalName="refseq_peptide" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_peptide__dm">
         </AttributeDescription>
