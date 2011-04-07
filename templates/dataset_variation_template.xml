@@ -2,7 +2,7 @@
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="%name%" datasetID="%id%" defaultDataset="*default*" description="Ensembl Variation"
 	displayName="%des% variation" entryLabel="Variation" interfaces="default" internalName="default" martUsers="default"
-	modified="2008-07-10 12:07:40" softwareVersion="0.1" template="variation" type="TableSet" version="%version%" visible="1">
+	modified="2008-07-10 12:07:40" softwareVersion="0.7" template="variation" type="TableSet" version="%version%" visible="1">
 	<MainTable>%name%__variation__main</MainTable>
 	<MainTable>%name%__variation_feature__main</MainTable>
 	<Key>variation_id_2025_key</Key>

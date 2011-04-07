@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
-<DatasetConfig dataset="variation_template" defaultDataset="*default*" displayName="*species1* variations (*version*)" entryLabel="SNPs" interfaces="default" internalName="template" martUsers="default" modified="2007-10-29 10:40:34.292" softwareVersion="0.6" template="variation" type="TableSet" version="*version*" visible="1">
+<DatasetConfig dataset="variation_template" defaultDataset="*default*" displayName="*species1* variations (*version*)" entryLabel="SNPs" interfaces="default" internalName="template" martUsers="default" modified="2007-10-29 10:40:34.292" softwareVersion="0.7" template="variation" type="TableSet" version="*version*" visible="1">
   <Replace id="datasets"/>
   <MainTable>mmusculus_snp__variation__main</MainTable>
   <MainTable>mmusculus_snp__variation_feature__main</MainTable>
