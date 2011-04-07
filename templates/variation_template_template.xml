@@ -350,7 +350,7 @@
   <AttributePage displayName="Variation" internalName="snp" outFormats="html,txt,csv,tsv,xls">
     <AttributeGroup displayName="SEQUENCE VARIATION:" internalName="snp">
       <AttributeCollection displayName="Variation Information" internalName="snpsatts">
-        <AttributeDescription default="true" displayName="Variation ID" field="name_2025" hidden="false" internalName="refsnp_id" key="variation_id_2025_key" linkoutURL="exturl1|/*species2*/snpview?snp=%s" maxLength="255" tableConstraint="main"/>
+        <AttributeDescription default="true" displayName="Variation ID" field="name_2025" hidden="false" internalName="refsnp_id" key="variation_id_2025_key" linkoutURL="exturl1|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="main"/>
         <AttributeDescription default="true" displayName="Chromosome name" field="name_1059" internalName="chr_name" key="variation_feature_id_2026_key" linkoutURL="exturl1|/*species2*/mapview?chr=%s" maxLength="40" tableConstraint="main"/>
         <AttributeDescription default="true" displayName="Position on Chromosome (bp)" field="seq_region_start_2026" internalName="chrom_start" key="variation_feature_id_2026_key" linkoutURL="exturl1|/*species2*/contigview?c=%s:%s;w=1000|chr_name|chrom_start" maxLength="11" tableConstraint="main"/>
         <AttributeDescription displayName="Strand" field="seq_region_strand_2026" internalName="chrom_strand" key="variation_feature_id_2026_key" maxLength="4" tableConstraint="main"/>
