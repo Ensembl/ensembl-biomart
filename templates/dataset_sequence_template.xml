@@ -14,9 +14,9 @@
   <Importable filters="pkey,chr,start,end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id" internalName="3utr" linkName="3utr" linkVersion="%species%_%release%" name="3utr" orderBy="pkey" type="link"/>
   <Importable filters="pkey,chr,start,end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id" internalName="5utr" linkName="5utr" linkVersion="%species%_%release%" name="5utr" orderBy="pkey" type="link"/>
   <Importable filters="pkey,chr,pos,strand,allele" internalName="snp" linkName="snp" linkVersion="%species%_%release%" name="snp" orderBy="pkey" type="link"/>
-  <Importable filters="pkey,chr,start,end,strand,rank" internalName="cdna" linkName="cdna" linkVersion="%species%_%release%" name="cdna" orderBy="pkey" type="link"/>
-  <Importable filters="pkey,chr,start,end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,codon_table_id,seq_edits" internalName="peptide" linkName="peptide" linkVersion="%species%_%release%" name="peptide" orderBy="pkey" type="link"/>
-  <Importable filters="pkey,chr,start,end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase" internalName="coding" linkName="coding" linkVersion="%species%_%release%" name="coding" orderBy="pkey" type="link"/>
+  <Importable filters="pkey,chr,start,end,strand,rank,rna_seq_edits" internalName="cdna" linkName="cdna" linkVersion="%species%_%release%" name="cdna" orderBy="pkey" type="link"/>
+  <Importable filters="pkey,chr,start,end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,codon_table_id,seq_edits,rna_seq_edits" internalName="peptide" linkName="peptide" linkVersion="%species%_%release%" name="peptide" orderBy="pkey" type="link"/>
+  <Importable filters="pkey,chr,start,end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,rna_seq_edits" internalName="coding" linkName="coding" linkVersion="%species%_%release%" name="coding" orderBy="pkey" type="link"/>
   <Importable filters="chr,start,end,strand" internalName="oriented_raw_sequence" linkName="oriented_raw_sequence" linkVersion="%species%_%release%" name="oriented_raw_sequence" type="link"/>
   <Importable filters="chr,start,end" internalName="raw_sequence" linkName="raw_sequence" linkVersion="%species%_%release%" name="raw_sequence" type="link"/>
   <FilterPage displayName="FILTERS FOR LINKS" internalName="link_filters">
@@ -40,6 +40,7 @@
         <FilterDescription internalName="strand" type="list"/>
         <FilterDescription internalName="rank" type="list"/>
         <FilterDescription internalName="seq_edits" type="list"/>
+        <FilterDescription internalName="rna_seq_edits" type="list"/>
         <FilterDescription internalName="type" type="list"/>
         <FilterDescription defaultValue="100" dependsOn="snp,transcript_exon_intron,gene_exon_intron,transcript_flank,gene_flank,coding_transcript_flank,coding_gene_flank,transcript_exon,gene_exon,cdna,5utr,3utr,coding" dependsOnType="any" displayName="Upstream flank" displayType="text" internalName="upstream_flank" legal_qualifiers="=" qualifier="=" type="text"/>
         <FilterDescription defaultValue="100" dependsOn="snp,transcript_exon_intron,gene_exon_intron,transcript_flank,gene_flank,coding_transcript_flank,coding_gene_flank,transcript_exon,gene_exon,cdna,5utr,3utr,coding" dependsOnType="any" displayName="Downstream flank" displayType="text" internalName="downstream_flank" legal_qualifiers="=" qualifier="=" type="text"/>
@@ -91,6 +92,7 @@
         <AttributeDescription displayName="strand" internalName="strand"/>
         <AttributeDescription displayName="rank" internalName="rank"/>
         <AttributeDescription internalName="seq_edits"/>
+        <AttributeDescription internalName="rna_seq_edits"/>
         <AttributeDescription internalName="type"/>
       </AttributeCollection>
     </AttributeGroup>
