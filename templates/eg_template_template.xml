@@ -3703,7 +3703,7 @@
         <AttributeDescription checkForNulls="true" displayName="RegulonDB gene ID" field="dbprimary_acc_1074" internalName="regulondb_gene" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_regulondb_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RegulonDB transcript ID" field="dbprimary_acc_1074" internalName="regulondb_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_regulondb_transcript__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Swiss2DPAGE ID" field="dbprimary_acc_1074" internalName="swiss_2dpage" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_swiss_2dpage__dm"/>
-        <AttributeDescription displayName="UniParc" field="dbprimary_acc_1074" internalName="ox_UNIPARCPROTEIN__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_UNIPARCPROTEIN__dm"/>
+        <AttributeDescription displayName="UniParc" field="dbprimary_acc_1074" internalName="ox_UNIPARCPROTEIN__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_UNIPARCPROTEIN__dm" linkoutURL="exturl|http://www.uniprot.org/uniparc/%s" />
         <AttributeDescription displayName="Eukaryotic Promoter Database (EPD) ID(s)" field="dbprimary_acc_1074" internalName="epd" key="gene_id_1020_key" linkoutURL="exturl|http://www.genome.jp/dbget-bin/www_bfind_sub?dbkey=epd&amp;keywords=%s" maxLength="40" tableConstraint="ox_EPD__dm"/>
         <AttributeDescription displayName="TransFac ID" field="dbprimary_acc_1074" internalName="transfac" key="gene_id_1020_key" linkoutURL="exturl:http://www.genome.jp/dbget-bin/www_bget?ts:%s" maxLength="40" tableConstraint="ox_TransFac__dm"/>
         <AttributeDescription displayName="Fantom ID" field="dbprimary_acc_1074" internalName="fantom" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_Fantom__dm"/>
@@ -3739,8 +3739,8 @@
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="anidulans_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="afumigatus_eg_gene"/>
         </AttributeDescription>
-        <AttributeDescription checkForNulls="true" displayName="SGD gene ID" field="dbprimary_acc_1074" internalName="sgd_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_sgd_gene__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="SGD transcript ID" field="dbprimary_acc_1074" internalName="sgd_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_sgd_transcript__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="SGD gene ID" field="dbprimary_acc_1074" internalName="sgd_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_sgd_gene__dm" linkoutURL="exturl1|http://db.yeastgenome.org/cgi-bin/locus.pl?locus=%s" />
+        <AttributeDescription checkForNulls="true" displayName="SGD transcript ID" field="dbprimary_acc_1074" internalName="sgd_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_sgd_transcript__dm" linkoutURL="exturl1|http://db.yeastgenome.org/cgi-bin/locus.pl?locus=%s" />
         <AttributeDescription checkForNulls="true" displayName="TRNASCAN-SE ID" field="dbprimary_acc_1074" internalName="trnascan_se" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_trnascan_se__dm"/>
         <AttributeDescription checkForNulls="true" displayName="UniProt/SwissProt predicted ID" field="dbprimary_acc_1074" internalName="uniprotswissprot_predicted" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_uniprotswissprot_predicted__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Gramene GenesDB ID" field="dbprimary_acc_1074" internalName="gramene_genesdb" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_gramene_genesdb__dm"/>
@@ -3794,7 +3794,7 @@
         <AttributeDescription checkForNulls="true" displayName="Physo1 JGI v11 ID" field="dbprimary_acc_1074" internalName="physo1_jgi_v11" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_physo1_jgi_v11__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Thaps JGI v2 ID" field="dbprimary_acc_1074" internalName="thaps_jgi_v2" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_thaps_jgi_v2__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Thaps JGI v2_bd ID" field="dbprimary_acc_1074" internalName="thaps_jgi_v2_bd" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_thaps_jgi_v2_bd__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="UniProtKB Gene name" field="dbprimary_acc_1074" internalName="uniprot_genename" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_uniprot_genename__dm">
+        <AttributeDescription checkForNulls="true" displayName="UniProtKB Gene name" field="dbprimary_acc_1074" internalName="uniprot_genename" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_uniprot_genename__dm" linkoutURL="exturl1|http://www.uniprot.org/uniprot/%s" >
         <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
         <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" />
         <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="gzeae_eg_gene" />
