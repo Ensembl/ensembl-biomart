@@ -408,62 +408,6 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key"/>
           </Option>
-
-<!--
-	  <Option displayName="with aclavatus_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="aclavatus_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_aclavatus_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with aflavus_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="aflavus_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_aflavus_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with afumigatus_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="afumigatus_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_afumigatus_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with afumigatusa1163_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="afumigatusa1163_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_afumigatusa1163_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with anidulans_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="anidulans_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_anidulans_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with aniger_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="aniger_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_aniger_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with aoryzae_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="aoryzae_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_aoryzae_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with aterreus_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="aterreus_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_aterreus_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with foxysporum_eg_gene__paralog_foxysporum_eg__dm ID(s)" displayType="list" field="foxysporum_eg_gene__paralog_foxysporum_eg__dm_bool" internalName="with_foxysporum_eg_gene__paralog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with gmoniliformis_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="gmoniliformis_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_gmoniliformis_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with gzeae_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="gzeae_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_gzeae_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with ncrassa_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="ncrassa_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_ncrassa_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with nfischeri_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="nfischeri_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_nfischeri_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
--->
-
           <Option displayName="with broad_f_oxysporum ID(s)" displayType="list" field="ox_broad_f_oxysporum_bool" internalName="with_broad_f_oxysporum" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -476,20 +420,6 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-<!--
-          <Option displayName="with pgraministritici_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="pgraministritici_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_pgraministritici_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with scerevisiae_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="scerevisiae_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_scerevisiae_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with spombe_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="list" field="spombe_eg_gene__homolog_foxysporum_eg__dm_bool" internalName="with_spombe_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option> 
--->  
         <Option displayName="with Affymetrix Microarray yeast 2 ID(s)" displayType="list" field="eFG_AFFY_Yeast_2_bool" internalName="with_affy_yeast_2" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2010,43 +1940,21 @@
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
           </Option>
-<!--
-          <Option checkForNulls="true" displayName="aclavatus_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="aclavatus_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="aclavatus_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
-	<Option checkForNulls="true" displayName="aflavus_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="aflavus_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="aflavus_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
-	<Option checkForNulls="true" displayName="afumigatus_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="afumigatus_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="afumigatus_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
-	<Option checkForNulls="true" displayName="afumigatusa1163_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="afumigatusa1163_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="afumigatusa1163_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
-	<Option checkForNulls="true" displayName="anidulans_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="anidulans_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="anidulans_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
-	<Option checkForNulls="true" displayName="aniger_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="aniger_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="aniger_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
-	<Option checkForNulls="true" displayName="aoryzae_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="aoryzae_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="aoryzae_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
-	<Option checkForNulls="true" displayName="aterreus_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="aterreus_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="aterreus_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
--->
 	<Option checkForNulls="true" displayName="Affy Yeast_2" displayType="text" field="display_label_11056" internalName="affy_yeast_2" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_affy_yeast_2__dm" type="list">
             <SpecificOptionContent key="transcript_id_1064_key" field="display_label_11056" internalName="scerevisiae_eg_gene" />
         </Option>
 	<Option checkForNulls="true" displayName="Affy Yeast s98" displayType="text" field="display_label_11056" internalName="affy_yg_s98" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_affy_yg_s98__dm" type="list">
             <SpecificOptionContent key="transcript_id_1064_key" field="display_label_11056" internalName="scerevisiae_eg_gene" />
         </Option>
-<!--
-	<Option checkForNulls="true" displayName="foxysporum_eg_gene__paralog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="foxysporum_eg_gene__paralog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="foxysporum_eg_gene__paralog_foxysporum_eg__dm__dm" type="list"/>
-	<Option checkForNulls="true" displayName="gmoniliformis_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gmoniliformis_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="gmoniliformis_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
-	<Option checkForNulls="true" displayName="gzeae_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gzeae_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="gzeae_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
-	<Option checkForNulls="true" displayName="ncrassa_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ncrassa_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ncrassa_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
-	<Option checkForNulls="true" displayName="nfischeri_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="nfischeri_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="nfischeri_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
--->
 	<Option checkForNulls="true" displayName="Broad Institute ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_f_oxysporum" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_f_oxysporum__dm" type="list"/>
 	<Option checkForNulls="true" displayName="Broad Institute ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_g_moniliformis" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_g_moniliformis__dm" type="list"/>
 	<Option checkForNulls="true" displayName="Broad Institute ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_g_zeae" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_g_zeae__dm" type="list"/>
-<!--
-	<Option checkForNulls="true" displayName="pgraministritici_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="pgraministritici_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
-	<Option checkForNulls="true" displayName="scerevisiae_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="scerevisiae_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
-	<Option checkForNulls="true" displayName="spombe_eg_gene__homolog_foxysporum_eg__dm ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="spombe_eg_gene__homolog_foxysporum_eg__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="spombe_eg_gene__homolog_foxysporum_eg__dm__dm" type="list"/>
--->
-          <Option checkForNulls="true" displayName="GRO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_GRO__dm" type="list"/>
-          <Option checkForNulls="true" displayName="TO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="to" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_TO__dm" type="list"/>
-          <Option checkForNulls="true" displayName="EO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="eo" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_EO__dm" type="list"/>
-          <Option checkForNulls="true" displayName="Gramene Genes DB ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gramene_genesdb" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Gramene_GenesDB__dm" type="list"/>
-          <Option checkForNulls="true" displayName="HGNC ID" displayType="text" field="dbprimary_acc_1074" internalName="hgnc_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_HGNC__dm" type="list"/>
-          <Option checkForNulls="true" displayName="HGNC symbol" displayType="text" field="display_label_1074" internalName="hgnc_symbol" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_HGNC__dm" type="list"/>
+        <Option checkForNulls="true" displayName="GRO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_GRO__dm" type="list"/>
+        <Option checkForNulls="true" displayName="TO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="to" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_TO__dm" type="list"/>
+        <Option checkForNulls="true" displayName="EO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="eo" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_EO__dm" type="list"/>
+        <Option checkForNulls="true" displayName="Gramene Genes DB ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gramene_genesdb" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Gramene_GenesDB__dm" type="list"/>
+        <Option checkForNulls="true" displayName="HGNC ID" displayType="text" field="dbprimary_acc_1074" internalName="hgnc_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_HGNC__dm" type="list"/>
+        <Option checkForNulls="true" displayName="HGNC symbol" displayType="text" field="display_label_1074" internalName="hgnc_symbol" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_HGNC__dm" type="list"/>
           <Option checkForNulls="true" displayName="HGNC automatic gene name" displayType="text" field="dbprimary_acc_1074" internalName="hgnc_automatic_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_HGNC_automatic_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="HGNC curated gene name" displayType="text" field="dbprimary_acc_1074" internalName="hgnc_curated_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_HGNC_curated_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="HGNC automatic transcript name" displayType="text" field="dbprimary_acc_1074" internalName="hgnc_automatic_transcript_name" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_HGNC_automatic_transcript__dm" type="list"/>
@@ -3377,29 +3285,9 @@
         <AttributeDescription displayName="Drosophila melanogaster Exon Database (DEDB) ID(s)" field="dbprimary_acc_1074" hidden="false" internalName="dedb" key="gene_id_1020_key" linkoutURL="exturl1|http://proline.bic.nus.edu.sg/dedb/cgi-bin/viewer.py?id=%s" maxLength="40" tableConstraint="ox_DEDb__dm"/>
         <AttributeDescription checkForNulls="true" displayName="CCDS ID" field="dbprimary_acc_1074" internalName="ccds" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&amp;DATA=%s" maxLength="40" tableConstraint="ox_CCDS__dm"/>
         <AttributeDescription checkForNulls="true" description="ENA Accessions" displayName="ENA (Genbank) ID" field="dbprimary_acc_1074" internalName="embl" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_EMBL__dm">
-<!--
-        <AttributeDescription checkForNulls="true" displayName="aclavatus_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="aclavatus_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="aclavatus_eg_gene__homolog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="aflavus_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="aflavus_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="aflavus_eg_gene__homolog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="afumigatus_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="afumigatus_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="afumigatus_eg_gene__homolog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="afumigatusa1163_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="afumigatusa1163_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="afumigatusa1163_eg_gene__homolog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="anidulans_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="anidulans_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="anidulans_eg_gene__homolog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="aniger_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="aniger_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="aniger_eg_gene__homolog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="aoryzae_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="aoryzae_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="aoryzae_eg_gene__homolog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="aterreus_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="aterreus_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="aterreus_eg_gene__homolog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="foxysporum_eg_gene__paralog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="foxysporum_eg_gene__paralog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="foxysporum_eg_gene__paralog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="gmoniliformis_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="gmoniliformis_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="gmoniliformis_eg_gene__homolog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="gzeae_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="gzeae_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="gzeae_eg_gene__homolog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="ncrassa_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="ncrassa_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="ncrassa_eg_gene__homolog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="nfischeri_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="nfischeri_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="nfischeri_eg_gene__homolog_foxysporum_eg__dm__dm"/>
--->
         <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_f_oxysporum" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_f_oxysporum__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s" />
         <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_g_moniliformis" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_g_moniliformis__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s" />
         <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_g_zeae" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_g_zeae__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s" />
-<!--
-        <AttributeDescription checkForNulls="true" displayName="pgraministritici_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="pgraministritici_eg_gene__homolog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="scerevisiae_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="scerevisiae_eg_gene__homolog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="spombe_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="spombe_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="spombe_eg_gene__homolog_foxysporum_eg__dm__dm"/>  
--->
           <SpecificAttributeContent field="dbprimary_display_name_1018" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key" tableConstraint="ox_EMBL__dm"/>
           <SpecificAttributeContent field="dbprimary_display_name_1018" internalName="agambiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_EMBL__dm"/>
           <SpecificAttributeContent field="dbprimary_display_name_1018" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_EMBL__dm"/>
