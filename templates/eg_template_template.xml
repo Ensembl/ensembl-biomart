@@ -3375,9 +3375,9 @@
         <AttributeDescription checkForNulls="true" displayName="gzeae_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="gzeae_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="gzeae_eg_gene__homolog_foxysporum_eg__dm__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ncrassa_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="ncrassa_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="ncrassa_eg_gene__homolog_foxysporum_eg__dm__dm"/>
         <AttributeDescription checkForNulls="true" displayName="nfischeri_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="nfischeri_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="nfischeri_eg_gene__homolog_foxysporum_eg__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="broad_f_oxysporum ID" field="dbprimary_acc_1074" internalName="broad_f_oxysporum" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_f_oxysporum__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="broad_g_moniliformis ID" field="dbprimary_acc_1074" internalName="broad_g_moniliformis" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_g_moniliformis__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="broad_g_zeae ID" field="dbprimary_acc_1074" internalName="broad_g_zeae" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_g_zeae__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="broad_f_oxysporum ID" field="dbprimary_acc_1074" internalName="broad_f_oxysporum" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_f_oxysporum__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s" />
+        <AttributeDescription checkForNulls="true" displayName="broad_g_moniliformis ID" field="dbprimary_acc_1074" internalName="broad_g_moniliformis" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_g_moniliformis__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s" />
+        <AttributeDescription checkForNulls="true" displayName="broad_g_zeae ID" field="dbprimary_acc_1074" internalName="broad_g_zeae" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_g_zeae__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s" />
         <AttributeDescription checkForNulls="true" displayName="pgraministritici_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="pgraministritici_eg_gene__homolog_foxysporum_eg__dm__dm"/>
         <AttributeDescription checkForNulls="true" displayName="scerevisiae_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="scerevisiae_eg_gene__homolog_foxysporum_eg__dm__dm"/>
         <AttributeDescription checkForNulls="true" displayName="spombe_eg_gene__homolog_foxysporum_eg__dm ID" field="dbprimary_acc_1074" internalName="spombe_eg_gene__homolog_foxysporum_eg__dm" key="gene_id_1020_key" maxLength="40" tableConstraint="spombe_eg_gene__homolog_foxysporum_eg__dm__dm"/>  
@@ -3566,6 +3566,13 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
+	  <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene"/>
+	  <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="foxysporum_eg_gene"/>
+	  <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="gmoniliformis_eg_gene"/>
+	  <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="gzeae_eg_gene"/>
+	  <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="ncrassa_eg_gene"/>
+	  <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
+	  <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="GenBank ID" field="dbprimary_acc_1074" internalName="genbank" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_genbank__dm">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="zmays_eg_gene" key="transcript_id_1064_key"/>
@@ -3663,6 +3670,9 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="tpseudonana_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="pultimum_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="pinfestans_eg_gene"/>
+	  <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="foxysporum_eg_gene"/>
+	  <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="gmoniliformis_eg_gene"/>
+	  <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="gzeae_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription displayName="EO" field="dbprimary_acc_1074" internalName="eo" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_EO__dm">
         </AttributeDescription>
@@ -3710,6 +3720,10 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
+	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
+	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="foxysporum_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
+	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gzeae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
+	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gmoniliformis_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="UniProtKB/TrEMBL predicted" field="dbprimary_acc_1074" internalName="uniprot_sptrembl_predicted" key="translation_id_1068_key" linkoutURL="exturl1|http://www.uniprot.org/uniprot/%s" maxLength="40" tableConstraint="ox_UniprotSPTREMBL_predicted__dm">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
@@ -3750,6 +3764,8 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
+	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="foxysporum_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
+	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gzeae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="siRNA Sunkar" field="dbprimary_acc_1074" internalName="sirna_sunkar" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_siRNA_Sunkar__dm"/>
         <AttributeDescription displayName="LGB Pratt EST Cluster" field="dbprimary_acc_1074" internalName="lgbpratt_est_cluster" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_lgbpratt_est_cluster__dm"/>
@@ -3962,14 +3978,15 @@
         <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene" />
         <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="foxysporum_eg_gene" />
         <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="gmoniliformis_eg_gene" />
-	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene" />
-	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" />
-	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" />
-	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ppatens_eg_gene" />
-	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="alyrata_eg_gene" />
-	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="oindica_eg_gene" />
-	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" />
-	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene" />
+	<SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene" />
+	<SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" />
+	<SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" />
+	<SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ppatens_eg_gene" />
+	<SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="alyrata_eg_gene" />
+	<SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="oindica_eg_gene" />
+	<SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" />
+	<SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene" />
+	<SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pultimum_eg_gene" />
       </AttributeDescription>
       </AttributeCollection>
       <AttributeCollection description="Microarray Attributes" displayName="Microarray Attributes" internalName="microarray" maxSelect="2">
