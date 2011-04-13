@@ -72,6 +72,11 @@
         <FilterDescription internalName="link_probe_set" pointerFilter="probe_set" pointerDataset="*species3*_probe_set" pointerInterface="default"/>
 -->
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_go_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_GO__dm" type="text"/>
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_to_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_TO__dm" type="text"/>
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_eo_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_EO__dm" type="text"/>
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_po_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_PO__dm" type="text"/>
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_gro_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_GRO__dm" type="text"/>
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_gr_tax_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_GR_tax__dm" type="text"/>
         <FilterDescription displayType="text" field="stable_id_1066" hideDisplay="true" internalName="link_ensembl_transcript_stable_id" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="main" type="text"/>
         <FilterDescription displayType="text" field="gene_id_1020_key" hideDisplay="true" internalName="gene_id" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
         <FilterDescription displayType="text" field="transcript_id_1064_key" hideDisplay="true" internalName="transcript_id" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
@@ -1007,6 +1012,7 @@
           <Option displayName="with RefSeq DNA ID(s)" displayType="list" field="ox_refseq_dna_bool" internalName="with_refseq_dna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+	    <SpecificOptionContent key="transcript_id_1064_key" field="ox_refseq_dna_bool" internalName="oglaberrima_eg_gene" />
           </Option>
           <Option displayName="with RefSeq RNA ID(s)" displayType="list" field="ox_refseq_rna_bool" internalName="with_refseq_rna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -1015,11 +1021,12 @@
           <Option displayName="with predicted RefSeq DNA ID(s)" displayType="list" field="ox_refseq_dna_predicted_bool" internalName="with_refseq_dna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pchabaudi_eg_gene"/>
+	    <SpecificOptionContent key="ox_refseq_dna_predicted_bool" field="ox_refseq_dna_predicted_bool" internalName="alyrata_eg_gene" />
+	    <SpecificOptionContent key="ox_refseq_dna_predicted_bool" field="ox_refseq_dna_predicted_bool" internalName="oglaberrima_eg_gene" />
+            <SpecificOptionContent key="ox_refseq_dna_predicted_bool" field="ox_refseq_dna_predicted_bool" internalName="pchabaudi_eg_gene"/>
             <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="phumanus_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="alyrata_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="athaliana_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="bdistachyon_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="osativa_eg_gene" key="gene_id_1020_key"/>
@@ -1720,6 +1727,26 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with PO ID(s)" displayType="list" field="go_PO_bool" internalName="with_go_po" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with TO ID(s)" displayType="list" field="go_TO_bool" internalName="with_go_to" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with EO ID(s)" displayType="list" field="go_EO_bool" internalName="with_go_eo" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with GRO ID(s)" displayType="list" field="go_GRO_bool" internalName="with_go_gro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with GR_tax ID(s)" displayType="list" field="go_GR_tax_bool" internalName="with_go_gr_tax" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with broad_p_infestans ID(s)" displayType="list" field="ox_broad_p_infestans_bool" internalName="with_broad_p_infestans" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -1781,8 +1808,29 @@
           <Option displayName="with UniProtKB Gene name(s)" displayType="list" field="ox_uniprot_genename_bool" internalName="with_uniprot_genename" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pultimum_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
+            <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="pultimum_eg_gene"/>
+            <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="lmajor_eg_gene"/>
+	    <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="scerevisiae_eg_gene" />
+            <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="gzeae_eg_gene" />
+            <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="pgraministritici_eg_gene" />
+            <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="foxysporum_eg_gene" />
+            <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="gmoniliformis_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="athaliana_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="vvinifera_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="sbicolor_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="ppatens_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="alyrata_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="oindica_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="ptrichocarpa_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="oglaberrima_eg_gene" />
+          </Option>
+         <Option displayName="with GeneIndex ID(s)" displayType="list" field="ox_geneindex_bool" internalName="with_geneindex" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with TAIR Symbol ID(s)" displayType="list" field="ox_tair_symbol_bool" internalName="with_tair_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
         </FilterDescription>
       </FilterCollection>
@@ -1923,6 +1971,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
           </Option>
           <Option checkForNulls="true" description="filter to include genes encoding proteins with supplied list of PO ID(s)" displayName="PO ID(s) for proteins" displayType="text" field="dbprimary_acc_1074" internalName="po" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_PO__dm" type="list">
+	    <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene" />
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_po__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_po__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_po__dm"/>
@@ -2069,6 +2118,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="transcript_id_1064_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="alyrata_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="zmays_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="transcript_id_1064_key"/>
@@ -2371,6 +2421,7 @@
           <Option checkForNulls="true" displayName="PeroxiBase ID(s)" description="Filter to include genes with PeroxiBase IDs" displayType="text" field="dbprimary_acc_1074" internalName="peroxibase" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_peroxibase__dm" type="list"/>
           <Option checkForNulls="true" displayName="ReBase ID(s)" description="Filter to include genes with ReBase IDs" displayType="text" field="dbprimary_acc_1074" internalName="rebase" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_rebase__dm" type="list"/>
           <Option checkForNulls="true" displayName="RefSeq DNA ID(s)" description="Filter to include genes with RefSeq DNA IDs" displayType="text" field="dbprimary_acc_1074" internalName="refseq_dna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_dna__dm" type="list">
+	    <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene" />
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" />
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="transcript_id_1064_key"/>
@@ -2508,13 +2559,23 @@
           <Option checkForNulls="true" displayName="physo1_jgi_v11 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="physo1_jgi_v11" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_physo1_jgi_v11__dm" type="list"/>
           <Option checkForNulls="true" displayName="thaps_jgi_v2 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="thaps_jgi_v2" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_thaps_jgi_v2__dm" type="list"/>
           <Option checkForNulls="true" displayName="thaps_jgi_v2_bd ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="thaps_jgi_v2_bd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_thaps_jgi_v2_bd__dm" type="list"/>
+        <Option checkForNulls="true" displayName="GeneIndex ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="geneindex" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_geneindex__dm" type="list"/>
+        <Option checkForNulls="true" displayName="TAIR Symbol ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tair_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tair_symbol__dm" type="list"/>
           <Option checkForNulls="true" displayName="UniProtKB gene name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_genename" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_genename__dm" type="list">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" />
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="gzeae_eg_gene" />
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene" />
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="foxysporum_eg_gene" />
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="gmoniliformis_eg_gene" />
-          </Option>   
+	    <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ppatens_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="alyrata_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="oindica_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" />
+	    <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene" />
+ </Option>   
       </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Transcript count &gt;=" internalName="transcript_count_filter">
@@ -2557,15 +2618,76 @@
       </FilterCollection>
     </FilterGroup>
     <FilterGroup description="Filters matching GO IDS, Terms, and Evidence Codes" displayName="GENE ONTOLOGY:" hidden="false" internalName="go">
-      <FilterCollection displayName="GO Evidence code" hidden="false" internalName="go_evidence_code">
-        <FilterDescription displayName="GO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="go_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_GO__dm" type="list">
-        </FilterDescription>
-      </FilterCollection>
       <FilterCollection displayName="GO Term Accession [e.g. GO:0050789]" hidden="false" internalName="go_filters">
         <FilterDescription hidden="false" internalName="go_clos" multipleValues="1" pointerDataset="closure_GO" pointerFilter="go_parent_term" pointerInterface="default"/>
       </FilterCollection>
       <FilterCollection displayName="GO Term Name [e.g. regulation of biological process]" hidden="false" internalName="go_filters_name">
         <FilterDescription hidden="false" internalName="go_name" pointerDataset="closure_GO" pointerFilter="go_parent_name" pointerInterface="default"/>
+      </FilterCollection>
+      <FilterCollection displayName="GO Evidence code" hidden="false" internalName="go_evidence_code">
+        <FilterDescription displayName="GO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="go_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_GO__dm" type="list">
+        </FilterDescription>
+      </FilterCollection>
+    </FilterGroup>
+    <FilterGroup description="Filters matching PO IDS, Terms, and Evidence Codes" displayName="PLANT ONTOLOGY:" hidden="false" internalName="po">
+      <FilterCollection displayName="PO Term Accession [e.g. PO:0009066]" hidden="false" internalName="po_filters">
+        <FilterDescription hidden="false" internalName="po_clos" multipleValues="1" pointerDataset="closure_PO" pointerFilter="po_parent_term" pointerInterface="default"/>
+      </FilterCollection>
+      <FilterCollection displayName="PO Term Name [e.g. anther]" hidden="false" internalName="po_filters_name">
+        <FilterDescription hidden="false" internalName="po_name" pointerDataset="closure_PO" pointerFilter="po_parent_name" pointerInterface="default"/>
+      </FilterCollection>
+      <FilterCollection displayName="PO Evidence code" hidden="false" internalName="po_evidence_code">
+        <FilterDescription displayName="PO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="po_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_PO__dm" type="list">
+        </FilterDescription>
+      </FilterCollection>
+    </FilterGroup>
+    <FilterGroup description="Filters matching EO IDS, Terms, and Evidence Codes" displayName="ENVIRONMENT ONTOLOGY:" hidden="false" internalName="eo">
+      <FilterCollection displayName="EO Term Accession [e.g. EO:0007001]" hidden="false" internalName="eo_filters">
+        <FilterDescription hidden="false" internalName="eo_clos" multipleValues="1" pointerDataset="closure_EO" pointerFilter="eo_parent_term" pointerInterface="default"/>
+      </FilterCollection>
+      <FilterCollection displayName="EO Term Name [e.g. UV-B light regimen]" hidden="false" internalName="eo_filters_name">
+        <FilterDescription hidden="false" internalName="eo_name" pointerDataset="closure_EO" pointerFilter="eo_parent_name" pointerInterface="default"/>
+      </FilterCollection>
+      <FilterCollection displayName="EO Evidence code" hidden="false" internalName="eo_evidence_code">
+        <FilterDescription displayName="EO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="eo_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_EO__dm" type="list">
+        </FilterDescription>
+      </FilterCollection>
+    </FilterGroup>
+    <FilterGroup description="Filters matching GR_TAX IDS, Terms, and Evidence Codes" displayName="GRAMENE TAXONOMIC ONTOLOGY:" hidden="false" internalName="gr_tax">
+      <FilterCollection displayName="GR_TAX Term Accession [e.g. GR_tax:078858]" hidden="false" internalName="gr_tax_filters">
+        <FilterDescription hidden="false" internalName="gr_tax_clos" multipleValues="1" pointerDataset="closure_GR_TAX" pointerFilter="gr_tax_parent_term" pointerInterface="default"/>
+      </FilterCollection>
+      <FilterCollection displayName="GR_TAX Term Name [e.g. Arabidopsis]" hidden="false" internalName="gr_tax_filters_name">
+        <FilterDescription hidden="false" internalName="gr_tax_name" pointerDataset="closure_GR_TAX" pointerFilter="gr_tax_parent_name" pointerInterface="default"/>
+      </FilterCollection>
+      <FilterCollection displayName="GR_TAX Evidence code" hidden="false" internalName="gr_tax_evidence_code">
+        <FilterDescription displayName="GR_TAX Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="gr_tax_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_GR_TAX__dm" type="list">
+        </FilterDescription>
+      </FilterCollection>
+    </FilterGroup>
+
+    <FilterGroup description="Filters matching GRO IDS, Terms, and Evidence Codes" displayName="GROWTH STAGE ONTOLOGY:" hidden="false" internalName="gro">
+      <FilterCollection displayName="GRO Term Accession [e.g. GRO:0007114]" hidden="false" internalName="gro_filters">
+        <FilterDescription hidden="false" internalName="gro_clos" multipleValues="1" pointerDataset="closure_GRO" pointerFilter="gro_parent_term" pointerInterface="default"/>
+      </FilterCollection>
+      <FilterCollection displayName="GRO Term Name [e.g. 10-ripening]" hidden="false" internalName="gro_filters_name">
+        <FilterDescription hidden="false" internalName="gro_name" pointerDataset="closure_GRO" pointerFilter="gro_parent_name" pointerInterface="default"/>
+      </FilterCollection>
+      <FilterCollection displayName="GRO Evidence code" hidden="false" internalName="gro_evidence_code">
+        <FilterDescription displayName="GRO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="gro_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_GRO__dm" type="list">
+        </FilterDescription>
+      </FilterCollection>
+    </FilterGroup>
+    <FilterGroup description="Filters matching TO IDS, Terms, and Evidence Codes" displayName="TRAIT ONTOLOGY:" hidden="false" internalName="to">
+      <FilterCollection displayName="TO Term Accession [e.g. TO:0050789]" hidden="false" internalName="to_filters">
+        <FilterDescription hidden="false" internalName="to_clos" multipleValues="1" pointerDataset="closure_TO" pointerFilter="to_parent_term" pointerInterface="default"/>
+      </FilterCollection>
+      <FilterCollection displayName="TO Term Name [e.g. regulation of biological process]" hidden="false" internalName="TO_filters_name">
+        <FilterDescription hidden="false" internalName="TO_name" pointerDataset="closure_TO" pointerFilter="TO_parent_name" pointerInterface="default"/>
+      </FilterCollection>
+      <FilterCollection displayName="TO Evidence code" hidden="false" internalName="TO_evidence_code">
+        <FilterDescription displayName="TO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="TO_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_TO__dm" type="list">
+        </FilterDescription>
       </FilterCollection>
     </FilterGroup>
     <FilterGroup description="Filter for Genes based on Expression Patters, using Controlled Vocabularies." displayName="EXPRESSION:" internalName="expression" hideDisplay="true">
@@ -3151,8 +3273,7 @@
         <AttributeDescription displayName="Gene Biotype" field="biotype_1020" internalName="gene_biotype" key="gene_id_1020_key" maxLength="40" tableConstraint="main"/>
         <AttributeDescription displayName="Transcript Biotype" field="biotype_1064" internalName="transcript_biotype" key="transcript_id_1064_key" maxLength="40" tableConstraint="main"/>
       </AttributeCollection>
-    </AttributeGroup>
--->
+    </AttributeGroup>-->
     <AttributeGroup displayName="EXTERNAL:" internalName="external">
       <AttributeCollection displayName="GO" internalName="go_closure">
         <AttributeDescription displayName="GO Term Accession (bp)" field="dbprimary_acc_1074" internalName="go_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_GO__dm"/>
@@ -3160,6 +3281,42 @@
         <AttributeDescription displayName="GO Term Definition (bp)" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_GO__dm"/>
         <AttributeDescription displayName="GO Term Evidence Code (bp)" field="linkage_type_1024" internalName="go_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_GO__dm"/>
         <AttributeDescription displayName="GO domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_GO__dm"/>
+      </AttributeCollection>
+
+      <AttributeCollection displayName="EO" internalName="eo_closure">
+        <AttributeDescription displayName="EO Term Accession (bp)" field="dbprimary_acc_1074" internalName="eo_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_EO__dm"/>
+        <AttributeDescription displayName="EO Term Name (bp)" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_EO__dm"/>
+        <AttributeDescription displayName="EO Term Definition (bp)" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_EO__dm"/>
+        <AttributeDescription displayName="EO Term Evidence Code (bp)" field="linkage_type_1024" internalName="eo_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_EO__dm"/>
+        <AttributeDescription displayName="EO domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_EO__dm"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="PO" internalName="po_closure">
+        <AttributeDescription displayName="PO Term Accession (bp)" field="dbprimary_acc_1074" internalName="po_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.genpontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_PO__dm"/>
+        <AttributeDescription displayName="PO Term Name (bp)" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_PO__dm"/>
+        <AttributeDescription displayName="PO Term Definition (bp)" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_PO__dm"/>
+        <AttributeDescription displayName="PO Term Evidence Code (bp)" field="linkage_type_1024" internalName="po_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_PO__dm"/>
+        <AttributeDescription displayName="PO domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_PO__dm"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="GRO" internalName="gro_closure">
+        <AttributeDescription displayName="GRO Term Accession (bp)" field="dbprimary_acc_1074" internalName="gro_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_GRO__dm"/>
+        <AttributeDescription displayName="GRO Term Name (bp)" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_GRO__dm"/>
+        <AttributeDescription displayName="GRO Term Definition (bp)" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_GRO__dm"/>
+        <AttributeDescription displayName="GRO Term Evidence Code (bp)" field="linkage_type_1024" internalName="gro_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_GRO__dm"/>
+        <AttributeDescription displayName="GRO domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_GRO__dm"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="GR_TAX" internalName="gr_tax_closure">
+        <AttributeDescription displayName="GR_TAX Term Accession (bp)" field="dbprimary_acc_1074" internalName="gr_tax_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_GR_TAX__dm"/>
+        <AttributeDescription displayName="GR_TAX Term Name (bp)" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_GR_TAX__dm"/>
+        <AttributeDescription displayName="GR_TAX Term Definition (bp)" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_GR_TAX__dm"/>
+        <AttributeDescription displayName="GR_TAX Term Evidence Code (bp)" field="linkage_type_1024" internalName="gr_tax_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_GR_TAX__dm"/>
+        <AttributeDescription displayName="GR_TAX domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_GR_TAX__dm"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="TO" internalName="to_closure">
+        <AttributeDescription displayName="TO Term Accession (bp)" field="dbprimary_acc_1074" internalName="to_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.gentontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_TO__dm"/>
+        <AttributeDescription displayName="TO Term Name (bp)" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_TO__dm"/>
+        <AttributeDescription displayName="TO Term Definition (bp)" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_TO__dm"/>
+        <AttributeDescription displayName="TO Term Evidence Code (bp)" field="linkage_type_1024" internalName="to_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_TO__dm"/>
+        <AttributeDescription displayName="TO domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_TO__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="GOSlim GOA" internalName="goslim_goa">
         <AttributeDescription displayName="GOSlim GOA Accession(s)" field="dbprimary_acc_1074" internalName="goslim_goa_accession" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ox_goslim_goa__dm">
@@ -3426,6 +3583,7 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="osativa_eg_gene" key="transcript_id_1064_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="oindica_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="gene_id_1020_key"/>
@@ -3434,7 +3592,6 @@
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="apisum_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="RefSeq Predicted DNA ID" field="dbprimary_acc_1074" internalName="refseq_dna_predicted" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_dna_predicted__dm">
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pchabaudi_eg_gene"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="nfischeri_eg_gene" key="transcript_id_1064_key"/>
@@ -3453,8 +3610,10 @@
           <SpecificAttributeContent field="dbprimary_display_name_1018" internalName="iscapularis_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_display_name_1018" internalName="phumanus_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_display_name_1018" internalName="cquinquefasciatus_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="alyrata_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pchabaudi_eg_gene"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="transcript_id_1064_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene" key="transcript_id_1064_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="alyrata_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="osativa_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="oindica_eg_gene" key="transcript_id_1064_key"/>
@@ -3794,14 +3953,23 @@
         <AttributeDescription checkForNulls="true" displayName="Physo1 JGI v11 ID" field="dbprimary_acc_1074" internalName="physo1_jgi_v11" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_physo1_jgi_v11__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Thaps JGI v2 ID" field="dbprimary_acc_1074" internalName="thaps_jgi_v2" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_thaps_jgi_v2__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Thaps JGI v2_bd ID" field="dbprimary_acc_1074" internalName="thaps_jgi_v2_bd" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_thaps_jgi_v2_bd__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="UniProtKB Gene name" field="dbprimary_acc_1074" internalName="uniprot_genename" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_uniprot_genename__dm" linkoutURL="exturl1|http://www.uniprot.org/uniprot/%s" >
+        <AttributeDescription checkForNulls="true" displayName="GeneIndex ID" field="dbprimary_acc_1074" internalName="geneindex" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_geneindex__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="TAIR Symbol ID" field="dbprimary_acc_1074" internalName="tair_symbol" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_tair_symbol__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="UniProtKB Gene name" field="dbprimary_acc_1074" internalName="uniprot_genename" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_uniprot_genename__dm" linkoutURL="http://uniprot.org/uniprot/%s">
         <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
         <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" />
         <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="gzeae_eg_gene" />
         <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene" />
         <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="foxysporum_eg_gene" />
         <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="gmoniliformis_eg_gene" />
-        
+	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene" />
+	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" />
+	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" />
+	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ppatens_eg_gene" />
+	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="alyrata_eg_gene" />
+	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="oindica_eg_gene" />
+	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" />
+	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene" />
       </AttributeDescription>
       </AttributeCollection>
       <AttributeCollection description="Microarray Attributes" displayName="Microarray Attributes" internalName="microarray" maxSelect="2">
