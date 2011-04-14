@@ -25,9 +25,9 @@ my $logger = get_logger();
 
 # db params
 my $db_host = '127.0.0.1';
-my $db_port = 4238;
+my $db_port = 4275;
 my $db_user = 'ensrw';
-my $db_pwd = 'writ3rp1';
+my $db_pwd = 'writ3rs2';
 my $mart_db = 'fungal_mart_8';
 my $release = 61;
 my $template_template_file = "templates/eg_template_template.xml";
@@ -170,9 +170,9 @@ sub get_dataset_homolog_attribute {
         <AttributeDescription displayName="$dataset->{species_name} Ensembl Gene ID" field="stable_id_4016_r2" internalName="$dataset->{dataset}_gene" key="gene_id_1020_key" linkoutURL="exturl1|/$dataset->{species_uc_name}/Gene/Summary?g=%s" maxLength="128" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="Representative Protein or Transcript ID" field="stable_id_4016_r1" hidden="false" internalName="homolog_$dataset->{dataset}__dm_stable_id_4016_r1" key="gene_id_1020_key" maxLength="128" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="$dataset->{species_name} Ensembl Protein ID" field="stable_id_4016_r3" internalName="$dataset->{dataset}_homolog_ensembl_peptide" key="gene_id_1020_key" maxLength="128" tableConstraint="homolog_$dataset->{dataset}__dm"/>
-        <AttributeDescription displayName="$dataset->{species_name} Chromosome" field="chr_name_4016_r2" internalName="$dataset->{dataset}_chromosome" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/Location/View?r=%s"  maxLength="40" tableConstraint="homolog_$dataset->{dataset}__dm"/>
-        <AttributeDescription displayName="$dataset->{species_name} Chromosome Start (bp)" field="chr_start_4016_r2" internalName="$dataset->{dataset}_chrom_start" key="gene_id_1020_key" maxLength="10" linkoutURL="exturl1|/*species2*/Location/View?r=$dataset->{dataset}_paralog_chromosome:$dataset->{dataset}_paralog_chrom_start-$dataset->{dataset}_paralog_chrom_end" tableConstraint="homolog_$dataset->{dataset}__dm"/>
-        <AttributeDescription displayName="$dataset->{species_name} Chromosome End (bp)" field="chr_end_4016_r2" internalName="$dataset->{dataset}_chrom_end" key="gene_id_1020_key" maxLength="10" linkoutURL="exturl1|/*species2*/Location/View?r=$dataset->{dataset}_paralog_chromosome:$dataset->{dataset}_paralog_chrom_start-$dataset->{dataset}_paralog_chrom_end" tableConstraint="homolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Chromosome" field="chr_name_4016_r2" internalName="$dataset->{dataset}_chromosome" key="gene_id_1020_key" linkoutURL="exturl1|/$dataset->{dataset}/Location/View?r=%s"  maxLength="40" tableConstraint="homolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Chromosome Start (bp)" field="chr_start_4016_r2" internalName="$dataset->{dataset}_chrom_start" key="gene_id_1020_key" maxLength="10" linkoutURL="exturl1|/$dataset->{dataset}/Location/View?r=$dataset->{dataset}_paralog_chromosome:$dataset->{dataset}_paralog_chrom_start-$dataset->{dataset}_paralog_chrom_end" tableConstraint="homolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="$dataset->{species_name} Chromosome End (bp)" field="chr_end_4016_r2" internalName="$dataset->{dataset}_chrom_end" key="gene_id_1020_key" maxLength="10" linkoutURL="exturl1|/$dataset->{dataset}/Location/View?r=$dataset->{dataset}_paralog_chromosome:$dataset->{dataset}_paralog_chrom_start-$dataset->{dataset}_paralog_chrom_end" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="Homology Type" field="description_4014" internalName="$dataset->{dataset}_orthology_type" key="gene_id_1020_key" maxLength="25" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="Ancestor" field="subtype_4014" internalName="$dataset->{dataset}_homolog_subtype" key="gene_id_1020_key" maxLength="40" tableConstraint="homolog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="dS" field="ds_4014" hidden="false" internalName="$dataset->{dataset}_homolog_dn" key="gene_id_1020_key" maxLength="10" tableConstraint="homolog_$dataset->{dataset}__dm"/>
@@ -218,6 +218,7 @@ sub write_template_xml {
     my $paralogy_attributes_text='';
     my $exportables_text='';
     my $exportables_link_text='';
+    my $poly_attrs_text = '';
     foreach my $dataset (@$datasets) {
 	print "Generating elems for ".$dataset->{dataset};
 	print Dumper($dataset);
@@ -235,7 +236,8 @@ sub write_template_xml {
 	'.*<Replace id="homology_attributes"/>'=>$homology_attributes_text,
 	'.*<Replace id="paralogy_attributes"/>'=>$paralogy_attributes_text,
 	'.*<Replace id="exportables"/>'=>$exportables_text,
-	'.*<Replace id="exportables_link"/>'=>$exportables_link_text
+	'.*<Replace id="exportables_link"/>'=>$exportables_link_text,
+	'.*<Replace id="poly_attrs"/>'=>$poly_attrs_text
 	);
     write_replace_file($template_template_file,'output/template.xml',\%placeholders);
     `gzip -c output/template.xml > output/template.xml.gz`;
