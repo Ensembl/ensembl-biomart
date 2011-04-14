@@ -3,9 +3,12 @@
 <DatasetConfig dataset="gene_template" datasetID="87" defaultDataset="*default*" description="Ensembl Genes" displayName="*species1* genes (*version*)" entryLabel="Genes" interfaces="default" internalName="template" martUsers="default" modified="2006-10-02 16:13:46" softwareVersion="0.7" template="gene" type="TableSet" version="*version*" visible="1">
   <Replace id="datasets"/>
   <Importable description="a" filters="evoc" internalName="evoc" linkName="evoc" name="evoc" type="link"/>
-  <Importable filters="link_go_biological_process" internalName="go_biological_process" linkName="go_biological_process" name="go_biological_process" type="link"/>
-  <Importable filters="link_go_cellular_component" internalName="go_cellular_component" linkName="go_cellular_component" name="go_cellular_component" type="link"/>
-  <Importable filters="link_go_molecular_function" internalName="go_molecular_function" linkName="go_molecular_function" name="go_molecular_function" type="link"/>
+  <Importable filters="link_go_closure" internalName="go_closure" linkName="go_closure" name="go_closure" type="link"/>
+  <Importable filters="link_po_closure" internalName="po_closure" linkName="go_closure" name="go_closure" type="link"/>
+  <Importable filters="link_to_closure" internalName="to_closure" linkName="to_closure" name="to_closure" type="link"/>
+  <Importable filters="link_eo_closure" internalName="eo_closure" linkName="eo_closure" name="eo_closure" type="link"/>
+  <Importable filters="link_gro_closure" internalName="gro_closure" linkName="gro_closure" name="gro_closure" type="link"/>
+  <Importable filters="link_gr_tax_closure" internalName="gr_tax_closure" linkName="gr_tax_closure" name="gr_tax_closure" type="link"/>
   <Importable filters="mgi_symbol" internalName="mgi_symbol" linkName="mgi_symbol" name="mgi_symbol" type="link"/>
   <Importable filters="ensembl_gene_id" internalName="ensembl_gene_id" linkName="ensembl_gene_id" linkVersion="*link_version*" name="ensembl_gene_id" type="link"/>
   <Importable filters="rgd" internalName="rgd_id" linkName="rgd_id" name="rgd_id" type="link"/>
@@ -470,7 +473,7 @@
           </Option>
           <Option displayName="with Affymetrix Microarray mu11ksuba ID(s)" displayType="list" field="eFG_AFFY_Mu11ksubA_bool" internalName="with_affy_mu11ksuba" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+           <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
           <Option displayName="with Affymetrix Microarray mu11ksubb ID(s)" displayType="list" field="eFG_AFFY_Mu11ksubB_bool" internalName="with_affy_mu11ksubb" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -1337,15 +1340,15 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with EO ID(s)" displayType="list" field="ox_eo_bool" internalName="with_ox_eo" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with EO ID(s)" hideDisplay="true" displayType="list" field="ox_eo_bool" internalName="with_ox_eo" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with GRO ID(s)" displayType="list" field="ox_gro_bool" internalName="with_ox_gro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with GRO ID(s)" hideDisplay="true" displayType="list" field="ox_gro_bool" internalName="with_ox_gro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with TO ID(s)" displayType="list" field="ox_to_bool" internalName="with_ox_to" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with TO ID(s)" hideDisplay="true" displayType="list" field="ox_to_bool" internalName="with_ox_to" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2521,7 +2524,9 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Source" internalName="source_coll" hideDisplay="true">
-        <FilterDescription displayName="Source" displayType="list" field="source_1020" internalName="source" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" hideDisplay="true"/>
+        <FilterDescription displayName="Source" displayType="list" field="source_1020" internalName="source" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" hideDisplay="true">
+	  <SpecificFilterContent internalName="replaceMe"/>
+	</FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Status (gene)" internalName="status_coll">
         <FilterDescription displayName="Status (gene)" displayType="list" field="status_1020" internalName="status" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list">
@@ -2552,7 +2557,8 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filters matching PO IDS, Terms, and Evidence Codes" displayName="PLANT ONTOLOGY:" hidden="false" internalName="po">
+<!--
+    <FilterGroup hideDisplay="true" description="Filters matching PO IDS, Terms, and Evidence Codes" displayName="PLANT ONTOLOGY:" hidden="false" internalName="po">
       <FilterCollection displayName="PO Term Accession [e.g. PO:0009066]" hidden="false" internalName="po_filters">
         <FilterDescription hidden="false" internalName="po_clos" multipleValues="1" pointerDataset="closure_PO" pointerFilter="po_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -2561,10 +2567,11 @@
       </FilterCollection>
       <FilterCollection displayName="PO Evidence code" hidden="false" internalName="po_evidence_code">
         <FilterDescription displayName="PO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="po_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_PO__dm" type="list">
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filters matching EO IDS, Terms, and Evidence Codes" displayName="ENVIRONMENT ONTOLOGY:" hidden="false" internalName="eo">
+    <FilterGroup hideDisplay="true" description="Filters matching EO IDS, Terms, and Evidence Codes" displayName="ENVIRONMENT ONTOLOGY:" hidden="false" internalName="eo">
       <FilterCollection displayName="EO Term Accession [e.g. EO:0007001]" hidden="false" internalName="eo_filters">
         <FilterDescription hidden="false" internalName="eo_clos" multipleValues="1" pointerDataset="closure_EO" pointerFilter="eo_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -2573,10 +2580,11 @@
       </FilterCollection>
       <FilterCollection displayName="EO Evidence code" hidden="false" internalName="eo_evidence_code">
         <FilterDescription displayName="EO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="eo_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_EO__dm" type="list">
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filters matching GR_TAX IDS, Terms, and Evidence Codes" displayName="GRAMENE TAXONOMIC ONTOLOGY:" hidden="false" internalName="gr_tax">
+    <FilterGroup hideDisplay="true" description="Filters matching GR_TAX IDS, Terms, and Evidence Codes" displayName="GRAMENE TAXONOMIC ONTOLOGY:" hidden="false" internalName="gr_tax">
       <FilterCollection displayName="GR_TAX Term Accession [e.g. GR_tax:078858]" hidden="false" internalName="gr_tax_filters">
         <FilterDescription hidden="false" internalName="gr_tax_clos" multipleValues="1" pointerDataset="closure_GR_TAX" pointerFilter="gr_tax_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -2585,11 +2593,11 @@
       </FilterCollection>
       <FilterCollection displayName="GR_TAX Evidence code" hidden="false" internalName="gr_tax_evidence_code">
         <FilterDescription displayName="GR_TAX Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="gr_tax_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_GR_TAX__dm" type="list">
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-
-    <FilterGroup description="Filters matching GRO IDS, Terms, and Evidence Codes" displayName="GROWTH STAGE ONTOLOGY:" hidden="false" internalName="gro">
+    <FilterGroup hideDisplay="true" description="Filters matching GRO IDS, Terms, and Evidence Codes" displayName="GROWTH STAGE ONTOLOGY:" hidden="false" internalName="gro">
       <FilterCollection displayName="GRO Term Accession [e.g. GRO:0007114]" hidden="false" internalName="gro_filters">
         <FilterDescription hidden="false" internalName="gro_clos" multipleValues="1" pointerDataset="closure_GRO" pointerFilter="gro_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -2598,10 +2606,11 @@
       </FilterCollection>
       <FilterCollection displayName="GRO Evidence code" hidden="false" internalName="gro_evidence_code">
         <FilterDescription displayName="GRO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="gro_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_GRO__dm" type="list">
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filters matching TO IDS, Terms, and Evidence Codes" displayName="TRAIT ONTOLOGY:" hidden="false" internalName="to">
+    <FilterGroup hideDisplay="true" description="Filters matching TO IDS, Terms, and Evidence Codes" displayName="TRAIT ONTOLOGY:" hidden="false" internalName="to">
       <FilterCollection displayName="TO Term Accession [e.g. TO:0050789]" hidden="false" internalName="to_filters">
         <FilterDescription hidden="false" internalName="to_clos" multipleValues="1" pointerDataset="closure_TO" pointerFilter="to_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -2610,9 +2619,11 @@
       </FilterCollection>
       <FilterCollection displayName="TO Evidence code" hidden="false" internalName="TO_evidence_code">
         <FilterDescription displayName="TO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="TO_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_TO__dm" type="list">
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
+-->
     <FilterGroup description="Filter for Genes based on Expression Patters, using Controlled Vocabularies." displayName="EXPRESSION:" internalName="expression" hideDisplay="true">
       <FilterCollection displayName="eGenetics/SANBI EST anatomical system data" internalName="est_anatomical_system" hideDisplay="true">
         <FilterDescription internalName="est_anatomical_system_term" pointerDataset="hsap_evoc_AnatomicalSystem" pointerFilter="anatomical_system_term" pointerInterface="default">
@@ -3205,7 +3216,6 @@
         <AttributeDescription displayName="GO Term Evidence Code (bp)" field="linkage_type_1024" internalName="go_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_GO__dm"/>
         <AttributeDescription displayName="GO domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_GO__dm"/>
       </AttributeCollection>
-
       <AttributeCollection displayName="EO" internalName="eo_closure">
         <AttributeDescription displayName="EO Term Accession (bp)" field="dbprimary_acc_1074" internalName="eo_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_EO__dm"/>
         <AttributeDescription displayName="EO Term Name (bp)" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_EO__dm"/>
