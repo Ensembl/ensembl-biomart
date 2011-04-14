@@ -5,7 +5,7 @@
 # $Date$
 # $Author$
 #
-# Script for splitting datasets from a multi-species mart
+# Script for calculating exon coordinates (which mart itself is incapable of doing)
 
 use warnings;
 use strict;
