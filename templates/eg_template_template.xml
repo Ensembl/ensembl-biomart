@@ -3868,11 +3868,11 @@
         <AttributeDescription checkForNulls="true" displayName="DictyBase ID" field="dbprimary_acc_1074" internalName="dictybase" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_dictybase__dm"/>
         <AttributeDescription checkForNulls="true" displayName="DictyBase transcript ID" field="dbprimary_acc_1074" internalName="dictybase_transcript" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_dictybase_transcript__dm"/>
         <AttributeDescription checkForNulls="true" displayName="GeneDB ID" field="dbprimary_acc_1074" internalName="genedb" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_genedb__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="GeneDB transcript ID" field="dbprimary_acc_1074" internalName="genedb_transcript" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_genedb_transcript__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="GeneDB transcript ID" field="dbprimary_acc_1074" internalName="genedb_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_genedb_transcript__dm"/>
         <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pchabaudi_eg_gene"/>
         <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pfalciparum_eg_gene"/>
         <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
-        <AttributeDescription checkForNulls="true" displayName="GeneDB translation ID" field="dbprimary_acc_1074" internalName="genedb_translation" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_genedb_translation__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="GeneDB translation ID" field="dbprimary_acc_1074" internalName="genedb_translation" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_genedb_translation__dm"/>
         <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
         <AttributeDescription checkForNulls="true" displayName="gi ID" field="dbprimary_acc_1074" internalName="gi" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_gi__dm"/>
         <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
@@ -3884,7 +3884,7 @@
         <AttributeDescription checkForNulls="true" displayName="Thaps JGI v2_bd ID" field="dbprimary_acc_1074" internalName="thaps_jgi_v2_bd" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_thaps_jgi_v2_bd__dm"/>
         <AttributeDescription checkForNulls="true" displayName="GeneIndex ID" field="dbprimary_acc_1074" internalName="geneindex" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_geneindex__dm"/>
         <AttributeDescription checkForNulls="true" displayName="TAIR Symbol ID" field="dbprimary_acc_1074" internalName="tair_symbol" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_tair_symbol__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="UniProtKB Gene name" field="display_label_1074" internalName="uniprot_genename" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_uniprot_genename__dm" >
+        <AttributeDescription checkForNulls="true" displayName="UniProtKB Gene name" field="display_label_1074" internalName="uniprot_genename" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_uniprot_genename__dm" >
         <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="lmajor_eg_gene"/>
         <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="scerevisiae_eg_gene" />
         <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="gzeae_eg_gene" />
