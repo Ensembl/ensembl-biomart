@@ -47,21 +47,21 @@ my $mart_db;
 my $template;
 
 sub usage {
-    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
-    print "-h <host> Default is $db_host\n";
-    print "-P <port> Default is $db_port\n";
-    print "-u <host> Default is $db_user\n";
-    print "-p <password> Default is top secret unless you know cat\n";
+    print "Usage: $0 [-host|-h <host>] [-port|-P <port>] [-u|-user user <user>] [-p|-pass <pwd>] [-mart <src>] [-template <template file>]\n";
+    print "-h|-host <host> Default is $db_host\n";
+    print "-P|-port <port> Default is $db_port\n";
+    print "-u|-user <host> Default is $db_user\n";
+    print "-p|-pass <password> Default is top secret unless you know cat\n";
     print "-mart <target mart> Default is $mart_db\n";
     print "-template <template file> \n";
     exit 1;
 };
 
 my $options_okay = GetOptions (
-    "h=s"=>\$db_host,
-    "P=s"=>\$db_port,
-    "u=s"=>\$db_user,
-    "p=s"=>\$db_pwd,
+    "host|h=s"=>\$db_host,
+    "port|P=s"=>\$db_port,
+    "user|u=s"=>\$db_user,
+    "pass|p=s"=>\$db_pwd,
     "mart=s"=>\$mart_db,
     "template=s"=>\$template,
     "help"=>sub {usage()}
@@ -91,7 +91,7 @@ my %a_nodes = map { $_->{table} =~ s/__dm//; $_->{table} => 1 } grep {$_->{table
 $doc->dispose;
 
 # now check the tables against these lists
-my $mart_string = "DBI:mysql:$mart_db:$db_host:$db_port";
+my $mart_string = "DBI:mysql:host=$db_host:port=$db_port;database=$mart_db";
 my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
 			       { RaiseError => 1 }
     ) or croak "Could not connect to $mart_string";
