@@ -3646,6 +3646,8 @@
 	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gzeae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
 	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gmoniliformis_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
 	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
+	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
+	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="UniProtKB/TrEMBL predicted" field="dbprimary_acc_1074" internalName="uniprot_sptrembl_predicted" key="translation_id_1068_key" linkoutURL="exturl1|http://www.uniprot.org/uniprot/%s" maxLength="40" tableConstraint="ox_UniprotSPTREMBL_predicted__dm">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
@@ -3689,6 +3691,8 @@
 	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="foxysporum_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
 	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gzeae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
 	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
+	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
+	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="siRNA Sunkar" field="dbprimary_acc_1074" internalName="sirna_sunkar" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_siRNA_Sunkar__dm"/>
         <AttributeDescription displayName="LGB Pratt EST Cluster" field="dbprimary_acc_1074" internalName="lgbpratt_est_cluster" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_lgbpratt_est_cluster__dm"/>
