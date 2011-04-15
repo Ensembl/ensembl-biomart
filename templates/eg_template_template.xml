@@ -3216,6 +3216,7 @@
         <AttributeDescription displayName="GO Term Evidence Code (bp)" field="linkage_type_1024" internalName="go_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_GO__dm"/>
         <AttributeDescription displayName="GO domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_GO__dm"/>
       </AttributeCollection>
+<!--
       <AttributeCollection displayName="EO" internalName="eo_closure">
         <AttributeDescription displayName="EO Term Accession (bp)" field="dbprimary_acc_1074" internalName="eo_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_EO__dm"/>
         <AttributeDescription displayName="EO Term Name (bp)" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_EO__dm"/>
@@ -3251,6 +3252,7 @@
         <AttributeDescription displayName="TO Term Evidence Code (bp)" field="linkage_type_1024" internalName="to_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_TO__dm"/>
         <AttributeDescription displayName="TO domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_TO__dm"/>
       </AttributeCollection>
+-->
       <AttributeCollection displayName="GOSlim GOA" internalName="goslim_goa">
         <AttributeDescription displayName="GOSlim GOA Accession(s)" field="dbprimary_acc_1074" internalName="goslim_goa_accession" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ox_goslim_goa__dm">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
