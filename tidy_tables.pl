@@ -87,7 +87,12 @@ for my $table_pattern (keys %tables_to_tidy) {
     my $col = $tables_to_tidy{$table_pattern};
     for my $table (query_to_strings($mart_handle,"show tables like '$table_pattern'")) {
 	$logger->info("Deleting rows from $table where $col is null");
-	$mart_handle->do("DELETE FROM $table WHERE $col IS NULL");
+	eval {
+	    $mart_handle->do("DELETE FROM $table WHERE $col IS NULL");
+	};
+	if($@) {
+	    warn "Could not delete from $table:".$@;
+	}
     }
 }
 
