@@ -78,6 +78,9 @@ public abstract class BaseNamedConfigurationObject extends
 											// titles to getXMLAttributeTitles,
 											// even if never set in future
 		}
+		if(getAttribute(useDefaultKey)==null || getAttribute(useDefaultKey).length()==0) {
+			setAttribute(useDefaultKey, "true");
+		}
 	}
 
 	public BaseNamedConfigurationObject(String internalName,
