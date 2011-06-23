@@ -111,9 +111,9 @@ sub get_ensembl_db {
 
 # Build the dataset hash
 sub build_dataset_href {
-    my ($meta_container, $logger) = @_;
+    my ($meta_container, $logger, $suffix) = @_;
     my $dataset_href = {};
-    
+    $suffix ||= "";
     my $species_name = $meta_container->db->species;
     my $is_multispecies = $meta_container->db->{_is_multispecies};
     my $src_db = $meta_container->db->{_dbc}->{_dbname};
@@ -127,10 +127,8 @@ sub build_dataset_href {
 
 	if (defined @{$meta_container->list_value_by_key('species.division')}[0]) {
 	    my $division_value = @{$meta_container->list_value_by_key('species.division')}[0];
-	    if ($division_value =~ /ensemblprotists|ensemblmetazoa|ensemblplants|ensemblfungi/i) {
-		# Add a suffix '_eg' to avoid conflicting dataset names in Biomart.org!
-		$formatted_species_name = $formatted_species_name . "_eg";
-	    }
+	    # Add a suffix '_eg' to avoid conflicting dataset names in Biomart.org!
+	    $formatted_species_name = $formatted_species_name . $suffix;
 	}
     }
     else {

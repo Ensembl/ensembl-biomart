@@ -234,10 +234,11 @@ my $options_okay = GetOptions (
 if(!$options_okay) {
     usage();
 }
-
+my $suffix = "_eg";
 # Set the db_patterns, depending on the database mart name
 if ($seq_mart_db =~ /bacterial/i) {
     $division = "EnsemblBacteria";
+    my $suffix = "";
 }
 elsif ($seq_mart_db =~ /protist/i) {
     $division = "EnsemblProtists";
@@ -251,7 +252,10 @@ elsif ($seq_mart_db =~ /plant/i) {
 elsif ($seq_mart_db =~ /metazoa/i) {
     $division = "EnsemblMetazoa";
 }
-else {
+elsif ($seq_mart_db =~ /vectorbase/i) {
+    $division = "EnsemblMetazoa";
+    $suffix = "_vb";
+} else {
     print STDERR "sequence mart db name, $seq_mart_db\n";
     print STDERR "sequence mart db name doesn't match a known division, so all databases on the server will be taken into account\n";
 }
@@ -300,7 +304,7 @@ foreach my $species_name (@$species_names_aref) {
         die "meta_container couldn't be instanciated for species, \"$species_name\"\n";
     }
 
-    my $dataset_href = build_dataset_href ($meta_container,$logger);
+    my $dataset_href = build_dataset_href ($meta_container,$logger,$suffix);
     if(!$dataset_href->{species_id}) {
 	$dataset_href->{species_id} = ++$i;
     }
