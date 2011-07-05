@@ -1504,6 +1504,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with SpBase ID(s)" displayType="list" field="ox_spbase_bool" internalName="with_spbase" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with ASPGD Transcript ID(s)" displayType="list" field="ox_aspgd_transcript_bool" internalName="with_aspgd_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2021,7 +2025,6 @@
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dsechellia_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
-            <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="celegans_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene"/>
@@ -2185,6 +2188,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="transcript_id_1064_key"/>
           </Option>
           <Option checkForNulls="true" displayName="RGD ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="rgd" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RGD__dm" type="list"/>
+          <Option checkForNulls="true" displayName="SpBase ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="spbase" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_spbase__dm" type="list"/>
           <Option checkForNulls="true" displayName="SGD ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="sgd" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_SGD__dm" type="list">
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
@@ -2599,15 +2603,13 @@
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="oindica_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="amellifera_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="nvectensis_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dpulex_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="spurpuratus_eg_gene"/>
+            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dpulex_eg_gene"/>
           </Option>
           <Option checkForNulls="true" displayName="broad_p_triticina ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_p_triticina" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_p_triticina__dm" type="list"/>
-	  <Option checkForNulls="true" displayName="broad_u_maydis ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_u_maydis" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_u_maydis__dm" type="list"/>
-	  <Option checkForNulls="true" displayName="necha_jgi_v20 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="necha_jgi_v20" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_necha_jgi_v20__dm" type="list"/>
-	  <Option checkForNulls="true" displayName="phibase ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="phibase" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_phibase__dm" type="list"/>
+          <Option checkForNulls="true" displayName="broad_u_maydis ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_u_maydis" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_u_maydis__dm" type="list"/>
+          <Option checkForNulls="true" displayName="necha_jgi_v20 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="necha_jgi_v20" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_necha_jgi_v20__dm" type="list"/>
+          <Option checkForNulls="true" displayName="phibase ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="phibase" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_phibase__dm" type="list"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Transcript count &gt;=" internalName="transcript_count_filter">
@@ -3329,11 +3331,6 @@
         <AttributeDescription checkForNulls="true" displayName="affy_agsnp01 ID" field="display_label_11056" internalName="affy_agsnp01" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_agsnp01__dm"/>
         <AttributeDescription checkForNulls="true" displayName="agilent_gpl10542 ID" field="display_label_11056" internalName="agilent_gpl10542" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl10542__dm"/>
         <AttributeDescription checkForNulls="true" displayName="agilent_gpl9246 ID" field="display_label_11056" internalName="agilent_gpl9246" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl9246__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="anoxcel ID" field="dbprimary_acc_1074" internalName="anoxcel" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_anoxcel__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="ribosomal_protein_gene_db ID" field="dbprimary_acc_1074" internalName="ribosomal_protein_gene_db" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_ribosomal_protein_gene_db__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="schistodb ID" field="dbprimary_acc_1074" internalName="schistodb" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_schistodb__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="triad_jgi_v10 ID" field="dbprimary_acc_1074" internalName="triad_jgi_v10" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_triad_jgi_v10__dm"/>
-
       </AttributeCollection>
     </AttributeGroup>-->
     <AttributeGroup displayName="EXTERNAL:" internalName="external">
@@ -3444,14 +3441,13 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
         </AttributeDescription>
-          
         <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_f_oxysporum" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_f_oxysporum__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s"/>
         <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_g_moniliformis" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_g_moniliformis__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s"/>
         <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_g_zeae" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_g_zeae__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s"/>
         <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_p_triticina" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_p_triticina__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/puccinia_group/GeneLocus.html?sp=%s"/>
         <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_u_maydis" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_u_maydis__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/ustilago_maydis/GeneLocus.html?sp=S%s"/>
         <AttributeDescription checkForNulls="true" displayName="Necha JGI v20 ID" field="dbprimary_acc_1074" internalName="necha_jgi_v20" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_necha_jgi_v20__dm" linkoutURL="exturl1|http://genome.jgi-psf.org/cgi-bin/dispGeneModel?db=Necha2&amp;id=%s"/>
-        <AttributeDescription checkForNulls="true" displayName="Phibase ID" field="dbprimary_acc_1074" internalName="phibase" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_phibase__dm" linkoutURL="exturl1|http://www.phibase.org/query.php?detail=yes&amp;phi_acc=%s"/>   
+        <AttributeDescription checkForNulls="true" displayName="Phibase ID" field="dbprimary_acc_1074" internalName="phibase" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_phibase__dm" linkoutURL="exturl1|http://www.phibase.org/query.php?detail=yes&amp;phi_acc=%s"/>
         <AttributeDescription checkForNulls="true" description="ENA Accessions" displayName="ENA (Genbank) ID" field="dbprimary_acc_1074" internalName="embl_dna" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_EMBL_DNA__dm"/>
         <AttributeDescription checkForNulls="true" description="ENA Accessions" displayName="ENA (Genbank) ID" field="dbprimary_acc_1074" internalName="ena_dna" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_ENA_DNA__dm"/>
         <AttributeDescription checkForNulls="true" description="ENA RNA Accessions" displayName="ENA (Genbank) RNA ID" field="dbprimary_acc_1074" internalName="embl_rna" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_EMBL_RNA__dm"/>
@@ -3465,6 +3461,11 @@
         <AttributeDescription checkForNulls="true" displayName="Ensembl Human transcript" field="dbprimary_acc_1074" internalName="ens_hs_transcript" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Ens_Hs_transcript__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Ensembl Human protein" field="dbprimary_acc_1074" internalName="ens_hs_translation" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/protview?peptide=%s" maxLength="40" tableConstraint="ox_Ens_Hs_translation__dm"/>
         <AttributeDescription checkForNulls="true" displayName="EntrezGene ID" field="dbprimary_acc_1074" internalName="entrezgene" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?cmd=search&amp;db=gene&amp;term=%s[uid]" maxLength="40" tableConstraint="ox_EntrezGene__dm">
+          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="amellifera_eg_gene"/>
+          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="nvectensis_eg_gene"/>
+          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene"/>
+          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="spurpuratus_eg_gene"/>
+          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="smansoni_eg_gene"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="nfischeri_eg_gene" key="translation_id_1068_key"/>
@@ -3590,6 +3591,10 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key" tableConstraint="ox_miRBase__dm"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key" tableConstraint="ox_miRBase__dm"/>
         </AttributeDescription>
+        <AttributeDescription checkForNulls="true" displayName="anoxcel ID" field="dbprimary_acc_1074" internalName="anoxcel" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_anoxcel__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Ribosomal Protein Gene DB ID" field="dbprimary_acc_1074" internalName="ribosomal_protein_gene_db" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_ribosomal_protein_gene_db__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="SchistoDB ID" field="dbprimary_acc_1074" internalName="schistodb" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_schistodb__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Triad JGI v10 ID" field="dbprimary_acc_1074" internalName="triad_jgi_v10" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_triad_jgi_v10__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Oxford Ponting Group Monodelphis predictions gene ID(s)" field="dbprimary_acc_1074" internalName="oxford_fgu_md_gene" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/geneview?gene=%s" maxLength="40" tableConstraint="ox_Oxford_FGU_Md_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Oxford Ponting Group Monodelphis predictions transcript ID(s)" field="dbprimary_acc_1074" internalName="oxford_fgu_md_tscript" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Oxford_FGU_Md_tscript__dm"/>
         <AttributeDescription displayName="Oxford Ponting Group Platypus predictions gene ID(s)" field="dbprimary_acc_1074" internalName="oxford_fgu_oa_gene" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/geneview?gene=%s" maxLength="40" tableConstraint="ox_Oxford_FGU_Oa_gene__dm"/>
@@ -3630,6 +3635,11 @@
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="Protein id predicted" field="dbprimary_acc_1074" internalName="protein_id_predicted" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&amp;cmd=&amp;term=%s&amp;go=Go" maxLength="40" tableConstraint="ox_protein_id_predicted__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RefSeq DNA ID" field="dbprimary_acc_1074" internalName="refseq_dna" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_dna__dm">
+          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="amellifera_eg_gene"/>
+          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="nvectensis_eg_gene"/>
+          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene"/>
+          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="spurpuratus_eg_gene"/>
+          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="smansoni_eg_gene"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="gene_id_1020_key"/>
@@ -3653,6 +3663,11 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="gene_id_1020_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="RefSeq Predicted DNA ID" field="dbprimary_acc_1074" internalName="refseq_dna_predicted" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_dna_predicted__dm">
+          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="amellifera_eg_gene"/>
+          <SpecificAttributeContent key="gene_id_1020_key" field="display_label_1074" internalName="nvectensis_eg_gene"/>
+          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene"/>
+          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="spurpuratus_eg_gene"/>
+          <SpecificAttributeContent key="transcript_id_1064_key" field="display_label_1074" internalName="nvectensis_eg_gene"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="nfischeri_eg_gene" key="transcript_id_1064_key"/>
@@ -3702,6 +3717,8 @@
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="RefSeq Predicted Protein ID" field="dbprimary_acc_1074" internalName="refseq_peptide_predicted" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_peptide_predicted__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RFAM ID" field="dbprimary_acc_1074" internalName="rfam" key="transcript_id_1064_key" linkoutURL="exturl1|http://rfam.sanger.ac.uk/family?entry=%s" maxLength="40" tableConstraint="ox_RFAM__dm">
+          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dpulex_eg_gene"/>
+          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="ptricornutum_eg_gene"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="gene_id_1020_key"/>
@@ -3734,6 +3751,7 @@
         <AttributeDescription checkForNulls="true" displayName="RNAMMER ID" field="dbprimary_acc_1074" internalName="rnammer" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_RNAMMER__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RGD ID" field="dbprimary_acc_1074" internalName="rgd" key="transcript_id_1064_key" linkoutURL="exturl1|http://rgd.mcw.edu/tools/genes/genes_view.cgi?id=%s" maxLength="40" tableConstraint="ox_RGD__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RGD Symbol" field="display_label_1074" internalName="rgd_symbol" key="transcript_id_1064_key" linkoutURL="exturl|http://rgd.mcw.edu/tools/genes/genes_view.cgi?id=%s|rgd" maxLength="40" tableConstraint="ox_RGD__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="SpBase ID" field="dbprimary_acc_1074" internalName="spbase" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_spbase__dm"/>
         <AttributeDescription checkForNulls="true" displayName="SGD ID" field="dbprimary_acc_1074" internalName="sgd" key="translation_id_1068_key" linkoutURL="exturl1|http://db.yeastgenome.org/cgi-bin/locus.pl?locus=%s" maxLength="40" tableConstraint="ox_SGD__dm">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="translation_id_1068_key"/>
@@ -4030,7 +4048,8 @@
         <AttributeDescription checkForNulls="true" displayName="Thaps JGI v2_bd ID" field="dbprimary_acc_1074" internalName="thaps_jgi_v2_bd" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_thaps_jgi_v2_bd__dm"/>
         <AttributeDescription checkForNulls="true" displayName="GeneIndex ID" field="dbprimary_acc_1074" internalName="geneindex" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_geneindex__dm"/>
         <AttributeDescription checkForNulls="true" displayName="TAIR Symbol ID" field="dbprimary_acc_1074" internalName="tair_symbol" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_tair_symbol__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="UniProtKB Gene name" field="display_label_1074" internalName="uniprot_genename" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_uniprot_genename__dm">
+        <AttributeDescription checkForNulls="true" displayName="UniProtKB Gene name" field="display_label_1074" internalName="uniprot_genename" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_uniprot_genename__dm">
+          <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="spurpuratus_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="lmajor_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="scerevisiae_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="gzeae_eg_gene"/>
@@ -4046,6 +4065,7 @@
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="ptrichocarpa_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="oglaberrima_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="pultimum_eg_gene"/>
+          <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="dpulex_eg_gene"/>
         </AttributeDescription>
       </AttributeCollection>
       <AttributeCollection description="Microarray Attributes" displayName="Microarray Attributes" internalName="microarray" maxSelect="2">
@@ -4566,7 +4586,6 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dsechellia_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="celegans_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene"/>
