@@ -471,6 +471,22 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with broad_p_triticina ID(s)" displayType="list" field="ox_broad_p_triticina_bool" internalName="with_broad_p_triticina" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with broad_u_maydis ID(s)" displayType="list" field="ox_broad_u_maydis_bool" internalName="with_broad_u_maydis" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with necha_jgi_v20 ID(s)" displayType="list" field="ox_necha_jgi_v20_bool" internalName="with_necha_jgi_v20" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with phibase ID(s)" displayType="list" field="ox_phibase_bool" internalName="with_phibase" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with Affymetrix Microarray yeast 2 ID(s)" displayType="list" field="eFG_AFFY_Yeast_2_bool" internalName="with_affy_yeast_2" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2588,6 +2604,10 @@
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dpulex_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="spurpuratus_eg_gene"/>
           </Option>
+          <Option checkForNulls="true" displayName="broad_p_triticina ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_p_triticina" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_p_triticina__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="broad_u_maydis ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_u_maydis" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_u_maydis__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="necha_jgi_v20 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="necha_jgi_v20" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_necha_jgi_v20__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="phibase ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="phibase" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_phibase__dm" type="list"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Transcript count &gt;=" internalName="transcript_count_filter">
@@ -3405,9 +3425,6 @@
         <AttributeDescription displayName="Drosophila melanogaster Exon Database (DEDB) ID(s)" field="dbprimary_acc_1074" hidden="false" internalName="dedb" key="gene_id_1020_key" linkoutURL="exturl1|http://proline.bic.nus.edu.sg/dedb/cgi-bin/viewer.py?id=%s" maxLength="40" tableConstraint="ox_DEDb__dm"/>
         <AttributeDescription checkForNulls="true" displayName="CCDS ID" field="dbprimary_acc_1074" internalName="ccds" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&amp;DATA=%s" maxLength="40" tableConstraint="ox_CCDS__dm"/>
         <AttributeDescription checkForNulls="true" description="ENA Accessions" displayName="ENA (Genbank) ID" field="dbprimary_acc_1074" internalName="embl" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_EMBL__dm">
-          <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_f_oxysporum" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_f_oxysporum__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s"/>
-          <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_g_moniliformis" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_g_moniliformis__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s"/>
-          <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_g_zeae" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_g_zeae__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s"/>
           <SpecificAttributeContent field="dbprimary_display_name_1018" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key" tableConstraint="ox_EMBL__dm"/>
           <SpecificAttributeContent field="dbprimary_display_name_1018" internalName="agambiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_EMBL__dm"/>
           <SpecificAttributeContent field="dbprimary_display_name_1018" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_EMBL__dm"/>
@@ -3427,13 +3444,20 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
         </AttributeDescription>
+          
+        <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_f_oxysporum" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_f_oxysporum__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s"/>
+        <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_g_moniliformis" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_g_moniliformis__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s"/>
+        <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_g_zeae" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_g_zeae__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s"/>
+        <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_p_triticina" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_p_triticina__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/puccinia_group/GeneLocus.html?sp=%s"/>
+        <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_u_maydis" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_u_maydis__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/ustilago_maydis/GeneLocus.html?sp=S%s"/>
+        <AttributeDescription checkForNulls="true" displayName="Necha JGI v20 ID" field="dbprimary_acc_1074" internalName="necha_jgi_v20" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_necha_jgi_v20__dm" linkoutURL="exturl1|http://genome.jgi-psf.org/cgi-bin/dispGeneModel?db=Necha2&amp;id=%s"/>
+        <AttributeDescription checkForNulls="true" displayName="Phibase ID" field="dbprimary_acc_1074" internalName="phibase" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_phibase__dm" linkoutURL="exturl1|http://www.phibase.org/query.php?detail=yes&amp;phi_acc=%s"/>   
         <AttributeDescription checkForNulls="true" description="ENA Accessions" displayName="ENA (Genbank) ID" field="dbprimary_acc_1074" internalName="embl_dna" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_EMBL_DNA__dm"/>
         <AttributeDescription checkForNulls="true" description="ENA Accessions" displayName="ENA (Genbank) ID" field="dbprimary_acc_1074" internalName="ena_dna" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_ENA_DNA__dm"/>
         <AttributeDescription checkForNulls="true" description="ENA RNA Accessions" displayName="ENA (Genbank) RNA ID" field="dbprimary_acc_1074" internalName="embl_rna" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_EMBL_RNA__dm"/>
         <AttributeDescription checkForNulls="true" description="ENA RNA Accessions" displayName="ENA (Genbank) RNA ID" field="dbprimary_acc_1074" internalName="ena_rna" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_ENA_RNA__dm"/>
         <AttributeDescription checkForNulls="true" description="ENA Accessions" displayName="ENA (Genbank) ID" field="dbprimary_acc_1074" internalName="ena" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_ENA__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="ENA predicted" field="dbprimary_acc_1074" internalName="embl_predicted" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="40" tableConstraint="ox_EMBL_predicted__dm">
-	</AttributeDescription>
+        <AttributeDescription checkForNulls="true" displayName="ENA predicted" field="dbprimary_acc_1074" internalName="embl_predicted" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="40" tableConstraint="ox_EMBL_predicted__dm"/>
         <AttributeDescription displayName="Ensembl Dog gene" field="dbprimary_acc_1074" internalName="ens_cf_gene" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/Gene/Summary?g=%s" maxLength="40" tableConstraint="ox_Ens_Cf_gene__dm"/>
         <AttributeDescription displayName="Ensembl Dog transcript" field="dbprimary_acc_1074" internalName="ens_cf_transcript" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Ens_Cf_transcript__dm"/>
         <AttributeDescription displayName="Ensembl Dog protein" field="dbprimary_acc_1074" internalName="ens_cf_translation" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/protview?peptide=%s" maxLength="40" tableConstraint="ox_Ens_Cf_translation__dm"/>
