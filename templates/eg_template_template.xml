@@ -1812,13 +1812,7 @@
             <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="foxysporum_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="gmoniliformis_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="athaliana_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="vvinifera_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="sbicolor_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="ppatens_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="alyrata_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="oindica_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="ptrichocarpa_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="oglaberrima_eg_gene"/>
 	    <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="ptriticina_eg_gene"/>
 	    <SpecificOptionContent key="translation_id_1068_key" field="ox_uniprot_genename_bool" internalName="umaydis_eg_gene"/>
           </Option>
@@ -2596,13 +2590,7 @@
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="foxysporum_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="gmoniliformis_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="vvinifera_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ppatens_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="alyrata_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="oindica_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="spurpuratus_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dpulex_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="spurpuratus_eg_gene"/>
@@ -2669,7 +2657,6 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <!--
     <FilterGroup hideDisplay="true" description="Filters matching PO IDS, Terms, and Evidence Codes" displayName="PLANT ONTOLOGY:" hidden="false" internalName="po">
       <FilterCollection displayName="PO Term Accession [e.g. PO:0009066]" hidden="false" internalName="po_filters">
         <FilterDescription hidden="false" internalName="po_clos" multipleValues="1" pointerDataset="closure_PO" pointerFilter="po_parent_term" pointerInterface="default"/>
@@ -2683,6 +2670,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
+<!--
     <FilterGroup hideDisplay="true" description="Filters matching EO IDS, Terms, and Evidence Codes" displayName="ENVIRONMENT ONTOLOGY:" hidden="false" internalName="eo">
       <FilterCollection displayName="EO Term Accession [e.g. EO:0007001]" hidden="false" internalName="eo_filters">
         <FilterDescription hidden="false" internalName="eo_clos" multipleValues="1" pointerDataset="closure_EO" pointerFilter="eo_parent_term" pointerInterface="default"/>
@@ -3355,6 +3343,8 @@
         <AttributeDescription displayName="EO Term Evidence Code (bp)" field="linkage_type_1024" internalName="eo_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_EO__dm"/>
         <AttributeDescription displayName="EO domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_EO__dm"/>
       </AttributeCollection>
+-->
+
       <AttributeCollection displayName="PO" internalName="po_closure">
         <AttributeDescription displayName="PO Term Accession (bp)" field="dbprimary_acc_1074" internalName="po_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.genpontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_PO__dm"/>
         <AttributeDescription displayName="PO Term Name (bp)" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_PO__dm"/>
@@ -3362,6 +3352,7 @@
         <AttributeDescription displayName="PO Term Evidence Code (bp)" field="linkage_type_1024" internalName="po_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_PO__dm"/>
         <AttributeDescription displayName="PO domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_PO__dm"/>
       </AttributeCollection>
+<!--
       <AttributeCollection displayName="GRO" internalName="gro_closure">
         <AttributeDescription displayName="GRO Term Accession (bp)" field="dbprimary_acc_1074" internalName="gro_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_GRO__dm"/>
         <AttributeDescription displayName="GRO Term Name (bp)" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_GRO__dm"/>
@@ -4025,6 +4016,7 @@
         <AttributeDescription checkForNulls="true" displayName="PO Term" field="dbprimary_acc_1074" internalName="po" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_po__dm">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_po__dm"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_po__dm"/>
+	  <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene" />
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_po__dm"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_po__dm"/>
         </AttributeDescription>
@@ -4072,13 +4064,7 @@
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="foxysporum_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="gmoniliformis_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="athaliana_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="vvinifera_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="sbicolor_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="ppatens_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="alyrata_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="oindica_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="ptrichocarpa_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="oglaberrima_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="pultimum_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="dpulex_eg_gene"/>
         </AttributeDescription>
