@@ -23,6 +23,8 @@ Log::Log4perl->easy_init($DEBUG);
 
 my $logger = get_logger();
 
+my $verbose = 1;
+
 # db params
 my $db_host          = 'mysql-eg-staging-1.ebi.ac.uk';
 my $db_port          = 4160;
@@ -66,12 +68,13 @@ my $mart_handle =
   or croak "Could not connect to $mart_string with db_user, $db_user and db_pwd, $db_pwd";
 
 # load registry
-Bio::EnsEMBL::Registry->load_registry_from_db( -host       => $db_host,
-											   -user       => $db_user,
-											   -pass       => $db_pwd,
-											   -port       => $db_port,
-											   -db_version => $release) 
-											   or croak "Could not connect registry to $db_host";
+Bio::EnsEMBL::Registry->load_registry_from_db( 
+    -host       => $db_host,
+    -user       => $db_user,
+    -pass       => $db_pwd,
+    -port       => $db_port,
+    -db_version => $release,
+    -verbose => $verbose);
 
 # get hash of datasets and sql names
 my @datasets = get_dataset_names($mart_handle);
