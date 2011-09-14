@@ -907,14 +907,6 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with Expression ZFIN developmental stage ID(s)" displayType="list" field="expression_zfin_developmentalstage_bool" internalName="with_expression_zfin_developmentalstage" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Expression ZFIN anatomical terms ID(s)" displayType="list" field="expression_zfin_anatomicalterms_bool" internalName="with_expression_zfin_anatomicalterms" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
           <Option displayName="with MGI ID(s)" displayType="list" field="ox_mgi_bool" internalName="with_mgi" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -1312,6 +1304,15 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+	  <!--
+	   <Option displayName="with Expression ZFIN developmental stage ID(s)" displayType="list" field="expression_zfin_developmentalstage_bool" internalName="with_expression_zfin_developmentalstage" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Expression ZFIN anatomical terms ID(s)" displayType="list" field="expression_zfin_anatomicalterms_bool" internalName="with_expression_zfin_anatomicalterms" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with Expression est anatomical system ID(s)" displayType="list" field="expression_est_anatomicalsystem_bool" internalName="with_expression_est_anatomicalsystem" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -1364,6 +1365,9 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+	    <Option displayName="with Expression ZFIN anatomical terms ID(s)" displayType="list" field="exp_zfin_anatomicalterms_bool" internalName="with_exp_zfin_anatomicalterms" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
+          <Option displayName="with Expression ZFIN developmental stage ID(s)" displayType="list" field="exp_zfin_developmentalstage_bool" internalName="with_exp_zfin_developmentalstage" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
+	  -->
           <Option displayName="with GO biological process ID(s)" displayType="list" field="go_biological_process_bool" internalName="with_go_biological_process" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -1466,8 +1470,6 @@
           <Option displayName="with Affymetrix Microarray Zebrafish ID(s)" displayType="list" field="eFG_AFFY_Zebrafish_bool" internalName="with_affy_zebrafish" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with Affy Platypus Exon ID(s)" displayType="list" field="efg_affy_platypus_exon_bool" hidden="false" internalName="with_affy_platypus_exon" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with Affy Porcine ID(s)" displayType="list" field="efg_affy_porcine_bool" hidden="false" internalName="with_affy_porcine" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
-          <Option displayName="with Expression ZFIN anatomical terms ID(s)" displayType="list" field="exp_zfin_anatomicalterms_bool" internalName="with_exp_zfin_anatomicalterms" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
-          <Option displayName="with Expression ZFIN developmental stage ID(s)" displayType="list" field="exp_zfin_developmentalstage_bool" internalName="with_exp_zfin_developmentalstage" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with VEGA Gene ID(s)" displayType="list" field="ox_vega_gene_bool" hidden="true" internalName="with_vega_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with Vega Transcript ID(s)" displayType="list" field="ox_vega_transcript_bool" hidden="true" internalName="with_vega_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with ENST CDS ID(s)" displayType="list" field="ox_ENST_CDS_bool" hidden="true" internalName="with_enst_cds" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
@@ -1477,6 +1479,7 @@
           <Option displayName="with MGI Curated Gene ID(s)" displayType="list" field="ox_mgi_curated_gene_bool" internalName="with_mgi_curated_gene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with MGI Automatic Transcript ID(s)" displayType="list" field="ox_mgi_automatic_transcript_bool" internalName="with_mgi_automatic_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with MGI Curated Transcript ID(s)" displayType="list" field="ox_mgi_curated_transcript_bool" internalName="with_mgi_curated_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
+	  <!--
           <Option displayName="with Expression est anatomical system" displayType="list" field="exp_est_AnatomicalSystem_bool" internalName="with_exp_est_anatomicalsystem" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with Expression est associated with" displayType="list" field="exp_est_AssociatedWith_bool" internalName="with_exp_est_associatedwith" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with Expression est cell type" displayType="list" field="exp_est_CellType_bool" internalName="with_exp_est_celltype" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
@@ -1490,6 +1493,7 @@
           <Option displayName="with Expression gnf anatomical system" displayType="list" field="exp_gnf_AnatomicalSystem_bool" internalName="with_exp_gnf_anatomicalsystem" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with Expression gnf cell type" displayType="list" field="exp_gnf_CellType_bool" internalName="with_exp_gnf_celltype" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with Expression gnf development stage" displayType="list" field="exp_gnf_DevelopmentStage_bool" internalName="with_exp_gnf_developmentstage" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
+	  -->
           <Option displayName="with DBASS3 ID(s)" displayType="list" field="ox_DBASS3_bool" hidden="false" internalName="with_dbass3" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with DBASS5 ID(s)" displayType="list" field="ox_DBASS5_bool" hidden="false" internalName="with_dbass5" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with Human Protein Atlas ID(s)" displayType="list" field="ox_HPA_bool" internalName="with_hpa" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
@@ -2716,7 +2720,8 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter for Genes based on Expression Patters, using Controlled Vocabularies." displayName="EXPRESSION:" internalName="expression" hideDisplay="true">
+    <!--
+    <FilterGroup description="Filter for Genes based on Expression Patterns, using Controlled Vocabularies." displayName="EXPRESSION:" internalName="expression" hideDisplay="true">
       <FilterCollection displayName="eGenetics/SANBI EST anatomical system data" internalName="est_anatomical_system" hideDisplay="true">
         <FilterDescription internalName="est_anatomical_system_term" pointerDataset="hsap_evoc_AnatomicalSystem" pointerFilter="anatomical_system_term" pointerInterface="default">
           <SpecificFilterContent internalName="hsapiens_gene"/>
@@ -2768,6 +2773,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
+    -->
     <FilterGroup description="Filter on Protein data" displayName="PROTEIN:" internalName="protein">
       <FilterCollection displayName="Limit to genes ..." internalName="family_domain_id">
         <FilterDescription displayType="container" internalName="protein_fam_id_bools" type="boolean_list">
@@ -2850,11 +2856,7 @@
             <Option displayName="Only" internalName="only" value="only"/>
             <Option displayName="Excluded" internalName="excluded" value="excluded"/>
           </Option>
-          <Option displayName="with EnzymeCommission ID(s)" displayType="list" field="ox_enzymecommission_bool" internalName="with_enzymecommission" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" value="excluded"/>
-          </Option>
-          <Option displayName="with EnzymeCommission ID(s)" displayType="list" field="ox_ec_number_bool" internalName="with_ec_number" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with EnzymeCommission ID(s)" displayType="list" field="ox_ec_number_bool" internalName="with_ec_number" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" value="only"/>
             <Option displayName="Excluded" internalName="excluded" value="excluded"/>
           </Option>
@@ -3368,8 +3370,7 @@
         <AttributeDescription displayName="SubtiList ID" field="dbprimary_acc_1074" internalName="subtilist" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_SubtiList__dm"/>
         <AttributeDescription displayName="Leproma ID" field="dbprimary_acc_1074" internalName="leproma" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_Leproma__dm"/>
         <AttributeDescription displayName="TubercuList ID" field="dbprimary_acc_1074" internalName="tuberculist" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_TubercuList__dm"/>
-        <AttributeDescription displayName="EnzymeCommission ID" field="dbprimary_acc_1074" internalName="enzymecommission" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_EnzymeCommission__dm"/>
-        <AttributeDescription displayName="EnzymeCommission ID" field="dbprimary_acc_1074" internalName="ec_number" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_ec_number__dm"/>
+        <AttributeDescription displayName="EnzymeCommission ID" field="dbprimary_acc_1074" internalName="ec_number" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_ec_number__dm"/>
         <AttributeDescription checkForNulls="true" displayName="GlycoSuiteDB" field="dbprimary_acc_1074" internalName="glycosuitedb" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_GlycoSuiteDB__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Aedes Genbank ID" field="dbprimary_acc_1074" internalName="aedesgenbank" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/entrez/viewer.fcgi?db=protein&amp;val=%s" maxLength="40" tableConstraint="ox_AedesGenBank__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ArrayExpress ID" field="dbprimary_acc_1074" internalName="arrayexpress" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ArrayExpress__dm"/>
@@ -4147,7 +4148,8 @@
         <AttributeDescription displayName="Illumina Human HT 12" field="display_label_11056" internalName="illumina_humanht_12" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_ILLUMINA_HumanHT_12__dm"/>
       </AttributeCollection>
     </AttributeGroup>
-    <AttributeGroup description="EXPRESSION ATTRIBUTES" displayName="EXPRESSION:" internalName="expression">
+    <!--    
+      <AttributeGroup description="EXPRESSION ATTRIBUTES" displayName="EXPRESSION:" internalName="expression">
       <AttributeCollection displayName="Source of Expression Data" internalName="expression_data_source">
         <AttributeDescription displayName="Anatomical System (egenetics)" field="term_708" internalName="anatomical_system" key="transcript_id_1064_key" maxLength="400" tableConstraint="exp_est_AnatomicalSystem__dm"/>
         <AttributeDescription displayName="Development Stage (egenetics)" field="term_708" internalName="development_stage" key="transcript_id_1064_key" maxLength="400" tableConstraint="exp_est_DevelopmentStage__dm"/>
@@ -4163,6 +4165,7 @@
         <AttributeDescription displayName="Developmental stage ZFIN" field="stable_id_1066" internalName="developmental_stage_zfin_stable_id" key="transcript_id_1064_key" maxLength="128" tableConstraint="exp_zfin_DevelopmentalStage__dm"/>
       </AttributeCollection>
     </AttributeGroup>
+      -->
     <AttributeGroup description="Data for proteins associated with Genes." displayName="PROTEIN:" internalName="protein">
       <AttributeCollection description="Features of Protein Family Data" displayName="Family Attributes" internalName="prot_family">
         <AttributeDescription displayName="Family Description" field="family_description" internalName="family_description" key="transcript_id_1064_key" maxLength="230" tableConstraint="main"/>
