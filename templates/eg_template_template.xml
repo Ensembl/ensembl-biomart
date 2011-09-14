@@ -494,7 +494,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-	  
+	  <Option displayName="with Mycgr3_jgi_v20 ID(s)" displayType="list" field="ox_mycgr3_jgi_v20_gene_bool" internalName="with_mycgr3_jgi_v20" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with PHI-base ID(s)" displayType="list" field="ox_phibase_bool" internalName="with_phibase" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2577,6 +2580,7 @@
           <Option checkForNulls="true" displayName="broad_p_triticina ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_p_triticina" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_p_triticina__dm" type="list"/>
           <Option checkForNulls="true" displayName="broad_u_maydis ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_u_maydis" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_u_maydis__dm" type="list"/>
           <Option checkForNulls="true" displayName="necha_jgi_v20 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="necha_jgi_v20" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_necha_jgi_v20__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="Mycgr3_jgi_v20 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="mycrg3_jgi_v20" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mycgr3_jgi_v20_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="PHI-base ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="phibase" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_phibase__dm" type="list"/>
         </FilterDescription>
       </FilterCollection>
