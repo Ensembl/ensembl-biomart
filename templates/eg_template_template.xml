@@ -3707,7 +3707,7 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene"/>
         </AttributeDescription>
-        <AttributeDescription checkForNulls="true" displayName="GeneDB_SPombe ID" field="dbprimary_acc_1074" internalName="genedb_spombe" key="gene_id_1020_key" linkoutURL="exturl1|http://www.genedb.org/genedb/Search?submit=Search+for&amp;organism=pombe&amp;name=%s" maxLength="40" tableConstraint="ox_GeneDB_Spombe__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="GeneDB_SPombe ID" field="dbprimary_acc_1074" internalName="genedb_spombe" key="translation_id_1068_key" linkoutURL="exturl1|http://www.genedb.org/genedb/Search?submit=Search+for&amp;organism=pombe&amp;name=%s" maxLength="40" tableConstraint="ox_GeneDB_Spombe__dm"/>
         <AttributeDescription checkForNulls="true" displayName="AspGD ID" field="dbprimary_acc_1074" internalName="aspgd" key="gene_id_1020_key" linkoutURL="exturl1|http://www.aspergillusgenome.org/cgi-bin/locus.pl?dbid=%s" maxLength="40" tableConstraint="ox_ASPGD_GENE__dm"/>
         <AttributeDescription displayName="UCSC ID" field="dbprimary_acc_1074" internalName="ucsc" key="transcript_id_1064_key" linkoutURL="exturl|http://genome.ucsc.edu/cgi-bin/hgGene?hgg_chrom=none&amp;org=Human&amp;db=hg18&amp;hgg_gene=%s" maxLength="40" tableConstraint="ox_UCSC__dm">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_UCSC__dm"/>
@@ -3902,7 +3902,9 @@
         </AttributeDescription>
         <AttributeDescription displayName="IntAct ID" field="dbprimary_acc_1074" internalName="intact" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_intact__dm"/>
         <AttributeDescription displayName="IntEnz ID" field="dbprimary_acc_1074" internalName="intenz" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_intenz__dm"/>
-        <AttributeDescription displayName="KEGG ID" field="dbprimary_acc_1074" internalName="ox_KEGG__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_KEGG__dm"/>
+        <AttributeDescription displayName="KEGG ID" field="dbprimary_acc_1074" internalName="ox_KEGG__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_KEGG__dm">
+	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="gene_id_1020_key"/>
+	</AttributeDescription>
         <AttributeDescription displayName="PDBsum ID" field="dbprimary_acc_1074" internalName="ox_PDBsum__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PDBsum__dm"/>
         <AttributeDescription displayName="PeroxiBase ID" field="dbprimary_acc_1074" internalName="ox_PeroxiBase__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PeroxiBase__dm"/>
         <AttributeDescription displayName="PhosSite ID" field="dbprimary_acc_1074" internalName="ox_PhosSite__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PhosSite__dm"/>
