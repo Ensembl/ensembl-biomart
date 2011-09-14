@@ -1017,6 +1017,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="ox_refseq_dna_bool" internalName="oglaberrima_eg_gene"/>
+	    <SpecificOptionContent key="gene_id_1020_key" field="ox_refseq_dna_bool" internalName="ncrassa_eg_gene"/>
           </Option>
           <Option displayName="with RefSeq RNA ID(s)" displayType="list" field="ox_refseq_rna_bool" internalName="with_refseq_rna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -2089,8 +2090,9 @@
           </Option>
           <Option checkForNulls="true" displayName="Protein predicted ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="protein_id_predicted" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_protein_id_predicted__dm" type="list">
 	  </Option>
-          <Option checkForNulls="true" displayName="Refseq Predicted DNA ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_dna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_dna_predicted__dm" type="text">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="transcript_id_1064_key"/>
+          <Option checkForNulls="true" displayName="Refseq Predicted DNA ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_dna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_dna_predicted__dm" type="text">
+            <!--
+	    <SpecificOptionContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="gzeae_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="nfischeri_eg_gene" key="transcript_id_1064_key"/>
@@ -2099,13 +2101,14 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="aflavus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="aniger_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="aoryzae_eg_gene" key="transcript_id_1064_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="transcript_id_1064_key"/>
 	    <SpecificOptionContent field="dbprimary_acc_1074" internalName="umaydis_eg_gene" key="transcript_id_1064_key" />
 	    <SpecificOptionContent field="dbprimary_acc_1074" internalName="nhaematococca_eg_gene" key="transcript_id_1064_key"/>
 	    <SpecificOptionContent field="dbprimary_acc_1074" internalName="tmelanosporum_eg_gene" key="transcript_id_1064_key"/>
 	    <SpecificOptionContent field="dbprimary_acc_1074" internalName="pnodorum_eg_gene" key="transcript_id_1064_key"/>
+	    -->
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="transcript_id_1064_key"/>
@@ -2430,10 +2433,10 @@
           <Option checkForNulls="true" displayName="PDBSUM ID(s)" description="Filter to include genes with PDBSUM IDs" displayType="text" field="dbprimary_acc_1074" internalName="pdbsum" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pdbsum__dm" type="list"/>
           <Option checkForNulls="true" displayName="PeroxiBase ID(s)" description="Filter to include genes with PeroxiBase IDs" displayType="text" field="dbprimary_acc_1074" internalName="peroxibase" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_peroxibase__dm" type="list"/>
           <Option checkForNulls="true" displayName="ReBase ID(s)" description="Filter to include genes with ReBase IDs" displayType="text" field="dbprimary_acc_1074" internalName="rebase" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_rebase__dm" type="list"/>
-          <Option checkForNulls="true" displayName="RefSeq DNA ID(s)" description="Filter to include genes with RefSeq DNA IDs" displayType="text" field="dbprimary_acc_1074" internalName="refseq_dna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_dna__dm" type="list">
+          <Option checkForNulls="true" displayName="RefSeq DNA ID(s)" description="Filter to include genes with RefSeq DNA IDs" displayType="text" field="dbprimary_acc_1074" internalName="refseq_dna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_dna__dm" type="list">
+	    <SpecificOptionContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="transcript_id_1064_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="transcript_id_1064_key" />
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="gene_id_1020_key"/>
@@ -3616,7 +3619,7 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="zmays_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="Protein id predicted" field="dbprimary_acc_1074" internalName="protein_id_predicted" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&amp;cmd=&amp;term=%s&amp;go=Go" maxLength="40" tableConstraint="ox_protein_id_predicted__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="RefSeq DNA ID" field="dbprimary_acc_1074" internalName="refseq_dna" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_dna__dm">
+        <AttributeDescription checkForNulls="true" displayName="RefSeq DNA ID" field="dbprimary_acc_1074" internalName="refseq_dna" key="transcript_id_1064_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_dna__dm">
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="amellifera_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="nvectensis_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene"/>
@@ -3644,7 +3647,7 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="gene_id_1020_key"/>
         </AttributeDescription>
-        <AttributeDescription checkForNulls="true" displayName="RefSeq Predicted DNA ID" field="dbprimary_acc_1074" internalName="refseq_dna_predicted" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_dna_predicted__dm">
+        <AttributeDescription checkForNulls="true" displayName="RefSeq Predicted DNA ID" field="dbprimary_acc_1074" internalName="refseq_dna_predicted" key="transcript_id_1064_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_dna_predicted__dm">
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="amellifera_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="display_label_1074" internalName="nvectensis_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene"/>
@@ -3684,8 +3687,8 @@
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pfalciparum_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pinfestans_eg_gene"/>
-	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="transcript_id_1064_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="transcript_id_1064_key"/>
+          <!--
+	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="nfischeri_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="afumigatus_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aclavatus_eg_gene" key="transcript_id_1064_key"/>
@@ -3697,6 +3700,7 @@
 	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="nhaematococca_eg_gene" key="transcript_id_1064_key"/>
 	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="tmelanosporum_eg_gene" key="transcript_id_1064_key"/>
 	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="pnodorum_eg_gene" key="transcript_id_1064_key"/>
+	  -->
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="RefSeq Protein ID" field="dbprimary_acc_1074" internalName="refseq_peptide" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_peptide__dm">
         </AttributeDescription>
