@@ -486,6 +486,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+	  <Option displayName="with broad_p_nodorum ID(s)" displayType="list" field="ox_broad_p_nodorum_gene_bool" internalName="with_broad_p_nodorum" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with necha_jgi_v20 ID(s)" displayType="list" field="ox_necha_jgi_v20_bool" internalName="with_necha_jgi_v20" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2041,6 +2045,7 @@
           <Option checkForNulls="true" displayName="Broad Institute ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_f_oxysporum" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_f_oxysporum__dm" type="list"/>
           <Option checkForNulls="true" displayName="Broad Institute ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_g_moniliformis" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_g_moniliformis__dm" type="list"/>
           <Option checkForNulls="true" displayName="Broad Institute ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_g_zeae" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_g_zeae__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="Broad Institute ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_p_nodorum" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_p_nodorum_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="GRO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_GRO__dm" type="list"/>
           <Option checkForNulls="true" displayName="TO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="to" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_TO__dm" type="list"/>
           <Option checkForNulls="true" displayName="EO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="eo" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_EO__dm" type="list"/>
