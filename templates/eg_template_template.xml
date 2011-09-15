@@ -3909,7 +3909,7 @@
         </AttributeDescription>
         <AttributeDescription displayName="IntAct ID" field="dbprimary_acc_1074" internalName="intact" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_intact__dm"/>
         <AttributeDescription displayName="IntEnz ID" field="dbprimary_acc_1074" internalName="intenz" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_intenz__dm"/>
-        <AttributeDescription displayName="KEGG ID" field="dbprimary_acc_1074" internalName="ox_KEGG__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_KEGG__dm">
+        <AttributeDescription displayName="KEGG ID" field="dbprimary_acc_1074" internalName="ox_KEGG__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_KEGG__dm" linkoutURL="exturl|http://www.genome.jp/dbget-bin/www_bget?path:%s">
 	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="gene_id_1020_key"/>
 	</AttributeDescription>
         <AttributeDescription displayName="PDBsum ID" field="dbprimary_acc_1074" internalName="ox_PDBsum__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PDBsum__dm"/>
