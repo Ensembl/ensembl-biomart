@@ -1505,6 +1505,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+	  <Option displayName="with PomBase Gene ID(s)" displayType="list" field="ox_pombase_gene_bool" internalName="with_pombase_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
 	  <Option displayName="with KEGG ID(s)" displayType="list" field="ox_kegg_bool" internalName="with_kegg" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2202,6 +2206,8 @@
           <Option checkForNulls="true" displayName="AspGD ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="aspgd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ASPGD_GENE__dm" type="list">
 	  </Option>
           <Option checkForNulls="true" displayName="GeneDB_SPombe ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="genedb_spombe" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_GeneDB_Spombe__dm" type="list">
+          </Option>
+	  <Option checkForNulls="true" displayName="PomBase Gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pombase_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pombase_gene__dm" type="list">
           </Option>
           <Option displayName="HAVANA transcript (Shares CDS with ENST)" displayType="text" field="dbprimary_acc_1074" internalName="shares_cds_with_enst" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_shares_CDS_with_ENST__dm" type="list"/>
           <Option displayName="Ensembl transcript (Shares CDS with OTTT)" displayType="text" field="dbprimary_acc_1074" internalName="shares_cds_with_ottt" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_shares_CDS_with_OTTT__dm" type="list"/>
@@ -3715,6 +3721,7 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="GeneDB_SPombe ID" field="dbprimary_acc_1074" internalName="genedb_spombe" key="translation_id_1068_key" linkoutURL="exturl1|http://www.genedb.org/genedb/Search?submit=Search+for&amp;organism=pombe&amp;name=%s" maxLength="40" tableConstraint="ox_GeneDB_Spombe__dm"/>
+	<AttributeDescription checkForNulls="true" displayName="PomBase Gene ID" field="dbprimary_acc_1074" internalName="pombase_gene" key="gene_id_1020_key" linkoutURL="exturl1|http://www.pombase.org/spombe/result/%s" maxLength="40" tableConstraint="ox_pombase_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="AspGD ID" field="dbprimary_acc_1074" internalName="aspgd" key="gene_id_1020_key" linkoutURL="exturl1|http://www.aspergillusgenome.org/cgi-bin/locus.pl?dbid=%s" maxLength="40" tableConstraint="ox_ASPGD_GENE__dm"/>
         <AttributeDescription displayName="UCSC ID" field="dbprimary_acc_1074" internalName="ucsc" key="transcript_id_1064_key" linkoutURL="exturl|http://genome.ucsc.edu/cgi-bin/hgGene?hgg_chrom=none&amp;org=Human&amp;db=hg18&amp;hgg_gene=%s" maxLength="40" tableConstraint="ox_UCSC__dm">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_UCSC__dm"/>
