@@ -506,6 +506,9 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+
+	  
+
           <Option displayName="with Affymetrix Microarray yeast 2 ID(s)" displayType="list" field="eFG_AFFY_Yeast_2_bool" internalName="with_affy_yeast_2" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -1498,7 +1501,11 @@
           <Option displayName="with DBASS5 ID(s)" displayType="list" field="ox_DBASS5_bool" hidden="false" internalName="with_dbass5" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with Human Protein Atlas ID(s)" displayType="list" field="ox_HPA_bool" internalName="with_hpa" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
           <Option displayName="with Affymetrix Microarray hc g110 ID(s)" displayType="list" field="eFG_AFFY_HC_G110_bool" internalName="with_affy_hc_g110" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
-          <Option displayName="with GeneDB_Spombe ID(s)" displayType="list" field="ox_genedb_spombe_bool" internalName="with_genedb_spombe" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with GeneDB_Spombe ID(s)" displayType="list" field="ox_genedb_spombe_bool" internalName="with_genedb_spombe" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+	  <Option displayName="with KEGG ID(s)" displayType="list" field="ox_kegg_bool" internalName="with_kegg" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2194,7 +2201,7 @@
           <Option checkForNulls="true" displayName="TAIR Locus Model ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tair_model_locus" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tair_model_locus__dm" type="list"/>
           <Option checkForNulls="true" displayName="AspGD ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="aspgd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ASPGD_GENE__dm" type="list">
 	  </Option>
-          <Option checkForNulls="true" displayName="GeneDB_SPombe ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="genedb_spombe" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_GeneDB_Spombe__dm" type="list">
+          <Option checkForNulls="true" displayName="GeneDB_SPombe ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="genedb_spombe" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_GeneDB_Spombe__dm" type="list">
           </Option>
           <Option displayName="HAVANA transcript (Shares CDS with ENST)" displayType="text" field="dbprimary_acc_1074" internalName="shares_cds_with_enst" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_shares_CDS_with_ENST__dm" type="list"/>
           <Option displayName="Ensembl transcript (Shares CDS with OTTT)" displayType="text" field="dbprimary_acc_1074" internalName="shares_cds_with_ottt" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_shares_CDS_with_OTTT__dm" type="list"/>
