@@ -3377,6 +3377,13 @@
           <!--<SpecificAttributeContent field="description_1074" internalName="scerevisiae_eg_gene" key="transcript_id_1064_key"/>-->
         </AttributeDescription>
       </AttributeCollection>
+      <AttributeCollection displayName="PomBase" internalName="pombase_closure">
+        <AttributeDescription displayName="PomBase Term Accession (bp)" field="dbprimary_acc_1074" internalName="pombase_id" key="transcript_id_1064_key" maxLength="40" tableConstraint="go_pombase__dm"/>
+        <AttributeDescription displayName="PomBase Term Name (bp)" field="name_1006" internalName="name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="go_pombase__dm"/>
+        <AttributeDescription displayName="PomBase Term Definition (bp)" field="definition_1006" internalName="definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="go_pombase__dm"/>
+        <AttributeDescription displayName="PomBase Term Evidence Code (bp)" field="linkage_type_1024" internalName="pombase_linkage_type" key="transcript_id_1064_key" maxLength="3" tableConstraint="go_pombase__dm"/>
+        <AttributeDescription displayName="PomBase domain" field="namespace_1003" internalName="namespace_1003" key="transcript_id_1064_key" maxLength="64" tableConstraint="go_pombase__dm"/>
+      </AttributeCollection>
       <AttributeCollection description="Information from external database sources." displayName="External References" internalName="xrefs" maxSelect="3">
         <AttributeDescription displayName="SagaList ID" field="dbprimary_acc_1074" internalName="sagalist" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_SagaList__dm"/>
         <AttributeDescription displayName="TIGR ID" field="dbprimary_acc_1074" internalName="tigr" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_TIGR__dm"/>
