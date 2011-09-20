@@ -77,7 +77,7 @@
         <AttributeDescription datasetLink="5utr" displayName="5' UTR" imageURL="/martview/images/gene_schematic/gene_schematic_5utr.gif" internalName="5utr"/>
         <AttributeDescription datasetLink="3utr" displayName="3' UTR" imageURL="/martview/images/gene_schematic/gene_schematic_3utr.gif" internalName="3utr"/>
         <AttributeDescription datasetLink="cdna" displayName="cDNA sequences" imageURL="/martview/images/gene_schematic/gene_schematic_cdna.gif" internalName="cdna"/>
-        <AttributeDescription datasetLink="peptide" default="true" displayName="Protein" imageURL="/martview/images/gene_schematic/gene_schematic_peptide.gif" internalName="peptide"/>
+        <AttributeDescription datasetLink="peptide" default="true" displayName="Peptide" imageURL="/martview/images/gene_schematic/gene_schematic_peptide.gif" internalName="peptide"/>
         <AttributeDescription datasetLink="coding" displayName="Coding sequence" imageURL="/martview/images/gene_schematic/gene_schematic_coding.gif" internalName="coding"/>
         <AttributeDescription displayName="Phase" internalName="phase"/>
         <AttributeDescription datasetLink="oriented_raw_sequence" displayName="hsapiens_37_oriented_raw_sequence" internalName="oriented_raw_sequence"/>
