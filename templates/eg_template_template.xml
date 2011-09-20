@@ -1195,7 +1195,6 @@
           <Option displayName="with GO MB001 Accession(s)" displayType="list" field="ox_go_mb001_bool" internalName="with_go_mb001_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="ox_go_mb001_bool" internalName="scerevisiae_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_go_mb001_bool" internalName="anidulans_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_go_mb001_bool" internalName="afumigatus_eg_gene"/>
           </Option>
@@ -1453,7 +1452,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene"/>
+            <!--<SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene"/>-->
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
           </Option>
           <Option displayName="with VEGA Translation ID(s)" displayType="list" field="ox_vega_translation_bool" internalName="with_ox_vega_translation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
@@ -2065,9 +2064,9 @@
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
           </Option>
-	  <Option checkForNulls="true" description="filter to include genes encoding proteins with supplied list of PomBase Ontology ID(s)" displayName="PomBase Ontology ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pombase_ontology" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pombase__dm" type="list" />
-	  <Option checkForNulls="true" description="filter to include genes encoding proteins with supplied list of FYPO Ontology ID(s)" displayName="FYPO Ontology ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="fypo" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_fypo__dm" type="list" />
-	  <Option checkForNulls="true" description="filter to include genes encoding proteins with supplied list of MOD Ontology ID(s)" displayName="MOD Ontology ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="mod" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mod__dm" type="list" />
+	  <Option checkForNulls="true" description="filter to include genes encoding proteins with supplied list of PomBase Ontology ID(s)" displayName="PomBase Ontology ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pombase_ontology_accession" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pombase__dm" type="list" />
+	  <Option checkForNulls="true" description="filter to include genes encoding proteins with supplied list of FYPO Ontology ID(s)" displayName="FYPO Ontology ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="fypo_accession" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_fypo__dm" type="list" />
+	  <Option checkForNulls="true" description="filter to include genes encoding proteins with supplied list of MOD Ontology ID(s)" displayName="MOD Ontology ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="mod_accession" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mod__dm" type="list" />
           <Option checkForNulls="true" displayName="Affy Yeast_2" displayType="text" field="display_label_11056" internalName="affy_yeast_2" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_affy_yeast_2__dm" type="list">
             <SpecificOptionContent key="transcript_id_1064_key" field="display_label_11056" internalName="scerevisiae_eg_gene"/>
           </Option>
@@ -2397,7 +2396,7 @@
           <Option checkForNulls="true" description="Filter to include genes with supplied list of Spaink Lab Leiden 3 ID(s)" displayName="Spaink Lab Leiden 3 ID(s) [e.g. LOL01660]" displayType="text" field="display_label_11056" internalName="leiden_leiden3" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="eFG_SPAINK_LAB_LEIDEN_LEIDEN3__dm" type="text"/>
           <Option checkForNulls="true" description="Filter to include genes with supplied list of Fantom ID(s)" displayName="Fantom ID(s) [e.g.77208]" displayType="text" field="dbprimary_acc_1074" internalName="fantom" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_Fantom__dm" type="text"/>
           <Option checkForNulls="true" description="Filter to include genes with supplied list of Genoscope predicted protein ID(s)" displayName="Genoscope predicted protein ID(s) [e.g. GSTENT10021049001]" displayType="text" field="dbprimary_acc_1074" internalName="genoscope_pred_translation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Genoscope_pred_translation__dm" type="list"/>
-          <Option checkForNulls="true" description="Filter to include genes with supplied list of GOSlim GOA Accession(s)" displayName="GOSlim GOA Accessions(s) [e.g. GO:0003676]" displayType="text" field="dbprimary_acc_1074" internalName="goslim_goa" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_goslim_goa__dm" type="list">
+          <Option checkForNulls="true" description="Filter to include genes with supplied list of GOSlim GOA Accession(s)" displayName="GOSlim GOA Accessions(s) [e.g. GO:0003676]" displayType="text" field="dbprimary_acc_1074" internalName="goslim_goa_accession" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_goslim_goa__dm" type="list">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
@@ -3389,21 +3388,21 @@
         </AttributeDescription>
       </AttributeCollection>
       <AttributeCollection displayName="PomBase" internalName="pombase_closure">
-        <AttributeDescription displayName="PomBase Term Accession" field="dbprimary_acc_1074" internalName="pombase_id" key="translation_id_1068_key" maxLength="40" tableConstraint="go_pombase__dm"/>
+        <AttributeDescription displayName="PomBase Term Accession" field="dbprimary_acc_1074" internalName="pombase_ontology_accession" key="translation_id_1068_key" maxLength="40" tableConstraint="go_pombase__dm"/>
         <AttributeDescription displayName="PomBase Term Name" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_pombase__dm"/>
         <AttributeDescription displayName="PomBase Term Definition" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_pombase__dm"/>
         <AttributeDescription displayName="PomBase Term Evidence Code" field="linkage_type_1024" internalName="pombase_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_pombase__dm"/>
         <AttributeDescription displayName="PomBase domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_pombase__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="FYPO" internalName="fypo_closure">
-        <AttributeDescription displayName="FYPO Term Accession" field="dbprimary_acc_1074" internalName="fypo_id" key="translation_id_1068_key" maxLength="40" tableConstraint="go_fypo__dm"/>
+        <AttributeDescription displayName="FYPO Term Accession" field="dbprimary_acc_1074" internalName="fypo_accession" key="translation_id_1068_key" maxLength="40" tableConstraint="go_fypo__dm"/>
         <AttributeDescription displayName="FYPO Term Name" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_fypo__dm"/>
         <AttributeDescription displayName="FYPO Term Definition" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_fypo__dm"/>
         <AttributeDescription displayName="FYPO Term Evidence Code" field="linkage_type_1024" internalName="fypo_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_fypo__dm"/>
         <AttributeDescription displayName="FYPO domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_fypo__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="MOD" internalName="mod_closure">
-        <AttributeDescription displayName="MOD Term Accession" field="dbprimary_acc_1074" internalName="mod_id" key="translation_id_1068_key" maxLength="40" tableConstraint="go_mod__dm"/>
+        <AttributeDescription displayName="MOD Term Accession" field="dbprimary_acc_1074" internalName="mod_accession" key="translation_id_1068_key" maxLength="40" tableConstraint="go_mod__dm"/>
         <AttributeDescription displayName="MOD Term Name" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_mod__dm"/>
         <AttributeDescription displayName="MOD Term Definition" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_mod__dm"/>
         <AttributeDescription displayName="MOD Term Evidence Code" field="linkage_type_1024" internalName="mod_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_mod__dm"/>
