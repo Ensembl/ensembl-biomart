@@ -1207,6 +1207,18 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+	  <Option displayName="with PomBase Term Accession(s)" displayType="list" field="ox_pombase_bool" internalName="with_pombase" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+	  <Option displayName="with FYPO Term Accession(s)" displayType="list" field="ox_fypo_bool" internalName="with_fypo" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+	  <Option displayName="with MOD Term Accession(s)" displayType="list" field="ox_mod_bool" internalName="with_mod" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with IPI ID(s)" displayType="list" field="ox_ipi_bool" internalName="with_ipi" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -3378,24 +3390,24 @@
         </AttributeDescription>
       </AttributeCollection>
       <AttributeCollection displayName="PomBase" internalName="pombase_closure">
-        <AttributeDescription displayName="PomBase Term Accession (bp)" field="dbprimary_acc_1074" internalName="pombase_id" key="transcript_id_1064_key" maxLength="40" tableConstraint="go_pombase__dm"/>
-        <AttributeDescription displayName="PomBase Term Name (bp)" field="name_1006" internalName="name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="go_pombase__dm"/>
-        <AttributeDescription displayName="PomBase Term Definition (bp)" field="definition_1006" internalName="definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="go_pombase__dm"/>
-        <AttributeDescription displayName="PomBase Term Evidence Code (bp)" field="linkage_type_1024" internalName="pombase_linkage_type" key="transcript_id_1064_key" maxLength="3" tableConstraint="go_pombase__dm"/>
-        <AttributeDescription displayName="PomBase domain" field="namespace_1003" internalName="namespace_1003" key="transcript_id_1064_key" maxLength="64" tableConstraint="go_pombase__dm"/>
+        <AttributeDescription displayName="PomBase Term Accession" field="dbprimary_acc_1074" internalName="pombase_id" key="translation_id_1068_key" maxLength="40" tableConstraint="go_pombase__dm"/>
+        <AttributeDescription displayName="PomBase Term Name" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_pombase__dm"/>
+        <AttributeDescription displayName="PomBase Term Definition" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_pombase__dm"/>
+        <AttributeDescription displayName="PomBase Term Evidence Code" field="linkage_type_1024" internalName="pombase_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_pombase__dm"/>
+        <AttributeDescription displayName="PomBase domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_pombase__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="FYPO" internalName="fypo_closure">
-        <AttributeDescription displayName="FYPO Term Accession (bp)" field="dbprimary_acc_1074" internalName="fypo_id" key="transcript_id_1064_key" maxLength="40" tableConstraint="go_fypo__dm"/>
-        <AttributeDescription displayName="FYPO Term Name (bp)" field="name_1006" internalName="name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="go_fypo__dm"/>
-        <AttributeDescription displayName="FYPO Term Definition (bp)" field="definition_1006" internalName="definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="go_fypo__dm"/>
-        <AttributeDescription displayName="FYPO Term Evidence Code (bp)" field="linkage_type_1024" internalName="fypo_linkage_type" key="transcript_id_1064_key" maxLength="3" tableConstraint="go_fypo__dm"/>
-        <AttributeDescription displayName="FYPO domain" field="namespace_1003" internalName="namespace_1003" key="transcript_id_1064_key" maxLength="64" tableConstraint="go_fypo__dm"/>
+        <AttributeDescription displayName="FYPO Term Accession" field="dbprimary_acc_1074" internalName="fypo_id" key="translation_id_1068_key" maxLength="40" tableConstraint="go_fypo__dm"/>
+        <AttributeDescription displayName="FYPO Term Name" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_fypo__dm"/>
+        <AttributeDescription displayName="FYPO Term Definition" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_fypo__dm"/>
+        <AttributeDescription displayName="FYPO Term Evidence Code" field="linkage_type_1024" internalName="fypo_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_fypo__dm"/>
+        <AttributeDescription displayName="FYPO domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_fypo__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="MOD" internalName="mod_closure">
-        <AttributeDescription displayName="MOD Term Accession (bp)" field="dbprimary_acc_1074" internalName="mod_id" key="translation_id_1068_key" maxLength="40" tableConstraint="go_mod__dm"/>
-        <AttributeDescription displayName="MOD Term Name (bp)" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_mod__dm"/>
-        <AttributeDescription displayName="MOD Term Definition (bp)" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_mod__dm"/>
-        <AttributeDescription displayName="MOD Term Evidence Code (bp)" field="linkage_type_1024" internalName="mod_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_mod__dm"/>
+        <AttributeDescription displayName="MOD Term Accession" field="dbprimary_acc_1074" internalName="mod_id" key="translation_id_1068_key" maxLength="40" tableConstraint="go_mod__dm"/>
+        <AttributeDescription displayName="MOD Term Name" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_mod__dm"/>
+        <AttributeDescription displayName="MOD Term Definition" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_mod__dm"/>
+        <AttributeDescription displayName="MOD Term Evidence Code" field="linkage_type_1024" internalName="mod_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_mod__dm"/>
         <AttributeDescription displayName="MOD domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_mod__dm"/>
       </AttributeCollection>
       <AttributeCollection description="Information from external database sources." displayName="External References" internalName="xrefs" maxSelect="3">
