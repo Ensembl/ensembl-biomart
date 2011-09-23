@@ -217,6 +217,34 @@
               <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
               <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
             </Option>
+          <Option displayName="with nimblegen_nd_65k_v1 ID(s)" displayType="list" field="efg_nimblegen_nd_65k_v1_bool" internalName="with_nimblegen_nd_65k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+ <Option displayName="with go_to_gene ID(s)" displayType="list" field="ox_go_to_gene_bool" internalName="with_go_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with refseq_mrna ID(s)" displayType="list" field="ox_refseq_mrna_bool" internalName="with_refseq_mrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with refseq_mrna_predicted ID(s)" displayType="list" field="ox_refseq_mrna_predicted_bool" internalName="with_refseq_mrna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with refseq_ncrna ID(s)" displayType="list" field="ox_refseq_ncrna_bool" internalName="with_refseq_ncrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with refseq_ncrna_predicted ID(s)" displayType="list" field="ox_refseq_ncrna_predicted_bool" internalName="with_refseq_ncrna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with uniprot_genename_mb001 ID(s)" displayType="list" field="ox_uniprot_genename_mb001_bool" internalName="with_uniprot_genename_mb001" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
             <Option displayName="with anoxcel ID(s)" displayType="list" field="ox_anoxcel_bool" internalName="with_anoxcel" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
               <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
               <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -1879,6 +1907,7 @@
           <Option checkForNulls="true" displayName="CCDS ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ccds" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_CCDS__dm" type="text"/>
           <Option checkForNulls="true" displayName="Eukaryotic Promoter Database (EPD) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="epd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_EPD__dm" type="text"/>
           <Option checkForNulls="true" displayName="G protein-coupled Receptor (GPCR) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gpcr" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_GPCR__dm" type="text"/>
+          <Option checkForNulls="true" displayName="nimblegen_nd_65k_v1 ID(s)" displayType="text" field="display_label_11056" internalName="nimblegen_nd_65k_v1" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nimblegen_nd_65k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="MEROPS ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="merops" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_MEROPS__dm" type="text">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key" tableConstraint="ox_MEROPS__dm"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene"/>
@@ -2021,6 +2050,7 @@
           <Option checkForNulls="true" displayName="Gadfly protein cgid ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gadfly_translation_cgid" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gadfly_translation_cgid__dm" type="list"/>
           <Option checkForNulls="true" displayName="Genoscope pred gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="genoscope_pred_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Genoscope_pred_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="Genoscope pred transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="genoscope_pred_transcript" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Genoscope_pred_transcript__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="go_to_gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="go_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_go_to_gene__dm" type="list"/>
           <!--
 	  <Option checkForNulls="true" description="filter to include genes with supplied list of GO ID(s)" displayName="GO ID(s) for genes" displayType="text" field="dbprimary_acc_1074" internalName="go_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_GO_to_gene__dm" type="list">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="translation_id_1068_key"/>
@@ -2177,6 +2207,11 @@
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="smansoni_eg_gene"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="nvectensis_eg_gene"/>
           </Option>
+	  <Option checkForNulls="true" displayName="refseq_mrna ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_mrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_mrna__dm" type="list"/> 
+	  <Option checkForNulls="true" displayName="refseq_mrna_predicted ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_mrna_predicted__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="refseq_ncrna ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_ncrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_ncrna__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="refseq_ncrna_predicted ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_ncrna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_ncrna_predicted__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="uniprot_genename_mb001 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_genename_mb001" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_genename_mb001__dm" type="list"/>
           <Option checkForNulls="true" displayName="Refseq protein ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_peptide" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RefSeq_peptide__dm" type="text"/>
           <Option checkForNulls="true" displayName="Refseq predicted protein ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_peptide_predicted" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RefSeq_peptide_predicted__dm" type="text"/>
           <Option checkForNulls="true" displayName="Refseq Genomic ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_genomic" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RefSeq_genomic__dm" type="text"/>
@@ -3314,15 +3349,6 @@
         <AttributeDescription displayName="Canonical transcript stable ID(s)" field="stable_id_1066_clash" internalName="canonical_transcript_stable_id" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s" maxLength="128" tableConstraint="main"/>
         <AttributeDescription displayName="Gene Biotype" field="biotype_1020" internalName="gene_biotype" key="gene_id_1020_key" maxLength="40" tableConstraint="main"/>
         <AttributeDescription displayName="Transcript Biotype" field="biotype_1064" internalName="transcript_biotype" key="transcript_id_1064_key" maxLength="40" tableConstraint="main"/>
-
-        <AttributeDescription checkForNulls="true" displayName="aaegypti_eg_gene__agilent_oxford_agilent_44k_v1__dm ID" field="display_label_11056" internalName="aaegypti_eg_gene__agilent_oxford_agilent_44k_v1__dm" key="transcript_id_1064_key" maxLength="40" tableConstraint="aaegypti_eg_gene__efg_agilent_oxford_agilent_44k_v1__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="aaegypti_eg_gene__liv_liv_aegdetox_0_25k_v1__dm ID" field="display_label_11056" internalName="aaegypti_eg_gene__liv_liv_aegdetox_0_25k_v1__dm" key="transcript_id_1064_key" maxLength="40" tableConstraint="aaegypti_eg_gene__efg_liv_liv_aegdetox_0_25k_v1__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="aaegypti_eg_gene__liv_liv_aegdetox_0_25k_v2__dm ID" field="display_label_11056" internalName="aaegypti_eg_gene__liv_liv_aegdetox_0_25k_v2__dm" key="transcript_id_1064_key" maxLength="40" tableConstraint="aaegypti_eg_gene__efg_liv_liv_aegdetox_0_25k_v2__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="agambiae_eg_gene__custom_est_liv_gamdetox_0_25k_v1__dm ID" field="display_label_11056" internalName="agambiae_eg_gene__custom_est_liv_gamdetox_0_25k_v1__dm" key="transcript_id_1064_key" maxLength="40" tableConstraint="agambiae_eg_gene__efg_custom_est_liv_gamdetox_0_25k_v1__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="agambiae_eg_gene__custom_est_liv_gamdetox_0_25k_v2__dm ID" field="display_label_11056" internalName="agambiae_eg_gene__custom_est_liv_gamdetox_0_25k_v2__dm" key="transcript_id_1064_key" maxLength="40" tableConstraint="agambiae_eg_gene__efg_custom_est_liv_gamdetox_0_25k_v2__dm__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="affy_agsnp01 ID" field="display_label_11056" internalName="affy_agsnp01" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_agsnp01__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="agilent_gpl10542 ID" field="display_label_11056" internalName="agilent_gpl10542" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl10542__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="agilent_gpl9246 ID" field="display_label_11056" internalName="agilent_gpl9246" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl9246__dm"/>
       </AttributeCollection>
     </AttributeGroup>-->
     <AttributeGroup displayName="EXTERNAL:" internalName="external">
@@ -3479,6 +3505,24 @@
         <AttributeDescription checkForNulls="true" displayName="Ensembl Human transcript" field="dbprimary_acc_1074" internalName="ens_hs_transcript" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Ens_Hs_transcript__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Ensembl Human protein" field="dbprimary_acc_1074" internalName="ens_hs_translation" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/protview?peptide=%s" maxLength="40" tableConstraint="ox_Ens_Hs_translation__dm"/>
         <AttributeDescription checkForNulls="true" displayName="EntrezGene ID" field="dbprimary_acc_1074" internalName="entrezgene" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?cmd=search&amp;db=gene&amp;term=%s[uid]" maxLength="40" tableConstraint="ox_entrezgene__dm">
+
+        <AttributeDescription checkForNulls="true" displayName="aaegypti_eg_gene__agilent_oxford_agilent_44k_v1__dm ID" field="display_label_11056" internalName="aaegypti_eg_gene__agilent_oxford_agilent_44k_v1__dm" key="transcript_id_1064_key" maxLength="40" tableConstraint="aaegypti_eg_gene__efg_agilent_oxford_agilent_44k_v1__dm__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="aaegypti_eg_gene__liv_liv_aegdetox_0_25k_v1__dm ID" field="display_label_11056" internalName="aaegypti_eg_gene__liv_liv_aegdetox_0_25k_v1__dm" key="transcript_id_1064_key" maxLength="40" tableConstraint="aaegypti_eg_gene__efg_liv_liv_aegdetox_0_25k_v1__dm__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="aaegypti_eg_gene__liv_liv_aegdetox_0_25k_v2__dm ID" field="display_label_11056" internalName="aaegypti_eg_gene__liv_liv_aegdetox_0_25k_v2__dm" key="transcript_id_1064_key" maxLength="40" tableConstraint="aaegypti_eg_gene__efg_liv_liv_aegdetox_0_25k_v2__dm__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="agambiae_eg_gene__custom_est_liv_gamdetox_0_25k_v1__dm ID" field="display_label_11056" internalName="agambiae_eg_gene__custom_est_liv_gamdetox_0_25k_v1__dm" key="transcript_id_1064_key" maxLength="40" tableConstraint="agambiae_eg_gene__efg_custom_est_liv_gamdetox_0_25k_v1__dm__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="agambiae_eg_gene__custom_est_liv_gamdetox_0_25k_v2__dm ID" field="display_label_11056" internalName="agambiae_eg_gene__custom_est_liv_gamdetox_0_25k_v2__dm" key="transcript_id_1064_key" maxLength="40" tableConstraint="agambiae_eg_gene__efg_custom_est_liv_gamdetox_0_25k_v2__dm__dm"/>
+
+        <AttributeDescription checkForNulls="true" displayName="affy_agsnp01 ID" field="display_label_11056" internalName="affy_agsnp01" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_agsnp01__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="agilent_gpl10542 ID" field="display_label_11056" internalName="agilent_gpl10542" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl10542__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="agilent_gpl9246 ID" field="display_label_11056" internalName="agilent_gpl9246" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl9246__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="nimblegen_nd_65k_v1 ID" field="display_label_11056" internalName="nimblegen_nd_65k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_nimblegen_nd_65k_v1__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="go_to_gene ID" field="dbprimary_acc_1074" internalName="go_to_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_go_to_gene__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="refseq_mrna ID" field="dbprimary_acc_1074" internalName="refseq_mrna" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_mrna__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="refseq_mrna_predicted ID" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_mrna_predicted__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="refseq_ncrna ID" field="dbprimary_acc_1074" internalName="refseq_ncrna" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_ncrna__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="refseq_ncrna_predicted ID" field="dbprimary_acc_1074" internalName="refseq_ncrna_predicted" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_ncrna_predicted__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="uniprot_genename_mb001 ID" field="dbprimary_acc_1074" internalName="uniprot_genename_mb001" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_uniprot_genename_mb001__dm"/>
+
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="amellifera_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="nvectensis_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene"/>
