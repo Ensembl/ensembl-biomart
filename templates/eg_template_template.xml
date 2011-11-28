@@ -222,7 +222,6 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-
             <Option displayName="with agilent_gpl9246 ID(s)" displayType="list" field="efg_agilent_gpl9246_bool" internalName="with_agilent_gpl9246" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
               <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
               <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -231,27 +230,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
- <Option displayName="with go_to_gene ID(s)" displayType="list" field="ox_go_to_gene_bool" internalName="with_go_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with RefSeq mRNA ID(s)" displayType="list" field="ox_refseq_mrna_bool" internalName="with_refseq_mrna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with RefSeq Predicted mRNA ID(s)" displayType="list" field="ox_refseq_mrna_predicted_bool" internalName="with_refseq_mrna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with refseq_ncrna ID(s)" displayType="list" field="ox_refseq_ncrna_bool" internalName="with_refseq_ncrna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with refseq_ncrna_predicted ID(s)" displayType="list" field="ox_refseq_ncrna_predicted_bool" internalName="with_refseq_ncrna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with uniprot_genename_mb001 ID(s)" displayType="list" field="ox_uniprot_genename_mb001_bool" internalName="with_uniprot_genename_mb001" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+	  <Option displayName="with go_to_gene ID(s)" displayType="list" field="ox_go_to_gene_bool" internalName="with_go_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -260,14 +239,6 @@
               <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
             </Option>
             <Option displayName="with ribosomal_protein_gene_db ID(s)" displayType="list" field="ox_ribosomal_protein_gene_db_bool" internalName="with_ribosomal_protein_gene_db" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with schistodb ID(s)" displayType="list" field="ox_schistodb_bool" internalName="with_schistodb" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with triad_jgi_v10 ID(s)" displayType="list" field="ox_triad_jgi_v10_bool" internalName="with_triad_jgi_v10" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
               <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
               <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
             </Option>
@@ -1554,11 +1525,6 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-	  <Option displayName="with KEGG ID(s)" displayType="list" field="ox_kegg_bool" internalName="with_kegg" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-	    <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene" />
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
           <Option displayName="with COG ID(s)" displayType="list" field="ox_cog_bool" internalName="with_cog" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -1895,6 +1861,43 @@
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
           <Option displayName="with TAIR Symbol ID(s)" displayType="list" field="ox_tair_symbol_bool" internalName="with_tair_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+	  <Option displayName="with AGD ID(s)" displayType="list" field="ox_agd_gene_bool" internalName="with_agd_gene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+	  <Option displayName="with RefSeq mRNA ID(s)" displayType="list" field="ox_refseq_mrna_bool" internalName="with_refseq_mrna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with RefSeq Predicted mRNA ID(s)" displayType="list" field="ox_refseq_mrna_predicted_bool" internalName="with_refseq_mrna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+	  <Option displayName="with KEGG ID(s)" displayType="list" field="ox_kegg_bool" internalName="with_kegg" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+	    <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene" />
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+	  <Option displayName="with schistodb ID(s)" displayType="list" field="ox_schistodb_bool" internalName="with_schistodb" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with triad_jgi_v10 ID(s)" displayType="list" field="ox_triad_jgi_v10_bool" internalName="with_triad_jgi_v10" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+	  <Option displayName="with refseq_ncrna ID(s)" displayType="list" field="ox_refseq_ncrna_bool" internalName="with_refseq_ncrna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with refseq_ncrna_predicted ID(s)" displayType="list" field="ox_refseq_ncrna_predicted_bool" internalName="with_refseq_ncrna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with uniprot_genename_mb001 ID(s)" displayType="list" field="ox_uniprot_genename_mb001_bool" internalName="with_uniprot_genename_mb001" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -4121,6 +4124,7 @@
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="dpulex_eg_gene"/>
 	  <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="umaydis_eg_gene"/>
         </AttributeDescription>
+	<AttributeDescription checkForNulls="true" displayName="AGD ID" field="dbprimary_acc_1074" internalName="agd_gene_id" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_agd_gene__dm"/>
       </AttributeCollection>
       <AttributeCollection description="Microarray Attributes" displayName="Microarray Attributes" internalName="microarray" maxSelect="2">
         <AttributeDescription checkForNulls="true" displayName="Liv Aegdetox0 25k v1 probe ID" field="display_label_11056" internalName="efg_liv_liv_aegdet0_25k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_liv_liv_aegdetox_0_25k_v1__dm"/>
