@@ -235,19 +235,19 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with refseq_mrna ID(s)" displayType="list" field="ox_refseq_mrna_bool" internalName="with_refseq_mrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with RefSeq mRNA ID(s)" displayType="list" field="ox_refseq_mrna_bool" internalName="with_refseq_mrna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with refseq_mrna_predicted ID(s)" displayType="list" field="ox_refseq_mrna_predicted_bool" internalName="with_refseq_mrna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with RefSeq Predicted mRNA ID(s)" displayType="list" field="ox_refseq_mrna_predicted_bool" internalName="with_refseq_mrna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with refseq_ncrna ID(s)" displayType="list" field="ox_refseq_ncrna_bool" internalName="with_refseq_ncrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with refseq_ncrna ID(s)" displayType="list" field="ox_refseq_ncrna_bool" internalName="with_refseq_ncrna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with refseq_ncrna_predicted ID(s)" displayType="list" field="ox_refseq_ncrna_predicted_bool" internalName="with_refseq_ncrna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with refseq_ncrna_predicted ID(s)" displayType="list" field="ox_refseq_ncrna_predicted_bool" internalName="with_refseq_ncrna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2219,10 +2219,10 @@
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="smansoni_eg_gene"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="nvectensis_eg_gene"/>
           </Option>
-	  <Option checkForNulls="true" displayName="refseq_mrna ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_mrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_mrna__dm" type="list"/> 
-	  <Option checkForNulls="true" displayName="refseq_mrna_predicted ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_mrna_predicted__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="refseq_mrna ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_mrna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_mrna__dm" type="list"/> 
+	  <Option checkForNulls="true" displayName="refseq_mrna_predicted ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_mrna_predicted__dm" type="list"/>
 	  <Option checkForNulls="true" displayName="refseq_ncrna ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_ncrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_ncrna__dm" type="list"/>
-	  <Option checkForNulls="true" displayName="refseq_ncrna_predicted ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_ncrna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_ncrna_predicted__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="refseq_ncrna_predicted ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_ncrna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_ncrna_predicted__dm" type="list"/>
 	  <Option checkForNulls="true" displayName="uniprot_genename_mb001 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_genename_mb001" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_genename_mb001__dm" type="list"/>
           <Option checkForNulls="true" displayName="Refseq protein ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_peptide" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RefSeq_peptide__dm" type="text"/>
           <Option checkForNulls="true" displayName="Refseq predicted protein ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_peptide_predicted" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RefSeq_peptide_predicted__dm" type="text"/>
@@ -2980,7 +2980,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with RefSeq DNA ID(s)" displayType="list" field="ox_refseqdna_bool" internalName="with_ox_refseqdna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with RefSeq DNA ID(s)" displayType="list" field="ox_refseqdna_bool" internalName="with_ox_refseqdna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -3533,12 +3533,11 @@
         <AttributeDescription checkForNulls="true" displayName="agilent_gpl9246 ID" field="display_label_11056" internalName="agilent_gpl9246" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl9246__dm"/>
         <AttributeDescription checkForNulls="true" displayName="nimblegen_nd_65k_v1 ID" field="display_label_11056" internalName="nimblegen_nd_65k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_nimblegen_nd_65k_v1__dm"/>
         <AttributeDescription checkForNulls="true" displayName="go_to_gene ID" field="dbprimary_acc_1074" internalName="go_to_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_go_to_gene__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="refseq_mrna ID" field="dbprimary_acc_1074" internalName="refseq_mrna" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_mrna__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="refseq_mrna_predicted ID" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_mrna_predicted__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="refseq_ncrna ID" field="dbprimary_acc_1074" internalName="refseq_ncrna" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_ncrna__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="refseq_ncrna_predicted ID" field="dbprimary_acc_1074" internalName="refseq_ncrna_predicted" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_ncrna_predicted__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="refseq_mrna ID" field="dbprimary_acc_1074" internalName="refseq_mrna" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_refseq_mrna__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="refseq_mrna_predicted ID" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_refseq_mrna_predicted__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="refseq_ncrna ID" field="dbprimary_acc_1074" internalName="refseq_ncrna" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_refseq_ncrna__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="refseq_ncrna_predicted ID" field="dbprimary_acc_1074" internalName="refseq_ncrna_predicted" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_refseq_ncrna_predicted__dm"/>
         <AttributeDescription checkForNulls="true" displayName="uniprot_genename_mb001 ID" field="dbprimary_acc_1074" internalName="uniprot_genename_mb001" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_uniprot_genename_mb001__dm"/>
-
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="amellifera_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="nvectensis_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene"/>
@@ -4018,7 +4017,7 @@
         <AttributeDescription displayName="Pptase ID" field="dbprimary_acc_1074" internalName="ox_PptaseDB__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PptaseDB__dm"/>
         <AttributeDescription displayName="REBASE ID" field="dbprimary_acc_1074" internalName="ox_REBASE__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_REBASE__dm"/>
         <AttributeDescription displayName="Reactome ID" field="dbprimary_acc_1074" internalName="ox_Reactome__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_Reactome__dm"/>
-        <AttributeDescription displayName="RefSeq DNA ID" field="dbprimary_acc_1074" internalName="ox_RefSeqDNA__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_RefSeqDNA__dm"/>
+        <AttributeDescription displayName="RefSeq DNA ID" field="dbprimary_acc_1074" internalName="ox_RefSeqDNA__dm_dbprimary_acc_1074" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_RefSeqDNA__dm"/>
         <AttributeDescription displayName="RefSeq Protein ID" field="dbprimary_acc_1074" internalName="ox_RefSeqPROTEIN__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_RefSeqPROTEIN__dm"/>
         <AttributeDescription displayName="RefSeq RNA ID" field="dbprimary_acc_1074" internalName="ox_RefSeqRNA__dm_dbprimary_acc_1074" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_RefSeqRNA__dm"/>
         <AttributeDescription displayName="RefSeq RNA ID" field="dbprimary_acc_1074" internalName="ox_RefSeq_rna__dm_dbprimary_acc_1074" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_RefSeq_rna__dm"/>
