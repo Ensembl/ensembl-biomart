@@ -1864,7 +1864,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-	  <Option displayName="with AGD ID(s)" displayType="list" field="ox_agd_gene_bool" internalName="with_agd_gene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+	  <Option displayName="with Ashbya Genome Database ID(s)" displayType="list" field="ox_agd_gene_bool" internalName="with_agd_gene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2661,6 +2661,7 @@
           <Option checkForNulls="true" displayName="necha_jgi_v20 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="necha_jgi_v20" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_necha_jgi_v20__dm" type="list"/>
 	  <Option checkForNulls="true" displayName="Mycgr3_jgi_v20 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="mycrg3_jgi_v20" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mycgr3_jgi_v20_gene__dm" type="list"/>
 	  <Option checkForNulls="true" displayName="Tuber_genoscope ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="Tuber_genoscope" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tuber_genoscope_gene__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="Ashbya Genome Database ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="agd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_agd_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="PHI-base ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="phibase" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_phibase__dm" type="list"/>
         </FilterDescription>
       </FilterCollection>
@@ -4124,7 +4125,7 @@
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="dpulex_eg_gene"/>
 	  <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="umaydis_eg_gene"/>
         </AttributeDescription>
-	<AttributeDescription checkForNulls="true" displayName="AGD ID" field="dbprimary_acc_1074" internalName="agd_gene_id" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_agd_gene__dm"/>
+	<AttributeDescription checkForNulls="true" displayName="Ashbya Genome Database ID" field="dbprimary_acc_1074" internalName="agd_gene_id" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_agd_gene__dm"/>
       </AttributeCollection>
       <AttributeCollection description="Microarray Attributes" displayName="Microarray Attributes" internalName="microarray" maxSelect="2">
         <AttributeDescription checkForNulls="true" displayName="Liv Aegdetox0 25k v1 probe ID" field="display_label_11056" internalName="efg_liv_liv_aegdet0_25k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_liv_liv_aegdetox_0_25k_v1__dm"/>
