@@ -4123,7 +4123,7 @@
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="dpulex_eg_gene"/>
 	  <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="umaydis_eg_gene"/>
         </AttributeDescription>
-	<AttributeDescription checkForNulls="true" displayName="Ashbya Genome Database ID" field="dbprimary_acc_1074" internalName="agd_gene_id" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_agd_gene__dm"/>
+	<AttributeDescription checkForNulls="true" displayName="Ashbya Genome Database ID" field="dbprimary_acc_1074" internalName="agd_gene_id" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_agd_gene__dm" linkoutURL="exturl1|http://agd.vital-it.ch/Ashbya_gossypii/geneview?gene=%s" />
       </AttributeCollection>
       <AttributeCollection description="Microarray Attributes" displayName="Microarray Attributes" internalName="microarray" maxSelect="2">
         <AttributeDescription checkForNulls="true" displayName="Liv Aegdetox0 25k v1 probe ID" field="display_label_11056" internalName="efg_liv_liv_aegdet0_25k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_liv_liv_aegdetox_0_25k_v1__dm"/>
