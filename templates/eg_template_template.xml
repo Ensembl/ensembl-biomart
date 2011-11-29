@@ -1458,6 +1458,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
+	    <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene"/>
           </Option>
           <Option displayName="with VEGA Translation ID(s)" displayType="list" field="ox_vega_translation_bool" internalName="with_ox_vega_translation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -2447,6 +2448,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="gene_id_1020_key"/>
+	    <SpecificOptionContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="transcript_id_1064_key"/>
           </Option>
           <Option description="Filter to include genes with supplied list of Illumina Human HT 12 ID(s)" displayName="Illumina Human HT 12 ID(s) [e.g. ILMN_1672925]" displayType="text" field="display_label_11056" internalName="illumina_humanht_12" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_ILLUMINA_HumanWG_6_V3__dm" type="list"/>
           <Option checkForNulls="true" description="Filter to include genes with supplied list of RGD symbol(s)" displayName="RGD Symbol [e.g. Cntnap5b]" displayType="text" field="display_label_1074" internalName="rgd_symbol" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RGD__dm" type="list"/>
@@ -3417,12 +3419,14 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
         <AttributeDescription displayName="GOSlim GOA Description" field="description_1074" internalName="goslim_goa_description" key="translation_id_1068_key" maxLength="255" tableConstraint="ox_goslim_goa__dm">
           <SpecificAttributeContent field="description_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="description_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="description_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="description_1074" internalName="athaliana_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="description_1074" internalName="scerevisiae_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
       </AttributeCollection>
       <AttributeCollection displayName="PomBase Ontology" internalName="pombase_closure">
