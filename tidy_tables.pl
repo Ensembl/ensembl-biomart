@@ -78,7 +78,7 @@ if($mart_db =~ /_snp_mart/) {
 	'%__exp_atlas_%__dm'=>'stable_id_1066',
 	'%__exp_est_%__dm'=>'stable_id_1066',
 	'%__exp_zfin_%__dm'=>'stable_id_1066',
-	'%__go_%__dm' => 'ontology_id_1006'
+	'%\_\_go\_%\_\_dm' => 'ontology_id_1006'
 	);
 }
 
