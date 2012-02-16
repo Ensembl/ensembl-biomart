@@ -24,7 +24,7 @@ Log::Log4perl->easy_init($DEBUG);
 my $division = '';
 
 my $logger = get_logger();
-my $release = 60;
+my $release = undef;
 
 my $output_dir = "./output";
 my $mart_version = "0.7";
@@ -234,16 +234,22 @@ my $options_okay = GetOptions (
 if(!$options_okay) {
     usage();
 }
+
+if (!defined $release) {
+    print STDERR "no release argument given!\n";
+    usage();
+}
+
 my $suffix = "_eg";
 # Set the db_patterns, depending on the database mart name
-if ($seq_mart_db =~ /bacterial/i) {
+if ($seq_mart_db =~ /bacteria/i) {
     $division = "EnsemblBacteria";
     my $suffix = "";
 }
 elsif ($seq_mart_db =~ /protist/i) {
     $division = "EnsemblProtists";
 }
-elsif ($seq_mart_db =~ /fungal/i) {
+elsif ($seq_mart_db =~ /fung/i) {
     $division = "EnsemblFungi";
 }
 elsif ($seq_mart_db =~ /plant/i) {
@@ -252,7 +258,7 @@ elsif ($seq_mart_db =~ /plant/i) {
 elsif ($seq_mart_db =~ /metazoa/i) {
     $division = "EnsemblMetazoa";
 }
-elsif ($seq_mart_db =~ /vectorbase/i) {
+elsif ($seq_mart_db =~ /vb/i) {
     $division = "EnsemblMetazoa";
     $suffix = "_vb";
 } else {
