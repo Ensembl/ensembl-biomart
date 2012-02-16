@@ -22,16 +22,6 @@ else
 	setenv PERL5LIB /nfs/panda/ensemblgenomes/production/mart/sequence_mart/ensembl-head/modules:$PERL5LIB
 endif
 
-#set DB_HOST = mysql-eg-staging-1
-#set DB_PORT = 4160
-#set DB_USER = ensrw
-#set DB_PASS = scr1b3s1
-
-#set DB_HOST = mysql-eg-staging-2
-#set DB_PORT = 4275
-#set DB_USER = ensrw
-#set DB_PASS = writ3rs2
-
 set DB_HOST = mysql-cluster-eg-prod-1.ebi.ac.uk
 set DB_PORT = 4238
 set DB_USER = ensrw
