@@ -225,11 +225,10 @@
               <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
               <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
             </Option>
-            <!--            <Option displayName="with go_to_gene ID(s)" displayType="list" field="ox_go_to_gene_bool" internalName="with_go_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+                     <Option displayName="with go_to_gene ID(s)" displayType="list" field="ox_go_to_gene_bool" internalName="with_go_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
               <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
               <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
             </Option>
--->
             <Option displayName="with refseq_mrna ID(s)" displayType="list" field="ox_refseq_mrna_bool" internalName="with_refseq_mrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
               <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
               <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2170,9 +2169,7 @@
           <Option checkForNulls="true" displayName="Gadfly protein cgid ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gadfly_translation_cgid" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gadfly_translation_cgid__dm" type="list"/>
           <Option checkForNulls="true" displayName="Genoscope pred gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="genoscope_pred_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Genoscope_pred_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="Genoscope pred transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="genoscope_pred_transcript" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Genoscope_pred_transcript__dm" type="list"/>
-          <!--
           <Option checkForNulls="true" displayName="go_to_gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="go_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_go_to_gene__dm" type="list"/>
--->
           <!--
 	  <Option checkForNulls="true" description="filter to include genes with supplied list of GO ID(s)" displayName="GO ID(s) for genes" displayType="text" field="dbprimary_acc_1074" internalName="go_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_GO_to_gene__dm" type="list">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="translation_id_1068_key"/>
@@ -3647,6 +3644,7 @@
         <AttributeDescription checkForNulls="true" displayName="ArrayExpress ID" field="dbprimary_acc_1074" internalName="arrayexpress" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ArrayExpress__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ArrayExpress Experiment ID" field="dbprimary_acc_1074" internalName="arrayexpressexperiment" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ArrayExpressExperiment__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Anopheles symbol" field="dbprimary_acc_1074" internalName="anopheles_symbol" key="translation_id_1068_key" linkoutURL="exturl1|http://agambiae.vectorbase.org/Genome/GeneView/?gene=%s" maxLength="40" tableConstraint="ox_Anopheles_symbol__dm"/>
+	<AttributeDescription checkForNulls="true" displayName="go_to_gene ID" field="dbprimary_acc_1074" internalName="go_to_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_go_to_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="agilent_gpl8743 ID" field="display_label_11056" internalName="agilent_gpl8743" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl8743__dm"/>
         <AttributeDescription checkForNulls="true" displayName="agilent_liv_agilent_8x15k_v1 ID" field="display_label_11056" internalName="agilent_liv_agilent_8x15k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_liv_agilent_8x15k_v1__dm"/>
         <AttributeDescription displayName="Berkley Drosophila Genome Project ID(s)" field="dbprimary_acc_1074" hidden="false" internalName="bdgp_insitu_expr" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_BDGP_insitu_expr__dm"/>
