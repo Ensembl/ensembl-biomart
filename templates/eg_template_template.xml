@@ -1202,6 +1202,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
             <SpecificOptionContent key="gene_id_1020_key" field="ox_entrezgene_bool" internalName="athaliana_eg_gene"/>
+            <SpecificOptionContent key="gene_id_1020_key" field="ox_entrezgene_bool" internalName="ppatens_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_entrezgene_bool" internalName="pberghei_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_entrezgene_bool" internalName="psojae_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_entrezgene_bool" internalName="pfalciparum_eg_gene"/>
@@ -1242,7 +1243,6 @@
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="ptrichocarpa_eg_gene" key="transcript_1064_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="sbicolor_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="ox_entrezgene_bool" internalName="vvinifera_eg_gene" key="transcript_1064_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="zmays_eg_gene" key="translation_1068_key"/>
           </Option>
           <Option displayName="with GO Term Accession(s)" displayType="list" field="ox_go_bool" internalName="with_go" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
@@ -2105,9 +2105,6 @@
           <Option checkForNulls="true" displayName="Ensembl Human transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ens_hs_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Ens_Hs_transcript__dm" type="list"/>
           <Option checkForNulls="true" displayName="Ensembl Human protein ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ens_hs_translation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Ens_Hs_translation__dm" type="list"/>
           <Option checkForNulls="true" displayName="EntrezGene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="entrezgene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_EntrezGene__dm" type="text">
-            <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
-            <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="vvinifera_eg_gene"/>
-            <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="ppatens_eg_gene"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="iscapularis_eg_gene" key="translation_id_1068_key"/>
@@ -2130,15 +2127,12 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="alyrata_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="osativa_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="oindica_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="zmays_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="ppatens_eg_gene" key="translation_id_1068_key"/>
             <!-- <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="apisum_eg_gene"/>  Remove me??  -->
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
             <!-- <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="nvectensis_eg_gene"/>  Remove me??  -->
@@ -3704,10 +3698,13 @@
         <AttributeDescription checkForNulls="true" displayName="Ensembl Human transcript" field="dbprimary_acc_1074" internalName="ens_hs_transcript" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Ens_Hs_transcript__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Ensembl Human protein" field="dbprimary_acc_1074" internalName="ens_hs_translation" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/protview?peptide=%s" maxLength="40" tableConstraint="ox_Ens_Hs_translation__dm"/>
         <AttributeDescription checkForNulls="true" displayName="EntrezGene ID" field="dbprimary_acc_1074" internalName="entrezgene" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?cmd=search&amp;db=gene&amp;term=%s[uid]" maxLength="40" tableConstraint="ox_entrezgene__dm" useDefault="true">
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="ppatens_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="vvinifera_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
-	          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="amellifera_eg_gene"/>
+	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="oindica_eg_gene" />   
+	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="zmays_eg_gene" />
+	  <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="brapa_eg_gene" />
+	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" />
+	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="osativa_eg_gene" />
+	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" />
+	  <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="amellifera_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="nvectensis_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="spurpuratus_eg_gene"/>
@@ -3733,16 +3730,12 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="alyrata_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="osativa_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="oindica_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="zmays_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ppatens_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="apisum_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
@@ -3993,7 +3986,7 @@
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="CADRE ID" field="dbprimary_acc_1074" internalName="cadre" key="gene_id_1020_key" linkoutURL="exturl2|http://www.cadre-genomes.org.uk/*species2*/Gene/Summary/?g=%s" maxLength="40" tableConstraint="ox_CADRE__dm"/>
         <AttributeDescription checkForNulls="true" displayName="BRAD Gene ID" field="dbprimary_acc_1074" internalName="brad_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_brad_gene__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="BRAD Transcript ID" field="dbprimary_acc_1074" internalName="brad_transcript" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_brad_transcript__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="BRAD Transcript ID" field="dbprimary_acc_1074" internalName="brad_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_brad_transcript__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Unigene ID" field="dbprimary_acc_1074" internalName="unigene" key="transcript_id_1064_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=unigene&amp;term=%s" maxLength="40" tableConstraint="ox_UniGene__dm">
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="ppatens_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="vvinifera_eg_gene"/>
