@@ -4,7 +4,7 @@
   <Replace id="datasets"/>
   <Importable description="a" filters="evoc" internalName="evoc" linkName="evoc" name="evoc" type="link"/>
   <Importable filters="link_go_closure" internalName="go_closure" linkName="go_closure" name="go_closure" type="link"/>
-  <Importable filters="link_po_closure" internalName="po_closure" linkName="go_closure" name="go_closure" type="link"/>
+  <Importable filters="link_po_closure" internalName="po_closure" linkName="po_closure" name="po_closure" type="link"/>
   <Importable filters="link_to_closure" internalName="to_closure" linkName="to_closure" name="to_closure" type="link"/>
   <Importable filters="link_eo_closure" internalName="eo_closure" linkName="eo_closure" name="eo_closure" type="link"/>
   <Importable filters="link_gro_closure" internalName="gro_closure" linkName="gro_closure" name="gro_closure" type="link"/>
