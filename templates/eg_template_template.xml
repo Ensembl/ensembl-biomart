@@ -3323,7 +3323,7 @@
           <Option description="Filter for Genes mapped to a list of Profile ID(s)" displayName="PROFILE ID(s)" displayType="text" field="hit_name_1048" internalName="profile" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_pfscan__dm" type="list"/>
           <Option description="Filter for Genes mapped to a list of Prosite ID(s)" displayName="PROSITE ID(s)" displayType="text" field="hit_name_1048" internalName="prosite" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_scanprosite__dm" type="list"/>
           <Option description="Filter for Genes having mapped to a list of Ensembl family ID(s)" displayName="Ensembl Family ID(s)" displayType="text" field="family" internalName="ensembl_family" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list"/>
-          <Option description="Filter for Genes mapped to a list of Interpro ID(s)" displayName="Interpro ID(s)" displayType="text" field="interpro_ac_1026" internalName="interpro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="interpro__dm" type="text"/>
+          <Option description="Filter for Genes mapped to a list of InterPro ID(s)" displayName="InterPro ID(s)" displayType="text" field="interpro_ac_1026" internalName="interpro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="interpro__dm" type="text"/>
           <Option displayName="Ensembl Protein Family ID(s) [e.g. ENSFM00250000000002]" displayType="text" field="stable_id_408" internalName="family" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
         </FilterDescription>
       </FilterCollection>
@@ -4226,7 +4226,7 @@
         <AttributeDescription checkForNulls="true" displayName="RegulonDB gene ID" field="dbprimary_acc_1074" internalName="regulondb_gene" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_regulondb_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RegulonDB transcript ID" field="dbprimary_acc_1074" internalName="regulondb_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_regulondb_transcript__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Swiss2DPAGE ID" field="dbprimary_acc_1074" internalName="swiss_2dpage" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_swiss_2dpage__dm"/>
-        <AttributeDescription displayName="UniParc" field="dbprimary_acc_1074" internalName="ox_UNIPARCPROTEIN__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_UNIPARCPROTEIN__dm" linkoutURL="exturl|http://www.uniprot.org/uniparc/%s"/>
+<!--        <AttributeDescription displayName="UniParc" field="dbprimary_acc_1074" internalName="uniparc" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_UNIPARCPROTEIN__dm" linkoutURL="exturl|http://www.uniprot.org/uniparc/%s"/>-->
         <AttributeDescription displayName="Eukaryotic Promoter Database (EPD) ID(s)" field="dbprimary_acc_1074" internalName="epd" key="gene_id_1020_key" linkoutURL="exturl|http://www.genome.jp/dbget-bin/www_bfind_sub?dbkey=epd&amp;keywords=%s" maxLength="40" tableConstraint="ox_EPD__dm"/>
         <AttributeDescription displayName="TransFac ID" field="dbprimary_acc_1074" internalName="transfac" key="gene_id_1020_key" linkoutURL="exturl:http://www.genome.jp/dbget-bin/www_bget?ts:%s" maxLength="40" tableConstraint="ox_TransFac__dm"/>
         <AttributeDescription displayName="Fantom ID" field="dbprimary_acc_1074" internalName="fantom" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_Fantom__dm"/>
@@ -4237,7 +4237,7 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key" tableConstraint="ox_miRBase__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="RefSeq Genomic ID(s)" field="dbprimary_acc_1074" internalName="refseq_genomic" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="40" tableConstraint="ox_RefSeq_genomic__dm"/>
-        <AttributeDescription displayName="UniParc" field="dbprimary_acc_1074" internalName="ox_UniParc__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_UniParc__dm" linkoutURL="exturl|http://www.uniprot.org/uniparc/%s"/>
+        <AttributeDescription displayName="UniParc" field="dbprimary_acc_1074" internalName="uniparc" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_UniParc__dm" linkoutURL="exturl|http://www.uniprot.org/uniparc/%s"/>
         <AttributeDescription displayName="InteractiveFly" field="dbprimary_acc_1074" internalName="ox_InteractiveFly__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_InteractiveFly__dm"/>
         <AttributeDescription displayName="BioGRID" field="dbprimary_acc_1074" internalName="ox_BioGRID__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_BioGRID__dm"/>
         <AttributeDescription displayName="GenomeRNAi" field="dbprimary_acc_1074" internalName="ox_GenomeRNAi__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_GenomeRNAi__dm"/>
@@ -4519,9 +4519,9 @@
         <AttributeDescription displayName="SMART ID" field="hit_name_1048" internalName="smart" key="translation_id_1068_key" linkoutURL="exturl|http://smart.embl-heidelberg.de/smart/do_annotation.pl?BLAST=DUMMY&amp;DOMAIN=%s" maxLength="40" tableConstraint="protein_feature_Smart__dm"/>
       </AttributeCollection>
       <AttributeCollection description="InterPro protein identifiers and data." displayName="InterPro Attributes" internalName="prot_interpro">
-        <AttributeDescription description="InterPro Accession ID" displayName="Interpro ID" field="interpro_ac_1026" internalName="interpro" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/Location/Genome?ftype=Domain;id=%s" maxLength="9" tableConstraint="interpro__dm"/>
-        <AttributeDescription description="InterPro Short Description" displayName="Interpro Short Description" field="display_label_1074" internalName="interpro_short_description" key="translation_id_1068_key" maxLength="25" tableConstraint="interpro__dm"/>
-        <AttributeDescription description="InterPro Description" displayName="Interpro Description" field="description_1074" internalName="interpro_description" key="translation_id_1068_key" maxLength="60" tableConstraint="interpro__dm"/>
+        <AttributeDescription description="InterPro Accession ID" displayName="InterPro ID" field="interpro_ac_1026" internalName="interpro" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/Location/Genome?ftype=Domain;id=%s" maxLength="9" tableConstraint="interpro__dm"/>
+        <AttributeDescription description="InterPro Short Description" displayName="InterPro Short Description" field="display_label_1074" internalName="interpro_short_description" key="translation_id_1068_key" maxLength="25" tableConstraint="interpro__dm"/>
+        <AttributeDescription description="InterPro Description" displayName="InterPro Description" field="description_1074" internalName="interpro_description" key="translation_id_1068_key" maxLength="60" tableConstraint="interpro__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="Transmembrane and Signal Domain Attributes" internalName="tm_and_signal" maxSelect="0">
         <AttributeDescription displayName="Peptide domain" field="hit_name_1048" internalName="peptide_domain" key="translation_id_1068_key" tableConstraint="protein_feature_Peptide__dm"/>
@@ -4789,6 +4789,10 @@
         <AttributeDescription internalName="sequence_gene_chrom_start" pointerAttribute="start_position" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="sequence_gene_chrom_end" pointerAttribute="end_position" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="sequence_family" pointerAttribute="family" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="sequence_upi" pointerAttribute="uniparc" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="sequence_uniprot_swissprot_accession" pointerAttribute="uniprot_swissprot_accession" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="sequence_uniprot_sptrembl" pointerAttribute="uniprot_sptrembl" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="sequence_uniprot_sptrembl_predicted" pointerAttribute="uniprot_sptrembl_predicted" pointerDataset="*species3*_gene" pointerInterface="default"/>
       </AttributeCollection>
       <AttributeCollection displayName="Transcript Attributes" internalName="transcript" maxSelect="0">
         <AttributeDescription internalName="sequence_transcript_stable_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
