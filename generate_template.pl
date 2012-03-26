@@ -28,8 +28,8 @@ my $db_host = '127.0.0.1';
 my $db_port = 4238;
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3rp1';
-my $mart_db = 'fungal_mart_8';
-my $release = 61;
+my $mart_db;
+my $release;
 my $template_template_file = "templates/eg_template_template.xml";
 my $ds_name = 'gene';
 my $template_file_name = 'templates/dataset_template.xml';
@@ -65,7 +65,7 @@ my $options_okay = GetOptions (
 
 print STDERR "pass: $db_pwd, mart_db, $mart_db, template_template_file, $template_template_file\n";
 
-if(! defined $db_host || ! defined $db_port || ! defined $db_pwd || ! defined $template_template_file || ! defined $mart_db) {
+if(! defined $db_host || ! defined $db_port || ! defined $db_pwd || ! defined $template_template_file || ! defined $mart_db || !defined $release) {
     print STDERR "missing arguments\n";
     usage();
 }
