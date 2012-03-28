@@ -3518,7 +3518,7 @@
       </AttributeCollection>
 -->
       <AttributeCollection displayName="PO" internalName="po_closure">
-        <AttributeDescription displayName="PO Term Accession (bp)" field="dbprimary_acc_1074" internalName="po_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.genpontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_PO__dm"/>
+        <AttributeDescription displayName="PO Term Accession (bp)" field="dbprimary_acc_1074" internalName="po_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_PO__dm"/>
         <AttributeDescription displayName="PO Term Name (bp)" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_PO__dm"/>
         <AttributeDescription displayName="PO Term Definition (bp)" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_PO__dm"/>
         <AttributeDescription displayName="PO Term Evidence Code (bp)" field="linkage_type_1024" internalName="po_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_PO__dm"/>
