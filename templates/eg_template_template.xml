@@ -4749,7 +4749,7 @@
         <AttributeDescription hidden="false" internalName="homologs_description" pointerAttribute="description" pointerDataset="*species3*_gene" pointerInterface="default"/>
       </AttributeCollection>
     </AttributeGroup>
-    <AttributeGroup displayName="ORTHOLOGS:" hidden="false" internalName="orthologs">
+    <AttributeGroup displayName="ORTHOLOGS  (Max select 3 orthologs):" hidden="false" internalName="orthologs">
       <Replace id="homology_attributes"/>
     </AttributeGroup>
     <AttributeGroup displayName="PARALOGS:" hidden="false" internalName="paralogs">
