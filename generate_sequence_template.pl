@@ -260,7 +260,6 @@ elsif ($seq_mart_db =~ /metazoa/i) {
 }
 elsif ($seq_mart_db =~ /vb/i) {
     $division = "EnsemblMetazoa";
-    $suffix = "_vb";
 } else {
     print STDERR "sequence mart db name, $seq_mart_db\n";
     print STDERR "sequence mart db name doesn't match a known division, so all databases on the server will be taken into account\n";
@@ -290,8 +289,15 @@ Bio::EnsEMBL::Registry->load_registry_from_db(
                                               -db_version => $release);
 Bio::EnsEMBL::Registry->set_disconnect_when_inactive(1);
 
-# Get all species for the given Ensembl division
-my $species_names_aref = get_all_species($division);
+# Get all species for the given Ensembl division, or VectorBase
+my $species_names_aref;
+if ($seq_mart_db =~ /vb/i) {
+    my $provider = 'VectorBase';
+    $species_names_aref = get_all_species_by_provider($provider); # uses provider.name & genebuild.initial_release_date in meta table
+}
+else {
+    $species_names_aref = get_all_species($division);
+}
 
 my @datasets = ();
 my $i=0;
