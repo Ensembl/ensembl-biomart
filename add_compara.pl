@@ -29,8 +29,9 @@ my $db_host = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
 my $db_port = 4238;
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3rp1';
-my $mart_db = 'metazoa_mart_4';
-my $compara_db ='ensembl_compara_metazoa_4_56';
+my $mart_db;
+my $compara_db;
+my $dataset_name;
 sub usage {
     print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-p <pwd>] [-mart <mart>] [-compara <compara db>]\n";
     print "-h <host> Default is $db_host\n";
@@ -43,16 +44,21 @@ sub usage {
 };
 
 my $options_okay = GetOptions (
-    "h=s"=>\$db_host,
-    "port=i"=>\$db_port,
-    "u=s"=>\$db_user,
-    "p=s"=>\$db_pwd,
-    "mart=s"=>\$mart_db,
-    "compara=s"=>\$compara_db,
-    "help"=>sub {usage()}
+			       "h=s"=>\$db_host,
+			       "port=i"=>\$db_port,
+			       "u=s"=>\$db_user,
+			       "p=s"=>\$db_pwd,
+			       "mart=s"=>\$mart_db,
+			       "compara=s"=>\$compara_db,
+			       "dataset=s"=>\$dataset_name,
+			       "help"=>sub {usage()}
     );
 
 if(!$options_okay) {
+    usage();
+}
+
+if (!defined $mart_db || !defined $compara_db) {
     usage();
 }
 
@@ -74,6 +80,7 @@ sub get_species_sets {
 #	if(!$tld) {
 #	    $tld= $data[3];
 #}
+	print "Found ".join(',',@data)."\n";
 	push(@species_sets,{id=>$data[0],name=>$data[1], tld=>$tld});       
     }    
     @species_sets;
@@ -161,7 +168,7 @@ my $get_species_clade_sth = $mart_handle->prepare('select src_dataset from datas
 
 # iterate over each dataset
 #my @datasets = grep{m/d.*eg/}get_dataset_names($mart_handle);
-my @datasets = get_dataset_names($mart_handle);
+my @datasets = defined($dataset_name)?($dataset_name):get_dataset_names($mart_handle);
 for my $dataset (@datasets) {
     my $ds_name_sql = get_sql_name_for_dataset($mart_handle,$dataset);
     my $ds_name_full = get_species_name_for_dataset($mart_handle,$dataset);
@@ -176,7 +183,7 @@ for my $dataset (@datasets) {
     }
     # work out species name from $dataset
     # get list of method_link_species_set_id/name pairs for homolog partners
-#print "$species_homolog_sql $ds_name_sql $ds_name_full\n";
+print "$species_homolog_sql $ds_name_sql $ds_name_full\n";
     for my $species_set (get_species_sets($species_homolog_sth,$ds_name_sql,$ds_name_full)) {
 	$logger->info('Processing homologs for '.$species_set->{name}.' as '.$species_set->{tld});
 	write_species($dataset, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homolog_sql);
