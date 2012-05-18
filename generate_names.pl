@@ -17,13 +17,14 @@ use Data::Dumper;
 use DbiUtils;
 use MartUtils;
 use Getopt::Long;
+use POSIX;
 
 Log::Log4perl->easy_init($DEBUG);
 
 my $logger = get_logger();
 
 # db params
-my $db_host = '127.0.0.1';
+my $db_host = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
 my $db_port = '4238';
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3rp1';
@@ -165,11 +166,15 @@ my $meta_insert = $ens_dbh->prepare("INSERT INTO meta(species_id,meta_key,meta_v
 	## use the species ID to get a hash of everything we need and write it into the names_table
 	my %species_names = query_to_hash($ens_dbh,"select meta_key,meta_value from meta where species_id='$species_id'");	
 	
+	if(!defined $species->{'species.proteome_id'} || !isdigit $species->{'species.proteome_id'}) {
+	    $species->{'species.proteome_id'} = ++$pId;
+	}
+
 	$names_insert->execute(	    
 	    $dataset,
 	    $dataset,
 	    $ens_db,
-	    $species_names{'species.proteome_id'} || ++$pId,
+	    $species_names{'species.proteome_id'},
 	    $species_names{'species.taxonomy_id'},
 	    $species_names{'species.ensembl_alias_name'},
 	    $species_names{'species.production_name'},
