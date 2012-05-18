@@ -27,7 +27,7 @@ my $db_host = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
 my $db_port = '4238';
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3rp1';
-my $mart_db = 'bacterial_mart_5';
+my $mart_db;
 
 sub usage {
     print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-p <pwd>] [-mart <mart db>] [-help]\n";
@@ -49,7 +49,7 @@ my $options_okay = GetOptions (
     "help"=>sub {usage()}
     );
 
-if(!$options_okay) {
+if(!$options_okay || !defined $mart_db) {
     usage();
 }
 
