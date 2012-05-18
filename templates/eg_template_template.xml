@@ -84,11 +84,11 @@
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_fypo_closure" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_fypo__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_mod_closure" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_mod__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_so_closure" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_so__dm" type="text"/>
-        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_to_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_to__dm" type="text"/>
-        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_eo_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_eo__dm" type="text"/>
-        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_po_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_po__dm" type="text"/>
-        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_gro_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_gro__dm" type="text"/>
-        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_gr_tax_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_gr_tax__dm" type="text"/>
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_to_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_to__dm" type="text"/>
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_eo_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_eo__dm" type="text"/>
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_po_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_po__dm" type="text"/>
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_gro_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_gro__dm" type="text"/>
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_gr_tax_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_gr_tax__dm" type="text"/>
         <FilterDescription displayType="text" field="stable_id_1066" hideDisplay="true" internalName="link_ensembl_transcript_stable_id" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="main" type="text"/>
         <FilterDescription displayType="text" field="gene_id_1020_key" hideDisplay="true" internalName="gene_id" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
         <FilterDescription displayType="text" field="transcript_id_1064_key" hideDisplay="true" internalName="transcript_id" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
@@ -1861,29 +1861,27 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <!--
-          <Option displayName="with GO ID(s)" displayType="list" field="go_GO_bool" internalName="with_go_go" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with GO ID(s)" displayType="list" field="ontology_GO_bool" internalName="with_ontology_go" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-	  -->
-          <Option displayName="with PO ID(s)" displayType="list" field="go_PO_bool" internalName="with_go_po" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with PO ID(s)" displayType="list" field="ontology_PO_bool" internalName="with_ontology_po" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with TO ID(s)" displayType="list" field="go_TO_bool" internalName="with_go_to" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with TO ID(s)" displayType="list" field="ontology_TO_bool" internalName="with_ontology_to" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with EO ID(s)" displayType="list" field="go_EO_bool" internalName="with_go_eo" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with EO ID(s)" displayType="list" field="ontology_EO_bool" internalName="with_ontology_eo" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with GRO ID(s)" displayType="list" field="go_GRO_bool" internalName="with_go_gro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with GRO ID(s)" displayType="list" field="ontology_GRO_bool" internalName="with_ontology_gro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with GR_tax ID(s)" displayType="list" field="go_GR_tax_bool" internalName="with_go_gr_tax" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with GR_tax ID(s)" displayType="list" field="ontology_GR_tax_bool" internalName="with_ontology_gr_tax" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2922,7 +2920,7 @@
         <FilterDescription hidden="true" internalName="po_name" pointerDataset="closure_PO" pointerFilter="po_parent_name" pointerInterface="default"/>
       </FilterCollection>
       <FilterCollection displayName="PO Evidence code" hidden="true" internalName="po_evidence_code">
-        <FilterDescription displayName="PO Evidence code" displayType="list" field="linkage_type_1024" hidden="true" internalName="po_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_po__dm" type="list">
+        <FilterDescription displayName="PO Evidence code" displayType="list" field="linkage_type_1024" hidden="true" internalName="po_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_po__dm" type="list">
           <SpecificFilterContent hidden="true" internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -2935,7 +2933,7 @@
         <FilterDescription hidden="false" internalName="eo_name" pointerDataset="closure_EO" pointerFilter="eo_parent_name" pointerInterface="default"/>
       </FilterCollection>
       <FilterCollection displayName="EO Evidence code" hidden="false" internalName="eo_evidence_code">
-        <FilterDescription displayName="EO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="eo_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_EO__dm" type="list">
+        <FilterDescription displayName="EO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="eo_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_EO__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -2948,7 +2946,7 @@
         <FilterDescription hidden="false" internalName="gr_tax_name" pointerDataset="closure_GR_TAX" pointerFilter="gr_tax_parent_name" pointerInterface="default"/>
       </FilterCollection>
       <FilterCollection displayName="GR_TAX Evidence code" hidden="false" internalName="gr_tax_evidence_code">
-        <FilterDescription displayName="GR_TAX Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="gr_tax_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_GR_TAX__dm" type="list">
+        <FilterDescription displayName="GR_TAX Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="gr_tax_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_GR_TAX__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -2961,7 +2959,7 @@
         <FilterDescription hidden="false" internalName="gro_name" pointerDataset="closure_GRO" pointerFilter="gro_parent_name" pointerInterface="default"/>
       </FilterCollection>
       <FilterCollection displayName="GRO Evidence code" hidden="false" internalName="gro_evidence_code">
-        <FilterDescription displayName="GRO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="gro_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_GRO__dm" type="list">
+        <FilterDescription displayName="GRO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="gro_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_GRO__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -2974,7 +2972,7 @@
         <FilterDescription hidden="false" internalName="TO_name" pointerDataset="closure_TO" pointerFilter="TO_parent_name" pointerInterface="default"/>
       </FilterCollection>
       <FilterCollection displayName="TO Evidence code" hidden="false" internalName="TO_evidence_code">
-        <FilterDescription displayName="TO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="TO_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_TO__dm" type="list">
+        <FilterDescription displayName="TO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="TO_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_TO__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -3604,11 +3602,11 @@
         <AttributeDescription displayName="SO domain" field="namespace_1003" internalName="namespace_1003" key="transcript_id_1064_key" maxLength="64" tableConstraint="ontology_so__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="PO" hidden="true" internalName="po_closure">
-        <AttributeDescription displayName="PO Term Accession (bp)" field="dbprimary_acc_1074" hidden="true" internalName="po_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.genpontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="go_po__dm"/>
-        <AttributeDescription displayName="PO Term Name (bp)" field="name_1006" hidden="true" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_po__dm"/>
-        <AttributeDescription displayName="PO Term Definition (bp)" field="definition_1006" hidden="true" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_po__dm"/>
-        <AttributeDescription displayName="PO Term Evidence Code (bp)" field="linkage_type_1024" hidden="true" internalName="po_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_po__dm"/>
-        <AttributeDescription displayName="PO domain" field="namespace_1003" hidden="true" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_po__dm"/>
+        <AttributeDescription displayName="PO Term Accession (bp)" field="dbprimary_acc_1074" hidden="true" internalName="po_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.genpontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ontology_po__dm"/>
+        <AttributeDescription displayName="PO Term Name (bp)" field="name_1006" hidden="true" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_po__dm"/>
+        <AttributeDescription displayName="PO Term Definition (bp)" field="definition_1006" hidden="true" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_po__dm"/>
+        <AttributeDescription displayName="PO Term Evidence Code (bp)" field="linkage_type_1024" hidden="true" internalName="po_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="ontology_po__dm"/>
+        <AttributeDescription displayName="PO domain" field="namespace_1003" hidden="true" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="ontology_po__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="GOSlim GOA" internalName="goslim_goa">
         <AttributeDescription displayName="GOSlim GOA Accession(s)" field="dbprimary_acc_1074" internalName="goslim_goa_accession" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ox_goslim_goa__dm">
@@ -3665,25 +3663,25 @@
         </AttributeDescription>
       </AttributeCollection>
       <AttributeCollection displayName="PomBase Ontology" hidden="true" internalName="pombase_closure">
-        <AttributeDescription displayName="PomBase Term Accession" field="dbprimary_acc_1074" hidden="true" internalName="pombase_ontology_accession" key="translation_id_1068_key" maxLength="40" tableConstraint="go_pbo__dm"/>
-        <AttributeDescription displayName="PomBase Term Name" field="name_1006" hidden="true" internalName="pombase_ontology_name" key="translation_id_1068_key" maxLength="255" tableConstraint="go_pbo__dm"/>
-        <AttributeDescription displayName="PomBase Term Definition" field="definition_1006" hidden="true" internalName="pombase_ontology_def" key="translation_id_1068_key" maxLength="255" tableConstraint="go_pbo__dm"/>
-        <AttributeDescription displayName="PomBase Term Evidence Code" field="linkage_type_1024" hidden="true" internalName="pombase_ontology_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_pbo__dm"/>
-        <AttributeDescription displayName="PomBase domain" field="namespace_1003" hidden="true" internalName="pombase_ontology_namespace" key="translation_id_1068_key" maxLength="64" tableConstraint="go_pbo__dm"/>
+        <AttributeDescription displayName="PomBase Term Accession" field="dbprimary_acc_1074" hidden="true" internalName="pombase_ontology_accession" key="translation_id_1068_key" maxLength="40" tableConstraint="ontology_pbo__dm"/>
+        <AttributeDescription displayName="PomBase Term Name" field="name_1006" hidden="true" internalName="pombase_ontology_name" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_pbo__dm"/>
+        <AttributeDescription displayName="PomBase Term Definition" field="definition_1006" hidden="true" internalName="pombase_ontology_def" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_pbo__dm"/>
+        <AttributeDescription displayName="PomBase Term Evidence Code" field="linkage_type_1024" hidden="true" internalName="pombase_ontology_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="ontology_pbo__dm"/>
+        <AttributeDescription displayName="PomBase domain" field="namespace_1003" hidden="true" internalName="pombase_ontology_namespace" key="translation_id_1068_key" maxLength="64" tableConstraint="ontology_pbo__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="FYPO" hidden="true" internalName="fypo_closure">
-        <AttributeDescription displayName="FYPO Term Accession" field="dbprimary_acc_1074" hidden="true" internalName="fypo_accession" key="translation_id_1068_key" maxLength="40" tableConstraint="go_fypo__dm"/>
-        <AttributeDescription displayName="FYPO Term Name" field="name_1006" hidden="true" internalName="fypo_name" key="translation_id_1068_key" maxLength="255" tableConstraint="go_fypo__dm"/>
-        <AttributeDescription displayName="FYPO Term Definition" field="fypo_def" hidden="true" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_fypo__dm"/>
-        <AttributeDescription displayName="FYPO Term Evidence Code" field="fypo_linkage_type" hidden="true" internalName="fypo_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_fypo__dm"/>
-        <AttributeDescription displayName="FYPO domain" field="fypo_namespace" hidden="true" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_fypo__dm"/>
+        <AttributeDescription displayName="FYPO Term Accession" field="dbprimary_acc_1074" hidden="true" internalName="fypo_accession" key="translation_id_1068_key" maxLength="40" tableConstraint="ontology_fypo__dm"/>
+        <AttributeDescription displayName="FYPO Term Name" field="name_1006" hidden="true" internalName="fypo_name" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_fypo__dm"/>
+        <AttributeDescription displayName="FYPO Term Definition" field="fypo_def" hidden="true" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_fypo__dm"/>
+        <AttributeDescription displayName="FYPO Term Evidence Code" field="fypo_linkage_type" hidden="true" internalName="fypo_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="ontology_fypo__dm"/>
+        <AttributeDescription displayName="FYPO domain" field="fypo_namespace" hidden="true" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="ontology_fypo__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="MOD" hidden="true" internalName="mod_closure">
-        <AttributeDescription displayName="MOD Term Accession" field="dbprimary_acc_1074" hidden="true" internalName="mod_accession" key="translation_id_1068_key" maxLength="40" tableConstraint="go_mod__dm"/>
-        <AttributeDescription displayName="MOD Term Name" field="name_1006" hidden="true" internalName="mod_name" key="translation_id_1068_key" maxLength="255" tableConstraint="go_mod__dm"/>
-        <AttributeDescription displayName="MOD Term Definition" field="definition_1006" hidden="true" internalName="mod_definition" key="translation_id_1068_key" maxLength="255" tableConstraint="go_mod__dm"/>
-        <AttributeDescription displayName="MOD Term Evidence Code" field="linkage_type_1024" hidden="true" internalName="mod_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_mod__dm"/>
-        <AttributeDescription displayName="MOD domain" field="namespace_1003" hidden="true" internalName="mod_namespace" key="translation_id_1068_key" maxLength="64" tableConstraint="go_mod__dm"/>
+        <AttributeDescription displayName="MOD Term Accession" field="dbprimary_acc_1074" hidden="true" internalName="mod_accession" key="translation_id_1068_key" maxLength="40" tableConstraint="ontology_mod__dm"/>
+        <AttributeDescription displayName="MOD Term Name" field="name_1006" hidden="true" internalName="mod_name" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_mod__dm"/>
+        <AttributeDescription displayName="MOD Term Definition" field="definition_1006" hidden="true" internalName="mod_definition" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_mod__dm"/>
+        <AttributeDescription displayName="MOD Term Evidence Code" field="linkage_type_1024" hidden="true" internalName="mod_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="ontology_mod__dm"/>
+        <AttributeDescription displayName="MOD domain" field="namespace_1003" hidden="true" internalName="mod_namespace" key="translation_id_1068_key" maxLength="64" tableConstraint="ontology_mod__dm"/>
       </AttributeCollection>
       <AttributeCollection description="Information from external database sources." displayName="External References" internalName="xrefs" maxSelect="3">
         <AttributeDescription displayName="SagaList ID" field="dbprimary_acc_1074" internalName="sagalist" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_SagaList__dm"/>
