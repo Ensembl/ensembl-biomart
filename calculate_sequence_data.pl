@@ -26,13 +26,14 @@ my $logger = get_logger();
 my $verbose = 1;
 
 # db params
-my $db_host          = 'mysql-eg-staging-1.ebi.ac.uk';
-my $db_port          = 4160;
+my $db_host          = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
+my $db_port          = 4238;
 my $db_user          = 'ensrw';
-my $db_pwd           = 'writ3r';
-my $mart_db          = 'metazoa_mart_7';
-my $release          = 60;
+my $db_pwd           = 'writ3rp1';
+my $mart_db;
+my $release;
 my $dataset_basename = 'gene';
+my $dataset;
 
 sub usage {
     print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-p <pwd>] [-mart <mart db>] [-release <e! release>] [-dataset_basename <basename>]\n";
@@ -40,8 +41,8 @@ sub usage {
     print "-port <port> Default is $db_port\n";
     print "-u <host> Default is $db_user\n";
     print "-p <password> Default is top secret unless you know cat\n";
-    print "-mart <mart_db> Default is $mart_db\n";
-    print "-release <e! release> Default is $release\n";
+    print "-mart <mart_db>\n";
+    print "-release <e! release>\n";
     print "-dataset_basename <dataset basename> Default is $dataset_basename\n";
     exit 1;
 };
@@ -54,10 +55,11 @@ my $options_okay = GetOptions (
     "mart=s"=>\$mart_db,
     "release=i"=>\$release,
     "dataset_basename=s"=>\$dataset_basename,
+    "dataset=s"=>\$dataset,
     "help"=>sub {usage()}
     );
 
-if(!$options_okay) {
+if(!$options_okay || !defined $mart_db || !defined $release) {
     usage();
 }
 
@@ -78,6 +80,10 @@ Bio::EnsEMBL::Registry->load_registry_from_db(
 
 # get hash of datasets and sql names
 my @datasets = get_dataset_names($mart_handle);
+
+if(defined $dataset) {
+    @datasets = grep {$_ eq $dataset} @datasets;
+}
 
 for my $dataset (@datasets) {
 
@@ -190,6 +196,8 @@ for my $dataset (@datasets) {
 		}
 
 		foreach my $exon ( @{ $transcript->get_all_Exons() } ) {
+
+		    eval {
 			## my $cdna_start = $exon->cdna_start($transcript) || '\N';
 			## my $cdna_end   = $exon->cdna_end($transcript)   || '\N';
 
@@ -269,6 +277,10 @@ for my $dataset (@datasets) {
 				$cds_start,
 				$cds_end,
 				$cds_length );
+		    };
+		    if($@) {
+			print "Problem dealing with exon ".$exon->dbID().":".$@."\n";
+		    }
 
 		} ## end foreach my $exon ( @{ $transcript...})
 
@@ -292,10 +304,11 @@ for my $dataset (@datasets) {
 
 	$mart_handle->do(qq{OPTIMIZE TABLE ${dataset}_temp});
 
+	eval {
 	print "Modifying ${ds_base}__exon_transcript__dm...\n";
 
 	$mart_handle->do(
-		qq{ALTER TABLE ${ds_base}__exon_transcript__dm
+		qq{ALTER ignore TABLE ${ds_base}__exon_transcript__dm
   ADD COLUMN five_prime_utr_start   INT(10),
   ADD COLUMN five_prime_utr_end     INT(10),
   ADD COLUMN three_prime_utr_start  INT(10),
@@ -307,7 +320,10 @@ for my $dataset (@datasets) {
   ADD COLUMN cds_start              INT(10),
   ADD COLUMN cds_end                INT(10),
   ADD COLUMN cds_length             INT(10)} );
-
+    };
+	if($@) {
+      print STDERR "Problems modifying the table".$@;
+	}
 	print "Updating ${ds_base}__exon_transcript__dm...\n";
 	$mart_handle->do(
 		qq{UPDATE
