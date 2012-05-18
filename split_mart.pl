@@ -151,6 +151,7 @@ foreach my $dataset (@datasets) {
     my $ens_dbh =  DBI->connect($ens_db_string, $db_user, $db_pwd,
 				{ RaiseError => 1 }
 	) or croak "Could not connect to $ens_db_string";
+my $meta_insert = $ens_dbh->prepare("INSERT INTO meta(species_id,meta_key,meta_value) VALUES(?,'species.biomart_dataset',?)");
 
     # count the original tables
     my %src_table_counts = ();
@@ -182,11 +183,15 @@ foreach my $dataset (@datasets) {
 	    $species_names{'species.proteome_id'},
 	    $species_names{'species.taxonomy_id'},
 	    $species_names{'species.scientific_name'},
-	    $species_names{'species.sql_name'},
+	    $species_names{'species.production_name'},
 	    $species_names{'assembly.name'}|| $species_names{'genebuild.version'},
 	    $collection
 	    ); 
 	
+	$meta_insert->execute(	    
+            $species_id,
+	    $sub_dataset);
+
 	$logger->info("Splitting into dataset $sub_dataset");
 	# for each species, get a list of seq_region_ids that are valid
 	# 1. create a condensed gene table

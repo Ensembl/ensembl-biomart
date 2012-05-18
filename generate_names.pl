@@ -105,7 +105,7 @@ drop_and_create_table($mart_handle, $names_table,
 		      'ENGINE=MyISAM DEFAULT CHARSET=latin1'
     );
 
-my $names_insert = $mart_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,?,?,?,?,?,NULL)");
+my $names_insert = $mart_handle->prepare("INSERT IGNORE INTO $names_table VALUES(?,?,?,?,?,?,?,?,NULL)");
 
 my @src_tables = get_tables($mart_handle);
 my @src_dbs;
@@ -154,6 +154,8 @@ foreach my $dataset (@datasets) {
     my $ens_dbh =  DBI->connect($ens_db_string, $db_user, $db_pwd,
 				{ RaiseError => 1 }
 	) or croak "Could not connect to $ens_db_string";
+my $meta_insert = $ens_dbh->prepare("INSERT INTO meta(species_id,meta_key,meta_value) VALUES(?,'species.biomart_dataset',?)");
+
 
     # get hash of species IDs
     my @species_ids = query_to_strings($ens_dbh,"select distinct(species_id) from meta where species_id is not null");
@@ -173,6 +175,10 @@ foreach my $dataset (@datasets) {
 	    $species_names{'species.production_name'},
 	    $species_names{'assembly.name'}  || $species_names{'genebuild.version'} 
 	    ); 
+	$meta_insert->execute(	    
+            $species_id,
+	    $dataset);
+
     }
 	
     
