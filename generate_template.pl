@@ -45,7 +45,7 @@ sub usage {
     print "-ds_template <ds template>\n";
     print "-dataset <dataset name>\n";
     print "-description <description>\n";
-    print "-release <e! releaseN> Default is 60\n";
+    print "-release <e! releaseN>\n";
     exit 1;
 };
 
@@ -66,7 +66,7 @@ my $options_okay = GetOptions (
 print STDERR "pass: $db_pwd, mart_db, $mart_db, template_template_file, $template_template_file\n";
 
 if(! defined $db_host || ! defined $db_port || ! defined $db_pwd || ! defined $template_template_file || ! defined $mart_db || !defined $release) {
-    print STDERR "missing arguments\n";
+    print STDERR "Missing arguments\n";
     usage();
 }
 
