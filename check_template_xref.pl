@@ -44,7 +44,7 @@ my $db_port = '4238';
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3rp1';
 my $mart_db;
-my $template;
+my $template = './templates/eg_template_template.xml';
 
 sub usage {
     print "Usage: $0 [-host|-h <host>] [-port|-P <port>] [-u|-user user <user>] [-p|-pass <pwd>] [-mart <src>] [-template <template file>]\n";
@@ -98,8 +98,20 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
 
 $mart_handle->do("use $mart_db");
 # get tables
-my %tabs = map{$_ =~ s/.*gene__(ox_.*)__dm/$1/; lc($_)=>1} query_to_strings($mart_handle,"show tables like '%__ox_%__dm'");
-my %tabs2 = map{$_ =~ s/.*gene__(efg_.*)__dm/$1/; lc($_)=>1} query_to_strings($mart_handle,"show tables like '%__efg_%__dm'");
+my %tabs = map{$_ =~ s/.*gene__(ox_.*)__dm/$1/; lc($_)=>1} query_to_strings($mart_handle,"show tables like '%\\_\\_ox\\_%\\_\\_dm'");
+my %tabs2 = map{$_ =~ s/.*gene__(efg_.*)__dm/$1/; lc($_)=>1} query_to_strings($mart_handle,"show tables like '%\\_\\_efg\\_%\\_\\_dm'");
+# get keys
+my %keys = query_to_hash($mart_handle,"select TABLE_NAME,COLUMN_NAME from information_schema.columns where TABLE_SCHEMA='$mart_db' AND TABLE_NAME LIKE '%\\_\\_dm' and column_name like '%\\_key'");
+for my $main (qw(gene transcript translation)) {
+    %keys = (%keys, query_to_hash($mart_handle,"select TABLE_NAME,COLUMN_NAME from information_schema.columns where TABLE_SCHEMA='$mart_db' AND TABLE_NAME LIKE '%\\_$main\\_\\_main' and column_name like '$main\\_%\\_key'"));
+}
+my %ds_keys;
+while (my ($table,$key) = each(%keys)) {
+    my $t = $table;
+    $t =~ s/.*gene__(.*)__(dm|main)/$1/;
+    push @{$ds_keys{$t}{$key}}, $table;
+}
+
 my $missing = {};
 for my $tab (\%tabs,\%tabs2) {
     for my $table (keys %$tab) {
@@ -121,12 +133,13 @@ if(defined $missing->{filter}) {
     print "Missing boolean filters:\n";
     for my $table (sort @{$missing->{filter}}) {
 	my $name= $table;
+	$key = get_key(\%ds_keys,$table);
 	if($name =~ /efg_/) {
 	    $name =~ s/efg_//;
-	    $key = "transcript_id_1064_key";
+#	    $key = "transcript_id_1064_key";
 	} else {
 	    $name =~ s/ox_//;
-	    $key="gene_id_1020_key";
+#	    $key="gene_id_1020_key";
 	}
 	my $opt = <<END;
           <Option displayName="with $name ID(s)" displayType="list" field="${table}_bool" internalName="with_$name" isSelectable="true" key="$key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
@@ -141,13 +154,13 @@ if(defined $missing->{option}) {
     print "Missing list filters:\n";
     for my $table (sort @{$missing->{option}}) {
 	my $name= $table;
+	$key = get_key(\%ds_keys,$table);
 	if($name =~ /efg_/) {
 	    $name =~ s/efg_//;
-	    $key = "transcript_id_1064_key";
 	    $field="display_label_11056";
 	} else {
 	    $name =~ s/ox_//;
-	    $key="gene_id_1020_key";
+#	    $key="gene_id_1020_key";
 	    $field="dbprimary_acc_1074";
 	}
 	my $opt = <<END;
@@ -161,13 +174,14 @@ if(defined $missing->{attribute}) {
     
     for my $table (sort @{$missing->{attribute}}) {
 	my $name= $table;
+	$key = get_key(\%ds_keys,$table);
 	if($name =~ /efg_/) {
 	    $name =~ s/efg_//;
-	    $key = "transcript_id_1064_key";
+#	    $key = "transcript_id_1064_key";
 	    $field="display_label_11056";
 	} else {
 	    $name =~ s/ox_//;
-	    $key="gene_id_1020_key";
+#	    $key="gene_id_1020_key";
 	    $field="dbprimary_acc_1074";
 	}
 	my $opt = <<END;
@@ -175,4 +189,23 @@ if(defined $missing->{attribute}) {
 END
 print $opt;
     }
+}
+
+sub get_key {
+    my ($keys,$table) = @_; 
+	my $key;
+    my $keyHash = $keys->{$table};
+    if(!defined $keyHash) {
+	warn "Could not find key for table $table\n";
+	$key = "gene_id_1020_key";
+    } else {
+    my @keySet = keys(%$keyHash); 
+    # take the key with the largest number of keys
+    @keySet = sort {scalar(keys(%{$keyHash->{$a}})) <=> scalar(keys(%{$keyHash->{$b}}))} @keySet;
+    $key = $keySet[0];
+    if(scalar(@keySet)>1) {
+	warn "More than one key found for $table - using $key";
+    }   
+    }
+    return $key;
 }
