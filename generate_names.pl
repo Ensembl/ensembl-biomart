@@ -166,8 +166,8 @@ my $meta_insert = $ens_dbh->prepare("INSERT INTO meta(species_id,meta_key,meta_v
 	## use the species ID to get a hash of everything we need and write it into the names_table
 	my %species_names = query_to_hash($ens_dbh,"select meta_key,meta_value from meta where species_id='$species_id'");	
 	
-	if(!defined $species->{'species.proteome_id'} || !isdigit $species->{'species.proteome_id'}) {
-	    $species->{'species.proteome_id'} = ++$pId;
+	if(!defined $species_names{'species.proteome_id'} || !isdigit $species_names{'species.proteome_id'}) {
+	    $species_names{'species.proteome_id'} = ++$pId;
 	}
 
 	$names_insert->execute(	    
