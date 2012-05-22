@@ -131,7 +131,7 @@ sub query_to_hash {
     my $sth = $db_handle->prepare($sql);
     my %hash = get_hash($sth);   
     $sth->finish();
-    %hash;
+    return %hash;
 }
 
 sub has_column {
