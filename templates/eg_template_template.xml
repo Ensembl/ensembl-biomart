@@ -3688,10 +3688,10 @@
       </AttributeCollection>
       <AttributeCollection displayName="PBO" internalName="pbo_transc_closure">
         <AttributeDescription displayName="PBO Term Accession" field="dbprimary_acc_1074" internalName="pbo_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_pbo__dm"/>
-        <AttributeDescription displayName="PBO Term Name" field="name_1006" internalName="name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_pbo__dm"/>
-        <AttributeDescription displayName="PBO Term Definition" field="definition_1006" internalName="definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_pbo__dm"/>
+        <AttributeDescription displayName="PBO Term Name" field="name_1006" internalName="pbo_name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_pbo__dm"/>
+        <AttributeDescription displayName="PBO Term Definition" field="definition_1006" internalName="pbo_definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_pbo__dm"/>
         <AttributeDescription displayName="PBO Term Evidence Code" field="linkage_type_1024" internalName="pbo_linkage_type" key="transcript_id_1064_key" maxLength="3" tableConstraint="ontology_pbo__dm"/>
-        <AttributeDescription displayName="PBO domain" field="namespace_1003" internalName="namespace_1003" key="transcript_id_1064_key" maxLength="64" tableConstraint="ontology_pbo__dm"/>
+        <AttributeDescription displayName="PBO domain" field="namespace_1003" internalName="pbo_namespace_1003" key="transcript_id_1064_key" maxLength="64" tableConstraint="ontology_pbo__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="FYPO" internalName="fypo_transc_closure">
         <AttributeDescription displayName="FYPO Term Accession" field="dbprimary_acc_1074" internalName="fypo_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_fypo__dm"/>
@@ -3709,10 +3709,10 @@
       </AttributeCollection>
       <AttributeCollection displayName="SO" internalName="so_closure">
         <AttributeDescription displayName="SO Term Accession" field="dbprimary_acc_1074" internalName="so_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_so__dm"/>
-        <AttributeDescription displayName="SO Term Name" field="name_1006" internalName="name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_so__dm"/>
-        <AttributeDescription displayName="SO Term Definition" field="definition_1006" internalName="definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_so__dm"/>
+        <AttributeDescription displayName="SO Term Name" field="name_1006" internalName="so_name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_so__dm"/>
+        <AttributeDescription displayName="SO Term Definition" field="definition_1006" internalName="so_definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_so__dm"/>
         <AttributeDescription displayName="SO Term Evidence Code" field="linkage_type_1024" internalName="so_linkage_type" key="transcript_id_1064_key" maxLength="3" tableConstraint="ontology_so__dm"/>
-        <AttributeDescription displayName="SO domain" field="namespace_1003" internalName="namespace_1003" key="transcript_id_1064_key" maxLength="64" tableConstraint="ontology_so__dm"/>
+        <AttributeDescription displayName="SO domain" field="namespace_1003" internalName="so_namespace_1003" key="transcript_id_1064_key" maxLength="64" tableConstraint="ontology_so__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="PO" hidden="true" internalName="po_closure">
         <AttributeDescription displayName="PO Term Accession (bp)" field="dbprimary_acc_1074" hidden="true" internalName="po_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.genpontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ontology_po__dm"/>
