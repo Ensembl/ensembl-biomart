@@ -1867,7 +1867,7 @@
           <Option displayName="with GO ID(s)" displayType="list" field="ontology_GO_bool" internalName="with_ontology_go" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificFilterContent key="translation_id_1068_key" field="ontology_GO_bool" internalName="spombe_eg_gene"/>
+            <SpecificOptionContent key="translation_id_1068_key" field="ontology_GO_bool" internalName="spombe_eg_gene"/>
           </Option>
           <Option displayName="with PO ID(s)" displayType="list" field="ontology_PO_bool" internalName="with_ontology_po" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -2076,7 +2076,30 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-
+          <Option displayName="with Affy maize ID(s)" displayType="list" field="efg_affy_maize_bool" internalName="with_affy_maize" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option hidden="true" displayName="with GO (transcript) ID(s)" displayType="list" field="ox_go_to_transcript_bool" internalName="with_go_to_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with IGDB CAS v14 gene ID(s)" displayType="list" field="ox_igdbcas_v14_gene_bool" internalName="with_igdbcas_v14_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with IGDB CAS v14 transcript ID(s)" displayType="list" field="ox_igdbcas_v14_transcript_bool" internalName="with_igdbcas_v14_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with ITAG gene ID(s)" displayType="list" field="ox_itag_gene_bool" internalName="with_itag_gene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option hidden="true" displayName="with po_to_transcript ID(s)" displayType="list" field="ox_po_to_transcript_bool" internalName="with_po_to_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="ID list limit" internalName="id_list_limit">
@@ -2902,6 +2925,13 @@
 	<Option checkForNulls="true" displayName="PomBase translation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pombase_translation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pombase_translation__dm" type="list"/>
 	<Option checkForNulls="true" displayName="SO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="so" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_so__dm" type="list"/>
 	<Option checkForNulls="true" displayName="SPD ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="spd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_spd__dm" type="list"/>
+        <Option checkForNulls="true" displayName="Affy maize ID(s)" displayType="text" field="display_label_11056" internalName="affy_maize" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_affy_maize__dm" type="list"/>
+        <Option hidden="true" checkForNulls="true" displayName="go_to_transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="go_to_transcript" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_go_to_transcript__dm" type="list"/>
+        <Option checkForNulls="true" displayName="GRO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gro" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gro__dm" type="list"/>
+        <Option checkForNulls="true" displayName="IGDB CAS v14 gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="igdbcas_v14_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_igdbcas_v14_gene__dm" type="list"/>
+        <Option checkForNulls="true" displayName="IGDB CAS v14 transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="igdbcas_v14_transcript" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_igdbcas_v14_transcript__dm" type="list"/>
+        <Option checkForNulls="true" displayName="ITAG gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="itag_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_itag_gene__dm" type="list"/>
+        <Option hidden="true" checkForNulls="true" displayName="po_to_transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="po_to_transcript" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_po_to_transcript__dm" type="list"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Transcript count &gt;=" internalName="transcript_count_filter">
@@ -4665,7 +4695,13 @@
         <AttributeDescription displayName="Affy Platypus" field="display_label_11056" internalName="affy_platypus" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_platypus_exon__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Illumina HumanWG 6 v1" field="display_label_11056" internalName="illumina_humanwg_6_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_ILLUMINA_HumanWG_6_V1__dm"/>
         <AttributeDescription displayName="Illumina Human HT 12" field="display_label_11056" internalName="illumina_humanht_12" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_ILLUMINA_HumanHT_12__dm"/>
-
+        <AttributeDescription checkForNulls="true" displayName="Affy maize ID" field="display_label_11056" internalName="affy_maize" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_maize__dm"/>
+        <AttributeDescription hidden="true" checkForNulls="true" displayName="go_to_transcript ID" field="dbprimary_acc_1074" internalName="go_to_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_go_to_transcript__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="IGDB CAS v14 gene ID" field="dbprimary_acc_1074" internalName="igdbcas_v14_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_igdbcas_v14_gene__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="IGDB CAS v14 transcript ID" field="dbprimary_acc_1074" internalName="igdbcas_v14_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_igdbcas_v14_transcript__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="ITAG gene ID" field="dbprimary_acc_1074" internalName="itag_gene" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_itag_gene__dm"/>
+        <AttributeDescription hidden="true" checkForNulls="true" displayName="PO (Gene) ID" field="dbprimary_acc_1074" internalName="po_to_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_po_to_gene__dm"/>
+        <AttributeDescription hidden="true" checkForNulls="true" displayName="PO (Transcript) ID" field="dbprimary_acc_1074" internalName="po_to_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_po_to_transcript__dm"/>
       </AttributeCollection>
     </AttributeGroup>
     <!--    
