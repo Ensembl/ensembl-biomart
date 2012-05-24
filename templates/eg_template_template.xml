@@ -2988,7 +2988,7 @@
         <FilterDescription hidden="false" internalName="go_name" pointerDataset="closure_GO" pointerFilter="go_parent_name" pointerInterface="default"/>
       </FilterCollection>
       <FilterCollection displayName="GO Evidence code" hidden="false" internalName="go_evidence_code">
-        <FilterDescription displayName="GO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="go_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_go__dm" type="list" useDefault="true" useDefault="true">
+        <FilterDescription displayName="GO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="go_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_go__dm" type="list" useDefault="true">
             <SpecificFilterContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
             <SpecificFilterContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="afumigatus_eg_gene"/>
             <SpecificFilterContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="anidulans_eg_gene"/>
@@ -3004,7 +3004,7 @@
         <FilterDescription hidden="false" internalName="pbo_name" pointerDataset="closure_PBO" pointerFilter="pbo_parent_name" pointerInterface="default"/>
       </FilterCollection>
       <FilterCollection displayName="PBO Evidence code" hidden="false" internalName="pbo_evidence_code">
-        <FilterDescription displayName="PBO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="pbo_evidence_code" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_pbo__dm" type="list" useDefault="true" useDefault="true">
+        <FilterDescription displayName="PBO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="pbo_evidence_code" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_pbo__dm" type="list" useDefault="true">
           <SpecificFilterContent hidden="true" internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
