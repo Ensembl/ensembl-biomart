@@ -75,6 +75,7 @@ if($mart_db =~ /_snp_mart/) {
 	'%_transcript_variation__dm'=>'seq_region_id_2026',
 	'%_transcript_variation_som__dm'=>'seq_region_id_2026',
 	'%__splicing_event__dm'=>'name_1078',
+	'%__splicing_event_feature__dm'=>'name_1059',
 	'%__exp_atlas_%__dm'=>'stable_id_1066',
 	'%__exp_est_%__dm'=>'stable_id_1066',
 	'%__exp_zfin_%__dm'=>'stable_id_1066',
@@ -110,6 +111,9 @@ foreach my $table (get_tables($mart_handle)) {
 	print $sql."\n"; 
 	$mart_handle->do($sql);
     } elsif($table =~ m/[A-Z]+/) {
+	my $sql = "DROP TABLE IF EXISTS ".lc($table);
+	print $sql."\n"; 
+	$mart_handle->do($sql);
 	my $sql = "RENAME TABLE $table TO ".lc($table);
 	print $sql."\n"; 
 	$mart_handle->do($sql);
