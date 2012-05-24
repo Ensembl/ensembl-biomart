@@ -89,7 +89,9 @@
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_so_closure" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_so__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_to_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_to__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_eo_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_eo__dm" type="text"/>
-        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_po_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_po__dm" type="text"/>
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_po_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_po__dm" type="text">
+	  <SpecificFilterContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" />
+	</FilterDescription>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_gro_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_gro__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_gr_tax_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_gr_tax__dm" type="text"/>
         <FilterDescription displayType="text" field="stable_id_1066" hideDisplay="true" internalName="link_ensembl_transcript_stable_id" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="main" type="text"/>
@@ -2933,7 +2935,7 @@
         <Option checkForNulls="true" displayName="GRO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gro__dm" type="list"/>
         <Option checkForNulls="true" displayName="IGDB CAS v14 gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="igdbcas_v14_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_igdbcas_v14_gene__dm" type="list"/>
         <Option checkForNulls="true" displayName="IGDB CAS v14 transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="igdbcas_v14_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_igdbcas_v14_transcript__dm" type="list"/>
-        <Option checkForNulls="true" displayName="ITAG gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="itag_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_itag_gene__dm" type="list"/>
+        <Option checkForNulls="true" displayName="ITAG gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="itag_gene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_itag_gene__dm" type="list"/>
         <Option hidden="true" checkForNulls="true" displayName="po_to_transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="po_to_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_po_to_transcript__dm" type="list"/>
         </FilterDescription>
       </FilterCollection>
@@ -3748,11 +3750,21 @@
         <AttributeDescription displayName="SO domain" field="namespace_1003" internalName="so_namespace_1003" key="transcript_id_1064_key" maxLength="64" tableConstraint="ontology_so__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="PO" hidden="true" internalName="po_closure">
-        <AttributeDescription displayName="PO Term Accession (bp)" field="dbprimary_acc_1074" hidden="true" internalName="po_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.genpontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ontology_po__dm"/>
-        <AttributeDescription displayName="PO Term Name (bp)" field="name_1006" hidden="true" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_po__dm"/>
-        <AttributeDescription displayName="PO Term Definition (bp)" field="definition_1006" hidden="true" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_po__dm"/>
-        <AttributeDescription displayName="PO Term Evidence Code (bp)" field="linkage_type_1024" hidden="true" internalName="po_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="ontology_po__dm"/>
-        <AttributeDescription displayName="PO domain" field="namespace_1003" hidden="true" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="ontology_po__dm"/>
+        <AttributeDescription displayName="PO Term Accession (bp)" field="dbprimary_acc_1074" hidden="true" internalName="po_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.genpontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ontology_po__dm">
+	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key"/>
+	</AttributeDescription>
+        <AttributeDescription displayName="PO Term Name (bp)" field="name_1006" hidden="true" internalName="po_name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_po__dm">
+	  <SpecificAttributeContent field="name_1006" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key"/>
+	</AttributeDescription>
+        <AttributeDescription displayName="PO Term Definition (bp)" field="definition_1006" hidden="true" internalName="po_definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_po__dm">
+	  <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key"/>
+	</AttributeDescription>
+        <AttributeDescription displayName="PO Term Evidence Code (bp)" field="linkage_type_1024" hidden="true" internalName="po_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="ontology_po__dm">
+	  <SpecificAttributeContent field="linkage_type_1024" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key"/>
+	</AttributeDescription>
+        <AttributeDescription displayName="PO domain" field="namespace_1003" hidden="true" internalName="po_namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="ontology_po__dm">
+	  <SpecificAttributeContent key="transcript_id_1064_key" field="namespace_1003" internalName="bdistachyon_eg_gene" />
+	</AttributeDescription>
       </AttributeCollection>
       <AttributeCollection displayName="GOSlim GOA" internalName="goslim_goa">
         <AttributeDescription displayName="GOSlim GOA Accession(s)" field="dbprimary_acc_1074" internalName="goslim_goa_accession" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ox_goslim_goa__dm">
