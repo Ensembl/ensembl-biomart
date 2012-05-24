@@ -78,7 +78,7 @@
         <FilterDescription internalName="link_probe" pointerFilter="probe" pointerDataset="*species3*_probe" pointerInterface="default"/>
         <FilterDescription internalName="link_probe_set" pointerFilter="probe_set" pointerDataset="*species3*_probe_set" pointerInterface="default"/>
 -->
-        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_go_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_go__dm" type="text">
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_go_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_go__dm" type="text" useDefault="true">
           <SpecificFilterContent field="feature_value" internalName="spombe_eg_gene" key="transcript_id_1064_key"/>
           <SpecificFilterContent field="feature_value" internalName="afumigatus_eg_gene" key="transcript_id_1064_key"/>
           <SpecificFilterContent field="feature_value" internalName="anidulans_eg_gene" key="transcript_id_1064_key"/>
@@ -89,7 +89,7 @@
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_so_closure" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_so__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_to_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_to__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_eo_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_eo__dm" type="text"/>
-        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_po_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_po__dm" type="text">
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_po_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_po__dm" type="text"  useDefault="true">
 	  <SpecificFilterContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" />
 	</FilterDescription>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_gro_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_gro__dm" type="text"/>
@@ -2988,7 +2988,7 @@
         <FilterDescription hidden="false" internalName="go_name" pointerDataset="closure_GO" pointerFilter="go_parent_name" pointerInterface="default"/>
       </FilterCollection>
       <FilterCollection displayName="GO Evidence code" hidden="false" internalName="go_evidence_code">
-        <FilterDescription displayName="GO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="go_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_go__dm" type="list">
+        <FilterDescription displayName="GO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="go_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_go__dm" type="list" useDefault="true">
             <SpecificFilterContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
             <SpecificFilterContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="afumigatus_eg_gene"/>
             <SpecificFilterContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="anidulans_eg_gene"/>
@@ -3004,7 +3004,7 @@
         <FilterDescription hidden="false" internalName="pbo_name" pointerDataset="closure_PBO" pointerFilter="pbo_parent_name" pointerInterface="default"/>
       </FilterCollection>
       <FilterCollection displayName="PBO Evidence code" hidden="false" internalName="pbo_evidence_code">
-        <FilterDescription displayName="PBO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="pbo_evidence_code" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_pbo__dm" type="list">
+        <FilterDescription displayName="PBO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="pbo_evidence_code" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_pbo__dm" type="list" useDefault="true">
           <SpecificFilterContent hidden="true" internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -3225,7 +3225,7 @@
             <Option displayName="Only" internalName="only" value="only"/>
             <Option displayName="Excluded" internalName="excluded" value="excluded"/>
           </Option>
-          <Option displayName="with InterPro ID(s)" displayType="list" field="ox_interpro_bool" internalName="with_interpro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with InterPro ID(s)" displayType="list" field="ox_interpro_bool" internalName="with_interpro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" value="only"/>
             <Option displayName="Excluded" internalName="excluded" value="excluded"/>
             <SpecificOptionContent field="ox_interpro_bool" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
@@ -3256,7 +3256,7 @@
             <Option displayName="Only" internalName="only" value="only"/>
             <Option displayName="Excluded" internalName="excluded" value="excluded"/>
           </Option>
-          <Option displayName="with EnzymeCommission ID(s)" displayType="list" field="ox_ec_number_bool" internalName="with_ec_number" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with EnzymeCommission ID(s)" displayType="list" field="ox_ec_number_bool" internalName="with_ec_number" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" value="only"/>
             <Option displayName="Excluded" internalName="excluded" value="excluded"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
