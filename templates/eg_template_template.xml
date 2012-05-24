@@ -502,10 +502,6 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with pfam ID(s)" displayType="list" field="ox_pfam_bool" internalName="with_pfam" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
           <Option displayName="with tritryp_pathway_comparison ID(s)" displayType="list" field="ox_tritryp_pathway_comparison_bool" internalName="with_tritryp_pathway_comparison" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2205,7 +2201,6 @@
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
           </Option>
           <Option checkForNulls="true" displayName="aaegypti_eg_gene__agilent_oxford_agilent_44k_v1__dm ID(s)" displayType="text" field="display_label_11056" internalName="aaegypti_eg_gene__agilent_oxford_agilent_44k_v1__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="aaegypti_eg_gene__efg_agilent_oxford_agilent_44k_v1__dm__dm" type="list"/>
-	<Option checkForNulls="true" displayName="pfam ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pfam" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pfam__dm" type="list"/>
 	<Option checkForNulls="true" displayName="pgd_gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pgd_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pgd_gene__dm" type="list"/>
 	<Option checkForNulls="true" displayName="tritryp_pathway_comparison ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tritryp_pathway_comparison" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tritryp_pathway_comparison__dm" type="list"/>
           <Option checkForNulls="true" displayName="aaegypti_eg_gene__liv_liv_aegdetox_0_25k_v1__dm ID(s)" displayType="text" field="display_label_11056" internalName="aaegypti_eg_gene__liv_liv_aegdetox_0_25k_v1__dm" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="aaegypti_eg_gene__efg_liv_liv_aegdetox_0_25k_v1__dm__dm" type="list"/>
@@ -3919,7 +3914,6 @@
         <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_p_triticina" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_p_triticina__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/puccinia_group/GeneLocus.html?sp=%s"/>
         <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_u_maydis" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_u_maydis__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/ustilago_maydis/GeneLocus.html?sp=S%s"/>
         <AttributeDescription checkForNulls="true" displayName="Broad Institute ID" field="dbprimary_acc_1074" internalName="broad_p_nodorum" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_p_nodorum_gene__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/stagonospora_nodorum/GeneLocus.html?sp=S%s"/>
-  <AttributeDescription checkForNulls="true" displayName="pfam ID" field="dbprimary_acc_1074" internalName="pfam" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_pfam__dm"/>
         <AttributeDescription checkForNulls="true" displayName="pgd_gene ID" field="dbprimary_acc_1074" internalName="pgd_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_pgd_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="tritryp_pathway_comparison ID" field="dbprimary_acc_1074" internalName="tritryp_pathway_comparison" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_tritryp_pathway_comparison__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Necha JGI v20 ID" field="dbprimary_acc_1074" internalName="necha_jgi_v20" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_necha_jgi_v20__dm" linkoutURL="exturl1|http://genome.jgi-psf.org/cgi-bin/dispGeneModel?db=Necha2&amp;id=%s"/>
