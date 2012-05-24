@@ -203,10 +203,10 @@ sub get_short_name {
 
 
 # db params
-my $db_host;
-my $db_port;
-my $db_user;
-my $db_pwd;
+my $db_host = "mysql-cluster-eg-prod-1.ebi.ac.uk"; 
+my $db_port = 4238;
+my $db_user = "ensrw";
+my $db_pwd = "writ3rp1";
 
 my $seq_mart_db;
 
