@@ -19,7 +19,7 @@ use MartUtils;
 use Getopt::Long;
 use POSIX;
 
-Log::Log4perl->easy_init($DEBUG);
+Log::Log4perl->easy_init($INFO);
 
 my $logger = get_logger();
 
@@ -136,6 +136,8 @@ if ($mart_db =~ m/protist/) {
     $pId = 30000;
 } elsif ($mart_db =~ m/fung/) {
     $pId = 40000;
+} elsif ($mart_db =~ m/vector/) {
+    $pId = 50000;
 } else {
     croak "Don't know how to deal with mart $mart_db - doesn't match known divisions\n";
 }
@@ -155,8 +157,8 @@ foreach my $dataset (@datasets) {
     my $ens_dbh =  DBI->connect($ens_db_string, $db_user, $db_pwd,
 				{ RaiseError => 1 }
 	) or croak "Could not connect to $ens_db_string";
-my $meta_insert = $ens_dbh->prepare("INSERT INTO meta(species_id,meta_key,meta_value) VALUES(?,'species.biomart_dataset',?)");
 
+    my $meta_insert = $ens_dbh->prepare("INSERT INTO meta(species_id,meta_key,meta_value) VALUES(?,'species.biomart_dataset',?)");
 
     # get hash of species IDs
     my @species_ids = query_to_strings($ens_dbh,"select distinct(species_id) from meta where species_id is not null");
@@ -180,9 +182,13 @@ my $meta_insert = $ens_dbh->prepare("INSERT INTO meta(species_id,meta_key,meta_v
 	    $species_names{'species.production_name'},
 	    $species_names{'assembly.name'}  || $species_names{'genebuild.version'} 
 	    ); 
-	$meta_insert->execute(	    
-            $species_id,
-	    $dataset);
+
+	# Do that only for gene mart - not SNP mart
+	if ($dataset_basename !~ /snp/i) {
+	    $meta_insert->execute(	    
+		$species_id,
+		$dataset);
+	}
 
     }
 	
