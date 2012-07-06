@@ -4662,22 +4662,22 @@
         <AttributeDescription displayName="Database of Aberrant 5' Splice Sites (DBASS5) IDs" field="dbprimary_acc_1074" hidden="false" internalName="dbass5_id" key="gene_id_1020_key" linkoutURL="exturl1|http://www.som.soton.ac.uk/research/geneticsdiv/dbass5/viewlist.aspx?filter=gene&amp;id=%s" maxLength="40" tableConstraint="ox_DBASS5__dm"/>
         <AttributeDescription displayName="DBASS5 Gene Name" field="display_label_1074" hidden="false" internalName="dbass5_name" key="gene_id_1020_key" maxLength="128" tableConstraint="ox_DBASS5__dm"/>
         <AttributeDescription displayName="2DBaseEcoli ID" field="dbprimary_acc_1074" internalName="dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_2DBaseEcoli__dm"/>
-        <AttributeDescription displayName="BioCyc ID" field="dbprimary_acc_1074" internalName="ox_BioCyc__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_BioCyc__dm"/>
-        <AttributeDescription displayName="BRENDA ID" field="dbprimary_acc_1074" internalName="ox_brenda__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_brenda__dm"/>
-        <AttributeDescription displayName="BuruList ID" field="dbprimary_acc_1074" internalName="ox_BuruList__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_BuruList__dm"/>
-        <AttributeDescription displayName="DIP ID" field="dbprimary_acc_1074" internalName="ox_DIP__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_DIP__dm"/>
-        <AttributeDescription displayName="DisProt ID" field="dbprimary_acc_1074" internalName="ox_DisProt__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_DisProt__dm"/>
-        <AttributeDescription displayName="DrugBank ID" field="dbprimary_acc_1074" internalName="ox_DrugBank__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_DrugBank__dm"/>
-        <AttributeDescription displayName="ENA protein ID" field="dbprimary_acc_1074" internalName="ox_EMBLCDS__dm_dbprimary_acc_1074" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_EMBLCDS__dm"/>
-        <AttributeDescription displayName="ENA sequence accession" field="dbprimary_acc_1074" internalName="ox_EMBLDNA__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_EMBLDNA__dm"/>
-        <AttributeDescription displayName="ENA protein ID" field="db_display_name_1018" internalName="ox_EMBLPROTEIN__dm_db_display_name_1018" key="translation_id_1068_key" maxLength="255" tableConstraint="ox_EMBLPROTEIN__dm"/>
-        <AttributeDescription displayName="EchoBASE ID" field="dbprimary_acc_1074" internalName="ox_EchoBASE__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_EchoBASE__dm"/>
-        <AttributeDescription displayName="EcoGene ID" field="dbprimary_acc_1074" internalName="ox_EcoGene__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_EcoGene__dm"/>
-        <AttributeDescription displayName="GeneID" field="dbprimary_acc_1074" internalName="ox_GeneID__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_GeneID__dm"/>
-        <AttributeDescription displayName="HAMAP ID" field="dbprimary_acc_1074" internalName="ox_HAMAP__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_HAMAP__dm"/>
-        <AttributeDescription displayName="HOGENOM ID" field="dbprimary_acc_1074" internalName="ox_HOGENOM__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_HOGENOM__dm"/>
-        <AttributeDescription displayName="HSSP ID" field="dbprimary_acc_1074" internalName="ox_HSSP__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_HSSP__dm"/>
-        <AttributeDescription displayName="InterPro ID" field="dbprimary_acc_1074" internalName="ox_InterPro__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_InterPro__dm" useDefault="true">
+        <AttributeDescription displayName="BioCyc ID" field="dbprimary_acc_1074" internalName="biocyc" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_BioCyc__dm"/>
+        <AttributeDescription displayName="BRENDA ID" field="dbprimary_acc_1074" internalName="brenda" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_brenda__dm"/>
+        <AttributeDescription displayName="BuruList ID" field="dbprimary_acc_1074" internalName="burulist" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_BuruList__dm"/>
+        <AttributeDescription displayName="DIP ID" field="dbprimary_acc_1074" internalName="dip" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_DIP__dm"/>
+        <AttributeDescription displayName="DisProt ID" field="dbprimary_acc_1074" internalName="disprot" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_DisProt__dm"/>
+        <AttributeDescription displayName="DrugBank ID" field="dbprimary_acc_1074" internalName="drugbank" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_DrugBank__dm"/>
+        <AttributeDescription displayName="ENA protein ID" field="dbprimary_acc_1074" internalName="emblcds" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_EMBLCDS__dm"/>
+        <AttributeDescription displayName="ENA sequence accession" field="dbprimary_acc_1074" internalName="embldna" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_EMBLDNA__dm"/>
+        <AttributeDescription displayName="ENA protein ID" field="db_display_name_1018" internalName="emblprotein" key="translation_id_1068_key" maxLength="255" tableConstraint="ox_EMBLPROTEIN__dm"/>
+        <AttributeDescription displayName="EchoBASE ID" field="dbprimary_acc_1074" internalName="echobase" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_EchoBASE__dm"/>
+        <AttributeDescription displayName="EcoGene ID" field="dbprimary_acc_1074" internalName="ecogene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_EcoGene__dm"/>
+        <AttributeDescription displayName="GeneID" field="dbprimary_acc_1074" internalName="geneid" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_GeneID__dm"/>
+        <AttributeDescription displayName="HAMAP ID" field="dbprimary_acc_1074" internalName="hamap" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_HAMAP__dm"/>
+        <AttributeDescription displayName="HOGENOM ID" field="dbprimary_acc_1074" internalName="hogenom" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_HOGENOM__dm"/>
+        <AttributeDescription displayName="HSSP ID" field="dbprimary_acc_1074" internalName="hssp" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_HSSP__dm"/>
+        <AttributeDescription displayName="InterPro ID" field="dbprimary_acc_1074" internalName="interpro" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_InterPro__dm" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="nfischeri_eg_gene" key="translation_id_1068_key"/>
@@ -4707,20 +4707,20 @@
         <AttributeDescription displayName="KEGG ID" field="dbprimary_acc_1074" internalName="kegg_id" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_kegg__dm" linkoutURL="exturl|http://www.genome.jp/dbget-bin/www_bget?path:%s" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="gene_id_1020_key"/>
         </AttributeDescription>
-        <AttributeDescription displayName="PDBsum ID" field="dbprimary_acc_1074" internalName="ox_PDBsum__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PDBsum__dm"/>
-        <AttributeDescription displayName="PeroxiBase ID" field="dbprimary_acc_1074" internalName="ox_PeroxiBase__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PeroxiBase__dm"/>
-        <AttributeDescription displayName="PhosSite ID" field="dbprimary_acc_1074" internalName="ox_PhosSite__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PhosSite__dm"/>
-        <AttributeDescription displayName="Pptase ID" field="dbprimary_acc_1074" internalName="ox_PptaseDB__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PptaseDB__dm"/>
-        <AttributeDescription displayName="REBASE ID" field="dbprimary_acc_1074" internalName="ox_REBASE__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_REBASE__dm"/>
-        <AttributeDescription displayName="Reactome ID" field="dbprimary_acc_1074" internalName="ox_Reactome__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_Reactome__dm"/>
-        <AttributeDescription displayName="RefSeq DNA ID" field="dbprimary_acc_1074" internalName="ox_RefSeqDNA__dm_dbprimary_acc_1074" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_RefSeqDNA__dm"/>
-        <AttributeDescription displayName="RefSeq Protein ID" field="dbprimary_acc_1074" internalName="ox_RefSeqPROTEIN__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_RefSeqPROTEIN__dm"/>
-        <AttributeDescription displayName="RefSeq RNA ID" field="dbprimary_acc_1074" internalName="ox_RefSeqRNA__dm_dbprimary_acc_1074" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_RefSeqRNA__dm"/>
-        <AttributeDescription displayName="RefSeq RNA ID" field="dbprimary_acc_1074" internalName="ox_RefSeq_rna__dm_dbprimary_acc_1074" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_RefSeq_rna__dm"/>
-        <AttributeDescription displayName="RegulonDB Gene ID" field="dbprimary_acc_1074" internalName="ox_RegulonDbgene__dm_dbprimary_acc_1074" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_RegulonDbgene__dm"/>
-        <AttributeDescription displayName="RegulonDB Transcript ID" field="dbprimary_acc_1074" internalName="ox_RegulonDbtranscript__dm_dbprimary_acc_1074" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_RegulonDbtranscript__dm"/>
-        <AttributeDescription displayName="RFAM ncRNA ID" field="dbprimary_acc_1074" internalName="ox_Rfamncrna__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_Rfamncrna__dm"/>
-        <AttributeDescription displayName="SWISS2DPAGE ID" field="dbprimary_acc_1074" internalName="ox_SWISS2DPAGE__dm_dbprimary_acc_1074" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_SWISS2DPAGE__dm"/>
+        <AttributeDescription displayName="PDBsum ID" field="dbprimary_acc_1074" internalName="pdbsum" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PDBsum__dm"/>
+        <AttributeDescription displayName="PeroxiBase ID" field="dbprimary_acc_1074" internalName="peroxibase" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PeroxiBase__dm"/>
+        <AttributeDescription displayName="PhosSite ID" field="dbprimary_acc_1074" internalName="phossite" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PhosSite__dm"/>
+        <AttributeDescription displayName="Pptase ID" field="dbprimary_acc_1074" internalName="pptasedb" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PptaseDB__dm"/>
+        <AttributeDescription displayName="REBASE ID" field="dbprimary_acc_1074" internalName="rebase" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_REBASE__dm"/>
+        <AttributeDescription displayName="Reactome ID" field="dbprimary_acc_1074" internalName="reactome" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_Reactome__dm"/>
+        <AttributeDescription displayName="RefSeq DNA ID" field="dbprimary_acc_1074" internalName="refseqdna" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_RefSeqDNA__dm"/>
+        <AttributeDescription displayName="RefSeq Protein ID" field="dbprimary_acc_1074" internalName="refseqprotein" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_RefSeqPROTEIN__dm"/>
+        <AttributeDescription displayName="RefSeq RNA ID" field="dbprimary_acc_1074" internalName="refseqrna" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_RefSeqRNA__dm"/>
+        <AttributeDescription displayName="RefSeq RNA ID" field="dbprimary_acc_1074" internalName="refseq_rna" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_RefSeq_rna__dm"/>
+        <AttributeDescription displayName="RegulonDB Gene ID" field="dbprimary_acc_1074" internalName="regulondbgene" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_RegulonDbgene__dm"/>
+        <AttributeDescription displayName="RegulonDB Transcript ID" field="dbprimary_acc_1074" internalName="regulondbtranscript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_RegulonDbtranscript__dm"/>
+        <AttributeDescription displayName="RFAM ncRNA ID" field="dbprimary_acc_1074" internalName="rfamncrna" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_Rfamncrna__dm"/>
+        <AttributeDescription displayName="SWISS2DPAGE ID" field="dbprimary_acc_1074" internalName="swiss2dpage" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_SWISS2DPAGE__dm"/>
         <AttributeDescription checkForNulls="true" displayName="2DBase E. coli ID" field="dbprimary_acc_1074" internalName="2dbase_ecoli" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_2dbase_ecoli__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RegulonDB gene ID" field="dbprimary_acc_1074" internalName="regulondb_gene" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_regulondb_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RegulonDB transcript ID" field="dbprimary_acc_1074" internalName="regulondb_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_regulondb_transcript__dm"/>
@@ -4737,9 +4737,9 @@
         </AttributeDescription>
         <AttributeDescription displayName="RefSeq Genomic ID(s)" field="dbprimary_acc_1074" internalName="refseq_genomic" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="40" tableConstraint="ox_RefSeq_genomic__dm"/>
         <AttributeDescription displayName="UniParc" field="dbprimary_acc_1074" internalName="uniparc" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_UniParc__dm" linkoutURL="exturl|http://www.uniprot.org/uniparc/%s"/>
-        <AttributeDescription displayName="InteractiveFly" field="dbprimary_acc_1074" internalName="ox_InteractiveFly__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_InteractiveFly__dm"/>
-        <AttributeDescription displayName="BioGRID" field="dbprimary_acc_1074" internalName="ox_BioGRID__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_BioGRID__dm"/>
-        <AttributeDescription displayName="GenomeRNAi" field="dbprimary_acc_1074" internalName="ox_GenomeRNAi__dm_dbprimary_acc_1074" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_GenomeRNAi__dm"/>
+        <AttributeDescription displayName="InteractiveFly" field="dbprimary_acc_1074" internalName="interactivefly" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_InteractiveFly__dm"/>
+        <AttributeDescription displayName="BioGRID" field="dbprimary_acc_1074" internalName="biogrid" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_BioGRID__dm"/>
+        <AttributeDescription displayName="GenomeRNAi" field="dbprimary_acc_1074" internalName="genomernai" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_GenomeRNAi__dm"/>
         <AttributeDescription checkForNulls="true" displayName="AspGD Transcript ID" field="dbprimary_acc_1074" internalName="aspgd_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_aspgd_transcript__dm" linkoutURL="exturl1|http://www.aspergillusgenome.org/cgi-bin/locus.pl?dbid=%s"/>
         <AttributeDescription checkForNulls="true" displayName="CADRE A. fumigatus A1163 ID" field="dbprimary_acc_1074" internalName="cadre_afum_a1163" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_cadre_afum_a1163__dm" linkoutURL="exturl2|http://www.cadre-genomes.org.uk/*species2*/Gene/Summary/?g=%s"/>
         <AttributeDescription checkForNulls="true" displayName="CADRE Gene ID" field="dbprimary_acc_1074" internalName="cadre_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_cadre_gene__dm" linkoutURL="exturl2|http://www.cadre-genomes.org.uk/*species2*/Gene/Summary/?g=%s"/>
@@ -5023,32 +5023,32 @@
       </AttributeCollection>
       <AttributeCollection displayName="Domains" internalName="prot_domain" maxSelect="2">
         <AttributeDescription displayName="Prosite ID" field="hit_name_1048" internalName="prosite" key="translation_id_1068_key" linkoutURL="exturl1|http://us.expasy.org/cgi-bin/nicesite.pl?%s" maxLength="7" tableConstraint="protein_feature_pfscan__dm"/>
-        <AttributeDescription displayName="PIRSF SuperFamily ID" field="hit_name_1048" internalName="pirsf" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_PIRSF__dm"/>
-        <AttributeDescription displayName="Superfamily ID" field="hit_name_1048" internalName="superfamily" key="translation_id_1068_key" linkoutURL="exturl|http://supfam.cs.bris.ac.uk/SUPERFAMILY/cgi-bin/scop.cgi?sunid=%s" maxLength="40" tableConstraint="protein_feature_Superfamily__dm"/>
-        <AttributeDescription displayName="PRINTS ID" field="hit_name_1048" internalName="prints" key="translation_id_1068_key" linkoutURL="exturl1|http://umber.sbs.man.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?display_opts=Prints&amp;category=None&amp;queryform=false&amp;prints_accn=%s" maxLength="7" tableConstraint="protein_feature_Prints__dm"/>
-        <AttributeDescription displayName="PFAM ID" field="hit_name_1048" internalName="pfam" key="translation_id_1068_key" linkoutURL="exturl1|http://pfam.sanger.ac.uk/family?acc=%s" maxLength="7" tableConstraint="protein_feature_pfam__dm"/>
-        <AttributeDescription displayName="TIGRFam ID" field="hit_name_1048" internalName="tigrfam" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_Tigrfam__dm"/>
-        <AttributeDescription displayName="brepepP ID" field="hit_name_1048" internalName="brepepp" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_brepepP__dm"/>
-        <AttributeDescription displayName="jappepP ID" field="hit_name_1048" internalName="jappepp" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_jappepP__dm"/>
-        <AttributeDescription displayName="ppapepP ID" field="hit_name_1048" internalName="ppapepp" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_ppapepP__dm"/>
+        <AttributeDescription displayName="PIRSF SuperFamily ID" field="hit_name_1048" internalName="pirsf_pf" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_PIRSF__dm"/>
+        <AttributeDescription displayName="Superfamily ID" field="hit_name_1048" internalName="superfamily_pf" key="translation_id_1068_key" linkoutURL="exturl|http://supfam.cs.bris.ac.uk/SUPERFAMILY/cgi-bin/scop.cgi?sunid=%s" maxLength="40" tableConstraint="protein_feature_Superfamily__dm"/>
+        <AttributeDescription displayName="PRINTS ID" field="hit_name_1048" internalName="prints_pf" key="translation_id_1068_key" linkoutURL="exturl1|http://umber.sbs.man.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?display_opts=Prints&amp;category=None&amp;queryform=false&amp;prints_accn=%s" maxLength="7" tableConstraint="protein_feature_Prints__dm"/>
+        <AttributeDescription displayName="PFAM ID" field="hit_name_1048" internalName="pfam_pf" key="translation_id_1068_key" linkoutURL="exturl1|http://pfam.sanger.ac.uk/family?acc=%s" maxLength="7" tableConstraint="protein_feature_pfam__dm"/>
+        <AttributeDescription displayName="TIGRFam ID" field="hit_name_1048" internalName="tigrfam_pf" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_Tigrfam__dm"/>
+        <AttributeDescription displayName="brepepP ID" field="hit_name_1048" internalName="brepepp_pf" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_brepepP__dm"/>
+        <AttributeDescription displayName="jappepP ID" field="hit_name_1048" internalName="jappepp_pf" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_jappepP__dm"/>
+        <AttributeDescription displayName="ppapepP ID" field="hit_name_1048" internalName="ppapepp_pf" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_ppapepP__dm"/>
         <AttributeDescription displayName="blastprodom ID" field="hit_name_1048" internalName="blastprodom" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_blastprodom__dm"/>
-        <AttributeDescription displayName="ProDom ID" field="hit_name_1048" internalName="prodom" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_prodom__dm"/>
-        <AttributeDescription displayName="HAMAP ID" field="hit_name_1048" internalName="hamap" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_hamap__dm"/>
-        <AttributeDescription displayName="brigpepP ID" field="hit_name_1048" internalName="brigpepp" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_brigpepP__dm"/>
-        <AttributeDescription displayName="GadflyP ID" field="hit_name_1048" internalName="gadflyp" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_GadflyP__dm"/>
-        <AttributeDescription displayName="gene3d ID" field="hit_name_1048" internalName="gene3d" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_gene3d__dm"/>
-        <AttributeDescription displayName="hmmpanther ID" field="hit_name_1048" internalName="hmmpanther" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_hmmpanther__dm"/>
-        <AttributeDescription displayName="Panther ID" field="hit_name_1048" internalName="panther" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_panther__dm"/>
-        <AttributeDescription displayName="ipi_humanP ID" field="hit_name_1048" internalName="ipi_humanp" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature__ipi_humanP_dm"/>
+        <AttributeDescription displayName="ProDom ID" field="hit_name_1048" internalName="prodom_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_prodom__dm"/>
+        <AttributeDescription displayName="HAMAP ID" field="hit_name_1048" internalName="hamap_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_hamap__dm"/>
+        <AttributeDescription displayName="brigpepP ID" field="hit_name_1048" internalName="brigpepp_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_brigpepP__dm"/>
+        <AttributeDescription displayName="GadflyP ID" field="hit_name_1048" internalName="gadflyp_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_GadflyP__dm"/>
+        <AttributeDescription displayName="gene3d ID" field="hit_name_1048" internalName="gene3d_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_gene3d__dm"/>
+        <AttributeDescription displayName="hmmpanther ID" field="hit_name_1048" internalName="hmmpanther_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_hmmpanther__dm"/>
+        <AttributeDescription displayName="Panther ID" field="hit_name_1048" internalName="panther_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_panther__dm"/>
+        <AttributeDescription displayName="ipi_humanP ID" field="hit_name_1048" internalName="ipi_humanp_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature__ipi_humanP_dm"/>
         <AttributeDescription displayName="remaneiP ID" field="hit_name_1048" internalName="remaneip" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_remaneiP__dm"/>
-        <AttributeDescription displayName="slimswissprotP ID" field="hit_name_1048" internalName="slimswissprotp" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_slimswissprotP__dm"/>
-        <AttributeDescription displayName="slimtremblP ID" field="hit_name_1048" internalName="slimtremblp" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_slimtremblP__dm"/>
-        <AttributeDescription displayName="WormPepP ID" field="hit_name_1048" internalName="wormpepp" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_wormpepP__dm"/>
-        <AttributeDescription displayName="yeastP ID" field="hit_name_1048" internalName="yeastp" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_yeastP__dm"/>
-        <AttributeDescription displayName="SMART ID" field="hit_name_1048" internalName="smart" key="translation_id_1068_key" linkoutURL="exturl|http://smart.embl-heidelberg.de/smart/do_annotation.pl?BLAST=DUMMY&amp;DOMAIN=%s" maxLength="40" tableConstraint="protein_feature_Smart__dm"/>
+        <AttributeDescription displayName="slimswissprotP ID" field="hit_name_1048" internalName="slimswissprotp_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_slimswissprotP__dm"/>
+        <AttributeDescription displayName="slimtremblP ID" field="hit_name_1048" internalName="slimtremblp_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_slimtremblP__dm"/>
+        <AttributeDescription displayName="WormPepP ID" field="hit_name_1048" internalName="wormpepp_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_wormpepP__dm"/>
+        <AttributeDescription displayName="yeastP ID" field="hit_name_1048" internalName="yeastp_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_yeastP__dm"/>
+        <AttributeDescription displayName="SMART ID" field="hit_name_1048" internalName="smart_pf" key="translation_id_1068_key" linkoutURL="exturl|http://smart.embl-heidelberg.de/smart/do_annotation.pl?BLAST=DUMMY&amp;DOMAIN=%s" maxLength="40" tableConstraint="protein_feature_Smart__dm"/>
       </AttributeCollection>
       <AttributeCollection description="InterPro protein identifiers and data." displayName="InterPro Attributes" internalName="prot_interpro">
-        <AttributeDescription description="InterPro Accession ID" displayName="InterPro ID" field="interpro_ac_1026" internalName="interpro" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/Location/Genome?ftype=Domain;id=%s" maxLength="9" tableConstraint="interpro__dm"/>
+        <AttributeDescription description="InterPro Accession ID" displayName="InterPro ID" field="interpro_ac_1026" internalName="interpro_id" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/Location/Genome?ftype=Domain;id=%s" maxLength="9" tableConstraint="interpro__dm"/>
         <AttributeDescription description="InterPro Short Description" displayName="InterPro Short Description" field="display_label_1074" internalName="interpro_short_description" key="translation_id_1068_key" maxLength="25" tableConstraint="interpro__dm"/>
         <AttributeDescription description="InterPro Description" displayName="InterPro Description" field="description_1074" internalName="interpro_description" key="translation_id_1068_key" maxLength="60" tableConstraint="interpro__dm"/>
       </AttributeCollection>
