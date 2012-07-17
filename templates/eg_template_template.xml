@@ -85,7 +85,7 @@
           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dpseudoobscura_eg_gene" />
           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dpersimilis_eg_gene" />
           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dyakuba_eg_gene" />
-          <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dmelanogaster_eg_gene" />
+          <SpecificFilterContent key="translation_id_1068_key" field="linkage_type_1024" internalName="dmelanogaster_eg_gene" />
           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dananassae_eg_gene" />
           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dgrimshawi_eg_gene" />
           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dwillistoni_eg_gene" />
@@ -2359,7 +2359,7 @@
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene"/>
-            <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene"/>
+            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dyakuba_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene"/>
@@ -3082,7 +3082,6 @@
             <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene" />
             <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" />
             <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" />
             <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene" />
             <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" />
             <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" />
@@ -3093,7 +3092,6 @@
             <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dpersimilis_eg_gene" />
             <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="derecta_eg_gene" />
             <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dyakuba_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dmelanogaster_eg_gene" />
             <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dananassae_eg_gene" />
             <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dvirilis_eg_gene" />
            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dsimulans_eg_gene" />
@@ -3102,14 +3100,12 @@
            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dmojavensis_eg_gene" />
            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dananassae_eg_gene" />
            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dvirilis_eg_gene" />
-           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dmelanogaster_eg_gene" />
+           <SpecificFilterContent key="translation_id_1068_key" field="linkage_type_1024" internalName="dmelanogaster_eg_gene" />
            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dyakuba_eg_gene" />
            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="derecta_eg_gene" />
            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dpersimilis_eg_gene" />
            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dgrimshawi_eg_gene" />
            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dpseudoobscura_eg_gene" />
-
-
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -3821,7 +3817,7 @@
 	    <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" />
 	    <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene" />
 	    <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" />
-	    <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" />
+	    <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" />
 	    <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene" />
 	    <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" />
 	    <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" />
@@ -3838,7 +3834,7 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dpersimilis_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="derecta_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dyakuba_eg_gene" />
-          <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dmelanogaster_eg_gene" />
+          <SpecificAttributeContent key="translation_id_1068_key" field="name_1006" internalName="dmelanogaster_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dananassae_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dgrimshawi_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dwillistoni_eg_gene" />
@@ -3855,7 +3851,7 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dpersimilis_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="derecta_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dyakuba_eg_gene" />
-          <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dmelanogaster_eg_gene" />
+          <SpecificAttributeContent key="translation_id_1068_key" field="definition_1006" internalName="dmelanogaster_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dananassae_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dgrimshawi_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dwillistoni_eg_gene" />
@@ -3872,7 +3868,7 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dpersimilis_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="derecta_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dyakuba_eg_gene" />
-          <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dmelanogaster_eg_gene" />
+          <SpecificAttributeContent key="translation_id_1068_key" field="linkage_type_1024" internalName="dmelanogaster_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dananassae_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dgrimshawi_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dwillistoni_eg_gene" />
@@ -3889,7 +3885,7 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dpersimilis_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="derecta_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dyakuba_eg_gene" />
-          <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dmelanogaster_eg_gene" />
+          <SpecificAttributeContent key="translation_id_1068_key" field="namespace_1003" internalName="dmelanogaster_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dananassae_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dgrimshawi_eg_gene" />
           <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dwillistoni_eg_gene" />
