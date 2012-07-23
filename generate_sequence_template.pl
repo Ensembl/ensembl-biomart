@@ -160,6 +160,7 @@ sub write_metatables {
  
 	$logger->info("Populating dataset tables");
 	
+    print Dumper $dataset_href;
 	# meta_conf__xml__dm
 	$meta_conf__xml__dm_sth->execute($dataset_href->{species_id},
 				     file_to_bytes("$pwd/$output_dir/$dataset_href->{dataset}.xml"),
@@ -302,6 +303,7 @@ else {
 my @datasets = ();
 my $i=0;
 foreach my $species_name (@$species_names_aref) {
+
     $logger->info("Processing species, '$species_name'");
 
     # Filter out the species we don't in, if db_patterns array is defined
@@ -317,7 +319,7 @@ foreach my $species_name (@$species_names_aref) {
     }
 
     my $dataset_href = build_dataset_href ($meta_container,$logger,$suffix);
-    if(!$dataset_href->{species_id}) {
+    if(!defined $dataset_href->{species_id} ||  $dataset_href->{species_id} =~ m/[^0-9]+/ ) {
 	$dataset_href->{species_id} = ++$i;
     }
     push(@datasets,$dataset_href);
