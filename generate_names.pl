@@ -158,7 +158,7 @@ foreach my $dataset (@datasets) {
 				{ RaiseError => 1 }
 	) or croak "Could not connect to $ens_db_string";
 
-    my $meta_insert = $ens_dbh->prepare("INSERT INTO meta(species_id,meta_key,meta_value) VALUES(?,'species.biomart_dataset',?)");
+    my $meta_insert = $ens_dbh->prepare("INSERT IGNORE INTO meta(species_id,meta_key,meta_value) VALUES(?,'species.biomart_dataset',?)");
 
     # get hash of species IDs
     my @species_ids = query_to_strings($ens_dbh,"select distinct(species_id) from meta where species_id is not null");
