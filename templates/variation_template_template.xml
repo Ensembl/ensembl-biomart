@@ -234,6 +234,8 @@
 
       <FilterCollection displayName="Consequence type" internalName="consequence_type">
         <FilterDescription displayName="Consequence type" displayType="list" field="mart_consequence_type_2090" internalName="consequence_type" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
+	  <SpecificFilterContent internalName="ReplaceMe"/>
+	  <!--
           <Option displayName="3PRIME_UTR" internalName="3PRIME_UTR" isSelectable="true" value="3PRIME_UTR"/>
           <Option displayName="3PRIME_UTR&amp;SPLICE_SITE" internalName="3PRIME_UTR&amp;SPLICE_SITE" isSelectable="true" value="3PRIME_UTR&amp;SPLICE_SITE"/>
           <Option displayName="5PRIME_UTR" internalName="5PRIME_UTR" isSelectable="true" value="5PRIME_UTR"/>
@@ -343,6 +345,7 @@
           <Option displayName="WITHIN_NON_CODING_GENE&amp;INTRONIC" internalName="WITHIN_NON_CODING_GENE&amp;INTRONIC" isSelectable="true" value="WITHIN_NON_CODING_GENE&amp;INTRONIC"/>
           <Option displayName="WITHIN_NON_CODING_GENE&amp;INTRONIC&amp;SPLICE_SITE" internalName="WITHIN_NON_CODING_GENE&amp;INTRONIC&amp;SPLICE_SITE" isSelectable="true" value="WITHIN_NON_CODING_GENE&amp;INTRONIC&amp;SPLICE_SITE"/>
           <Option displayName="WITHIN_NON_CODING_GENE&amp;SPLICE_SITE" internalName="WITHIN_NON_CODING_GENE&amp;SPLICE_SITE" isSelectable="true" value="WITHIN_NON_CODING_GENE&amp;SPLICE_SITE"/>
+	  -->
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
