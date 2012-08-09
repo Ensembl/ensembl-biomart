@@ -178,7 +178,7 @@ foreach my $dataset (@datasets) {
 	    $ens_db,
 	    $species_names{'species.proteome_id'},
 	    $species_names{'species.taxonomy_id'},
-	    $species_names{'species.ensembl_alias_name'},
+	    $species_names{'species.display_name'},
 	    $species_names{'species.production_name'},
 	    $species_names{'assembly.name'}  || $species_names{'genebuild.version'} 
 	    ); 
