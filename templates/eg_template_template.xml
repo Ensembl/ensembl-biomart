@@ -1167,6 +1167,8 @@
           <Option displayName="with UniGene ID(s)" displayType="list" field="ox_unigene_bool" internalName="with_unigene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+            <SpecificOptionContent key="gene_id_1020_key" field="ox_unigene_bool" internalName="dmelanogaster_eg_gene"/>
+            <SpecificOptionContent key="gene_id_1020_key" field="ox_unigene_bool" internalName="agambiae_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="ox_unigene_bool" internalName="gmax_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="ox_unigene_bool" internalName="ppatens_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="ox_unigene_bool" internalName="athaliana_eg_gene"/>
@@ -2635,6 +2637,8 @@
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" />
           </Option>
           <Option checkForNulls="true" displayName="Unigene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="unigene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_UniGene__dm" type="list" useDefault="true">
+            <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="agambiae_eg_gene"/>
+            <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="ppatens_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="vvinifera_eg_gene"/>
@@ -3084,38 +3088,6 @@
       </FilterCollection>
       <FilterCollection displayName="GO Evidence code" hidden="false" internalName="go_evidence_code">
         <FilterDescription displayName="GO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="go_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_go__dm" type="list" useDefault="true">
-            <SpecificFilterContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
-            <SpecificFilterContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="afumigatus_eg_gene"/>
-            <SpecificFilterContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="anidulans_eg_gene"/>
-            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="derecta_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dpseudoobscura_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dpersimilis_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="derecta_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dyakuba_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dananassae_eg_gene" />
-            <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dvirilis_eg_gene" />
-           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dsimulans_eg_gene" />
-           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dsechellia_eg_gene" />
-           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dwillistoni_eg_gene" />
-           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dmojavensis_eg_gene" />
-           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dananassae_eg_gene" />
-           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dvirilis_eg_gene" />
-           <SpecificFilterContent key="translation_id_1068_key" field="linkage_type_1024" internalName="dmelanogaster_eg_gene" />
-           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dyakuba_eg_gene" />
-           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="derecta_eg_gene" />
-           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dpersimilis_eg_gene" />
-           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dgrimshawi_eg_gene" />
-           <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dpseudoobscura_eg_gene" />
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -3696,52 +3668,7 @@
       </FilterCollection>
       <FilterCollection description="Filter for Genes associated with specified types of SNPs" displayName="Variation type" internalName="snptype">
         <FilterDescription displayType="list" field="mart_consequence_type_2076" internalName="snptype_filters" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
-          <Option displayName="3PRIME_UTR" internalName="3PRIME_UTR" isSelectable="true" value="3PRIME_UTR"/>
-          <Option displayName="3PRIME_UTR&amp;NMD_TRANSCRIPT" internalName="3PRIME_UTR&amp;NMD_TRANSCRIPT" isSelectable="true" value="3PRIME_UTR&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="5PRIME_UTR" internalName="5PRIME_UTR" isSelectable="true" value="5PRIME_UTR"/>
-          <Option displayName="5PRIME_UTR&amp;NMD_TRANSCRIPT" internalName="5PRIME_UTR&amp;NMD_TRANSCRIPT" isSelectable="true" value="5PRIME_UTR&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="COMPLEX_INDEL" internalName="COMPLEX_INDEL" isSelectable="true" value="COMPLEX_INDEL"/>
-          <Option displayName="COMPLEX_INDEL&amp;NMD_TRANSCRIPT" internalName="COMPLEX_INDEL&amp;NMD_TRANSCRIPT" isSelectable="true" value="COMPLEX_INDEL&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="COMPLEX_INDEL&amp;SPLICE_SITE" internalName="COMPLEX_INDEL&amp;SPLICE_SITE" isSelectable="true" value="COMPLEX_INDEL&amp;SPLICE_SITE"/>
-          <Option displayName="DOWNSTREAM" internalName="DOWNSTREAM" isSelectable="true" value="DOWNSTREAM"/>
-          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;INTRONIC" internalName="ESSENTIAL_SPLICE_SITE&amp;INTRONIC" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;INTRONIC"/>
-          <Option displayName="ESSENTIAL_SPLICE_SITE&amp;INTRONIC&amp;NMD_TRANSCRIPT" internalName="ESSENTIAL_SPLICE_SITE&amp;INTRONIC&amp;NMD_TRANSCRIPT" isSelectable="true" value="ESSENTIAL_SPLICE_SITE&amp;INTRONIC&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="FRAMESHIFT_CODING" internalName="FRAMESHIFT_CODING" isSelectable="true" value="FRAMESHIFT_CODING"/>
-          <Option displayName="FRAMESHIFT_CODING&amp;NMD_TRANSCRIPT" internalName="FRAMESHIFT_CODING&amp;NMD_TRANSCRIPT" isSelectable="true" value="FRAMESHIFT_CODING&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="FRAMESHIFT_CODING&amp;SPLICE_SITE" internalName="FRAMESHIFT_CODING&amp;SPLICE_SITE" isSelectable="true" value="FRAMESHIFT_CODING&amp;SPLICE_SITE"/>
-          <Option displayName="FRAMESHIFT_CODING&amp;SPLICE_SITE&amp;NMD_TRANSCRIPT" internalName="FRAMESHIFT_CODING&amp;SPLICE_SITE&amp;NMD_TRANSCRIPT" isSelectable="true" value="FRAMESHIFT_CODING&amp;SPLICE_SITE&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="HGMD_MUTATION" internalName="HGMD_MUTATION" isSelectable="true" value="HGMD_MUTATION"/>
-          <Option displayName="INTRONIC" internalName="INTRONIC" isSelectable="true" value="INTRONIC"/>
-          <Option displayName="INTRONIC&amp;NMD_TRANSCRIPT" internalName="INTRONIC&amp;NMD_TRANSCRIPT" isSelectable="true" value="INTRONIC&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="NON_SYNONYMOUS_CODING" internalName="NON_SYNONYMOUS_CODING" isSelectable="true" value="NON_SYNONYMOUS_CODING"/>
-          <Option displayName="NON_SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT" internalName="NON_SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT" isSelectable="true" value="NON_SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="NON_SYNONYMOUS_CODING&amp;SPLICE_SITE" internalName="NON_SYNONYMOUS_CODING&amp;SPLICE_SITE" isSelectable="true" value="NON_SYNONYMOUS_CODING&amp;SPLICE_SITE"/>
-          <Option displayName="NON_SYNONYMOUS_CODING&amp;SPLICE_SITE&amp;NMD_TRANSCRIPT" internalName="NON_SYNONYMOUS_CODING&amp;SPLICE_SITE&amp;NMD_TRANSCRIPT" isSelectable="true" value="NON_SYNONYMOUS_CODING&amp;SPLICE_SITE&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="PARTIAL_CODON" internalName="PARTIAL_CODON" isSelectable="true" value="PARTIAL_CODON"/>
-          <Option displayName="REGULATORY_REGION" internalName="REGULATORY_REGION" isSelectable="true" value="REGULATORY_REGION"/>
-          <Option displayName="SPLICE_SITE&amp;3PRIME_UTR" internalName="SPLICE_SITE&amp;3PRIME_UTR" isSelectable="true" value="SPLICE_SITE&amp;3PRIME_UTR"/>
-          <Option displayName="SPLICE_SITE&amp;3PRIME_UTR&amp;NMD_TRANSCRIPT" internalName="SPLICE_SITE&amp;3PRIME_UTR&amp;NMD_TRANSCRIPT" isSelectable="true" value="SPLICE_SITE&amp;3PRIME_UTR&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="SPLICE_SITE&amp;5PRIME_UTR" internalName="SPLICE_SITE&amp;5PRIME_UTR" isSelectable="true" value="SPLICE_SITE&amp;5PRIME_UTR"/>
-          <Option displayName="SPLICE_SITE&amp;5PRIME_UTR&amp;NMD_TRANSCRIPT" internalName="SPLICE_SITE&amp;5PRIME_UTR&amp;NMD_TRANSCRIPT" isSelectable="true" value="SPLICE_SITE&amp;5PRIME_UTR&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="SPLICE_SITE&amp;INTRONIC" internalName="SPLICE_SITE&amp;INTRONIC" isSelectable="true" value="SPLICE_SITE&amp;INTRONIC"/>
-          <Option displayName="SPLICE_SITE&amp;INTRONIC&amp;NMD_TRANSCRIPT" internalName="SPLICE_SITE&amp;INTRONIC&amp;NMD_TRANSCRIPT" isSelectable="true" value="SPLICE_SITE&amp;INTRONIC&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="SPLICE_SITE&amp;SYNONYMOUS_CODING" internalName="SPLICE_SITE&amp;SYNONYMOUS_CODING" isSelectable="true" value="SPLICE_SITE&amp;SYNONYMOUS_CODING"/>
-          <Option displayName="SPLICE_SITE&amp;SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT" internalName="SPLICE_SITE&amp;SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT" isSelectable="true" value="SPLICE_SITE&amp;SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="STOP_GAINED" internalName="STOP_GAINED" isSelectable="true" value="STOP_GAINED"/>
-          <Option displayName="STOP_GAINED&amp;FRAMESHIFT_CODING" internalName="STOP_GAINED&amp;FRAMESHIFT_CODING" isSelectable="true" value="STOP_GAINED&amp;FRAMESHIFT_CODING"/>
-          <Option displayName="STOP_GAINED&amp;FRAMESHIFT_CODING&amp;NMD_TRANSCRIPT" internalName="STOP_GAINED&amp;FRAMESHIFT_CODING&amp;NMD_TRANSCRIPT" isSelectable="true" value="STOP_GAINED&amp;FRAMESHIFT_CODING&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="STOP_GAINED&amp;NMD_TRANSCRIPT" internalName="STOP_GAINED&amp;NMD_TRANSCRIPT" isSelectable="true" value="STOP_GAINED&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="STOP_GAINED&amp;SPLICE_SITE" internalName="STOP_GAINED&amp;SPLICE_SITE" isSelectable="true" value="STOP_GAINED&amp;SPLICE_SITE"/>
-          <Option displayName="STOP_GAINED&amp;SPLICE_SITE&amp;NMD_TRANSCRIPT" internalName="STOP_GAINED&amp;SPLICE_SITE&amp;NMD_TRANSCRIPT" isSelectable="true" value="STOP_GAINED&amp;SPLICE_SITE&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="STOP_LOST" internalName="STOP_LOST" isSelectable="true" value="STOP_LOST"/>
-          <Option displayName="STOP_LOST&amp;NMD_TRANSCRIPT" internalName="STOP_LOST&amp;NMD_TRANSCRIPT" isSelectable="true" value="STOP_LOST&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="STOP_LOST&amp;SPLICE_SITE" internalName="STOP_LOST&amp;SPLICE_SITE" isSelectable="true" value="STOP_LOST&amp;SPLICE_SITE"/>
-          <Option displayName="STOP_LOST&amp;SPLICE_SITE&amp;NMD_TRANSCRIPT" internalName="STOP_LOST&amp;SPLICE_SITE&amp;NMD_TRANSCRIPT" isSelectable="true" value="STOP_LOST&amp;SPLICE_SITE&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="SYNONYMOUS_CODING" internalName="SYNONYMOUS_CODING" isSelectable="true" value="SYNONYMOUS_CODING"/>
-          <Option displayName="SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT" internalName="SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT" isSelectable="true" value="SYNONYMOUS_CODING&amp;NMD_TRANSCRIPT"/>
-          <Option displayName="UPSTREAM" internalName="UPSTREAM" isSelectable="true" value="UPSTREAM"/>
-          <Option displayName="WITHIN_MATURE_miRNA" internalName="WITHIN_MATURE_miRNA" isSelectable="true" value="WITHIN_MATURE_miRNA"/>
-          <Option displayName="WITHIN_NON_CODING_GENE" internalName="WITHIN_NON_CODING_GENE" isSelectable="true" value="WITHIN_NON_CODING_GENE"/>
+          <Option internalName="replace_me"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Associated with validated SNPs" internalName="validated_snp">
@@ -4464,6 +4391,8 @@
         <AttributeDescription checkForNulls="true" displayName="BRAD Gene ID" field="dbprimary_acc_1074" internalName="brad_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_brad_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="BRAD Transcript ID" field="dbprimary_acc_1074" internalName="brad_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_brad_transcript__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Unigene ID" field="dbprimary_acc_1074" internalName="unigene" key="transcript_id_1064_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=unigene&amp;term=%s" maxLength="40" tableConstraint="ox_UniGene__dm" useDefault="true">
+          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene"/>
+          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="agambiae_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="ppatens_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="vvinifera_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
