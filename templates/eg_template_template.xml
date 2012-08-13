@@ -3668,7 +3668,7 @@
       </FilterCollection>
       <FilterCollection description="Filter for Genes associated with specified types of SNPs" displayName="Variation type" internalName="snptype">
         <FilterDescription displayType="list" field="mart_consequence_type_2076" internalName="snptype_filters" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
-          <Option internalName="replace_me"/>
+          <Option internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Associated with validated SNPs" internalName="validated_snp">
