@@ -763,7 +763,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with UniGene ID(s)" displayType="list" field="ox_unigene_bool" internalName="with_unigene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with UniGene ID(s)" displayType="list" field="ox_unigene_bool" internalName="with_unigene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -1088,7 +1088,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
 	  </Option>
-          <Option checkForNulls="true" displayName="Unigene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="unigene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_UniGene__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Unigene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="unigene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_UniGene__dm" type="list"/>
           <Option checkForNulls="true" displayName="UniProtKB Varsplice ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_varsplice_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_UniprotVarsplic__dm" type="text">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="agambiae_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotVarsplic__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotVarsplic__dm"/>
@@ -1834,7 +1834,7 @@
         <AttributeDescription checkForNulls="true" displayName="RGD ID" field="dbprimary_acc_1074" internalName="rgd" key="transcript_id_1064_key" linkoutURL="exturl3|http://rgd.mcw.edu/tools/genes/genes_view.cgi?id=%s" maxLength="40" tableConstraint="ox_RGD__dm"/>
         <AttributeDescription checkForNulls="true" displayName="SGD ID" field="dbprimary_acc_1074" internalName="sgd" key="translation_id_1068_key" linkoutURL="exturl3|http://db.yeastgenome.org/cgi-bin/locus.pl?locus=%s" maxLength="40" tableConstraint="ox_SGD__dm"/>
         <AttributeDescription displayName="UCSC ID" field="dbprimary_acc_1074" internalName="ucsc" key="gene_id_1020_key" linkoutURL="exturl3|/*species2*/geneview?gene=%s" maxLength="40" tableConstraint="ox_UCSC__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Unigene ID" field="dbprimary_acc_1074" internalName="unigene" key="transcript_id_1064_key" linkoutURL="exturl3|http://www.ncbi.nlm.nih.gov/sites/entrez?db=unigene&amp;term=%s" maxLength="40" tableConstraint="ox_UniGene__dm">
+        <AttributeDescription checkForNulls="true" displayName="Unigene ID" field="dbprimary_acc_1074" internalName="unigene" key="gene_id_1020_key" linkoutURL="exturl3|http://www.ncbi.nlm.nih.gov/sites/entrez?db=unigene&amp;term=%s" maxLength="40" tableConstraint="ox_UniGene__dm">
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="UniProtKB/TrEMBL Accession" field="dbprimary_acc_1074" internalName="uniprot_sptrembl" key="translation_id_1068_key" linkoutURL="exturl3|http://www.uniprot.org/uniprot/%s" maxLength="6" tableConstraint="ox_UniprotSPTREMBL__dm">
            <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>

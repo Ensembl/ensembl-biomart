@@ -1265,7 +1265,7 @@
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="aclavatus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="aflavus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="aoryzae_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="ox_entrezgene_bool" internalName="agambiae_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="ox_entrezgene_bool" internalName="agambiae_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="aaegypti_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="iscapularis_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
@@ -2256,7 +2256,7 @@
           <Option checkForNulls="true" displayName="Ensembl Human transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ens_hs_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Ens_Hs_transcript__dm" type="list"/>
           <Option checkForNulls="true" displayName="Ensembl Human protein ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ens_hs_translation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Ens_Hs_translation__dm" type="list"/>
           <Option checkForNulls="true" displayName="EntrezGene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="entrezgene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_EntrezGene__dm" type="text" useDefault="true">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="iscapularis_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
@@ -4047,7 +4047,7 @@
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="spurpuratus_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="smansoni_eg_gene"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="iscapularis_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
