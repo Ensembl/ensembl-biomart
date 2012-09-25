@@ -3270,13 +3270,9 @@
       </FilterCollection>
     </FilterGroup>
     -->
-    <FilterGroup description="Filter on Protein data" displayName="PROTEIN:" internalName="protein">
+    <FilterGroup description="Filter on Protein data" displayName="PROTEIN DOMAINS:" internalName="protein">
       <FilterCollection displayName="Limit to genes ..." internalName="family_domain_id">
         <FilterDescription displayType="container" internalName="protein_fam_id_bools" type="boolean_list">
-          <Option displayName="with ScanProSite matches" displayType="list" field="protein_feature_scanprosite_bool" internalName="with_prosite" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
           <Option displayName="with PFSCAN matches" displayType="list" field="protein_feature_pfscan_bool" internalName="with_profile" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -3607,12 +3603,11 @@
       </FilterCollection>
       <FilterCollection description="Limit to genes with these family or domain IDs:" displayName="Limit to genes with these family or domain IDs:" internalName="family_domain_id_list">
         <FilterDescription displayName="Entries with following ID(s)" displayType="container" internalName="protein_fam_id_filters" type="id_list">
-          <Option description="Filter for Genes mapped to a list of PFAM ID(s)" displayName="PFAM ID(s)" displayType="text" field="hit_name_1048" internalName="pfam" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_Pfam__dm" type="list"/>
-          <Option description="Filter for Genes mapped to a list of PRINTS ID(s)" displayName="PRINTS ID(s)" displayType="text" field="hit_name_1048" internalName="prints" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_Prints__dm" type="list"/>
-          <Option description="Filter for Genes mapped to a list of Profile ID(s)" displayName="PROFILE ID(s)" displayType="text" field="hit_name_1048" internalName="profile" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_pfscan__dm" type="list"/>
-          <Option description="Filter for Genes mapped to a list of Prosite ID(s)" displayName="PROSITE ID(s)" displayType="text" field="hit_name_1048" internalName="prosite" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_scanprosite__dm" type="list"/>
+          <Option description="Filter for Genes mapped to a list of PFAM ID(s)" displayName="PFAM ID(s)" displayType="text" field="hit_name_1048" internalName="pfam_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_Pfam__dm" type="list"/>
+          <Option description="Filter for Genes mapped to a list of PRINTS ID(s)" displayName="PRINTS ID(s)" displayType="text" field="hit_name_1048" internalName="prints_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_Prints__dm" type="list"/>
+          <Option description="Filter for Genes mapped to a list of Profile ID(s)" displayName="PROFILE ID(s)" displayType="text" field="hit_name_1048" internalName="profile_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_pfscan__dm" type="list"/>
           <Option description="Filter for Genes having mapped to a list of Ensembl family ID(s)" displayName="Ensembl Family ID(s)" displayType="text" field="family" internalName="ensembl_family" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list"/>
-          <Option description="Filter for Genes mapped to a list of InterPro ID(s)" displayName="InterPro ID(s)" displayType="text" field="interpro_ac_1026" internalName="interpro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="interpro__dm" type="text"/>
+          <Option description="Filter for Genes mapped to a list of InterPro ID(s)" displayName="InterPro ID(s)" displayType="text" field="interpro_ac_1026" internalName="interpro_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="interpro__dm" type="text"/>
           <Option displayName="Ensembl Protein Family ID(s) [e.g. ENSFM00250000000002]" displayType="text" field="stable_id_408" internalName="family" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
         </FilterDescription>
       </FilterCollection>
@@ -4615,17 +4610,9 @@
         <AttributeDescription displayName="HOGENOM ID" field="dbprimary_acc_1074" internalName="hogenom" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_HOGENOM__dm"/>
         <AttributeDescription displayName="HSSP ID" field="dbprimary_acc_1074" internalName="hssp" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_HSSP__dm"/>
         <AttributeDescription displayName="InterPro ID" field="dbprimary_acc_1074" internalName="interpro" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_InterPro__dm" useDefault="true">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="nfischeri_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="afumigatus_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aclavatus_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aflavus_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aniger_eg_gene" key="transcript_id_1064_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aoryzae_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="transcript_id_1064_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_interpro__dm"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key" tableConstraint="ox_interpro__dm"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key" tableConstraint="ox_interpro__dm"/>
@@ -4953,13 +4940,13 @@
       </AttributeCollection>
     </AttributeGroup>
       -->
-    <AttributeGroup description="Data for proteins associated with Genes." displayName="PROTEIN:" internalName="protein">
+    <AttributeGroup description="Data for proteins associated with Genes." displayName="PROTEIN DOMAINS:" internalName="protein">
       <AttributeCollection description="Features of Protein Family Data" displayName="Family Attributes" internalName="prot_family">
         <AttributeDescription displayName="Family Description" field="family_description" internalName="family_description" key="transcript_id_1064_key" maxLength="230" tableConstraint="main"/>
         <AttributeDescription displayName="Ensembl Family ID" field="family" internalName="family" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/familyview?family=%s" maxLength="15" tableConstraint="main"/>
       </AttributeCollection>
       <AttributeCollection displayName="Domains" internalName="prot_domain" maxSelect="2">
-        <AttributeDescription displayName="Prosite ID" field="hit_name_1048" internalName="prosite" key="translation_id_1068_key" linkoutURL="exturl1|http://us.expasy.org/cgi-bin/nicesite.pl?%s" maxLength="7" tableConstraint="protein_feature_pfscan__dm"/>
+        <AttributeDescription displayName="Profile ID" field="hit_name_1048" internalName="profile_pf" key="translation_id_1068_key" linkoutURL="exturl1|http://prosite.expasy.org/%s" maxLength="7" tableConstraint="protein_feature_pfscan__dm"/>
         <AttributeDescription displayName="PIRSF SuperFamily ID" field="hit_name_1048" internalName="pirsf_pf" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_PIRSF__dm"/>
         <AttributeDescription displayName="Superfamily ID" field="hit_name_1048" internalName="superfamily_pf" key="translation_id_1068_key" linkoutURL="exturl|http://supfam.cs.bris.ac.uk/SUPERFAMILY/cgi-bin/scop.cgi?sunid=%s" maxLength="40" tableConstraint="protein_feature_Superfamily__dm"/>
         <AttributeDescription displayName="PRINTS ID" field="hit_name_1048" internalName="prints_pf" key="translation_id_1068_key" linkoutURL="exturl1|http://umber.sbs.man.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?display_opts=Prints&amp;category=None&amp;queryform=false&amp;prints_accn=%s" maxLength="7" tableConstraint="protein_feature_Prints__dm"/>
