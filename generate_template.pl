@@ -310,7 +310,7 @@ sub write_metatables {
     $logger->info("Populating template tables");
     # populate template tables
     ## meta_version__version__main
-    $mart_handle->do("INSERT INTO meta_version__version__main VALUES ('0.6')");
+    $mart_handle->do("INSERT INTO meta_version__version__main VALUES ('0.7')");
     ## meta_template__xml__dm
     my $sth = $mart_handle->prepare('INSERT INTO meta_template__xml__dm VALUES (?,?)');
     $sth->execute($ds_name, file_to_bytes("$pwd/output/template.xml.gz")) 
