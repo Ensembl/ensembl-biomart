@@ -14,6 +14,7 @@ use LWP::Simple;
 use LWP::UserAgent;
 use XML::Simple;
 use Data::Dumper;
+use Carp;
 
 sub new {
 	my ( $proto, @args ) = @_;
@@ -108,6 +109,7 @@ sub get_attributes {
 	while (<$fh>) {
 		chomp;
 # ensembl_gene_id	Ensembl Gene ID	Ensembl Stable ID of the Gene	feature_page	html,txt,csv,tsv,xls	spombe_eg_gene__gene__main	stable_id_1023
+		throw "$_" if m/does not exist/;
 		my ( $name, $display_name, $des, $page, $types, $table, $column ) =
 		  ( split( '\t', $_ ) )[ 0, 1, 3, 4, 5 ];
 		if ( defined $name ) {
@@ -139,7 +141,8 @@ sub get_filters {
 	while (<$fh>) {
 		chomp;
 # chromosome_name	Chromosome name	[AB325691,I,II,III,MT,MTR]		filters	list	=	spombe_eg_gene__gene__main	name_105
-		my ( $name, $display_name, $opt_str, $des, $page, $operator, $table,
+		throw "$_" if m/does not exist/;
+		my ( $name, $display_name, $opt_str, $des, $page, $type, $operator, $table,
 			 $column )
 		  = split( '\t', $_ );
 		$opt_str ||= '';
@@ -152,6 +155,7 @@ sub get_filters {
 												 -DISPLAY_NAME => $display_name,
 												 -DESCRIPTION  => $des,
 												 -PAGE         => $page,
+												 -TYPE			=> $type,
 												 -OPERATOR     => $operator,
 												 -OPTIONS      => \@options,
 												 -TABLE        => $table,
@@ -164,9 +168,23 @@ sub get_filters {
 
 sub do_query {
 	my ( $self, $mart, $dataset, $attributes, $filters, $options ) = @_;
+	my $text =
+	  $self->do_query_text( $mart, $dataset, $attributes, $filters, $options );
+	my $query_results = [];
+	if ( defined $text ) {
+		for my $line ( split( "\n", $text ) ) {
+			chomp $line;
+			push @$query_results, [ split( "\t", $line ) ];
+		}
+	}
+	return $query_results;
+}
+
+sub do_query_text {
+	my ( $self, $mart, $dataset, $attributes, $filters, $options ) = @_;
 	$options    ||= {};
 	$attributes ||= [];
-	$filters    ||= {};
+	$filters    ||= [];
 	my $query = { limitStart => $options->{limitSize} || '0',
 				  virtualSchemaName    => $mart->virtual_schema(),
 				  formatter            => $options->{formatter} || 'TSV',
@@ -183,12 +201,18 @@ sub do_query {
 	for my $attribute ( @{$attributes} ) {
 		push @{ $query->{Dataset}{Attribute} }, { name => $attribute->name() };
 	}
-	while ( my ( $key, $value ) = each %$filters ) {
-		push @{ $query->{Dataset}{Filter} }, { name => $key, value => $value };
-	}
-	my $xml = XMLout( $query, RootName => "Query", NoIndent=>1 );
+	for my $f (@{$filters}) {
+		my $filter = $f->{filter};
+		$f->{excluded} ||= 0;
+		if($filter->type() eq 'boolean' || $filter->type() eq 'boolean_list') {
+			push @{$query->{Dataset}{Filter}}, {name=>$filter->name(), excluded=>$f->{excluded}};			
+		} else {
+			push @{$query->{Dataset}{Filter}}, {name=>$filter->name(), value=>$f->{value}};			
+		}
+	}	
+	my $xml = XMLout( $query, RootName => "Query", NoIndent => 1 );
 	return $self->do_post( { query => $xml } );
-} ## end sub do_query
+} ## end sub do_query_text
 
 sub do_post {
 	my ( $self, $arguments ) = @_;
@@ -201,26 +225,19 @@ sub do_post {
 						  $post_str );
 	my $ua = LWP::UserAgent->new();
 	my $output;
-		my $response = $ua->request(
-			$request,
-			sub {
-				my ( $data, $response ) = @_;
-				if ( $response->is_success() ) {
-					if ( $data =~
-						m/(BioMart::Exception|Validation Error:|Serious Error:)/
-					  )
-					{
-						throw("Query failed: $post_str:  $data");
-					} else {
-						$output = $data;
-					}
-				} else {
-					throw( "Server error: " . $response->status_line );
+	my $response = $ua->request(
+		$request);
+		if($response->is_success()) {
+			$output = $response->decoded_content();			
+			if ( $output =~
+					 m/(BioMart::Exception|Validation Error:|Serious Error:)/ )
+				{
+					croak($output);
 				}
-				return;
-			},
-			1000 );
-			return $output;
+		} else {
+			croak "Server error: " . $response->status_line;
+		}
+	return $output;
 } ## end sub do_post
 
 sub do_get {

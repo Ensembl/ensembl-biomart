@@ -11,8 +11,8 @@ use base qw(Bio::EnsEMBL::BioMart::QueryObject);
 sub new {
 	my ( $proto, @args ) = @_;
 	my $self = $proto->SUPER::new(@args);
-	( $self->{operator}, $self->{options} ) =
-	  rearrange( [ 'OPERATOR', 'OPTIONS' ], @args );
+	( $self->{operator}, $self->{options}, $self->{type} ) =
+	  rearrange( [ 'OPERATOR', 'OPTIONS', 'TYPE' ], @args );
 	return $self;
 }
 
@@ -26,4 +26,8 @@ sub options {
 	return $self->{options};
 }
 
+sub type {
+	my ($self) = @_;
+	return $self->{type};
+}
 1;
