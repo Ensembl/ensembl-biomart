@@ -183,7 +183,8 @@ foreach my $dataset (@datasets) {
 	    $species_names{'assembly.name'}  || $species_names{'genebuild.version'} 
 	    ); 
 
-	# Do that only for gene mart - not SNP mart
+	# Add a meta key on the core database
+	# Do that only when templating gene mart - not SNP mart
 	if ($dataset_basename !~ /snp/i) {
 	    $meta_insert->execute(	    
 		$species_id,
