@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE DatasetConfig>
+<DatasetConfig dataset="structvar_template" defaultDataset="*default*" displayName="*species1* Structural Variation (*version*)" interfaces="default" internalName="template" martUsers="default" modified="2010-02-10 21:58:05.484" softwareVersion="0.7" template="structvar" type="TableSet" useDefault="true" version="*version*" visible="1">
+  <Replace id="datasets"/>
+  <MainTable>hsapiens_structvar__structural_variation__main</MainTable>
+  <Key>structural_variation_id_2072_key</Key>
+  <Importable filters="chr_name,chrom_start,chrom_end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
+  <Importable filters="chr_name,chrom_start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link" useDefault="true"/>
+  <Importable filters="chr_name,chrom_end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
+  <Exportable attributes="chr_name,chrom_start,chrom_end" default="1" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
+  <FilterPage displayName="FILTERS" internalName="filters" useDefault="true">
+    <FilterGroup displayName="REGION" internalName="region" useDefault="true">
+      <FilterCollection displayName="Chromosome" internalName="chromosome" useDefault="true">
+        <FilterDescription displayName="Chromosome name" displayType="list" field="name_2034" internalName="chr_name" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" otherFilters="*species4*_karyotype_start.name;*species4*_karyotype_end.name" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+	  <SpecificFilterContent internalName="ReplaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Base pair" internalName="chromosome_coordinates" useDefault="true">
+        <FilterDescription displayName="Start" displayType="text" field="seq_region_start_20104" internalName="chrom_start" key="structural_variation_feature_id_20104_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="End" displayType="text" field="seq_region_end_20104" internalName="chrom_end" key="structural_variation_feature_id_20104_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Multiple Chromosomal Regions (Chr:Start:End:Strand)" internalName="chromosome_regions" useDefault="true">
+        <FilterDescription displayName="Strand" displayType="text" field="seq_region_strand_20104" hidden="false" hideDisplay="true" internalName="strand" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription defaultValue="1:100:10000000:1" description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Chromosome Regions" displayType="text" field="seq_region_start_20104" filterList="chr_name,chrom_start,chrom_end,strand" hidden="false" internalName="chromosomal_region" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+    <FilterGroup displayName="GENERAL STRUCTURAL VARIATION FILTERS:" internalName="svfilters" useDefault="true">
+      <FilterCollection displayName="Limit to variants from this source" internalName="structural_variation_source" useDefault="true">
+        <FilterDescription displayName="Source Name" displayType="list" field="name_2021" hidden="false" internalName="source_name" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+          <SpecificFilterContent internalName="ReplaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Limit to study accession from DGVa (Please select DGVa from source filter above)" internalName="structural_variation_study" useDefault="true">
+        <FilterDescription displayName="DGVa Study Accession" displayType="text" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true">
+          <SpecificFilterContent internalName="ReplaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Limit to Mouse strain" internalName="structural_variation_annotation" useDefault="true">
+        <FilterDescription displayName="Limit to Mouse strain" displayType="list" field="name_2019" hidden="false" internalName="structural_variation_annotation" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="structural_variation_annotation__dm" type="list" useDefault="true">
+          <SpecificFilterContent displayType="list" field="name_2019" internalName="mmusculus_structvar" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="structural_variation_annotation__dm" type="list" useDefault="true">
+            <Option displayName="129P2/OlaHsd" internalName="129P2/OlaHsd" isSelectable="true" useDefault="true" value="129P2/OlaHsd"/>
+            <Option displayName="129S1/SvImJ" internalName="129S1/SvImJ" isSelectable="true" useDefault="true" value="129S1/SvImJ"/>
+            <Option displayName="129S5/SvEvBrd" internalName="129S5/SvEvBrd" isSelectable="true" useDefault="true" value="129S5/SvEvBrd"/>
+            <Option displayName="A/J" internalName="A/J" isSelectable="true" useDefault="true" value="A/J"/>
+            <Option displayName="AKR/J" internalName="AKR/J" isSelectable="true" useDefault="true" value="AKR/J"/>
+            <Option displayName="BALB/cJ" internalName="BALB/cJ" isSelectable="true" useDefault="true" value="BALB/cJ"/>
+            <Option displayName="C3H/HeJ" internalName="C3H/HeJ" isSelectable="true" useDefault="true" value="C3H/HeJ"/>
+            <Option displayName="C57BL/6NJ" internalName="C57BL/6NJ" isSelectable="true" useDefault="true" value="C57BL/6NJ"/>
+            <Option displayName="CAST/EiJ" internalName="CAST/EiJ" isSelectable="true" useDefault="true" value="CAST/EiJ"/>
+            <Option displayName="CBA/J" internalName="CBA/J" isSelectable="true" useDefault="true" value="CBA/J"/>
+            <Option displayName="DBA/2J" internalName="DBA/2J" isSelectable="true" useDefault="true" value="DBA/2J"/>
+            <Option displayName="LP/J" internalName="LP/J" isSelectable="true" useDefault="true" value="LP/J"/>
+            <Option displayName="NOD/ShiLtJ" internalName="NOD/ShiLtJ" isSelectable="true" useDefault="true" value="NOD/ShiLtJ"/>
+            <Option displayName="NZO/HlLtJ" internalName="NZO/HlLtJ" isSelectable="true" useDefault="true" value="NZO/HlLtJ"/>
+            <Option displayName="PWK/PhJ" internalName="PWK/PhJ" isSelectable="true" useDefault="true" value="PWK/PhJ"/>
+            <Option displayName="SPRET/EiJ" internalName="SPRET/EiJ" isSelectable="true" useDefault="true" value="SPRET/EiJ"/>
+            <Option displayName="WSB/EiJ" internalName="WSB/EiJ" isSelectable="true" useDefault="true" value="WSB/EiJ"/>
+          </SpecificFilterContent>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Limit to variants with these IDs" internalName="structural_variation_filter" useDefault="true">
+        <FilterDescription displayType="container" internalName="svfilter" type="id_list" useDefault="true">
+          <Option description="Structural variation name" displayName="Structural Variation Accession [e.g. esv263]" displayType="text" field="variation_name_2072" internalName="sv_name" isSelectable="true" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true"/>
+        </FilterDescription>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <FilterPage displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+    <FilterGroup displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+      <FilterCollection displayName="structural variation" hidden="true" internalName="structural_variation" useDefault="true">
+        <FilterDescription displayName="Allele string 2072" displayType="text" field="allele_string_2072" hidden="true" internalName="allele_string_2072" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Description 2021" displayType="text" field="description_2021" hidden="true" internalName="description_2021" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Variation name 2072" displayType="text" field="variation_name_2072" hidden="true" internalName="variation_name_2072" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Source id 2072" displayType="text" field="source_id_2072" hidden="true" internalName="source_id_2072" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Class 2072" displayType="text" field="class_2072" hidden="true" internalName="class_2072" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Seq region id 2072" displayType="text" field="seq_region_id_2072" hidden="true" internalName="seq_region_id_2072" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Somatic 2021" displayType="text" field="somatic_2021" hidden="true" internalName="somatic_2021" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <FilterPage displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+    <FilterGroup displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+      <FilterCollection displayName="structural variation" hidden="true" internalName="structural_variation" useDefault="true">
+        <FilterDescription displayName="Study id 2072" displayType="text" field="study_id_2072" hidden="true" internalName="study_id_2072" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Type 2021" displayType="text" field="type_2021" hidden="true" internalName="type_2021" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Somatic status 2021" displayType="text" field="somatic_status_2021" hidden="true" internalName="somatic_status_2021" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Version 2021" displayType="text" field="version_2021" hidden="true" internalName="version_2021" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="External reference 20100" displayType="text" field="external_reference_20100" hidden="true" internalName="external_reference_20100" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Description 20100" displayType="text" field="description_20100" hidden="true" internalName="description_20100" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Source id 20100" displayType="text" field="source_id_20100" hidden="true" internalName="source_id_20100" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Url 20100" displayType="text" field="url_20100" hidden="true" internalName="url_20100" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Description 2021 r1" displayType="text" field="description_2021_r1" hidden="true" internalName="description_2021_r1" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Url 2021 r1" displayType="text" field="url_2021_r1" hidden="true" internalName="url_2021_r1" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Name 2021 r1" displayType="text" field="name_2021_r1" hidden="true" internalName="name_2021_r1" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Somatic status 2021 r1" displayType="text" field="somatic_status_2021_r1" hidden="true" internalName="somatic_status_2021_r1" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Version 2021 r1" displayType="text" field="version_2021_r1" hidden="true" internalName="version_2021_r1" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <FilterPage displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+    <FilterGroup displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+      <FilterCollection displayName="structural variation" hidden="true" internalName="structural_variation" useDefault="true">
+        <FilterDescription displayName="Class attrib id 2072" displayType="text" field="class_attrib_id_2072" hidden="true" internalName="class_attrib_id_2072" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Validation status 2072" displayType="text" field="validation_status_2072" hidden="true" internalName="validation_status_2072" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Value 2092" displayType="text" field="value_2092" hidden="true" internalName="value_2092" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Attrib type id 2092" displayType="text" field="attrib_type_id_2092" hidden="true" internalName="attrib_type_id_2092" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Code 2094" displayType="text" field="code_2094" hidden="true" internalName="code_2094" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Description 2094" displayType="text" field="description_2094" hidden="true" internalName="description_2094" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Name 2094" displayType="text" field="name_2094" hidden="true" internalName="name_2094" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Structural variation feature count" displayType="text" field="structural_variation_feature_count" hidden="true" internalName="structural_variation_feature_count" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="structural variation feature" hidden="true" internalName="structural_variation_feature" useDefault="true">
+        <FilterDescription displayName="Outer start 20104" displayType="text" field="outer_start_20104" hidden="true" internalName="outer_start_20104" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Inner start 20104" displayType="text" field="inner_start_20104" hidden="true" internalName="inner_start_20104" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Source id 20104" displayType="text" field="source_id_20104" hidden="true" internalName="source_id_20104" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Outer end 20104" displayType="text" field="outer_end_20104" hidden="true" internalName="outer_end_20104" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Seq region id 20104" displayType="text" field="seq_region_id_20104" hidden="true" internalName="seq_region_id_20104" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Class attrib id 20104" displayType="text" field="class_attrib_id_20104" hidden="true" internalName="class_attrib_id_20104" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Inner end 20104" displayType="text" field="inner_end_20104" hidden="true" internalName="inner_end_20104" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Variation name 20104" displayType="text" field="variation_name_20104" hidden="true" internalName="variation_name_20104" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <FilterPage displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+    <FilterGroup displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+      <FilterCollection displayName="structural variation" hidden="true" internalName="structural_variation" useDefault="true">
+        <FilterDescription displayName="Is evidence 2072" displayType="text" field="is_evidence_2072" hidden="true" internalName="is_evidence_2072" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <FilterPage displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+    <FilterGroup displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+      <FilterCollection displayName="structural variation feature" hidden="true" internalName="structural_variation_feature" useDefault="true">
+        <FilterDescription displayName="Is evidence 20104" displayType="text" field="is_evidence_20104" hidden="true" internalName="is_evidence_20104" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Variation set id 20104" displayType="text" field="variation_set_id_20104" hidden="true" internalName="variation_set_id_20104" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Coord system id 2034" displayType="text" field="coord_system_id_2034" hidden="true" internalName="coord_system_id_2034" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <FilterPage displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+    <FilterGroup displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+      <FilterCollection displayName="structural variation" hidden="true" internalName="structural_variation" useDefault="true">
+        <FilterDescription displayName="Somatic 2072" displayType="text" field="somatic_2072" hidden="true" internalName="somatic_2072" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="structural variation feature" hidden="true" internalName="structural_variation_feature" useDefault="true">
+        <FilterDescription displayName="Somatic 20104" displayType="text" field="somatic_20104" hidden="true" internalName="somatic_20104" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <FilterPage displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+    <FilterGroup displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+      <FilterCollection displayName="structural variation" hidden="true" internalName="structural_variation" useDefault="true">
+        <FilterDescription displayName="Study type 20100" displayType="text" field="study_type_20100" hidden="true" internalName="study_type_20100" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <AttributePage displayName="Structural Variations" internalName="structural_variation" outFormats="html,txt,csv,tsv,xls" useDefault="true">
+    <AttributeGroup displayName="STRUCTURAL VARIATION:" internalName="structural_variation" useDefault="true">
+      <AttributeCollection displayName="Structural Variation (SV) Information" internalName="structural_variation" useDefault="true">
+        <AttributeDescription displayName="Strain Name SV" field="name_2019" internalName="strain_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="structural_variation_annotation__dm" useDefault="true">
+          <SpecificAttributeContent field="name_2019" internalName="mmusculus_structvar" key="structural_variation_id_2072_key" tableConstraint="structural_variation_annotation__dm" useDefault="true"/>
+        </AttributeDescription>
+        <AttributeDescription displayName="DGVa Study Accession" field="name_20100" internalName="dgva_study_accession" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Structural Variation Name" field="variation_name_2072" internalName="sv_accession" key="structural_variation_id_2072_key" linkoutURL="exturl|/*species2*/StructuralVariation/Summary?sv=%s" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="SV Variant Type" field="value_2092" internalName="sv_variant_type" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Structural Variation Description" field="description_2021" internalName="description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Pubmed ID" field="external_reference_20100" internalName="external_reference" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Study Description" field="description_20100" internalName="study_description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Source Name" field="name_2021" internalName="source_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Validation status" field="validation_status_2072" internalName="validation_status" key="structural_variation_id_2072_key" maxLength="13" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Strain Description SV" field="description_2019" internalName="strain_description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="structural_variation_annotation__dm" useDefault="true">
+          <SpecificAttributeContent field="description_2019" internalName="mmusculus_structvar" key="structural_variation_id_2072_key" tableConstraint="structural_variation_annotation__dm" useDefault="true"/>
+        </AttributeDescription>
+      </AttributeCollection>
+      <AttributeCollection displayName="Structural Variation (SV) Location" internalName="structural_variation_location" useDefault="true">
+        <AttributeDescription displayName="Chromosome Name" field="name_2034" internalName="chr_name" key="structural_variation_feature_id_20104_key" linkoutURL="exturl|/*species2*/mapview?chr=%s" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Sequence region start (bp)" field="seq_region_start_20104" internalName="chrom_start" key="structural_variation_feature_id_20104_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chr_name|chrom_start|chrom_end" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Sequence region end (bp)" field="seq_region_end_20104" internalName="chrom_end" key="structural_variation_feature_id_20104_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chr_name|chrom_start|chrom_end" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Strand" field="seq_region_strand_20104" internalName="seq_region_strand" key="structural_variation_feature_id_20104_key" maxLength="4" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Inner start" field="inner_start_20104" internalName="inner_start" key="structural_variation_feature_id_20104_key" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Inner end" field="inner_end_20104" internalName="inner_end" key="structural_variation_feature_id_20104_key" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Outer start" field="outer_start_20104" internalName="outer_start" key="structural_variation_feature_id_20104_key" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Outer end" field="outer_end_20104" internalName="outer_end" key="structural_variation_feature_id_20104_key" maxLength="11" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="Structural Variation (SV) Set" internalName="variation_set_structural_variation" useDefault="true">
+        <AttributeDescription displayName="Structural Variation Set Name" field="name_2077" internalName="set_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="variation_set_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Structural Variation Set Description" field="description_2077" internalName="set_description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="variation_set_structural_variation__dm" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="Supporting Structural Variation (SSV)" internalName="supporting_structural_variation" useDefault="true">
+        <AttributeDescription displayName="Supporting Structural Variant Accession" field="variation_name_20116" internalName="variation_name_20116" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="SSV Variant Type" field="class_name_20116" internalName="class_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="SSV Strain name " field="strain_name_20116" internalName="ssv_strain_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="SSV Sample name" field="sample_name_20116" internalName="sample_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Clinical significance" field="clinical_significance_20116" internalName="clinical_significance" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true">
+          <SpecificAttributeContent field="clinical_significance_20116" internalName="hsapiens_structvar" key="structural_variation_id_2072_key" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        </AttributeDescription>
+        <AttributeDescription displayName="Allele Type" field="value_2092" hidden="true" internalName="ssv_allele_type" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Supporting Structural Variant Accession" field="name_20101" hidden="true" internalName="ssv_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Supporting structural variation id 20116" field="supporting_structural_variation_id_20116" hidden="true" internalName="supporting_structural_variation_id_20116" key="structural_variation_id_2072_key" maxLength="10" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="Supporting Structural Variation (SSV) Location" internalName="supporting_structural_variation_location" useDefault="true">
+        <AttributeDescription displayName="Chromosome Name" field="seq_region_name_20116" internalName="seq_region_name_20116" key="structural_variation_id_2072_key" maxLength="40" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Strand" field="seq_region_strand_20116" internalName="seq_region_strand_20116" key="structural_variation_id_2072_key" maxLength="4" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Sequence region start (bp)" field="seq_region_start_20116" internalName="seq_region_start_20116" key="structural_variation_id_2072_key" maxLength="11" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Sequence region end (bp)" field="seq_region_end_20116" internalName="seq_region_end_20116" key="structural_variation_id_2072_key" maxLength="11" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="SSV Outer start" field="outer_start_20116" internalName="outer_start_20116" key="structural_variation_id_2072_key" maxLength="11" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="SSV Outer end" field="outer_end_20116" internalName="outer_end_20116" key="structural_variation_id_2072_key" maxLength="11" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="SSV Inner start" field="inner_start_20116" internalName="inner_start_20116" key="structural_variation_id_2072_key" maxLength="11" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="SSV Inner end" field="inner_end_20116" internalName="inner_end_20116" key="structural_variation_id_2072_key" maxLength="11" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+    <AttributeGroup displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+      <AttributeCollection displayName="supporting structural variation" hidden="true" internalName="supporting_structural_variation" useDefault="true">
+        <AttributeDescription displayName="Supporting structural variation id 20101" field="supporting_structural_variation_id_20101" hidden="true" internalName="supporting_structural_variation_id_20101" key="structural_variation_id_2072_key" maxLength="10" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="structural variation" hidden="true" internalName="structural_variation" useDefault="true">
+        <AttributeDescription displayName="Allele string 2072" field="allele_string_2072" hidden="true" internalName="allele_string_2072" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Somatic 2021" field="somatic_2021" hidden="true" internalName="somatic_2021" key="structural_variation_id_2072_key" maxLength="1" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Class attrib id 2072" field="class_attrib_id_2072" hidden="true" internalName="class_attrib_id_2072" key="structural_variation_id_2072_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Source id 2072" field="source_id_2072" hidden="true" internalName="source_id_2072" key="structural_variation_id_2072_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Seq region id 2072" field="seq_region_id_2072" hidden="true" internalName="seq_region_id_2072" key="structural_variation_id_2072_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Class 2072" field="class_2072" hidden="true" internalName="class_2072" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Study id 2072" field="study_id_2072" hidden="true" internalName="study_id_2072" key="structural_variation_id_2072_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Type 2021" field="type_2021" hidden="true" internalName="type_2021" key="structural_variation_id_2072_key" maxLength="5" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Somatic status 2021" field="somatic_status_2021" hidden="true" internalName="somatic_status_2021" key="structural_variation_id_2072_key" maxLength="9" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Version 2021" field="version_2021" hidden="true" internalName="version_2021" key="structural_variation_id_2072_key" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Source id 20100" field="source_id_20100" hidden="true" internalName="source_id_20100" key="structural_variation_id_2072_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Url 20100" field="url_20100" hidden="true" internalName="url_20100" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Description 2021 r1" field="description_2021_r1" hidden="true" internalName="description_2021_r1" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Url 2021 r1" field="url_2021_r1" hidden="true" internalName="url_2021_r1" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Name 2021 r1" field="name_2021_r1" hidden="true" internalName="name_2021_r1" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Somatic status 2021 r1" field="somatic_status_2021_r1" hidden="true" internalName="somatic_status_2021_r1" key="structural_variation_id_2072_key" maxLength="9" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Version 2021 r1" field="version_2021_r1" hidden="true" internalName="version_2021_r1" key="structural_variation_id_2072_key" maxLength="11" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+    <AttributeGroup displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+      <AttributeCollection displayName="structural variation" hidden="true" internalName="structural_variation" useDefault="true">
+        <AttributeDescription displayName="Attrib type id 2092" field="attrib_type_id_2092" hidden="true" internalName="attrib_type_id_2092" key="structural_variation_id_2072_key" maxLength="5" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Code 2094" field="code_2094" hidden="true" internalName="code_2094" key="structural_variation_id_2072_key" maxLength="20" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Description 2094" field="description_2094" hidden="true" internalName="description_2094" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Name 2094" field="name_2094" hidden="true" internalName="name_2094" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Structural variation feature count" field="structural_variation_feature_count" hidden="true" internalName="structural_variation_feature_count" key="structural_variation_id_2072_key" maxLength="11" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="structural variation feature" hidden="true" internalName="structural_variation_feature" useDefault="true">
+        <AttributeDescription displayName="Source id 20104" field="source_id_20104" hidden="true" internalName="source_id_20104" key="structural_variation_feature_id_20104_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Seq region id 20104" field="seq_region_id_20104" hidden="true" internalName="seq_region_id_20104" key="structural_variation_feature_id_20104_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Class attrib id 20104" field="class_attrib_id_20104" hidden="true" internalName="class_attrib_id_20104" key="structural_variation_feature_id_20104_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Variation name 20104" field="variation_name_20104" hidden="true" internalName="variation_name_20104" key="structural_variation_feature_id_20104_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="supporting structural variation" hidden="true" internalName="supporting_structural_variation" useDefault="true">
+        <AttributeDescription displayName="Description 2094" field="description_2094" hidden="true" internalName="supporting_structural_variation__dm_description_2094" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Name 2094" field="name_2094" hidden="true" internalName="supporting_structural_variation__dm_name_2094" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Class attrib id 20101" field="class_attrib_id_20101" hidden="true" internalName="class_attrib_id_20101" key="structural_variation_id_2072_key" maxLength="10" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Attrib type id 2092" field="attrib_type_id_2092" hidden="true" internalName="supporting_structural_variation__dm_attrib_type_id_2092" key="structural_variation_id_2072_key" maxLength="5" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Code 2094" field="code_2094" hidden="true" internalName="supporting_structural_variation__dm_code_2094" key="structural_variation_id_2072_key" maxLength="20" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+    <AttributeGroup displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+      <AttributeCollection displayName="structural variation" hidden="true" internalName="structural_variation" useDefault="true">
+        <AttributeDescription displayName="Variation set id 20115" field="variation_set_id_20115" hidden="true" internalName="variation_set_id_20115" key="structural_variation_id_2072_key" maxLength="10" tableConstraint="variation_set_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Short name attrib id 2077" field="short_name_attrib_id_2077" hidden="true" internalName="short_name_attrib_id_2077" key="structural_variation_id_2072_key" maxLength="10" tableConstraint="variation_set_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Is evidence 2072" field="is_evidence_2072" hidden="true" internalName="is_evidence_2072" key="structural_variation_id_2072_key" maxLength="4" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+    <AttributeGroup displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+      <AttributeCollection displayName="structural variation feature" hidden="true" internalName="structural_variation_feature" useDefault="true">
+        <AttributeDescription displayName="Is evidence 20104" field="is_evidence_20104" hidden="true" internalName="is_evidence_20104" key="structural_variation_feature_id_20104_key" maxLength="1" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Variation set id 20104" field="variation_set_id_20104" hidden="true" internalName="variation_set_id_20104" key="structural_variation_feature_id_20104_key" maxLength="2" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Coord system id 2034" field="coord_system_id_2034" hidden="true" internalName="coord_system_id_2034" key="structural_variation_feature_id_20104_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+    <AttributeGroup displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+      <AttributeCollection displayName="structural variation" hidden="true" internalName="structural_variation" useDefault="true">
+        <AttributeDescription displayName="Somatic 2072" field="somatic_2072" hidden="true" internalName="somatic_2072" key="structural_variation_id_2072_key" maxLength="1" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="structural variation feature" hidden="true" internalName="structural_variation_feature" useDefault="true">
+        <AttributeDescription displayName="Somatic 20104" field="somatic_20104" hidden="true" internalName="somatic_20104" key="structural_variation_feature_id_20104_key" maxLength="1" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+    <AttributeGroup displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+      <AttributeCollection displayName="supporting structural variation" hidden="true" internalName="supporting_structural_variation" useDefault="true">
+        <AttributeDescription displayName="Phenotype 20116" field="phenotype_20116" hidden="true" internalName="phenotype_20116" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+    <AttributeGroup displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+      <AttributeCollection displayName="structural variation annotation" hidden="true" internalName="structural_variation_annotation" useDefault="true">
+        <AttributeDescription displayName="Display 2019" field="display_2019" hidden="true" internalName="display_2019" key="structural_variation_id_2072_key" maxLength="15" tableConstraint="structural_variation_annotation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Strain id 20113" field="strain_id_20113" hidden="true" internalName="strain_id_20113" key="structural_variation_id_2072_key" maxLength="10" tableConstraint="structural_variation_annotation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Structural variation annotation id 20113" field="structural_variation_annotation_id_20113" hidden="true" internalName="structural_variation_annotation_id_20113" key="structural_variation_id_2072_key" maxLength="10" tableConstraint="structural_variation_annotation__dm" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+    <AttributeGroup displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+      <AttributeCollection displayName="structural variation" hidden="true" internalName="structural_variation" useDefault="true">
+        <AttributeDescription displayName="Study type 20100" field="study_type_20100" hidden="true" internalName="study_type_20100" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+</DatasetConfig>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE DatasetConfig>
+<DatasetConfig dataset="%name%" datasetID="%id%" defaultDataset="*default*" description="Ensembl Structural Variation"
+	displayName="%des% structural variation" entryLabel="Structural Variation" interfaces="default" internalName="default" martUsers="default"
+	modified="2008-07-10 12:07:40" softwareVersion="0.7" template="structvar" type="TableSet" version="%version%" visible="1">
+	<MainTable>%name%__structural_variation__main</MainTable>
+	<MainTable>%name%__structural_variation_feature__main</MainTable>
+	<Key>structural_variation_id_2072_key</Key>
+	<Key>structural_variation_feature_id_20104_key</Key>
+	<FilterPage displayName="DUMMY" hideDisplay="true"
+		internalName="dummy"/>
+	<AttributePage description="DUMMYA"
+		displayName="DUMMYA" internalName="DUMMYA"
+		outFormats="html,,txt,csv,,tsv,,xls"/>
+</DatasetConfig>
