@@ -13,6 +13,7 @@ sub new {
 	my $self = $proto->SUPER::new(@args);
 	( $self->{operator}, $self->{options}, $self->{type} ) =
 	  rearrange( [ 'OPERATOR', 'OPTIONS', 'TYPE' ], @args );
+	  $self->{options} ||= [];
 	return $self;
 }
 
