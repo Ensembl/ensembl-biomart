@@ -32,7 +32,7 @@ use Carp;
 use Pod::Usage;
 
 my $opts = {};
-GetOptions( $opts, 'uri=s', 'mart=s', 'dataset=s', 'filters', 'attributes' );
+GetOptions( $opts, 'uri=s', 'mart=s', 'dataset=s', 'filters', 'attributes', 'verbose|v' );
 if ( !defined $opts->{filters} && !defined $opts->{attributes} ) {
 	$opts->{filters}    = 1;
 	$opts->{attributes} = 1;
@@ -46,9 +46,14 @@ if ( !defined $opts->{uri} ) {
 	}
 }
 
-Test::More->builder->output('/tmp/test.out');
+if(!defined $opts->{verbose}) {
+	Test::More->builder->output('./test.out');
+}
 
+diag "Testing server $opts->{uri}";
 my $srv = Bio::EnsEMBL::BioMart::MartService->new( -URL => $opts->{uri} );
+
+BAIL("Server $opts->{uri} does not exist") if (!defined $srv);
 
 my @marts = ();
 if ( defined $opts->{mart} ) {
@@ -80,6 +85,7 @@ for my $mart (@marts) {
 	}
 }
 
+Test::More->builder->reset_outputs;
 done_testing;
 
 sub test_dataset {
