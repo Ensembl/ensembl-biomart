@@ -25,6 +25,7 @@ use warnings;
 use strict;
 use Bio::EnsEMBL::BioMart::MartService;
 use Test::More;
+use Try::Tiny;
 use Data::Dumper;
 use Getopt::Long;
 use Carp;
@@ -45,25 +46,37 @@ if ( !defined $opts->{uri} ) {
 	}
 }
 
+Test::More->builder->output('/tmp/test.out');
+
 my $srv = Bio::EnsEMBL::BioMart::MartService->new( -URL => $opts->{uri} );
 
-my @marts;
+my @marts = ();
 if ( defined $opts->{mart} ) {
-	@marts = ( $srv->get_mart_by_name( $opts->{mart} ) );
+	my $mart = $srv->get_mart_by_name( $opts->{mart} );
+	ok (defined $mart,"Checking that mart ".$opts->{mart}." exists");
+	@marts = ( $mart ) if $mart;
 } else {
 	@marts = @{ $srv->get_marts() };
 }
 
 for my $mart (@marts) {
 	diag( "Testing " . $mart->name() );
-	my @datasets;
+	my @datasets = ();
 	if ( defined $opts->{dataset} ) {
-		@datasets = ( $mart->get_dataset_by_name( $opts->{dataset} ) );
+		my $dataset = $mart->get_dataset_by_name( $opts->{dataset} );
+		ok (defined $dataset,"Checking that dataset ".$opts->{dataset}." exists");
+		@datasets = ( $dataset ) if $dataset;
 	} else {
 		@datasets = @{ $mart->datasets() };
 	}
 	for my $dataset (@datasets) {
-		test_dataset($dataset);
+		try {
+			test_dataset($dataset);
+		}
+		catch {
+			diag($_);
+			fail( "Testing " . $dataset->name() . " failed unexpectedly" );
+		}
 	}
 }
 
@@ -122,7 +135,7 @@ sub test_filter {
 	eval {
 		my $res = $srv->do_query( $dataset->mart(),
 								  $dataset,
-								  [ $attribute ],
+								  [$attribute],
 								  [ { filter => $filter, value => $val } ],
 								  { limitSize => 1 } );
 		ok( defined $res,
