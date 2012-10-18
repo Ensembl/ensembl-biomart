@@ -172,6 +172,15 @@ foreach my $dataset (@datasets) {
 	    $species_names{'species.proteome_id'} = ++$pId;
 	}
 
+        my $version = $species_names{'assembly.name'};
+        if(defined $species_names{'genebuild.version'} ) {
+            if(!defined $version) {
+                $version = $species_names{'genebuild.version'};
+            } else {
+                $version = $version.' ('.$species_names{'genebuild.version'} .')';
+            }
+        }
+
 	$names_insert->execute(	    
 	    $dataset,
 	    $dataset,
@@ -180,7 +189,7 @@ foreach my $dataset (@datasets) {
 	    $species_names{'species.taxonomy_id'},
 	    $species_names{'species.display_name'},
 	    $species_names{'species.production_name'},
-	    $species_names{'assembly.name'}  || $species_names{'genebuild.version'} 
+	    $version
 	    ); 
 
 	# Add a meta key on the core database
