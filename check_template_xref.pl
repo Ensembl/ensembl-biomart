@@ -201,7 +201,7 @@ sub get_key {
     } else {
     my @keySet = keys(%$keyHash); 
     # take the key with the largest number of keys
-    @keySet = sort {scalar(keys(%{$keyHash->{$a}})) <=> scalar(keys(%{$keyHash->{$b}}))} @keySet;
+    @keySet = sort {scalar(@{$keyHash->{$a}}) <=> scalar(@{$keyHash->{$b}})} @keySet;
     $key = $keySet[0];
     if(scalar(@keySet)>1) {
 	warn "More than one key found for $table - using $key";
