@@ -32,7 +32,8 @@ use Carp;
 use Pod::Usage;
 
 my $opts = {};
-GetOptions( $opts, 'uri=s', 'mart=s', 'dataset=s', 'filters', 'attributes', 'verbose|v' );
+GetOptions( $opts, 'uri=s', 'mart=s', 'dataset=s', 'filters', 'attributes',
+			'verbose|v', 'output_file' );
 if ( !defined $opts->{filters} && !defined $opts->{attributes} ) {
 	$opts->{filters}    = 1;
 	$opts->{attributes} = 1;
@@ -46,20 +47,20 @@ if ( !defined $opts->{uri} ) {
 	}
 }
 
-if(!defined $opts->{verbose}) {
-	Test::More->builder->output('./test.out');
+if ( !defined $opts->{verbose} ) {
+	Test::More->builder->output( $opts->{output_file} || './test_mart.out' );
 }
 
 diag "Testing server $opts->{uri}";
 my $srv = Bio::EnsEMBL::BioMart::MartService->new( -URL => $opts->{uri} );
 
-BAIL("Server $opts->{uri} does not exist") if (!defined $srv);
+BAIL("Server $opts->{uri} does not exist") if ( !defined $srv );
 
 my @marts = ();
 if ( defined $opts->{mart} ) {
 	my $mart = $srv->get_mart_by_name( $opts->{mart} );
-	ok (defined $mart,"Checking that mart ".$opts->{mart}." exists");
-	@marts = ( $mart ) if $mart;
+	ok( defined $mart, "Checking that mart " . $opts->{mart} . " exists" );
+	@marts = ($mart) if $mart;
 } else {
 	@marts = @{ $srv->get_marts() };
 }
@@ -69,8 +70,9 @@ for my $mart (@marts) {
 	my @datasets = ();
 	if ( defined $opts->{dataset} ) {
 		my $dataset = $mart->get_dataset_by_name( $opts->{dataset} );
-		ok (defined $dataset,"Checking that dataset ".$opts->{dataset}." exists");
-		@datasets = ( $dataset ) if $dataset;
+		ok( defined $dataset,
+			"Checking that dataset " . $opts->{dataset} . " exists" );
+		@datasets = ($dataset) if $dataset;
 	} else {
 		@datasets = @{ $mart->datasets() };
 	}
@@ -108,26 +110,33 @@ sub test_dataset {
 
 sub test_attribute {
 	my ( $dataset, $attribute ) = @_;
-	eval {
-		my $res = $srv->do_query( $dataset->mart(), $dataset, [$attribute], [],
-								  { limitSize => 1 } );
-		ok( defined $res,
-			"Attribute "
+	if ( defined $attribute->column() ) {
+		eval {
+			my $res =
+			  $srv->do_query( $dataset->mart(), $dataset, [$attribute], [],
+							  { limitSize => 1 } );
+			ok( defined $res,
+				"Attribute "
+				  . $attribute->name()
+				  . " from dataset "
+				  . $dataset->name() . " in "
+				  . $dataset->mart()->name() );
+		};
+		if ($@) {
+			fail(   "Could not use attribute "
+				  . $attribute->name()
+				  . " from dataset "
+				  . $dataset->name() . " in "
+				  . $dataset->mart()->name()
+				  . ":$@" );
+		}
+	} else {
+		diag(   "Skipping attribute "
 			  . $attribute->name()
-			  . " from dataset "
-			  . $dataset->name() . " in "
-			  . $dataset->mart()->name() );
-	};
-	if ($@) {
-		fail(   "Could not use attribute "
-			  . $attribute->name()
-			  . " from dataset "
-			  . $dataset->name() . " in "
-			  . $dataset->mart()->name()
-			  . ":$@" );
+			  . " as it has no column defined" );
 	}
 	return;
-}
+} ## end sub test_attribute
 
 sub test_filter {
 	my ( $dataset, $filter, $attribute ) = @_;
