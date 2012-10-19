@@ -174,7 +174,7 @@
 <!-- insert specific -->
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="SIFT Prediction" internalName="sift">
+      <FilterCollection displayName="SIFT Prediction" internalName="sift" hidden="true">
         <FilterDescription displayName="SIFT Prediction" displayType="list" field="sift_prediction_2090" internalName="sift_prediction" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
           <SpecificFilterContent displayType="list" field="sift_prediction_2090" internalName="hsapiens_snp" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
             <Option displayName="tolerated" internalName="tolerated" isSelectable="true" value="tolerated"/>
@@ -182,7 +182,7 @@
           </SpecificFilterContent>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="PolyPhen Prediction" internalName="polyphen">
+      <FilterCollection displayName="PolyPhen Prediction" internalName="polyphen" hidden="true">
         <FilterDescription displayName="PolyPhen Prediction" displayType="list" field="polyphen_prediction_2090" internalName="polyphen_prediction" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
           <SpecificFilterContent displayType="list" field="polyphen_prediction_2090" internalName="hsapiens_snp" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
             <Option displayName="unknown" internalName="unknown" isSelectable="true" value="unknown"/>
@@ -464,9 +464,9 @@
         <AttributeDescription displayName="Variation end in translation (aa)" field="translation_end_2090" hidden="false" internalName="translation_end" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Location/View?db=vega;r=%s:%s-%s|chr_name|cdna_start|cdna_end" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Variation start in CDS (bp)" field="cds_start_2090" internalName="cds_start" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Variation end in CDS (bp)" field="cds_end_2090" internalName="cds_end" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
-        <AttributeDescription displayName="PolyPhen prediction" field="polyphen_prediction_2090" internalName="polyphen_prediction" key="variation_feature_id_2026_key" maxLength="17" tableConstraint="mart_transcript_variation__dm">
+        <AttributeDescription displayName="PolyPhen prediction" field="polyphen_prediction_2090" internalName="polyphen_prediction" key="variation_feature_id_2026_key" maxLength="17" tableConstraint="mart_transcript_variation__dm" hidden="true">
         </AttributeDescription>
-        <AttributeDescription displayName="SIFT prediction" field="sift_prediction_2090" internalName="sift_prediction" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="mart_transcript_variation__dm">
+        <AttributeDescription displayName="SIFT prediction" field="sift_prediction_2090" internalName="sift_prediction" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="mart_transcript_variation__dm" hidden="true">
         </AttributeDescription>
       </AttributeCollection>
     </AttributeGroup>
@@ -502,7 +502,7 @@
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
-  <AttributePage displayName="Compare Strain Genotypes" internalName="poly_strain" outFormats="all,same,diff,all_tsv,same_tsv,diff_tsv">
+  <AttributePage displayName="Compare Strain Genotypes" internalName="poly_strain" outFormats="all,same,diff,all_tsv,same_tsv,diff_tsv" hidden="true">
     <AttributeGroup displayName="SEQUENCE VARIATION" internalName="snp_atts">
       <AttributeCollection displayName="Variation Information" internalName="snpatts" maxSelect="0">
         <AttributeDescription default="true" internalName="reference_snp_id" pointerAttribute="refsnp_id" pointerDataset="*species3*_snp" pointerInterface="default">
