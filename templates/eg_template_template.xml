@@ -1914,7 +1914,7 @@
           <Option displayName="with PO ID(s)" displayType="list" field="ontology_PO_bool" internalName="with_ontology_po" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-	    <SpecificAttributeContent key="transcript_id_1064_key" field="ontology_PO_bool" internalName="bdistachyon_eg_gene"/>
+	    <SpecificOptionContent key="transcript_id_1064_key" field="ontology_PO_bool" internalName="bdistachyon_eg_gene"/>
           </Option>
           <Option displayName="with TO ID(s)" displayType="list" field="ontology_TO_bool" internalName="with_ontology_to" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
