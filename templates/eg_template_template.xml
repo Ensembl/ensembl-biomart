@@ -263,6 +263,8 @@
             <Option displayName="with refseq_mrna ID(s)" displayType="list" field="ox_refseq_mrna_bool" internalName="with_refseq_mrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
               <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
               <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+	      <SpecificOptionContent field="dbprimary_acc_1074" internalName="slycopersicum_eg_gene" key="transcript_id_1064_key"/>
+	      <SpecificOptionContent field="dbprimary_acc_1074" internalName="gmax_eg_gene" key="transcript_id_1064_key"/>
             </Option>
             <Option displayName="with refseq_mrna_predicted ID(s)" displayType="list" field="ox_refseq_mrna_predicted_bool" internalName="with_refseq_mrna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
               <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -1143,7 +1145,6 @@
           <Option displayName="with predicted RefSeq DNA ID(s)" displayType="list" field="ox_refseq_dna_predicted_bool" internalName="with_refseq_dna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent key="ox_refseq_dna_predicted_bool" field="ox_refseq_dna_predicted_bool" internalName="alyrata_eg_gene"/>
             <SpecificOptionContent key="ox_refseq_dna_predicted_bool" field="ox_refseq_dna_predicted_bool" internalName="oglaberrima_eg_gene"/>
             <SpecificOptionContent key="ox_refseq_dna_predicted_bool" field="ox_refseq_dna_predicted_bool" internalName="pchabaudi_eg_gene"/>
             <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="phumanus_eg_gene" key="transcript_id_1064_key"/>
@@ -1912,6 +1913,7 @@
           <Option displayName="with PO ID(s)" displayType="list" field="ontology_PO_bool" internalName="with_ontology_po" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+	    <SpecificAttributeContent key="transcript_id_1064_key" field="ontology_PO_bool" internalName="bdistachyon_eg_gene"/>
           </Option>
           <Option displayName="with TO ID(s)" displayType="list" field="ontology_TO_bool" internalName="with_ontology_to" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -2930,7 +2932,6 @@
           <Option checkForNulls="true" displayName="BGI EST Cluster ID(s)" description="Filter to include genes with bgi_est_cluster IDs" displayType="text" field="dbprimary_acc_1074" internalName="bgi_est_cluster" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_bgi_est_cluster__dm" type="list"/>
           <Option checkForNulls="true" displayName="BGI Gene ID(s)" description="Filter to include genes with bgi_gene IDs" displayType="text" field="dbprimary_acc_1074" internalName="bgi_gene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_bgi_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="EC Number(s)" description="Filter to include genes with ec_number IDs" displayType="text" field="dbprimary_acc_1074" internalName="ec_number" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ec_number__dm" type="list" useDefault="true">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene"/>
           </Option>
           <Option checkForNulls="true" displayName="FSTS ID(s)" description="Filter to include genes with fsts IDs" displayType="text" field="dbprimary_acc_1074" internalName="fsts" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_fsts__dm" type="list"/>
@@ -3374,6 +3375,7 @@
             <Option displayName="Only" internalName="only" value="only"/>
             <Option displayName="Excluded" internalName="excluded" value="excluded"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
+	    <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="osativa_eg_gene"/>
           </Option>
           <Option displayName="with IntAct ID(s)" displayType="list" field="ox_intact_bool" internalName="with_intact" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" value="only"/>
@@ -3984,6 +3986,7 @@
         <AttributeDescription displayName="TubercuList ID" field="dbprimary_acc_1074" internalName="tuberculist" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_TubercuList__dm"/>
         <AttributeDescription displayName="EnzymeCommission ID" field="dbprimary_acc_1074" internalName="ec_number" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_ec_number__dm">
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
+	  <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="osativa_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="GlycoSuiteDB" field="dbprimary_acc_1074" internalName="glycosuitedb" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_GlycoSuiteDB__dm"/>
@@ -4140,6 +4143,8 @@
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="bmori_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="tcastaneum_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="celegans_eg_gene"/>
+	  <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="slycopersicum_eg_gene"/>
+	  <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="gmax_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="refseq_mrna_predicted ID" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_mrna_predicted__dm" useDefault="true">
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="vvinifera_eg_gene"/>
