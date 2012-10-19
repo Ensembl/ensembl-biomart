@@ -4822,6 +4822,7 @@
         <AttributeDescription checkForNulls="true" displayName="FlyExpress ID" field="dbprimary_acc_1074" internalName="flyexpress" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_flyexpress__dm"/>
         <AttributeDescription checkForNulls="true" displayName="GadFly Gene CGID" field="dbprimary_acc_1074" internalName="gadfly_gene_cgid" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_gadfly_gene_cgid__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PubMed PomBase ID" field="dbprimary_acc_1074" internalName="pubmed_pombase" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_pubmed_pombase__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="PGSC ID" field="dbprimary_acc_1074" internalName="pgsc" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_pgsc_gene__dm" linkoutURL="exturl1|http://solanaceae.plantbiology.msu.edu/cgi-bin/gbrowse/potato/?name=%s"/>
       </AttributeCollection>
       <AttributeCollection description="Microarray Attributes" displayName="Microarray Attributes" internalName="microarray" maxSelect="2">
         <AttributeDescription checkForNulls="true" displayName="Affy unibasa_gossypiisysyng001a ID" field="display_label_11056" internalName="affy_unibasa_gossypiisysyng001a" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_unibasa_gossypiisysyng001a__dm"/>
