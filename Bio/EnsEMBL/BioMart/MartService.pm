@@ -111,7 +111,7 @@ sub get_attributes {
 # ensembl_gene_id	Ensembl Gene ID	Ensembl Stable ID of the Gene	feature_page	html,txt,csv,tsv,xls	spombe_eg_gene__gene__main	stable_id_1023
 		throw "$_" if m/does not exist/;
 		my ( $name, $display_name, $des, $page, $types, $table, $column ) =
-		  ( split( '\t', $_ ) )[ 0, 1, 3, 4, 5 ];
+		  ( split( '\t', $_ ) )[ 0, 1, 3, 4, 5, 6 ];
 		if ( defined $name ) {
 			push @$attributes,
 			  Bio::EnsEMBL::BioMart::Attribute->new(
@@ -242,7 +242,7 @@ sub do_post {
 
 sub do_get {
 	my ( $self, $arguments ) = @_;
-	my @args = [];
+	my @args = ();
 	while ( my ( $key, $value ) = each %$arguments ) {
 		push @args, "$key=$value";
 	}
