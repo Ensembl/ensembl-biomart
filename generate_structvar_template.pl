@@ -214,45 +214,37 @@ sub write_metatables {
 
     # populate dataset tables
 
-    my $get_next_value_sql = "SELECT max(dataset_id_key) FROM meta_conf__dataset__main";
-    my $get_next_value_sth = $mart_handle->prepare($get_next_value_sql);
 
     foreach my $dataset (@$datasets) { 
 
-	#my $speciesId = $dataset->{species_id};
-	#my $dataset_id = $speciesId;
+	my $speciesId = $dataset->{species_id};
+	my $dataset_id = $speciesId;
 	
-        # We can't use the speciesId as a datasetId as it is already taken, so set it up differently
-        
-        $get_next_value_sth->execute();
-        my ($datasetId) = $get_next_value_sth->fetchrow_array();
-        $datasetId++;
-	
-	$logger->info("using $datasetId as a dataset_id");
+	$logger->info("using $dataset_id as a dataset_id");
 	
 	# meta_conf__xml__dm
 
 	$logger->info("Writing metadata for species ".$dataset->{species_name});
-	$meta_conf__xml__dm->execute($datasetId,
+	$meta_conf__xml__dm->execute($dataset_id,
 				     file_to_bytes("$pwd/output/$dataset->{dataset}.xml"),
 				     file_to_bytes("$pwd/output/$dataset->{dataset}.xml.gz"),
 				     file_to_bytes("$pwd/output/$dataset->{dataset}.xml.gz.md5")
 	    ) or croak "Could not update meta_conf__xml__dm";
 	# meta_conf__user__dm
-	$meta_conf__user__dm->execute($datasetId) 
+	$meta_conf__user__dm->execute($dataset_id) 
 	    or croak "Could not update meta_conf__user__dm";
 	# meta_conf__interface__dm
-	$meta_conf__interface__dm->execute($datasetId)  
+	$meta_conf__interface__dm->execute($dataset_id)  
 	    or croak "Could not update meta_conf__interface__dm";
 	# meta_conf__dataset__main 
 	print Dumper($dataset);
 	$meta_conf__dataset__main->execute(
-	    $datasetId,
+	    $dataset_id,
 	    "$dataset->{dataset}_$ds_name",
 	    "$dataset->{species_name} $description ($dataset->{version_num})",
 	    $dataset->{version_num}) or croak "Could not update meta_conf__dataset__main";
 	# meta_template__template__main
-	$meta_template__template__main->execute($datasetId,$ds_name)  
+	$meta_template__template__main->execute($dataset_id,$ds_name)  
 	    or croak "Could not update meta_template__template__dm";
     }
     $meta_conf__xml__dm->finish();
@@ -260,8 +252,6 @@ sub write_metatables {
     $meta_conf__interface__dm->finish();
     $meta_conf__dataset__main->finish();
     $meta_template__template__main->finish();
-
-    $get_next_value_sth->finish();
 
     $logger->info("Population complete");
 }
@@ -285,9 +275,20 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
 my @datasets = ();
 my $dataset_sth = $mart_handle->prepare('SELECT src_dataset,src_db,species_id,species_name,version,collection,sql_name FROM dataset_names WHERE name=?');
 
+# Do not use the speciesId, but get the max datasetId from the db instead
+# or reset specieSId, so we keep this consistent through the whole script
+
+my $get_next_value_sql = "SELECT max(dataset_id_key) FROM meta_conf__dataset__main";
+my $get_next_value_sth = $mart_handle->prepare($get_next_value_sql);
+$get_next_value_sth->execute();
+my ($datasetId) = $get_next_value_sth->fetchrow_array();
+$datasetId++;
+$get_next_value_sth->finish();
+
 # get names of datasets from names table
 my $i=0;
 foreach my $dataset (get_dataset_names($mart_handle)) {
+
     $logger->info("Processing $dataset");
     # get other naming info from names table
     my %dataset_names = ();
@@ -300,14 +301,25 @@ foreach my $dataset (get_dataset_names($mart_handle)) {
 	$dataset_names{species_uc_name} = $dataset_names{species_name};
 	$dataset_names{species_uc_name} =~ s/\s+/_/g;
     }
+
+    # reset the speciesId value in the context of structvar dataset
+    # (as the other one is already taken by the snp partition)
+
+    $logger->info("resetting speciesId from " . $dataset_names{species_id} . " to " . $datasetId);
+    $dataset_names{species_id} = $datasetId;
+
     $dataset_names{short_name} = get_short_name($dataset_names{species_name},$dataset_names{species_id});
     $dataset_names{colstr} = '';
     if(defined $dataset_names{collection}) {
 	$dataset_names{colstr} = '/'.$dataset_names{collection};
     }
+
     #$logger->debug(join(',',values(%dataset_names)));
     push(@datasets,\%dataset_names);
-    write_dataset_xml(\%dataset_names)
+    write_dataset_xml(\%dataset_names);
+
+    $datasetId++;
+
 }
 $dataset_sth->finish();
 
