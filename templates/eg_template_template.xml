@@ -263,8 +263,8 @@
             <Option displayName="with refseq_mrna ID(s)" displayType="list" field="ox_refseq_mrna_bool" internalName="with_refseq_mrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
               <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
               <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-	      <SpecificOptionContent field="dbprimary_acc_1074" internalName="slycopersicum_eg_gene" key="transcript_id_1064_key"/>
-	      <SpecificOptionContent field="dbprimary_acc_1074" internalName="gmax_eg_gene" key="transcript_id_1064_key"/>
+	      <SpecificOptionContent field="ox_refseq_mrna_bool" internalName="slycopersicum_eg_gene" key="transcript_id_1064_key"/>
+	      <SpecificOptionContent field="ox_refseq_mrna_bool" internalName="gmax_eg_gene" key="transcript_id_1064_key"/>
             </Option>
             <Option displayName="with refseq_mrna_predicted ID(s)" displayType="list" field="ox_refseq_mrna_predicted_bool" internalName="with_refseq_mrna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
               <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -478,6 +478,8 @@
             <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="bdistachyon_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="sbicolor_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="oindica_eg_gene"/>
+	    <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="osativa_eg_gene"/>
+	    
             <SpecificOptionContent field="ox_wikigene_bool" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_wikigene_bool" internalName="spurpuratus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_wikigene_bool" internalName="apisum_eg_gene" key="translation_id_1068_key"/>
@@ -1146,20 +1148,10 @@
           <Option displayName="with predicted RefSeq DNA ID(s)" displayType="list" field="ox_refseq_dna_predicted_bool" internalName="with_refseq_dna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent key="ox_refseq_dna_predicted_bool" field="ox_refseq_dna_predicted_bool" internalName="oglaberrima_eg_gene"/>
-            <SpecificOptionContent key="ox_refseq_dna_predicted_bool" field="ox_refseq_dna_predicted_bool" internalName="pchabaudi_eg_gene"/>
             <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="phumanus_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="athaliana_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="bdistachyon_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="osativa_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="oindica_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key"/>
-            <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="sbicolor_eg_gene" key="transcript_id_1064_key"/>
-            <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="vvinifera_eg_gene" key="transcript_id_1064_key"/>
-            <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="zmays_eg_gene" key="transcript_id_1064_key"/>
-            <SpecificOptionContent field="ox_refseq_dna_predicted_bool" internalName="ppatens_eg_gene" key="transcript_id_1064_key"/>
+            <SpecificOptionContent key="ox_refseq_dna_predicted_bool" field="ox_refseq_dna_predicted_bool" internalName="pchabaudi_eg_gene"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pberghei_eg_gene"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pinfestans_eg_gene"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
@@ -1254,12 +1246,11 @@
           <Option displayName="with EntrezGene ID(s)" displayType="list" field="ox_entrezgene_bool" internalName="with_entrezgene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent key="gene_id_1020_key" field="ox_entrezgene_bool" internalName="athaliana_eg_gene"/>
-            <SpecificOptionContent key="gene_id_1020_key" field="ox_entrezgene_bool" internalName="ppatens_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_entrezgene_bool" internalName="pberghei_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_entrezgene_bool" internalName="psojae_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_entrezgene_bool" internalName="pfalciparum_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_entrezgene_bool" internalName="pinfestans_eg_gene"/>
+            <SpecificOptionContent field="ox_entrezgene_bool" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="aterreus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="nfischeri_eg_gene" key="translation_id_1068_key"/>
@@ -1288,15 +1279,12 @@
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="ox_entrezgene_bool" internalName="alyrata_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="ox_entrezgene_bool" internalName="athaliana_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="bdistachyon_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="osativa_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="oindica_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="ptrichocarpa_eg_gene" key="transcript_1064_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="sbicolor_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="ox_entrezgene_bool" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="ox_entrezgene_bool" internalName="zmays_eg_gene" key="translation_1068_key"/>
+	    <SpecificOptionContent field="ox_entrezgene_bool" internalName="zmays_eg_gene" key="translation_1068_key"/>
           </Option>
           <Option displayName="with GO Term Accession(s)" displayType="list" field="ox_go_bool" internalName="with_go" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -1312,6 +1300,8 @@
           <Option displayName="with PO ID(s)" displayType="list" field="ox_po_bool" internalName="with_po" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+	    <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="osativa_eg_gene"/>
+	    <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
           </Option>
           <Option displayName="with PO ID(s)" displayType="list" field="ox_po_to_gene_bool" internalName="with_po_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -2292,7 +2282,6 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="alyrata_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="osativa_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="oindica_eg_gene" key="translation_id_1068_key"/>
@@ -2481,13 +2470,6 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="iscapularis_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="transcript_id_1064_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="alyrata_eg_gene" key="transcript_id_1064_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="zmays_eg_gene" key="transcript_id_1064_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="transcript_id_1064_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="ppatens_eg_gene" key="transcript_id_1064_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dsechellia_eg_gene"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
@@ -4059,6 +4041,8 @@
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="osativa_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
+          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene"/>
+          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="zmays_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="amellifera_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="nvectensis_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene"/>
@@ -4085,12 +4069,6 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="osativa_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="oindica_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="zmays_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="apisum_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
@@ -4353,17 +4331,6 @@
           <SpecificAttributeContent field="dbprimary_display_name_1018" internalName="phumanus_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_display_name_1018" internalName="cquinquefasciatus_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pchabaudi_eg_gene"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="transcript_id_1064_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene" key="transcript_id_1064_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="alyrata_eg_gene" key="transcript_id_1064_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="osativa_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="oindica_eg_gene" key="transcript_id_1064_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="transcript_id_1064_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" key="transcript_id_1064_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="zmays_eg_gene" key="transcript_id_1064_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ppatens_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dsechellia_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
