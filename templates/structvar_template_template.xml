@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
-<DatasetConfig dataset="structvar_template" defaultDataset="*default*" displayName="*species1* Structural Variation (*version*)" interfaces="default" internalName="template" martUsers="default" modified="2010-02-10 21:58:05.484" softwareVersion="0.7" template="structvar" type="TableSet" useDefault="true" version="*version*" visible="1">
+<DatasetConfig dataset="structvar_template" defaultDataset="*default*" displayName="*species1* structural Variations (*version*)" interfaces="default" internalName="template" martUsers="default" modified="2010-02-10 21:58:05.484" softwareVersion="0.7" template="structvar" type="TableSet" useDefault="true" version="*version*" visible="1">
   <Replace id="datasets"/>
   <MainTable>hsapiens_structvar__structural_variation__main</MainTable>
   <Key>structural_variation_id_2072_key</Key>
