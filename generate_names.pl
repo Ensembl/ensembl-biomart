@@ -55,7 +55,7 @@ sub transform_table {
 }
 
 sub usage {
-    print "Usage: $0 [-h <host>] [-P <port>] [-u user <user>] [-p <pwd>] [-src_mart <src>] [-target_mart <targ>]\n";
+    print "Usage: $0 [-host <host>] [-port <port>] [ -user <user>] [-pass <pwd>] [-mart <target mart>] [-release <ensembl release>] [-suffix <dataset suffix>]\n";
     print "-host <host> Default is $db_host\n";
     print "-port <port> Default is $db_port\n";
     print "-user <host> Default is $db_user\n";
