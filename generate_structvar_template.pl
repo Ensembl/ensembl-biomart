@@ -214,6 +214,9 @@ sub write_metatables {
 
     # populate dataset tables
 
+    my $get_next_value_sql = "SELECT max(dataset_id_key) FROM meta_conf__dataset__main";
+    my $get_next_value_sth = $mart_handle->prepare($get_next_value_sql);
+
     foreach my $dataset (@$datasets) { 
 
 	#my $speciesId = $dataset->{species_id};
@@ -221,12 +224,9 @@ sub write_metatables {
 	
         # We can't use the speciesId as a datasetId as it is already taken, so set it up differently
         
-        my $get_next_value_sql = "SELECT max(dataset_id_key) FROM meta_conf__dataset__main";
-        my $get_next_value_sth = $mart_handle->prepare($get_next_value_sql);
         $get_next_value_sth->execute();
         my ($datasetId) = $get_next_value_sth->fetchrow_array();
         $datasetId++;
-	$get_next_value_sth->finish();
 	
 	$logger->info("using $datasetId as a dataset_id");
 	
@@ -260,7 +260,9 @@ sub write_metatables {
     $meta_conf__interface__dm->finish();
     $meta_conf__dataset__main->finish();
     $meta_template__template__main->finish();
-    
+
+    $get_next_value_sth->finish();
+
     $logger->info("Population complete");
 }
 
