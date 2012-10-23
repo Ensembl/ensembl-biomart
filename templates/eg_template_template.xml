@@ -411,7 +411,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with Agilent Arabidopsis G2519F-015059 ID(s)" displayType="list" field="eFG_AGILENT_G2519F_015059_bool" internalName="with_AGILENT_G2519F_01505" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with Agilent Arabidopsis G2519F-015059 ID(s)" displayType="list" field="eFG_AGILENT_G2519F_015059_bool" internalName="with_AGILENT_G2519F_015059" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2672,7 +2672,7 @@
           <Option displayName="Affy bovine ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="affy_bovine" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_AFFY_Bovine__dm" type="list"/>
           <Option displayName="Affy Rice ID(s)" displayType="text" field="display_label_11056" internalName="affy_rice" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_Rice__dm" type="list"/>
           <Option displayName="Affy Poplar ID(s)" displayType="text" field="display_label_11056" internalName="affy_poplar" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_Poplar__dm" type="list"/>
-          <Option displayName="Affy Grape ID(s)" displayType="text" field="display_label_11056" internalName="affy_grape" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_Vitis_Vinifera__dm" type="list"/>
+          <Option displayName="Affy Grape ID(s)" displayType="text" field="display_label_11056" internalName="affy_vitis_vinifera" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_Vitis_Vinifera__dm" type="list"/>
           <Option displayName="Affy Arabidopsis ATH1 121501 ID(s)" displayType="text" field="display_label_11056" internalName="affy_ath1_121501" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_ATH1_121501__dm" type="list"/>
           <Option checkForNulls="true" displayName="Affy Canine 2 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="affy_canine_2" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_AFFY_Canine_2__dm" type="list"/>
           <Option displayName="Affy c elegans ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="affy_c_elegans" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_AFFY_C_elegans__dm" type="list"/>
@@ -4811,8 +4811,8 @@
         <AttributeDescription displayName="Affy E_coli_2" field="display_label_11056" internalName="affy_e_coli_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_E_coli_2__dm"/>
         <AttributeDescription displayName="Affy E_coli_Antisense" field="display_label_11056" internalName="affy_e_coli_antisense" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_E_coli_Antisense__dm"/>
         <AttributeDescription displayName="AFFY Arabidopsis ATH1 121501" field="display_label_11056" internalName="affy_ath1_121501" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_ATH1_121501__dm"/>
-        <AttributeDescription displayName="Agilent Arabidopsis G2519F-021169" field="display_label_11056" internalName="agilent_G2519F-021169" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AGILENT_G2519F_021169__dm"/>
-        <AttributeDescription displayName="Agilent Arabidopsis G2519F-015059" field="display_label_11056" internalName="agilent_G2519F-015059" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AGILENT_G2519F_015059__dm"/>
+        <AttributeDescription displayName="Agilent Arabidopsis G2519F-021169" field="display_label_11056" internalName="agilent_G2519F_021169" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AGILENT_G2519F_021169__dm"/>
+        <AttributeDescription displayName="Agilent Arabidopsis G2519F-015059" field="display_label_11056" internalName="agilent_G2519F_015059" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AGILENT_G2519F_015059__dm"/>
         <AttributeDescription displayName="CATMA Arabidopsis" field="display_label_11056" internalName="catma_catma" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_CATMA_CATMA__dm"/>
         <AttributeDescription displayName="AFFY Rice" field="display_label_11056" internalName="affy_rice" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_Rice__dm"/>
         <AttributeDescription displayName="NSF Rice NSF20K" field="display_label_11056" internalName="NSF_NSF20K" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_NSF20K__dm"/>
