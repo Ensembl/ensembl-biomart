@@ -204,7 +204,9 @@ sub do_query_text {
 	for my $f (@{$filters}) {
 		my $filter = $f->{filter};
 		$f->{excluded} ||= 0;
-		if($filter->type() eq 'boolean' || $filter->type() eq 'boolean_list') {
+		if(!defined $filter->type()) {
+			throw "Type for filter ".$filter->name()." is not defined";
+		} elsif($filter->type() eq 'boolean' || $filter->type() eq 'boolean_list') {
 			push @{$query->{Dataset}{Filter}}, {name=>$filter->name(), excluded=>$f->{excluded}};			
 		} else {
 			push @{$query->{Dataset}{Filter}}, {name=>$filter->name(), value=>$f->{value}};			
