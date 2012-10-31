@@ -5,7 +5,7 @@ use strict;
 package Bio::EnsEMBL::BioMart::Filter;
 use Bio::EnsEMBL::Utils::Exception qw(throw warning);
 use Bio::EnsEMBL::Utils::Argument qw( rearrange );
-
+use Carp;
 use base qw(Bio::EnsEMBL::BioMart::QueryObject);
 
 sub new {
@@ -14,6 +14,7 @@ sub new {
 	( $self->{operator}, $self->{options}, $self->{type} ) =
 	  rearrange( [ 'OPERATOR', 'OPTIONS', 'TYPE' ], @args );
 	  $self->{options} ||= [];
+	croak "Type not set" unless (defined $self->type());
 	return $self;
 }
 

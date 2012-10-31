@@ -14,7 +14,7 @@ sub new {
 	   $self->{page}, $self->{table}, $self->{column}, $self->{dataset} )
 	  = rearrange( [ 'DISPLAY_NAME', 'DESCRIPTION', 'PAGE',
 					 'TABLE','COLUMN', 'DATASET' ],
-				   @args );
+				   @args );				   
 	return $self;
 }
 

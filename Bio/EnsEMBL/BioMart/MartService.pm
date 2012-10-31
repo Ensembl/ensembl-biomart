@@ -142,9 +142,9 @@ sub get_filters {
 		chomp;
 # chromosome_name	Chromosome name	[AB325691,I,II,III,MT,MTR]		filters	list	=	spombe_eg_gene__gene__main	name_105
 		throw "$_" if m/does not exist/;
-		my ( $name, $display_name, $opt_str, $des, $page, $type, $operator, $table,
-			 $column )
-		  = split( '\t', $_ );
+		my ( $name,     $display_name, $opt_str,
+			 $des,      $page,         $type,
+			 $operator, $table,        $column ) = split( '\t', $_ );
 		$opt_str ||= '';
 		$opt_str =~ s/\[(.*)\]/$1/;
 		my @options = split( ',', $opt_str );
@@ -155,14 +155,14 @@ sub get_filters {
 												 -DISPLAY_NAME => $display_name,
 												 -DESCRIPTION  => $des,
 												 -PAGE         => $page,
-												 -TYPE			=> $type,
+												 -TYPE         => $type,
 												 -OPERATOR     => $operator,
 												 -OPTIONS      => \@options,
 												 -TABLE        => $table,
 												 -COLUMN       => $column,
 												 -DATASET      => $dataset );
 		}
-	}
+	} ## end while (<$fh>)
 	return $filters;
 } ## end sub get_filters
 
@@ -201,17 +201,21 @@ sub do_query_text {
 	for my $attribute ( @{$attributes} ) {
 		push @{ $query->{Dataset}{Attribute} }, { name => $attribute->name() };
 	}
-	for my $f (@{$filters}) {
+	for my $f ( @{$filters} ) {
 		my $filter = $f->{filter};
 		$f->{excluded} ||= 0;
-		if(!defined $filter->type()) {
-			throw "Type for filter ".$filter->name()." is not defined";
-		} elsif($filter->type() eq 'boolean' || $filter->type() eq 'boolean_list') {
-			push @{$query->{Dataset}{Filter}}, {name=>$filter->name(), excluded=>$f->{excluded}};			
+		if ( !defined $filter->type() ) {
+			throw "Type for filter " . $filter->name() . " is not defined";
+		} elsif (    $filter->type() eq 'boolean'
+				  || $filter->type() eq 'boolean_list' )
+		{
+			push @{ $query->{Dataset}{Filter} },
+			  { name => $filter->name(), excluded => $f->{excluded} };
 		} else {
-			push @{$query->{Dataset}{Filter}}, {name=>$filter->name(), value=>$f->{value}};			
+			push @{ $query->{Dataset}{Filter} },
+			  { name => $filter->name(), value => $f->{value} };
 		}
-	}	
+	}
 	my $xml = XMLout( $query, RootName => "Query", NoIndent => 1 );
 	return $self->do_post( { query => $xml } );
 } ## end sub do_query_text
@@ -227,20 +231,15 @@ sub do_post {
 						  $post_str );
 	my $ua = LWP::UserAgent->new();
 	my $output;
-	my $response = $ua->request(
-		$request);
-		if($response->is_success()) {
-			$output = $response->decoded_content();			
-			if ( $output =~
-					 m/(BioMart::Exception|Validation Error:|Serious Error:)/ )
-				{
-					croak($output);
-				}
-		} else {
-			croak "Server error: " . $response->status_line;
-		}
+	my $response = $ua->request($request);
+	if ( $response->is_success() ) {
+		$output = $response->decoded_content();
+		$self->check_output($output);
+	} else {
+		croak "Server error: " . $response->status_line;
+	}
 	return $output;
-} ## end sub do_post
+}
 
 sub do_get {
 	my ( $self, $arguments ) = @_;
@@ -249,7 +248,16 @@ sub do_get {
 		push @args, "$key=$value";
 	}
 	my $uri = $self->{url} . '?' . join( '&', @args );
+	my $output = get($uri);
+	$self->check_output($output);
 	return get($uri);
+}
+
+sub check_output {
+	my ( $self, $output ) = @_;
+	croak $output
+	  if ($output =~ m/(BioMart::Exception|Validation Error:|Serious Error:)/ );
+	return;
 }
 
 1;
