@@ -32,7 +32,8 @@ use Pod::Usage;
 
 my $opts = {};
 GetOptions( $opts,        'old_uri=s', 'new_uri=s', 'old_mart=s',
-			'new_mart=s', 'dataset=s', 'filters',   'attributes' );
+			'new_mart=s', 'dataset=s', 'filters',   'attributes',
+			'verbose|v',  'output_file' );
 if ( !defined $opts->{filters} && !defined $opts->{attributes} ) {
 	$opts->{filters}    = 1;
 	$opts->{attributes} = 1;
@@ -44,6 +45,10 @@ if (    !defined $opts->{old_mart}
 	 || !defined $opts->{new_uri} )
 {
 	pod2usage(1);
+}
+
+if ( !defined $opts->{verbose} ) {
+	Test::More->builder->output( $opts->{output_file} || './test_mart.out' );
 }
 
 diag "Creating connection to old service " . $opts->{old_uri};
@@ -188,8 +193,10 @@ sub compare_attributes {
 	my ( $a1, $a2 ) = @_;
 	compare_queryobjects( 'attribute', $a1, $a2 );
 	is( $a1->types(), $a2->types(),
-		"Checking types for attribute "
-		  . $a1->name() . " from dataset " . $a1->dataset()->name() );
+		    "Checking types for attribute "
+		  . $a1->name()
+		  . " from dataset "
+		  . $a1->dataset()->name() );
 	return;
 }
 
