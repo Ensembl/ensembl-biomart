@@ -66,30 +66,31 @@ if(!defined $core_db) {
     croak "Could not find core database for dataset $dataset";
 }
 
-my $filters = ;
-my $attributes = ;
+for my $external_db (get_dbs($mart_handle,$core_db)) {
 
-$logger->info("Creating base table for $dataset on $mart_db using $core_db");
-create_base_table($mart_handle,$mart_db,$core_db,$dataset);
+    $logger->info("Creating base table for $dataset $external_db on $mart_db using $core_db");
 
-for my $condition (get_conditions($mart_handle,$core_db)) {
-    $logger->info("Adding condition $condition for $dataset on $mart_db using $core_db");
-    add_condition($mart_handle,$mart_db,$core_db,$dataset,$condition);
+    create_base_table($mart_handle,$mart_db,$core_db,$dataset,$external_db);
+    
+    for my $condition (get_conditions($mart_handle,$core_db,$external_db)) {
+        $logger->info("Adding condition $condition for $dataset $external_db on $mart_db using $core_db");
+        add_condition($mart_handle,$mart_db,$core_db,$dataset,$condition,$external_db);
+    }
 }
 
-
 sub create_base_table {
-    my ($mart_handle,$mart_db,$core_db,$dataset) = @_;
-    my $drop_base_table = qq/drop table if exists ${mart_db}.${dataset}_gene__ontology_extension__dm/; 
+    my ($mart_handle,$mart_db,$core_db,$dataset,$external_db) = @_;
+    my $drop_base_table = qq/drop table if exists 
+${mart_db}.${dataset}_gene__${external_db}_extension__dm/; 
     $logger->debug($drop_base_table);
     $mart_handle->do($drop_base_table);
 
-    my $create_base_table = qq/create table ${mart_db}.${dataset}_gene__ontology_extension__dm as
+    my $create_base_table = qq/create table 
+${mart_db}.${dataset}_gene__${external_db}_extension__dm as
 select distinct t.transcript_id, 
 ax.object_xref_id,
 tx.dbprimary_acc subject_acc,
 tx.display_label subject_label,
-td.db_name subject_db,
 sx.dbprimary_acc source_acc,
 sx.display_label source_label,
 sd.db_name source_db,
@@ -103,7 +104,8 @@ left join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id)
 left join ${core_db}.associated_xref ax using (object_xref_id)
 left join ${core_db}.associated_group ag using (associated_group_id)
 left join ${core_db}.xref sx on (sx.xref_id=ax.source_xref_id)
-left join ${core_db}.external_db sd on (sx.external_db_id=sd.external_db_id)/;
+left join ${core_db}.external_db sd on (sx.external_db_id=sd.external_db_id)
+where td.db_name='$external_db'/;
     $logger->debug($create_base_table);
     $mart_handle->do($create_base_table);
 
@@ -111,15 +113,33 @@ left join ${core_db}.external_db sd on (sx.external_db_id=sd.external_db_id)/;
 }
 
 sub get_conditions {
-    my ($mart_handle,$core_db) = @_;
-    my $get_conditions = "select distinct(condition_type) from $core_db.associated_xref";
+    my ($mart_handle,$core_db,$external_db) = @_;
+    my $get_conditions = qq/select distinct(condition_type) 
+from ${core_db}.associated_xref ax
+join ${core_db}.object_xref ox using (object_xref_id)
+join ${core_db}.xref tx on (tx.xref_id=ox.xref_id)
+join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id)
+where td.db_name='$external_db'/;
+    $logger->debug($get_conditions);
+    my $sth = $mart_handle->prepare($get_conditions);
+    return get_strings($sth);
+}
+
+sub get_dbs {
+ my ($mart_handle,$core_db) = @_;
+    my $get_conditions = qq/
+select distinct(lower(td.db_name)) 
+from $core_db.associated_xref
+join ${core_db}.object_xref ox using (object_xref_id)
+join ${core_db}.xref tx on (tx.xref_id=ox.xref_id)
+join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id)/;
     $logger->debug($get_conditions);
     my $sth = $mart_handle->prepare($get_conditions);
     return get_strings($sth);
 }
 
 sub add_condition {
-    my ($mart_handle,$mart_db,$core_db,$dataset,$condition) = @_;
+    my ($mart_handle,$mart_db,$core_db,$dataset,$condition,$external_db) = @_;
 
     my $add_condition = qq/create table ${mart_db}.TMP as
 select oe.*,
@@ -127,7 +147,7 @@ cx.dbprimary_acc ${condition}_acc,
 cx.display_label ${condition}_label,
 cd.db_name ${condition}_db
 from
-${mart_db}.${dataset}_gene__ontology_extension__dm oe
+${mart_db}.${dataset}_gene__${external_db}_extension__dm oe
 left join $core_db.associated_xref ax on (oe.object_xref_id=ax.object_xref_id 
 and ax.associated_group_id=oe.group_id 
 and ax.condition_type='$condition')
@@ -136,12 +156,12 @@ left join $core_db.external_db cd on (cx.external_db_id=cd.external_db_id)/;
     $logger->debug($add_condition);
     $mart_handle->do($add_condition);
 
-    my $drop_table = qq/drop table ${mart_db}.${dataset}_gene__ontology_extension__dm/;
+    my $drop_table = qq/drop table ${mart_db}.${dataset}_gene__${external_db}_extension__dm/;
     $logger->debug($drop_table);
     $mart_handle->do($drop_table);
 
     my $rename_table = qq/rename table ${mart_db}.TMP 
-to ${mart_db}.${dataset}_gene__ontology_extension__dm/;
+to ${mart_db}.${dataset}_gene__${external_db}_extension__dm/;
     $logger->debug($rename_table);
     $mart_handle->do($rename_table);
 
