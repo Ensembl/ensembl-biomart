@@ -83,8 +83,8 @@ for my $table (keys %$tables) {
     print $attributes qq/<!-- ${table} attributes -->
 /;
     for my $condition (@{$tables->{$table}}) {
-    print $attributes qq/       <AttributeDescription displayName="${ontology} ${condition}" field="${condition}_label" internalName="${ontology}_${condition}_label" key="transcript_id_1064_key" maxLength="3" tableConstraint="${ontology}_extension__dm" useDefault="true"\/>
-       <AttributeDescription displayName="${ontology} ${condition} term" field="${ontology}_${condition}_acc" internalName="${condition}_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="${ontology}_extension__dm" useDefault="true"\/>
+    print $attributes qq/       <AttributeDescription displayName="${condition}" field="${condition}_label" internalName="${ontology}_${condition}_label" key="transcript_id_1064_key" maxLength="3" tableConstraint="${ontology}_extension__dm" useDefault="true"\/>
+       <AttributeDescription displayName="${condition} term" field="${ontology}_${condition}_acc" internalName="${condition}_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="${ontology}_extension__dm" useDefault="true"\/>
 /;
     }
 }
