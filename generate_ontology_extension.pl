@@ -87,7 +87,7 @@ ${mart_db}.${dataset}_gene__${external_db}_extension__dm/;
 
     my $create_base_table = qq/create table 
 ${mart_db}.${dataset}_gene__${external_db}_extension__dm as
-select distinct t.transcript_id, 
+select distinct t.transcript_id as transcript_id_1064_key, 
 ax.object_xref_id,
 tx.dbprimary_acc subject_acc,
 tx.display_label subject_label,
