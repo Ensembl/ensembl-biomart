@@ -99,7 +99,7 @@ ATTR
             displayName="${ontology_name} entries with ${condition}" 
         	displayType="list" field="${condition}_db" internalName="with_${ontology}_${condition}" 
         	key="${key}" legal_qualifiers="only,excluded" 
-        	otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+        	otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="${table}" type="boolean">
           <Option displayName="Only" internalName="only" value="only"/>
           <Option displayName="Excluded" internalName="excluded" value="excluded"/>
         </FilterDescription>
