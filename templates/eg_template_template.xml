@@ -3018,7 +3018,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup displayName="PATHOGEN PHENOTYPES (PHI-base)" internalName="phibase_annotation">
+    <FilterGroup displayName="Filter on Pathogen Phenotypes (PHI-base)" internalName="phibase_annotation">
       <FilterCollection displayName="Entries with plant pathogen annotation (source: PHI-base)" internalName="phibase_annotation_bool">
         <FilterDescription description="Limit to entries with pathogen phenotype annotation (source: PHI-base)" displayName="Entries with pathogen phenotype annotation" displayType="list" field="phibase_annotation_bool" internalName="with_phibase_annotation" key="translation_id_1068_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean">
           <Option displayName="Only" internalName="only" value="only"/>
