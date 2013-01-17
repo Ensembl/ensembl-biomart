@@ -6172,10 +6172,12 @@
         <AttributeDescription description="Start of the SNP on the Chromosome in Chromosomal Coordinates" displayName="Chromosome Location (bp)" field="seq_region_start_2026" internalName="chromosome_location" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?c=%s:%s;w=1000|chromosome_name|chromosome_location" maxLength="20" tableConstraint="mart_transcript_variation__dm"/>
       </AttributeCollection>
       <AttributeCollection description="Location of SNPs on Genes, and their Effects on Gene Function" displayName="Gene Location and Effect " internalName="gene_loc_eff_atts">
+	<AttributeDescription displayName="Distance to transcript" field="distance_to_transcript_2076" internalName="distance_to_transcript_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="CDS Start" field="cds_start_2076" internalName="cds_start_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
+	 <AttributeDescription displayName="CDS End" field="cds_end_2076" internalName="cds_end_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Protein Allele" field="peptide_allele_string_2076" internalName="peptide_shift" key="transcript_id_1064_key" maxLength="100" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Consequence Type (Transcript Variation)" field="consequence_types_2026" hidden="false" internalName="synonymous_status" key="transcript_id_1064_key" maxLength="50" tableConstraint="mart_transcript_variation__dm"/>
-        <AttributeDescription displayName="CDS End" field="cds_end_2076" internalName="cds_end_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
+	<AttributeDescription displayName="Consequence specific allele" field="allele_string_2076" hidden="false" internalName="allele_string_2076" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation__dm"/>
       </AttributeCollection>
     </AttributeGroup>
     <AttributeGroup displayName="SOMATIC VARIATION INFORMATION:" internalName="gene_somatic">
