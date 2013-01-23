@@ -24,7 +24,7 @@
       </FilterCollection>
       <FilterCollection displayName="Base pair" internalName="chromosome_coordinates">
         <FilterDescription displayName="Start" displayType="text" field="seq_region_start_2026" internalName="chrom_start" key="variation_feature_id_2026_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="main" type="text"/>
-        <FilterDescription displayName="End" displayType="text" field="seq_region_start_2026" internalName="chrom_end" key="variation_feature_id_2026_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="main" type="text"/>
+        <FilterDescription displayName="End" displayType="text" field="seq_region_end_2026" internalName="chrom_end" key="variation_feature_id_2026_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="main" type="text"/>
       </FilterCollection>
       <FilterCollection displayName="Band" internalName="band_collection">
         <FilterDescription internalName="band_start" pointerDataset="*species4*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter">
