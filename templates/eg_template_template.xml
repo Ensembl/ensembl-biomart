@@ -155,17 +155,17 @@
         <FilterDescription internalName="marker_start" pointerDataset="*species3*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter"/>
         <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species3*_marker_end" pointerFilter="marker_end" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="Encode type" hidden="false" internalName="encode_type_col">
+      <FilterCollection displayName="Encode type" hidden="true" internalName="encode_type_col">
         <FilterDescription internalName="hsapiens_encode.type" pointerDataset="*species3*_encode" pointerFilter="type" pointerInterface="default" type="text">
           <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Encode region" internalName="encode_region_col">
+      <FilterCollection displayName="Encode region" internalName="encode_region_col" hidden="true">
         <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species3*_encode" pointerFilter="encode_region" pointerInterface="default">
           <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="In encode region" hidden="false" internalName="encode_boolean">
+      <FilterCollection displayName="In encode region" hidden="false" internalName="encode_boolean" hidden="True">
         <FilterDescription description="Include/Exclude Entries in an Encode Region" displayName="In encode region" displayType="list" field="is_encode_bool" hidden="false" internalName="in_encode_region" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
           <SpecificFilterContent field="is_encode_bool" internalName="hsapiens_gene" key="gene_id_1020_key" tableConstraint="main">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -3057,7 +3057,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on transcript splice events" displayName="TRANSCRIPT EVENT:" internalName="transcript_event">
+    <FilterGroup description="Filter on transcript splice events" displayName="TRANSCRIPT EVENT:" internalName="transcript_event" hidden="true">
       <FilterCollection displayName="Event Type (See PMID: 18978772 for type code key)" internalName="event_collection">
         <FilterDescription displayName="Event Type" displayType="list" field="type_1078" internalName="event_type" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="splicing_event__dm" type="list"/>
       </FilterCollection>
@@ -4050,7 +4050,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup hideDisplay="true" description="Filters matching EO IDS, Terms, and Evidence Codes" displayName="ENVIRONMENT ONTOLOGY:" hidden="false" internalName="eo">
+    <FilterGroup hideDisplay="true" description="Filters matching EO IDS, Terms, and Evidence Codes" displayName="ENVIRONMENT ONTOLOGY:" hidden="true" internalName="eo">
       <FilterCollection displayName="EO Term Accession [e.g. EO:0007001]" hidden="false" internalName="eo_filters">
         <FilterDescription hidden="false" internalName="eo_clos" multipleValues="1" pointerDataset="closure_EO" pointerFilter="eo_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4063,7 +4063,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup hideDisplay="true" description="Filters matching GR_TAX IDS, Terms, and Evidence Codes" displayName="GRAMENE TAXONOMIC ONTOLOGY:" hidden="false" internalName="gr_tax">
+    <FilterGroup hideDisplay="true" description="Filters matching GR_TAX IDS, Terms, and Evidence Codes" displayName="GRAMENE TAXONOMIC ONTOLOGY:" hidden="true" internalName="gr_tax">
       <FilterCollection displayName="GR_TAX Term Accession [e.g. GR_tax:078858]" hidden="false" internalName="gr_tax_filters">
         <FilterDescription hidden="false" internalName="gr_tax_clos" multipleValues="1" pointerDataset="closure_GR_TAX" pointerFilter="gr_tax_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4076,7 +4076,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup hideDisplay="true" description="Filters matching GRO IDS, Terms, and Evidence Codes" displayName="GROWTH STAGE ONTOLOGY:" hidden="false" internalName="gro">
+    <FilterGroup hideDisplay="true" description="Filters matching GRO IDS, Terms, and Evidence Codes" displayName="GROWTH STAGE ONTOLOGY:" hidden="true" internalName="gro">
       <FilterCollection displayName="GRO Term Accession [e.g. GRO:0007114]" hidden="false" internalName="gro_filters">
         <FilterDescription hidden="false" internalName="gro_clos" multipleValues="1" pointerDataset="closure_GRO" pointerFilter="gro_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4089,7 +4089,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup hideDisplay="true" description="Filters matching TO IDS, Terms, and Evidence Codes" displayName="TRAIT ONTOLOGY:" hidden="false" internalName="to">
+    <FilterGroup hideDisplay="true" description="Filters matching TO IDS, Terms, and Evidence Codes" displayName="TRAIT ONTOLOGY:" hidden="true" internalName="to">
       <FilterCollection displayName="TO Term Accession [e.g. TO:0050789]" hidden="false" internalName="to_filters">
         <FilterDescription hidden="false" internalName="to_clos" multipleValues="1" pointerDataset="closure_TO" pointerFilter="to_parent_term" pointerInterface="default"/>
       </FilterCollection>
