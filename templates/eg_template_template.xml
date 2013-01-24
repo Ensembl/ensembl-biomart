@@ -165,7 +165,7 @@
           <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="In encode region" hidden="false" internalName="encode_boolean" hidden="True">
+      <FilterCollection displayName="In encode region" hidden="true" internalName="encode_boolean">
         <FilterDescription description="Include/Exclude Entries in an Encode Region" displayName="In encode region" displayType="list" field="is_encode_bool" hidden="false" internalName="in_encode_region" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
           <SpecificFilterContent field="is_encode_bool" internalName="hsapiens_gene" key="gene_id_1020_key" tableConstraint="main">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
