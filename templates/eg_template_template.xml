@@ -4544,7 +4544,7 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection description="Filter for Genes associated with specified types of SNPs" displayName="Variation type" internalName="snptype">
-        <FilterDescription displayType="list" field="consequence_types_2026" internalName="snptype_filters" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
+        <FilterDescription displayType="list" field="consequence_types_2076" internalName="snptype_filters" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -6165,7 +6165,7 @@
         <AttributeDescription displayName="CDS Start" field="cds_start_2076" internalName="cds_start_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
 	 <AttributeDescription displayName="CDS End" field="cds_end_2076" internalName="cds_end_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Protein Allele" field="peptide_allele_string_2076" internalName="peptide_shift" key="transcript_id_1064_key" maxLength="100" tableConstraint="mart_transcript_variation__dm"/>
-        <AttributeDescription displayName="Consequence Type (Transcript Variation)" field="consequence_types_2026" hidden="false" internalName="synonymous_status" key="transcript_id_1064_key" maxLength="50" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="Consequence Type (Transcript Variation)" field="consequence_types_2076" hidden="false" internalName="synonymous_status" key="transcript_id_1064_key" maxLength="50" tableConstraint="mart_transcript_variation__dm"/>
 	<AttributeDescription displayName="Consequence specific allele" field="allele_string_2076" hidden="false" internalName="allele_string_2076" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation__dm"/>
       </AttributeCollection>
     </AttributeGroup>
