@@ -82,23 +82,6 @@
           <SpecificFilterContent field="feature_value" internalName="spombe_eg_gene" key="transcript_id_1064_key"/>
           <SpecificFilterContent field="feature_value" internalName="afumigatus_eg_gene" key="transcript_id_1064_key"/>
           <SpecificFilterContent field="feature_value" internalName="anidulans_eg_gene" key="transcript_id_1064_key"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dpseudoobscura_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dpersimilis_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dyakuba_eg_gene"/>
-          <SpecificFilterContent key="translation_id_1068_key" field="linkage_type_1024" internalName="dmelanogaster_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dananassae_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dgrimshawi_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dwillistoni_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dsechellia_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dmojavensis_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dgrimshawi_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dwillistoni_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dsechellia_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dmojavensis_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dsimulans_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene"/>
-          <SpecificFilterContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
         </FilterDescription>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_pbo_closure" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_pbo__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_fypo_closure" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_fypo__dm" type="text"/>
@@ -2121,6 +2104,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with EMBL-Bank Transcript ID(s)" displayType="list" field="ox_emblbank_transcript_bool" internalName="with_emblbank_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="ID list limit" internalName="id_list_limit">
@@ -2980,6 +2967,7 @@
           <Option checkForNulls="true" displayName="FlyExpress ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="flyexpress" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_flyexpress__dm" type="list"/>
           <Option checkForNulls="true" displayName="GadFly Gene CGID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gadfly_gene_cgid" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gadfly_gene_cgid__dm" type="list"/>
           <Option checkForNulls="true" displayName="PomBase PubMed ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pubmed_pombase" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pubmed_pombase__dm" type="list"/>
+          <Option checkForNulls="true" displayName="EMBL-Bank Transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="emblbank_transcript" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_emblbank_transcript__dm" type="list"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Transcript count &gt;=" internalName="transcript_count_filter">
@@ -5876,6 +5864,7 @@
         <AttributeDescription checkForNulls="true" displayName="GadFly Gene CGID" field="dbprimary_acc_1074" internalName="gadfly_gene_cgid" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_gadfly_gene_cgid__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PubMed PomBase ID" field="dbprimary_acc_1074" internalName="pubmed_pombase" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_pubmed_pombase__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PGSC ID" field="dbprimary_acc_1074" internalName="pgsc" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_pgsc_gene__dm" linkoutURL="exturl1|http://solanaceae.plantbiology.msu.edu/cgi-bin/gbrowse/potato/?name=%s"/>
+        <AttributeDescription checkForNulls="true" displayName="EMBL-Bank Transcript ID" field="dbprimary_acc_1074" internalName="emblbank_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_emblbank_transcript__dm"/>
       </AttributeCollection>
       <AttributeCollection description="Pathogen Phenotypes (source: PHI-base)" displayName="Pathogen Phenotypes (source: PHI-base)" internalName="phibase_annotation">
         <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="phibase_id" internalName="phibase_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phibase_annotation__dm"/>
@@ -6011,7 +6000,7 @@
         <AttributeDescription hidden="true" checkForNulls="true" displayName="PO (Transcript) ID" field="dbprimary_acc_1074" internalName="po_to_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_po_to_transcript__dm"/>
       </AttributeCollection>
     </AttributeGroup>
-    <!--    
+    <!--
       <AttributeGroup description="EXPRESSION ATTRIBUTES" displayName="EXPRESSION:" internalName="expression">
       <AttributeCollection displayName="Source of Expression Data" internalName="expression_data_source">
         <AttributeDescription displayName="Anatomical System (egenetics)" field="term_708" internalName="anatomical_system" key="transcript_id_1064_key" maxLength="400" tableConstraint="exp_est_AnatomicalSystem__dm"/>
