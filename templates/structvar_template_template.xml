@@ -36,7 +36,7 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Limit to Mouse strain" internalName="structural_variation_annotation" useDefault="true">
-        <FilterDescription displayName="Limit to Mouse strain" displayType="list" field="name_2019" hidden="false" internalName="structural_variation_annotation" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="structural_variation_annotation__dm" type="list" useDefault="true">
+        <FilterDescription displayName="Limit to Mouse strain" displayType="list" field="name_2019" hidden="true" internalName="structural_variation_annotation" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="structural_variation_annotation__dm" type="list" useDefault="true">
           <SpecificFilterContent displayType="list" field="name_2019" internalName="mmusculus_structvar" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="structural_variation_annotation__dm" type="list" useDefault="true">
             <Option displayName="129P2/OlaHsd" internalName="129P2/OlaHsd" isSelectable="true" useDefault="true" value="129P2/OlaHsd"/>
             <Option displayName="129S1/SvImJ" internalName="129S1/SvImJ" isSelectable="true" useDefault="true" value="129S1/SvImJ"/>
