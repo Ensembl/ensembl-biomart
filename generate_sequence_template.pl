@@ -25,6 +25,7 @@ my $division = '';
 
 my $logger = get_logger();
 my $release = undef;
+my $species = undef;
 
 my $output_dir = "./output";
 my $mart_version = "0.7";
@@ -219,6 +220,7 @@ sub usage {
     print "-pwd <password>\n";
     print "-seq_mart <mart>\n";
     print "-release <ensembl release number>\n";
+    print "-species <comma separated list of species names> (optional, used by VectorBase)\n";
     exit 1;
 };
 
@@ -229,6 +231,7 @@ my $options_okay = GetOptions (
     "pwd=s"=>\$db_pwd,
     "seq_mart=s"=>\$seq_mart_db,
     "release=s"=>\$release,
+    "species=s"=>\$species,
     "help"=>sub {usage()}
     );
 
@@ -292,9 +295,9 @@ Bio::EnsEMBL::Registry->set_disconnect_when_inactive(1);
 
 # Get all species for the given Ensembl division, or VectorBase
 my $species_names_aref;
-if ($seq_mart_db =~ /vb/i) {
-    my $provider = 'VectorBase';
-    $species_names_aref = get_all_species_by_provider($provider); # uses provider.name & genebuild.initial_release_date in meta table
+if ( defined $species ) {
+    my @species = split /,/, $species;
+    $species_names_aref = \@species;
 }
 else {
     $species_names_aref = get_all_species($division);

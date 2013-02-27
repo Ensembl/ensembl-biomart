@@ -215,46 +215,6 @@ sub build_dataset_href {
     return $dataset_href;
 }
 
-# Use provider.name and genebuild.initial_release_date in meta table to
-# select species.  Used by VectorBase.
-# genebuild.initial_release_date to avoid including "pre" species like
-# A gambiae M & S.
-sub get_all_species_by_provider {
-    # the provider, not optional
-    my $provider = shift;
-
-    my $species_aref = [];
-    my %hash;
-
-    foreach my $adap (@{Bio::EnsEMBL::Registry->get_all_DBAdaptors(-group => "core")}){
-        if(!defined($hash{$adap->species})){
-            if($adap->species =~ /ancestral sequences/i){ # ignore "Ancestral sequences"
-                print STDERR "ignoring it!\n";
-            }
-            else{
-                if (defined $provider && $provider ne '') {
-                    my $meta_container = Bio::EnsEMBL::Registry->get_adaptor( $adap->species, 'Core', 'MetaContainer' );
-
-                    if (defined @{$meta_container->list_value_by_key('provider.name')}[0] && 
-                        defined @{$meta_container->list_value_by_key('genebuild.initial_release_date')}[0]) {
-                        my $provider_name = @{$meta_container->list_value_by_key('provider.name')}[0];
-
-                        if ($provider eq $provider_name ) {
-                            push @$species_aref, $adap->species;
-                            $hash{$adap->species} = 1;
-                        }
-                    }
-                }
-            }
-        }
-
-        $adap->dbc->disconnect_if_idle;
-
-    }
-
-    return $species_aref;
-}
-
 
 sub get_all_species {
 
