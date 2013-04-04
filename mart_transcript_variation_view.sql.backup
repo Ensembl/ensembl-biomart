@@ -1,0 +1,59 @@
+CREATE VIEW MTMP_transcript_variation AS
+SELECT *,
+LEFT (REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+REPLACE(
+consequence_types, ',', '&')
+,'5KB_upstream_variant','UPSTREAM')
+,'5KB_downstream_variant','DOWNSTREAM')
+,'2KB_upstream_variant','UPSTREAM')
+,'500B_downstream_variant','DOWNSTREAM')
+,'splice_donor_variant','ESSENTIAL_SPLICE_SITE')
+,'splice_acceptor_variant','ESSENTIAL_SPLICE_SITE')
+,'splice_region_variant','SPLICE_SITE')
+,'intron_variant','INTRONIC')
+,'5_prime_UTR_variant','5PRIME_UTR')
+,'3_prime_UTR_variant','3PRIME_UTR')
+,'complex_change_in_transcript','COMPLEX_INDEL')
+,'non_synonymous_codon','NON_SYNONYMOUS_CODING')
+,'synonymous_codon','SYNONYMOUS_CODING')
+,'inframe_codon_gain','NON_SYNONYMOUS_CODING')
+,'inframe_codon_loss','NON_SYNONYMOUS_CODING')
+,'stop_gained','STOP_GAINED')
+,'stop_lost','STOP_LOST')
+,'stop_retained_variant','SYNONYMOUS_CODING')
+,'initiator_codon_change','NON_SYNONYMOUS_CODING')
+,'frameshift_variant','FRAMESHIFT_CODING')
+,'incomplete_terminal_codon_variant','PARTIAL_CODON')
+,'NMD_transcript_variant','NMD_TRANSCRIPT')
+,'nc_transcript_variant','WITHIN_NON_CODING_GENE')
+,'mature_miRNA_variant','WITHIN_MATURE_miRNA')
+,'coding_sequence_variant','CODING_UNKNOWN')
+,'pre_miRNA_variant','WITHIN_NON_CODING_GENE'), 100)
+
+AS mart_consequence_type FROM transcript_variation;
+
