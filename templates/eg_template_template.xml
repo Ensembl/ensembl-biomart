@@ -895,31 +895,31 @@
           <Option displayName="with UniProtKB/TrEMBL predicted ID(s)" displayType="list" field="ox_uniprotsptrembl_predicted_bool" internalName="with_uniprotsptrembl_predicted" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dsechellia_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dyakuba_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="translation_id_1068_key"/>
           </Option>
           <Option displayName="with UniProtKB/SwissPROT predicted ID(s)" displayType="list" field="ox_uniprotswissprot_predicted_bool" internalName="with_uniprotswissprot_predicted" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dsechellia_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dyakuba_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="translation_id_1068_key"/>
           </Option>
           <Option displayName="with ENA predicted ID(s)" displayType="list" field="ox_embl_predicted_bool" internalName="with_embl_predicted" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -1221,10 +1221,12 @@
           <Option displayName="with EntrezGene ID(s)" displayType="list" field="ox_entrezgene_bool" internalName="with_entrezgene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="ox_entrezgene_bool" internalName="pberghei_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="ox_entrezgene_bool" internalName="psojae_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="ox_entrezgene_bool" internalName="pfalciparum_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="ox_entrezgene_bool" internalName="pinfestans_eg_gene"/>
+            <SpecificOptionContent field="ox_entrezgene_bool" internalName="pberghei_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="ox_entrezgene_bool" hidden="true" hideDisplay="true" internalName="apisum_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="ox_entrezgene_bool" hidden="true" hideDisplay="true" internalName="spurpuratus_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="ox_entrezgene_bool" internalName="psojae_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="ox_entrezgene_bool" internalName="pfalciparum_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="ox_entrezgene_bool" internalName="pinfestans_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="aterreus_eg_gene" key="translation_id_1068_key"/>
@@ -1338,67 +1340,67 @@
           <Option displayName="with UniProtKB/SwissProt ID(s)" displayType="list" field="ox_uniprotswissprot_bool" internalName="with_uniprotswissprot" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dsechellia_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dyakuba_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dwillistoni_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dananassae_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="derecta_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dvirilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dyakuba_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dmojavensis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dpersimilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dsechellia_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dsimulans_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="agambiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="iscapularis_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="phumanus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="celegans_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dwillistoni_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dananassae_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="derecta_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dvirilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dyakuba_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dmojavensis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dpersimilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dsechellia_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="dsimulans_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="agambiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="iscapularis_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="phumanus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="celegans_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+            <SpecificOptionContent field="ox_uniprotswissprot_bool" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
           </Option>
           <Option displayName="with UniProtKB/TrEMBL ID(s)" displayType="list" field="ox_uniprotsptrembl_bool" internalName="with_uniprotsptrembl" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dsechellia_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dyakuba_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="agambiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="iscapularis_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="phumanus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="celegans_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dpersimilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dsechellia_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dsimulans_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dwillistoni_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dananassae_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dyakuba_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="derecta_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dvirilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dmojavensis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="agambiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="iscapularis_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="phumanus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="celegans_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dpersimilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dsechellia_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dsimulans_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dwillistoni_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dananassae_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dyakuba_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="derecta_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dvirilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotsptrembl__dm"/>
+            <SpecificOptionContent field="ox_uniprotsptrembl_bool" internalName="dmojavensis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_uniprotsptrembl__dm"/>
           </Option>
           <Option displayName="with UniProtKB/SpliceVariant ID(s)" displayType="list" field="ox_uniprotvarsplic_bool" internalName="with_uniprotvarsplic" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -1539,26 +1541,6 @@
           <Option displayName="with GOSlim GOA(s)" displayType="list" field="ox_goslim_goa_bool" internalName="with_ox_goslim_goa" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="transcript_id_1064_key"/>
@@ -2117,21 +2099,21 @@
           <Option description="filter for genes with supplied list of Ensembl Transcript Stable ID(s)" displayName="Ensembl Transcript ID(s)" displayType="text" field="stable_id_1066" internalName="ensembl_transcript_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="text"/>
           <Option description="filter to include genes with supplied list of Ensembl translation ID(s)" displayName="Ensembl protein ID(s)" displayType="text" field="stable_id_1070" internalName="ensembl_peptide_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="text"/>
           <Option description="Filter to include genes with supplied list of Canonical Transcript IDs" displayName="Canonical Transcript ID(s)" displayType="text" field="canonical_transcript_id_1020" internalName="canonical_transcript_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list"/>
-          <Option checkForNulls="true" displayName="Aedesgenbank ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="aedesgenbank" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_AedesGenBank__dm" type="list"/>
-          <Option checkForNulls="true" displayName="Agilent cgh(s)" displayType="text" field="dbprimary_acc_1074" internalName="agilent_cgh" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_AgilentCGH__dm" type="text"/>
-          <Option checkForNulls="true" displayName="Agilent Probe(s)" displayType="text" field="dbprimary_acc_1074" internalName="agilent_probe" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_AgilentProbe__dm" type="text"/>
+            <Option checkForNulls="true" displayName="Aedesgenbank ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="aedesgenbank" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_aedesgenbank__dm" type="list"/>
+            <Option checkForNulls="true" displayName="Agilent cgh(s)" displayType="text" field="dbprimary_acc_1074" internalName="agilent_cgh" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_agilentcgh__dm" type="text"/>
+            <Option checkForNulls="true" displayName="Agilent Probe(s)" displayType="text" field="dbprimary_acc_1074" internalName="agilent_probe" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_agilentprobe__dm" type="text"/>
           <Option checkForNulls="true" displayName="agilent_gpl8743 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_gpl8743" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_gpl8743__dm" type="list"/>
           <Option checkForNulls="true" displayName="agilent_liv_agilent_8x15k_v1 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_liv_agilent_8x15k_v1" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_liv_agilent_8x15k_v1__dm" type="list"/>
-          <Option checkForNulls="true" displayName="Anopheles symbol ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="anopheles_symbol" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Anopheles_symbol__dm" type="list"/>
-          <Option checkForNulls="true" displayName="CCDS ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ccds" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_CCDS__dm" type="text"/>
-          <Option checkForNulls="true" displayName="Eukaryotic Promoter Database (EPD) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="epd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_EPD__dm" type="text"/>
-          <Option checkForNulls="true" displayName="G protein-coupled Receptor (GPCR) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gpcr" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_GPCR__dm" type="text"/>
+            <Option checkForNulls="true" displayName="Anopheles symbol ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="anopheles_symbol" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_anopheles_symbol__dm" type="list"/>
+            <Option checkForNulls="true" displayName="CCDS ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ccds" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ccds__dm" type="text"/>
+            <Option checkForNulls="true" displayName="Eukaryotic Promoter Database (EPD) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="epd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_epd__dm" type="text"/>
+            <Option checkForNulls="true" displayName="G protein-coupled Receptor (GPCR) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gpcr" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gpcr__dm" type="text"/>
           <Option checkForNulls="true" displayName="nimblegen_nd_65k_v1 ID(s)" displayType="text" field="display_label_11056" internalName="nimblegen_nd_65k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nimblegen_nd_65k_v1__dm" type="list"/>
-          <Option checkForNulls="true" displayName="MEROPS ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="merops" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_MEROPS__dm" type="text" useDefault="true">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key" tableConstraint="ox_MEROPS__dm"/>
-            <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene"/>
-            <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene"/>
-            <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
+            <Option checkForNulls="true" displayName="MEROPS ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="merops" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_merops__dm" type="text">
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key" tableConstraint="ox_merops__dm"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
           </Option>
           <Option checkForNulls="true" displayName="WikiGene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wikigene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wikigene__dm" type="text" useDefault="true">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
@@ -2228,17 +2210,6 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="cbriggsae_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="cjaponica_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="cremanei_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="osativa_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="oindica_eg_gene" key="translation_id_1068_key"/>
@@ -2246,24 +2217,8 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="zmays_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="apisum_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="cbriggsae_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="spurpuratus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
@@ -2322,18 +2277,6 @@
           <Option checkForNulls="true" description="filter to include genes encoding proteins with supplied list of GO ID(s)" displayName="GO ID(s) for proteins" displayType="text" field="dbprimary_acc_1074" internalName="go" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_GO__dm" type="list" useDefault="true">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="afumigatus_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="transcript_id_1064_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="transcript_id_1064_key"/>
           </Option>
           <Option checkForNulls="true" description="filter to include genes encoding proteins with supplied list of PomBase Ontology ID(s)" displayName="PomBase Ontology ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pbo" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pbo__dm" type="list"/>
@@ -2379,10 +2322,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
           </Option>
-          <Option displayName="miRBase ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="mirbase" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mirbase__dm" type="list" useDefault="true">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="transcript_id_1064_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="transcript_id_1064_key"/>
-          </Option>
+          <Option displayName="miRBase ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="mirbase" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mirbase__dm" type="list" useDefault="true"/>
           <Option description="Filter to include genes with supplied list of miRBase ID(s)" displayName="miRBase gene name" displayType="text" field="display_label_1074" internalName="mirbase_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_miRBase_gene_name__dm" type="list"/>
           <Option description="Filter to include genes with supplied list of miRBase ID(s)" displayName="miRBase transcript name" displayType="text" field="display_label_1074" internalName="mirbase_transcript_name" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_miRBase_transcript_name__dm" type="list"/>
           <Option displayName="HAVANA transcript ID(s) (OTTT)" displayType="text" field="dbprimary_acc_1074" internalName="ottt" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_OTTT__dm" type="list"/>
@@ -2446,10 +2386,10 @@
           <Option checkForNulls="true" displayName="RefSeq RNA predicted ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_rna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_rna_predicted__dm" type="list"/>
           <Option checkForNulls="true" displayName="VectorBase Community Symbol ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="vb_community_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vb_community_symbol__dm" type="list"/>
           <Option checkForNulls="true" displayName="RefSeq ncRNA ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_ncrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_ncrna__dm" type="list">
-            <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene"/>
-            <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="tcastaneum_eg_gene"/>
-            <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="celegans_eg_gene"/>
-            <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="bmori_eg_gene"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="transcript_id_1064_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="tcastaneum_eg_gene" key="transcript_id_1064_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="transcript_id_1064_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="bmori_eg_gene" key="transcript_id_1064_key"/>
           </Option>
           <Option checkForNulls="true" displayName="RefSeq predicted ncRNA ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_ncrna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_ncrna_predicted__dm" type="list"/>
           <Option checkForNulls="true" displayName="uniprot_genename_mb001 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_genename_mb001" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_genename_mb001__dm" type="list"/>
@@ -2489,25 +2429,25 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="transcript_id_1064_key"/>
           </Option>
           <Option checkForNulls="true" displayName="UniProtKB/TrEMBL ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_sptrembl" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprotsptrembl__dm" type="list">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="iscapularis_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="iscapularis_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="translation_id_1068_key"/>
@@ -2522,18 +2462,6 @@
           </Option>
           <Option checkForNulls="true" displayName="UniProtKB/SwissProt ID(s)" displayType="text" field="display_label_1074" internalName="uniprot_swissprot" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_UniprotSWISSSPROT__dm" type="list"/>
           <Option checkForNulls="true" displayName="UniProtKB/SwissProt Accession(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_swissprot_accession" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprotswissprot__dm" type="list" useDefault="true">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="iscapularis_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
@@ -2541,16 +2469,6 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key"/>
           </Option>
           <Option checkForNulls="true" displayName="UniProtKB/TrEMBL predicted ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_sptrembl_predicted" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprotsptrembl_predicted__dm" type="list" useDefault="true">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotsptrembl_predicted__dm"/>
@@ -2695,22 +2613,10 @@
           <Option checkForNulls="true" description="Filter to include genes with supplied list of Fantom ID(s)" displayName="Fantom ID(s) [e.g.77208]" displayType="text" field="dbprimary_acc_1074" internalName="fantom" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_Fantom__dm" type="text"/>
           <Option checkForNulls="true" description="Filter to include genes with supplied list of Genoscope predicted protein ID(s)" displayName="Genoscope predicted protein ID(s) [e.g. GSTENT10021049001]" displayType="text" field="dbprimary_acc_1074" internalName="genoscope_pred_translation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Genoscope_pred_translation__dm" type="list"/>
           <Option checkForNulls="true" description="Filter to include genes with supplied list of GOSlim GOA Accession(s)" displayName="GOSlim GOA Accessions(s) [e.g. GO:0003676]" displayType="text" field="dbprimary_acc_1074" internalName="goslim_goa_accession" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_goslim_goa__dm" type="list">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
           </Option>
           <Option description="Filter to include genes with supplied list of Illumina Human HT 12 ID(s)" displayName="Illumina Human HT 12 ID(s) [e.g. ILMN_1672925]" displayType="text" field="display_label_11056" internalName="illumina_humanht_12" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_ILLUMINA_HumanWG_6_V3__dm" type="list"/>
           <Option checkForNulls="true" description="Filter to include genes with supplied list of RGD symbol(s)" displayName="RGD Symbol [e.g. Cntnap5b]" displayType="text" field="display_label_1074" internalName="rgd_symbol" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RGD__dm" type="list"/>
@@ -2820,11 +2726,11 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
           </Option>
-          <Option checkForNulls="true" displayName="Ixodes manual annotation ID(s)" description="Filter to include genes with Ixodes manual annotation IDs" displayType="text" field="dbprimary_acc_1074" internalName="ixodes_manualannotation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ixodes_manualannotation__dm" type="list"/>
-          <Option checkForNulls="true" displayName="MitoDrome ID(s)" description="Filter to include genes with MitoDrome IDs" displayType="text" field="dbprimary_acc_1074" internalName="mitodrome" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mitodrome__dm" type="list"/>
-          <Option checkForNulls="true" displayName="VectorBase Community Annotation ID(s)" description="Filter to include genes with vb_community_annotation IDs" displayType="text" field="dbprimary_acc_1074" internalName="vb_community_annotation" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vb_community_annotation__dm" type="list">
+            <Option checkForNulls="true" description="Filter to include genes with Ixodes manual annotation IDs" displayName="Ixodes manual annotation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ixodes_manualannotation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ixodes_manualannotation__dm" type="list"/>
+            <Option checkForNulls="true" description="Filter to include genes with MitoDrome IDs" displayName="MitoDrome ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="mitodrome" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mitodrome__dm" type="list"/>
+            <Option checkForNulls="true" description="Filter to include genes with vb_community_annotation IDs" displayName="VectorBase Community Annotation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="vb_community_annotation" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vb_community_annotation__dm" type="list">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="hmelpomene_eg_gene" key="gene_id_1020_key" tableConstraint="ox_vb_community_annotation__dm"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_vb_community_annotation__dm"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="gene_id_1020_key" tableConstraint="ox_vb_community_annotation__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_vb_community_annotation__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key"/>
           </Option>
@@ -5689,86 +5595,26 @@
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="afumigatus_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="anidulans_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dyakuba_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dsechellia_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription displayName="GO Term Name" field="name_1006" internalName="go_name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_go__dm" useDefault="true">
           <SpecificAttributeContent key="transcript_id_1064_key" field="name_1006" internalName="spombe_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="name_1006" internalName="afumigatus_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="name_1006" internalName="anidulans_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dpseudoobscura_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dpersimilis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="derecta_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dyakuba_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="name_1006" internalName="dmelanogaster_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dananassae_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dgrimshawi_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dwillistoni_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dsechellia_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dmojavensis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dvirilis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="name_1006" internalName="dsimulans_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription displayName="GO Term Definition" field="definition_1006" internalName="go_definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_go__dm" useDefault="true">
           <SpecificAttributeContent key="transcript_id_1064_key" field="definition_1006" internalName="spombe_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="definition_1006" internalName="afumigatus_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="definition_1006" internalName="anidulans_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dpseudoobscura_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dpersimilis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="derecta_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dyakuba_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="definition_1006" internalName="dmelanogaster_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dananassae_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dgrimshawi_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dwillistoni_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dsechellia_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dmojavensis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dvirilis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="definition_1006" internalName="dsimulans_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription displayName="GO Term Evidence Code" field="linkage_type_1024" internalName="go_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="ontology_go__dm" useDefault="true">
           <SpecificAttributeContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="spombe_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="afumigatus_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="anidulans_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dpseudoobscura_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dpersimilis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="derecta_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dyakuba_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="linkage_type_1024" internalName="dmelanogaster_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dananassae_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dgrimshawi_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dwillistoni_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dsechellia_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dmojavensis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dvirilis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="linkage_type_1024" internalName="dsimulans_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription displayName="GO domain" field="namespace_1003" internalName="go_namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="ontology_go__dm" useDefault="true">
           <SpecificAttributeContent key="transcript_id_1064_key" field="namespace_1003" internalName="spombe_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="namespace_1003" internalName="afumigatus_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="namespace_1003" internalName="anidulans_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dpseudoobscura_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dpersimilis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="derecta_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dyakuba_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="namespace_1003" internalName="dmelanogaster_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dananassae_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dgrimshawi_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dwillistoni_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dsechellia_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dmojavensis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dvirilis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="namespace_1003" internalName="dsimulans_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription displayName="GO evidence" field="evidence_label" 
             internalName="go_evidence_label" key="transcript_id_1064_key" 
@@ -6429,62 +6275,57 @@
         </AttributeDescription>
       </AttributeCollection>
       <AttributeCollection displayName="GOSlim GOA" internalName="goslim_goa">
-        <AttributeDescription displayName="GOSlim GOA Accession(s)" field="dbprimary_acc_1074" internalName="goslim_goa_accession" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ox_goslim_goa__dm" useDefault="true">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
+      <AttributeDescription displayName="GOSlim GOA Accession(s)" field="dbprimary_acc_1074" internalName="goslim_goa_accession" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ox_goslim_goa__dm">
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dsechellia_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dananassae_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="description_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dyakuba_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dgrimshawi_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
         </AttributeDescription>
-        <AttributeDescription displayName="GOSlim GOA Description" field="description_1074" internalName="goslim_goa_description" key="translation_id_1068_key" maxLength="255" tableConstraint="ox_goslim_goa__dm" useDefault="true">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
+      <AttributeDescription displayName="GOSlim GOA Description" field="description_1074" internalName="goslim_goa_description" key="translation_id_1068_key" maxLength="255" tableConstraint="ox_goslim_goa__dm">
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dsechellia_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dananassae_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="description_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dyakuba_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dgrimshawi_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="description_1074" internalName="dpseudoobscura_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="description_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="description_1074" internalName="athaliana_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="description_1074" internalName="scerevisiae_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="description_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
         </AttributeDescription>
       </AttributeCollection>
       <!--
@@ -6616,7 +6457,6 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="cremanei_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="translation_id_1068_key"/>
@@ -6635,23 +6475,23 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aflavus_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aoryzae_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dyakuba_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dsechellia_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="celegans_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="amellifera_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="cbriggsae_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="smansoni_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="nvectensis_eg_gene"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="amellifera_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="cbriggsae_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="smansoni_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="nvectensis_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="lmajor_eg_gene" key="translation_id_1068_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="affy_agsnp01 ID" field="display_label_11056" internalName="affy_agsnp01" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_agsnp01__dm"/>
@@ -6673,6 +6513,7 @@
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="RefSeq Predicted mRNA ID" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_mrna_predicted__dm" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="cremanei_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="vvinifera_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="ppatens_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="gmax_eg_gene"/>
@@ -6705,45 +6546,45 @@
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pinfestans_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="RefSeq ncRNA ID" field="dbprimary_acc_1074" internalName="refseq_ncrna" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_ncrna__dm">
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="bmori_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="tcastaneum_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="celegans_eg_gene"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bmori_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="tcastaneum_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
-        <AttributeDescription checkForNulls="true" displayName="RefSeq Predicted ncRNA ID" field="dbprimary_acc_1074" internalName="refseq_ncrna_predicted" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_ncrna_predicted__dm" useDefault="true">
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="vvinifera_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="ppatens_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dyakuba_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dsechellia_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="tcastaneum_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="aqueenslandica_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="nvectensis_eg_gene"/>
+      <AttributeDescription checkForNulls="true" displayName="RefSeq Predicted ncRNA ID" field="dbprimary_acc_1074" internalName="refseq_ncrna_predicted" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_ncrna_predicted__dm">
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ppatens_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="tcastaneum_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aqueenslandica_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="tadhaerens_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="transcript_id_1064_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="nvectensis_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
-        <AttributeDescription checkForNulls="true" displayName="FlyBase Annotation ID" field="dbprimary_acc_1074" internalName="flybase_annotation_id" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_annotation_id__dm" useDefault="true">
+      <AttributeDescription checkForNulls="true" displayName="FlyBase Annotation ID" field="dbprimary_acc_1074" internalName="flybase_annotation_id" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_annotation_id__dm">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="FlyBase Gene ID" field="dbprimary_acc_1074" internalName="flybase_gene_id" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_gene_id__dm"/>
         <AttributeDescription checkForNulls="true" displayName="FlyBase Transcript ID" field="dbprimary_acc_1074" internalName="flybase_transcript_id" key="transcript_id_1064_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_transcript_id__dm"/>
         <AttributeDescription displayName="FlyBase Protein id" field="dbprimary_acc_1074" hidden="false" internalName="flybase_translation_id" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_flybase_translation_id__dm"/>
         <AttributeDescription checkForNulls="true" displayName="FlyBase Polypeptide ID" field="dbprimary_acc_1074" hidden="true" internalName="flybase_polypeptide_id" key="translation_id_1068_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_polypeptide_id__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="FlyBaseName Gene" field="display_label_1074" internalName="flybasename_gene" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/Gene/Summary?g=%s" maxLength="40" tableConstraint="ox_FlyBaseName_gene__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="FlyBaseName transcript" field="display_label_1074" internalName="flybasename_transcript" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_FlyBaseName_transcript__dm"/>
-        <AttributeDescription displayName="FlyBaseName protein" field="display_label_1074" hidden="false" internalName="flybasename_translation" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/protview?peptide=%s" maxLength="40" tableConstraint="ox_FlyBaseName_translation__dm"/>
-        <AttributeDescription displayName="FlyBase CGID Gene" field="dbprimary_acc_1074" internalName="FlyBaseCGID_gene" key="gene_id_1020_key" maxLength="128" tableConstraint="ox_FlyBaseCGID_gene__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="FlyBase CGID Transcript" field="dbprimary_acc_1074" internalName="flybasecgid_transcript" key="transcript_id_1064_key" maxLength="128" tableConstraint="ox_FlyBaseCGID_transcript__dm"/>
+      <AttributeDescription checkForNulls="true" displayName="FlyBaseName Gene" field="display_label_1074" internalName="flybasename_gene" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/Gene/Summary?g=%s" maxLength="40" tableConstraint="ox_flybasename_gene__dm"/>
+      <AttributeDescription checkForNulls="true" displayName="FlyBaseName transcript" field="display_label_1074" internalName="flybasename_transcript" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_flybasename_transcript__dm"/>
+      <AttributeDescription displayName="FlyBaseName protein" field="display_label_1074" hidden="false" internalName="flybasename_translation" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/protview?peptide=%s" maxLength="40" tableConstraint="ox_flybasename_translation__dm"/>
+      <AttributeDescription displayName="FlyBase CGID Gene" field="dbprimary_acc_1074" internalName="FlyBaseCGID_gene" key="gene_id_1020_key" maxLength="128" tableConstraint="ox_flybasecgid_gene__dm"/>
+      <AttributeDescription checkForNulls="true" displayName="FlyBase CGID Transcript" field="dbprimary_acc_1074" internalName="flybasecgid_transcript" key="transcript_id_1064_key" maxLength="128" tableConstraint="ox_flybasecgid_transcript__dm"/>
         <AttributeDescription displayName="FlyBase CGID Translation" field="display_label_1074" internalName="flybasecgid_translation" key="translation_id_1068_key" maxLength="128" tableConstraint="ox_flybasecgid_translation__dm"/>
-        <AttributeDescription displayName="FlyGrid" field="dbprimary_acc_1074" hidden="false" internalName="flygrid" key="gene_id_1020_key" linkoutURL="exturl1|http://www.thebiogrid.org/searchresults.php?id=%s" maxLength="40" tableConstraint="ox_FlyGrid__dm"/>
+      <AttributeDescription displayName="FlyGrid" field="dbprimary_acc_1074" hidden="false" internalName="flygrid" key="gene_id_1020_key" linkoutURL="exturl1|http://www.thebiogrid.org/searchresults.php?id=%s" maxLength="40" tableConstraint="ox_flygrid__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Gadfly protein cgid" field="dbprimary_acc_1074" hidden="true" internalName="gadfly_translation_cgid" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_gadfly_translation_cgid__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Gadfly transcript cgid" field="dbprimary_acc_1074" hidden="true" internalName="gadfly_transcript_cgid" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_gadfly_transcript_cgid__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Genoscope annotated gene" field="dbprimary_acc_1074" hidden="true" internalName="genoscope_annotated_gene" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_Genoscope_annotated_gene__dm"/>
@@ -6768,12 +6609,12 @@
         <AttributeDescription displayName="MEROPS ID" field="dbprimary_acc_1074" hidden="false" internalName="merops" key="translation_id_1068_key" linkoutURL="exturl1|http://merops.sanger.ac.uk/cgi-bin/make_frame_file?id=%s" maxLength="40" tableConstraint="ox_merops__dm" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key" tableConstraint="ox_MEROPS__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="translation_id_1068_key" tableConstraint="ox_MEROPS__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="translation_id_1068_key" tableConstraint="ox_MEROPS__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key" tableConstraint="ox_MEROPS__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="translation_id_1068_key" tableConstraint="ox_MEROPS__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="translation_id_1068_key" tableConstraint="ox_MEROPS__dm"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
@@ -6904,10 +6745,10 @@
           <SpecificAttributeContent field="display_label_1074" internalName="nvectensis_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="RefSeq Protein ID" field="dbprimary_acc_1074" internalName="refseq_peptide" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_refseq_peptide__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="RefSeq Predicted Protein ID" field="dbprimary_acc_1074" internalName="refseq_peptide_predicted" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_peptide_predicted__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="RFAM ID" field="dbprimary_acc_1074" internalName="rfam" key="gene_id_1020_key" linkoutURL="exturl1|http://rfam.sanger.ac.uk/family?entry=%s" maxLength="40" tableConstraint="ox_rfam__dm" useDefault="true">
-          <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="agambiae_eg_gene"/>
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
+        <AttributeDescription checkForNulls="true" displayName="RefSeq Predicted Protein ID" field="dbprimary_acc_1074" internalName="refseq_peptide_predicted" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_refseq_peptide_predicted__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="RFAM ID" field="dbprimary_acc_1074" internalName="rfam" key="gene_id_1020_key" linkoutURL="exturl1|http://rfam.sanger.ac.uk/family?entry=%s" maxLength="40" tableConstraint="ox_rfam__dm">
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="transcript_id_1064_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="gene_id_1020_key"/>
         </AttributeDescription>
         <AttributeDescription displayName="EO" field="dbprimary_acc_1074" internalName="eo" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_eo__dm"/>
         <AttributeDescription displayName="TRO" field="dbprimary_acc_1074" internalName="tro" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_TRO__dm"/>
@@ -6946,31 +6787,31 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="nvectensis_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="UniProtKB/TrEMBL Accession" field="dbprimary_acc_1074" internalName="uniprot_sptrembl" key="translation_id_1068_key" linkoutURL="exturl1|http://www.uniprot.org/uniprot/%s" maxLength="6" tableConstraint="ox_UniprotSPTREMBL__dm" useDefault="true">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="iscapularis_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="foxysporum_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gzeae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gmoniliformis_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL__dm"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="iscapularis_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="foxysporum_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gzeae_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gmoniliformis_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
@@ -6984,59 +6825,37 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="UniProtKB/TrEMBL predicted" field="dbprimary_acc_1074" internalName="uniprot_sptrembl_predicted" key="translation_id_1068_key" linkoutURL="exturl1|http://www.uniprot.org/uniprot/%s" maxLength="40" tableConstraint="ox_uniprotsptrembl_predicted__dm">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="iscapularis_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotsptrembl_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotsptrembl_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSPTREMBL_predicted__dm"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="iscapularis_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="translation_id_1068_key"/>
         </AttributeDescription>
-        <AttributeDescription checkForNulls="true" displayName="UniProtKB/SwissProt Accession" field="dbprimary_acc_1074" internalName="uniprot_swissprot_accession" key="translation_id_1068_key" linkoutURL="exturl1|http://www.uniprot.org/uniprot/%s" maxLength="6" tableConstraint="ox_UniprotSWISSPROT__dm" useDefault="true">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="iscapularis_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="foxysporum_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gzeae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="translation_id_1068_key" tableConstraint="ox_UniprotSWISSPROT__dm"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dyakuba_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dsechellia_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
+      <AttributeDescription checkForNulls="true" displayName="UniProtKB/SwissProt Accession" field="dbprimary_acc_1074" internalName="uniprot_swissprot_accession" key="translation_id_1068_key" linkoutURL="exturl1|http://www.uniprot.org/uniprot/%s" maxLength="6" tableConstraint="ox_uniprotswissprot__dm">
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="iscapularis_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="foxysporum_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gzeae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="translation_id_1068_key" tableConstraint="ox_uniprotswissprot__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="siRNA Sunkar" field="dbprimary_acc_1074" internalName="sirna_sunkar" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_siRNA_Sunkar__dm"/>
         <AttributeDescription displayName="LGB Pratt EST Cluster" field="dbprimary_acc_1074" internalName="lgbpratt_est_cluster" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_lgbpratt_est_cluster__dm"/>
@@ -7231,17 +7050,17 @@
         <AttributeDescription checkForNulls="true" displayName="SGD gene ID" field="dbprimary_acc_1074" internalName="sgd_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_sgd_gene__dm" linkoutURL="exturl1|http://db.yeastgenome.org/cgi-bin/locus.pl?locus=%s"/>
         <AttributeDescription checkForNulls="true" displayName="SGD transcript ID" field="dbprimary_acc_1074" internalName="sgd_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_sgd_transcript__dm" linkoutURL="exturl1|http://db.yeastgenome.org/cgi-bin/locus.pl?locus=%s"/>
         <AttributeDescription checkForNulls="true" displayName="TRNASCAN-SE ID" field="dbprimary_acc_1074" internalName="trnascan_se" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_trnascan_se__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="UniProt/SwissProt predicted ID" field="dbprimary_acc_1074" internalName="uniprotswissprot_predicted" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_uniprotswissprot_predicted__dm" linkoutURL="exturl1|http://www.uniprot.org/uniprot/%s" useDefault="true">
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dsechellia_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dsimulans_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dananassae_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dyakuba_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="derecta_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dvirilis_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene"/>
+      <AttributeDescription checkForNulls="true" displayName="UniProt/SwissProt predicted ID" field="dbprimary_acc_1074" internalName="uniprotswissprot_predicted" key="translation_id_1068_key" linkoutURL="exturl1|http://www.uniprot.org/uniprot/%s" maxLength="40" tableConstraint="ox_uniprotswissprot_predicted__dm">
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="translation_id_1068_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="Gramene GenesDB ID" field="dbprimary_acc_1074" internalName="gramene_genesdb" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_gramene_genesdb__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Gramene MarkersDB EST ID" field="dbprimary_acc_1074" internalName="gramene_markersdb_est" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_gramene_markersdb_est__dm"/>
@@ -7270,11 +7089,11 @@
         <AttributeDescription checkForNulls="true" displayName="GPCR ID" field="dbprimary_acc_1074" internalName="gpcr" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_gpcr__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ImmunoDB ID" field="dbprimary_acc_1074" internalName="immunodb" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_immunodb__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Mitodrome ID" field="dbprimary_acc_1074" internalName="mitodrome" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_mitodrome__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="VectorBase community annotation ID" field="dbprimary_acc_1074" internalName="vb_community_annotation" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_vb_community_annotation__dm" useDefault="true">
+      <AttributeDescription checkForNulls="true" displayName="VectorBase community annotation ID" field="dbprimary_acc_1074" internalName="vb_community_annotation" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_vb_community_annotation__dm">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="hmelpomene_eg_gene" key="gene_id_1020_key" tableConstraint="ox_vb_community_annotation__dm"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_vb_community_annotation__dm"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_vb_community_annotation__dm"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="translation_id_1068_key"/>
+        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="gene_id_1020_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="VectorBase external description ID" field="dbprimary_acc_1074" internalName="vb_external_description" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_vb_external_description__dm"/>
         <AttributeDescription checkForNulls="true" displayName="VectorBase RNA description ID" field="dbprimary_acc_1074" internalName="vb_rna_description" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_vb_rna_description__dm"/>
@@ -7553,7 +7372,7 @@
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
-  <AttributePage description="Details on Genomic Structures" displayName="Structures" internalName="structure" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls,gff">
+  <AttributePage description="Details on Genomic Structures" displayName="Structures" internalName="structure" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls">
     <AttributeGroup displayName="GENE:" internalName="gene">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes_structure">
         <AttributeDescription internalName="structure_gene_stable_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
@@ -7866,18 +7685,6 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="afumigatus_eg_gene" key="transcript_id_1064_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key"/>
         </AttributeDescription>
         <AttributeDescription internalName="structure_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="structure_transcript_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
