@@ -34,8 +34,10 @@ my $template_template_file = "templates/eg_template_template.xml";
 my $ds_name = 'gene';
 my $template_file_name = 'templates/dataset_template.xml';
 my $description = 'genes';
+my $output_dir = undef;
+
 sub usage {
-    print "Usage: $0 [-host <host>] [-port <port>] [-user <user>] [-pass <pwd>] [-mart <mart db>] [-release <e! release number>] [-template <template file path>] [-description <description>] [-dataset <dataset name>] [-ds_template <datanase name template>]\n";
+    print "Usage: $0 [-host <host>] [-port <port>] [-user <user>] [-pass <pwd>] [-mart <mart db>] [-release <e! release number>] [-template <template file path>] [-description <description>] [-dataset <dataset name>] [-ds_template <datanase name template>] [-output_dir <output directory>]\n";
     print "-host <host> Default is $db_host\n";
     print "-port <port> Default is $db_port\n";
     print "-user <host> Default is $db_user\n";
@@ -45,6 +47,7 @@ sub usage {
     print "-ds_template <ds template>\n";
     print "-dataset <dataset name>\n";
     print "-description <description>\n";
+    print "-output_dir <output directory> default is ./output/\n";
     print "-release <e! releaseN>\n";
     exit 1;
 };
@@ -60,6 +63,7 @@ my $options_okay = GetOptions (
     "template=s"=>\$template_template_file,
     "ds_template=s"=>\$template_file_name,
     "description=s"=>\$description,
+    "output_dir=s"=>\$output_dir,
     "h|help"=>sub {usage()}
     );
 
@@ -70,9 +74,17 @@ if(! defined $db_host || ! defined $db_port || ! defined $db_pwd || ! defined $t
     usage();
 }
 
+if( !defined $output_dir ){
+    $output_dir = "$ENV{PWD}/output";
+
+    unless( -d $output_dir ){ mkdir $output_dir || die "unable to create output directoty $output_dir\n" } 
+}
+
 sub write_dataset_xml {
     my $dataset_names = shift;
-    my $fname = './output/'.$dataset_names->{dataset}.'.xml';
+    my $outdir = shift @_;
+
+    my $fname = $outdir.$dataset_names->{dataset}.'.xml';
     open my $dataset_file, '>', $fname or croak "Could not open $fname for writing"; 
     open my $template_file, '<', $template_file_name or croak "Could not open $template_file_name";
     while (my $line = <$template_file>) {
@@ -212,6 +224,8 @@ PARAATT_END
 
 sub write_template_xml {
     my $datasets = shift;
+    my $outdir = shift @_;
+
     my $datasets_text='';
     my $homology_filters_text='';
     my $homology_attributes_text='';
@@ -239,8 +253,8 @@ sub write_template_xml {
 	'.*<Replace id="exportables_link"/>'=>$exportables_link_text,
 	'.*<Replace id="poly_attrs"/>'=>$poly_attrs_text
 	);
-    write_replace_file($template_template_file,'output/template.xml',\%placeholders);
-    `gzip -c output/template.xml > output/template.xml.gz`;
+    write_replace_file($template_template_file,"$outdir/template.xml",\%placeholders);
+    `gzip -c $outdir/template.xml > $outdir/template.xml.gz`;
 }
 
 
@@ -267,7 +281,7 @@ sub create_metatable {
 }
 
 sub write_metatables {
-    my ($mart_handle, $datasets) = @_[0,1];
+    my ($mart_handle, $datasets,$outdir) = @_[0,1,2];
     my $pwd = &Cwd::cwd();
 
     $logger->info("Creating meta tables");
@@ -313,7 +327,7 @@ sub write_metatables {
     $mart_handle->do("INSERT INTO meta_version__version__main VALUES ('0.7')");
     ## meta_template__xml__dm
     my $sth = $mart_handle->prepare('INSERT INTO meta_template__xml__dm VALUES (?,?)');
-    $sth->execute($ds_name, file_to_bytes("$pwd/output/template.xml.gz")) 
+    $sth->execute($ds_name, file_to_bytes("$outdir/template.xml.gz")) 
 		  or croak "Could not load file into meta_template__xml__dm";
     $sth->finish();
  
@@ -330,9 +344,9 @@ sub write_metatables {
 	# meta_conf__xml__dm
 	$logger->info("Writing metadata for species ".$dataset->{species_id});
 	$meta_conf__xml__dm->execute($speciesId,
-				     file_to_bytes("$pwd/output/$dataset->{dataset}.xml"),
-				     file_to_bytes("$pwd/output/$dataset->{dataset}.xml.gz"),
-				     file_to_bytes("$pwd/output/$dataset->{dataset}.xml.gz.md5")
+				     file_to_bytes("$outdir/$dataset->{dataset}.xml"),
+				     file_to_bytes("$outdir/$dataset->{dataset}.xml.gz"),
+				     file_to_bytes("$outdir/$dataset->{dataset}.xml.gz.md5")
 	    ) or croak "Could not update meta_conf__xml__dm";
 	# meta_conf__user__dm
 	$meta_conf__user__dm->execute($speciesId) 
@@ -400,17 +414,17 @@ foreach my $dataset (get_dataset_names($mart_handle)) {
     }
     #$logger->debug(join(',',values(%dataset_names)));
     push(@datasets,\%dataset_names);
-    write_dataset_xml(\%dataset_names)
+    write_dataset_xml(\%dataset_names , $output_dir);
 }
 $dataset_sth->finish();
 
 @datasets = sort {$a->{species_name} cmp $b->{species_name}} @datasets;
 
 # 2. write template files
-write_template_xml(\@datasets);
+write_template_xml(\@datasets , $output_dir);
 
 
-write_metatables($mart_handle, \@datasets);
+write_metatables($mart_handle, \@datasets , $output_dir);
 
 $mart_handle->disconnect() or croak "Could not close handle to $mart_string";
 

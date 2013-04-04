@@ -33,6 +33,8 @@ my $release = 60;
 my $suffix = '';
 my $dataset_basename = 'gene';
 my $main = 'gene__main';
+my $coredb = undef;
+my $div = undef;
 
 my %table_res = (
     qr/protein_feature/ => {
@@ -55,7 +57,7 @@ sub transform_table {
 }
 
 sub usage {
-    print "Usage: $0 [-host <host>] [-port <port>] [ -user <user>] [-pass <pwd>] [-mart <target mart>] [-release <ensembl release>] [-suffix <dataset suffix>]\n";
+    print "Usage: $0 [-host <host>] [-port <port>] [ -user <user>] [-pass <pwd>] [-mart <target mart>] [-release <ensembl release>] [-suffix <dataset suffix>] [-div <plant|protist|metazoa|fung|vectorbase>]\n";
     print "-host <host> Default is $db_host\n";
     print "-port <port> Default is $db_port\n";
     print "-user <host> Default is $db_user\n";
@@ -63,6 +65,9 @@ sub usage {
     print "-mart <target mart> Default is $mart_db\n";
     print "-release <ensembl release> Default is $release\n";
     print "-suffix <dataset suffix> e.g. '_eg' Default is ''\n";
+    print "-coredb <ensembl core database name> e.g. anopheles_gambiae_core_17_70_3";
+    print "-div <plant|protist|metazoa|fung|vectorbase> set taxonomic division for species.proteome_id value";
+    print "-div allows mart database name to be set indepedently of the mart database name";
     exit 1;
 };
 
@@ -76,6 +81,8 @@ my $options_okay = GetOptions (
     "suffix=s"=>\$suffix,
     "name=s"=>\$dataset_basename,
     "main=s"=>\$main,
+    "coredb=s"=>\$coredb,
+    "div=s"=>\$div,
     "help"=>sub {usage()}
     );
 
@@ -116,38 +123,50 @@ foreach my $db (get_databases($mart_handle)) {
 	print "$db\n";
 	push @src_dbs, $db;
     }
+    elsif( $db eq $coredb ){
+	print "$db\n";
+	push @src_dbs, $db;
+    }
 }
-
 
 $logger->info("Listing datasets from $mart_db");
 # 1. identify datasets based on main tables
 my $re = '_'.$dataset_basename.'__'.$main;
+
 my @datasets = get_datasets(\@src_tables,$re);
 
 # 2. for each dataset
 
 
 my $pId;
-if ($mart_db =~ m/protist/) {
-    $pId = 10000;
-} elsif ($mart_db =~ m/plant/) {
-    $pId = 20000;
-} elsif ($mart_db =~ m/metazoa/) {
-    $pId = 30000;
-} elsif ($mart_db =~ m/fung/) {
-    $pId = 40000;
-} elsif ($mart_db =~ m/vector/) {
-    $pId = 50000;
-} else {
+
+unless( $div ){
+    if ( $mart_db =~ m/protist/){ $div = 'protist' } 
+    elsif ( $mart_db =~ m/plant/){ $div = 'plant'  }
+    elsif ( $mart_db =~ m/metazoa/){ $div = 'metazoa' }
+    elsif ( $mart_db =~ m/fung/){ $div = 'fung'}
+    elsif ( $mart_db =~ m/vector/){ $div = 'vectorbase' }
+    else{ die "-div division not defined, and unable infer from database name $mart_db\n" }
+}
+
+if ( $div eq 'protist' ) { $pId = 10000 }
+elsif ( $div eq 'plant' ) { $pId = 20000 }
+elsif ( $div eq 'metazoa' ) { $pId = 30000 }
+elsif ( $div eq 'fung' ) { $pId = 40000 }
+elsif ( $div eq 'vectorbase') { $pId = 50000 }
+else {
     croak "Don't know how to deal with mart $mart_db - doesn't match known divisions\n";
 }
  
+unless ( scalar @datasets > 0 ){ croak "No datasets found - bailing out!\n"}
+
 foreach my $dataset (@datasets) {
 
     $logger->info("Naming $dataset");
     # get original database
     my $base_datasetname = $dataset;
     $base_datasetname =~ s/$suffix//;
+
     my $ens_db = get_ensembl_db_single(\@src_dbs,$base_datasetname,$release);
     if(!$ens_db) {
 	croak "Could not find original source db for dataset $base_datasetname\n";
