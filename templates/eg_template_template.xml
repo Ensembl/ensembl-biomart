@@ -2,7 +2,6 @@
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="gene_template" datasetID="87" defaultDataset="*default*" description="Ensembl Genes" displayName="*species1* genes (*version*)" entryLabel="Genes" interfaces="default" internalName="template" martUsers="default" modified="2006-10-02 16:13:46" softwareVersion="0.7" template="gene" type="TableSet" version="*version*" visible="1">
   <Replace id="datasets"/>
-  <Importable description="a" filters="evoc" internalName="evoc" linkName="evoc" name="evoc" type="link"/>
   <Importable filters="link_go_closure" internalName="go_closure" linkName="go_closure" name="go_closure" type="link"/>
   <Importable filters="link_so_closure" internalName="so_closure" linkName="so_closure" name="so_closure" type="link"/>
   <Importable filters="link_po_closure" internalName="po_closure" linkName="po_closure" name="po_closure" type="link"/>
@@ -13,15 +12,10 @@
   <Importable filters="link_pbo_closure" internalName="pbo_closure" linkName="pbo_closure" name="pbo_closure" type="link"/>
   <Importable filters="link_fypo_closure" internalName="fypo_closure" linkName="fypo_closure" name="fypo_closure" type="link"/>
   <Importable filters="link_mod_closure" internalName="mod_closure" linkName="mod_closure" name="mod_closure" type="link"/>
-  <Importable filters="mgi_symbol" internalName="mgi_symbol" linkName="mgi_symbol" name="mgi_symbol" type="link"/>
   <Importable filters="ensembl_gene_id" internalName="ensembl_gene_id" linkName="ensembl_gene_id" linkVersion="*link_version*" name="ensembl_gene_id" type="link"/>
-  <Importable filters="rgd" internalName="rgd_id" linkName="rgd_id" name="rgd_id" type="link"/>
   <Importable filters="ensembl_gene_id" internalName="wormbase_gene_seq_id" linkName="wormbase_gene_seq_id" linkVersion="*link_version2*" name="wormbase_gene_seq_id" type="link"/>
   <Importable filters="chromosome_name,start,end" internalName="ensembl_das_chr" linkName="ensembl_das_chr" name="ensembl_das_chr" type="dasChr"/>
   <Importable filters="ensembl_gene_id" internalName="ensembl_das_gene" linkName="ensembl_das_gene" name="ensembl_das_gene" type="dasGene"/>
-  <!--
-  <Importable filters="link_probe_set" internalName="probe_set" linkName="probe_set" name="probe_set" type="link"/>
--->
   <Importable filters="link_ensembl_gene_id" internalName="gene_stable_id" linkName="*species3*_gene_stable_id" name="*species3*_gene_stable_id" type="link"/>
   <Importable filters="link_development_stage" internalName="development_stage_term" linkName="development_stage_term" name="development_stage_term" type="link"/>
   <Importable filters="link_anatomical_system" internalName="anatomical_system_term" linkName="anatomical_system_term" name="anatomical_system_term" type="link"/>
@@ -41,13 +35,13 @@
   <Importable filters="chromosome_name,end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link"/>
   <Importable filters="chromosome_name,start,end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link"/>
   <!--
-  <Exportable attributes="link_probe" internalName="probe_one" linkName="probe_one" linkVersion="*link_version*" name="probe_one" type="link"/>
-  <Exportable attributes="link_probe_set" internalName="probe_set_one" linkName="probe_set_one" linkVersion="*link_version*" name="probe_set_one" type="link"/>
--->
+  <Importable filters="link_probe_set" internalName="probe_set" linkName="probe_set" name="probe_set" type="link"/>
+  <Importable filters="evoc" internalName="evoc" linkName="evoc" name="evoc" type="link"/>
+  <Importable filters="mgi_symbol" internalName="mgi_symbol" linkName="mgi_symbol" name="mgi_symbol" type="link"/>
+  <Importable filters="rgd" internalName="rgd_id" linkName="rgd_id" name="rgd_id" type="link"/>
+  -->
   <Exportable attributes="chromosome_name,start_position,end_position" internalName="genomic_region" linkName="genomic_region" linkVersion="*link_version*" name="genomic_region" type="link"/>
-  <Exportable attributes="rgd" internalName="rgd_id" linkName="rgd_id" name="rgd_id" type="link"/>
   <Exportable attributes="external_id" internalName="refsnp_id" linkName="refsnp_id" name="refsnp_id" type="link"/>
-  <Exportable attributes="mgi_symbol" internalName="mgi_symbol" linkName="mgi_symbol" name="mgi_symbol" type="link"/>
   <Exportable attributes="uniprot_swissprot_accession" internalName="uniprot_swissprot" linkName="uniprot_swissprot" name="uniprot_swissprot" type="link"/>
   <Exportable attributes="entrezgene" internalName="entrezgene" linkName="entrezgene" name="entrezgene" type="link"/>
   <Exportable attributes="ensembl_gene_id" internalName="wormbase_gene_seq_id" linkName="wormbase_gene_seq_id" linkVersion="*link_version*" name="wormbase_gene_seq_id" type="link"/>
@@ -70,6 +64,12 @@
   <Exportable attributes="exon_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand" internalName="gene_exon" linkName="gene_exon" linkVersion="*link_version*" name="gene_exon" orderBy="exon_id" type="link"/>
   <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,codon_table_id,seq_edits,rna_seq_edits" default="1" internalName="peptide" linkName="peptide" linkVersion="*link_version*" name="peptide" orderBy="ensembl_transcript_id,rank" type="link"/>
   <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,rna_seq_edits" internalName="coding" linkName="coding" linkVersion="*link_version*" name="coding" orderBy="ensembl_transcript_id,rank" type="link"/>
+  <!--
+  <Exportable attributes="link_probe" internalName="probe_one" linkName="probe_one" linkVersion="*link_version*" name="probe_one" type="link"/>
+  <Exportable attributes="link_probe_set" internalName="probe_set_one" linkName="probe_set_one" linkVersion="*link_version*" name="probe_set_one" type="link"/>
+  <Exportable attributes="mgi_symbol" internalName="mgi_symbol" linkName="mgi_symbol" name="mgi_symbol" type="link"/>
+  <Exportable attributes="rgd" internalName="rgd_id" linkName="rgd_id" name="rgd_id" type="link"/>
+  -->
   <Replace id="exportables"/>
   <FilterPage displayName="FILTERS FOR LINKS" hideDisplay="true" internalName="link_filters">
     <FilterGroup description="Filters for Links" hideDisplay="true" internalName="link_filters">
@@ -77,11 +77,12 @@
         <!--
         <FilterDescription internalName="link_probe" pointerFilter="probe" pointerDataset="*species3*_probe" pointerInterface="default"/>
         <FilterDescription internalName="link_probe_set" pointerFilter="probe_set" pointerDataset="*species3*_probe_set" pointerInterface="default"/>
--->
+        <FilterDescription displayType="text" field="Name" hidden="false" hideDisplay="true" internalName="evoc" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="EnsemblTranscript__dm" type="text"/>
+        -->
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_go_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_go__dm" type="text" useDefault="true">
-          <SpecificFilterContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="transcript_id_1064_key"/>
           <SpecificFilterContent field="dbprimary_acc_1074" internalName="afumigatus_eg_gene" key="transcript_id_1064_key"/>
           <SpecificFilterContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="transcript_id_1064_key"/>
+          <SpecificFilterContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="transcript_id_1064_key"/>
         </FilterDescription>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_pbo_closure" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_pbo__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_fypo_closure" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_fypo__dm" type="text"/>
@@ -90,7 +91,7 @@
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_to_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_to__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_eo_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_eo__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_po_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_po__dm" type="text" useDefault="true">
-          <SpecificFilterContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
+          <SpecificFilterContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key"/>
         </FilterDescription>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_gro_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_gro__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_gr_tax_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="ontology_gr_tax__dm" type="text"/>
@@ -98,7 +99,6 @@
         <FilterDescription displayType="text" field="gene_id_1020_key" hideDisplay="true" internalName="gene_id" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
         <FilterDescription displayType="text" field="transcript_id_1064_key" hideDisplay="true" internalName="transcript_id" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
         <FilterDescription description="Filter to include genes with supplied list of Ensembl Gene IDs" displayName="Ensembl Gene ID(s)" displayType="text" field="stable_id_1023" hideDisplay="true" internalName="link_ensembl_gene_id" key="gene_id_1020_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="main" type="text"/>
-        <FilterDescription displayType="text" field="Name" hidden="false" hideDisplay="true" internalName="evoc" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="EnsemblTranscript__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_go_biological_process" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_biological_process__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_go_molecular_function" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_molecular_function__dm" type="text"/>
         <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_go_cellular_component" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_cellular_component__dm" type="text"/>
@@ -116,34 +116,40 @@
     </FilterGroup>
   </FilterPage>
   <FilterPage displayName="FILTERS" internalName="filters">
-    <FilterGroup description="Filter for Genes in Specified Regions" displayName="REGION:" internalName="region">
-      <FilterCollection description="Limit to Genes on a specific Chromosome. " displayName="Chromosome" internalName="chromosome">
+    <FilterGroup description="Filter for genes in specified regions" displayName="REGION:" internalName="region">
+      <FilterCollection description="Limit to genes on a specific chromosome" displayName="Chromosome" internalName="chromosome">
         <FilterDescription displayName="Chromosome name" displayType="list" field="name_1059" internalName="chromosome_name" key="gene_id_1020_key" legal_qualifiers="=" otherFilters="*species3*_karyotype_start.name;*species3*_karyotype_end.name" qualifier="=" style="menu" tableConstraint="main" type="text">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection description="Limit to Genes within prescribed Chromosomal Coordinates." displayName="Base pair" internalName="chromosome_coordinates">
-        <FilterDescription defaultValue="1" description="Determine which base pair on the specified chromosome to begin range" displayName="Gene Start (bp)" displayType="text" field="seq_region_end_1020" hidden="false" internalName="start" key="gene_id_1020_key" legal_qualifiers="&gt;=" qualifier="&gt;=" regexp="\d+" tableConstraint="main" type="text"/>
-        <FilterDescription defaultValue="10000000" description="Determine which base pair on the specified chromosome to end range" displayName="Gene End (bp)" displayType="text" field="seq_region_start_1020" hidden="false" internalName="end" key="gene_id_1020_key" legal_qualifiers="&lt;=" qualifier="&lt;=" regexp="\d+" tableConstraint="main" type="text"/>
+      <FilterCollection description="Limit to genes within proscribed chromosomal coordinates" displayName="Base Pair" internalName="chromosome_coordinates">
+        <FilterDescription defaultValue="1" displayName="Start (bp)" displayType="text" field="seq_region_start_1020" hidden="false" internalName="start" key="gene_id_1020_key" legal_qualifiers="&gt;=" qualifier="&gt;=" regexp="\d+" tableConstraint="main" type="text"/>
+        <FilterDescription defaultValue="10000000" displayName="End (bp)" displayType="text" field="seq_region_end_1020" hidden="false" internalName="end" key="gene_id_1020_key" legal_qualifiers="&lt;=" qualifier="&lt;=" regexp="\d+" tableConstraint="main" type="text"/>
       </FilterCollection>
-      <FilterCollection displayName="Band" internalName="band_collection">
+      <FilterCollection description="Limit to genes on a karyotype band" displayName="Band" internalName="band_collection">
         <FilterDescription internalName="band_start" pointerDataset="*species3*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter">
+          <SpecificFilterContent internalName="agambiae_eg_gene"/>
           <SpecificFilterContent internalName="dmelanogaster_eg_gene"/>
         </FilterDescription>
         <FilterDescription internalName="band_end" pointerDataset="*species3*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter">
+          <SpecificFilterContent internalName="agambiae_eg_gene"/>
           <SpecificFilterContent internalName="dmelanogaster_eg_gene"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection">
-        <FilterDescription internalName="marker_start" pointerDataset="*species3*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter"/>
-        <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species3*_marker_end" pointerFilter="marker_end" pointerInterface="default"/>
+      <FilterCollection displayName="Marker" internalName="marker_collection">
+        <FilterDescription internalName="marker_start" pointerDataset="*species3*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter">
+          <SpecificFilterContent internalName="agambiae_eg_gene"/>
+        </FilterDescription>
+        <FilterDescription internalName="marker_end" pointerDataset="*species3*_marker_end" pointerFilter="marker_end" pointerInterface="default" type="drop_down_basic_filter">
+          <SpecificFilterContent internalName="agambiae_eg_gene"/>
+        </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Encode type" hidden="true" internalName="encode_type_col">
         <FilterDescription internalName="hsapiens_encode.type" pointerDataset="*species3*_encode" pointerFilter="type" pointerInterface="default" type="text">
           <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Encode region" internalName="encode_region_col" hidden="true">
+      <FilterCollection displayName="Encode region" hidden="true" internalName="encode_region_col">
         <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species3*_encode" pointerFilter="encode_region" pointerInterface="default">
           <SpecificFilterContent internalName="hsapiens_gene"/>
         </FilterDescription>
@@ -156,9 +162,9 @@
           </SpecificFilterContent>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Multiple Chromosomal Regions (Chr:Start:End:Strand)" internalName="chromosome_regions">
+      <FilterCollection description="Limit to genes within multiple comma-separated chromosomal regions (e.g. 1:100:10000:-1, 1:100000:2000000:1)" displayName="Multiple Chromosomal Regions (Chr:Start:End:Strand)" internalName="chromosome_regions">
         <FilterDescription displayName="Strand" displayType="text" field="seq_region_strand_1020" hidden="false" hideDisplay="true" internalName="strand" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
-        <FilterDescription defaultValue="1:100:10000000:1" description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Chromosome Regions" displayType="text" field="seq_region_start_1020" filterList="chromosome_name,start,end,strand" hidden="false" internalName="chromosomal_region" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text"/>
+        <FilterDescription description="Limit to genes within multiple comma-separated chromosomal regions (e.g. 1:100:10000:-1, 1:100000:2000000:1)" displayName="e.g. 1:100:10000:-1, 1:100000:2000000:1" displayType="text" field="seq_region_start_1020" filterList="chromosome_name,start,end,strand" hidden="false" internalName="chromosomal_region" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text"/>
       </FilterCollection>
       <FilterCollection displayName="Genomic features" internalName="miscfeature_type">
         <FilterDescription displayName="Type of feature" displayType="list" field="feature_type" internalName="feature_type" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="gene_miscfeature__dm" type="list">
@@ -199,96 +205,9 @@
             <Option displayName="Status" hidden="true" internalName="status" isSelectable="true" value="Status"/>
             <Option displayName="Synonym" hidden="true" internalName="synonym" isSelectable="true" value="Synonym"/>
             <Option displayName="Type of feature" hidden="true" internalName="type_of_feature" isSelectable="true" value="Type of feature"/>
-            <Option displayName="with aaegypti_eg_gene__agilent_oxford_agilent_44k_v1__dm ID(s)" displayType="list" field="aaegypti_eg_gene__efg_agilent_oxford_agilent_44k_v1__dm_bool" internalName="with_aaegypti_eg_gene__agilent_oxford_agilent_44k_v1__dm" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with aaegypti_eg_gene__liv_liv_aegdetox_0_25k_v1__dm ID(s)" displayType="list" field="aaegypti_eg_gene__efg_liv_liv_aegdetox_0_25k_v1__dm_bool" internalName="with_aaegypti_eg_gene__liv_liv_aegdetox_0_25k_v1__dm" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with aaegypti_eg_gene__liv_liv_aegdetox_0_25k_v2__dm ID(s)" displayType="list" field="aaegypti_eg_gene__efg_liv_liv_aegdetox_0_25k_v2__dm_bool" internalName="with_aaegypti_eg_gene__liv_liv_aegdetox_0_25k_v2__dm" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with agambiae_eg_gene__custom_est_liv_gamdetox_0_25k_v1__dm ID(s)" displayType="list" field="agambiae_eg_gene__efg_custom_est_liv_gamdetox_0_25k_v1__dm_bool" internalName="with_agambiae_eg_gene__custom_est_liv_gamdetox_0_25k_v1__dm" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with agambiae_eg_gene__custom_est_liv_gamdetox_0_25k_v2__dm ID(s)" displayType="list" field="agambiae_eg_gene__efg_custom_est_liv_gamdetox_0_25k_v2__dm_bool" internalName="with_agambiae_eg_gene__custom_est_liv_gamdetox_0_25k_v2__dm" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with affy_agsnp01 ID(s)" displayType="list" field="efg_affy_agsnp01_bool" internalName="with_affy_agsnp01" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with agilent_gpl10542 ID(s)" displayType="list" field="efg_agilent_gpl10542_bool" internalName="with_agilent_gpl10542" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with agilent_gpl8743 ID(s)" displayType="list" field="efg_agilent_gpl8743_bool" internalName="with_agilent_gpl8743" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with agilent_liv_agilent_8x15k_v1 ID(s)" displayType="list" field="efg_agilent_liv_agilent_8x15k_v1_bool" internalName="with_agilent_liv_agilent_8x15k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with agilent_gpl9246 ID(s)" displayType="list" field="efg_agilent_gpl9246_bool" internalName="with_agilent_gpl9246" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with go_to_gene ID(s)" displayType="list" field="ox_go_to_gene_bool" internalName="with_go_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with refseq_mrna ID(s)" displayType="list" field="ox_refseq_mrna_bool" internalName="with_refseq_mrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-              <SpecificOptionContent field="ox_refseq_mrna_bool" internalName="slycopersicum_eg_gene" key="transcript_id_1064_key"/>
-              <SpecificOptionContent field="ox_refseq_mrna_bool" internalName="gmax_eg_gene" key="transcript_id_1064_key"/>
-            </Option>
-            <Option displayName="with refseq_mrna_predicted ID(s)" displayType="list" field="ox_refseq_mrna_predicted_bool" internalName="with_refseq_mrna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-              <SpecificOptionContent field="ox_refseq_mrna_predicted_bool" internalName="gmax_eg_gene" key="transcript_id_1064_key"/>
-            </Option>
-            <Option displayName="with refseq_rna_predicted ID(s)" displayType="list" field="ox_refseq_rna_predicted_bool" internalName="with_refseq_rna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with VectorBase Community Symbol ID(s)" displayType="list" field="ox_vb_community_symbol_bool" internalName="with_vb_community_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with refseq_ncrna ID(s)" displayType="list" field="ox_refseq_ncrna_bool" internalName="with_refseq_ncrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with refseq_ncrna_predicted ID(s)" displayType="list" field="ox_refseq_ncrna_predicted_bool" internalName="with_refseq_ncrna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-              <SpecificOptionContent key="transcript_id_1064_key" field="ox_refseq_ncrna_predicted_bool" internalName="vvinifera_eg_gene"/>
-            </Option>
-            <Option displayName="with uniprot_genename_mb001 ID(s)" displayType="list" field="ox_uniprot_genename_mb001_bool" internalName="with_uniprot_genename_mb001" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with nimblegen_nd_65k_v1 ID(s)" displayType="list" field="efg_nimblegen_nd_65k_v1_bool" internalName="with_nimblegen_nd_65k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with anoxcel ID(s)" displayType="list" field="ox_anoxcel_bool" internalName="with_anoxcel" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
-            <Option displayName="with ribosomal_protein_gene_db ID(s)" displayType="list" field="ox_ribosomal_protein_gene_db_bool" internalName="with_ribosomal_protein_gene_db" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-              <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-              <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            </Option>
           </SpecificFilterContent>
         </FilterDescription>
+        <!--
         <FilterDescription displayName="ID(s)" displayType="text" field="feature_value" internalName="feature_value" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="gene_miscfeature__dm" type="list">
           <SpecificFilterContent field="feature_value" internalName="agambiae_gene" key="gene_id_1020_key" tableConstraint="gene_miscfeature__dm"/>
           <SpecificFilterContent field="feature_value" internalName="mmusculus_gene" key="gene_id_1020_key" tableConstraint="gene_miscfeature__dm"/>
@@ -301,9 +220,10 @@
           <SpecificFilterContent field="feature_value" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
           <SpecificFilterContent field="feature_value" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
         </FilterDescription>
+        -->
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on Gene Related Accessions and Filters" displayName="GENE:" internalName="gene">
+    <FilterGroup description="Filter on gene-related accessions and identifiers" displayName="GENE:" internalName="gene">
       <FilterCollection displayName="Limit to genes ..." internalName="id_list">
         <FilterDescription displayType="container" internalName="new_id_list_filters" type="boolean_list">
           <Option displayName="with Custom platypus exon ID(s)" displayType="list" field="ox_custom_platypus_exon_bool" internalName="with_custom_platypus_exon" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
@@ -2726,9 +2646,9 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
           </Option>
-            <Option checkForNulls="true" description="Filter to include genes with Ixodes manual annotation IDs" displayName="Ixodes manual annotation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ixodes_manualannotation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ixodes_manualannotation__dm" type="list"/>
-            <Option checkForNulls="true" description="Filter to include genes with MitoDrome IDs" displayName="MitoDrome ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="mitodrome" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mitodrome__dm" type="list"/>
-            <Option checkForNulls="true" description="Filter to include genes with vb_community_annotation IDs" displayName="VectorBase Community Annotation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="vb_community_annotation" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vb_community_annotation__dm" type="list">
+          <Option checkForNulls="true" displayName="Ixodes manual annotation ID(s)" description="Filter to include genes with Ixodes manual annotation IDs" displayType="text" field="dbprimary_acc_1074" internalName="ixodes_manualannotation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ixodes_manualannotation__dm" type="list"/>
+          <Option checkForNulls="true" displayName="MitoDrome ID(s)" description="Filter to include genes with MitoDrome IDs" displayType="text" field="dbprimary_acc_1074" internalName="mitodrome" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mitodrome__dm" type="list"/>
+          <Option checkForNulls="true" displayName="VectorBase Community Annotation ID(s)" description="Filter to include genes with vb_community_annotation IDs" displayType="text" field="dbprimary_acc_1074" internalName="vb_community_annotation" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vb_community_annotation__dm" type="list">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="hmelpomene_eg_gene" key="gene_id_1020_key" tableConstraint="ox_vb_community_annotation__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="gene_id_1020_key" tableConstraint="ox_vb_community_annotation__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_vb_community_annotation__dm"/>
@@ -6513,7 +6433,7 @@
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="RefSeq Predicted mRNA ID" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_mrna_predicted__dm" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="cremanei_eg_gene" key="transcript_id_1064_key"/>
-        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="transcript_id_1064_key"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="vvinifera_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="ppatens_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="gmax_eg_gene"/>
@@ -6551,7 +6471,7 @@
         <SpecificAttributeContent field="dbprimary_acc_1074" internalName="tcastaneum_eg_gene" key="transcript_id_1064_key"/>
         <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
-      <AttributeDescription checkForNulls="true" displayName="RefSeq Predicted ncRNA ID" field="dbprimary_acc_1074" internalName="refseq_ncrna_predicted" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_ncrna_predicted__dm">
+        <AttributeDescription checkForNulls="true" displayName="RefSeq Predicted ncRNA ID" field="dbprimary_acc_1074" internalName="refseq_ncrna_predicted" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_ncrna_predicted__dm">
         <SpecificAttributeContent field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" key="transcript_id_1064_key"/>
         <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ppatens_eg_gene" key="transcript_id_1064_key"/>
         <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="transcript_id_1064_key"/>
@@ -6571,7 +6491,7 @@
         <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="transcript_id_1064_key"/>
         <SpecificAttributeContent field="dbprimary_acc_1074" internalName="nvectensis_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
-      <AttributeDescription checkForNulls="true" displayName="FlyBase Annotation ID" field="dbprimary_acc_1074" internalName="flybase_annotation_id" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_annotation_id__dm">
+        <AttributeDescription checkForNulls="true" displayName="FlyBase Annotation ID" field="dbprimary_acc_1074" internalName="flybase_annotation_id" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_annotation_id__dm">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="FlyBase Gene ID" field="dbprimary_acc_1074" internalName="flybase_gene_id" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_gene_id__dm"/>
@@ -6584,7 +6504,7 @@
       <AttributeDescription displayName="FlyBase CGID Gene" field="dbprimary_acc_1074" internalName="FlyBaseCGID_gene" key="gene_id_1020_key" maxLength="128" tableConstraint="ox_flybasecgid_gene__dm"/>
       <AttributeDescription checkForNulls="true" displayName="FlyBase CGID Transcript" field="dbprimary_acc_1074" internalName="flybasecgid_transcript" key="transcript_id_1064_key" maxLength="128" tableConstraint="ox_flybasecgid_transcript__dm"/>
         <AttributeDescription displayName="FlyBase CGID Translation" field="display_label_1074" internalName="flybasecgid_translation" key="translation_id_1068_key" maxLength="128" tableConstraint="ox_flybasecgid_translation__dm"/>
-      <AttributeDescription displayName="FlyGrid" field="dbprimary_acc_1074" hidden="false" internalName="flygrid" key="gene_id_1020_key" linkoutURL="exturl1|http://www.thebiogrid.org/searchresults.php?id=%s" maxLength="40" tableConstraint="ox_flygrid__dm"/>
+        <AttributeDescription displayName="FlyGrid" field="dbprimary_acc_1074" hidden="false" internalName="flygrid" key="gene_id_1020_key" linkoutURL="exturl1|http://www.thebiogrid.org/searchresults.php?id=%s" maxLength="40" tableConstraint="ox_flygrid__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Gadfly protein cgid" field="dbprimary_acc_1074" hidden="true" internalName="gadfly_translation_cgid" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_gadfly_translation_cgid__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Gadfly transcript cgid" field="dbprimary_acc_1074" hidden="true" internalName="gadfly_transcript_cgid" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_gadfly_transcript_cgid__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Genoscope annotated gene" field="dbprimary_acc_1074" hidden="true" internalName="genoscope_annotated_gene" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_Genoscope_annotated_gene__dm"/>
@@ -7089,7 +7009,7 @@
         <AttributeDescription checkForNulls="true" displayName="GPCR ID" field="dbprimary_acc_1074" internalName="gpcr" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_gpcr__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ImmunoDB ID" field="dbprimary_acc_1074" internalName="immunodb" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_immunodb__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Mitodrome ID" field="dbprimary_acc_1074" internalName="mitodrome" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_mitodrome__dm"/>
-      <AttributeDescription checkForNulls="true" displayName="VectorBase community annotation ID" field="dbprimary_acc_1074" internalName="vb_community_annotation" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_vb_community_annotation__dm">
+        <AttributeDescription checkForNulls="true" displayName="VectorBase community annotation ID" field="dbprimary_acc_1074" internalName="vb_community_annotation" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_vb_community_annotation__dm">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="hmelpomene_eg_gene" key="gene_id_1020_key" tableConstraint="ox_vb_community_annotation__dm"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene" key="translation_id_1068_key" tableConstraint="ox_vb_community_annotation__dm"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aaegypti_eg_gene" key="translation_id_1068_key" tableConstraint="ox_vb_community_annotation__dm"/>
