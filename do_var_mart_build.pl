@@ -401,7 +401,7 @@ else
                 my $cmd = 'perl load_dumps_into_db.pl ' .
                     "-r $prog_args{registry_file} -s $species " .
                     "-d $var_mart_db -f $var_mart_db_dumps_file -u " . 
-                    get_dump_name($prog_args{work_dir}, $var_mart_db) . ' -p y';
+                    get_dump_name($prog_args{work_dir}, $var_mart_db) ;
                 system($cmd);
             }
         }

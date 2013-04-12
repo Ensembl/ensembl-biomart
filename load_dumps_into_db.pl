@@ -16,8 +16,16 @@ sub load_db
 
     print "Loading $dump_file to $database\n";
 
-    my $load_cmd = "$base_load_cmd $database < $dump_file";
-    #print "$load_cmd\n"; 
+    my $load_cmd = undef;
+
+    if( $dump_file =~ /.gz$/ ){
+	$load_cmd = "gunzip < $dump_file | $base_load_cmd $database";
+    }
+    else{
+	$load_cmd = "$base_load_cmd $database < $dump_file";
+    }
+
+#    print "$load_cmd\n"; 
     system($load_cmd);
 }
 

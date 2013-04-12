@@ -112,6 +112,8 @@ sub write_out_sql_file
     my $value_by_tag = shift;
     my $ind_gen_var_key_between_clauses = shift;
     my $log_sql = shift;
+    my $limit_base = shift @_;
+    my $limit_range = shift @_;
 
     my $sql_line_num = 0;
 
@@ -122,6 +124,13 @@ sub write_out_sql_file
 
     foreach my $template_sql_line (@{$template_sql_by_type->{$sql_type}})
     {
+
+	if ( $template_sql_line =~ /a.somatic=0/ ){ 
+
+	    $template_sql_line =~ s/a.somatic=0.+$/a.somatic=0 LIMIT $limit_base,$limit_range\;/;
+
+	}
+
         if ($template_sql_line =~ /DISTINCT_POLY/)
         {
             $value_by_tag->{DISTINCT_POLY} = ''; # ???
@@ -580,6 +589,7 @@ if ($count > 0)
     my $out_sql_files;
     my $min_var_id = $min;
     my $max_var_id = $min_var_id + $prog_args{rows_per_sub_mart} - 1;
+    my $limit_base = $min_var_id - 1;
     my $sub_mart_num = 1;
     my @sql_types;
     my $sql_type;
@@ -675,9 +685,15 @@ if ($count > 0)
                         $value_by_tag{SRC_NAME} = $src_name;
                         $value_by_tag{SRC_ID} = $src_ids_by_name->{$src_name};
 
-                        write_out_sql_file($out_sql_file, 
-                            \%template_sql_by_type, $sql_type, \%value_by_tag,
-                            undef, $prog_args{log_sql});
+                        write_out_sql_file(
+			    $out_sql_file, 
+                            \%template_sql_by_type, 
+			    $sql_type, 
+			    \%value_by_tag,
+                            undef, $prog_args{log_sql},
+			    $limit_base,
+			    $prog_args{rows_per_sub_mart},
+			    );
 
                         $out_sql_files .= $separator . $out_sql_file;
                         $separator = ',';
@@ -710,9 +726,17 @@ if ($count > 0)
 
                     $out_sql_file .= ".sql";
 
-                    write_out_sql_file($out_sql_file, 
-                        \%template_sql_by_type, $sql_type, \%value_by_tag,
-                        $ind_gen_var_key_between_clauses, $prog_args{log_sql});
+                    write_out_sql_file(
+			$out_sql_file, 
+                        \%template_sql_by_type, 
+			$sql_type, 
+			\%value_by_tag,
+                        $ind_gen_var_key_between_clauses, 
+			$prog_args{log_sql},
+			$limit_base,
+			$prog_args{rows_per_sub_mart},
+			
+			);
 
                     $out_sql_files .= $separator . $out_sql_file;
                     $separator = ',';
@@ -724,9 +748,16 @@ if ($count > 0)
             $out_sql_file = $prog_args{out_sql_file_prefix} . '_' . 
                 $sub_mart_num . '.sql';
 
-            write_out_sql_file($out_sql_file, \%template_sql_by_type, 
+            write_out_sql_file(
+		$out_sql_file, 
+		\%template_sql_by_type, 
                 'var_all', 
-                \%value_by_tag, undef, $prog_args{log_sql});
+                \%value_by_tag, 
+		undef, 
+		$prog_args{log_sql},
+		$limit_base,
+		$prog_args{rows_per_sub_mart},
+		);
 
             $out_sql_files = $out_sql_file;
         }
@@ -764,9 +795,16 @@ if ($count > 0)
             $out_sql_file = $prog_args{out_sql_file_prefix} . '_' . 
                 $sub_mart_num . '.struct_var.sql';
 
-            write_out_sql_file($out_sql_file, \%template_sql_by_type, 
+            write_out_sql_file(
+		$out_sql_file, 
+		\%template_sql_by_type, 
                 'struct_var', 
-                \%value_by_tag, undef, $prog_args{log_sql});
+                \%value_by_tag, 
+		undef, 
+		$prog_args{log_sql},
+		$limit_base,
+		$prog_args{rows_per_sub_mart},
+		);
 
             $out_sql_files .= $separator . $out_sql_file;
         }
@@ -776,6 +814,7 @@ if ($count > 0)
 
         $min_var_id += $prog_args{rows_per_sub_mart};
         $max_var_id += $prog_args{rows_per_sub_mart};
+	$limit_base += $prog_args{rows_per_sub_mart};
 
         $sub_mart_num++;
     }
