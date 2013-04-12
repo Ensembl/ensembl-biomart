@@ -4694,6 +4694,7 @@
       <FilterCollection displayName="PO Evidence code" hidden="true" internalName="po_evidence_code">
         <FilterDescription displayName="PO Evidence code" displayType="list" field="linkage_type_1024" hidden="true" internalName="po_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_po__dm" type="list">
           <SpecificFilterContent hidden="true" internalName="replaceMe"/>
+          <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="bdistachyon_eg_gene" />
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
@@ -5951,13 +5952,13 @@
       <AttributeCollection displayName="GOSlim GOA" internalName="goslim_goa">
       <AttributeDescription displayName="GOSlim GOA Accession" field="dbprimary_acc_1074" internalName="goslim_goa_accession" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ox_goslim_goa__dm">
         <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
-        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="gene_id_1020_key"/>
+<!--        <SpecificAttributeContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="gene_id_1020_key"/> -->
         <SpecificAttributeContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="transcript_id_1064_key"/>
         <SpecificAttributeContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key"/>
       </AttributeDescription>
       <AttributeDescription displayName="GOSlim GOA Description" field="description_1074" internalName="goslim_goa_description" key="translation_id_1068_key" maxLength="255" tableConstraint="ox_goslim_goa__dm">
           <SpecificAttributeContent field="description_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="description_1074" internalName="athaliana_eg_gene" key="gene_id_1020_key"/>
+<!--          <SpecificAttributeContent field="description_1074" internalName="athaliana_eg_gene" key="gene_id_1020_key"/> -->
           <SpecificAttributeContent field="description_1074" internalName="scerevisiae_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="description_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key"/>
         </AttributeDescription>
