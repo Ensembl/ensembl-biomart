@@ -54,22 +54,31 @@ sub run {
     if (!$create_db_info) {
 	$mysqldump_var_command .= " --no-create-info";
     }
-    if (!$enable_keys) {
-	$mysqldump_var_command .= " --skip-opt";
-    }
     my $dump_path = $data_dir . "/" . $var_mart_db . ".sql.gz";
 
     print STDERR "Dumping $var_mart_db into a file, $dump_path...\n";
 
-    eval {
-	system("$mysqldump_var_command $var_mart_db | gzip -c > $dump_path");
-    };
-    if ($@) {
-	print STDERR "$mysqldump_var_command $var_mart_db | gzip -c > $dump_path\n";
-	warn ($@);
-	confess ("Failed to dump $var_mart_db into a file!");
+    if (!$enable_keys) {
+        eval {
+	    system("$mysqldump_var_command $var_mart_db | grep -v ENABLE | gzip -c > $dump_path");
+        };
+	if ($@) {
+	    print STDERR "$mysqldump_var_command $var_mart_db | grep -v ENABLE | gzip -c > $dump_path\n";
+	    warn ($@);
+	    confess ("Failed to dump $var_mart_db into a file!");
+        }
     }
-
+    else {
+        eval {
+            system("$mysqldump_var_command $var_mart_db | gzip -c > $dump_path");
+        };
+	if ($@) {
+	    print STDERR "$mysqldump_var_command $var_mart_db | gzip -c > $dump_path\n";
+	    warn ($@);
+	    confess ("Failed to dump $var_mart_db into a file!");
+        }
+    }
+ 
     $self->dataflow_output_id({'var_mart_db' => $var_mart_db, 'create_db_info' => $create_db_info}, 1);
 
 }
