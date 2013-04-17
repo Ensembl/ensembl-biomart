@@ -72,7 +72,7 @@ sub pipeline_create_commands {
     return [
       @{$self->SUPER::pipeline_create_commands},  # inheriting database and hive tables' creation
       'mkdir -p '.$self->o('pipeline_data_dir'),
-      $self->db_execute_command('pipeline_db', 'CREATE TABLE intermediate_result (var_mart_db char(50) NOT NULL, create_db_info tinyint NOT NULL, PRIMARY KEY (var_mart_db))'),
+      $self->db_execute_command('pipeline_db', 'CREATE TABLE intermediate_result (var_mart_db char(50) NOT NULL, create_db_info tinyint NOT NULL, enable_keys tinyint NOT NULL, PRIMARY KEY (var_mart_db))'),
     ];
 }
 
