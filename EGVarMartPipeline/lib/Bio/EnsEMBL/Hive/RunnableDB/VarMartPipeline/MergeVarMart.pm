@@ -36,11 +36,13 @@ sub run {
 
     my $mysql_snp_command = "mysql -h " . $final_db_conn_href->{'host'} . " -u " . $final_db_conn_href->{'user'} . " -P " . $final_db_conn_href->{'port'} . " -p" . $final_db_conn_href->{'pass'};
 
+    # 1/ Drop and Create final SNP Mart database
 
-    # 1/ Create final SNP Mart database
+    # Drop if exists
+    
+    qx/$mysql_snp_command -e "DROP DATABASE IF EXISTS $final_snp_mart_db"/;
     
     qx/$mysql_snp_command -e "CREATE DATABASE $final_snp_mart_db"/;
-
 
     # 2/ Merge all sub var mart dbs into the final snp mart for this species
 
