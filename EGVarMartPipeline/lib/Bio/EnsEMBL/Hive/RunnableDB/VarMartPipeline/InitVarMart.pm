@@ -162,7 +162,7 @@ sub run {
 	
 	print STDERR "processing file, $in_varmart_path, done\n";
     
-	$self->dataflow_output_id({'input_file' => $sub_var_sql_file, 'var_mart_db' => $var_mart_db, 'create_db_info' => $create_db_info, 'enable_keys' => $enable_keys});
+	$self->dataflow_output_id({'input_file' => $sub_var_sql_file, 'var_mart_db' => $var_mart_db, 'create_db_info' => $create_db_info, 'enable_keys' => $enable_keys, 'file_index' => $file_index});
 
 	$file_index++;
 	$min += $nb_variations_per_run;
@@ -262,7 +262,7 @@ sub run {
 
     print STDERR "processing file, $in_struct_varmart_path, done\n";
 
-    $self->dataflow_output_id({'input_file' => $structvar_sql_file, 'var_mart_db' => $structvar_mart_db, 'create_db_info' => 1, 'enable_keys' => 1});
+    $self->dataflow_output_id({'input_file' => $structvar_sql_file, 'var_mart_db' => $structvar_mart_db, 'create_db_info' => 1, 'enable_keys' => 1, 'file_index' => $file_index});
     
 }
 

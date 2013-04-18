@@ -17,6 +17,7 @@ sub run {
     my $var_mart_db    = $self->param('var_mart_db');
     my $create_db_info = $self->param('create_db_info');
     my $enable_keys = $self->param('enable_keys');
+    my $file_index  = $self->param('file_index');
     
     my $file_path = $data_dir . '/' . $input_file;
     
