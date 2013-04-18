@@ -80,7 +80,7 @@ sub run {
         }
     }
  
-    $self->dataflow_output_id({'var_mart_db' => $var_mart_db, 'create_db_info' => $create_db_info}, 1);
+    $self->dataflow_output_id({'var_mart_db' => $var_mart_db, 'create_db_info' => $create_db_info, 'file_index' => $file_index}, 1);
 
 }
 
