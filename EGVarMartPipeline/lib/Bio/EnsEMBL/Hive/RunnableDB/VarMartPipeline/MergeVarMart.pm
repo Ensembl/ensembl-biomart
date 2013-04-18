@@ -8,13 +8,12 @@ sub fetch_input {
     my $self = shift @_;
 
     my $inputs_aref = [];
-    my $sql = "SELECT var_mart_db, create_db_info FROM intermediate_result";
+    my $sql = "SELECT var_mart_db FROM intermediate_result ORDER BY file_index";
     my $sth = $self->db->dbc()->prepare($sql);
     $sth->execute();
-    while (my ($var_mart_db, $create_db_info)=$sth->fetchrow_array()) {
+    while (my ($var_mart_db)=$sth->fetchrow_array()) {
         my $input_href = {
 	    'var_mart_db'    => $var_mart_db,
-	    'create_db_info' => $create_db_info,
 	};
 	push (@$inputs_aref, $input_href);
     }
@@ -31,7 +30,7 @@ sub run {
     my $final_snp_mart_db  = $self->param('final_snp_mart_db');
 
     # array of hash refs
-    # two keys per hash: the var_mart_db and the create_db_info
+    # one key per hash: the var_mart_db
     my $inputs_aref = $self->param('inputs_aref');
 
     my $mysql_snp_command = "mysql -h " . $final_db_conn_href->{'host'} . " -u " . $final_db_conn_href->{'user'} . " -P " . $final_db_conn_href->{'port'} . " -p" . $final_db_conn_href->{'pass'};
@@ -48,13 +47,22 @@ sub run {
 
     foreach my $input_href (@$inputs_aref) {
 
-	my $var_mart_db    = $input_href->{'var_mart_db'};
+	my $var_mart_db = $input_href->{'var_mart_db'};
 	my $dump_path = $data_dir . "/" . $var_mart_db . ".sql.gz";
 	
 	print STDERR "Loading dump file, $dump_path, into $mysql_snp_command $final_snp_mart_db\n";
 	
-	qx/gzip -dc $dump_path | $mysql_snp_command $final_snp_mart_db/;
+	my $command = "gzip -dc $dump_path | $mysql_snp_command $final_snp_mart_db";
+	system("$command");
+	
     }
+
+    print STDERR "Dumping $final_snp_mart_db into a file in $data_dir\n";
+
+    # Then dump the final db
+    my $mysqldump_snp_command = "mysqldump --lock_tables=FALSE -h " . $final_db_conn_href->{'host'} . " -u " . $final_db_conn_href->{'user'} . " -P " . $final_db_conn_href->{'port'} . " -p" . $final_db_conn_href->{'pass'};
+    
+    my $final_dump_command = "$mysqldump_snp_command $final_snp_mart_db | gzip -c > $data_dir/$final_snp_mart_db" . ".sql.gz";
 
 }
 
