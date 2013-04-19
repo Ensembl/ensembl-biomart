@@ -233,7 +233,7 @@
       </FilterCollection>
 
       <FilterCollection displayName="Consequence type" internalName="consequence_type">
-        <FilterDescription displayName="Consequence type" displayType="list" field="mart_consequence_type_2090" internalName="consequence_type" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
+        <FilterDescription displayName="Consequence type" displayType="list" field="consequence_types_2090" internalName="consequence_type" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
 	  <SpecificFilterContent internalName="ReplaceMe"/>
 	  <!--
           <Option displayName="3PRIME_UTR" internalName="3PRIME_UTR" isSelectable="true" value="3PRIME_UTR"/>
