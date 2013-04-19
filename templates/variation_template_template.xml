@@ -451,7 +451,7 @@
     </AttributeGroup>
     <AttributeGroup displayName="GENE ASSOCIATED INFORMATION:" internalName="genesnpatts">
       <AttributeCollection displayName="For Ensembl Genes" internalName="ensemblatts" maxSelect="0">
-        <AttributeDescription displayName="Consequence to transcript" field="mart_consequence_type_2090" internalName="consequence_type_tv" key="variation_feature_id_2026_key" maxLength="22" tableConstraint="mart_transcript_variation__dm"/>
+        <AttributeDescription displayName="Consequence to transcript" field="consequence_types_2090" internalName="consequence_type_tv" key="variation_feature_id_2026_key" maxLength="22" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Consequence specific allele" field="allele_string_2090" internalName="consequence_allele_string" key="variation_feature_id_2026_key" maxLength="255" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Biotype" field="biotype_1064" internalName="ensembl_type" key="variation_feature_id_2026_key" maxLength="40" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Transcript strand" field="seq_region_strand_1064" internalName="ensembl_transcript_chrom_strand" key="variation_feature_id_2026_key" maxLength="2" tableConstraint="mart_transcript_variation__dm"/>
