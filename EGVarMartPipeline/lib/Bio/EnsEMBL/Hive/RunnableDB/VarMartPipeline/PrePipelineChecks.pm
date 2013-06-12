@@ -4,7 +4,7 @@ use strict;
 use base ('Bio::EnsEMBL::Hive::RunnableDB::VarMartPipeline::Base');
 use Carp;
 
-my $MTMP_tables = ['MTMP_allele','MTMP_population_genotype','MTMP_transcript_variation'];
+my $MTMP_tables = ['MTMP_population_genotype','MTMP_transcript_variation','MTMP_variation_set_variation'];
 my $MTMP_views = ['MTMP_structural_variation_annotation','MTMP_variation_annotation'];
 
 sub run {
@@ -54,9 +54,9 @@ sub run {
     # then check the MTMP tables and views are in the variatino db
     
     ($entry_ok, $err_msg) = $self->all_tables_present({
-	species     => $species,
-	mtmp_tables => $MTMP_tables,
-	mtmp_views  => $MTMP_views,
+	'species'     => $species,
+	'mtmp_tables' => $MTMP_tables,
+	'mtmp_views'  => $MTMP_views,
 							 });
 
     if (!$entry_ok) {
@@ -147,9 +147,9 @@ sub all_tables_present {
     my $self = shift;
     my $param = shift;
     
-    my $species           = $param->{species};
-    my $mtmp_tables_aref  = $param->{MTMP_tables};
-    my $mtmp_views_aref   = $param->{MTMP_views};
+    my $species           = $param->{'species'};
+    my $mtmp_tables_aref  = $param->{'mtmp_tables'};
+    my $mtmp_views_aref   = $param->{'mtmp_views'};
     
     my $err_msg = "";
     my $entry_ok = 1;
@@ -169,7 +169,7 @@ sub all_tables_present {
 	$table_sth->execute($table_name);
 	my ($result) = $table_sth->fetchrow_array();
 	
-	if (!defined !$result) {
+	if (!defined $result) {
 	    push(@$missing_tables_aref, $table_name);
 	}
     }
@@ -178,7 +178,7 @@ sub all_tables_present {
 	$table_sth->execute($table_name);
 	my ($result) = $table_sth->fetchrow_array();
 
-	if (!defined !$result) {
+	if (!defined $result) {
 	    push(@$missing_views_aref, $table_name);
 	}
     }
