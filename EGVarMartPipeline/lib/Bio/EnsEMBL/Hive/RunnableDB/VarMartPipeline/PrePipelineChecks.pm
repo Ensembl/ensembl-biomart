@@ -5,7 +5,7 @@ use base ('Bio::EnsEMBL::Hive::RunnableDB::VarMartPipeline::Base');
 use Carp;
 
 my $MTMP_tables = ['MTMP_population_genotype','MTMP_transcript_variation','MTMP_variation_set_variation'];
-my $MTMP_views = ['MTMP_structural_variation_annotation','MTMP_variation_annotation'];
+my $MTMP_views = ['MTMP_variation_annotation'];
 
 sub run {
     my $self = shift @_;
