@@ -65,8 +65,8 @@ sub usage {
     print "-mart <target mart> Default is $mart_db\n";
     print "-release <ensembl release> Default is $release\n";
     print "-suffix <dataset suffix> e.g. '_eg' Default is ''\n";
-    print "-name ?\n";
-    print "-main ?\n";
+    print "-name base name of the dataset\n";
+    print "-main name of the main table in mart, e.g. variation__main\n";
     print "-coredb <ensembl core database name> e.g. anopheles_gambiae_core_17_70_3\n";
     print "-div <plant|protist|metazoa|fung|vectorbase> set taxonomic division for species.proteome_id value\n";
     print "-div allows mart database name to be set indepedently of the mart database name\n";
