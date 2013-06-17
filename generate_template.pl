@@ -47,7 +47,7 @@ sub usage {
     print "-ds_template <ds template>\n";
     print "-dataset <dataset name>\n";
     print "-description <description>\n";
-    print "-output_dir <output directory> default is ./output/\n";
+    print "-output_dir <output directory> default is ./output\n";
     print "-release <e! releaseN>\n";
     exit 1;
 };
@@ -84,7 +84,7 @@ sub write_dataset_xml {
     my $dataset_names = shift;
     my $outdir = shift @_;
 
-    my $fname = $outdir.$dataset_names->{dataset}.'.xml';
+    my $fname = $outdir. '/'. $dataset_names->{dataset}. '.xml';
     open my $dataset_file, '>', $fname or croak "Could not open $fname for writing"; 
     open my $template_file, '<', $template_file_name or croak "Could not open $template_file_name";
     while (my $line = <$template_file>) {
