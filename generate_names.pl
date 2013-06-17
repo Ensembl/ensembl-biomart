@@ -65,9 +65,11 @@ sub usage {
     print "-mart <target mart> Default is $mart_db\n";
     print "-release <ensembl release> Default is $release\n";
     print "-suffix <dataset suffix> e.g. '_eg' Default is ''\n";
-    print "-coredb <ensembl core database name> e.g. anopheles_gambiae_core_17_70_3";
-    print "-div <plant|protist|metazoa|fung|vectorbase> set taxonomic division for species.proteome_id value";
-    print "-div allows mart database name to be set indepedently of the mart database name";
+    print "-name ?\n";
+    print "-main ?\n";
+    print "-coredb <ensembl core database name> e.g. anopheles_gambiae_core_17_70_3\n";
+    print "-div <plant|protist|metazoa|fung|vectorbase> set taxonomic division for species.proteome_id value\n";
+    print "-div allows mart database name to be set indepedently of the mart database name\n";
     exit 1;
 };
 
