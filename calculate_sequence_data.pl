@@ -48,10 +48,10 @@ sub usage {
 };
 
 my $options_okay = GetOptions (
-    "h=s"=>\$db_host,
+    "host=s"=>\$db_host,
     "port=i"=>\$db_port,
-    "u=s"=>\$db_user,
-    "p=s"=>\$db_pwd,
+    "user=s"=>\$db_user,
+    "pass=s"=>\$db_pwd,
     "mart=s"=>\$mart_db,
     "release=i"=>\$release,
     "dataset_basename=s"=>\$dataset_basename,
@@ -70,7 +70,7 @@ my $mart_handle =
   or croak "Could not connect to $mart_string with db_user, $db_user and db_pwd, $db_pwd";
 
 # load registry
-Bio::EnsEMBL::Registry->load_registry_from_db( 
+Bio::EnsEMBL::Registry->load_registry_from_db(
     -host       => $db_host,
     -user       => $db_user,
     -pass       => $db_pwd,
@@ -97,7 +97,7 @@ for my $dataset (@datasets) {
 											 'transcript' );
 
 	my @sql;
-	
+
 	my $transcript_adaptor = $dba->get_TranscriptAdaptor();
 
 	if ( !defined($transcript_adaptor) ) {
@@ -291,7 +291,7 @@ for my $dataset (@datasets) {
 	alarm(0);
 
 	#$out->print(<<EOT);
-	
+
 	print "Indexing ${dataset}_temp...\n";
 
 	#UNLOCK TABLES;

@@ -44,10 +44,10 @@ sub usage {
 };
 
 my $options_okay = GetOptions (
-			       "h=s"=>\$db_host,
+			       "host=s"=>\$db_host,
 			       "port=i"=>\$db_port,
-			       "u=s"=>\$db_user,
-			       "p=s"=>\$db_pwd,
+			       "user=s"=>\$db_user,
+			       "pass=s"=>\$db_pwd,
 			       "mart=s"=>\$mart_db,
 			       "compara=s"=>\$compara_db,
 			       "dataset=s"=>\$dataset_name,
@@ -81,8 +81,8 @@ sub get_species_sets {
 #	    $tld= $data[3];
 #}
 	print "Found ".join(',',@data)."\n";
-	push(@species_sets,{id=>$data[0],name=>$data[1], tld=>$tld});       
-    }    
+	push(@species_sets,{id=>$data[0],name=>$data[1], tld=>$tld});
+    }
     @species_sets;
 }
 
@@ -153,7 +153,7 @@ AND gg.assembly_default=1
 )
 AND (g.name=? OR g.name=?) AND m.type='ENSEMBL_PARALOGUES'
 AND g.assembly_default=1
-and ms.method_link_species_set_id in 
+and ms.method_link_species_set_id in
 (select method_link_species_set_id  from $compara_db.homology where description='within_species_paralog')
 };
 print $species_paralog_sql;

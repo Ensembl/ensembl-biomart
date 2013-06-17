@@ -33,7 +33,7 @@ my $mart_version = "0.7";
 sub write_dataset_xml {
     my $dataset_names = shift;
     my $fname = "./$output_dir/".$dataset_names->{dataset}.'.xml';
-    open my $dataset_file, '>', $fname or croak "Could not open $fname for writing"; 
+    open my $dataset_file, '>', $fname or croak "Could not open $fname for writing";
     my $template_file_name = 'templates/dataset_sequence_template.xml';
     open my $template_file, '<', $template_file_name or croak "Could not open $template_file_name";
     while (my $line = <$template_file>) {
@@ -58,7 +58,7 @@ sub write_replace_file {
 	$line =~ s/%name%/$datasets->{dataset}/g;
 	$line =~ s/%id%/$datasets->{species_id}/g;
 	$line =~ s/%des%/$datasets->{species_name}/g;
-	#$line =~ s/%version%/$$dataset_names{version_num}/g;   
+	#$line =~ s/%version%/$$dataset_names{version_num}/g;
 	$line =~ s/%species%/$datasets->{short_species_name}/g;
 	$line =~ s/%release%/$release/g;
 
@@ -73,7 +73,7 @@ sub write_template_xml {
     my $datasets = shift;
     my $datasets_text='';
     foreach my $dataset (@$datasets) {
-	$datasets_text = $datasets_text . 
+	$datasets_text = $datasets_text .
 	    '<DynamicDataset internalName="'.
 	    $dataset->{dataset}.'"/>'."\n";
 	my $template_filename = $dataset->{template};
@@ -118,7 +118,7 @@ sub write_metatables {
     create_metatable($seq_mart_handle,'meta_template__template__main',
 		     ['dataset_id_key int(11) NOT NULL',
 		      'template varchar(100) NOT NULL']);
-    create_metatable($seq_mart_handle,'meta_conf__dataset__main',[ 
+    create_metatable($seq_mart_handle,'meta_conf__dataset__main',[
 			 'dataset_id_key int(11) NOT NULL',
 			 'dataset varchar(100) default NULL',
 			 'display_name varchar(200) default NULL',
@@ -143,7 +143,7 @@ sub write_metatables {
     my $meta_template__xml__main_sth = $seq_mart_handle->prepare('INSERT INTO meta_template__xml__dm VALUES (?,?)');
 
     foreach my $dataset_href (@$datasets_aref) {
-	
+
 	my $template_filename = $dataset_href->{template};
 	my $dataset_name      = $dataset_href->{dataset};
 
@@ -155,12 +155,12 @@ sub write_metatables {
 	else {
 	    $logger->info ("populating compressed template file, $template_filename.gz, into meta_template__xml__dm\n");
 	}
-	
-	$meta_template__xml__main_sth->execute($dataset_href->{dataset}, file_to_bytes($compressed_template_path)) 
+
+	$meta_template__xml__main_sth->execute($dataset_href->{dataset}, file_to_bytes($compressed_template_path))
 	    or croak "Could not load compressed template file, $compressed_template_path, into meta_template__xml__dm";
- 
+
 	$logger->info("Populating dataset tables");
-	
+
     print Dumper $dataset_href;
 	# meta_conf__xml__dm
 	$meta_conf__xml__dm_sth->execute($dataset_href->{species_id},
@@ -169,14 +169,14 @@ sub write_metatables {
 				     file_to_bytes("$pwd/$output_dir/$dataset_href->{dataset}.xml.gz.md5")
 				     ) or croak "Could not update meta_conf__xml__dm";
 	# meta_conf__user__dm
-	$meta_conf__user__dm_sth->execute($dataset_href->{species_id}) 
+	$meta_conf__user__dm_sth->execute($dataset_href->{species_id})
 	    or croak "Could not update meta_conf__user__dm";
 
 	# meta_conf__interface__dm
-	$meta_conf__interface__dm_sth->execute($dataset_href->{species_id})  
+	$meta_conf__interface__dm_sth->execute($dataset_href->{species_id})
 	    or croak "Could not update meta_conf__interface__dm";
 
-	# meta_conf__dataset__main 
+	# meta_conf__dataset__main
 	$meta_conf__dataset__main_sth->execute(
 					   $dataset_href->{species_id},
 					   "$dataset_href->{dataset}",
@@ -184,7 +184,7 @@ sub write_metatables {
 					   $dataset_href->{version_num}) or croak "Could not update meta_conf__dataset__main";
 
 	# meta_template__template__main
-	$meta_template__template__main_sth->execute($dataset_href->{species_id},$dataset_name)  
+	$meta_template__template__main_sth->execute($dataset_href->{species_id},$dataset_name)
 		or croak "Could not update meta_template__template__dm";
     }
 
@@ -194,18 +194,18 @@ sub write_metatables {
     $meta_conf__dataset__main_sth->finish();
     $meta_template__template__main_sth->finish();
     $meta_template__xml__main_sth->finish();
-    
+
     $logger->info("Population complete");
 }
 
 sub get_short_name {
-    my ($db_name,$species_id) = @_;    
+    my ($db_name,$species_id) = @_;
     uc(substr($db_name,0,3).$species_id);
-} 
+}
 
 
 # db params
-my $db_host = "mysql-cluster-eg-prod-1.ebi.ac.uk"; 
+my $db_host = "mysql-cluster-eg-prod-1.ebi.ac.uk";
 my $db_port = 4238;
 my $db_user = "ensrw";
 my $db_pwd = "writ3rp1";
@@ -225,10 +225,10 @@ sub usage {
 };
 
 my $options_okay = GetOptions (
-    "h=s"=>\$db_host,
+    "host=s"=>\$db_host,
     "port=s"=>\$db_port,
-    "u=s"=>\$db_user,
-    "pwd=s"=>\$db_pwd,
+    "user=s"=>\$db_user,
+    "pass=s"=>\$db_pwd,
     "seq_mart=s"=>\$seq_mart_db,
     "release=s"=>\$release,
     "species=s"=>\$species,
@@ -310,11 +310,11 @@ foreach my $species_name (@$species_names_aref) {
     $logger->info("Processing species, '$species_name'");
 
     # Filter out the species we don't in, if db_patterns array is defined
-    
+
     my $dba = Bio::EnsEMBL::Registry->get_DBAdaptor($species_name, "core");
-    
+
     my $core_dbname = $dba->dbc->dbname;
-    
+
     my $meta_container =
 	Bio::EnsEMBL::Registry->get_adaptor( "$species_name", 'Core', 'MetaContainer' );
     if (! defined $meta_container) {

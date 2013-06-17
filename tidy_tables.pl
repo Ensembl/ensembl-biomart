@@ -5,7 +5,7 @@
 # $Date$
 # $Author$
 #
-# Script for splitting datasets from a multi-species mart 
+# Script for splitting datasets from a multi-species mart
 
 use warnings;
 use strict;
@@ -41,10 +41,10 @@ sub usage {
 };
 
 my $options_okay = GetOptions (
-    "h=s"=>\$db_host,
+    "host=s"=>\$db_host,
     "port=s"=>\$db_port,
-    "u=s"=>\$db_user,
-    "p=s"=>\$db_pwd,
+    "user=s"=>\$db_user,
+    "pass=s"=>\$db_pwd,
     "mart=s"=>\$mart_db,
     "help"=>sub {usage()}
     );
@@ -60,7 +60,7 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
 
 $mart_handle->do("use $mart_db");
 
-# 1. delete from tables in hash 
+# 1. delete from tables in hash
 my %tables_to_tidy;
 
 if($mart_db =~ /_snp_mart/) {
@@ -101,23 +101,23 @@ for my $table_pattern (keys %tables_to_tidy) {
 my @tables = query_to_strings($mart_handle,"select table_name from information_schema.tables where table_schema='$mart_db' and TABLE_ROWS=0");
 for my $table (@tables) {
     $logger->info("Dropping empty table $table");
-    $mart_handle->do("DROP TABLE $table");    
+    $mart_handle->do("DROP TABLE $table");
 }
 
 # 3. remove TEMP tables and rename tables to lowercase
 foreach my $table (get_tables($mart_handle)) {
-    if($table =~ /TEMP/) {
-	my $sql = "DROP TABLE $table";
-	print $sql."\n"; 
-	$mart_handle->do($sql);
-    } elsif($table =~ m/[A-Z]+/) {
-	my $sql = "DROP TABLE IF EXISTS ".lc($table);
-	print $sql."\n"; 
-	$mart_handle->do($sql);
-	my $sql = "RENAME TABLE $table TO ".lc($table);
-	print $sql."\n"; 
-	$mart_handle->do($sql);
-    }
+  if($table =~ /TEMP/) {
+    my $sql = "DROP TABLE $table";
+    print $sql."\n";
+    $mart_handle->do($sql);
+  } elsif($table =~ m/[A-Z]+/) {
+    my $sql = "DROP TABLE IF EXISTS ".lc($table);
+    print $sql."\n";
+    $mart_handle->do($sql);
+    $sql = "RENAME TABLE $table TO ".lc($table);
+    print $sql."\n";
+    $mart_handle->do($sql);
+  }
 }
 
 $mart_handle->disconnect();
