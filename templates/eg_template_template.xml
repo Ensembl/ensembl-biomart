@@ -355,7 +355,6 @@
             <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="lmajor_eg_gene"/>
             <SpecificOptionContent field="ox_wikigene_bool" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_wikigene_bool" internalName="spurpuratus_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="ox_wikigene_bool" internalName="apisum_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_wikigene_bool" internalName="agambiae_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_wikigene_bool" internalName="aclavatus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_wikigene_bool" internalName="afumigatus_eg_gene" key="translation_id_1068_key"/>
@@ -998,6 +997,8 @@
           <Option displayName="with UniGene ID(s)" displayType="list" field="ox_unigene_bool" internalName="with_unigene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+            <SpecificOptionContent key="gene_id_1020_key" field="ox_unigene_bool" internalName="aaegypti_eg_gene"/>
+            <SpecificOptionContent key="gene_id_1020_key" field="ox_unigene_bool" internalName="apisum_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="ox_unigene_bool" internalName="gmax_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="ox_unigene_bool" internalName="ppatens_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="ox_unigene_bool" internalName="athaliana_eg_gene"/>
@@ -1447,6 +1448,7 @@
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
           <Option displayName="with VectorBase community annotation ID(s)" displayType="list" field="ox_vb_community_annotation_bool" internalName="with_vb_community_annotation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <SpecificOptionContent internalName="aaegypti_eg_gene" key="gene_id_1020_key"/>
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2276,7 +2278,7 @@
           <Option displayName="Affy Grape ID(s)" displayType="text" field="display_label_11056" internalName="affy_vitis_vinifera" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_Vitis_Vinifera__dm" type="list"/>
           <Option displayName="Affy Arabidopsis ATH1 121501 ID(s)" displayType="text" field="display_label_11056" internalName="affy_ath1_121501" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_ATH1_121501__dm" type="list"/>
           <Option checkForNulls="true" displayName="Affy Canine 2 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="affy_canine_2" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_AFFY_Canine_2__dm" type="list"/>
-          <Option displayName="Affy C. elegans ID(s)" displayType="text" field="display_label_11056" internalName="affy_c_elegans" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_AFFY_C_elegans__dm" type="list"/>
+          <Option displayName="Affy c elegans ID(s)" displayType="text" field="display_label_11056" internalName="affy_c_elegans" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_AFFY_C_elegans__dm" type="list"/>
           <Option checkForNulls="true" displayName="Affy S_aureus ID(s)" displayType="text" field="display_label_11056" internalName="affy_s_aureus" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_S_aureus__dm" type="list"/>
           <Option checkForNulls="true" displayName="Affy E_coli_2 ID(s)" displayType="text" field="display_label_11056" internalName="affy_e_coli_2" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_E_coli_2__dm" type="list"/>
           <Option checkForNulls="true" displayName="Affy E_coli_Antisense ID(s)" displayType="text" field="display_label_11056" internalName="affy_e_coli_antisense" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_E_coli_Antisense__dm" type="list"/>
