@@ -168,36 +168,6 @@
       </FilterCollection>
       <FilterCollection displayName="Genomic features" internalName="miscfeature_type">
         <FilterDescription displayName="Type of feature" displayType="list" field="feature_type" internalName="feature_type" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="gene_miscfeature__dm" type="list">
-          <SpecificFilterContent displayType="list" field="feature_type" internalName="hsapiens_gene" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" type="list">
-            <Option displayName="Alt well name" hidden="true" internalName="alt_well_name" isSelectable="true" value="Alt well name"/>
-            <Option displayName="BACend well name" hidden="true" internalName="bacend_well_name" isSelectable="true" value="BACend well name"/>
-            <Option displayName="Clone name" internalName="clone_name" isSelectable="true" value="Clone name"/>
-            <Option displayName="Current state of clone" hidden="true" internalName="current_state_of_clone" isSelectable="true" value="Current state of clone"/>
-            <Option displayName="Encode type" hidden="true" internalName="description" isSelectable="true" value="Description"/>
-            <Option displayName="ENA accession" hidden="true" internalName="embl_accession" isSelectable="true" value="ENA accession"/>
-            <Option displayName="FISH location" hidden="true" internalName="fish_location" isSelectable="true" value="FISH location"/>
-            <Option displayName="NT contig" hidden="true" internalName="name" isSelectable="true" value="Name"/>
-            <Option displayName="Sanger Project name" hidden="true" internalName="sanger_project_name" isSelectable="true" value="Sanger Project name"/>
-            <Option displayName="Sequencing centre" hidden="true" internalName="sequencing_centre" isSelectable="true" value="Sequencing centre"/>
-            <Option displayName="SuperContig name" hidden="false" internalName="supercontig_name" isSelectable="true" value="SuperContig name"/>
-            <Option displayName="Type of feature" hidden="true" internalName="type_of_feature" isSelectable="true" value="Type of feature"/>
-            <Option displayName="Well plate name" hidden="true" internalName="well_plate_name" isSelectable="true" value="Well plate name"/>
-          </SpecificFilterContent>
-          <SpecificFilterContent displayType="list" field="feature_type" internalName="mmusculus_gene" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" type="list">
-            <Option displayName="Accession length" hidden="true" internalName="accession_length" isSelectable="true" value="Accession length"/>
-            <Option displayName="Alt ENA acc" hidden="true" internalName="alt_embl_acc" isSelectable="true" value="Alt ENA acc"/>
-            <Option displayName="Alt org" hidden="true" internalName="alt_org" isSelectable="true" value="Alt org"/>
-            <Option displayName="Clone name" internalName="clone_name" isSelectable="true" value="Clone name"/>
-            <Option displayName="Current state of clone" hidden="true" internalName="current_state_of_clone" isSelectable="true" value="Current state of clone"/>
-            <Option displayName="ENA accession" hidden="true" internalName="embl_accession" isSelectable="true" value="ENA accession"/>
-            <Option displayName="FP size" hidden="true" internalName="fp_size" isSelectable="true" value="FP size"/>
-            <Option displayName="Max start value" hidden="true" internalName="max_start_value" isSelectable="true" value="Max start value"/>
-            <Option displayName="Min end value" hidden="true" internalName="min_end_value" isSelectable="true" value="Min end value"/>
-            <Option displayName="NT contig" hidden="true" internalName="name" isSelectable="true" value="Name"/>
-            <Option displayName="Sequencing centre" hidden="true" internalName="sequencing_centre" isSelectable="true" value="Sequencing centre"/>
-            <Option displayName="Type of feature" hidden="true" internalName="type_of_feature" isSelectable="true" value="Type of feature"/>
-            <Option displayName="Well plate name" hidden="true" internalName="well_plate_name" isSelectable="true" value="Well plate name"/>
-          </SpecificFilterContent>
           <SpecificFilterContent displayType="list" field="feature_type" internalName="agambiae_gene" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" type="list">
             <Option displayName="bacend" hidden="true" internalName="bacend" isSelectable="true" value="bacend"/>
             <Option displayName="Current state of clone" hidden="true" internalName="current_state_of_clone" isSelectable="true" value="Current state of clone"/>
@@ -1898,6 +1868,78 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with Affy AGSNP01 ID(s)" displayType="list" field="efg_affy_agsnp01_bool" internalName="with_affy_agsnp01" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Agilent 012795 ID(s)" displayType="list" field="efg_agilent_012795_bool" internalName="with_agilent_012795" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Agilent 015061 ID(s)" displayType="list" field="efg_agilent_015061_bool" internalName="with_agilent_015061" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Agilent 020186 ID(s)" displayType="list" field="efg_agilent_020186_bool" internalName="with_agilent_020186" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Agilent GPL10542 ID(s)" displayType="list" field="efg_agilent_gpl10542_bool" internalName="with_agilent_gpl10542" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Agilent GPL13394 ID(s)" displayType="list" field="efg_agilent_gpl13394_bool" internalName="with_agilent_gpl13394" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Agilent GPL14144 ID(s)" displayType="list" field="efg_agilent_gpl14144_bool" internalName="with_agilent_gpl14144" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Agilent GPL8304 ID(s)" displayType="list" field="efg_agilent_gpl8304_bool" internalName="with_agilent_gpl8304" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Agilent GPL8743 ID(s)" displayType="list" field="efg_agilent_gpl8743_bool" internalName="with_agilent_gpl8743" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Agilent GPL9246 ID(s)" displayType="list" field="efg_agilent_gpl9246_bool" internalName="with_agilent_gpl9246" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Agilent Liv 8x15k v1 ID(s)" displayType="list" field="efg_agilent_liv_agilent_8x15k_v1_bool" internalName="with_agilent_liv_agilent_8x15k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Nimblegen ND 65k v1 ID(s)" displayType="list" field="efg_nimblegen_nd_65k_v1_bool" internalName="with_nimblegen_nd_65k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with WUSTL C. elegans ID(s)" displayType="list" field="efg_wustl_wustl_c_elegans_bool" internalName="with_wustl_wustl_c_elegans" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Anoxcel ID(s)" displayType="list" field="ox_anoxcel_bool" internalName="with_anoxcel" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with go_to_gene ID(s)" hidden="true" displayType="list" field="ox_go_to_gene_bool" internalName="with_go_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with RefSeq predicted RNA ID(s)" displayType="list" field="ox_refseq_rna_predicted_bool" internalName="with_refseq_rna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Ribosomal protein gene database ID(s)" displayType="list" field="ox_ribosomal_protein_gene_database_bool" internalName="with_ribosomal_protein_gene_database" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with VectorBase Community Symbol(s)" displayType="list" field="ox_vb_community_symbol_bool" internalName="with_vb_community_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="ID list limit" internalName="id_list_limit">
@@ -1910,13 +1952,13 @@
             <Option checkForNulls="true" displayName="Aedesgenbank ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="aedesgenbank" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_aedesgenbank__dm" type="list"/>
             <Option checkForNulls="true" displayName="Agilent cgh(s)" displayType="text" field="dbprimary_acc_1074" internalName="agilent_cgh" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_agilentcgh__dm" type="text"/>
             <Option checkForNulls="true" displayName="Agilent Probe(s)" displayType="text" field="dbprimary_acc_1074" internalName="agilent_probe" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_agilentprobe__dm" type="text"/>
-          <Option checkForNulls="true" displayName="agilent_gpl8743 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_gpl8743" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_gpl8743__dm" type="list"/>
-          <Option checkForNulls="true" displayName="agilent_liv_agilent_8x15k_v1 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_liv_agilent_8x15k_v1" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_liv_agilent_8x15k_v1__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Agilent GPL8743 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_gpl8743" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_gpl8743__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Agilent Liv 8x15k v1 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_liv_agilent_8x15k_v1" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_liv_agilent_8x15k_v1__dm" type="list"/>
             <Option checkForNulls="true" displayName="Anopheles symbol ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="anopheles_symbol" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_anopheles_symbol__dm" type="list"/>
             <Option checkForNulls="true" displayName="CCDS ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ccds" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ccds__dm" type="text"/>
             <Option checkForNulls="true" displayName="Eukaryotic Promoter Database (EPD) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="epd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_epd__dm" type="text"/>
             <Option checkForNulls="true" displayName="G protein-coupled Receptor (GPCR) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gpcr" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gpcr__dm" type="text"/>
-          <Option checkForNulls="true" displayName="nimblegen_nd_65k_v1 ID(s)" displayType="text" field="display_label_11056" internalName="nimblegen_nd_65k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nimblegen_nd_65k_v1__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Nimblegen ND 65k v1 ID(s)" displayType="text" field="display_label_11056" internalName="nimblegen_nd_65k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nimblegen_nd_65k_v1__dm" type="list"/>
             <Option checkForNulls="true" displayName="MEROPS ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="merops" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_merops__dm" type="text">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
@@ -1987,10 +2029,10 @@
           <Option checkForNulls="true" displayName="Affy AgSNP01 ID(s)" displayType="text" field="display_label_11056" internalName="affy_agsnp01" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_affy_agsnp01__dm" type="list"/>
           <Option checkForNulls="true" displayName="Agilent GPL10542 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_gpl10542" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_gpl10542__dm" type="list"/>
           <Option checkForNulls="true" displayName="Agilent GPL9246 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_gpl9246" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_gpl9246__dm" type="list"/>
-          <Option checkForNulls="true" displayName="anoxcel ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="anoxcel" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_anoxcel__dm" type="list"/>
-          <Option checkForNulls="true" displayName="ribosomal_protein_gene_db ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ribosomal_protein_gene_db" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ribosomal_protein_gene_db__dm" type="list"/>
-          <Option checkForNulls="true" displayName="schistodb ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="schistodb" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_schistodb__dm" type="list"/>
-          <Option checkForNulls="true" displayName="triad_jgi_v10 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="triad_jgi_v10" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_triad_jgi_v10__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Anoxcel ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="anoxcel" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_anoxcel__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Ribosomal protein gene database ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ribosomal_protein_gene_db" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ribosomal_protein_gene_db__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Schistodb ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="schistodb" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_schistodb__dm" type="list"/>
+          <Option checkForNulls="true" displayName="JGI (triad) v10 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="triad_jgi_v10" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_triad_jgi_v10__dm" type="list"/>
           <Option checkForNulls="true" displayName="ENA predicted ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="embl_predicted" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_embl_predicted__dm" type="list"/>
           <Option displayName="Ensembl Dog gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ens_cf_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Ens_Cf_gene__dm" type="list"/>
           <Option displayName="Ensembl Dog transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ens_cf_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Ens_Cf_transcript__dm" type="list"/>
@@ -2234,7 +2276,7 @@
           <Option displayName="Affy Grape ID(s)" displayType="text" field="display_label_11056" internalName="affy_vitis_vinifera" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_Vitis_Vinifera__dm" type="list"/>
           <Option displayName="Affy Arabidopsis ATH1 121501 ID(s)" displayType="text" field="display_label_11056" internalName="affy_ath1_121501" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_ATH1_121501__dm" type="list"/>
           <Option checkForNulls="true" displayName="Affy Canine 2 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="affy_canine_2" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_AFFY_Canine_2__dm" type="list"/>
-          <Option displayName="Affy c elegans ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="affy_c_elegans" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_AFFY_C_elegans__dm" type="list"/>
+          <Option displayName="Affy C. elegans ID(s)" displayType="text" field="display_label_11056" internalName="affy_c_elegans" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_AFFY_C_elegans__dm" type="list"/>
           <Option checkForNulls="true" displayName="Affy S_aureus ID(s)" displayType="text" field="display_label_11056" internalName="affy_s_aureus" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_S_aureus__dm" type="list"/>
           <Option checkForNulls="true" displayName="Affy E_coli_2 ID(s)" displayType="text" field="display_label_11056" internalName="affy_e_coli_2" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_E_coli_2__dm" type="list"/>
           <Option checkForNulls="true" displayName="Affy E_coli_Antisense ID(s)" displayType="text" field="display_label_11056" internalName="affy_e_coli_antisense" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_E_coli_Antisense__dm" type="list"/>
@@ -2300,6 +2342,14 @@
           </Option>
           <Option checkForNulls="true" description="Filter to include genes with supplied list of Agilent G2518A ID(s)" displayName="Agilent G2518A ID(s) [e.g. A_15_P117225]" displayType="text" field="display_label_11056" internalName="agilent_g2518a" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="eFG_AGILENT_G2518A__dm" type="text"/>
           <Option checkForNulls="true" description="Filter to include genes with supplied list of Agilent G2519F ID(s)" displayName="Agilent G2519F ID(s) [e.g. A_15_P153061]" displayType="text" field="display_label_11056" internalName="agilent_g2519f" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="eFG_AGILENT_G2519F__dm" type="text"/>
+          <Option checkForNulls="true" displayName="Agilent 012795 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_012795" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_012795__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Agilent 015061 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_015061" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_015061__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Agilent 020186 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_020186" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_020186__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Agilent GPL13394 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_gpl13394" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_gpl13394__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Agilent GPL14144 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_gpl14144" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_gpl14144__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Agilent GPL8304 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_gpl8304" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_gpl8304__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Wustl C. elegans ID(s)" displayType="text" field="display_label_11056" internalName="wustl_wustl_c_elegans" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_wustl_wustl_c_elegans__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Ribosomal protein gene database ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ribosomal_protein_gene_database" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ribosomal_protein_gene_database__dm" type="list"/>
           <Option checkForNulls="true" description="Filter to include genes with supplied list of Spaink Lab Leiden 2 ID(s)" displayName="Spaink Lab Leiden 2 ID(s) [e.g. LOL00121]" displayType="text" field="display_label_11056" internalName="leiden_leiden2" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="eFG_SPAINK_LAB_LEIDEN_LEIDEN2__dm" type="text"/>
           <Option checkForNulls="true" description="Filter to include genes with supplied list of Spaink Lab Leiden 3 ID(s)" displayName="Spaink Lab Leiden 3 ID(s) [e.g. LOL01660]" displayType="text" field="display_label_11056" internalName="leiden_leiden3" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="eFG_SPAINK_LAB_LEIDEN_LEIDEN3__dm" type="text"/>
           <Option checkForNulls="true" description="Filter to include genes with supplied list of Fantom ID(s)" displayName="Fantom ID(s) [e.g.77208]" displayType="text" field="dbprimary_acc_1074" internalName="fantom" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_Fantom__dm" type="text"/>
@@ -2587,7 +2637,7 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Source" internalName="source_coll" hideDisplay="true">
+      <FilterCollection displayName="Source" internalName="source_coll" hidden="true" hideDisplay="true">
         <FilterDescription displayName="Source" displayType="list" field="source_1020" internalName="source" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" hideDisplay="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
@@ -5181,9 +5231,6 @@
       </FilterCollection>
       <FilterCollection displayName="Somatic variation source" hidden="true" internalName="somatic_source">
         <FilterDescription displayType="list" field="name_2021" internalName="somatic_variation_source" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="mart_transcript_variation_som__dm" type="list">
-          <SpecificFilterContent displayType="list" field="name_2021" internalName="hsapiens_gene" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="mart_transcript_variation_som__dm" type="list">
-            <Option displayName="COSMIC" internalName="COSMIC" isSelectable="true" value="COSMIC"/>
-          </SpecificFilterContent>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection description="Filter for genes associated with specified types of variation" displayName="Variation type" internalName="snptype">
@@ -6010,8 +6057,7 @@
         <AttributeDescription checkForNulls="true" displayName="ArrayExpress Experiment ID" field="dbprimary_acc_1074" internalName="arrayexpressexperiment" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ArrayExpressExperiment__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Anopheles symbol" field="dbprimary_acc_1074" internalName="anopheles_symbol" key="translation_id_1068_key" linkoutURL="exturl1|http://agambiae.vectorbase.org/Genome/GeneView/?gene=%s" maxLength="40" tableConstraint="ox_Anopheles_symbol__dm"/>
         <AttributeDescription checkForNulls="true" displayName="go_to_gene ID" field="dbprimary_acc_1074" internalName="go_to_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_go_to_gene__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="agilent_gpl8743 ID" field="display_label_11056" internalName="agilent_gpl8743" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl8743__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="agilent_liv_agilent_8x15k_v1 ID" field="display_label_11056" internalName="agilent_liv_agilent_8x15k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_liv_agilent_8x15k_v1__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Ribosomal protein gene database ID" field="dbprimary_acc_1074" internalName="ribosomal_protein_gene_database" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_ribosomal_protein_gene_database__dm"/>
         <AttributeDescription displayName="Berkley Drosophila Genome Project ID(s)" field="dbprimary_acc_1074" hidden="false" internalName="bdgp_insitu_expr" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_BDGP_insitu_expr__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Celera Gene ID(s)" field="dbprimary_acc_1074" internalName="celera_gene" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/Gene/Summary?g=%s" maxLength="40" tableConstraint="ox_Celera_Gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Celera Transcript ID(s)" field="dbprimary_acc_1074" internalName="celera_trans" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Celera_Trans__dm"/>
@@ -6086,10 +6132,6 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="lmajor_eg_gene" key="translation_id_1068_key"/>
         </AttributeDescription>
-        <AttributeDescription checkForNulls="true" displayName="affy_agsnp01 ID" field="display_label_11056" internalName="affy_agsnp01" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_agsnp01__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="agilent_gpl10542 ID" field="display_label_11056" internalName="agilent_gpl10542" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl10542__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="agilent_gpl9246 ID" field="display_label_11056" internalName="agilent_gpl9246" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl9246__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="nimblegen_nd_65k_v1 ID" field="display_label_11056" internalName="nimblegen_nd_65k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_nimblegen_nd_65k_v1__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RefSeq predicted RNA ID" field="dbprimary_acc_1074" internalName="refseq_rna_predicted" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_refseq_rna_predicted__dm"/>
         <AttributeDescription checkForNulls="true" displayName="VectorBase Community Symbol ID" field="dbprimary_acc_1074" internalName="vb_community_symbol" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_vb_community_symbol__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RefSeq mRNA ID" field="dbprimary_acc_1074" internalName="refseq_mrna" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_mrna__dm" useDefault="true">
@@ -6626,6 +6668,9 @@
         <AttributeDescription checkForNulls="true" displayName="PubMed PomBase ID" field="dbprimary_acc_1074" internalName="pubmed_pombase" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_pubmed_pombase__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PGSC ID" field="dbprimary_acc_1074" internalName="pgsc" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_pgsc_gene__dm" linkoutURL="exturl1|http://solanaceae.plantbiology.msu.edu/cgi-bin/gbrowse/potato/?name=%s"/>
         <AttributeDescription checkForNulls="true" displayName="EMBL-Bank Transcript ID" field="dbprimary_acc_1074" internalName="emblbank_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_emblbank_transcript__dm"/>
+        <AttributeDescription hidden="true" displayName="go_to_transcript ID" field="dbprimary_acc_1074" internalName="go_to_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_go_to_transcript__dm"/>
+        <AttributeDescription hidden="true" displayName="PO (Gene) ID" field="dbprimary_acc_1074" internalName="po_to_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_po_to_gene__dm"/>
+        <AttributeDescription hidden="true" displayName="PO (Transcript) ID" field="dbprimary_acc_1074" internalName="po_to_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_po_to_transcript__dm"/>
       </AttributeCollection>
       <AttributeCollection description="Pathogen Phenotypes (source: PHI-base)" displayName="Pathogen Phenotypes (source: PHI-base)" internalName="phibase_annotation">
         <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="phibase_id" internalName="phibase_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phibase_annotation__dm"/>
@@ -6637,128 +6682,135 @@
         <AttributeDescription checkForNulls="true" displayName="PHI-base condition ID" field="condition_id" internalName="phibase_condition_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phibase_annotation__dm"/>
       </AttributeCollection>
       <AttributeCollection description="Microarray Attributes" displayName="Microarray Attributes" internalName="microarray" maxSelect="2">
-        <AttributeDescription checkForNulls="true" displayName="A. aegypti Liverpool Detox 25k v1 probe ID" field="display_label_11056" internalName="liv_liv_aegdetox_0_25k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_liv_liv_aegdetox_0_25k_v1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="A. aegypti Liverpool Detox 25k v1 probe ID" field="display_label_11056" internalName="liv_liv_aegdetox_0_25k_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_liv_liv_aegdetox_0_25k_v2__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Agilent Oxford 44k v1 probe ID" field="display_label_11056" internalName="agilent_oxford_agilent_44k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_oxford_agilent_44k_v1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy unibasa_gossypiisysyng001a ID" field="display_label_11056" internalName="affy_unibasa_gossypiisysyng001a" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_unibasa_gossypiisysyng001a__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy DrosGenome1 probe ID" field="display_label_11056" internalName="efg_affy_drosgenome1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_drosgenome1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy Drosophila 2 probe ID" field="display_label_11056" internalName="efg_affy_drosophila_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_drosophila_2__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Agilent 020449_d probe ID" field="display_label_11056" internalName="efg_agilent_020449_d" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_020449_d__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Agilent IC Genimmunity 4x44k v1 probe ID" field="display_label_11056" internalName="efg_agilent_ic_genimmunity_4x44k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_ic_genimmunity_4x44k_v1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Apogent Wisc Hemocyte 2k v1/v2 probe ID" field="display_label_11056" internalName="efg_apogent_wisc_hemocyte_2k_v1_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_apogent_wisc_hemocyte_2k_v1_v2__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Custom EST EMBL mmc1 20k v1 probe ID" field="display_label_11056" internalName="efg_custom_est_embl_mmc1_20k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_embl_mmc1_20k_v1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Custom EST EMBL mmc21 2k v1 probe ID" field="display_label_11056" internalName="efg_custom_est_embl_mmc2_12k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_embl_mmc2_12k_v1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="A. gambiae Liverpool Detox 25k v1 probe ID" field="display_label_11056" internalName="custom_est_liv_gamdetox_0_25k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_liv_gamdetox_0_25k_v1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="A. gambiae Liverpool Detox 25k v2 probe ID" field="display_label_11056" internalName="custom_est_liv_gamdetox_0_25k_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_liv_gamdetox_0_25k_v2__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Custom EST ND Tigrtc 9 6k v1 probe ID" field="display_label_11056" internalName="efg_custom_est_nd_tigrtc_9_6k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_nd_tigrtc_9_6k_v1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Custom EST UCR Gillmgmt_0 2k v2 probe ID" field="display_label_11056" internalName="efg_custom_est_ucr_gillmgmt_0_2k_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_ucr_gillmgmt_0_2k_v2__dm"/>
-        <AttributeDescription displayName="Affy S_aureus" field="display_label_11056" internalName="affy_s_aureus" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_S_aureus__dm"/>
-        <AttributeDescription displayName="Affy E_coli_2" field="display_label_11056" internalName="affy_e_coli_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_E_coli_2__dm"/>
-        <AttributeDescription displayName="Affy E_coli_Antisense" field="display_label_11056" internalName="affy_e_coli_antisense" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_E_coli_Antisense__dm"/>
+        <AttributeDescription displayName="A. aegypti Liverpool Detox 25k v1 probe ID" field="display_label_11056" internalName="liv_liv_aegdetox_0_25k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_liv_liv_aegdetox_0_25k_v1__dm"/>
+        <AttributeDescription displayName="A. aegypti Liverpool Detox 25k v2 probe ID" field="display_label_11056" internalName="liv_liv_aegdetox_0_25k_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_liv_liv_aegdetox_0_25k_v2__dm"/>
+        <AttributeDescription displayName="A. gambiae Liverpool Detox 25k v1 probe ID" field="display_label_11056" internalName="custom_est_liv_gamdetox_0_25k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_liv_gamdetox_0_25k_v1__dm"/>
+        <AttributeDescription displayName="A. gambiae Liverpool Detox 25k v2 probe ID" field="display_label_11056" internalName="custom_est_liv_gamdetox_0_25k_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_liv_gamdetox_0_25k_v2__dm"/>
+        <AttributeDescription displayName="Affy AGSNP01 ID" field="display_label_11056" internalName="affy_agsnp01" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_agsnp01__dm"/>
         <AttributeDescription displayName="AFFY Arabidopsis ATH1 121501" field="display_label_11056" internalName="affy_ath1_121501" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_ATH1_121501__dm"/>
-        <AttributeDescription displayName="Agilent Arabidopsis G2519F-021169" field="display_label_11056" internalName="agilent_G2519F-021169" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_g2519f_021169__dm"/>
-        <AttributeDescription displayName="Agilent Arabidopsis G2519F-015059" field="display_label_11056" internalName="agilent_G2519F-015059" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_g2519f_015059__dm"/>
-        <AttributeDescription displayName="CATMA Arabidopsis" field="display_label_11056" internalName="catma_catma" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_CATMA_CATMA__dm"/>
-        <AttributeDescription displayName="AFFY Rice" field="display_label_11056" internalName="affy_rice" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_Rice__dm"/>
-        <AttributeDescription displayName="NSF Rice NSF20K" field="display_label_11056" internalName="NSF_NSF20K" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_NSF20K__dm"/>
-        <AttributeDescription displayName="NSF Rice BGIYale" field="display_label_11056" internalName="NSF_BGIYale" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_BGIYale__dm"/>
-        <AttributeDescription displayName="NSF Rice NSF45K" field="display_label_11056" internalName="NSF_NSF45K" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_NSF45K__dm"/>
-        <AttributeDescription displayName="Agilent Rice G4138A-012106" field="display_label_11056" internalName="Agilent_G4138A_012106" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_Agilent_G4138A_012106__dm"/>
-        <AttributeDescription displayName="Agilent Rice G2519F-015241" field="display_label_11056" internalName="Agilent_G2519F_015241" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_Agilent_G2519F_015241__dm"/>
-        <AttributeDescription displayName="AFFY Poplar" field="display_label_11056" internalName="affy_poplar" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_Poplar__dm"/>
-        <AttributeDescription displayName="AFFY Grape" field="display_label_11056" internalName="affy_vitis_vinifera" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_Vitis_Vinifera__dm"/>
+        <AttributeDescription displayName="Affy bovine" field="dbprimary_acc_1074" internalName="affy_bovine" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Bovine__dm"/>
+        <AttributeDescription displayName="Affy C. elegans" field="display_label_11056" internalName="affy_c_elegans" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_AFFY_C_elegans__dm"/>
+        <AttributeDescription displayName="Affy canine" field="dbprimary_acc_1074" hidden="true" internalName="affy_canine" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Canine__dm"/>
+        <AttributeDescription displayName="Affy Canine 2" field="dbprimary_acc_1074" hidden="false" internalName="affy_canine_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Canine_2__dm"/>
+        <AttributeDescription displayName="Affy chicken" field="dbprimary_acc_1074" internalName="affy_chicken" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Chicken__dm"/>
         <AttributeDescription displayName="Affy cint06a520380f" field="dbprimary_acc_1074" internalName="affy_cint06a520380f" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_CINT06a520380F__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="AFFY HC G110" field="dbprimary_acc_1074" internalName="affy_hc_g110" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_HC_G110__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="AFFY HG FOCUS" field="dbprimary_acc_1074" internalName="affy_hg_focus" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_Focus__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="AFFY HG U133-PLUS-2" field="dbprimary_acc_1074" internalName="affy_hg_u133_plus_2" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U133_Plus_2__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="AFFY HG U133A_2" field="dbprimary_acc_1074" internalName="affy_hg_u133a_2" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U133A_2__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="AFFY HG U133A" field="dbprimary_acc_1074" internalName="affy_hg_u133a" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U133A__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="AFFY HG U133B" field="dbprimary_acc_1074" internalName="affy_hg_u133b" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U133B__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="AFFY HG U95AV2" field="dbprimary_acc_1074" internalName="affy_hg_u95av2" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U95Av2__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="AFFY HG U95B" field="dbprimary_acc_1074" hidden="false" internalName="affy_hg_u95b" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U95B__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="AFFY HG U95C" field="dbprimary_acc_1074" hidden="false" internalName="affy_hg_u95c" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U95C__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="AFFY HG U95D" field="dbprimary_acc_1074" hidden="false" internalName="affy_hg_u95d" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U95D__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="AFFY HG U95E" field="dbprimary_acc_1074" hidden="false" internalName="affy_hg_u95e" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U95E__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="AFFY HG U95A" field="dbprimary_acc_1074" internalName="affy_hg_u95a" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_HG_U95A__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy HuGene FL" field="dbprimary_acc_1074" internalName="affy_hugenefl" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_HuGeneFL__dm"/>
+        <AttributeDescription displayName="Affy DrosGenome 1 probe ID" field="display_label_11056" internalName="efg_affy_drosgenome1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_drosgenome1__dm"/>
+        <AttributeDescription displayName="Affy Drosophila 2 probe ID" field="display_label_11056" internalName="efg_affy_drosophila_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_drosophila_2__dm"/>
+        <AttributeDescription displayName="Affy E. coli 2" field="display_label_11056" internalName="affy_e_coli_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_E_coli_2__dm"/>
+        <AttributeDescription displayName="Affy E. coli Antisense" field="display_label_11056" internalName="affy_e_coli_antisense" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_E_coli_Antisense__dm"/>
+        <AttributeDescription displayName="AFFY HC G110" field="dbprimary_acc_1074" internalName="affy_hc_g110" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_HC_G110__dm"/>
+        <AttributeDescription displayName="AFFY HG FOCUS" field="dbprimary_acc_1074" internalName="affy_hg_focus" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_Focus__dm"/>
+        <AttributeDescription displayName="AFFY HG U133-PLUS-2" field="dbprimary_acc_1074" internalName="affy_hg_u133_plus_2" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U133_Plus_2__dm"/>
+        <AttributeDescription displayName="AFFY HG U133A_2" field="dbprimary_acc_1074" internalName="affy_hg_u133a_2" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U133A_2__dm"/>
+        <AttributeDescription displayName="AFFY HG U133A" field="dbprimary_acc_1074" internalName="affy_hg_u133a" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U133A__dm"/>
+        <AttributeDescription displayName="AFFY HG U133B" field="dbprimary_acc_1074" internalName="affy_hg_u133b" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U133B__dm"/>
+        <AttributeDescription displayName="AFFY HG U95AV2" field="dbprimary_acc_1074" internalName="affy_hg_u95av2" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U95Av2__dm"/>
+        <AttributeDescription displayName="AFFY HG U95B" field="dbprimary_acc_1074" hidden="false" internalName="affy_hg_u95b" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U95B__dm"/>
+        <AttributeDescription displayName="AFFY HG U95C" field="dbprimary_acc_1074" hidden="false" internalName="affy_hg_u95c" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U95C__dm"/>
+        <AttributeDescription displayName="AFFY HG U95D" field="dbprimary_acc_1074" hidden="false" internalName="affy_hg_u95d" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U95D__dm"/>
+        <AttributeDescription displayName="AFFY HG U95E" field="dbprimary_acc_1074" hidden="false" internalName="affy_hg_u95e" key="transcript_id_1064_key" maxLength="10" tableConstraint="ox_AFFY_HG_U95E__dm"/>
+        <AttributeDescription displayName="AFFY HG U95A" field="dbprimary_acc_1074" internalName="affy_hg_u95a" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_HG_U95A__dm"/>
+        <AttributeDescription displayName="Affy HuGene FL" field="dbprimary_acc_1074" internalName="affy_hugenefl" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_HuGeneFL__dm"/>
         <AttributeDescription displayName="AFFY HuEx" field="dbprimary_acc_1074" internalName="affy_huex_1_0_st_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_HuEx_1_0_st_v2__dm"/>
         <AttributeDescription displayName="AFFY HuGene" field="dbprimary_acc_1074" hidden="false" internalName="affy_hugene_1_0_st_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_HuGene_1_0_st_v1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy mg u74a" field="dbprimary_acc_1074" internalName="affy_mg_u74a" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MG_U74A__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy mg u74av2" field="dbprimary_acc_1074" internalName="affy_mg_u74av2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MG_U74Av2__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy mg u74b" field="dbprimary_acc_1074" internalName="affy_mg_u74b" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MG_U74B__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy mg u74bv2" field="dbprimary_acc_1074" internalName="affy_mg_u74bv2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MG_U74Bv2__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy mg u74c" field="dbprimary_acc_1074" internalName="affy_mg_u74c" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MG_U74C__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy mg u74cv2" field="dbprimary_acc_1074" internalName="affy_mg_u74cv2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MG_U74Cv2__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy moe430a" field="dbprimary_acc_1074" internalName="affy_moe430a" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MOE430A__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy moe430b" field="dbprimary_acc_1074" internalName="affy_moe430b" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MOE430B__dm"/>
+        <AttributeDescription displayName="AFFY Grape" field="display_label_11056" internalName="affy_vitis_vinifera" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_Vitis_Vinifera__dm"/>
+        <AttributeDescription displayName="Affy Maize ID" field="display_label_11056" internalName="affy_maize" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_maize__dm"/>
+        <AttributeDescription displayName="Affy mg u74a" field="dbprimary_acc_1074" internalName="affy_mg_u74a" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MG_U74A__dm"/>
+        <AttributeDescription displayName="Affy mg u74av2" field="dbprimary_acc_1074" internalName="affy_mg_u74av2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MG_U74Av2__dm"/>
+        <AttributeDescription displayName="Affy mg u74b" field="dbprimary_acc_1074" internalName="affy_mg_u74b" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MG_U74B__dm"/>
+        <AttributeDescription displayName="Affy mg u74bv2" field="dbprimary_acc_1074" internalName="affy_mg_u74bv2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MG_U74Bv2__dm"/>
+        <AttributeDescription displayName="Affy mg u74c" field="dbprimary_acc_1074" internalName="affy_mg_u74c" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MG_U74C__dm"/>
+        <AttributeDescription displayName="Affy mg u74cv2" field="dbprimary_acc_1074" internalName="affy_mg_u74cv2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MG_U74Cv2__dm"/>
+        <AttributeDescription displayName="Affy moe430a" field="dbprimary_acc_1074" internalName="affy_moe430a" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MOE430A__dm"/>
+        <AttributeDescription displayName="Affy moe430b" field="dbprimary_acc_1074" internalName="affy_moe430b" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MOE430B__dm"/>
         <AttributeDescription displayName="AFFY MoEx" field="dbprimary_acc_1074" internalName="affy_moex_1_0_st_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MoEx_1_0_st_v1__dm"/>
         <AttributeDescription displayName="AFFY MoGene" field="dbprimary_acc_1074" internalName="affy_mogene_1_0_st_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_MoGene_1_0_st_v1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy mouse430 2" field="dbprimary_acc_1074" internalName="affy_mouse430_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Mouse430_2__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy mouse430a 2" field="dbprimary_acc_1074" internalName="affy_mouse430a_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Mouse430A_2__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy mu11ksuba" field="dbprimary_acc_1074" internalName="affy_mu11ksuba" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Mu11ksubA__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy mu11ksubb" field="dbprimary_acc_1074" internalName="affy_mu11ksubb" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Mu11ksubB__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy rae230a" field="dbprimary_acc_1074" internalName="affy_rae230a" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RAE230A__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy rae230b" field="dbprimary_acc_1074" internalName="affy_rae230b" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RAE230B__dm"/>
+        <AttributeDescription displayName="Affy mouse430 2" field="dbprimary_acc_1074" internalName="affy_mouse430_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Mouse430_2__dm"/>
+        <AttributeDescription displayName="Affy mouse430a 2" field="dbprimary_acc_1074" internalName="affy_mouse430a_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Mouse430A_2__dm"/>
+        <AttributeDescription displayName="Affy mu11ksuba" field="dbprimary_acc_1074" internalName="affy_mu11ksuba" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Mu11ksubA__dm"/>
+        <AttributeDescription displayName="Affy mu11ksubb" field="dbprimary_acc_1074" internalName="affy_mu11ksubb" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Mu11ksubB__dm"/>
+        <AttributeDescription displayName="Affy plasmodium anopheles" field="display_label_11056" internalName="affy_plasmodium_anopheles" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_plasmodium_anopheles__dm"/>
+        <AttributeDescription displayName="Affy Platypus" field="display_label_11056" internalName="affy_platypus" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_platypus_exon__dm"/>
+        <AttributeDescription displayName="AFFY Poplar" field="display_label_11056" internalName="affy_poplar" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_Poplar__dm"/>
+        <AttributeDescription displayName="Affy Porcine" field="display_label_11056" internalName="affy_porcine" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_Porcine__dm"/>
+        <AttributeDescription displayName="Affy rae230a" field="dbprimary_acc_1074" internalName="affy_rae230a" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RAE230A__dm"/>
+        <AttributeDescription displayName="Affy rae230b" field="dbprimary_acc_1074" internalName="affy_rae230b" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RAE230B__dm"/>
         <AttributeDescription displayName="AFFY RaGene" field="dbprimary_acc_1074" internalName="affy_ragene_1_0_st_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RaGene_1_0_st_v1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy rat230 2" field="dbprimary_acc_1074" internalName="affy_rat230_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Rat230_2__dm"/>
+        <AttributeDescription displayName="Affy rat230 2" field="dbprimary_acc_1074" internalName="affy_rat230_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Rat230_2__dm"/>
         <AttributeDescription displayName="AFFY RaEx" field="dbprimary_acc_1074" internalName="affy_raex_1_0_st_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RaEx_1_0_st_v1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="AFFY U133 X3P" field="dbprimary_acc_1074" internalName="affy_u133_x3p" key="transcript_id_1064_key" maxLength="23" tableConstraint="ox_AFFY_U133_X3P__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy yeast 2" field="display_label_11056" internalName="affy_yeast_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_Yeast_2__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy yg s98" field="display_label_11056" internalName="affy_yg_s98" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_YG_S98__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy rg u34a" field="dbprimary_acc_1074" internalName="affy_rg_u34a" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RG_U34A__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy rg u34b" field="dbprimary_acc_1074" internalName="affy_rg_u34b" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RG_U34B__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy rg u34c" field="dbprimary_acc_1074" internalName="affy_rg_u34c" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RG_U34C__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy rn u34" field="dbprimary_acc_1074" internalName="affy_rn_u34" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RN_U34__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy rt u34" field="dbprimary_acc_1074" internalName="affy_rt_u34" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RT_U34__dm"/>
-        <AttributeDescription displayName="Affy bovine" field="dbprimary_acc_1074" internalName="affy_bovine" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Bovine__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy canine" field="dbprimary_acc_1074" hidden="true" internalName="affy_canine" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Canine__dm"/>
-        <AttributeDescription displayName="Affy Canine 2" field="dbprimary_acc_1074" hidden="false" internalName="affy_canine_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Canine_2__dm"/>
-        <AttributeDescription displayName="Affy c elegans" field="dbprimary_acc_1074" internalName="affy_c_elegans" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_AFFY_C_elegans__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy chicken" field="dbprimary_acc_1074" internalName="affy_chicken" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Chicken__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy DrosGenome1" field="display_label_11056" internalName="affy_drosgenome1" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_DrosGenome1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy Drosophila 2" field="display_label_11056" internalName="affy_drosophila_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Drosophila_2__dm"/>
         <AttributeDescription displayName="AFFY RaEX" field="dbprimary_acc_1074" internalName="affy_RaEx_1_0" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RaEx_1_0_st__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy plasmodium anopheles" field="display_label_11056" internalName="affy_plasmodium_anopheles" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_plasmodium_anopheles__dm"/>
+        <AttributeDescription displayName="Affy rg u34a" field="dbprimary_acc_1074" internalName="affy_rg_u34a" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RG_U34A__dm"/>
+        <AttributeDescription displayName="Affy rg u34b" field="dbprimary_acc_1074" internalName="affy_rg_u34b" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RG_U34B__dm"/>
+        <AttributeDescription displayName="Affy rg u34c" field="dbprimary_acc_1074" internalName="affy_rg_u34c" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RG_U34C__dm"/>
+        <AttributeDescription displayName="Affy rn u34" field="dbprimary_acc_1074" internalName="affy_rn_u34" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RN_U34__dm"/>
+        <AttributeDescription displayName="Affy rt u34" field="dbprimary_acc_1074" internalName="affy_rt_u34" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_RT_U34__dm"/>
+        <AttributeDescription displayName="AFFY Rice" field="display_label_11056" internalName="affy_rice" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_Rice__dm"/>
+        <AttributeDescription displayName="Affy S. aureus" field="display_label_11056" internalName="affy_s_aureus" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_S_aureus__dm"/>
+        <AttributeDescription displayName="AFFY U133 X3P" field="dbprimary_acc_1074" internalName="affy_u133_x3p" key="transcript_id_1064_key" maxLength="23" tableConstraint="ox_AFFY_U133_X3P__dm"/>
+        <AttributeDescription displayName="Affy UNIBAS A. gossypii sysyng001a ID" field="display_label_11056" internalName="affy_unibasa_gossypiisysyng001a" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_unibasa_gossypiisysyng001a__dm"/>
+        <AttributeDescription displayName="Affy yeast 2" field="display_label_11056" internalName="affy_yeast_2" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_Yeast_2__dm"/>
+        <AttributeDescription displayName="Affy yg s98" field="display_label_11056" internalName="affy_yg_s98" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_YG_S98__dm"/>
         <AttributeDescription displayName="Affy rhesus" field="dbprimary_acc_1074" internalName="affy_rhesus" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Rhesus__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy zebrafish" field="dbprimary_acc_1074" internalName="affy_zebrafish" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Zebrafish__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Agilent cgh" field="dbprimary_acc_1074" hidden="true" internalName="agilent_cgh" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AgilentCGH__dm"/>
-        <AttributeDescription displayName="Agilent WholeGenome" field="dbprimary_acc_1074" internalName="agilent_wholegenome" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AGILENT_WholeGenome__dm"/>
-        <AttributeDescription displayName="Agilent OligoArray" field="display_label_11056" internalName="agilent_oligoarray" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_oligoarray__dm"/>
+        <AttributeDescription displayName="Affy X. tropicalis" field="dbprimary_acc_1074" internalName="affy_xtropicalis" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_X_tropicalis__dm"/>
+        <AttributeDescription displayName="Affy zebrafish" field="dbprimary_acc_1074" internalName="affy_zebrafish" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Zebrafish__dm"/>
+        <AttributeDescription displayName="Agilent 012795 ID" field="display_label_11056" internalName="agilent_012795" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_012795__dm"/>
+        <AttributeDescription displayName="Agilent 015061 ID" field="display_label_11056" internalName="agilent_015061" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_015061__dm"/>
+        <AttributeDescription displayName="Agilent 020186 ID" field="display_label_11056" internalName="agilent_020186" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_020186__dm"/>
+        <AttributeDescription displayName="Agilent 020449 D probe ID" field="display_label_11056" internalName="efg_agilent_020449_d" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_020449_d__dm"/>
+        <AttributeDescription displayName="Agilent Arabidopsis G2519F-021169" field="display_label_11056" internalName="agilent_G2519F-021169" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_g2519f_021169__dm"/>
+        <AttributeDescription displayName="Agilent Arabidopsis G2519F-015059" field="display_label_11056" internalName="agilent_G2519F-015059" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_g2519f_015059__dm"/>
+        <AttributeDescription displayName="Agilent CGH" field="dbprimary_acc_1074" hidden="true" internalName="agilent_cgh" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AgilentCGH__dm"/>
         <AttributeDescription displayName="Agilent CGH 44b" field="dbprimary_acc_1074" internalName="agilent_cgh_44b" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AGILENT_CGH_44b__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Agilent g2518a" field="dbprimary_acc_1074" internalName="agilent_g2518a" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AGILENT_G2518A__dm"/>
-        <AttributeDescription displayName="agilent g2519f" field="dbprimary_acc_1074" internalName="agilent_g2519F" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AGILENT_G2519F__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Agilent Probe" field="dbprimary_acc_1074" internalName="agilent_probe" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AgilentProbe__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Array embl mmc1 20k v1" field="dbprimary_acc_1074" internalName="array_embl_mmc1_20k_v1" key="transcript_id_1064_key" linkoutURL="exturl1|http://base.vectorbase.org/perl/expression-summary.cgi?reporter=%s&amp;array=EMBL_MMC1_20K_V1" maxLength="40" tableConstraint="ox_ARRAY_EMBL_MMC1_20k_v1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Array embl mmc2 12k v1" field="dbprimary_acc_1074" internalName="array_embl_mmc2_12k_v1" key="transcript_id_1064_key" linkoutURL="exturl1|http://base.vectorbase.org/perl/expression-summary.cgi?reporter=%s&amp;array=EMBL_MMC2_12K_V1" maxLength="40" tableConstraint="ox_ARRAY_EMBL_MMC2_12k_v1__dm"/>
+        <AttributeDescription displayName="Agilent g2518a" field="dbprimary_acc_1074" internalName="agilent_g2518a" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AGILENT_G2518A__dm"/>
+        <AttributeDescription displayName="Agilent g2519f" field="dbprimary_acc_1074" internalName="agilent_g2519F" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AGILENT_G2519F__dm"/>
+        <AttributeDescription displayName="Agilent GPL10542 ID" field="display_label_11056" internalName="agilent_gpl10542" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl10542__dm"/>
+        <AttributeDescription displayName="Agilent GPL13394 ID" field="display_label_11056" internalName="agilent_gpl13394" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl13394__dm"/>
+        <AttributeDescription displayName="Agilent GPL14144 ID" field="display_label_11056" internalName="agilent_gpl14144" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl14144__dm"/>
+        <AttributeDescription displayName="Agilent GPL8304 ID" field="display_label_11056" internalName="agilent_gpl8304" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl8304__dm"/>
+        <AttributeDescription displayName="Agilent GPL8743 ID" field="display_label_11056" internalName="agilent_gpl8743" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl8743__dm"/>
+        <AttributeDescription displayName="Agilent GPL9246 ID" field="display_label_11056" internalName="agilent_gpl9246" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_gpl9246__dm"/>
+        <AttributeDescription displayName="Agilent IC Genimmunity 4x44k v1 probe ID" field="display_label_11056" internalName="efg_agilent_ic_genimmunity_4x44k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_ic_genimmunity_4x44k_v1__dm"/>
+        <AttributeDescription displayName="Agilent Liv 8x15k v1 ID" field="display_label_11056" internalName="agilent_liv_agilent_8x15k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_liv_agilent_8x15k_v1__dm"/>
+        <AttributeDescription displayName="Agilent Oxford 44k v1 probe ID" field="display_label_11056" internalName="agilent_oxford_agilent_44k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_oxford_agilent_44k_v1__dm"/>
+        <AttributeDescription displayName="Agilent OligoArray" field="display_label_11056" internalName="agilent_oligoarray" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_oligoarray__dm"/>
+        <AttributeDescription displayName="Agilent Probe" field="dbprimary_acc_1074" internalName="agilent_probe" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AgilentProbe__dm"/>
+        <AttributeDescription displayName="Agilent Rice G2519F-015241" field="display_label_11056" internalName="Agilent_G2519F_015241" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_Agilent_G2519F_015241__dm"/>
+        <AttributeDescription displayName="Agilent Rice G4138A-012106" field="display_label_11056" internalName="Agilent_G4138A_012106" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_Agilent_G4138A_012106__dm"/>
+        <AttributeDescription displayName="Agilent WholeGenome" field="dbprimary_acc_1074" internalName="agilent_wholegenome" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AGILENT_WholeGenome__dm"/>
+        <AttributeDescription displayName="Apogent Wisc Hemocyte 2k v1/v2 probe ID" field="display_label_11056" internalName="efg_apogent_wisc_hemocyte_2k_v1_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_apogent_wisc_hemocyte_2k_v1_v2__dm"/>
+        <AttributeDescription displayName="Array embl mmc1 20k v1" field="dbprimary_acc_1074" internalName="array_embl_mmc1_20k_v1" key="transcript_id_1064_key" linkoutURL="exturl1|http://base.vectorbase.org/perl/expression-summary.cgi?reporter=%s&amp;array=EMBL_MMC1_20K_V1" maxLength="40" tableConstraint="ox_ARRAY_EMBL_MMC1_20k_v1__dm"/>
+        <AttributeDescription displayName="Array embl mmc2 12k v1" field="dbprimary_acc_1074" internalName="array_embl_mmc2_12k_v1" key="transcript_id_1064_key" linkoutURL="exturl1|http://base.vectorbase.org/perl/expression-summary.cgi?reporter=%s&amp;array=EMBL_MMC2_12K_V1" maxLength="40" tableConstraint="ox_ARRAY_EMBL_MMC2_12k_v1__dm"/>
         <AttributeDescription displayName="Array jhsph aggamber 15k v1" field="dbprimary_acc_1074" internalName="array_jhsph_aggamber_15k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ARRAY_JHSPH_AGGAMBER_15k_v1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Array nd tigrtc 9 6k v1" field="dbprimary_acc_1074" internalName="array_nd_tigrtc_9_6k_v1" key="transcript_id_1064_key" linkoutURL="exturl1|http://base.vectorbase.org/perl/expression-summary.cgi?reporter=%s&amp;array=ND_TIGRTC_9_6K_V1" maxLength="40" tableConstraint="ox_ARRAY_ND_TIGRTC_9_6K_v1__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Array ucr gillmgmt 0 2k v2" field="dbprimary_acc_1074" internalName="array_ucr_gillmgmt_0_2k_v2" key="transcript_id_1064_key" linkoutURL="exturl1|http://base.vectorbase.org/perl/expression-summary.cgi?reporter=%s&amp;array=UCR_GILLMGMT_0_2K_V2" maxLength="40" tableConstraint="ox_ARRAY_UCR_GillMgMT_0_2K_v2__dm"/>
-        <AttributeDescription displayName="Affy X tropicalis" field="dbprimary_acc_1074" internalName="affy_xtropicalis" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_X_tropicalis__dm"/>
+        <AttributeDescription displayName="Array nd tigrtc 9 6k v1" field="dbprimary_acc_1074" internalName="array_nd_tigrtc_9_6k_v1" key="transcript_id_1064_key" linkoutURL="exturl1|http://base.vectorbase.org/perl/expression-summary.cgi?reporter=%s&amp;array=ND_TIGRTC_9_6K_V1" maxLength="40" tableConstraint="ox_ARRAY_ND_TIGRTC_9_6K_v1__dm"/>
+        <AttributeDescription displayName="Array ucr gillmgmt 0 2k v2" field="dbprimary_acc_1074" internalName="array_ucr_gillmgmt_0_2k_v2" key="transcript_id_1064_key" linkoutURL="exturl1|http://base.vectorbase.org/perl/expression-summary.cgi?reporter=%s&amp;array=UCR_GILLMGMT_0_2K_V2" maxLength="40" tableConstraint="ox_ARRAY_UCR_GillMgMT_0_2K_v2__dm"/>
         <AttributeDescription displayName="Array Zebrafish leiden2" field="dbprimary_acc_1074" internalName="array_zfish_leiden2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ARRAY_ZFISH_LEIDEN2__dm"/>
         <AttributeDescription displayName="Array Zebrafish leiden3" field="dbprimary_acc_1074" internalName="array_zfish_leiden3" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ARRAY_ZFISH_LEIDEN3__dm"/>
-        <AttributeDescription displayName="Leiden Leiden2" field="dbprimary_acc_1074" internalName="leiden_leiden2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_LEIDEN_LEIDEN2__dm"/>
-        <AttributeDescription displayName="Leiden Leiden3" field="dbprimary_acc_1074" internalName="leiden_leiden3" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_LEIDEN_LEIDEN3__dm"/>
+        <AttributeDescription displayName="CATMA Arabidopsis" field="display_label_11056" internalName="catma_catma" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_CATMA_CATMA__dm"/>
         <AttributeDescription displayName="Codelink" field="dbprimary_acc_1074" internalName="codelink" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_CODELINK_CODELINK__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Illumina ID" field="dbprimary_acc_1074" internalName="illumina" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_illumina__dm"/>
-        <AttributeDescription displayName="Illumina v1" field="dbprimary_acc_1074" hidden="true" internalName="illumina_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_Illumina_V1__dm"/>
-        <AttributeDescription displayName="Illumina v2" field="dbprimary_acc_1074" hidden="true" internalName="illumina_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_Illumina_V2__dm"/>
+        <AttributeDescription displayName="Custom EST EMBL mmc1 20k v1 probe ID" field="display_label_11056" internalName="efg_custom_est_embl_mmc1_20k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_embl_mmc1_20k_v1__dm"/>
+        <AttributeDescription displayName="Custom EST EMBL mmc21 2k v1 probe ID" field="display_label_11056" internalName="efg_custom_est_embl_mmc2_12k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_embl_mmc2_12k_v1__dm"/>
+        <AttributeDescription displayName="Custom EST ND Tigrtc 9 6k v1 probe ID" field="display_label_11056" internalName="efg_custom_est_nd_tigrtc_9_6k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_nd_tigrtc_9_6k_v1__dm"/>
+        <AttributeDescription displayName="Custom EST UCR Gillmgmt_0 2k v2 probe ID" field="display_label_11056" internalName="efg_custom_est_ucr_gillmgmt_0_2k_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_ucr_gillmgmt_0_2k_v2__dm"/>
+        <AttributeDescription displayName="IGDB CAS v14 gene ID" field="dbprimary_acc_1074" internalName="igdbcas_v14_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_igdbcas_v14_gene__dm"/>
+        <AttributeDescription displayName="IGDB CAS v14 transcript ID" field="dbprimary_acc_1074" internalName="igdbcas_v14_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_igdbcas_v14_transcript__dm"/>
+        <AttributeDescription displayName="Illumina HumanWG 6 v1" field="display_label_11056" internalName="illumina_humanwg_6_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_ILLUMINA_HumanWG_6_V1__dm"/>
         <AttributeDescription displayName="Illumina HumanWG 6 v2" field="dbprimary_acc_1074" internalName="illumina_humanwg_6_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ILLUMINA_HumanWG_6_V2__dm"/>
         <AttributeDescription displayName="Illumina HumanWG 6 v3" field="dbprimary_acc_1074" internalName="illumina_humanwg_6_v3" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ILLUMINA_HumanWG_6_V3__dm"/>
+        <AttributeDescription displayName="Illumina Human HT 12" field="display_label_11056" internalName="illumina_humanht_12" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_ILLUMINA_HumanHT_12__dm"/>
         <AttributeDescription displayName="Illumina MouseWG 6 v1" field="dbprimary_acc_1074" internalName="illumina_mousewg_6_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ILLUMINA_MouseWG_6_V1__dm"/>
         <AttributeDescription displayName="Illumina MouseWG 6 v2" field="dbprimary_acc_1074" internalName="illumina_mousewg_6_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ILLUMINA_MouseWG_6_V2__dm"/>
+        <AttributeDescription displayName="Illumina ID" field="dbprimary_acc_1074" internalName="illumina" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_illumina__dm"/>
+        <AttributeDescription displayName="Illumina v1" field="dbprimary_acc_1074" hidden="true" internalName="illumina_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_Illumina_V1__dm"/>
+        <AttributeDescription displayName="Illumina v2" field="dbprimary_acc_1074" hidden="true" internalName="illumina_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_Illumina_V2__dm"/>
+        <AttributeDescription displayName="ITAG gene ID" field="dbprimary_acc_1074" internalName="itag_gene" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_itag_gene__dm"/>
+        <AttributeDescription displayName="Leiden Leiden2" field="dbprimary_acc_1074" internalName="leiden_leiden2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_LEIDEN_LEIDEN2__dm"/>
+        <AttributeDescription displayName="Leiden Leiden3" field="dbprimary_acc_1074" internalName="leiden_leiden3" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_LEIDEN_LEIDEN3__dm"/>
+        <AttributeDescription displayName="Nimblegen ND 65k v1 ID" field="display_label_11056" internalName="nimblegen_nd_65k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_nimblegen_nd_65k_v1__dm"/>
+        <AttributeDescription displayName="NSF Rice BGIYale" field="display_label_11056" internalName="NSF_BGIYale" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_BGIYale__dm"/>
+        <AttributeDescription displayName="NSF Rice NSF20K" field="display_label_11056" internalName="NSF_NSF20K" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_NSF20K__dm"/>
+        <AttributeDescription displayName="NSF Rice NSF45K" field="display_label_11056" internalName="NSF_NSF45K" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_NSF45K__dm"/>
         <AttributeDescription displayName="Phalanx OneArray" field="dbprimary_acc_1074" internalName="phalanx_onearray" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_PHALANX_OneArray__dm"/>
-        <AttributeDescription displayName="Custom Platypus exon" field="dbprimary_acc_1074" internalName="custom_platypus_exon" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_CUSTOM_platypus_exon__dm"/>
-        <AttributeDescription displayName="Affy Porcine" field="display_label_11056" internalName="affy_porcine" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_Porcine__dm"/>
-        <AttributeDescription displayName="Affy Platypus" field="display_label_11056" internalName="affy_platypus" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_platypus_exon__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Illumina HumanWG 6 v1" field="display_label_11056" internalName="illumina_humanwg_6_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_ILLUMINA_HumanWG_6_V1__dm"/>
-        <AttributeDescription displayName="Illumina Human HT 12" field="display_label_11056" internalName="illumina_humanht_12" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_ILLUMINA_HumanHT_12__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Affy maize ID" field="display_label_11056" internalName="affy_maize" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_maize__dm"/>
-        <AttributeDescription hidden="true" checkForNulls="true" displayName="go_to_transcript ID" field="dbprimary_acc_1074" internalName="go_to_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_go_to_transcript__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="IGDB CAS v14 gene ID" field="dbprimary_acc_1074" internalName="igdbcas_v14_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_igdbcas_v14_gene__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="IGDB CAS v14 transcript ID" field="dbprimary_acc_1074" internalName="igdbcas_v14_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_igdbcas_v14_transcript__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="ITAG gene ID" field="dbprimary_acc_1074" internalName="itag_gene" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_itag_gene__dm"/>
-        <AttributeDescription hidden="true" checkForNulls="true" displayName="PO (Gene) ID" field="dbprimary_acc_1074" internalName="po_to_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_po_to_gene__dm"/>
-        <AttributeDescription hidden="true" checkForNulls="true" displayName="PO (Transcript) ID" field="dbprimary_acc_1074" internalName="po_to_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_po_to_transcript__dm"/>
+        <AttributeDescription displayName="WUSTL C. elegans ID" field="display_label_11056" internalName="wustl_wustl_c_elegans" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_wustl_wustl_c_elegans__dm"/>
       </AttributeCollection>
     </AttributeGroup>
     <!--
@@ -6933,53 +6985,38 @@
     <AttributeGroup displayName="SOMATIC VARIATION INFORMATION:" internalName="gene_somatic">
       <AttributeCollection displayName="Variation" internalName="somaticatts">
         <AttributeDescription displayName="Variant Source" field="name_2021" internalName="somatic_source_name" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="name_2021" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="Source description" field="description_2021" internalName="somatic_source_description" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="description_2021" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="Reference ID" field="name_2025" internalName="somatic_reference_id" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="100" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="name_2025" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription description="Snp Allele" displayName="Allele" field="allele_string_2026" internalName="somatic_allele" key="transcript_id_1064_key" maxLength="15" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="allele_string_2026" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="Validation status" field="validation_status_2026" internalName="somatic_validated" key="transcript_id_1064_key" maxLength="40" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="validation_status_2026" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="Mapweight" field="map_weight_2026" internalName="somatic_mapweight" key="transcript_id_1064_key" maxLength="5" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="map_weight_2026" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="fpcctg name" field="fpcctg_name" hidden="false" internalName="somatic_fpcctg_name" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="fpcctg_name" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
       </AttributeCollection>
       <AttributeCollection displayName="Variation Location" internalName="somaticloacatts">
         <AttributeDescription description="Start of SNP on Transcript in Chromosomal Coordinates" displayName="Transcript location (bp)" field="cdna_start_2076" internalName="somatic_transcript_location" key="transcript_id_1064_key" maxLength="10" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="cdna_start_2076" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription description="Orientation of the SNP on the Transcript" displayName="Variation Chromosome Strand" field="seq_region_strand_2026" internalName="somatic_snp_chromosome_strand" key="transcript_id_1064_key" maxLength="4" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="seq_region_strand_2026" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription description="Location of the SNP in the peptide" displayName="Protein location (aa)" field="translation_start_2076" internalName="somatic_peptide_location" key="transcript_id_1064_key" maxLength="10" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="translation_start_2076" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription description="Start of the SNP on the Chromosome in Chromosomal Coordinates" displayName="Chromosome Location (bp)" field="seq_region_start_2026" internalName="somatic_chromosome_location" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?c=%s:%s;w=1000|chromosome_name|chromosome_location" maxLength="20" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="seq_region_start_2026" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
       </AttributeCollection>
       <AttributeCollection displayName="Gene Location and Effect " internalName="gene_loc_eff_atts">
         <AttributeDescription displayName="Protein Allele" field="peptide_allele_string_2076" internalName="somatic_peptide_shift" key="transcript_id_1064_key" maxLength="100" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="peptide_allele_string_2076" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="Consequence Type (Transcript Variation)" field="mart_consequence_type_2076" hidden="false" internalName="somatic_synonymous_status" key="transcript_id_1064_key" maxLength="8" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="mart_consequence_type_2076" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="CDS Start" field="cds_start_2076" internalName="somatic_cds_start_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="cds_start_2076" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
         <AttributeDescription displayName="CDS End" field="cds_end_2076" internalName="somatic_cds_end_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation_som__dm">
-          <SpecificAttributeContent field="cds_end_2076" internalName="hsapiens_gene" key="transcript_id_1064_key" tableConstraint="mart_transcript_variation_som__dm"/>
         </AttributeDescription>
       </AttributeCollection>
     </AttributeGroup>
