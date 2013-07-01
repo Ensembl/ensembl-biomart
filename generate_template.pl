@@ -234,25 +234,24 @@ sub write_template_xml {
     my $exportables_link_text='';
     my $poly_attrs_text = '';
     foreach my $dataset (@$datasets) {
-	print "Generating elems for ".$dataset->{dataset};
-	print Dumper($dataset);
-	$datasets_text .= get_dataset_element($dataset);
-	$exportables_text .= get_dataset_exportable($dataset);
-	$exportables_link_text .= get_dataset_exportable_link($dataset);
-	$homology_filters_text .= get_dataset_homolog_filter($dataset);
-	$homology_filters_text .= get_dataset_paralog_filter($dataset);
-	$homology_attributes_text .= get_dataset_homolog_attribute($dataset);
-	$paralogy_attributes_text .= get_dataset_paralog_attribute($dataset);
-   }
+      print "Generating elems for ".$dataset->{dataset};
+      $datasets_text .= get_dataset_element($dataset);
+      $exportables_text .= get_dataset_exportable($dataset);
+      $exportables_link_text .= get_dataset_exportable_link($dataset);
+      $homology_filters_text .= get_dataset_homolog_filter($dataset);
+      $homology_filters_text .= get_dataset_paralog_filter($dataset);
+      $homology_attributes_text .= get_dataset_homolog_attribute($dataset);
+      $paralogy_attributes_text .= get_dataset_paralog_attribute($dataset);
+    }
     my %placeholders = (
-	'.*<Replace id="datasets"/>'=>$datasets_text,
-	'.*<Replace id="homology_filters"/>'=>$homology_filters_text,
-	'.*<Replace id="homology_attributes"/>'=>$homology_attributes_text,
-	'.*<Replace id="paralogy_attributes"/>'=>$paralogy_attributes_text,
-	'.*<Replace id="exportables"/>'=>$exportables_text,
-	'.*<Replace id="exportables_link"/>'=>$exportables_link_text,
-	'.*<Replace id="poly_attrs"/>'=>$poly_attrs_text
-	);
+    '.*<Replace id="datasets"/>'=>$datasets_text,
+    '.*<Replace id="homology_filters"/>'=>$homology_filters_text,
+    '.*<Replace id="homology_attributes"/>'=>$homology_attributes_text,
+    '.*<Replace id="paralogy_attributes"/>'=>$paralogy_attributes_text,
+    '.*<Replace id="exportables"/>'=>$exportables_text,
+    '.*<Replace id="exportables_link"/>'=>$exportables_link_text,
+    '.*<Replace id="poly_attrs"/>'=>$poly_attrs_text
+    );
     write_replace_file($template_template_file,"$outdir/template.xml",\%placeholders);
     `gzip -c $outdir/template.xml > $outdir/template.xml.gz`;
 }
