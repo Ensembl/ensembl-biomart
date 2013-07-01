@@ -32,6 +32,8 @@ my $db_pwd = 'writ3rp1';
 my $mart_db;
 my $compara_db;
 my $dataset_name;
+my $limit_species;
+
 sub usage {
     print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-p <pwd>] [-mart <mart>] [-compara <compara db>]\n";
     print "-h <host> Default is $db_host\n";
@@ -51,6 +53,7 @@ my $options_okay = GetOptions (
 			       "mart=s"=>\$mart_db,
 			       "compara=s"=>\$compara_db,
 			       "dataset=s"=>\$dataset_name,
+			       "species=s"=>\$limit_species,
 			       "help"=>sub {usage()}
     );
 
@@ -171,6 +174,7 @@ my $get_species_clade_sth = $mart_handle->prepare('select src_dataset from datas
 my @datasets = defined($dataset_name)?($dataset_name):get_dataset_names($mart_handle);
 for my $dataset (@datasets) {
     my $ds_name_sql = get_sql_name_for_dataset($mart_handle,$dataset);
+    next if (defined $limit_species && $ds_name_sql ne $limit_species);
     my $ds_name_full = get_species_name_for_dataset($mart_handle,$dataset);
     $logger->info("Processing $dataset for $ds_name_full/$ds_name_sql");
     for my $table_type (('gene','transcript','translation')) {

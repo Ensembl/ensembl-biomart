@@ -34,6 +34,7 @@ my $mart_db;
 my $release;
 my $dataset_basename = 'gene';
 my $dataset;
+my $limit_species;
 
 sub usage {
     print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-p <pwd>] [-mart <mart db>] [-release <e! release>] [-dataset_basename <basename>]\n";
@@ -56,6 +57,7 @@ my $options_okay = GetOptions (
     "release=i"=>\$release,
     "dataset_basename=s"=>\$dataset_basename,
     "dataset=s"=>\$dataset,
+    "species=s"=>\$limit_species,
     "help"=>sub {usage()}
     );
 
@@ -75,8 +77,7 @@ Bio::EnsEMBL::Registry->load_registry_from_db(
     -user       => $db_user,
     -pass       => $db_pwd,
     -port       => $db_port,
-    -db_version => $release,
-    -verbose => $verbose);
+    -db_version => $release);
 
 # get hash of datasets and sql names
 my @datasets = get_dataset_names($mart_handle);
@@ -89,6 +90,7 @@ for my $dataset (@datasets) {
 
 	my $ds_base = $dataset . '_' . $dataset_basename;
 	my $species_name = get_sql_name_for_dataset( $mart_handle, $dataset );
+	next if (defined $limit_species && $species_name ne $limit_species);
 
 	print "Updating $ds_base ($species_name)\n";
 
