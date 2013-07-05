@@ -1,0 +1,991 @@
+<?xml version="1.0"?>
+
+<!--
+
+  Ant build file for the martj tree.
+
+  see:
+  <a href="http://jakarta.apache.org/ant">Ant Project Homepage</a>
+  <a href="http://home.wxs.nl/~ajkuiper/ant.html">Ant User Manual</a>
+  <a href="http://jakarta.apache.org/builds/tomcat/nightly/ant.zip">Download</a>
+
+  targets:
+
+    run ant -projecthelp to see list of targets.
+
+
+  dependencies:
+    
+    junit.jar             needed to run regression tests
+    xalan.jar             needed to make html regression test results
+    optional.jar          needed for ant to use junit.ar and xalan.jar
+                          (should be in ANT_HOME/lib)
+
+  author:  Michael Heuer, modified by Keith James (JUnit support), modified
+           Greg Cox (fixed documentation), modified by Craig Melsopp
+           (configured for ensembl-java project and then martj.)
+  version: $Id: build.xml,v 1.79.2.2 2009-04-17 20:39:07 syed Exp $
+
+  portions Copyright (c) 1999-2000 The Apache Software Foundation.
+
+-->
+
+<project default="compile" basedir=".">
+
+
+    <property name="name" value="martj" />
+    <property name="version" value="0.7" />
+    <property name="build.name" value="${name}-${version}" />
+    <property name="build.compiler" value="modern" />
+    <property name="build.deprecation" value="false" />
+
+    <!-- Save the current system classpath to pass to forked VMs -->
+    <property name="env.classpath" value="${java.class.path}" />
+    <property name="readme" value="README" />
+    <property name="license" value="LICENSE" />
+    <property name="install" value="INSTALL" />
+    <property name="acknowledgements" value="ACKNOWLEDGEMENTS" />
+    <property name="announce" value="ANNOUNCE" />
+    <property name="mqlexamples" value="MQLEXAMPLES" />
+    <property name="knownissues" value="KNOWNISSUES" />
+    <property name="buildfile" value="build.xml" />
+    <property name="spy.properties" value="spy.properties" />
+    <property name="jre.dir" value="./jre" />
+    <property name="src.dir" value="./src/java" />
+    <property name="data.dir" value="./data" />
+    <property name="manifest.file" value="${data.dir}/defaultmanifest.txt" />
+    <property name="packages" value="org.*" />
+    <property name="bin.dir" value="./bin" />
+    <property name="lib.dir" value="./lib" />
+    <property name="docs.dir" value="./docs" />
+    <property name="api.dir" value="${docs.dir}/api" /> 
+
+    <property name="build.dir" value="./build" />
+    <property name="build.classes" value="${build.dir}/classes" />
+    <property name="reports.dir" value="./reports" />
+    <property name="reports.tests" value="${reports.dir}/tests" />
+    <property name="dist.root" value="./dist" />
+    <property name="dist.dir" value="${dist.root}/${build.name}"    />
+
+
+
+    <!-- classpath set to include jars -->
+    <fileset id="lib.classpath" dir="${lib.dir}" >
+        <include name="activation.jar" />
+        <include name="dsn.jar" />
+        <include name="imap.jar" />
+        <include name="mailapi.jar" />
+        <include name="pop3.jar" />
+        <include name="smtp.jar" />
+        <include name="ecp1_0beta.jar" />
+        <include name="ensj.jar" />
+        <include name="ensj-util.jar" />
+        <include name="java-getopt-1.0.9.jar" />
+        <include name="jaf-1_1-fr.jar" />
+        <include name="jdbc2_0-stdext.jar" />
+        <include name="jdom.jar" />
+        <include name="junit.jar" />
+        <include name="jython.jar" />
+        <include name="libreadline-java.jar" />
+        <include name="log4j-1.2.6.jar" />
+        <include name="mysql-connector-java-3.1.14-bin.jar" />
+        <include name="postgresql-8.3-604.jdbc3.jar"/>
+        <include name="optional.jar" />
+        <include name="xalan.jar" />
+        <include name="p6spy.jar" />
+        <include name="ojdbc14.jar" />
+       <include name="jline.jar" />
+    </fileset>
+
+    <!-- patternsets to use in various zip and tar filesets during the dist-* targets -->
+
+    <!-- distribution files -->
+    <patternset id="dist.files" >
+        <include name="${readme}" />
+        <include name="${license}" />
+        <include name="${install}" />
+        <include name="${buildfile}" />
+        <include name="${acknowledgements}" />
+        <include name="${announce}" />
+        <include name="${mqlexamples}" />
+        <include name="${knownissues}" />
+        <include name="${spy.properties}" />
+        <include name="example*.xml" />
+    </patternset>
+
+    <!-- binary distribution jars -->
+    <patternset id="dist.bin.jars" >
+        <include name= "*.jar" />  
+    </patternset>
+
+    <!-- test distribution jars -->
+    <patternset id="dist.test.jars" >
+        <include name= "*.jar" />
+    </patternset>
+
+    <!-- readline platform dependant libraries -->
+    <patternset id="readline.libs" >
+        <include name="alpha/**" />
+        <include name="linux/**" />
+        <include name="macosx/**" />
+    </patternset>
+
+    <!-- binary distribution data files -->
+    <patternset id="dist.bin.data" >
+        <include name="**" />
+        <exclude name="*.conf" />
+        <exclude name="xmltest/**" />
+    </patternset>
+
+    <!-- test distribution data files -->
+    <patternset id="dist.test.data" >
+        <include name="xmltest/**" />
+    </patternset>
+
+    <!-- Prepend library files to front of classpath -->
+    <property name="build.classpath" value="last"/>
+
+    <target name="init">
+
+        <tstamp >
+            <format property="TODAY_UK" pattern="yyyy-MM-d-HH-mm" locale="en"/>
+            <format property="TODAY_UK_LONG" pattern="d MMM yyyy H:mm a" locale="en"/>
+            <format property="TODAY_TIME" pattern="HH-mm" locale="en"/>
+        </tstamp>
+
+    </target>
+
+
+
+    <target name="all" depends="clean, jar, api, dist-all"
+        description="Cleans, compiles and creates distribution files.">
+
+    </target>
+
+    <!-- Creates directories for build and dist. -->
+    <target name="prepare">
+        <mkdir dir="${api.dir}" />
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${build.classes}" />
+        <mkdir dir="${dist.root}" />
+        <mkdir dir="${dist.dir}" />
+    
+        <mkdir dir="${reports.dir}" />
+        <mkdir dir="${reports.tests}" />
+    </target>
+
+
+
+    <target name="clean" 
+        description="Removes generated directories and files."
+        >
+
+        <delete dir="${api.dir}" />
+
+        <delete dir="${build.dir}" />
+        <delete dir="${dist.root}" />
+        <delete dir="${reports.dir}" />
+
+    </target>
+
+    <!-- Compiles the source directory -->
+    <target name="compile" depends="prepare"
+        description="Compiles java files."
+        >
+
+        <javac
+            srcdir="${src.dir}"
+            destdir="${build.classes}"
+            deprecation="${build.deprecation}"
+            depend="no"
+            debug="true"
+            source="1.5"
+            >
+            <classpath>
+                <fileset refid="lib.classpath"/>
+            </classpath>
+        </javac>
+
+        <copy
+        todir="${build.classes}/org/biomart/common/resources">
+        	<fileset dir="${src.dir}/org/biomart/common/resources/" casesensitive="yes">
+        	  <exclude name="**/*.java"/>
+        	</fileset>
+        </copy>
+
+        <copy
+        todir="${build.classes}/org/biomart/builder/resources">
+        	<fileset dir="${src.dir}/org/biomart/builder/resources/" casesensitive="yes">
+        	  <exclude name="**/*.java"/>
+        	</fileset>
+        </copy>
+
+        <copy
+        todir="${build.classes}/org/biomart/runner/resources">
+        	<fileset dir="${src.dir}/org/biomart/runner/resources/" casesensitive="yes">
+        	  <exclude name="**/*.java"/>
+        	</fileset>
+        </copy>
+    </target>
+
+    <!-- Checks that whole of cvs module compiles with just it's
+    contents and the available jar files. 
+
+    Exports contents of cvs module before compiling "src/" to
+    "classes/". Relies on all supporting jars being available in
+    "${lib.dir}". The classpath is set to empty to avoid accidentally
+    using previously compiled classes or source files.
+
+    Tricks to get javac to ignore classpath: (1)
+    build.sysclasspath=ignore, (2) javac.classpath=dest
+
+    -->
+    <target name="export-build" 
+        description="Performs a fresh, temporary, cvs check-out and compiles.">
+
+        <property name="package" value="martj" />
+        <property name="destination" value="/tmp" />
+        <property name="root" value="${destination}/${package}" />
+        <property name="build.sysclasspath" value="ignore"/>
+
+        <delete dir="${root}"/>
+    
+        <echo message="================================"/>
+        <echo message="ENTER CVS PASSWORD IF NEEDED ..."/>
+
+        <cvs command="-q export -D tomorrow" package="${package}" dest="${destination}" />
+
+
+        <mkdir dir="${root}/classes" />
+    
+
+        <javac
+        srcdir="${root}/src"
+        classpath="${root}/classes"
+        destdir="${root}/classes"
+        extdirs="${lib.dir}"
+        deprecation="false"
+        depend="no"
+        debug="true"
+        source="1.5"
+        />
+
+    </target>
+
+    <target name="jar" depends="compile"
+        description="Creates martj.jar in 'build' directory."
+        >
+
+        <jar
+            jarfile="${build.dir}/${name}.jar"
+            basedir="${build.classes}"
+            includes="org/**">
+            <fileset dir=".">
+                <include name="data/**" />
+                <exclude name="*~" />
+                <exclude name="**/CVS/**" />
+                <exclude name="**/*Test*" />
+                <exclude name="data/examples/**" />
+            </fileset>
+        </jar>
+            
+    </target>
+
+
+    <!-- Runs tests if the Ant optional JUnit support is available -->
+    <target name="test" depends="init, compile"
+        description="Runs regression tests and produces html output."
+        >
+
+        <junit printsummary="yes" haltonfailure="no" dir="${reports.tests}">
+            <formatter type="xml" />
+
+            <classpath>
+                <pathelement path=".:${build.classes}" />
+                <fileset refid="lib.classpath" />
+            </classpath>
+
+            <!-- The junit task doesn't support 'if' so we test for JUnit here -->
+            <batchtest fork="yes" todir="${reports.tests}">
+                <fileset dir="${build.classes}">
+                    <include name="**/*Test*" />
+                </fileset>
+            </batchtest>
+        </junit>
+
+        <junitreport todir="${reports.tests}">
+            <fileset dir="${reports.tests}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${reports.tests}/html"/>
+        </junitreport>
+
+    </target>
+
+    <target name="dist-clean"
+        description="Removes directories and files from the distribution directory before a new dist target build."
+        >
+
+        <delete dir="${dist.dir}" />
+
+    </target>
+
+    <!-- cleans, creates, and fills dist directory tree -->
+    <target name="prepare-dist" depends="dist-clean">
+      
+        <mkdir dir="${dist.dir}" />
+
+        <copy todir="${dist.dir}/lib" >
+            <fileset refid="lib.classpath"/>
+        </copy>
+
+        <copy todir="${dist.dir}/lib/" >
+            <fileset dir="${lib.dir}">
+                <patternset refid="readline.libs" />
+            </fileset> 
+        </copy>
+   
+        <copy todir="${dist.dir}/data">
+            <fileset dir="${data.dir}">
+                <include name="**/*"/>
+                <exclude name="**/*test_connection*"/>
+                <exclude name="**/CVS/**"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${dist.dir}">
+            <fileset dir="./">
+                <patternset refid="dist.files"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${dist.dir}/${src.dir}">
+            <fileset  dir="${src.dir}" >
+                <exclude name="**/*.dfPackage"/>
+                <exclude name="**/?akefile"/>
+                <exclude name="**/*.tpr"/>
+                <exclude name="**/*.tws"/>
+                <exclude name="**/TAGS"/>
+                <exclude name="**/CVS/**"/>
+            </fileset>
+
+        </copy>
+
+    </target>
+
+    <!-- creates all distribution sets -->
+    <target name="dist-all" depends="dist-bin, dist-test, dist-src, dist-api" 
+    description="Build all file sets for distribution." />
+
+    <!-- creates the dist-bin distribution set -->
+    <target name="dist-bin" 
+        description="Creates the dist-bin distribution set"
+        depends="jar, prepare-dist">
+
+        <copy file="${build.dir}/${name}.jar" todir="${dist.dir}/lib" />
+
+        <!-- copy the bat and shell martshell startup scripts -->
+        <copy todir="${dist.dir}/bin">
+			<fileset dir="${bin.dir}" casesensitive="yes">
+		  		<include name="*.sh"/>
+			  	<include name="*.bat"/>
+    			<exclude name="**/CVS" />
+			</fileset>
+        </copy>
+
+		<condition property="isMacOS">
+	    <os family="mac"/>
+	 	</condition>
+	 	<antcall target="doMacOS"/>
+		            
+        <tar destfile="${build.dir}/${name}-bin.tar">
+            <!-- distribution files -->
+            <tarfileset dir="${dist.dir}"
+                prefix="${build.name}"
+                preserveLeadingSlashes="true">
+                <patternset refid="dist.files"/>
+            </tarfileset>
+
+            <!-- bin/*.sh with correct unix file mode -->
+            <tarfileset dir="${dist.dir}"
+                prefix="${build.name}"
+                mode="755"
+                preserveLeadingSlashes="true">
+                <include name="**/bin/*.sh"/>
+            </tarfileset>
+
+            <!-- bin/martshell.bat -->
+            <tarfileset dir="${dist.dir}"
+                prefix="${build.name}"
+                preserveLeadingSlashes="true">
+                <include name="**/bin/*.bat"/>
+            </tarfileset>
+        
+            <!-- dist.bin.jars -->    
+            <tarfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib"
+                preserveLeadingSlashes="true">
+                <patternset refid="dist.bin.jars"/>
+            </tarfileset>
+
+            <!-- readline.libs -->
+            <tarfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib"
+                preserveLeadingSlashes="true">
+                <patternset refid="readline.libs"/>
+            </tarfileset>
+
+            <!-- dist.bin.data -->
+            <tarfileset dir="${dist.dir}/${data.dir}"
+                prefix="${build.name}/data"
+                preserveLeadingSlashes="true">
+                <patternset refid="dist.bin.data"/>
+            </tarfileset>
+         
+        </tar>
+        <gzip zipfile="${build.dir}/${name}-bin.tgz" src="${build.dir}/${name}-bin.tar" />
+        <delete file="${build.dir}/${name}-bin.tar"/>
+
+        <zip destfile="${build.dir}/${name}-bin.zip" >
+            <!-- distribution files -->
+            <zipfileset dir="${dist.dir}" prefix="${build.name}">
+                <patternset refid="dist.files"/>
+            </zipfileset>
+
+            <!-- bin/martshell.bat -->
+            <zipfileset dir="${dist.dir}"
+                prefix="${build.name}">
+                <include name="**/bin/*.bat"/>
+            </zipfileset>
+        
+            <!-- dist.bin.jars -->    
+            <zipfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib">
+                <patternset refid="dist.bin.jars"/>
+            </zipfileset>
+
+            <!-- readline.libs -->
+            <zipfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib">
+                <patternset refid="readline.libs"/>
+            </zipfileset>
+
+            <!-- dist.bin.data -->
+            <zipfileset dir="${dist.dir}/${data.dir}"
+                prefix="${build.name}/data">
+                <patternset refid="dist.bin.data"/>
+            </zipfileset>
+
+        </zip>
+    </target>
+    
+		<!-- creates the BioMartLauncher.app -->
+   		<target name="doMacOS" if="isMacOS">
+		<taskdef name="jarbundler" 
+      	   classname="net.sourceforge.jarbundler.JarBundler"/>	    
+        <mkdir dir="${dist.dir}/dmg" />
+        <mkdir dir="${dist.dir}/dmg/bin"/>
+                <taskdef name="jarbundler"
+           classname="net.sourceforge.jarbundler.JarBundler"/>
+                <jarbundler dir="${dist.dir}/dmg/bin"
+            name="MartBuilder"
+            mainclass="org.biomart.builder.view.gui.MartBuilder">
+            <jarfileset dir="${dist.dir}/${lib.dir}">
+                        <include name="**/*.jar" />
+                        <exclude name="**/CVS" />
+                        </jarfileset>
+                        <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
+        </jarbundler>
+               <jarbundler dir="${dist.dir}/dmg/bin"
+            name="MartEditor"
+            mainclass="org.ensembl.mart.editor.MartEditor">
+            <jarfileset dir="${dist.dir}/${lib.dir}">
+                        <include name="**/*.jar" />
+                        <exclude name="**/CVS" />
+                        </jarfileset>
+                        <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
+        </jarbundler>
+    <jarbundler dir="${dist.dir}/dmg/bin"
+            name="MartExplorer"
+            mainclass="org.ensembl.mart.explorer.MartExplorer">
+            <jarfileset dir="${dist.dir}/${lib.dir}">
+                        <include name="**/*.jar" />
+                        <exclude name="**/CVS" />
+                        </jarfileset>
+                        <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
+        </jarbundler>
+            <!-- bin/*.sh with correct unix file mode -->
+        <copy todir="${dist.dir}/dmg/bin">
+			<fileset dir="${bin.dir}" casesensitive="yes">
+		  		<include name="martshell.sh"/>
+    			<exclude name="**/CVS" />
+			</fileset>
+        </copy>
+        <rename src="${dist.dir}/dmg/bin/martshell.sh" dest="${dist.dir}/dmg/bin/martshell.command"/>
+        <chmod perm="755" file="${dist.dir}/dmg/bin/martshell.command"/>
+        
+            <mkdir dir="${dist.dir}/dmg/lib"/>
+        <copy todir="${dist.dir}/dmg/lib">
+			<fileset dir="${dist.dir}/${lib.dir}" casesensitive="yes">
+                <patternset refid="dist.bin.jars"/>
+			</fileset>
+        </copy>
+        <copy todir="${dist.dir}/dmg/lib">
+			<fileset dir="${dist.dir}/${lib.dir}" casesensitive="yes">
+                <patternset refid="readline.libs"/>
+			</fileset>
+        </copy>
+            <mkdir dir="${dist.dir}/dmg/data"/>
+        <copy todir="${dist.dir}/dmg/data">
+			<fileset dir="${dist.dir}/${data.dir}" casesensitive="yes">
+                <patternset refid="dist.bin.data"/>
+			</fileset>
+        </copy>        
+        <delete file="${build.dir}/${name}-bin.dmg" />
+    <exec executable="/usr/bin/hdiutil">
+      <arg value="create"/>
+      <arg value="-srcfolder"/>
+      <arg value="${dist.dir}/dmg"/>
+      <arg value="-volname"/>
+      <arg value="${name} ${version}"/>
+      <arg value="-ov"/>
+      <arg value="${build.dir}/${name}-bin.dmg"/>
+    </exec>
+    <exec executable="/usr/bin/hdiutil">
+      <arg value="internet-enable"/>
+      <arg value="-yes"/>
+      <arg value="${build.dir}/${name}-bin.dmg"/>
+    </exec>
+		</target>
+
+    <!-- copies all JRE versions of the shell and bat scripts, renaming to make it easier to find -->
+    <target name="prepare-jre-dist" description="copies JRE versions of shell and bat scripts as normal versions" >
+
+        <copy file="${bin.dir}/martshell_JRE.bat" tofile="${dist.dir}/bin/martshell.bat" />
+        <copy file="${bin.dir}/martshell_JRE.sh" tofile="${dist.dir}/bin/martshell.sh" />
+        <copy file="${bin.dir}/martbuilder_JRE.bat" tofile="${dist.dir}/bin/martbuilder.bat" />
+        <copy file="${bin.dir}/martbuilder_JRE.sh" tofile="${dist.dir}/bin/martbuilder.sh" />
+        <copy file="${bin.dir}/martexplorer_JRE.bat" tofile="${dist.dir}/bin/martexplorer.bat" />
+        <copy file="${bin.dir}/martexplorer_JRE.sh" tofile="${dist.dir}/bin/martexplorer.sh" />
+        <copy file="${bin.dir}/simpleLibraryUsageExample_JRE.bat" tofile="${dist.dir}/bin/simpleLibraryUsageExample.bat" />
+        <copy file="${bin.dir}/simpleLibraryUsageExample_JRE.sh" tofile="${dist.dir}/bin/simpleLibraryUsageExample.sh" />
+        <copy file="${bin.dir}/marteditor_JRE.bat" tofile="${dist.dir}/bin/marteditor.bat" />
+        <copy file="${bin.dir}/marteditor_JRE.sh" tofile="${dist.dir}/bin/marteditor.sh" />
+        <copy file="${bin.dir}/martregistrydbtool_JRE.bat" tofile="${dist.dir}/bin/martregistrydbtool.bat" />
+        <copy file="${bin.dir}/martregistrydbtool_JRE.sh" tofile="${dist.dir}/bin/martregistrydbtool.sh" />
+
+
+
+
+    </target>
+
+    <!-- creates the dist-bin distribution set with linux jre  -->
+    <target name="dist-bin-jre-linux" 
+        description="Creates the dist-bin distribution set, with bundled jre for linux"
+        depends="jar, prepare-dist, prepare-jre-dist">
+
+        <copy file="${build.dir}/${name}.jar" todir="${dist.dir}/lib" />
+
+        <!-- delete the .bat files -->
+        <delete>
+            <fileset dir="${dist.dir}/bin" includes="**/*bat" />         
+        </delete>
+
+        <tar destfile="${build.dir}/${name}-bin-jre-linux.tar">
+            <!-- distribution files -->
+            <tarfileset dir="${dist.dir}"
+                prefix="${build.name}"
+                preserveLeadingSlashes="true">
+                <patternset refid="dist.files"/>
+            </tarfileset>
+        
+            <!-- linux jre -->
+            <tarfileset dir="${jre.dir}"
+                prefix="${build.name}/jre"
+                mode="755"
+                preserveLeadingSlashes="true">
+                <include name="**/linux/**/*"/>
+            </tarfileset>
+                    
+            <!-- bin/*.sh with correct unix file mode -->
+            <tarfileset dir="${dist.dir}"
+                prefix="${build.name}"
+                mode="755"
+                preserveLeadingSlashes="true">
+                <include name="**/bin/*.sh"/>
+            </tarfileset>
+
+            <!-- dist.bin.jars -->    
+            <tarfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib"
+                preserveLeadingSlashes="true">
+                <patternset refid="dist.bin.jars"/>
+            </tarfileset>
+
+            <!-- readline.libs -->
+            <tarfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib"
+                preserveLeadingSlashes="true">
+                <patternset refid="readline.libs"/>
+            </tarfileset>
+
+            <!-- dist.bin.data -->
+            <tarfileset dir="${dist.dir}/${data.dir}"
+                prefix="${build.name}/data"
+                preserveLeadingSlashes="true">
+                <patternset refid="dist.bin.data"/>
+            </tarfileset>
+         
+        </tar>
+        <gzip zipfile="${build.dir}/${name}-bin-jre-linux.tgz" src="${build.dir}/${name}-bin-jre-linux.tar" />
+        <delete file="${build.dir}/${name}-bin-jre-linux.tar"/>
+
+        <zip destfile="${build.dir}/${name}-bin-jre-linux.zip" >
+            <!-- distribution files -->
+            <zipfileset dir="${dist.dir}" prefix="${build.name}">
+                <patternset refid="dist.files"/>
+            </zipfileset>
+
+            <!-- linux jre -->
+            <zipfileset dir="${jre.dir}"  prefix="${build.name}/jre">
+                <include name="**/linux/**/*"/>        
+            </zipfileset>
+        
+            <!-- shell files with correct unix file mode -->
+            <zipfileset dir="${dist.dir}"  prefix="${build.name}">
+                <include name="**/bin/*.sh"/>
+            </zipfileset>
+
+            <!-- dist.bin.jars -->    
+            <zipfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib">
+                <patternset refid="dist.bin.jars"/>
+            </zipfileset>
+
+            <!-- readline.libs -->
+            <zipfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib">
+                <patternset refid="readline.libs"/>
+            </zipfileset>
+
+            <!-- dist.bin.data -->
+            <zipfileset dir="${dist.dir}/${data.dir}"
+                prefix="${build.name}/data">
+                <patternset refid="dist.bin.data"/>
+            </zipfileset>
+
+        </zip>
+    </target>
+
+    <!-- creates the dist-bin distribution set with windows jre  -->
+    <target name="dist-bin-jre-windows" 
+        description="Creates the dist-bin distribution set, with bundled jre for windows"
+        depends="jar, prepare-dist, prepare-jre-dist">
+
+        <copy file="${build.dir}/${name}.jar" todir="${dist.dir}/lib" />
+
+        <!-- delete the .sh files -->
+        <delete>
+            <fileset dir="${dist.dir}/bin" includes="**/*sh" />         
+        </delete>
+
+        <tar destfile="${build.dir}/${name}-bin-jre-windows.tar">
+            <!-- distribution files -->
+            <tarfileset dir="${dist.dir}"
+                prefix="${build.name}"
+                preserveLeadingSlashes="true">
+                <patternset refid="dist.files"/>
+            </tarfileset>
+        
+            <!-- windows jre -->
+            <tarfileset dir="${jre.dir}"
+                prefix="${build.name}/jre"
+                mode="755"
+                preserveLeadingSlashes="true">
+                <include name="**/windows/**/*"/>
+            </tarfileset>
+                    
+            <!-- bin/martshell.bat -->
+            <tarfileset dir="${dist.dir}"
+                prefix="${build.name}"
+                preserveLeadingSlashes="true">
+                <include name="**/bin/*.bat"/>
+            </tarfileset>
+        
+            <!-- dist.bin.jars -->    
+            <tarfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib"
+                preserveLeadingSlashes="true">
+                <patternset refid="dist.bin.jars"/>
+            </tarfileset>
+
+            <!-- readline.libs -->
+            <tarfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib"
+                preserveLeadingSlashes="true">
+                <patternset refid="readline.libs"/>
+            </tarfileset>
+
+            <!-- dist.bin.data -->
+            <tarfileset dir="${dist.dir}/${data.dir}"
+                prefix="${build.name}/data"
+                preserveLeadingSlashes="true">
+                <patternset refid="dist.bin.data"/>
+            </tarfileset>
+         
+        </tar>
+        <gzip zipfile="${build.dir}/${name}-bin-jre-windows.tgz" src="${build.dir}/${name}-bin-jre-windows.tar" />
+        <delete file="${build.dir}/${name}-bin-jre-windows.tar"/>
+
+        <zip destfile="${build.dir}/${name}-bin-jre-windows.zip" >
+            <!-- distribution files -->
+            <zipfileset dir="${dist.dir}" prefix="${build.name}">
+                <patternset refid="dist.files"/>
+            </zipfileset>
+
+            <!-- windows jre -->
+            <zipfileset dir="${jre.dir}"  prefix="${build.name}/jre">
+                <include name="**/windows/**/*"/>        
+            </zipfileset>
+        
+            <!-- bin/martshell.bat -->
+            <zipfileset dir="${dist.dir}"
+                prefix="${build.name}">
+                <include name="**/bin/*.bat"/>
+            </zipfileset>
+        
+            <!-- dist.bin.jars -->    
+            <zipfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib">
+                <patternset refid="dist.bin.jars"/>
+            </zipfileset>
+
+            <!-- readline.libs -->
+            <zipfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib">
+                <patternset refid="readline.libs"/>
+            </zipfileset>
+
+            <!-- dist.bin.data -->
+            <zipfileset dir="${dist.dir}/${data.dir}"
+                prefix="${build.name}/data">
+                <patternset refid="dist.bin.data"/>
+            </zipfileset>
+
+        </zip>
+    </target>
+
+    <!-- creates the dist-bin distribution set with alpha jre  -->
+    <target name="dist-bin-jre-alpha" 
+        description="Creates the dist-bin distribution set, with bundled jre for alpha"
+        depends="jar, prepare-dist, prepare-jre-dist">
+
+        <copy file="${build.dir}/${name}.jar" todir="${dist.dir}/lib" />
+
+        <!-- delete the .bat files -->
+        <delete>
+            <fileset dir="${dist.dir}/bin" includes="**/*bat" />         
+        </delete>
+
+        <tar destfile="${build.dir}/${name}-bin-jre-alpha.tar">
+            <!-- distribution files -->
+            <tarfileset dir="${dist.dir}"
+                prefix="${build.name}"
+                preserveLeadingSlashes="true">
+                <patternset refid="dist.files"/>
+            </tarfileset>
+        
+            <!-- alpha jre -->
+            <tarfileset dir="${jre.dir}"
+                prefix="${build.name}/jre"
+                mode="755"
+                preserveLeadingSlashes="true">
+                <include name="**/alpha/**/*"/>
+            </tarfileset>
+                    
+            <!-- bin/*.sh with correct unix file mode -->
+            <tarfileset dir="${dist.dir}"
+                prefix="${build.name}"
+                mode="755"
+                preserveLeadingSlashes="true">
+                <include name="**/bin/*.sh"/>
+            </tarfileset>
+
+            <!-- dist.bin.jars -->    
+            <tarfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib"
+                preserveLeadingSlashes="true">
+                <patternset refid="dist.bin.jars"/>
+            </tarfileset>
+
+            <!-- readline.libs -->
+            <tarfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib"
+                preserveLeadingSlashes="true">
+                <patternset refid="readline.libs"/>
+            </tarfileset>
+
+            <!-- dist.bin.data -->
+            <tarfileset dir="${dist.dir}/${data.dir}"
+                prefix="${build.name}/data"
+                preserveLeadingSlashes="true">
+                <patternset refid="dist.bin.data"/>
+            </tarfileset>
+         
+        </tar>
+        <gzip zipfile="${build.dir}/${name}-bin-jre-alpha.tgz" src="${build.dir}/${name}-bin-jre-alpha.tar" />
+        <delete file="${build.dir}/${name}-bin-jre-alpha.tar"/>
+
+        <zip destfile="${build.dir}/${name}-bin-jre-alpha.zip" >
+            <!-- distribution files -->
+            <zipfileset dir="${dist.dir}" prefix="${build.name}">
+                <patternset refid="dist.files"/>
+            </zipfileset>
+
+            <!-- alpha jre -->
+            <zipfileset dir="${jre.dir}"  prefix="${build.name}/jre">
+                <include name="**/alpha/**/*" />        
+            </zipfileset>
+        
+            <!-- shell files with correct unix file mode -->
+            <zipfileset dir="${dist.dir}"  prefix="${build.name}">
+                <include name="**/bin/*.sh"/>
+            </zipfileset>
+
+            <!-- dist.bin.jars -->    
+            <zipfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib">
+                <patternset refid="dist.bin.jars"/>
+            </zipfileset>
+
+            <!-- readline.libs -->
+            <zipfileset dir="${dist.dir}/${lib.dir}"
+                prefix="${build.name}/lib">
+                <patternset refid="readline.libs"/>
+            </zipfileset>
+
+            <!-- dist.bin.data -->
+            <zipfileset dir="${dist.dir}/${data.dir}"
+                prefix="${build.name}/data">
+                <patternset refid="dist.bin.data"/>
+            </zipfileset>
+
+        </zip>
+    </target>
+
+    <target name="dist-test" depends="prepare-dist">
+
+        <tar destfile="${build.dir}/${name}-test.tar">
+            <tarfileset dir="${dist.dir}/lib"
+                prefix="${build.name}/lib"
+                preserveLeadingSlashes="true" >
+                <patternset refid="dist.test.jars" />
+            </tarfileset>
+
+            <tarfileset dir="${dist.dir}/data"
+                prefix="${build.name}/data"
+                preserveLeadingSlashes="true" >
+                <patternset refid="dist.test.data" />
+            </tarfileset>
+        </tar>
+
+        <gzip zipfile="${build.dir}/${name}-test.tgz" src="${build.dir}/${name}-test.tar" />
+        <delete file="${build.dir}/${name}-test.tar"/>
+
+        <zip destfile="${build.dir}/${name}-test.zip" >
+            <zipfileset dir="${dist.dir}/lib"
+                prefix="${build.name}/lib" >
+                <patternset refid="dist.test.jars" />
+            </zipfileset>
+
+            <zipfileset dir="${dist.dir}/data"
+                prefix="${build.name}/data" >
+                <patternset refid="dist.test.data" />
+            </zipfileset>
+        </zip>
+
+    </target>
+
+
+    <target name="dist-src" depends="prepare-dist">
+
+        <tar destfile="${build.dir}/${name}-src.tar">
+            <tarfileset dir="${dist.dir}/src/java"
+                prefix="${build.name}/src/java"
+                preserveLeadingSlashes="true">
+                <include name="**"/>
+            </tarfileset>
+        </tar>
+        <gzip zipfile="${build.dir}/${name}-src.tgz" src="${build.dir}/${name}-src.tar" />
+        <delete file="${build.dir}/${name}-src.tar"/>
+
+        <zip destfile="${build.dir}/${name}-src.zip" >
+            <zipfileset dir="${dist.dir}/src/java" includes="**/*" prefix="${build.name}/src/java"/>
+        </zip>
+    </target>
+
+
+    <target name="dist-api" depends="api,prepare-dist">
+
+        <copy todir="${dist.dir}/docs" >
+            <fileset dir="${docs.dir}" />
+        </copy>
+
+        <tar destfile="${build.dir}/${name}-api.tar" >
+
+            <tarfileset dir="${dist.dir}/docs/api" 
+            prefix="${build.name}/docs/api" 
+            includes="**/*" />
+        </tar>
+
+        <gzip zipfile="${build.dir}/${name}-api.tgz" src="${build.dir}/${name}-api.tar" />
+        <delete file="${build.dir}/${name}-api.tar"/>
+
+        <zip destfile="${build.dir}/${name}-api.zip" >
+
+            <zipfileset dir="${dist.dir}/docs/api" prefix="${build.name}/docs/api" includes="**/*" />
+
+        </zip>
+
+    </target>
+
+
+
+    <target name="api" depends="prepare" 
+        description="Build javadocs.">
+
+        <javadoc 
+            sourcepath="${src.dir}"
+            packagenames="org.ensembl.mart.lib
+            ,org.ensembl.mart.lib.config"
+            destdir="${api.dir}"
+            author="true"
+            version="true"
+            use="true"
+            windowtitle="MartExplorer API"
+            source="1.4"
+            doctitle="MartExplorer API" >
+
+            <classpath>
+                <pathelement path="${build.classes}" />
+                <fileset refid="lib.classpath" />
+            </classpath>
+
+        </javadoc>    
+
+        <!-- insert some magic at the top of each javadoc page to prevent
+        the ensembl website from processing it and adding page borders. -->
+        <replace token="&lt;!DOCTYPE" 
+            value="&lt;!--#set var=&quot;decor&quot; value=&quot;none&quot;--&gt;&lt;!DOCTYPE"
+            dir="${api.dir}">
+            <include name="**/*.html"/>
+        </replace>
+
+    </target>
+
+
+
+</project>
+
+
+

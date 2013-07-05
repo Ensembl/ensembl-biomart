@@ -1,0 +1,161 @@
+<!--
+#
+#        Copyright (C) 2006 EBI
+# 
+#        This library is free software; you can redistribute it and/or
+#        modify it under the terms of the GNU Lesser General Public
+#        License as published by the Free Software Foundation; either
+#        version 2.1 of the License, or (at your option) any later version.
+# 
+#        This library is distributed in the hope that it will be useful,
+#        but WITHOUT ANY WARRANTY; without even the itmplied warranty of
+#        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#        Lesser General Public License for more details.
+# 
+#        You should have received a copy of the GNU Lesser General Public
+#        Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+# DTD for MartBuilder XML files
+# author: Richard Holland, <holland@ebi.ac.uk>
+# version $Revision: 1.20 $, $Date: 2007-04-30 16:28:51 $, modified by $Author: rh4 $
+# since: 0.1
+-->
+
+<!ELEMENT mart (jdbcSchema+,dataset*,relation*)>
+<!ATTLIST mart outputSchema CDATA #IMPLIED>
+<!ATTLIST mart outputHost CDATA #IMPLIED>
+<!ATTLIST mart outputPort CDATA #IMPLIED>
+
+<!ELEMENT jdbcSchema (table+,relation*)>
+<!ATTLIST jdbcSchema driverClassName CDATA #REQUIRED>
+<!ATTLIST jdbcSchema url CDATA #REQUIRED>
+<!ATTLIST jdbcSchema schemaName CDATA #REQUIRED>
+<!ATTLIST jdbcSchema username CDATA #REQUIRED>
+<!ATTLIST jdbcSchema password CDATA #IMPLIED>
+<!ATTLIST jdbcSchema name CDATA #REQUIRED>
+<!ATTLIST jdbcSchema keyguessing (true|false) #REQUIRED>
+<!ATTLIST jdbcSchema partitionRegex CDATA #IMPLIED>
+<!ATTLIST jdbcSchema partitionExpression CDATA #IMPLIED>
+
+<!ELEMENT relation EMPTY>
+<!ATTLIST relation id ID #REQUIRED>
+<!ATTLIST relation cardinality (1|M) #REQUIRED>
+<!ATTLIST relation firstKeyId IDREF #REQUIRED>
+<!ATTLIST relation secondKeyId IDREF #REQUIRED>
+<!ATTLIST relation status (HANDMADE|INFERRED|INFERRED_INCORRECT) #REQUIRED>
+
+<!ELEMENT table (column+,primaryKey?,foreignKey*)>
+<!ATTLIST table id ID #REQUIRED>
+<!ATTLIST table name CDATA #REQUIRED>
+
+<!ELEMENT column EMPTY>
+<!ATTLIST column id ID #REQUIRED>
+<!ATTLIST column name CDATA #REQUIRED>
+
+<!ELEMENT primaryKey EMPTY>
+<!ATTLIST primaryKey id ID #REQUIRED>
+<!ATTLIST primaryKey columnIds IDREFS #REQUIRED>
+<!ATTLIST primaryKey status (HANDMADE|INFERRED|INFERRED_INCORRECT) #REQUIRED>
+
+<!ELEMENT foreignKey EMPTY>
+<!ATTLIST foreignKey id ID #REQUIRED>
+<!ATTLIST foreignKey columnIds IDREFS #REQUIRED>
+<!ATTLIST foreignKey status (HANDMADE|INFERRED|INFERRED_INCORRECT) #REQUIRED>
+
+<!ELEMENT dataset (
+compoundRelation*,subclassRelation*,maskedColumn*,
+indexedColumn*,partitionedColumn*,maskedRelation*,maskedTable*,
+mergedRelation*,forcedRelation*,restrictedTable*,restrictedRelation*,
+expressionColumn*,directionalRelation*,renamedTable*,
+renamedColumn*,distinctRows*)>
+<!ATTLIST dataset name CDATA #REQUIRED>
+<!ATTLIST dataset centralTableId IDREF #REQUIRED>
+<!ATTLIST dataset optimiser (COLUMN|COLUMN_INHERIT|COLUMN_BOOL|COLUMN_BOOL_INHERIT|COLUMN_BOOL_NULL|COLUMN_BOOL_NULL_INHERIT|TABLE|TABLE_INHERIT|TABLE_BOOL|TABLE_BOOL_INHERIT|TABLE_BOOL_NULL|TABLE_BOOL_NULL_INHERIT|NONE) #REQUIRED>
+<!ATTLIST dataset indexOptimiser (true|false) #REQUIRED>
+<!ATTLIST dataset invisible (true|false) #REQUIRED>
+
+<!ELEMENT subclassRelation EMPTY>
+<!ATTLIST subclassRelation relationId IDREF #REQUIRED>
+
+<!ELEMENT compoundRelation EMPTY>
+<!ATTLIST compoundRelation tableKey CDATA #REQUIRED>
+<!ATTLIST compoundRelation relationId IDREF #REQUIRED>
+<!ATTLIST compoundRelation n CDATA #REQUIRED>
+<!ATTLIST compoundRelation parallel (true|false) #REQUIRED>
+
+<!ELEMENT directionalRelation EMPTY>
+<!ATTLIST directionalRelation tableKey CDATA #REQUIRED>
+<!ATTLIST directionalRelation relationId IDREF #REQUIRED>
+<!ATTLIST directionalRelation keyId IDREF #REQUIRED>
+
+<!ELEMENT renamedTable EMPTY>
+<!ATTLIST renamedTable tableKey CDATA #REQUIRED>
+<!ATTLIST renamedTable newName CDATA #REQUIRED>
+
+<!ELEMENT renamedColumn EMPTY>
+<!ATTLIST renamedColumn tableKey CDATA #REQUIRED>
+<!ATTLIST renamedColumn colKey CDATA #REQUIRED>
+<!ATTLIST renamedColumn newName CDATA #REQUIRED>
+
+<!ELEMENT maskedColumn EMPTY>
+<!ATTLIST maskedColumn tableKey CDATA #REQUIRED>
+<!ATTLIST maskedColumn colKey CDATA #REQUIRED>
+
+<!ELEMENT indexedColumn EMPTY>
+<!ATTLIST indexedColumn tableKey CDATA #REQUIRED>
+<!ATTLIST indexedColumn colKey CDATA #REQUIRED>
+
+<!ELEMENT partitionedColumn EMPTY>
+<!ATTLIST partitionedColumn tableKey CDATA #REQUIRED>
+<!ATTLIST partitionedColumn colKey CDATA #REQUIRED>
+<!ATTLIST partitionedColumn partitionType (valueList|valueRange) #IMPLIED>
+<!ATTLIST partitionedColumn rangeNames CDATA #IMPLIED>
+<!ATTLIST partitionedColumn rangeExpressions CDATA #IMPLIED>
+<!ATTLIST partitionedColumn valueNames CDATA #IMPLIED>
+<!ATTLIST partitionedColumn valueValues CDATA #IMPLIED>
+
+<!ELEMENT maskedRelation EMPTY>
+<!ATTLIST maskedRelation tableKey CDATA #REQUIRED>
+<!ATTLIST maskedRelation relationId IDREF #REQUIRED>
+
+<!ELEMENT maskedTable EMPTY>
+<!ATTLIST maskedTable tableKey CDATA #REQUIRED>
+
+<!ELEMENT mergedRelation EMPTY>
+<!ATTLIST mergedRelation relationId IDREF #REQUIRED>
+
+<!ELEMENT forcedRelation EMPTY>
+<!ATTLIST forcedRelation tableKey CDATA #REQUIRED>
+<!ATTLIST forcedRelation relationId IDREF #REQUIRED>
+
+<!ELEMENT distinctRows EMPTY>
+<!ATTLIST distinctRows tableKey CDATA #REQUIRED>
+
+<!ELEMENT restrictedTable EMPTY>
+<!ATTLIST restrictedTable tableKey CDATA #REQUIRED>
+<!ATTLIST restrictedTable tableId IDREF #REQUIRED>
+<!ATTLIST restrictedTable aliasRelationIds IDREFS #REQUIRED>
+<!ATTLIST restrictedTable aliasColumnIds IDREFS #REQUIRED>
+<!ATTLIST restrictedTable aliasNames CDATA #REQUIRED>
+<!ATTLIST restrictedTable expression CDATA #REQUIRED>
+<!ATTLIST restrictedTable hard (true|false) #REQUIRED>
+
+<!ELEMENT restrictedRelation EMPTY>
+<!ATTLIST restrictedRelation tableKey CDATA #REQUIRED>
+<!ATTLIST restrictedRelation relationId IDREF #REQUIRED>
+<!ATTLIST restrictedRelation index CDATA #REQUIRED>
+<!ATTLIST restrictedRelation leftAliasColumnIds IDREFS #REQUIRED>
+<!ATTLIST restrictedRelation leftAliasNames CDATA #REQUIRED>
+<!ATTLIST restrictedRelation rightAliasColumnIds IDREFS #REQUIRED>
+<!ATTLIST restrictedRelation rightAliasNames CDATA #REQUIRED>
+<!ATTLIST restrictedRelation expression CDATA #REQUIRED>
+<!ATTLIST restrictedRelation hard (true|false) #IMPLIED>
+
+<!ELEMENT expressionColumn EMPTY>
+<!ATTLIST expressionColumn tableKey CDATA #REQUIRED>
+<!ATTLIST expressionColumn colKey CDATA #REQUIRED>
+<!ATTLIST expressionColumn aliasColumnNames CDATA #REQUIRED>
+<!ATTLIST expressionColumn aliasNames CDATA #REQUIRED>
+<!ATTLIST expressionColumn expression CDATA #REQUIRED>
+<!ATTLIST expressionColumn groupBy  (true|false) #REQUIRED>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MartRegistry SYSTEM "classpath:data/XML/MartRegistry.dtd">
+<MartRegistry>
+  <URLLocation url="file:data/XML/homo_sapiens__ensembl_genes.xml"/>
+  <DatabaseLocation databaseType="mysql" jdbcDriverClassName="com.mysql.jdbc.Driver" host="127.0.0.1" instanceName="ensembl_mart_19_1" user="ensro"/>
+  <RegistryLocation url="file:data/XML/exampleMartRegistryRegistry.xml"/>
+</MartRegistry>
