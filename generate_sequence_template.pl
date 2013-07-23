@@ -213,11 +213,11 @@ my $db_pwd = "writ3rp1";
 my $seq_mart_db;
 
 sub usage {
-    print "Usage: $0 -h <host> -port <port> -u <user> -pwd <pwd> -seq_mart <target mart database> -release <release number>\n";
-    print "-h <host>\n";
+    print "Usage: $0 -host <host> -port <port> -user <user> -pass <pwd> -seq_mart <target mart database> -release <release number>\n";
+    print "-host <host>\n";
     print "-port <port>\n";
-    print "-u <host>\n";
-    print "-pwd <password>\n";
+    print "-user <host>\n";
+    print "-pass <password>\n";
     print "-seq_mart <mart>\n";
     print "-release <ensembl release number>\n";
     print "-species <comma separated list of species names> (optional, used by VectorBase)\n";
