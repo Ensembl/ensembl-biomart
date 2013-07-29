@@ -213,11 +213,11 @@ my $db_pwd = "writ3rp1";
 my $seq_mart_db;
 
 sub usage {
-    print "Usage: $0 -host <host> -port <port> -user <user> -pass <pwd> -seq_mart <target mart database> -release <release number>\n";
+    print "Usage: $0 -host <host> -port <port> -user <user> -pass|pwd <pwd> -seq_mart <target mart database> -release <release number>\n";
     print "-host <host>\n";
     print "-port <port>\n";
     print "-user <host>\n";
-    print "-pass <password>\n";
+    print "-pass|pwd <password>\n";
     print "-seq_mart <mart>\n";
     print "-release <ensembl release number>\n";
     print "-species <comma separated list of species names> (optional, used by VectorBase)\n";
@@ -228,7 +228,7 @@ my $options_okay = GetOptions (
     "host=s"=>\$db_host,
     "port=s"=>\$db_port,
     "user=s"=>\$db_user,
-    "pass=s"=>\$db_pwd,
+    "pass|pwd=s"=>\$db_pwd,
     "seq_mart=s"=>\$seq_mart_db,
     "release=s"=>\$release,
     "species=s"=>\$species,
