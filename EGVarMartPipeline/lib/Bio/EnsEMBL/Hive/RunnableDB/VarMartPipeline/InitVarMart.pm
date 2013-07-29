@@ -60,7 +60,7 @@ sub run {
 	$splitting = 1;
 	$nb_files = ceil ($nb_variations / $nb_variations_per_run);
 	
-	for (my $i=1; $i<$nb_files; $i++) {
+	for (my $i=1; $i<=$nb_files; $i++) {
 	    my $var_mart_db = $short_species_name . "_var_mart_" . $eg_release . "_" . $i;
 	    push (@$variations_files, $var_mart_db);
 	}
