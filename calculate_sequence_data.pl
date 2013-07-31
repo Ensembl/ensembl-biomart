@@ -193,7 +193,7 @@ for my $dataset (@datasets) {
 			##   ( defined($utr5) ? $utr5->length() : 0 ) +
 			##   ( defined($utr3) ? $utr3->length() : 0 );
 		} else {
-			$cds_length = '\N';
+			$cds_length = undef;
 			## $cdna_length = '\N';
 		}
 
@@ -207,15 +207,15 @@ for my $dataset (@datasets) {
 			my $exon_cdna_coding_end   = $exon->cdna_coding_end($transcript);
 
 			my $coding_start = $exon->coding_region_start($transcript)
-			  || '\N';
+			  || undef;
 			my $coding_end = $exon->coding_region_end($transcript)
-			  || '\N';
+			  || undef;
 
 			my ( $utr5_start, $utr5_end );
 			if (    $is_coding
 				 && $exon->start() < $transcript->coding_region_start() )
 			{
-				if ( $coding_start ne '\N' ) {
+				if ( $coding_start ) {
 					$utr5_start = $exon->start();
 					$utr5_end   = $coding_start - 1;
 				} else {
@@ -223,15 +223,15 @@ for my $dataset (@datasets) {
 					$utr5_end   = $exon->end();
 				}
 			} else {
-				$utr5_start = '\N';
-				$utr5_end   = '\N';
+				$utr5_start = undef;
+				$utr5_end   = undef;
 			}
 
 			my ( $utr3_start, $utr3_end );
 			if (    $is_coding
 				 && $exon->end() > $transcript->coding_region_end() )
 			{
-				if ( $coding_end ne '\N' ) {
+				if ( $coding_end ) {
 					$utr3_start = $coding_end + 1;
 					$utr3_end   = $exon->end();
 				} else {
@@ -239,8 +239,8 @@ for my $dataset (@datasets) {
 					$utr3_end   = $exon->end();
 				}
 			} else {
-				$utr3_start = '\N';
-				$utr3_end   = '\N';
+				$utr3_start = undef;
+				$utr3_end   = undef;
 			}
 
 			my ( $cds_start, $cds_end );
@@ -251,8 +251,8 @@ for my $dataset (@datasets) {
 				$cds_end =
 				  $exon_cdna_coding_end - $transcript->cdna_coding_start() + 1;
 			} else {
-				$cds_start = '\N';
-				$cds_end   = '\N';
+				$cds_start = undef;
+				$cds_end   = undef;
 			}
 
 			if ( $transcript->strand() == -1 ) {
@@ -273,8 +273,8 @@ for my $dataset (@datasets) {
 				$utr3_end,
 				$coding_start,
 				$coding_end,
-				$exon_cdna_coding_start || '\N',
-				$exon_cdna_coding_end   || '\N',
+				$exon_cdna_coding_start || undef,
+				$exon_cdna_coding_end   || undef,
 				## $cdna_length,
 				$cds_start,
 				$cds_end,
