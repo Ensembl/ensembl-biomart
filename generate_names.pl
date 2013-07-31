@@ -33,7 +33,6 @@ my $release = 60;
 my $suffix = '';
 my $dataset_basename = 'gene';
 my $main = 'gene__main';
-my $coredb = undef;
 my $div = undef;
 
 my %table_res = (
@@ -67,9 +66,8 @@ sub usage {
     print "-suffix <dataset suffix> e.g. '_eg' Default is ''\n";
     print "-name base name of the dataset\n";
     print "-main name of the main table in mart, e.g. variation__main\n";
-    print "-coredb <ensembl core database name> e.g. anopheles_gambiae_core_17_70_3\n";
     print "-div <plant|protist|metazoa|fung|vectorbase> set taxonomic division for species.proteome_id value\n";
-    print "-div allows mart database name to be set indepedently of the mart database name\n";
+    print "     -div option also sets core database name according to division specific naming practices\n";
     exit 1;
 };
 
@@ -83,7 +81,6 @@ my $options_okay = GetOptions (
     "suffix=s"=>\$suffix,
     "name=s"=>\$dataset_basename,
     "main=s"=>\$main,
-    "coredb=s"=>\$coredb,
     "div=s"=>\$div,
     "help"=>sub {usage()}
     );
@@ -119,13 +116,18 @@ my $names_insert = $mart_handle->prepare("INSERT IGNORE INTO $names_table VALUES
 
 my @src_tables = get_tables($mart_handle);
 my @src_dbs;
-my $regexp = ".*_core_[0-9]+_${release}_.*";
+
+my $regexp = undef;
+
+if( $div eq 'vectorbase' ){
+     $regexp = ".*_core_${release}_.*";
+}
+else{
+    $regexp = ".*_core_[0-9]+_${release}_.*";
+}
+
 foreach my $db (get_databases($mart_handle)) {
     if($db =~ /$regexp/) {
-	print "$db\n";
-	push @src_dbs, $db;
-    }
-    elsif( $db eq $coredb ){
 	print "$db\n";
 	push @src_dbs, $db;
     }
@@ -147,7 +149,7 @@ unless( $div ){
     elsif ( $mart_db =~ m/plant/){ $div = 'plant'  }
     elsif ( $mart_db =~ m/metazoa/){ $div = 'metazoa' }
     elsif ( $mart_db =~ m/fung/){ $div = 'fung'}
-    elsif ( $mart_db =~ m/vector/){ $div = 'vectorbase' }
+    elsif ( $mart_db =~ m/vb/){ $div = 'vectorbase' }
     else{ die "-div division not defined, and unable infer from database name $mart_db\n" }
 }
 
