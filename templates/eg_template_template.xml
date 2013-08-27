@@ -742,7 +742,6 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <!--
           <Option displayName="with Celera gene ID(s)" displayType="list" field="ox_celera_gene_bool" internalName="with_celera_gene" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -755,6 +754,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <!--
           <Option displayName="with Cint ANISEED v1 ID(s)" displayType="list" field="ox_cint_aniseed_v1_bool" internalName="with_cint_aniseed_v1" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -1171,15 +1171,15 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with GadFly gene ID(s)" displayType="list" field="ox_gadfly_gene_cgid_bool" internalName="with_gadfly_gene_cgid" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with GadFly gene ID(s)" displayType="list" field="ox_gadfly_gene_cgid_bool" hidden="true" internalName="with_gadfly_gene_cgid" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with Gadfly protein ID(s)" displayType="list" field="ox_gadfly_translation_cgid_bool" internalName="with_gadfly_translation_cgid" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with Gadfly protein ID(s)" displayType="list" field="ox_gadfly_translation_cgid_bool" hidden="true" internalName="with_gadfly_translation_cgid" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with Gadfly transcript ID(s)" displayType="list" field="ox_gadfly_transcript_cgid_bool" internalName="with_gadfly_transcript_cgid" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with Gadfly transcript ID(s)" displayType="list" field="ox_gadfly_transcript_cgid_bool" hidden="true" internalName="with_gadfly_transcript_cgid" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -1281,6 +1281,10 @@
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
           <Option hidden="true" displayName="with GO (transcript) ID(s)" displayType="list" field="ox_go_to_transcript_bool" internalName="with_go_to_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option hidden="true" displayName="with GO Term (transcript) Accession(s)" displayType="list" field="ox_go_mb001_bool" internalName="with_go_mb001_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2057,6 +2061,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <!--
           <Option displayName="with VectorBase array EMBL mmc1 20k v1 ID(s)" displayType="list" field="ox_array_embl_mmc1_20k_v1_bool" internalName="with_array_embl_mmc1_20k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2081,6 +2086,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          -->
           <Option displayName="with VectorBase community annotation ID(s)" displayType="list" field="ox_vb_community_annotation_bool" internalName="with_vb_community_annotation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <SpecificOptionContent internalName="aaegypti_eg_gene" key="gene_id_1020_key"/>
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -2315,16 +2321,17 @@
           <Option checkForNulls="true" displayName="Broad Institute (P. triticina) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_p_triticina" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_p_triticina__dm" type="list"/>
           <Option checkForNulls="true" displayName="Broad Institute (U. maydis) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_u_maydis" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_u_maydis__dm" type="list"/>
           <Option checkForNulls="true" displayName="Broad MagnaportheDB ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_magnaporthe_db" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_magnaporthe_db__dm" type="list"/>
+          <Option checkForNulls="true" displayName="CADRE ID" displayType="text" field="dbprimary_acc_1074" internalName="cadre" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_CADRE__dm" type="list"/>
           <Option checkForNulls="true" displayName="CADRE A. fumigatus A1163 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="cadre_afum_a1163" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_cadre_afum_a1163__dm" type="list"/>
           <Option checkForNulls="true" displayName="CADRE gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="cadre_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_cadre_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="CADRE transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="cadre_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_cadre_transcript__dm" type="list"/>
           <Option checkForNulls="true" displayName="Canonical transcript ID(s)" displayType="text" field="canonical_transcript_id_1020" internalName="canonical_transcript_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list"/>
           <Option checkForNulls="true" displayName="CATMA A. thaliana probe ID(s)" displayType="text" field="display_label_11056" internalName="catma_catma" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_catma_catma__dm" type="list"/>
           <Option checkForNulls="true" displayName="CCDS ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ccds" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ccds__dm" type="text"/>
-          <!--
           <Option checkForNulls="true" displayName="Celera gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="celera_gene" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Celera_Gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="Celera protein ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="celera_pep" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Celera_Pep__dm" type="list"/>
           <Option checkForNulls="true" displayName="Celera transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="celera_trans" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Celera_Trans__dm" type="list"/>
+          <!--
           <Option checkForNulls="true" displayName="Cint ANISEED v1 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="cint_aniseed_v1" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_cint_aniseed_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="Cint JGI v1 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="cint_jgi_v1" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_cint_jgi_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="Cint JGI v2 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="cint_jgi_v2" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_cint_jgi_v2__dm" type="list"/>
@@ -2445,9 +2452,9 @@
           <Option checkForNulls="true" displayName="FlyExpress ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="flyexpress" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_flyexpress__dm" type="list"/>
           <Option checkForNulls="true" displayName="FSTS ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="fsts" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_fsts__dm" type="list"/>
           <Option checkForNulls="true" displayName="FYPO Ontology ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="fypo_accession" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_fypo__dm" type="list"/>
-          <Option checkForNulls="true" displayName="GadFly gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gadfly_gene_cgid" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gadfly_gene_cgid__dm" type="list"/>
-          <Option checkForNulls="true" displayName="GadFly protein ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gadfly_translation_cgid" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gadfly_translation_cgid__dm" type="list"/>
-          <Option checkForNulls="true" displayName="GadFly transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gadfly_transcript_cgid" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gadfly_transcript_cgid__dm" type="list"/>
+          <Option checkForNulls="true" displayName="GadFly gene ID(s)" displayType="text" field="dbprimary_acc_1074" hidden="true" internalName="gadfly_gene_cgid" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gadfly_gene_cgid__dm" type="list"/>
+          <Option checkForNulls="true" displayName="GadFly protein ID(s)" displayType="text" field="dbprimary_acc_1074" hidden="true" internalName="gadfly_translation_cgid" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gadfly_translation_cgid__dm" type="list"/>
+          <Option checkForNulls="true" displayName="GadFly transcript ID(s)" displayType="text" field="dbprimary_acc_1074" hidden="true" internalName="gadfly_transcript_cgid" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gadfly_transcript_cgid__dm" type="list"/>
           <Option checkForNulls="true" displayName="GenBank ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="genbank" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_genbank__dm" type="list" useDefault="true">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="zmays_eg_gene" key="transcript_id_1064_key"/>
           </Option>
@@ -2749,11 +2756,13 @@
           <Option checkForNulls="true" displayName="UniProtKB/Varsplice ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_varsplice_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_uniprotvarsplic__dm" type="text" useDefault="true">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="osativa_eg_gene" key="translation_id_1068_key"/>
           </Option>
+          <!--
           <Option checkForNulls="true" displayName="VectorBase array EMBL mmc1 20k v1 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="array_embl_mmc1_20k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ARRAY_EMBL_MMC1_20k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="VectorBase array EMBL mmc2 12k v1 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="array_embl_mmc2_12k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ARRAY_EMBL_MMC2_12k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="VectorBase array jhsph aggamber 15k v1 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="array_jhsph_aggamber_15k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ARRAY_JHSPH_AGGAMBER_15k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="VectorBase array nd tigrtc 9 6k v1 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="array_nd_tigrtc_9_6k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ARRAY_ND_TIGRTC_9_6K_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="VectorBase array ucr gillmgmt 0 2k v2 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="array_ucr_gillmgmt_0_2k_v2" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ARRAY_UCR_GillMgMT_0_2K_v2__dm" type="list"/>
+          -->
           <Option checkForNulls="true" displayName="VectorBase community annotation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="vb_community_annotation" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vb_community_annotation__dm" type="list"/>
           <Option checkForNulls="true" displayName="VectorBase community symbol(s)" displayType="text" field="dbprimary_acc_1074" internalName="vb_community_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vb_community_symbol__dm" type="list"/>
           <Option checkForNulls="true" displayName="VectorBase external description ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="vb_external_description" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vb_external_description__dm" type="list"/>
@@ -4923,7 +4932,7 @@
         	key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="mod_extension__dm" type="text"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup hidden="true" description="Filter on PO IDs, terms, and evidence codes" displayName="PLANT ONTOLOGY:" hidden="true" hideDisplay="true" internalName="po">
+    <FilterGroup description="Filter on PO IDs, terms, and evidence codes" displayName="PLANT ONTOLOGY:" hidden="true" hideDisplay="true" internalName="po">
       <FilterCollection displayName="PO Term Accession [e.g. PO:0009066]" hidden="true" internalName="po_filters">
         <FilterDescription hidden="true" internalName="po_clos" multipleValues="1" pointerDataset="closure_PO" pointerFilter="po_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4939,7 +4948,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup hidden="true" description="Filter on EO IDs, terms, and evidence codes" displayName="ENVIRONMENT ONTOLOGY:" hidden="true" internalName="eo">
+    <FilterGroup description="Filter on EO IDs, terms, and evidence codes" displayName="ENVIRONMENT ONTOLOGY:" hidden="true" internalName="eo">
       <FilterCollection displayName="EO Term Accession [e.g. EO:0007001]" internalName="eo_filters">
         <FilterDescription internalName="eo_clos" multipleValues="1" pointerDataset="closure_EO" pointerFilter="eo_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4952,7 +4961,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup hidden="true" description="Filter on GR_TAX IDs, terms, and evidence codes" displayName="GRAMENE TAXONOMIC ONTOLOGY:" hidden="true" internalName="gr_tax">
+    <FilterGroup description="Filter on GR_TAX IDs, terms, and evidence codes" displayName="GRAMENE TAXONOMIC ONTOLOGY:" hidden="true" internalName="gr_tax">
       <FilterCollection displayName="GR_TAX Term Accession [e.g. GR_tax:078858]" internalName="gr_tax_filters">
         <FilterDescription internalName="gr_tax_clos" multipleValues="1" pointerDataset="closure_GR_TAX" pointerFilter="gr_tax_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4965,7 +4974,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup hidden="true" description="Filter on GRO IDs, terms, and evidence codes" displayName="GROWTH STAGE ONTOLOGY:" hidden="true" internalName="gro">
+    <FilterGroup description="Filter on GRO IDs, terms, and evidence codes" displayName="GROWTH STAGE ONTOLOGY:" hidden="true" internalName="gro">
       <FilterCollection displayName="GRO Term Accession [e.g. GRO:0007114]" internalName="gro_filters">
         <FilterDescription internalName="gro_clos" multipleValues="1" pointerDataset="closure_GRO" pointerFilter="gro_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4978,7 +4987,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup hidden="true" description="Filter on TO IDs, terms, and evidence codes" displayName="TRAIT ONTOLOGY:" hidden="true" internalName="to">
+    <FilterGroup description="Filter on TO IDs, terms, and evidence codes" displayName="TRAIT ONTOLOGY:" hidden="true" internalName="to">
       <FilterCollection displayName="TO Term Accession [e.g. TO:0050789]" internalName="to_filters">
         <FilterDescription internalName="to_clos" multipleValues="1" pointerDataset="closure_TO" pointerFilter="to_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -5259,14 +5268,7 @@
         <AttributeDescription checkForNulls="true" displayName="Aedes manual annotation ID" field="dbprimary_acc_1074" internalName="aedes_manualannotation" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_aedes_manualannotation__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Anopheles symbol ID" field="dbprimary_acc_1074" internalName="anopheles_symbol" key="translation_id_1068_key" linkoutURL="exturl1|http://agambiae.vectorbase.org/Genome/GeneView/?gene=%s" maxLength="40" tableConstraint="ox_Anopheles_symbol__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Anoxcel ID" field="dbprimary_acc_1074" internalName="anoxcel" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_anoxcel__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="ArrayExpress ID" field="dbprimary_acc_1074" internalName="arrayexpress" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_arrayExpress__dm">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="oindica_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="athaliana_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" key="gene_id_1020_key"/>
-        </AttributeDescription>
+        <AttributeDescription checkForNulls="true" displayName="ArrayExpress ID" field="dbprimary_acc_1074" internalName="arrayexpress" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_arrayExpress__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ArrayExpress experiment ID" field="dbprimary_acc_1074" internalName="arrayexpressexperiment" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_arrayExpressExperiment__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Ashbya Genome Database gene ID" field="dbprimary_acc_1074" internalName="agd_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_agd_gene__dm" linkoutURL="exturl1|http://agd.vital-it.ch/Ashbya_gossypii/geneview?gene=%s"/>
         <AttributeDescription checkForNulls="true" displayName="Ashbya Genome Database transcript ID" field="dbprimary_acc_1074" internalName="agd_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_agd_transcript__dm"/>
@@ -5297,10 +5299,10 @@
         <AttributeDescription checkForNulls="true" displayName="COG ID" field="dbprimary_acc_1074" internalName="cog" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_cog__dm" useDefault="true">
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="aniger_eg_gene"/>
         </AttributeDescription>
-        <!--
         <AttributeDescription checkForNulls="true" displayName="Celera gene ID(s)" field="dbprimary_acc_1074" internalName="celera_gene" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/Gene/Summary?g=%s" maxLength="40" tableConstraint="ox_Celera_Gene__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Celera transcript ID(s)" field="dbprimary_acc_1074" internalName="celera_trans" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Celera_Trans__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Celera protein ID(s)" field="dbprimary_acc_1074" internalName="celera_pep" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/protview?peptide=%s" maxLength="40" tableConstraint="ox_Celera_Pep__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Celera transcript ID(s)" field="dbprimary_acc_1074" internalName="celera_trans" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Celera_Trans__dm"/>
+        <!--
         <AttributeDescription checkForNulls="true" displayName="Cint ANISEED v1" field="dbprimary_acc_1074" internalName="cint_aniseed_v1" key="translation_id_1068_key" linkoutURL="exturl1|http://crfb.univ-mrs.fr/aniseed/molecule-gene.php?name=%s" maxLength="40" tableConstraint="ox_cint_aniseed_v1__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Cint JGI v1" field="dbprimary_acc_1074" internalName="cint_jgi_v1" key="translation_id_1068_key" linkoutURL="exturl1|http://genome.jgi-psf.org/cgi-bin/dispGeneModel?db=ciona4;id=%s" maxLength="40" tableConstraint="ox_cint_jgi_v1__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Cint JGI v2" field="dbprimary_acc_1074" internalName="cint_jgi_v2" key="translation_id_1068_key" linkoutURL="exturl1|http://genome.jgi-psf.org/cgi-bin/dispGeneModel?db=Cioin2;id=%s" maxLength="40" tableConstraint="ox_cint_jgi_v2__dm"/>
@@ -5431,7 +5433,7 @@
         <AttributeDescription checkForNulls="true" displayName="FlyExpress ID" field="dbprimary_acc_1074" internalName="flyexpress" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_flyexpress__dm"/>
         <AttributeDescription checkForNulls="true" displayName="FSTS ID" field="dbprimary_acc_1074" internalName="fsts" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_fsts__dm"/>
         <AttributeDescription checkForNulls="true" displayName="FYPO ID" field="dbprimary_acc_1074" internalName="fypo" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_fypo__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="GadFly gene ID" field="dbprimary_acc_1074" internalName="gadfly_gene_cgid" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_gadfly_gene_cgid__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="GadFly gene ID" field="dbprimary_acc_1074" hidden="true" internalName="gadfly_gene_cgid" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_gadfly_gene_cgid__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Gadfly protein ID" field="dbprimary_acc_1074" hidden="true" internalName="gadfly_translation_cgid" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_gadfly_translation_cgid__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Gadfly transcript ID" field="dbprimary_acc_1074" hidden="true" internalName="gadfly_transcript_cgid" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_gadfly_transcript_cgid__dm"/>
         <AttributeDescription checkForNulls="true" displayName="GenBank ID" field="dbprimary_acc_1074" internalName="genbank" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_genbank__dm">
@@ -5454,6 +5456,7 @@
         <AttributeDescription checkForNulls="true" displayName="GI ID" field="dbprimary_acc_1074" internalName="gi" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_gi__dm" useDefault="true"/>
         <AttributeDescription checkForNulls="true" displayName="GlycoSuiteDB ID" field="dbprimary_acc_1074" internalName="glycosuitedb" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_GlycoSuiteDB__dm"/>
         <AttributeDescription checkForNulls="true" displayName="GO ID" field="dbprimary_acc_1074" internalName="go_to_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_go_to_gene__dm"/>
+        <AttributeDescription hidden="true" checkForNulls="true" displayName="GO ID" field="dbprimary_acc_1074" internalName="go_mb001" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_go_mb001__dm"/>
         <AttributeDescription checkForNulls="true" displayName="GOA ID" field="dbprimary_acc_1074" internalName="goa" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_goa__dm"/>
         <AttributeDescription hidden="true" displayName="go_to_transcript ID" field="dbprimary_acc_1074" internalName="go_to_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_go_to_transcript__dm"/>
         <AttributeDescription checkForNulls="true" displayName="GPCR ID" field="dbprimary_acc_1074" internalName="gpcr" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_gpcr__dm"/>
@@ -6597,7 +6600,9 @@
         <AttributeDescription displayName="Custom EST EMBL mmc21 2k v1 probe ID" field="display_label_11056" internalName="efg_custom_est_embl_mmc2_12k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_embl_mmc2_12k_v1__dm"/>
         <AttributeDescription displayName="Custom EST ND Tigrtc 9 6k v1 probe ID" field="display_label_11056" internalName="efg_custom_est_nd_tigrtc_9_6k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_nd_tigrtc_9_6k_v1__dm"/>
         <AttributeDescription displayName="Custom EST UCR Gillmgmt_0 2k v2 probe ID" field="display_label_11056" internalName="efg_custom_est_ucr_gillmgmt_0_2k_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_ucr_gillmgmt_0_2k_v2__dm"/>
+        <!--
         <AttributeDescription displayName="Custom est ucr gillmgmt v2 ID" field="display_label_11056" internalName="custom_est_ucr_gillmgmt_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_ucr_gillmgmt_v2__dm"/>
+        -->
         <!--
         <AttributeDescription displayName="Illumina HumanWG 6 v1" field="display_label_11056" internalName="illumina_humanwg_6_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_ILLUMINA_HumanWG_6_V1__dm"/>
         <AttributeDescription displayName="Illumina HumanWG 6 v2" field="dbprimary_acc_1074" internalName="illumina_humanwg_6_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ILLUMINA_HumanWG_6_V2__dm"/>
@@ -6620,11 +6625,13 @@
         <AttributeDescription displayName="NSF Rice 20k probe ID" field="display_label_11056" internalName="NSF_NSF20K" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_NSF20K__dm"/>
         <AttributeDescription displayName="NSF Rice 45k probe ID" field="display_label_11056" internalName="NSF_NSF45K" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_NSF45K__dm"/>
         <AttributeDescription displayName="Phalanx OneArray" field="dbprimary_acc_1074" internalName="phalanx_onearray" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_PHALANX_Onearray__dm"/>
+        <!--
         <AttributeDescription displayName="VectorBase array embl mmc1 20k v1" field="dbprimary_acc_1074" internalName="array_embl_mmc1_20k_v1" key="transcript_id_1064_key" linkoutURL="exturl1|http://base.vectorbase.org/perl/expression-summary.cgi?reporter=%s&amp;array=EMBL_MMC1_20K_V1" maxLength="40" tableConstraint="ox_ARRAY_EMBL_MMC1_20k_v1__dm"/>
         <AttributeDescription displayName="VectorBase array embl mmc2 12k v1" field="dbprimary_acc_1074" internalName="array_embl_mmc2_12k_v1" key="transcript_id_1064_key" linkoutURL="exturl1|http://base.vectorbase.org/perl/expression-summary.cgi?reporter=%s&amp;array=EMBL_MMC2_12K_V1" maxLength="40" tableConstraint="ox_ARRAY_EMBL_MMC2_12k_v1__dm"/>
         <AttributeDescription displayName="VectorBase array jhsph aggamber 15k v1" field="dbprimary_acc_1074" internalName="array_jhsph_aggamber_15k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ARRAY_JHSPH_AGGAMBER_15k_v1__dm"/>
         <AttributeDescription displayName="VectorBase array nd tigrtc 9 6k v1" field="dbprimary_acc_1074" internalName="array_nd_tigrtc_9_6k_v1" key="transcript_id_1064_key" linkoutURL="exturl1|http://base.vectorbase.org/perl/expression-summary.cgi?reporter=%s&amp;array=ND_TIGRTC_9_6K_V1" maxLength="40" tableConstraint="ox_ARRAY_ND_TIGRTC_9_6K_v1__dm"/>
         <AttributeDescription displayName="VectorBase array ucr gillmgmt 0 2k v2" field="dbprimary_acc_1074" internalName="array_ucr_gillmgmt_0_2k_v2" key="transcript_id_1064_key" linkoutURL="exturl1|http://base.vectorbase.org/perl/expression-summary.cgi?reporter=%s&amp;array=UCR_GILLMGMT_0_2K_V2" maxLength="40" tableConstraint="ox_ARRAY_UCR_GillMgMT_0_2K_v2__dm"/>
+        -->
         <AttributeDescription displayName="WUSTL C. elegans ID" field="display_label_11056" internalName="wustl_wustl_c_elegans" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_wustl_wustl_c_elegans__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="Pathogen Phenotypes (source: PHI-base)" internalName="phibase_annotation">
