@@ -119,33 +119,23 @@
   </FilterPage>
   <FilterPage displayName="FILTERS" internalName="filters">
     <FilterGroup description="Filter for genes in specified regions" displayName="REGION:" internalName="region">
-      <FilterCollection description="Limit to genes on a specific chromosome" displayName="Chromosome" internalName="chromosome">
+      <FilterCollection description="Limit to genes on a specific chromosome/scaffold" displayName="Chromosome/scaffold" internalName="chromosome">
         <FilterDescription displayName="Chromosome name" displayType="list" field="name_1059" internalName="chromosome_name" key="gene_id_1020_key" legal_qualifiers="=" otherFilters="*species3*_karyotype_start.name;*species3*_karyotype_end.name" qualifier="=" style="menu" tableConstraint="main" type="text">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection description="Limit to genes within proscribed chromosomal coordinates" displayName="Base Pair" internalName="chromosome_coordinates">
-        <FilterDescription defaultValue="1" displayName="Start (bp)" displayType="text" field="seq_region_start_1020" internalName="start" key="gene_id_1020_key" legal_qualifiers="&gt;=" qualifier="&gt;=" regexp="\d+" tableConstraint="main" type="text"/>
-        <FilterDescription defaultValue="10000000" displayName="End (bp)" displayType="text" field="seq_region_end_1020" internalName="end" key="gene_id_1020_key" legal_qualifiers="&lt;=" qualifier="&lt;=" regexp="\d+" tableConstraint="main" type="text"/>
+      <FilterCollection description="Limit to genes within proscribed chromosomal coordinates" displayName="Coordinates" internalName="chromosome_coordinates">
+        <FilterDescription displayName="Start" displayType="text" field="seq_region_start_1020" internalName="start" key="gene_id_1020_key" legal_qualifiers="&gt;=" qualifier="&gt;=" regexp="\d+" tableConstraint="main" type="text"/>
+        <FilterDescription displayName="End" displayType="text" field="seq_region_end_1020" internalName="end" key="gene_id_1020_key" legal_qualifiers="&lt;=" qualifier="&lt;=" regexp="\d+" tableConstraint="main" type="text"/>
       </FilterCollection>
-      <FilterCollection description="Limit to genes on a karyotype band" displayName="Band" internalName="band_collection">
-        <FilterDescription internalName="band_start" pointerDataset="*species3*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter">
-          <SpecificFilterContent internalName="agambiae_eg_gene"/>
-          <SpecificFilterContent internalName="dmelanogaster_eg_gene"/>
-        </FilterDescription>
-        <FilterDescription internalName="band_end" pointerDataset="*species3*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter">
-          <SpecificFilterContent internalName="agambiae_eg_gene"/>
-          <SpecificFilterContent internalName="dmelanogaster_eg_gene"/>
-        </FilterDescription>
+      <FilterCollection displayName="Karyotype band" internalName="band_collection">
+        <FilterDescription internalName="band_start" pointerDataset="*species3*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter"/>
+        <FilterDescription internalName="band_end" pointerDataset="*species3*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter"/>
       </FilterCollection>
       <FilterCollection displayName="Marker" internalName="marker_collection">
-        <FilterDescription internalName="marker_start" pointerDataset="*species3*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter">
-          <SpecificFilterContent internalName="agambiae_eg_gene"/>
-        </FilterDescription>
-        <FilterDescription internalName="marker_end" pointerDataset="*species3*_marker_end" pointerFilter="marker_end" pointerInterface="default" type="drop_down_basic_filter">
-          <SpecificFilterContent internalName="agambiae_eg_gene"/>
-        </FilterDescription>
-      </FilterCollection>
+        <FilterDescription internalName="marker_start" pointerDataset="*species3*_marker_start" pointerFilter="marker_start" pointerInterface="default"/>
+        <FilterDescription internalName="marker_end" pointerDataset="*species3*_marker_end" pointerFilter="marker_end" pointerInterface="default"/>
+     </FilterCollection>
       <!--
       <FilterCollection displayName="Encode type" hidden="true" internalName="encode_type_col">
         <FilterDescription internalName="hsapiens_encode.type" pointerDataset="*species3*_encode" pointerFilter="type" pointerInterface="default" type="text">
@@ -166,9 +156,9 @@
         </FilterDescription>
       </FilterCollection>
       -->
-      <FilterCollection description="Limit to genes within multiple comma-separated chromosomal regions (e.g. 1:100:10000:-1, 1:100000:2000000:1)" displayName="Multiple Chromosomal Regions (Chr:Start:End:Strand)" internalName="chromosome_regions">
+      <FilterCollection description="Limit to genes within multiple comma-separated regions (e.g. 1:100:10000:-1, 1:100000:2000000:1)" displayName="Multiple regions (Chr:Start:End:Strand)" internalName="chromosome_regions">
         <FilterDescription displayName="Strand" displayType="text" field="seq_region_strand_1020" hideDisplay="true" internalName="strand" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
-        <FilterDescription description="Limit to genes within multiple comma-separated chromosomal regions (e.g. 1:100:10000:-1, 1:100000:2000000:1)" displayName="e.g. 1:100:10000:-1, 1:100000:2000000:1" displayType="text" field="seq_region_start_1020" filterList="chromosome_name,start,end,strand" internalName="chromosomal_region" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text"/>
+        <FilterDescription description="Limit to genes within multiple comma-separated regions (e.g. 1:100:10000:-1, 1:100000:2000000:1)" displayName="e.g. 1:100:10000:-1, 1:100000:2000000:1" displayType="text" field="seq_region_start_1020" filterList="chromosome_name,start,end,strand" internalName="chromosomal_region" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text"/>
       </FilterCollection>
       <FilterCollection displayName="Genomic features" internalName="miscfeature_type">
         <FilterDescription displayName="Type of feature" displayType="list" field="feature_type" internalName="feature_type" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="gene_miscfeature__dm" type="list">
@@ -859,32 +849,32 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with ENA ID(s)" displayType="list" field="ox_embldna_bool" internalName="with_ox_embldna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with ENA/GenBank DNA ID(s)" displayType="list" field="ox_embldna_bool" internalName="with_ox_embldna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with ENA ID(s)" displayType="list" field="ox_embl_bool" internalName="with_embl" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with ENA/GenBank ID(s)" displayType="list" field="ox_embl_bool" internalName="with_embl" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with ENA ID(s)" displayType="list" field="ox_EMBL_DNA_bool" internalName="with_embl_dna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with ENA/GenBank DNA ID(s)" displayType="list" field="ox_EMBL_DNA_bool" internalName="with_embl_dna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with ENA ID(s)" displayType="list" field="ox_ENA_DNA_bool" internalName="with_ena_dna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with ENA/GenBank DNA ID(s)" displayType="list" field="ox_ENA_DNA_bool" internalName="with_ena_dna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with ENA (predicted) ID(s)" displayType="list" field="ox_embl_predicted_bool" internalName="with_embl_predicted" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with ENA/GenBank (predicted) ID(s)" displayType="list" field="ox_embl_predicted_bool" internalName="with_embl_predicted" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with ENA component ID(s)" displayType="list" field="ox_ENA_COMPONENT_bool" internalName="with_ena_component" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+          <Option displayName="with ENA/GenBank component ID(s)" displayType="list" field="ox_ENA_COMPONENT_bool" internalName="with_ena_component" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="ox_ENA_COMPONENT_bool" internalName="ncrassa_eg_gene"/>
           </Option>
-          <Option displayName="with ENA component ID(s)" displayType="list" field="ox_EMBL_COMPONENT_bool" internalName="with_embl_component" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with ENA/GenBank component ID(s)" displayType="list" field="ox_EMBL_COMPONENT_bool" internalName="with_embl_component" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -904,11 +894,11 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with ENA protein ID(s)" displayType="list" field="ox_protein_id_bool" internalName="with_protein_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with ENA/GenBank protein ID(s)" displayType="list" field="ox_protein_id_bool" internalName="with_protein_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with ENA protein id(s)" displayType="list" field="ox_emblprotein_bool" internalName="with_ox_emblprotein" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with ENA/GenBank protein id(s)" displayType="list" field="ox_emblprotein_bool" internalName="with_ox_emblprotein" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -916,19 +906,19 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with ENA RNA ID(s)" displayType="list" field="ox_EMBL_RNA_bool" internalName="with_embl_rna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with ENA/GenBank RNA ID(s)" displayType="list" field="ox_EMBL_RNA_bool" internalName="with_embl_rna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with ENA RNA ID(s)" displayType="list" field="ox_ENA_RNA_bool" internalName="with_ena_rna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with ENA/GenBank RNA ID(s)" displayType="list" field="ox_ENA_RNA_bool" internalName="with_ena_rna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with ENA RNA ID(s)" displayType="list" field="ox_emblrna_bool" internalName="with_ox_emblrna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with ENA/GenBank RNA ID(s)" displayType="list" field="ox_emblrna_bool" internalName="with_ox_emblrna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with ENA transcript ID(s)" displayType="list" field="ox_ENA_TRANSCRIPT_bool" internalName="with_embl_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with ENA/GenBank transcript ID(s)" displayType="list" field="ox_ENA_TRANSCRIPT_bool" internalName="with_embl_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -1167,7 +1157,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with FYPO Term Accession(s)" displayType="list" field="ox_fypo_bool" internalName="with_fypo" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with FYPO term accession(s)" displayType="list" field="ox_fypo_bool" internalName="with_fypo" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -1272,7 +1262,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with GO Term Accession(s)" displayType="list" field="ox_go_bool" internalName="with_go" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with GO term accession(s)" displayType="list" field="ox_go_bool" internalName="with_go" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -1284,7 +1274,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option hidden="true" displayName="with GO Term (transcript) Accession(s)" displayType="list" field="ox_go_mb001_bool" internalName="with_go_mb001_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+          <Option hidden="true" displayName="with GO (transcript) ID(s)" displayType="list" field="ox_go_mb001_bool" internalName="with_go_mb001_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -1292,7 +1282,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with GOSlim GOA(s)" displayType="list" field="ox_goslim_goa_bool" internalName="with_ox_goslim_goa" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+          <Option displayName="with GOSlim GOA ID(s)" displayType="list" field="ox_goslim_goa_bool" internalName="with_ox_goslim_goa" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
@@ -1589,7 +1579,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with MOD Term Accession(s)" displayType="list" field="ox_mod_bool" internalName="with_mod" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with MOD term accession(s)" displayType="list" field="ox_mod_bool" internalName="with_mod" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2304,7 +2294,6 @@
           <Option checkForNulls="true" displayName="Ashbya Genome Database gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="agd_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_agd_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="AspGD gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="aspgd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_aspgd_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="AspGD transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="aspgd_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_aspgd_transcript__dm" type="list"/>
-          <Option checkForNulls="true" displayName="Associated Gene Name(s)" displayType="text" field="display_label_1074" internalName="external_gene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list"/>
           <Option checkForNulls="true" displayName="BDGP Expression Database ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="bdgp_insitu_expr" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_BDGP_insitu_expr__dm" type="text"/>
           <Option checkForNulls="true" displayName="BGI EST cluster ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="bgi_est_cluster" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_bgi_est_cluster__dm" type="list"/>
           <Option checkForNulls="true" displayName="BGI gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="bgi_gene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_bgi_gene__dm" type="list"/>
@@ -2459,6 +2448,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="zmays_eg_gene" key="transcript_id_1064_key"/>
           </Option>
           <Option checkForNulls="true" displayName="Gene Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gene_name__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Gene name(s)" displayType="text" field="display_label_1074" internalName="external_gene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list"/>
           <Option checkForNulls="true" displayName="GeneDB ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="genedb" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_genedb__dm" type="list"/>
           <Option checkForNulls="true" displayName="GeneDB S. Pombe ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="genedb_spombe" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_genedb_spombe__dm" type="list"/>
           <Option checkForNulls="true" displayName="GeneDB transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="genedb_transcript" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_genedb_transcript__dm" type="list"/>
@@ -2505,7 +2495,7 @@
           </Option>
           -->
           <Option checkForNulls="true" displayName="GOA ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="goa" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_goa__dm" type="list"/>
-          <Option checkForNulls="true" displayName="GOSlim GOA Accessions(s) [e.g. GO:0003676]" displayType="text" field="dbprimary_acc_1074" internalName="goslim_goa_accession" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_goslim_goa__dm" type="list">
+          <Option checkForNulls="true" displayName="GOSlim GOA ID(s) [e.g. GO:0003676]" displayType="text" field="dbprimary_acc_1074" internalName="goslim_goa_accession" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_goslim_goa__dm" type="list">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="celegans_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key"/>
@@ -2721,7 +2711,7 @@
           <Option checkForNulls="true" displayName="TIGR locus ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tigr_locus" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tigr_locus__dm" type="list"/>
           <Option checkForNulls="true" displayName="TIGR locus model ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tigr_locus_model" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tigr_locus_model__dm" type="list"/>
           <Option checkForNulls="true" displayName="TIGR transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tigr_transcript_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tigr_transcript_id__dm" type="list"/>
-          <Option checkForNulls="true" displayName="TO Term(s)" displayType="text" field="dbprimary_acc_1074" internalName="to" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_TO__dm" type="list"/>
+          <Option checkForNulls="true" displayName="TO term(s)" displayType="text" field="dbprimary_acc_1074" internalName="to" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_TO__dm" type="list"/>
           <Option checkForNulls="true" displayName="TransFac ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="transfac" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_TransFac__dm" type="text"/>
           <Option checkForNulls="true" displayName="TriTryp Pathway Comparison ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tritryp_pathway_comparison" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tritryp_pathway_comparison__dm" type="list"/>
           <Option checkForNulls="true" displayName="tRNAScan-SE ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="trnascan_se" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_trnascan_se__dm" type="list"/>
@@ -2786,7 +2776,7 @@
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="umaydis_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
           </Option>
-          <Option checkForNulls="true" displayName="WikiGene Name(s)" displayType="text" field="display_label_1074" internalName="wikigene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wikigene__dm" type="text" useDefault="true">
+          <Option checkForNulls="true" displayName="WikiGene name(s)" displayType="text" field="display_label_1074" internalName="wikigene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wikigene__dm" type="text" useDefault="true">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="osativa_eg_gene"/>
@@ -2896,14 +2886,14 @@
       </FilterCollection>
     </FilterGroup>
     <FilterGroup description="Filter on GO IDs, terms, and evidence codes" displayName="GENE ONTOLOGY:" internalName="go">
-      <FilterCollection displayName="GO Term Accession [e.g. GO:0050789]" internalName="go_filters">
+      <FilterCollection displayName="GO term accession [e.g. GO:0050789]" internalName="go_filters">
         <FilterDescription internalName="go_clos" multipleValues="1" pointerDataset="closure_GO" pointerFilter="go_parent_term" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="GO Term Name [e.g. regulation of biological process]" internalName="go_filters_name">
+      <FilterCollection displayName="GO term name [e.g. regulation of biological process]" internalName="go_filters_name">
         <FilterDescription internalName="go_name" pointerDataset="closure_GO" pointerFilter="go_parent_name" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="GO Evidence code" internalName="go_evidence_code">
-        <FilterDescription displayName="GO Evidence code" displayType="list" field="linkage_type_1024" internalName="go_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_go__dm" type="list" useDefault="true">
+      <FilterCollection displayName="GO evidence code" internalName="go_evidence_code">
+        <FilterDescription displayName="GO evidence code" displayType="list" field="linkage_type_1024" internalName="go_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_go__dm" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -3866,14 +3856,14 @@
       </FilterCollection>
     </FilterGroup>
     <FilterGroup hidden="true" description="Filter on PBO IDs, terms, and evidence codes" displayName="POMBASE ONTOLOGY:" internalName="pbo">
-      <FilterCollection displayName="PBO Term Accession [e.g. PBO:0000001]" internalName="pbo_filters">
+      <FilterCollection displayName="PBO term accession [e.g. PBO:0000001]" internalName="pbo_filters">
         <FilterDescription internalName="pbo_clos" multipleValues="1" pointerDataset="closure_PBO" pointerFilter="pbo_parent_term" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="PBO Term Name [e.g. Some warning]" internalName="pbo_filters_name">
+      <FilterCollection displayName="PBO term name [e.g. Some warning]" internalName="pbo_filters_name">
         <FilterDescription internalName="pbo_name" pointerDataset="closure_PBO" pointerFilter="pbo_parent_name" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="PBO Evidence code" internalName="pbo_evidence_code">
-        <FilterDescription displayName="PBO Evidence code" displayType="list" field="linkage_type_1024" internalName="pbo_evidence_code" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_pbo__dm" type="list" useDefault="true">
+      <FilterCollection displayName="PBO evidence code" internalName="pbo_evidence_code">
+        <FilterDescription displayName="PBO evidence code" displayType="list" field="linkage_type_1024" internalName="pbo_evidence_code" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_pbo__dm" type="list" useDefault="true">
           <SpecificFilterContent hidden="true" internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -4082,14 +4072,14 @@
       </FilterCollection>
     </FilterGroup>
     <FilterGroup hidden="true" description="Filter on FYPO IDs, terms, and evidence codes" displayName="FISSION YEAST PHENOTYPE ONTOLOGY:" internalName="fypo">
-      <FilterCollection displayName="FYPO Term Accession [e.g. FYPO:0000001]" internalName="fypo_filters">
+      <FilterCollection displayName="FYPO term accession [e.g. FYPO:0000001]" internalName="fypo_filters">
         <FilterDescription internalName="fypo_clos" multipleValues="1" pointerDataset="closure_FYPO" pointerFilter="fypo_parent_term" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="FYPO Term Name [e.g. viable]" internalName="fypo_filters_name">
+      <FilterCollection displayName="FYPO term name [e.g. viable]" internalName="fypo_filters_name">
         <FilterDescription internalName="fypo_name" pointerDataset="closure_FYPO" pointerFilter="fypo_parent_name" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="FYPO Evidence code" internalName="fypo_evidence_code">
-        <FilterDescription displayName="FYPO Evidence code" displayType="list" field="linkage_type_1024" internalName="fypo_evidence_code" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_fypo__dm" type="list">
+      <FilterCollection displayName="FYPO evidence code" internalName="fypo_evidence_code">
+        <FilterDescription displayName="FYPO evidence code" displayType="list" field="linkage_type_1024" internalName="fypo_evidence_code" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_fypo__dm" type="list">
           <SpecificFilterContent hidden="true" internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -4472,13 +4462,13 @@
       </FilterCollection>
     </FilterGroup>
     <FilterGroup hidden="true" description="Filter on SO IDs, terms, and evidence codes" displayName="SEQUENCE ONTOLOGY:" internalName="so">
-      <FilterCollection displayName="SO Term Accession [e.g. SO:0000001]" internalName="so_filters">
+      <FilterCollection displayName="SO term accession [e.g. SO:0000001]" internalName="so_filters">
         <FilterDescription internalName="so_clos" multipleValues="1" pointerDataset="closure_SO" pointerFilter="so_parent_term" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="SO Term Name [e.g. a sequence feature]" internalName="so_filters_name">
+      <FilterCollection displayName="SO term name [e.g. a sequence feature]" internalName="so_filters_name">
         <FilterDescription internalName="so_name" pointerDataset="closure_SO" pointerFilter="so_parent_name" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="SO Evidence code" internalName="so_evidence_code">
+      <FilterCollection displayName="SO evidence code" internalName="so_evidence_code">
         <FilterDescription displayName="SO Evidence code" displayType="list" field="linkage_type_1024" internalName="so_evidence_code" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_so__dm" type="list">
           <SpecificFilterContent hidden="true" internalName="replaceMe"/>
         </FilterDescription>
@@ -4572,13 +4562,13 @@
       </FilterCollection>
     </FilterGroup>
     <FilterGroup hidden="true" description="Filter on MOD IDs, terms, and evidence codes" displayName="MOD ONTOLOGY:" internalName="mod">
-      <FilterCollection displayName="MOD Term Accession [e.g. MOD:000001]" internalName="mod_filters">
+      <FilterCollection displayName="MOD term accession [e.g. MOD:000001]" internalName="mod_filters">
         <FilterDescription internalName="mod_clos" multipleValues="1" pointerDataset="closure_MOD" pointerFilter="mod_parent_term" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="MOD Term Name [e.g. some term name]" internalName="mod_filters_name">
+      <FilterCollection displayName="MOD term name [e.g. some term name]" internalName="mod_filters_name">
         <FilterDescription internalName="mod_name" pointerDataset="closure_MOD" pointerFilter="mod_parent_name" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="MOD Evidence code" internalName="mod_evidence_code">
+      <FilterCollection displayName="MOD evidence code" internalName="mod_evidence_code">
         <FilterDescription displayName="MOD Evidence code" displayType="list" field="linkage_type_1024" internalName="mod_evidence_code" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_mod__dm" type="list">
           <SpecificFilterContent hidden="true" internalName="replaceMe"/>
         </FilterDescription>
@@ -4933,14 +4923,14 @@
       </FilterCollection>
     </FilterGroup>
     <FilterGroup description="Filter on PO IDs, terms, and evidence codes" displayName="PLANT ONTOLOGY:" hidden="true" hideDisplay="true" internalName="po">
-      <FilterCollection displayName="PO Term Accession [e.g. PO:0009066]" hidden="true" internalName="po_filters">
+      <FilterCollection displayName="PO term accession [e.g. PO:0009066]" hidden="true" internalName="po_filters">
         <FilterDescription hidden="true" internalName="po_clos" multipleValues="1" pointerDataset="closure_PO" pointerFilter="po_parent_term" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="PO Term Name [e.g. anther]" hidden="true" internalName="po_filters_name">
+      <FilterCollection displayName="PO term name [e.g. anther]" hidden="true" internalName="po_filters_name">
         <FilterDescription hidden="true" internalName="po_name" pointerDataset="closure_PO" pointerFilter="po_parent_name" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="PO Evidence code" hidden="true" internalName="po_evidence_code">
-        <FilterDescription displayName="PO Evidence code" displayType="list" field="linkage_type_1024" hidden="true" internalName="po_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_po__dm" type="list">
+      <FilterCollection displayName="PO evidence code" hidden="true" internalName="po_evidence_code">
+        <FilterDescription displayName="PO evidence code" displayType="list" field="linkage_type_1024" hidden="true" internalName="po_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_po__dm" type="list">
           <SpecificFilterContent hidden="true" internalName="replaceMe"/>
           <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="bdistachyon_eg_gene" />
           <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="ptrichocarpa_eg_gene" />
@@ -4949,53 +4939,53 @@
       </FilterCollection>
     </FilterGroup>
     <FilterGroup description="Filter on EO IDs, terms, and evidence codes" displayName="ENVIRONMENT ONTOLOGY:" hidden="true" internalName="eo">
-      <FilterCollection displayName="EO Term Accession [e.g. EO:0007001]" internalName="eo_filters">
+      <FilterCollection displayName="EO term accession [e.g. EO:0007001]" internalName="eo_filters">
         <FilterDescription internalName="eo_clos" multipleValues="1" pointerDataset="closure_EO" pointerFilter="eo_parent_term" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="EO Term Name [e.g. UV-B light regimen]" internalName="eo_filters_name">
+      <FilterCollection displayName="EO term name [e.g. UV-B light regimen]" internalName="eo_filters_name">
         <FilterDescription internalName="eo_name" pointerDataset="closure_EO" pointerFilter="eo_parent_name" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="EO Evidence code" internalName="eo_evidence_code">
-        <FilterDescription displayName="EO Evidence code" displayType="list" field="linkage_type_1024" internalName="eo_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_EO__dm" type="list">
+      <FilterCollection displayName="EO evidence code" internalName="eo_evidence_code">
+        <FilterDescription displayName="EO evidence code" displayType="list" field="linkage_type_1024" internalName="eo_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_EO__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on GR_TAX IDs, terms, and evidence codes" displayName="GRAMENE TAXONOMIC ONTOLOGY:" hidden="true" internalName="gr_tax">
-      <FilterCollection displayName="GR_TAX Term Accession [e.g. GR_tax:078858]" internalName="gr_tax_filters">
+    <FilterGroup description="Filter on GR TAX IDs, terms, and evidence codes" displayName="GRAMENE TAXONOMIC ONTOLOGY:" hidden="true" internalName="gr_tax">
+      <FilterCollection displayName="GR TAX term accession [e.g. GR_tax:078858]" internalName="gr_tax_filters">
         <FilterDescription internalName="gr_tax_clos" multipleValues="1" pointerDataset="closure_GR_TAX" pointerFilter="gr_tax_parent_term" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="GR_TAX Term Name [e.g. Arabidopsis]" internalName="gr_tax_filters_name">
+      <FilterCollection displayName="GR TAX term name [e.g. Arabidopsis]" internalName="gr_tax_filters_name">
         <FilterDescription internalName="gr_tax_name" pointerDataset="closure_GR_TAX" pointerFilter="gr_tax_parent_name" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="GR_TAX Evidence code" internalName="gr_tax_evidence_code">
-        <FilterDescription displayName="GR_TAX Evidence code" displayType="list" field="linkage_type_1024" internalName="gr_tax_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_GR_TAX__dm" type="list">
+      <FilterCollection displayName="GR TAX evidence code" internalName="gr_tax_evidence_code">
+        <FilterDescription displayName="GR TAX evidence code" displayType="list" field="linkage_type_1024" internalName="gr_tax_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_GR_TAX__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
     <FilterGroup description="Filter on GRO IDs, terms, and evidence codes" displayName="GROWTH STAGE ONTOLOGY:" hidden="true" internalName="gro">
-      <FilterCollection displayName="GRO Term Accession [e.g. GRO:0007114]" internalName="gro_filters">
+      <FilterCollection displayName="GRO term accession [e.g. GRO:0007114]" internalName="gro_filters">
         <FilterDescription internalName="gro_clos" multipleValues="1" pointerDataset="closure_GRO" pointerFilter="gro_parent_term" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="GRO Term Name [e.g. 10-ripening]" internalName="gro_filters_name">
+      <FilterCollection displayName="GRO term name [e.g. 10-ripening]" internalName="gro_filters_name">
         <FilterDescription internalName="gro_name" pointerDataset="closure_GRO" pointerFilter="gro_parent_name" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="GRO Evidence code" internalName="gro_evidence_code">
-        <FilterDescription displayName="GRO Evidence code" displayType="list" field="linkage_type_1024" internalName="gro_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_GRO__dm" type="list">
+      <FilterCollection displayName="GRO evidence code" internalName="gro_evidence_code">
+        <FilterDescription displayName="GRO evidence code" displayType="list" field="linkage_type_1024" internalName="gro_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_GRO__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
     <FilterGroup description="Filter on TO IDs, terms, and evidence codes" displayName="TRAIT ONTOLOGY:" hidden="true" internalName="to">
-      <FilterCollection displayName="TO Term Accession [e.g. TO:0050789]" internalName="to_filters">
+      <FilterCollection displayName="TO term accession [e.g. TO:0050789]" internalName="to_filters">
         <FilterDescription internalName="to_clos" multipleValues="1" pointerDataset="closure_TO" pointerFilter="to_parent_term" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="TO Term Name [e.g. regulation of biological process]" internalName="TO_filters_name">
+      <FilterCollection displayName="TO term name [e.g. regulation of biological process]" internalName="TO_filters_name">
         <FilterDescription internalName="TO_name" pointerDataset="closure_TO" pointerFilter="TO_parent_name" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="TO Evidence code" internalName="TO_evidence_code">
-        <FilterDescription displayName="TO Evidence code" displayType="list" field="linkage_type_1024" internalName="TO_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_TO__dm" type="list">
+      <FilterCollection displayName="TO evidence code" internalName="TO_evidence_code">
+        <FilterDescription displayName="TO evidence code" displayType="list" field="linkage_type_1024" internalName="TO_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_TO__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -5248,14 +5238,14 @@
         <AttributeDescription displayName="Transcript start (bp)" field="seq_region_start_1064" internalName="transcript_start" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chromosome_name|transcript_start|transcript_end" maxLength="10" tableConstraint="main"/>
         <AttributeDescription displayName="Transcript end (bp)" field="seq_region_end_1064" internalName="transcript_end" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chromosome_name|transcript_start|transcript_end" maxLength="10" tableConstraint="main"/>
         <AttributeDescription displayName="Gene name" field="display_label_1074" internalName="external_gene_id" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s|ensembl_gene_id" maxLength="16" tableConstraint="main"/>
+        <AttributeDescription displayName="Source of gene name" field="db_display_name_1018" internalName="external_gene_db" key="gene_id_1020_key" maxLength="17" tableConstraint="main"/>
         <AttributeDescription displayName="Gene description" field="description_1020" internalName="description" key="gene_id_1020_key" maxLength="550" tableConstraint="main"/>
         <AttributeDescription displayName="Gene biotype" field="biotype_1020" internalName="gene_biotype" key="gene_id_1020_key" maxLength="40" tableConstraint="main"/>
-        <AttributeDescription displayName="Source of gene name" field="db_display_name_1018" internalName="external_gene_db" key="gene_id_1020_key" maxLength="17" tableConstraint="main"/>
         <AttributeDescription description="Percentage GC content" displayName="% GC content" field="value_1022" internalName="percentage_gc_content" key="gene_id_1020_key" maxLength="3" tableConstraint="main"/>
         <AttributeDescription displayName="Transcript count" field="transcript_count" internalName="transcript_count" key="gene_id_1020_key" maxLength="16" tableConstraint="main"/>
         <AttributeDescription displayName="Transcript name" field="display_label_1074_r1" internalName="external_transcript_id" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s|ensembl_transcript_id" maxLength="16" tableConstraint="main"/>
-        <AttributeDescription displayName="Transcript biotype" field="biotype_1064" internalName="transcript_biotype" key="transcript_id_1064_key" maxLength="40" tableConstraint="main"/>
         <AttributeDescription displayName="Source of transcript name" field="db_display_name_1018_r1" internalName="transcript_db_name" key="transcript_id_1064_key" maxLength="27" tableConstraint="main"/>
+        <AttributeDescription displayName="Transcript biotype" field="biotype_1064" internalName="transcript_biotype" key="transcript_id_1064_key" maxLength="40" tableConstraint="main"/>
         <AttributeDescription displayName="Source" field="source_1020" hidden="true" internalName="source" key="gene_id_1020_key" maxLength="20" tableConstraint="main"/>
         <AttributeDescription displayName="Status (gene)" field="status_1020" hidden="true" internalName="status" key="gene_id_1020_key" maxLength="9" tableConstraint="main"/>
         <AttributeDescription displayName="Status (transcript)" field="status_1064" hidden="true" internalName="transcript_status" key="transcript_id_1064_key" maxLength="19" tableConstraint="main"/>
@@ -5572,7 +5562,7 @@
         -->
         <AttributeDescription hidden="true" displayName="PO (gene) ID" field="dbprimary_acc_1074" internalName="po_to_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_po_to_gene__dm"/>
         <AttributeDescription hidden="true" displayName="PO (transcript) ID" field="dbprimary_acc_1074" internalName="po_to_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_po_to_transcript__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="PO Term" field="dbprimary_acc_1074" internalName="po" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_po__dm" useDefault="true">
+        <AttributeDescription checkForNulls="true" displayName="PO term" field="dbprimary_acc_1074" internalName="po" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_po__dm" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_po__dm"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_po__dm"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene"/>
@@ -5651,11 +5641,11 @@
         <AttributeDescription checkForNulls="true" displayName="TIGR locus model" field="dbprimary_acc_1074" internalName="tigr_locus_model" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_TIGR_LOCUS_MODEL__dm"/>
         <AttributeDescription checkForNulls="true" displayName="TIGR transcript" field="dbprimary_acc_1074" internalName="tigr_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_TIGR_TRANSCRIPT__dm"/>
         <AttributeDescription checkForNulls="true" displayName="TIGR transcript ID" field="dbprimary_acc_1074" internalName="tigr_transcript_id" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_tigr_transcript_id__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="TO Term" field="dbprimary_acc_1074" internalName="to" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_to__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="TO term" field="dbprimary_acc_1074" internalName="to" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_to__dm"/>
         <AttributeDescription checkForNulls="true" displayName="TransFac ID" field="dbprimary_acc_1074" internalName="transfac" key="gene_id_1020_key" linkoutURL="exturl:http://www.genome.jp/dbget-bin/www_bget?ts:%s" maxLength="40" tableConstraint="ox_TransFac__dm"/>
         <AttributeDescription checkForNulls="true" displayName="TriTryp Pathway Comparison ID" field="dbprimary_acc_1074" internalName="tritryp_pathway_comparison" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_tritryp_pathway_comparison__dm"/>
         <AttributeDescription checkForNulls="true" displayName="tRNAScan-SE ID" field="dbprimary_acc_1074" internalName="trnascan_se" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_trnascan_se__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="TRO Term" field="dbprimary_acc_1074" internalName="tro" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_TRO__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="TRO term" field="dbprimary_acc_1074" internalName="tro" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_TRO__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Tuber Genoscope ID" field="dbprimary_acc_1074" internalName="tuber_genoscope" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_tuber_genoscope_gene__dm" linkoutURL="exturl1|http://www.genoscope.cns.fr/cgi-bin/ggb/tuber/gbrowse/tuber/?name=%s"/>
         <AttributeDescription checkForNulls="true" displayName="TubercuList ID" field="dbprimary_acc_1074" internalName="tuberculist" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_TubercuList__dm"/>
         <AttributeDescription checkForNulls="true" displayName="UCSC ID" field="dbprimary_acc_1074" internalName="ucsc" key="transcript_id_1064_key" linkoutURL="exturl|http://genome.ucsc.edu/cgi-bin/hgGene?hgg_chrom=none&amp;org=Human&amp;db=hg18&amp;hgg_gene=%s" maxLength="40" tableConstraint="ox_UCSC__dm"/>
@@ -5709,7 +5699,7 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
         </AttributeDescription>
-        <AttributeDescription checkForNulls="true" displayName="WikiGene Name" field="display_label_1074" internalName="wikigene_name" key="gene_id_1020_key" maxLength="128" tableConstraint="ox_wikigene__dm" useDefault="true">
+        <AttributeDescription checkForNulls="true" displayName="WikiGene name" field="display_label_1074" internalName="wikigene_name" key="gene_id_1020_key" maxLength="128" tableConstraint="ox_wikigene__dm" useDefault="true">
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="osativa_eg_gene"/>
@@ -5724,7 +5714,7 @@
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="umaydis_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="lmajor_eg_gene"/>
         </AttributeDescription>
-        <AttributeDescription checkForNulls="true" displayName="WikiGene Description" field="description_1074" internalName="wikigene_description" key="gene_id_1020_key" maxLength="255" tableConstraint="ox_wikigene__dm" useDefault="true">
+        <AttributeDescription checkForNulls="true" displayName="WikiGene description" field="description_1074" internalName="wikigene_description" key="gene_id_1020_key" maxLength="255" tableConstraint="ox_wikigene__dm" useDefault="true">
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="osativa_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="bdistachyon_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="sbicolor_eg_gene"/>
@@ -5752,22 +5742,22 @@
         -->
       </AttributeCollection>
       <AttributeCollection displayName="GO" internalName="go_closure">
-        <AttributeDescription displayName="GO Term accession" field="dbprimary_acc_1074" internalName="go_accession" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ontology_go__dm" useDefault="true">
+        <AttributeDescription displayName="GO term accession" field="dbprimary_acc_1074" internalName="go_accession" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ontology_go__dm" useDefault="true">
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="afumigatus_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="anidulans_eg_gene"/>
         </AttributeDescription>
-        <AttributeDescription displayName="GO Term name" field="name_1006" internalName="go_name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_go__dm" useDefault="true">
+        <AttributeDescription displayName="GO term name" field="name_1006" internalName="go_name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_go__dm" useDefault="true">
           <SpecificAttributeContent key="transcript_id_1064_key" field="name_1006" internalName="spombe_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="name_1006" internalName="afumigatus_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="name_1006" internalName="anidulans_eg_gene"/>
         </AttributeDescription>
-        <AttributeDescription displayName="GO Term definition" field="definition_1006" internalName="go_definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_go__dm" useDefault="true">
+        <AttributeDescription displayName="GO term definition" field="definition_1006" internalName="go_definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_go__dm" useDefault="true">
           <SpecificAttributeContent key="transcript_id_1064_key" field="definition_1006" internalName="spombe_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="definition_1006" internalName="afumigatus_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="definition_1006" internalName="anidulans_eg_gene"/>
         </AttributeDescription>
-        <AttributeDescription displayName="GO Term evidence code" field="linkage_type_1024" internalName="go_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="ontology_go__dm" useDefault="true">
+        <AttributeDescription displayName="GO term evidence code" field="linkage_type_1024" internalName="go_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="ontology_go__dm" useDefault="true">
           <SpecificAttributeContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="spombe_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="afumigatus_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="anidulans_eg_gene"/>
@@ -6076,10 +6066,10 @@
         	maxLength="3" tableConstraint="go_extension__dm" useDefault="true"/>
       </AttributeCollection>
       <AttributeCollection displayName="PBO" hidden="true" internalName="pbo_transc_closure">
-        <AttributeDescription displayName="PBO Term accession" field="dbprimary_acc_1074" internalName="pbo_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_pbo__dm"/>
-        <AttributeDescription displayName="PBO Term name" field="name_1006" internalName="pbo_name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_pbo__dm"/>
-        <AttributeDescription displayName="PBO Term definition" field="definition_1006" internalName="pbo_definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_pbo__dm"/>
-        <AttributeDescription displayName="PBO Term evidence code" field="linkage_type_1024" internalName="pbo_linkage_type" key="transcript_id_1064_key" maxLength="3" tableConstraint="ontology_pbo__dm"/>
+        <AttributeDescription displayName="PBO term accession" field="dbprimary_acc_1074" internalName="pbo_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_pbo__dm"/>
+        <AttributeDescription displayName="PBO term name" field="name_1006" internalName="pbo_name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_pbo__dm"/>
+        <AttributeDescription displayName="PBO term definition" field="definition_1006" internalName="pbo_definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_pbo__dm"/>
+        <AttributeDescription displayName="PBO term evidence code" field="linkage_type_1024" internalName="pbo_linkage_type" key="transcript_id_1064_key" maxLength="3" tableConstraint="ontology_pbo__dm"/>
         <AttributeDescription displayName="PBO domain" field="namespace_1003" internalName="pbo_namespace_1003" key="transcript_id_1064_key" maxLength="64" tableConstraint="ontology_pbo__dm"/>
         <AttributeDescription displayName="PBO qualifier" field="qualifier_label" 
             internalName="pbo_qualifier_label" key="transcript_id_1064_key" 
@@ -6146,10 +6136,10 @@
         	maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
       </AttributeCollection>
       <AttributeCollection displayName="FYPO" hidden="true" internalName="fypo_transc_closure">
-        <AttributeDescription displayName="FYPO Term accession" field="dbprimary_acc_1074" internalName="fypo_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_fypo__dm"/>
-        <AttributeDescription displayName="FYPO Term name" field="name_1006" internalName="fypo_name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_fypo__dm"/>
-        <AttributeDescription displayName="FYPO Term definition" field="definition_1006" internalName="fypo_definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_fypo__dm"/>
-        <AttributeDescription displayName="FYPO Term evidence code" field="linkage_type_1024" internalName="fypo_linkage_type" key="transcript_id_1064_key" maxLength="3" tableConstraint="ontology_fypo__dm"/>
+        <AttributeDescription displayName="FYPO term accession" field="dbprimary_acc_1074" internalName="fypo_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_fypo__dm"/>
+        <AttributeDescription displayName="FYPO term name" field="name_1006" internalName="fypo_name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_fypo__dm"/>
+        <AttributeDescription displayName="FYPO term definition" field="definition_1006" internalName="fypo_definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_fypo__dm"/>
+        <AttributeDescription displayName="FYPO term evidence code" field="linkage_type_1024" internalName="fypo_linkage_type" key="transcript_id_1064_key" maxLength="3" tableConstraint="ontology_fypo__dm"/>
         <AttributeDescription displayName="FYPO domain" field="namespace_1003" internalName="fypo_namespace_1003" key="transcript_id_1064_key" maxLength="64" tableConstraint="ontology_fypo__dm"/>
         <AttributeDescription displayName="FYPO evidence" field="evidence_label" 
             internalName="fypo_evidence_label" key="transcript_id_1064_key" 
@@ -6270,10 +6260,10 @@
         	maxLength="3" tableConstraint="fypo_extension__dm" useDefault="true"/>
       </AttributeCollection>
       <AttributeCollection displayName="MOD" hidden="true" internalName="mod_transc_closure">
-        <AttributeDescription displayName="MOD Term accession" field="dbprimary_acc_1074" internalName="mod_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_mod__dm"/>
-        <AttributeDescription displayName="MOD Term name" field="name_1006" internalName="name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_mod__dm"/>
-        <AttributeDescription displayName="MOD Term definition" field="definition_1006" internalName="definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_mod__dm"/>
-        <AttributeDescription displayName="MOD Term evidence code" field="linkage_type_1024" internalName="mod_linkage_type" key="transcript_id_1064_key" maxLength="3" tableConstraint="ontology_mod__dm"/>
+        <AttributeDescription displayName="MOD term accession" field="dbprimary_acc_1074" internalName="mod_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_mod__dm"/>
+        <AttributeDescription displayName="MOD term name" field="name_1006" internalName="name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_mod__dm"/>
+        <AttributeDescription displayName="MOD term definition" field="definition_1006" internalName="definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_mod__dm"/>
+        <AttributeDescription displayName="MOD term evidence code" field="linkage_type_1024" internalName="mod_linkage_type" key="transcript_id_1064_key" maxLength="3" tableConstraint="ontology_mod__dm"/>
         <AttributeDescription displayName="MOD domain" field="namespace_1003" internalName="namespace_1003" key="transcript_id_1064_key" maxLength="64" tableConstraint="ontology_mod__dm"/>
         <AttributeDescription displayName="MOD evidence" field="evidence_label" 
             internalName="mod_evidence_label" key="transcript_id_1064_key" 
@@ -6385,10 +6375,10 @@
         	maxLength="3" tableConstraint="mod_extension__dm" useDefault="true"/>
       </AttributeCollection>
       <AttributeCollection displayName="SO" hidden="true" internalName="so_closure">
-        <AttributeDescription displayName="SO Term accession" field="dbprimary_acc_1074" internalName="so_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_so__dm"/>
-        <AttributeDescription displayName="SO Term name" field="name_1006" internalName="so_name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_so__dm"/>
-        <AttributeDescription displayName="SO Term definition" field="definition_1006" internalName="so_definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_so__dm"/>
-        <AttributeDescription displayName="SO Term evidence code" field="linkage_type_1024" internalName="so_linkage_type" key="transcript_id_1064_key" maxLength="3" tableConstraint="ontology_so__dm"/>
+        <AttributeDescription displayName="SO term accession" field="dbprimary_acc_1074" internalName="so_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_so__dm"/>
+        <AttributeDescription displayName="SO term name" field="name_1006" internalName="so_name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_so__dm"/>
+        <AttributeDescription displayName="SO term definition" field="definition_1006" internalName="so_definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_so__dm"/>
+        <AttributeDescription displayName="SO term evidence code" field="linkage_type_1024" internalName="so_linkage_type" key="transcript_id_1064_key" maxLength="3" tableConstraint="ontology_so__dm"/>
         <AttributeDescription displayName="SO domain" field="namespace_1003" internalName="so_namespace_1003" key="transcript_id_1064_key" maxLength="64" tableConstraint="ontology_so__dm"/>
         <AttributeDescription displayName="SO evidence" field="evidence_label" 
             internalName="so_evidence_label" key="transcript_id_1064_key" 
@@ -6419,22 +6409,22 @@
         	maxLength="3" tableConstraint="so_extension__dm" useDefault="true"/>
       </AttributeCollection>
       <AttributeCollection displayName="PO" hidden="true" internalName="po_closure">
-        <AttributeDescription displayName="PO Term accession (bp)" field="dbprimary_acc_1074" hidden="true" internalName="po_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.genpontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ontology_po__dm" useDefault="true">
+        <AttributeDescription displayName="PO term accession (bp)" field="dbprimary_acc_1074" hidden="true" internalName="po_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.genpontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ontology_po__dm" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
-        <AttributeDescription displayName="PO Term name (bp)" field="name_1006" hidden="true" internalName="po_name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_po__dm" useDefault="true">
+        <AttributeDescription displayName="PO term name (bp)" field="name_1006" hidden="true" internalName="po_name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_po__dm" useDefault="true">
           <SpecificAttributeContent field="name_1006" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="name_1006" internalName="sbicolor_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="name_1006" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
-        <AttributeDescription displayName="PO Term definition (bp)" field="definition_1006" hidden="true" internalName="po_definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_po__dm" useDefault="true">
+        <AttributeDescription displayName="PO term definition (bp)" field="definition_1006" hidden="true" internalName="po_definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_po__dm" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
-        <AttributeDescription displayName="PO Term evidence code (bp)" field="linkage_type_1024" hidden="true" internalName="po_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="ontology_po__dm" useDefault="true">
+        <AttributeDescription displayName="PO term evidence code (bp)" field="linkage_type_1024" hidden="true" internalName="po_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="ontology_po__dm" useDefault="true">
           <SpecificAttributeContent field="linkage_type_1024" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="linkage_type_1024" internalName="sbicolor_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="linkage_type_1024" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key"/>
@@ -6731,9 +6721,9 @@
         <AttributeDescription internalName="structure_transcript_chrom_start" pointerAttribute="transcript_start" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="structure_transcript_chrom_end" pointerAttribute="transcript_end" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="structure_external_gene_id" pointerAttribute="external_gene_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="structure_external_db_name" pointerAttribute="external_gene_db" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="structure_description" pointerAttribute="description" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="structure_biotype" pointerAttribute="gene_biotype" pointerDataset="*species3*_gene" pointerInterface="default"/>
-        <AttributeDescription internalName="structure_external_db_name" pointerAttribute="external_gene_db" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="struct_transcript_count" pointerAttribute="transcript_count" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="structure_5_utr_start" pointerAttribute="5_utr_start" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="structure_5_utr_end" pointerAttribute="5_utr_end" pointerDataset="*species3*_gene" pointerInterface="default"/>
@@ -6770,9 +6760,9 @@
         <AttributeDescription internalName="snp_strand" pointerAttribute="strand" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="snp_band" pointerAttribute="band" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="snp_external_gene_id" pointerAttribute="external_gene_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_external_gene_db" pointerAttribute="external_gene_db" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="snp_description" pointerAttribute="description" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="snp_biotype" pointerAttribute="gene_biotype" pointerDataset="*species3*_gene" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_external_gene_db" pointerAttribute="external_gene_db" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="snp_percentage_gc_content" pointerAttribute="percentage_gc_content" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="snp_transcript_count" pointerAttribute="transcript_count" pointerDataset="*species3*_gene" pointerInterface="default"/>
       </AttributeCollection>
@@ -6883,9 +6873,9 @@
         <AttributeDescription internalName="homologs_strand" pointerAttribute="strand" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="homologs_band" pointerAttribute="band" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="homologs_external_gene_id" pointerAttribute="external_gene_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="homologs_external_gene_db" pointerAttribute="external_gene_db" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="homologs_description" pointerAttribute="description" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="homologs_biotype" pointerAttribute="gene_biotype" pointerDataset="*species3*_gene" pointerInterface="default"/>
-        <AttributeDescription internalName="homologs_external_gene_db" pointerAttribute="external_gene_db" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="homologs_percentage_gc_content" pointerAttribute="percentage_gc_content" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="homologs_transcript_count" pointerAttribute="transcript_count" pointerDataset="*species3*_gene" pointerInterface="default"/>
       </AttributeCollection>
@@ -6926,9 +6916,9 @@
         <AttributeDescription internalName="sequence_str_chrom_name" pointerAttribute="chromosome_name" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="sequence_gene_chrom_start" pointerAttribute="start_position" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="sequence_gene_chrom_end" pointerAttribute="end_position" pointerDataset="*species3*_gene" pointerInterface="default"/>
-        <AttributeDescription internalName="sequence_description" pointerAttribute="description" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="sequence_external_gene_id" pointerAttribute="external_gene_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="sequence_external_db_name" pointerAttribute="external_gene_db" pointerDataset="*species3*_gene" pointerInterface="default"/>
+        <AttributeDescription internalName="sequence_description" pointerAttribute="description" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="sequence_family" pointerAttribute="family" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="sequence_upi" pointerAttribute="uniparc" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="sequence_uniprot_swissprot_accession" pointerAttribute="uniprot_swissprot_accession" pointerDataset="*species3*_gene" pointerInterface="default"/>
