@@ -2026,7 +2026,7 @@
             <SpecificOptionContent key="transcript_id_1064_key" field="ox_unigene_bool" internalName="ptrichocarpa_eg_gene"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="ox_unigene_bool" internalName="sbicolor_eg_gene"/>
           </Option>
-          <Option displayName="with UniParc ID(s)" displayType="list" field="ox_uniparc_bool" internalName="with_ox_uniparc" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with UniParc ID(s)" displayType="list" field="ox_uniparc_bool" internalName="with_ox_uniparc" isSelectable="true" hidden="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2735,7 +2735,7 @@
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
           </Option>
-          <Option checkForNulls="true" displayName="UniParc ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniparc" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniparc__dm" type="list"/>
+          <Option checkForNulls="true" displayName="UniParc ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniparc" isSelectable="true" hidden="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniparc__dm" type="list"/>
           <Option checkForNulls="true" displayName="UniProtKB Gene Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_genename" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_genename__dm" type="list" useDefault="true">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
