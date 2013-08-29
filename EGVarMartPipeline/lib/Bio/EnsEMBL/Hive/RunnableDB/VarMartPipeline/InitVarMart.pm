@@ -19,10 +19,7 @@ sub run {
     my $structvar_sql_file = $self->param('structvar_sql_file');
     my $data_dir           = $self->param('data_dir');
     my $nb_variations_per_run = $self->param('nb_variations_per_run');
-    my $db_conn_href = $self->get_db_connection();
     
-    my $mysql_command = "mysql -h " . $db_conn_href->{'host'} . " -u " . $db_conn_href->{'user'} . " -P " . $db_conn_href->{'port'} . " -p" . $db_conn_href->{'pass'};
-	
     # Replace on the fly the following placeholders:
     # * VAR_MART_DB
     # * SPECIES_ABBREV
@@ -60,7 +57,9 @@ sub run {
 	$splitting = 1;
 	$nb_files = ceil ($nb_variations / $nb_variations_per_run);
 	
-	for (my $i=1; $i<$nb_files; $i++) {
+	print STDERR "nb_files, $nb_files\n";
+
+	for (my $i=1; $i<=$nb_files; $i++) {
 	    my $var_mart_db = $short_species_name . "_var_mart_" . $eg_release . "_" . $i;
 	    push (@$variations_files, $var_mart_db);
 	}
@@ -90,7 +89,7 @@ sub run {
 	if ($file_index == 1) {
 	    $create_db_info = 1;
 	}
-	if ($file_index == @$variations_files) {
+	elsif ($file_index == @$variations_files) {
 	    $enable_keys = 1;
 	}
 
@@ -100,12 +99,6 @@ sub run {
 	    CORE_DB        => $core_db,
 	    VAR_DB         => $variation_db,
 	};
-	
-	# Create the var_mart_db
-	# not anymore here, done in BuildVarMart step
-	#print STDERR "create database $var_mart_db\n";
-	
-	#qx/$mysql_command -e "CREATE DATABASE $var_mart_db"/;
 	
 	# Add the between clause
 	# to an intermediary sql file
@@ -191,10 +184,6 @@ sub run {
     
     # Create the synvar_mart_db
     
-    #print STDERR "create database $synvar_mart_db\n";
-    
-    #qx/$mysql_command -e "CREATE DATABASE $synvar_mart_db"/;
-    
     my $in_syn_varmart_file_fh = new FileHandle;
     my $out_syn_varmart_file_fh = new FileHandle;
     
@@ -232,13 +221,6 @@ sub run {
 	VAR_DB         => $variation_db,
     };
     
-    # Create the structvar_mart_db
-    # done now in BuildVarMart step
-    
-    #print STDERR "create database $structvar_mart_db\n";
-    
-    #qx/$mysql_command -e "CREATE DATABASE $structvar_mart_db"/;
-
     my $in_struct_varmart_file_fh = new FileHandle;
     my $out_struct_varmart_file_fh = new FileHandle;
 
@@ -275,7 +257,7 @@ sub add_between_clause {
 
     chomp $new_line;
     $new_line =~ s/;$//;
-    $new_line .= " AND a.variation_id >= $min AND a.variation_id < $max;\n";
+    $new_line .= " AND a.variation_id >= $min AND a.variation_id <= $max;\n";
 
     return $new_line;
 }
