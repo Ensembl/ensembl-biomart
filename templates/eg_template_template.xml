@@ -5400,7 +5400,7 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="EO" field="dbprimary_acc_1074" internalName="eo" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_eo__dm"/>
-        <AttributeDescription checkForNulls="true" isplayName="Eukaryotic Promoter Database (EPD) ID(s)" field="dbprimary_acc_1074" internalName="epd" key="gene_id_1020_key" linkoutURL="exturl|http://www.genome.jp/dbget-bin/www_bfind_sub?dbkey=epd&amp;keywords=%s" maxLength="40" tableConstraint="ox_EPD__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Eukaryotic Promoter Database (EPD) ID(s)" field="dbprimary_acc_1074" internalName="epd" key="gene_id_1020_key" linkoutURL="exturl|http://www.genome.jp/dbget-bin/www_bfind_sub?dbkey=epd&amp;keywords=%s" maxLength="40" tableConstraint="ox_EPD__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Fantom ID" field="dbprimary_acc_1074" internalName="fantom" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_Fantom__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Fly Reactome ID" field="dbprimary_acc_1074" internalName="flyreactome" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_flyreactome__dm"/>
         <AttributeDescription checkForNulls="true" displayName="FlyBase annotation ID" field="dbprimary_acc_1074" internalName="flybase_annotation_id" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_annotation_id__dm">
