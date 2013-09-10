@@ -119,7 +119,8 @@ from ${core_db}.associated_xref ax
 join ${core_db}.object_xref ox using (object_xref_id)
 join ${core_db}.xref tx on (tx.xref_id=ox.xref_id)
 join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id)
-where td.db_name='$external_db'/;
+join ${core_db}.xref axt on (ax.xref_id=axt.xref_id)
+where td.db_name='$external_db' and axt.dbprimary_acc !='PBO:2100001'/;
     $logger->debug($get_conditions);
     my $sth = $mart_handle->prepare($get_conditions);
     return get_strings($sth);
@@ -141,6 +142,7 @@ join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id)/;
 sub add_condition {
     my ($mart_handle,$mart_db,$core_db,$dataset,$condition,$external_db) = @_;
 
+    $condition =~ s/\s+/_/g;
     my $add_condition = qq/create table ${mart_db}.TMP as
 select oe.*,
 cx.dbprimary_acc ${condition}_acc,
