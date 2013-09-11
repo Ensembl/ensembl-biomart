@@ -39,10 +39,10 @@ sub search_nodes {
 }
 
 # db params
-my $db_host = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
+my $db_host = 'mysql-eg-prod-1.ebi.ac.uk';
 my $db_port = '4238';
-my $db_user = 'ensrw';
-my $db_pwd = 'writ3rp1';
+my $db_user = 'ensro';
+my $db_pwd;
 my $mart_db;
 my $template = './templates/eg_template_template.xml';
 
@@ -51,8 +51,8 @@ sub usage {
     print "-h|-host <host> Default is $db_host\n";
     print "-P|-port <port> Default is $db_port\n";
     print "-u|-user <host> Default is $db_user\n";
-    print "-p|-pass <password> Default is top secret unless you know cat\n";
-    print "-mart <target mart> Default is $mart_db\n";
+    print "-p|-pass <password> (No default)\n";
+    print "-mart <target mart> (No default)\n";
     print "-template <template file> \n";
     exit 1;
 };
