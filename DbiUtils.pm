@@ -84,6 +84,16 @@ sub get_strings {
     return @strings;
 }
 
+sub get_rows {
+    my $sth = shift;
+    my @strings = ();
+    $sth->execute();
+    while(my @data = $sth->fetchrow_array()) {
+	push(@strings,\@data);
+    }    
+    return @strings;
+}
+
 sub get_row {
     my $sth = shift;
     $sth->execute(@_);

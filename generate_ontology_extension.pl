@@ -66,11 +66,12 @@ if(!defined $core_db) {
     croak "Could not find core database for dataset $dataset";
 }
 
-for my $external_db (get_dbs($mart_handle,$core_db)) {
-
+for my $row (get_dbs($mart_handle,$core_db)) {
+    my $external_db = $row->[0];
+    my $object_type = $row->[1];
     $logger->info("Creating base table for $dataset $external_db on $mart_db using $core_db");
 
-    create_base_table($mart_handle,$mart_db,$core_db,$dataset,$external_db);
+    create_base_table($mart_handle,$mart_db,$core_db,$dataset,$external_db,$object_type);
     
     for my $condition (get_conditions($mart_handle,$core_db,$external_db)) {
         $logger->info("Adding condition $condition for $dataset $external_db on $mart_db using $core_db");
@@ -79,15 +80,20 @@ for my $external_db (get_dbs($mart_handle,$core_db)) {
 }
 
 sub create_base_table {
-    my ($mart_handle,$mart_db,$core_db,$dataset,$external_db) = @_;
+    my ($mart_handle,$mart_db,$core_db,$dataset,$external_db,$object_type) = @_;
     my $drop_base_table = qq/drop table if exists 
 ${mart_db}.${dataset}_gene__${external_db}_extension__dm/; 
     $logger->debug($drop_base_table);
     $mart_handle->do($drop_base_table);
+    
+    my $key = 'transcript_id_1064_key';
+    if (  $object_type eq 'translation' ) {
+      $key = 'translation_id_1068_key';
+    }
 
     my $create_base_table = qq/create table 
 ${mart_db}.${dataset}_gene__${external_db}_extension__dm as
-select distinct t.transcript_id as transcript_id_1064_key, 
+select distinct t.${object_type}_id as ${key}, 
 ax.object_xref_id,
 tx.dbprimary_acc subject_acc,
 tx.display_label subject_label,
@@ -96,9 +102,9 @@ sx.display_label source_label,
 sd.db_name source_db,
 ag.associated_group_id group_id,
 ag.description group_des
-from ${core_db}.transcript t
-left join ${core_db}.object_xref ox on (t.transcript_id=ox.ensembl_id 
-and ox.ensembl_object_type='Transcript')
+from ${core_db}.${object_type} t
+left join ${core_db}.object_xref ox on (t.${object_type}_id=ox.ensembl_id 
+and ox.ensembl_object_type='${object_type}')
 left join ${core_db}.xref tx on (tx.xref_id=ox.xref_id)
 left join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id)
 left join ${core_db}.associated_xref ax using (object_xref_id)
@@ -119,7 +125,8 @@ from ${core_db}.associated_xref ax
 join ${core_db}.object_xref ox using (object_xref_id)
 join ${core_db}.xref tx on (tx.xref_id=ox.xref_id)
 join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id)
-where td.db_name='$external_db'/;
+join ${core_db}.xref axt on (ax.xref_id=axt.xref_id)
+where td.db_name='$external_db' and axt.dbprimary_acc !='PBO:2100001'/;
     $logger->debug($get_conditions);
     my $sth = $mart_handle->prepare($get_conditions);
     return get_strings($sth);
@@ -128,19 +135,20 @@ where td.db_name='$external_db'/;
 sub get_dbs {
  my ($mart_handle,$core_db) = @_;
     my $get_conditions = qq/
-select distinct(lower(td.db_name)) 
+select distinct lower(td.db_name), lower(ox.ensembl_object_type) 
 from $core_db.associated_xref
 join ${core_db}.object_xref ox using (object_xref_id)
 join ${core_db}.xref tx on (tx.xref_id=ox.xref_id)
 join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id)/;
     $logger->debug($get_conditions);
     my $sth = $mart_handle->prepare($get_conditions);
-    return get_strings($sth);
+    return get_rows($sth);
 }
 
 sub add_condition {
     my ($mart_handle,$mart_db,$core_db,$dataset,$condition,$external_db) = @_;
 
+    $condition =~ s/\s+/_/g;
     my $add_condition = qq/create table ${mart_db}.TMP as
 select oe.*,
 cx.dbprimary_acc ${condition}_acc,

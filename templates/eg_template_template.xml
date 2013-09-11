@@ -684,6 +684,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with broad_m_violaceum ID(s)" displayType="list" field="ox_broad_m_violaceum_bool" internalName="with_broad_m_violaceum" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with Broad Institute (P. infestans) ID(s)" displayType="list" field="ox_broad_p_infestans_bool" internalName="with_broad_p_infestans" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -992,7 +996,6 @@
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="aoryzae_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="lmajor_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="bdistachyon_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="ox_entrezgene_bool" internalName="osativa_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="oindica_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="ptrichocarpa_eg_gene" key="transcript_1064_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="sbicolor_eg_gene" key="translation_id_1068_key"/>
@@ -1661,6 +1664,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with PHI-base ID(s)" displayType="list" field="ox_phi_bool" internalName="with_phi" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with PhosSite ID(s)" displayType="list" field="ox_phossite_bool" internalName="with_ox_phossite" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2112,7 +2119,6 @@
             <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="bdistachyon_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="sbicolor_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="oindica_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="osativa_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="lmajor_eg_gene"/>
             <SpecificOptionContent field="ox_wikigene_bool" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_wikigene_bool" internalName="agambiae_eg_gene" key="translation_id_1068_key"/>
@@ -2304,6 +2310,7 @@
           <Option checkForNulls="true" displayName="Broad Institute (F. oxysporum) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_f_oxysporum" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_f_oxysporum__dm" type="list"/>
           <Option checkForNulls="true" displayName="Broad Institute (G. moniliformis) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_g_moniliformis" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_g_moniliformis__dm" type="list"/>
           <Option checkForNulls="true" displayName="Broad Institute (G.zeae) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_g_zeae" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_g_zeae__dm" type="list"/>
+          <Option checkForNulls="true" displayName="broad_m_violaceum ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_m_violaceum" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_m_violaceum__dm" type="list"/>
           <Option checkForNulls="true" displayName="Broad Institute (P. infestans) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_p_infestans" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_p_infestans__dm" type="list"/>
           <Option checkForNulls="true" displayName="Broad Institute (P. nodorum) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_p_nodorum" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_p_nodorum_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="Broad Institute (P. triticina) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="broad_p_triticina" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_broad_p_triticina__dm" type="list"/>
@@ -2402,7 +2409,6 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="spurpuratus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="lmajor_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="osativa_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
@@ -2611,6 +2617,7 @@
           <Option checkForNulls="true" displayName="PGD gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pgd_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pgd_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="Phalanx OneArray ID(s)" displayType="text" field="display_label_11056" internalName="phalanx_onearray" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_PHALANX_Onearray__dm" type="list"/>
           <Option checkForNulls="true" displayName="PHI-base ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="phibase" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_phibase__dm" type="list"/>
+          <Option checkForNulls="true" displayName="PHI-base ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="phi" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_phi__dm" type="list"/>
           <Option checkForNulls="true" displayName="PhosSite ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="phossite" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_phossite__dm" type="list"/>
           <Option checkForNulls="true" displayName="PlantGDB PUT ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="plantgdb_put" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_plantgdb_put__dm" type="list"/>
           <Option checkForNulls="true" displayName="PlasmoDB ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="plasmodb" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_PlasmoDB__dm" type="list"/>
@@ -2763,7 +2770,6 @@
           <Option checkForNulls="true" displayName="WikiGene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wikigene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wikigene__dm" type="text" useDefault="true">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="osativa_eg_gene"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="aclavatus_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="afumigatus_eg_gene"/>
@@ -5272,6 +5278,7 @@
         <AttributeDescription checkForNulls="true" displayName="Broad Institute (F. oxysporum) ID" field="dbprimary_acc_1074" internalName="broad_f_oxysporum" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_f_oxysporum__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s"/>
         <AttributeDescription checkForNulls="true" displayName="Broad Institute (G. moniliformis) ID" field="dbprimary_acc_1074" internalName="broad_g_moniliformis" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_g_moniliformis__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s"/>
         <AttributeDescription checkForNulls="true" displayName="Broad Institute (G.zeae) ID" field="dbprimary_acc_1074" internalName="broad_g_zeae" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_g_zeae__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/fusarium_group/GeneLocus.html?sp=S%s"/>
+        <AttributeDescription checkForNulls="true" displayName="broad_m_violaceum ID" field="dbprimary_acc_1074" internalName="broad_m_violaceum" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_m_violaceum__dm"/>
         <AttributeDescription checkForNulls="true" displayName="BROAD Institute (P. infestans) ID" field="dbprimary_acc_1074" internalName="broad_p_infestans" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_p_infestans__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Broad Institute (P. nodorum) ID" field="dbprimary_acc_1074" internalName="broad_p_nodorum" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_p_nodorum_gene__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/stagonospora_nodorum/GeneLocus.html?sp=S%s"/>
         <AttributeDescription checkForNulls="true" displayName="Broad Institute (P. triticina) ID" field="dbprimary_acc_1074" internalName="broad_p_triticina" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_broad_p_triticina__dm" linkoutURL="exturl1|http://www.broadinstitute.org/annotation/genome/puccinia_group/GeneLocus.html?sp=%s"/>
@@ -5379,7 +5386,6 @@
         <AttributeDescription checkForNulls="true" displayName="EntrezGene ID" field="dbprimary_acc_1074" internalName="entrezgene" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?cmd=search&amp;db=gene&amp;term=%s[uid]" maxLength="40" tableConstraint="ox_entrezgene__dm" useDefault="true">
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="brapa_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="osativa_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="phumanus_eg_gene"/>
@@ -5551,6 +5557,7 @@
         <AttributeDescription checkForNulls="true" displayName="PGD gene ID" field="dbprimary_acc_1074" internalName="pgd_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_pgd_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PGSC ID" field="dbprimary_acc_1074" internalName="pgsc" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_pgsc_gene__dm" linkoutURL="exturl1|http://solanaceae.plantbiology.msu.edu/cgi-bin/gbrowse/potato/?name=%s"/>
         <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="dbprimary_acc_1074" internalName="phibase" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_phibase__dm" linkoutURL="exturl1|http://www.phibase.org/query.php?detail=yes&amp;phi_acc=%s"/>
+        <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="dbprimary_acc_1074" internalName="phi" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_phi__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PhosSite ID" field="dbprimary_acc_1074" internalName="phossite" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PhosSite__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PlantGDB PUT ID" field="dbprimary_acc_1074" internalName="plantgdb_put" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_plantgdb_put__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PlasmoDB" field="dbprimary_acc_1074" internalName="plasmodb" key="gene_id_1020_key" linkoutURL="exturl1|http://plasmodb.org/plasmo/showRecord.do?name=GeneRecordClasses.GeneRecordClass&amp;project_id=PlasmoDB&amp;source_id=%s" maxLength="40" tableConstraint="ox_PlasmoDB__dm"/>
@@ -5684,7 +5691,6 @@
         <AttributeDescription checkForNulls="true" displayName="WikiGene ID" field="dbprimary_acc_1074" internalName="wikigene_id" key="gene_id_1020_key" linkoutURL="http://www.wikigenes.org/e/gene/e/%s.html" maxLength="40" tableConstraint="ox_wikigene__dm" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="osativa_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aclavatus_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="afumigatus_eg_gene" key="translation_id_1068_key"/>
@@ -5698,7 +5704,6 @@
         <AttributeDescription checkForNulls="true" displayName="WikiGene name" field="display_label_1074" internalName="wikigene_name" key="gene_id_1020_key" maxLength="128" tableConstraint="ox_wikigene__dm" useDefault="true">
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="osativa_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="phumanus_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="aclavatus_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="afumigatus_eg_gene"/>
@@ -5710,7 +5715,6 @@
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="lmajor_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="WikiGene description" field="description_1074" internalName="wikigene_description" key="gene_id_1020_key" maxLength="255" tableConstraint="ox_wikigene__dm" useDefault="true">
-          <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="osativa_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="bdistachyon_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="sbicolor_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="phumanus_eg_gene"/>
