@@ -609,6 +609,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+	  <Option displayName="with Agilent uq 4x44k_v1 ID(s)" displayType="list" field="efg_agilent_uq_agilent_4x44k_v1_bool" internalName="with_agilent_uq_agilent_4x44k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with Agilent Wholegenome ID(s)" displayType="list" field="eFG_AGILENT_WholeGenome_bool" internalName="with_agilent_wholegenome" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2290,6 +2294,7 @@
           <Option checkForNulls="true" displayName="Agilent Oxford 44k v1 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_oxford_agilent_44k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_oxford_agilent_44k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="Agilent probe(s)" displayType="text" field="dbprimary_acc_1074" internalName="agilent_probe" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_agilentprobe__dm" type="text"/>
           <Option checkForNulls="true" displayName="Agilent uci 16k ID(s)" displayType="text" field="display_label_11056" internalName="agilent_uci_agilent_16k" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_uci_agilent_16k__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="Agilent uq agilent 4x44k_v1 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_uq_agilent_4x44k_v1" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_uq_agilent_4x44k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="Agilent WholeGenome ID(s) [e.g. A_23_P85265]" displayType="text" field="display_label_11056" internalName="agilent_wholegenome" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="eFG_AGILENT_WholeGenome__dm" type="text"/>
           <Option checkForNulls="true" displayName="Anopheles symbol ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="anopheles_symbol" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_anopheles_symbol__dm" type="list"/>
           <Option checkForNulls="true" displayName="Anoxcel ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="anoxcel" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_anoxcel__dm" type="list"/>
@@ -6471,6 +6476,8 @@
       </AttributeCollection>
 -->
       <AttributeCollection displayName="Microarray Attributes" internalName="microarray" maxSelect="2">
+	<AttributeDescription checkForNulls="true" displayName="A. aegypti Agilent uq 4x44k_v1 ID" field="display_label_11056" internalName="agilent_uq_agilent_4x44k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_uq_agilent_4x44k_v1__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="A. aegypti custom EST UCR_GillMgMT_v2 ID" field="display_label_11056" internalName="custom_est_ucr_gillmgmt_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_ucr_gillmgmt_v2__dm"/>
         <AttributeDescription displayName="A. aegypti Liverpool Detox 25k v1 probe ID" field="display_label_11056" internalName="liv_liv_aegdetox_0_25k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_liv_liv_aegdetox_0_25k_v1__dm"/>
         <AttributeDescription displayName="A. aegypti Liverpool Detox 25k v2 probe ID" field="display_label_11056" internalName="liv_liv_aegdetox_0_25k_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_liv_liv_aegdetox_0_25k_v2__dm"/>
         <AttributeDescription displayName="A. gambiae Liverpool Detox 25k v1 probe ID" field="display_label_11056" internalName="custom_est_liv_gamdetox_0_25k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_liv_gamdetox_0_25k_v1__dm"/>
