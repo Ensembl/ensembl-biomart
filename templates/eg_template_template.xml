@@ -609,6 +609,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+	  <Option displayName="with Agilent uq 4x44k_v1 ID(s)" displayType="list" field="efg_agilent_uq_agilent_4x44k_v1_bool" internalName="with_agilent_uq_agilent_4x44k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with Agilent Wholegenome ID(s)" displayType="list" field="eFG_AGILENT_WholeGenome_bool" internalName="with_agilent_wholegenome" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2290,6 +2294,7 @@
           <Option checkForNulls="true" displayName="Agilent Oxford 44k v1 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_oxford_agilent_44k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_oxford_agilent_44k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="Agilent probe(s)" displayType="text" field="dbprimary_acc_1074" internalName="agilent_probe" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_agilentprobe__dm" type="text"/>
           <Option checkForNulls="true" displayName="Agilent uci 16k ID(s)" displayType="text" field="display_label_11056" internalName="agilent_uci_agilent_16k" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_uci_agilent_16k__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="Agilent uq agilent 4x44k_v1 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_uq_agilent_4x44k_v1" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_uq_agilent_4x44k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="Agilent WholeGenome ID(s) [e.g. A_23_P85265]" displayType="text" field="display_label_11056" internalName="agilent_wholegenome" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="eFG_AGILENT_WholeGenome__dm" type="text"/>
           <Option checkForNulls="true" displayName="Anopheles symbol ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="anopheles_symbol" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_anopheles_symbol__dm" type="list"/>
           <Option checkForNulls="true" displayName="Anoxcel ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="anoxcel" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_anoxcel__dm" type="list"/>
@@ -2844,42 +2849,42 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup displayName="Filter on pathogen phenotypes (PHI-base)" internalName="phibase_annotation">
-      <FilterCollection displayName="Entries with plant pathogen annotation (source: PHI-base)" internalName="phibase_annotation_bool">
-        <FilterDescription description="Limit to entries with pathogen phenotype annotation (source: PHI-base)" displayName="Entries with pathogen phenotype annotation" displayType="list" field="phibase_annotation_bool" internalName="with_phibase_annotation" key="translation_id_1068_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+    <FilterGroup displayName="Filter on pathogen phenotypes (PHI-base)" internalName="phi_extension">
+      <FilterCollection displayName="Entries with plant pathogen annotation (source: PHI-base)" internalName="phi_extension_bool">
+        <FilterDescription description="Limit to entries with pathogen phenotype annotation (source: PHI-base)" displayName="Entries with pathogen phenotype annotation" displayType="list" field="phi_extension_bool" internalName="with_phi_extension" key="translation_id_1068_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean">
           <Option displayName="Only" internalName="only" value="only"/>
           <Option displayName="Excluded" internalName="excluded" value="excluded"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="phibase_host" displayName="Plant host (source: PHI-base)" description="Plant host (source: PHI-base)">
-        <FilterDescription displayName="Plant host" displayType="list" field="host_name" internalName="phibase_host" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" multipleValues="1" style="menu" tableConstraint="phibase_annotation__dm" type="text">
+        <FilterDescription displayName="Plant host" displayType="list" field="host_label" internalName="phibase_host" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" multipleValues="1" style="menu" tableConstraint="phi_extension__dm" type="text">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="phibase_host_id" displayName="PHI-base host term" description="PHI-base host term">
-        <FilterDescription displayName="PHI-base host ID" displayType="list" field="host_id" internalName="phibase_host_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phibase_annotation__dm" type="text">
+        <FilterDescription displayName="PHI-base host ID" displayType="list" field="host_acc" internalName="phibase_host_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text">
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Pathogenic phenotype (source: PHI-base)" internalName="phibase_phenotype" description="Pathogenic phenotype (source: PHI-base)">
-        <FilterDescription displayName="Pathogenic phenotype (source: PHI-base)" displayType="list" field="phenotype_name" internalName="phibase_phenotype" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phibase_annotation__dm" type="text" multipleValues="1" style="menu">
+        <FilterDescription displayName="Pathogenic phenotype (source: PHI-base)" displayType="list" field="phenotype_label" internalName="phibase_phenotype" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text" multipleValues="1" style="menu">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="phibase_phenotype_id" displayName="PHI-base phenotype ID" description="PHI-base phenotype ID">
-        <FilterDescription displayName="PHI-base phenotype ID" displayType="list" field="phenotype_id" internalName="phibase_phenotype_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phibase_annotation__dm" type="text">
+        <FilterDescription displayName="PHI-base phenotype ID" displayType="list" field="phenotype_id" internalName="phibase_phenotype_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text">
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Experimental condition (source: PHI-base)" internalName="phibase_condition" description="Experimental condition (source: PHIBase)">
-        <FilterDescription displayName="Experimental condition" displayType="list" field="condition_name" internalName="phibase_condition" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="phibase_annotation__dm" multipleValues="1" type="text">
+        <FilterDescription displayName="Experimental condition" displayType="list" field="experimental_evidence_label" internalName="phibase_condition" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="phi_extension__dm" multipleValues="1" type="text">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="phibase_condition_id" displayName="PHI-base condition ID" description="PHI-base condition ID">
-        <FilterDescription displayName="PHI-base condition ID" displayType="list" field="condition_id" internalName="phibase_condition_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phibase_annotation__dm" type="text">
+        <FilterDescription displayName="PHI-base condition ID" displayType="list" field="experimental_evidence_acc" internalName="phibase_condition_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text">
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="phibase_record" displayName="PHI-base ID" description="PHI-base record ID">
-        <FilterDescription displayName="PHI-base ID" displayType="list" field="phibase_id" internalName="phibase_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phibase_annotation__dm" type="text">
+        <FilterDescription displayName="PHI-base ID" displayType="list" field="phibase_id" internalName="phibase_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text">
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
@@ -5077,11 +5082,11 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with Panther protein features" displayType="list" field="protein_feature_hmmpanther_bool" internalName="with_hmmpanther" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with PANTHER protein features" displayType="list" field="protein_feature_hmmpanther_bool" internalName="with_hmmpanther" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with Panther protein features" displayType="list" field="protein_feature_panther_bool" internalName="with_panther" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with PANTHER protein features" displayType="list" field="protein_feature_panther_bool" internalName="with_panther" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -5168,6 +5173,8 @@
           <Option displayName="Ensembl Family ID(s)" displayType="text" field="family" internalName="ensembl_family" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list"/>
           <Option displayName="Ensembl Protein Family ID(s) [e.g. ENSFM00250000000002]" displayType="text" field="stable_id_408" internalName="family" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
           <Option displayName="InterPro ID(s)" displayType="text" field="interpro_ac_1026" internalName="interpro_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="interpro__dm" type="text"/>
+	  <Option displayName="PANTHER ID(s)" displayType="text" field="hit_name_1048" internalName="panther_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_panther__dm" type="list"/>
+	  <Option displayName="PANTHER ID(s)" displayType="text" field="hit_name_1048" internalName="hmmpanther_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_hmmpanther__dm" type="list"/>
           <Option displayName="Pfam ID(s)" displayType="text" field="hit_name_1048" internalName="pfam_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_Pfam__dm" type="list"/>
           <Option displayName="PRINTS ID(s)" displayType="text" field="hit_name_1048" internalName="prints_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_Prints__dm" type="list"/>
           <Option displayName="PROSITE Profile ID(s)" displayType="text" field="hit_name_1048" internalName="profile_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_pfscan__dm" type="list"/>
@@ -6469,6 +6476,8 @@
       </AttributeCollection>
 -->
       <AttributeCollection displayName="Microarray Attributes" internalName="microarray" maxSelect="2">
+	<AttributeDescription checkForNulls="true" displayName="A. aegypti Agilent uq 4x44k_v1 ID" field="display_label_11056" internalName="agilent_uq_agilent_4x44k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_uq_agilent_4x44k_v1__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="A. aegypti custom EST UCR_GillMgMT_v2 ID" field="display_label_11056" internalName="custom_est_ucr_gillmgmt_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_ucr_gillmgmt_v2__dm"/>
         <AttributeDescription displayName="A. aegypti Liverpool Detox 25k v1 probe ID" field="display_label_11056" internalName="liv_liv_aegdetox_0_25k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_liv_liv_aegdetox_0_25k_v1__dm"/>
         <AttributeDescription displayName="A. aegypti Liverpool Detox 25k v2 probe ID" field="display_label_11056" internalName="liv_liv_aegdetox_0_25k_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_liv_liv_aegdetox_0_25k_v2__dm"/>
         <AttributeDescription displayName="A. gambiae Liverpool Detox 25k v1 probe ID" field="display_label_11056" internalName="custom_est_liv_gamdetox_0_25k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_liv_gamdetox_0_25k_v1__dm"/>
@@ -6622,14 +6631,14 @@
         -->
         <AttributeDescription displayName="WUSTL C. elegans ID" field="display_label_11056" internalName="wustl_wustl_c_elegans" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_wustl_wustl_c_elegans__dm"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Pathogen Phenotypes (source: PHI-base)" internalName="phibase_annotation">
-        <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="phibase_id" internalName="phibase_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phibase_annotation__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Plant host" field="host_name" internalName="phibase_host" key="translation_id_1068_key" maxLength="40" tableConstraint="phibase_annotation__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="PHI-base host ID" field="host_id" internalName="phibase_host_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phibase_annotation__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Pathogenic phenotype" field="phenotype_name" internalName="phibase_phenotype" key="translation_id_1068_key" maxLength="40" tableConstraint="phibase_annotation__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="PHI-base phenotype ID" field="phenotype_id" internalName="phibase_phenotype_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phibase_annotation__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Experimental condition" field="condition_name" internalName="phibase_condition" key="translation_id_1068_key" maxLength="40" tableConstraint="phibase_annotation__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="PHI-base condition ID" field="condition_id" internalName="phibase_condition_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phibase_annotation__dm"/>
+      <AttributeCollection displayName="Pathogen Phenotypes (source: PHI-base)" internalName="phi_extension">
+        <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="phibase_id" internalName="phibase_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Plant host" field="host_label" internalName="phibase_host" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="PHI-base host ID" field="host_acc" internalName="phibase_host_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Pathogenic phenotype" field="phenotype_name" internalName="phibase_phenotype" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="PHI-base phenotype ID" field="phenotype_id" internalName="phibase_phenotype_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Experimental condition" field="experimental_evidence_label" internalName="phibase_condition" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="PHI-base condition ID" field="experimental_evidence_acc" internalName="phibase_condition_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
       </AttributeCollection>
     </AttributeGroup>
     <!--
@@ -6658,8 +6667,8 @@
       <AttributeCollection displayName="Domains" internalName="prot_domain" maxSelect="2">
         <AttributeDescription displayName="Gene3D ID" field="hit_name_1048" internalName="gene3d_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_gene3d__dm"/>
         <AttributeDescription displayName="HAMAP ID" field="hit_name_1048" internalName="hamap_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_hamap__dm"/>
-        <AttributeDescription displayName="Panther ID" field="hit_name_1048" internalName="hmmpanther_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_hmmpanther__dm"/>
-        <AttributeDescription displayName="Panther ID" field="hit_name_1048" internalName="panther_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_panther__dm"/>
+        <AttributeDescription displayName="PANTHER ID" field="hit_name_1048" internalName="hmmpanther_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_hmmpanther__dm"/>
+        <AttributeDescription displayName="PANTHER ID" field="hit_name_1048" internalName="panther_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_panther__dm"/>
         <AttributeDescription displayName="Pfam ID" field="hit_name_1048" internalName="pfam_pf" key="translation_id_1068_key" linkoutURL="exturl1|http://pfam.sanger.ac.uk/family?acc=%s" maxLength="7" tableConstraint="protein_feature_pfam__dm"/>
         <AttributeDescription displayName="PIRSF ID" field="hit_name_1048" internalName="pirsf_pf" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_PIRSF__dm"/>
         <AttributeDescription displayName="PRINTS ID" field="hit_name_1048" internalName="prints_pf" key="translation_id_1068_key" linkoutURL="exturl1|http://umber.sbs.man.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?display_opts=Prints&amp;category=None&amp;queryform=false&amp;prints_accn=%s" maxLength="7" tableConstraint="protein_feature_Prints__dm"/>

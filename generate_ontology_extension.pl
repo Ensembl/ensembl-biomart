@@ -147,7 +147,7 @@ join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id)/;
 
 sub add_condition {
     my ($mart_handle,$mart_db,$core_db,$dataset,$condition,$external_db) = @_;
-
+    my $condition_match = $condition;
     $condition =~ s/\s+/_/g;
     my $add_condition = qq/create table ${mart_db}.TMP as
 select oe.*,
@@ -158,7 +158,7 @@ from
 ${mart_db}.${dataset}_gene__${external_db}_extension__dm oe
 left join $core_db.associated_xref ax on (oe.object_xref_id=ax.object_xref_id 
 and ax.associated_group_id=oe.group_id 
-and ax.condition_type='$condition')
+and ax.condition_type='$condition_match')
 left join $core_db.xref cx on (ax.xref_id=cx.xref_id)
 left join $core_db.external_db cd on (cx.external_db_id=cd.external_db_id)/;
     $logger->debug($add_condition);
