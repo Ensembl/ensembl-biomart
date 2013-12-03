@@ -213,7 +213,7 @@ sub get_dataset_paralog_attribute {
         <AttributeDescription displayName="Paralog % identity" field="perc_id_4015_r1" internalName="paralog_$dataset->{dataset}__dm_perc_id_4015_r1" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="dN" field="dn_4014" internalName="paralog_$dataset->{dataset}__dm_dn_4014" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="dS" field="ds_4014" internalName="paralog_$dataset->{dataset}__dm_ds_4014" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{dataset}__dm"/>
-        <AttributeDescription displayName="Paralogy confidence [0 low, 1 high]" field="is_tree_compliant_4014" hidden="false" internalName="$dataset->{dataset}_homolog_is_tree_compliant" key="gene_id_1020_key" maxLength="10" tableConstraint="homolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Paralogy confidence [0 low, 1 high]" field="is_tree_compliant_4014" hidden="false" internalName="$dataset->{dataset}_paralog_is_tree_compliant" key="gene_id_1020_key" maxLength="10" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="Bootstrap/Duplication Confidence Score Type" field="tag_4060" internalName="$dataset->{dataset}_tag" key="gene_id_1020_key" maxLength="50" tableConstraint="paralog_$dataset->{dataset}__dm"/>
         <AttributeDescription displayName="Bootstrap/Duplication Confidence Score" field="value_4060" internalName="$dataset->{dataset}_value" key="gene_id_1020_key" maxLength="255" tableConstraint="paralog_$dataset->{dataset}__dm"/>
       </AttributeCollection>
