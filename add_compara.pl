@@ -160,7 +160,7 @@ for my $dataset (@datasets) {
   my $ds_name_sql = get_sql_name_for_dataset($mart_handle,$dataset);
   next if (defined $limit_species && $ds_name_sql ne $limit_species);
   my $ds_name_full = get_species_name_for_dataset($mart_handle,$dataset);
-  $logger->info("Processing $dataset for $ds_name_full/$ds_name_sql");
+  $logger->info("Processing $ds_name_sql as $dataset");
   for my $table_type (('gene','transcript','translation')) {
     my $table_name = $dataset.'_gene__'.$table_type.'__main';
     for my $type (qw(homolog paralog)) {
@@ -175,17 +175,17 @@ for my $dataset (@datasets) {
   for my $species_set (get_species_sets($species_homolog_sth,$ds_name_sql,$ds_name_full)) {
     $logger->info('Processing homologs for '.$species_set->{name}.' as '.$species_set->{tld});
     write_species($dataset, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homolog_sql);
-    $logger->info('Completed writing homologs for '.$species_set->{name}.' as '.$species_set->{tld});
+    $logger->info('Completed homologs for '.$species_set->{name}.' as '.$species_set->{tld});
   }
 
   # get paralogs
   my $id = get_string($get_species_id_sth,$dataset);
   my $clade = get_string($get_species_clade_sth,$dataset);
-  $logger->info("Processing paralogs for $dataset with $ds_name_sql ,$ds_name_full");
+  $logger->info("Processing paralogs for $ds_name_sql as $dataset");
   my $method_link_species_id = get_string($species_paralog_sth,$ds_name_sql,$ds_name_full,$ds_name_sql,$ds_name_full);
   if($method_link_species_id && $id) {
     write_species($dataset, $method_link_species_id, $dataset, $dataset, $paralog_sql);
-    $logger->info("Completed writing paralogs for $dataset with id $dataset");
+    $logger->info("Completed paralogs for $ds_name_sql as $dataset");
   }
 }
 $logger->info("Completed processing");
