@@ -1451,6 +1451,7 @@
             <Option displayName="Only" internalName="only" value="only"/>
             <Option displayName="Excluded" internalName="excluded" value="excluded"/>
           </Option>
+	<Option checkForNulls="true" displayName="intenz ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="intenz" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_intenz__dm" type="list"/>
           <Option displayName="with InteractiveFly ID(s)" displayType="list" field="ox_interactivefly_bool" internalName="with_ox_interactivefly" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
