@@ -577,6 +577,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with Agilent LSTM A.gambiae agam15k v1 ID(s)" displayType="list" field="efg_agilent_lstm_an_gambiae_agam15k_v1_0_bool" internalName="with_agilent_lstm_an_gambiae_agam15k_v1_0" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with Agilent niid detox 2 5k v1 ID(s)" displayType="list" field="efg_agilent_niid_detox_2_5k_v1_bool" internalName="with_agilent_niid_detox_2_5k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -1549,6 +1553,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with LNCC gene ID(s)" displayType="list" field="ox_lncc_bool" internalName="with_lncc" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with LRG ID(s)" displayType="list" field="ox_lrg_bool" internalName="with_ox_lrg" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2036,6 +2044,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with Uniprot Gene Name(s)" displayType="list" field="ox_uniprot_gn_bool" internalName="with_uniprot_gn" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with UniProtKB Gene Name(s)" displayType="list" field="ox_uniprot_genename_bool" internalName="with_uniprot_genename" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2293,13 +2305,14 @@
           <Option checkForNulls="true" displayName="Agilent IC Genimmunity 4x44k v1 ID(s)" displayType="text" field="display_label_11056" internalName="efg_agilent_ic_genimmunity_4x44k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_ic_genimmunity_4x44k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="Agilent jhsph gpl4877 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_jhsph_agilent_gpl4877" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_jhsph_agilent_gpl4877__dm" type="list"/>
           <Option checkForNulls="true" displayName="Agilent Liv 8x15k v1 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_liv_agilent_8x15k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_liv_agilent_8x15k_v1__dm" type="list"/>
+ 	  <Option checkForNulls="true" displayName="Agilent LSTM A.gambiae agam15k v1 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_lstm_an_gambiae_agam15k_v1_0" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_lstm_an_gambiae_agam15k_v1_0__dm" type="list"/>
           <Option checkForNulls="true" displayName="Agilent niid detox 2 5k v1 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_niid_detox_2_5k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_niid_detox_2_5k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="Agilent oligoarray ID(s) [e.g. A_12_P108050]" displayType="text" field="display_label_11056" internalName="agilent_oligoarray" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_oligoarray__dm" type="text"/>
           <Option checkForNulls="true" displayName="Agilent Oxford 13k v1 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_oxford_agilent_13k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_oxford_agilent_13k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="Agilent Oxford 44k v1 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_oxford_agilent_44k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_oxford_agilent_44k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="Agilent probe(s)" displayType="text" field="dbprimary_acc_1074" internalName="agilent_probe" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_agilentprobe__dm" type="text"/>
           <Option checkForNulls="true" displayName="Agilent uci 16k ID(s)" displayType="text" field="display_label_11056" internalName="agilent_uci_agilent_16k" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_uci_agilent_16k__dm" type="list"/>
-	  <Option checkForNulls="true" displayName="Agilent uq agilent 4x44k_v1 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_uq_agilent_4x44k_v1" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_uq_agilent_4x44k_v1__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="Agilent uq agilent 4x44k_v1 ID(s)" displayType="text" field="display_label_11056" internalName="agilent_uq_agilent_4x44k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_uq_agilent_4x44k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="Agilent WholeGenome ID(s) [e.g. A_23_P85265]" displayType="text" field="display_label_11056" internalName="agilent_wholegenome" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="eFG_AGILENT_WholeGenome__dm" type="text"/>
           <Option checkForNulls="true" displayName="Anopheles symbol ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="anopheles_symbol" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_anopheles_symbol__dm" type="list"/>
           <Option checkForNulls="true" displayName="Anoxcel ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="anoxcel" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_anoxcel__dm" type="list"/>
@@ -2583,6 +2596,7 @@
           </Option>
           <Option checkForNulls="true" displayName="Leproma ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="leproma" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_leproma__dm" type="list"/>
           <Option checkForNulls="true" displayName="LGB Pratt EST cluster ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="lgbpratt_est_cluster" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_lgbpratt_est_cluster__dm" type="list"/>
+          <Option checkForNulls="true" displayName="LNCC gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="lncc" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_lncc__dm" type="list"/>
           <!--
           <Option checkForNulls="true" displayName="Leiden2 Zebrafish Microarray ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="array_zfish_leiden2" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ARRAY_ZFISH_LEIDEN2__dm" type="list"/>
           <Option checkForNulls="true" displayName="Leiden3 Zebrafish Microarray ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="array_zfish_leiden3" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ARRAY_ZFISH_LEIDEN3__dm" type="list"/>
@@ -2743,6 +2757,7 @@
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
           </Option>
           <Option checkForNulls="true" displayName="UniParc ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniparc" isSelectable="true" hidden="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniparc__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Uniprot Gene Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_gn" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_gn__dm" type="list"/>
           <Option checkForNulls="true" displayName="UniProtKB Gene Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_genename" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_genename__dm" type="list" useDefault="true">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
@@ -5542,6 +5557,7 @@
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="Leproma ID" field="dbprimary_acc_1074" internalName="leproma" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_Leproma__dm"/>
         <AttributeDescription checkForNulls="true" displayName="LGB Pratt EST Cluster" field="dbprimary_acc_1074" internalName="lgbpratt_est_cluster" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_lgbpratt_est_cluster__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="LNCC gene ID" field="dbprimary_acc_1074" internalName="lncc" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_lncc__dm"/>
         <AttributeDescription checkForNulls="true" displayName="MaizeGDB GenBank ID" field="dbprimary_acc_1074" internalName="maizegdb_genbank" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_maizegdb_genbank__dm"/>
         <AttributeDescription checkForNulls="true" displayName="MEROPS ID" field="dbprimary_acc_1074" internalName="merops" key="translation_id_1068_key" linkoutURL="exturl1|http://merops.sanger.ac.uk/cgi-bin/make_frame_file?id=%s" maxLength="40" tableConstraint="ox_merops__dm" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
@@ -5673,6 +5689,7 @@
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="UniParc ID" field="dbprimary_acc_1074" internalName="uniparc" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_UniParc__dm" linkoutURL="exturl|http://www.uniprot.org/uniparc/%s"/>
+        <AttributeDescription checkForNulls="true" displayName="Uniprot Gene Name" field="dbprimary_acc_1074" internalName="uniprot_gn" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_uniprot_gn__dm"/>
         <AttributeDescription checkForNulls="true" displayName="UniProtKB Gene Name" field="display_label_1074" internalName="uniprot_genename" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_uniprot_genename__dm" useDefault="true">
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="lmajor_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="pgraministritici_eg_gene"/>
@@ -6588,6 +6605,7 @@
         <AttributeDescription displayName="Agilent IC Genimmunity 4x44k v1 ID" field="display_label_11056" internalName="efg_agilent_ic_genimmunity_4x44k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_ic_genimmunity_4x44k_v1__dm"/>
         <AttributeDescription displayName="Agilent jhsph gpl4877 ID" field="display_label_11056" internalName="agilent_jhsph_agilent_gpl4877" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_jhsph_agilent_gpl4877__dm"/>
         <AttributeDescription displayName="Agilent Liv 8x15k v1 ID" field="display_label_11056" internalName="agilent_liv_agilent_8x15k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_liv_agilent_8x15k_v1__dm"/>
+       <AttributeDescription displayName="Agilent LSTM A.gambiae agam15k v1 ID" field="display_label_11056" internalName="agilent_lstm_an_gambiae_agam15k_v1_0" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_lstm_an_gambiae_agam15k_v1_0__dm"/>
         <AttributeDescription displayName="Agilent niid detox 2 5k v1 ID" field="display_label_11056" internalName="agilent_niid_detox_2_5k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_niid_detox_2_5k_v1__dm"/>
         <AttributeDescription displayName="Agilent Oxford 13k v1 ID" field="display_label_11056" internalName="agilent_oxford_agilent_13k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_oxford_agilent_13k_v1__dm"/>
         <AttributeDescription displayName="Agilent Oxford 44k v1 probe ID" field="display_label_11056" internalName="agilent_oxford_agilent_44k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_oxford_agilent_44k_v1__dm"/>
