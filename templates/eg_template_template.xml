@@ -1464,6 +1464,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+	  <Option displayName="with IRGSP ID(s)" displayType="list" field="ox_ipi_bool" internalName="with_irgsp" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with ITAG gene ID(s)" displayType="list" field="ox_itag_gene_bool" internalName="with_itag_gene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2573,6 +2577,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="transcript_id_1064_key"/>
           </Option>
           <Option checkForNulls="true" displayName="IPI ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ipi" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_IPI__dm" type="text"/>
+	  <Option checkForNulls="true" displayName="IRGSP ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="irgsp" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_irgspv1_gene__dm" type="text"/>
           <Option checkForNulls="true" displayName="ITAG gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="itag_gene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_itag_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="Ixodes manual annotation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ixodes_manualannotation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ixodes_manualannotation__dm" type="list"/>
           <Option checkForNulls="true" displayName="JGI (Mycgr3 v2.0) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="mycgr3_jgi_v20" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mycgr3_jgi_v20_gene__dm" type="list"/>
@@ -5524,6 +5529,7 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="IPI ID" field="dbprimary_acc_1074" internalName="ipi" key="translation_id_1068_key" linkoutURL="exturl1|http://srs.ebi.ac.uk/srsbin/cgi-bin/wgetz?-e+[IPI-acc:%s]" maxLength="40" tableConstraint="ox_IPI__dm"/>
+	<AttributeDescription checkForNulls="true" displayName="IRGSP ID" field="dbprimary_acc_1074" internalName="irgsp" key="gene_id_1020_key" linkoutURL="exturl1|http://rapdb.dna.affrc.go.jp/viewer/gbrowse_details/irgsp1?name=%s" maxLength="40" tableConstraint="ox_irgspv1_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ITAG gene ID" field="dbprimary_acc_1074" internalName="itag_gene" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_itag_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Ixodes manual annotation" field="dbprimary_acc_1074" hidden="true" internalName="ixodes_manualannotation" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_Ixodes_ManualAnnotation__dm"/>
         <!--
