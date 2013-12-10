@@ -232,8 +232,8 @@
         <AttributeDescription displayName="Synonym source" field="name_2021" internalName="synonym_source" key="variation_id_2025_key" maxLength="24" tableConstraint="variation_synonym__dm"/>
         <AttributeDescription displayName="Synonym source description" field="description_2021" internalName="synonym_source_description" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_synonym__dm"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Variation Annotation" internalName="variation_annotation">
-        <AttributeDescription displayName="Associated gene" field="associated_gene_2035" internalName="associated_gene" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Mappings?v=%s|variation_names" maxLength="255" tableConstraint="variation_annotation__dm"/>
+      <AttributeCollection displayName="Phenotype Annotation" internalName="variation_annotation">
+        <AttributeDescription displayName="Associated gene with phenotype" field="associated_gene_2035" internalName="associated_gene" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Mappings?v=%s|variation_names" maxLength="255" tableConstraint="variation_annotation__dm"/>
         <AttributeDescription displayName="Associated variation names" field="variation_names_2035" internalName="variation_names" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_annotation__dm"/>
         <AttributeDescription displayName="Source ID(s)" field="local_stable_id_2035" hidden="true" internalName="ega_stable_id" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm"/>
         <AttributeDescription displayName="Phenotype name" field="name_2033" internalName="phenotype_name" key="variation_id_2025_key" maxLength="50" tableConstraint="variation_annotation__dm"/>
@@ -242,7 +242,7 @@
         <AttributeDescription displayName="Associated variant risk allele" field="associated_variant_risk_allele_2035" internalName="associated_variant_risk_allele" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm"/>
         <AttributeDescription displayName="p-value" field="p_value_2035" internalName="p_value" key="variation_id_2025_key" maxLength="20" tableConstraint="variation_annotation__dm"/>
         <AttributeDescription displayName="Study type" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" maxLength="5" tableConstraint="variation_annotation__dm"/>
-        <AttributeDescription displayName="Study external reference" field="external_reference_20100" internalName="study_external_ref" key="variation_id_2025_key" maxLength="30" tableConstraint="variation_annotation__dm"/>
+        <AttributeDescription displayName="Study External Reference" field="external_reference_20100" internalName="study_external_ref" key="variation_id_2025_key" maxLength="30" tableConstraint="variation_annotation__dm"/>
         <AttributeDescription displayName="Study description" field="description_20100" internalName="study_description" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm"/>
         <AttributeDescription displayName="Source name" field="name_2021" internalName="source_name" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm"/>
       </AttributeCollection>
