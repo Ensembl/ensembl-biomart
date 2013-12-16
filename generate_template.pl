@@ -316,7 +316,7 @@ sub write_metatables {
 			 'description varchar(200) default NULL',
 			 'type varchar(20) default NULL',
 			 'visible int(1) unsigned default NULL',
-			 'version varchar(50) default NULL',
+			 'version varchar(128) default NULL',
 			 'modified timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP',
 			 'UNIQUE KEY dataset_id_key (dataset_id_key)']);
 
