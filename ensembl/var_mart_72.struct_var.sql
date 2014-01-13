@@ -1,3 +1,17 @@
+-- Copyright [2009-2014] EMBL-European Bioinformatics Institute
+-- 
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+-- 
+--      http://www.apache.org/licenses/LICENSE-2.0
+-- 
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+
 create table VAR_MART_DB.TEMP0 as select a.validation_status as validation_status_2072,a.variation_name as variation_name_2072,a.structural_variation_id as structural_variation_id_2072_key,a.source_id as source_id_2072,a.study_id as study_id_2072,a.is_evidence as is_evidence_2072,a.somatic as somatic_2072,a.class_attrib_id as class_attrib_id_2072 from VAR_DB.structural_variation as a where a.is_evidence=0 and a.somatic=0;
 create index I_0 on VAR_MART_DB.TEMP0(source_id_2072);
 create table VAR_MART_DB.TEMP1 as select a.*,b.description as description_2021,b.name as name_2021,b.somatic_status as somatic_status_2021,b.type as type_2021,b.version as version_2021 from VAR_MART_DB.TEMP0 as a left join VAR_DB.source as b on a.source_id_2072=b.source_id;
