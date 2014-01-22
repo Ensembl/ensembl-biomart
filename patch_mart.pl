@@ -76,7 +76,11 @@ while ( my @row = $sel_sth->fetchrow_array() ) {
 
   print `gunzip $xml_file.gz`;
   my $xml = file_to_bytes($xml_file);
+
   $xml =~ s/(link_version=\w+)$old_release/$1$release/gm;
+
+  $xml =~ s/(linkVersion=)\"(\w+)$old_release\"/$1\"$2$release\"/gm;
+
   open FILE, ">$xml_file";
   print FILE $xml;
   close FILE;
