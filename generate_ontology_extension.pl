@@ -27,9 +27,7 @@ use MartUtils;
 use Getopt::Long;
 use POSIX;
 
-Log::Log4perl->easy_init($INFO);
 
-my $logger = get_logger();
 
 my $db_host = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
 my $db_port = 4238;
@@ -37,6 +35,7 @@ my $db_user = 'ensrw';
 my $db_pwd = 'writ3rp1';
 my $mart_db;
 my $dataset;
+my $verbose;
 
 sub usage {
     print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-p <pwd>] [-mart <mart>] [-databset <dataset_name>]\n";
@@ -56,6 +55,7 @@ my $options_okay = GetOptions (
 			       "p=s"=>\$db_pwd,
 			       "mart=s"=>\$mart_db,
 			       "dataset=s"=>\$dataset,
+			       "verbose"=>\$verbose,
 			       "help"=>sub {usage()}
     );
 
@@ -66,6 +66,13 @@ if(!$options_okay) {
 if (!defined $mart_db || !defined $dataset) {
     usage();
 }
+if(defined $verbose) {
+	Log::Log4perl->easy_init($DEBUG);	
+} else {
+	Log::Log4perl->easy_init($INFO);
+}
+
+my $logger = get_logger();
 
 # open a connection
 # work out the name of the core
@@ -86,7 +93,6 @@ for my $row (get_dbs($mart_handle,$core_db)) {
     $logger->info("Creating base table for $dataset $external_db on $mart_db using $core_db");
 
     create_base_table($mart_handle,$mart_db,$core_db,$dataset,$external_db,$object_type);
-    
     for my $condition (get_conditions($mart_handle,$core_db,$external_db)) {
         $logger->info("Adding condition $condition for $dataset $external_db on $mart_db using $core_db");
         add_condition($mart_handle,$mart_db,$core_db,$dataset,$condition,$external_db);
@@ -105,27 +111,41 @@ ${mart_db}.${dataset}_gene__${external_db}_extension__dm/;
       $key = 'translation_id_1068_key';
     }
 
-    my $create_base_table = qq/create table 
+    my $create_base_table = qq/
+    create table 
 ${mart_db}.${dataset}_gene__${external_db}_extension__dm as
-select distinct t.${object_type}_id as ${key}, 
-ax.object_xref_id,
-tx.dbprimary_acc subject_acc,
-tx.display_label subject_label,
-sx.dbprimary_acc source_acc,
-sx.display_label source_label,
-sd.db_name source_db,
+select 
+distinct t.${object_type}_id as ${key}, 
+x.object_xref_id as object_xref_id,  
+x.subject_acc,
+x.subject_label,
+x.source_acc, 
+x.source_label, 
+x.source_db,       
+x.group_id,
+x.group_des  
+from 
+${core_db}.translation t 
+left join (
+select 
+ox.object_xref_id as object_xref_id,
+ox.ensembl_id as ensembl_id, 
+ox.ensembl_object_type as ensembl_object_type, 
+tx.dbprimary_acc as subject_acc,
+tx.display_label as subject_label,
+sx.dbprimary_acc source_acc, 
+sx.display_label source_label, 
+sd.db_name source_db,       
 ag.associated_group_id group_id,
-ag.description group_des
-from ${core_db}.${object_type} t
-left join ${core_db}.object_xref ox on (t.${object_type}_id=ox.ensembl_id 
-and ox.ensembl_object_type='${object_type}')
-left join ${core_db}.xref tx on (tx.xref_id=ox.xref_id)
-left join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id)
+ag.description group_des 
+from ${core_db}.object_xref ox
+join ${core_db}.xref tx on (tx.xref_id=ox.xref_id)  
+join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id)
 left join ${core_db}.associated_xref ax using (object_xref_id)
-left join ${core_db}.associated_group ag using (associated_group_id)
-left join ${core_db}.xref sx on (sx.xref_id=ax.source_xref_id)
+left join ${core_db}.associated_group ag using (associated_group_id)  
+left join ${core_db}.xref sx on (sx.xref_id=ax.source_xref_id) 
 left join ${core_db}.external_db sd on (sx.external_db_id=sd.external_db_id)
-where td.db_name='$external_db'/;
+where td.db_name='$external_db') x on (x.ensembl_id=t.translation_id and x.ensembl_object_type='${object_type}')/;
     $logger->debug($create_base_table);
     $mart_handle->do($create_base_table);
 
