@@ -764,7 +764,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-	  <Option checkForNulls="true" displayName="chembl ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="chembl" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_chembl__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="chembl ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="chembl" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_chembl__dm" type="list"/>
           <!--
           <Option displayName="with Cint ANISEED v1 ID(s)" displayType="list" field="ox_cint_aniseed_v1_bool" internalName="with_cint_aniseed_v1" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -1877,7 +1877,6 @@
           <Option displayName="with Rfam ID(s)" displayType="list" field="ox_rfam_bool" internalName="with_ox_rfam" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent field="ox_rfam_bool" internalName="agambiae_eg_gene" key="transcript_id_1064_key"/>
           </Option>
           <Option displayName="with RGD ID(s)" displayType="list" field="ox_rgd_bool" internalName="with_rgd" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -2438,7 +2437,6 @@
           <Option checkForNulls="true" displayName="Ensembl transcript (Identical to OTTT)" displayType="text" field="dbprimary_acc_1074" internalName="shares_cds_and_utr_with_ottt" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_shares_CDS_and_UTR_with_OTTT__dm" type="list"/>
           -->
           <Option checkForNulls="true" displayName="EntrezGene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="entrezgene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_EntrezGene__dm" type="text" useDefault="true">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="spurpuratus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="lmajor_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="translation_id_1068_key"/>
@@ -2714,7 +2712,6 @@
           <Option checkForNulls="true" displayName="RegulonDB gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="regulondb_gene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_regulondb_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="RegulonDB transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="regulondb_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_regulondb_transcript__dm" type="list"/>
           <Option checkForNulls="true" displayName="Rfam ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="rfam" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_rfam__dm" type="text" useDefault="true">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
           </Option>
           <!--
@@ -2806,7 +2803,6 @@
           <Option checkForNulls="true" displayName="WikiGene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wikigene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wikigene__dm" type="text" useDefault="true">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="aclavatus_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="afumigatus_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="anidulans_eg_gene"/>
@@ -2820,7 +2816,6 @@
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="osativa_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="phumanus_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="aclavatus_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="afumigatus_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="anidulans_eg_gene"/>
@@ -5434,7 +5429,6 @@
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="phumanus_eg_gene"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="nfischeri_eg_gene" key="translation_id_1068_key"/>
@@ -5657,9 +5651,7 @@
         <AttributeDescription checkForNulls="true" displayName="RefSeq RNA (predicted) ID" field="dbprimary_acc_1074" internalName="refseq_rna_predicted" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_refseq_rna_predicted__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RegulonDB gene ID" field="dbprimary_acc_1074" internalName="regulondb_gene" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_regulondb_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RegulonDB transcript ID" field="dbprimary_acc_1074" internalName="regulondb_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_regulondb_transcript__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Rfam ID" field="dbprimary_acc_1074" internalName="rfam" key="gene_id_1020_key" linkoutURL="exturl1|http://rfam.sanger.ac.uk/family?entry=%s" maxLength="40" tableConstraint="ox_rfam__dm">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="agambiae_eg_gene" key="transcript_id_1064_key"/>
-        </AttributeDescription>
+        <AttributeDescription checkForNulls="true" displayName="Rfam ID" field="dbprimary_acc_1074" internalName="rfam" key="gene_id_1020_key" linkoutURL="exturl1|http://rfam.sanger.ac.uk/family?entry=%s" maxLength="40" tableConstraint="ox_rfam__dm"/>
         <!--
         <AttributeDescription checkForNulls="true" displayName="RGD ID" field="dbprimary_acc_1074" internalName="rgd" key="transcript_id_1064_key" linkoutURL="exturl1|http://rgd.mcw.edu/tools/genes/genes_view.cgi?id=%s" maxLength="40" tableConstraint="ox_RGD__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RGD Symbol" field="display_label_1074" internalName="rgd_symbol" key="transcript_id_1064_key" linkoutURL="exturl|http://rgd.mcw.edu/tools/genes/genes_view.cgi?id=%s|rgd" maxLength="40" tableConstraint="ox_RGD__dm"/>
@@ -5740,7 +5732,6 @@
         <AttributeDescription checkForNulls="true" displayName="WikiGene ID" field="dbprimary_acc_1074" internalName="wikigene_id" key="gene_id_1020_key" linkoutURL="http://www.wikigenes.org/e/gene/e/%s.html" maxLength="40" tableConstraint="ox_wikigene__dm" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aclavatus_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="afumigatus_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
@@ -5753,7 +5744,6 @@
         <AttributeDescription checkForNulls="true" displayName="WikiGene name" field="display_label_1074" internalName="wikigene_name" key="gene_id_1020_key" maxLength="128" tableConstraint="ox_wikigene__dm" useDefault="true">
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="phumanus_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="aclavatus_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="afumigatus_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="anidulans_eg_gene"/>
@@ -5766,7 +5756,6 @@
         <AttributeDescription checkForNulls="true" displayName="WikiGene description" field="description_1074" internalName="wikigene_description" key="gene_id_1020_key" maxLength="255" tableConstraint="ox_wikigene__dm" useDefault="true">
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="bdistachyon_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="sbicolor_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="phumanus_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="lmajor_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="aclavatus_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="afumigatus_eg_gene"/>
