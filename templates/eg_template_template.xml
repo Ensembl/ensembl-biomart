@@ -760,6 +760,11 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with chembl ID(s)" displayType="list" field="ox_chembl_bool" internalName="with_chembl" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+	  <Option checkForNulls="true" displayName="chembl ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="chembl" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_chembl__dm" type="list"/>
           <!--
           <Option displayName="with Cint ANISEED v1 ID(s)" displayType="list" field="ox_cint_aniseed_v1_bool" internalName="with_cint_aniseed_v1" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -5336,6 +5341,7 @@
         <AttributeDescription checkForNulls="true" displayName="Celera gene ID(s)" field="dbprimary_acc_1074" internalName="celera_gene" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/Gene/Summary?g=%s" maxLength="40" tableConstraint="ox_Celera_Gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Celera protein ID(s)" field="dbprimary_acc_1074" internalName="celera_pep" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/protview?peptide=%s" maxLength="40" tableConstraint="ox_Celera_Pep__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Celera transcript ID(s)" field="dbprimary_acc_1074" internalName="celera_trans" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Celera_Trans__dm"/>
+	<AttributeDescription checkForNulls="true" displayName="chembl ID" field="dbprimary_acc_1074" internalName="chembl" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_chembl__dm"/>
         <!--
         <AttributeDescription checkForNulls="true" displayName="Cint ANISEED v1" field="dbprimary_acc_1074" internalName="cint_aniseed_v1" key="translation_id_1068_key" linkoutURL="exturl1|http://crfb.univ-mrs.fr/aniseed/molecule-gene.php?name=%s" maxLength="40" tableConstraint="ox_cint_aniseed_v1__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Cint JGI v1" field="dbprimary_acc_1074" internalName="cint_jgi_v1" key="translation_id_1068_key" linkoutURL="exturl1|http://genome.jgi-psf.org/cgi-bin/dispGeneModel?db=ciona4;id=%s" maxLength="40" tableConstraint="ox_cint_jgi_v1__dm"/>
@@ -6672,7 +6678,7 @@
         <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="phibase_id" internalName="phibase_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Plant host" field="host_label" internalName="phibase_host" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PHI-base host ID" field="host_acc" internalName="phibase_host_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Pathogenic phenotype" field="phenotype_label" internalName="phibase_phenotype" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Pathogenic phenotype" field="phenotype_name" internalName="phibase_phenotype" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PHI-base phenotype ID" field="phenotype_id" internalName="phibase_phenotype_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Experimental condition" field="experimental_evidence_label" internalName="phibase_condition" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PHI-base condition ID" field="experimental_evidence_acc" internalName="phibase_condition_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
