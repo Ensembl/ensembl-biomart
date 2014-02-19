@@ -75,22 +75,25 @@ $mart_handle->do("use $mart_db");
 
 my %tables_to_tidy;
 
-if ($mart_db =~ /_snp_mart/) {
+if ($mart_db =~ /snp_mart/) {
   %tables_to_tidy = (
-				 '%__mpoly__dm'                   => 'name_2019',
-				 '%__variation_set_variation__dm' => 'description_2077',
-				 '%__variation_annotation__dm'    => 'description_2021',
-				 '%__variation_annotation__dm'    => 'name_2033');
+				 '%\_\_mpoly\_\_dm'                   => 'name_2019',
+				 '%\_\_variation\_set\_variation\_\_dm' => 'description_2077',
+				 '%snp\_\_variation\_annotation\_\_dm'    => 'description_2033',
+				 '%snp\_\_variation\_annotation\_\_dm'    => 'name_2021' ,
+				 '%structural\_\_variation\_annotation\_\_dm'    => 'name_2019',
+				 '%structural\_\_variation\_annotation\_\_dm'    => 'description_2033',
+      );
 }
 else {
   %tables_to_tidy = (
-			   '%_transcript_variation__dm'     => 'seq_region_id_2026',
-			   '%_transcript_variation_som__dm' => 'seq_region_id_2026',
-			   '%__splicing_event__dm'          => 'name_1078',
-			   '%__splicing_event_feature__dm'  => 'name_1059',
-			   '%__exp_atlas_%__dm'             => 'stable_id_1066',
-			   '%__exp_est_%__dm'               => 'stable_id_1066',
-			   '%__exp_zfin_%__dm'              => 'stable_id_1066',
+			   '%\_transcript\_variation\_\_dm'     => 'seq_region_id_2026',
+			   '%\_transcript\_variation\_som\_\_dm' => 'seq_region_id_2026',
+			   '%\_\_splicing\_event\_\_dm'          => 'name_1078',
+			   '%\_\_splicing\_event\_feature\_\_dm'  => 'name_1059',
+			   '%\_\_exp\_atlas\_%\_\_dm'             => 'stable_id_1066',
+			   '%\_\_exp\_est\_%\_\_dm'               => 'stable_id_1066',
+			   '%\_\_exp\_zfin\_%\_\_dm'              => 'stable_id_1066',
 			   '%\_\_go\_%\_\_dm'               => 'ontology_id_1006');
 }
 
