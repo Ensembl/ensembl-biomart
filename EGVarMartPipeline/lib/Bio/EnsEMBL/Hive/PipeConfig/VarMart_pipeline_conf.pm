@@ -45,7 +45,8 @@ sub default_options {
       
       pipeline_data_dir => $self->o('pipeline_dir'),
 
-      #species => $self->o('species'),
+      species => $self->o('species'),
+
 
       # If set, the pipeline_dir directory will be deleted at the Cleanup
       # stage. 
@@ -58,6 +59,7 @@ sub default_options {
         -user   => $self->o('hive_user'),
         -pass   => $self->o('hive_password'),
         -dbname => $self->o('hive_dbname'),
+	-driver => $self->o('hive_driver'),
       },
     };
 }
@@ -90,7 +92,8 @@ sub pipeline_create_commands {
     return [
       @{$self->SUPER::pipeline_create_commands},  # inheriting database and hive tables' creation
       'mkdir -p '.$self->o('pipeline_data_dir'),
-      $self->db_execute_command('pipeline_db', 'CREATE TABLE intermediate_result (var_mart_db char(50) NOT NULL, create_db_info tinyint NOT NULL, enable_keys tinyint NULL, file_index SMALLINT NOT NULL, PRIMARY KEY (var_mart_db))'),
+#      $self->db_cmd('pipeline_db', 'CREATE TABLE intermediate_result (var_mart_db char(50) NOT NULL, create_db_info tinyint NOT NULL, enable_keys tinyint NULL, file_index SMALLINT NOT NULL, PRIMARY KEY (var_mart_db))'),
+      $self->db_cmd( 'CREATE TABLE intermediate_result (var_mart_db char(50) NOT NULL, create_db_info tinyint NOT NULL, enable_keys tinyint NULL, file_index SMALLINT NOT NULL, PRIMARY KEY (var_mart_db))'),
     ];
 }
 
@@ -112,7 +115,8 @@ sub pipeline_analyses {
     print STDERR "release, eg_release, $release, $eg_release\n";
 
     my $data_dir      = $self->o('pipeline_dir');
-    my $sql_dir       = $self->o('ensembl_cvs_root_dir') . "/ensembl_genomes/biomart/var_mart/ensembl";
+#    my $sql_dir       = $self->o('EG_cvs_root_dir') . "/ensembl_genomes/eg-biomart/var_mart/ensembl";
+    my $sql_dir       = $self->o('EG_cvs_root_dir') . "/eg-biomart/var_mart/ensembl";
     my $var_sql_file  = "var_mart_$release.var.sql";
     my $var_syn_sql_file   = "var_mart_$release.var_syn.sql";
     my $structvar_sql_file = "var_mart_$release.struct_var.sql";
