@@ -52,13 +52,13 @@ create table %martSchema%.homo_TEMP as select a.gene_id_1020_key from %martSchem
 
 create index pkey on %martSchema%.homo_TEMP (gene_id_1020_key);  
 
-alter table %martSchema%.%dataSet%__gene__main add column (homolog_%speciesTld%_bool integer default 0);
+alter table %martSchema%.%dataSet%__gene__main add column (homolog_%speciesTld%_bool integer default NULL);
 update %martSchema%.%dataSet%__gene__main a join %martSchema%.homo_TEMP using (gene_id_1020_key) set homolog_%speciesTld%_bool=1;
 
-alter table %martSchema%.%dataSet%__transcript__main add column (homolog_%speciesTld%_bool integer default 0);
+alter table %martSchema%.%dataSet%__transcript__main add column (homolog_%speciesTld%_bool integer default NULL);
 update %martSchema%.%dataSet%__transcript__main a join %martSchema%.homo_TEMP using (gene_id_1020_key) set homolog_%speciesTld%_bool=1;
 
-alter table %martSchema%.%dataSet%__translation__main add column (homolog_%speciesTld%_bool integer default 0);
+alter table %martSchema%.%dataSet%__translation__main add column (homolog_%speciesTld%_bool integer default NULL);
 update %martSchema%.%dataSet%__translation__main a join %martSchema%.homo_TEMP using (gene_id_1020_key) set homolog_%speciesTld%_bool=1;
 
 drop table %martSchema%.homo_TEMP;
