@@ -32,7 +32,7 @@ sub run {
     my $data_dir           = $self->param('data_dir');
     my $sql_dir            = $self->param('sql_dir');
     my $var_sql_file       = $self->param('var_sql_file');
-    my $var_syn_sql_file   = $self->param('var_syn_sql_file');
+#    my $var_syn_sql_file   = $self->param('var_syn_sql_file');
     my $structvar_sql_file = $self->param('structvar_sql_file');
 
     if (! -d $data_dir) {
@@ -49,7 +49,7 @@ sub run {
     ($entry_ok, $err_msg) = $self->all_files_present({
 	sql_dir            => $sql_dir,
 	var_sql_file       => $var_sql_file,
-	var_syn_sql_file   => $var_syn_sql_file,
+#	var_syn_sql_file   => $var_syn_sql_file,
 	structvar_sql_file => $structvar_sql_file,
 						     });
 
@@ -100,7 +100,7 @@ sub all_files_present {
     
     my $sql_dir            = $param->{sql_dir};
     my $var_sql_file       = $param->{var_sql_file};
-    my $var_syn_sql_file   = $param->{var_syn_sql_file};
+#    my $var_syn_sql_file   = $param->{var_syn_sql_file};
     my $structvar_sql_file = $param->{structvar_sql_file};
 
     my $err_msg = "";
@@ -113,7 +113,8 @@ sub all_files_present {
 	return ($entry_ok, $err_msg);
     }
     
-    my $sql_files_aref = [$var_sql_file, $var_syn_sql_file, $structvar_sql_file];
+#    my $sql_files_aref = [$var_sql_file, $var_syn_sql_file, $structvar_sql_file];
+    my $sql_files_aref = [$var_sql_file, $structvar_sql_file];
     my $missing_sql_files_aref = [];
     foreach my $sql_file (@$sql_files_aref) {
 	my $sql_file_path = $sql_dir . "/" . $sql_file;

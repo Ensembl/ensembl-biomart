@@ -118,7 +118,7 @@ sub pipeline_analyses {
 #    my $sql_dir       = $self->o('EG_cvs_root_dir') . "/ensembl_genomes/eg-biomart/var_mart/ensembl";
     my $sql_dir       = $self->o('EG_cvs_root_dir') . "/eg-biomart/var_mart/ensembl";
     my $var_sql_file  = "var_mart_$release.var.sql";
-    my $var_syn_sql_file   = "var_mart_$release.var_syn.sql";
+#    my $var_syn_sql_file   = "var_mart_$release.var_syn.sql";
     my $structvar_sql_file = "var_mart_$release.struct_var.sql";
     my $nb_variations_per_run = $self->o('nb_variations_per_run');
     
@@ -155,7 +155,7 @@ sub pipeline_analyses {
 		data_dir     => $data_dir,
 		sql_dir      => $sql_dir,
 		var_sql_file => $var_sql_file,
-		var_syn_sql_file   => $var_syn_sql_file,
+#		var_syn_sql_file   => $var_syn_sql_file,
 		structvar_sql_file => $structvar_sql_file,
 	     },
             -input_ids => [{}],
@@ -172,7 +172,7 @@ sub pipeline_analyses {
 	       'data_dir'     => $data_dir,
 	       'sql_dir'      => $sql_dir,
 	       'var_sql_file' => $var_sql_file,
-	       'var_syn_sql_file'   => $var_syn_sql_file,
+#	       'var_syn_sql_file'   => $var_syn_sql_file,
 	       'structvar_sql_file' => $structvar_sql_file,
 	   },
 	   -input_ids => [{}],
