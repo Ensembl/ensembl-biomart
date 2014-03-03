@@ -1459,7 +1459,6 @@
             <Option displayName="Only" internalName="only" value="only"/>
             <Option displayName="Excluded" internalName="excluded" value="excluded"/>
           </Option>
-          <Option checkForNulls="true" displayName="intenz ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="intenz" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_intenz__dm" type="list"/>
           <Option displayName="with InteractiveFly ID(s)" displayType="list" field="ox_interactivefly_bool" internalName="with_ox_interactivefly" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2596,6 +2595,7 @@
           <Option checkForNulls="true" displayName="IMGT/LIGM-DB ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="imgt_ligm_db" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_IMGTLIGM_DB__dm" type="list"/>
           <Option checkForNulls="true" displayName="ImmunoDB ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="immunodb" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_immunodb__dm" type="list"/>
           <Option checkForNulls="true" displayName="IntAct ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="intact" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_intact__dm" type="list"/>
+          <Option checkForNulls="true" displayName="IntEnz ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="intenz" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_intenz__dm" type="list"/>
           <Option checkForNulls="true" displayName="InteractiveFly ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="interactivefly" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_interactivefly__dm" type="list"/>
           <Option checkForNulls="true" displayName="InterPro ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="interpro_ac" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_interpro__dm" type="list" useDefault="true">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="transcript_id_1064_key"/>
