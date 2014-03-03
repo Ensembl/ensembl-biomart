@@ -33,7 +33,7 @@ sub run {
     my $eg_release         = $self->param('eg_release');
     my $sql_dir            = $self->param('sql_dir');
     my $var_sql_file       = $self->param('var_sql_file');
-    my $var_syn_sql_file   = $self->param('var_syn_sql_file');
+#    my $var_syn_sql_file   = $self->param('var_syn_sql_file');
     my $structvar_sql_file = $self->param('structvar_sql_file');
     my $data_dir           = $self->param('data_dir');
     my $nb_variations_per_run = $self->param('nb_variations_per_run');
@@ -202,28 +202,28 @@ sub run {
     
     # Create the synvar_mart_db
     
-    my $in_syn_varmart_file_fh = new FileHandle;
-    my $out_syn_varmart_file_fh = new FileHandle;
-    
-    my $in_syn_varmart_path = $sql_dir . '/' . $var_syn_sql_file;
-    my $out_syn_varmart_path = $data_dir . '/' . $var_syn_sql_file;
-    $in_syn_varmart_file_fh->open("<$in_syn_varmart_path") or die "can't open template var file!\n";
-    $out_syn_varmart_file_fh->open (">$out_syn_varmart_path") or die "can't open output var file!\n";
+#    my $in_syn_varmart_file_fh = new FileHandle;
+#    my $out_syn_varmart_file_fh = new FileHandle;
+#    
+#    my $in_syn_varmart_path = $sql_dir . '/' . $var_syn_sql_file;
+#    my $out_syn_varmart_path = $data_dir . '/' . $var_syn_sql_file;
+#    $in_syn_varmart_file_fh->open("<$in_syn_varmart_path") or die "can't open template var file!\n";
+#    $out_syn_varmart_file_fh->open (">$out_syn_varmart_path") or die "can't open output var file!\n";
     
     # Replace the place holders on the fly
 
-    print STDERR "processing file, $in_syn_varmart_path\n";
+#    print STDERR "processing file, $in_syn_varmart_path\n";
     
-    while (<$in_syn_varmart_file_fh>) {
-	my $line = $_;
-	my $new_line = replace_place_holders ($syn_place_holders_href, $line);
-	print $out_syn_varmart_file_fh "$new_line";
-    }
+#    while (<$in_syn_varmart_file_fh>) {
+#	my $line = $_;
+#	my $new_line = replace_place_holders ($syn_place_holders_href, $line);
+#	print $out_syn_varmart_file_fh "$new_line";
+#    }
     
-    $in_syn_varmart_file_fh->close();
-    $out_syn_varmart_file_fh->close();
+#    $in_syn_varmart_file_fh->close();
+#    $out_syn_varmart_file_fh->close();
     
-    print STDERR "processing file, $in_syn_varmart_path, done\n";
+#    print STDERR "processing file, $in_syn_varmart_path, done\n";
 
     # so not added
     # $self->dataflow_output_id({'input_file' => $var_syn_sql_file, 'var_mart_db' => $synvar_mart_db, 'create_db_info' => 1});
