@@ -996,7 +996,6 @@
           <Option displayName="with EntrezGene ID(s)" displayType="list" field="ox_entrezgene_bool" internalName="with_entrezgene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent field="ox_entrezgene_bool" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="spurpuratus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="pberghei_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="psojae_eg_gene" key="translation_id_1068_key"/>
@@ -2163,7 +2162,6 @@
             <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="sbicolor_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="oindica_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="lmajor_eg_gene"/>
-            <SpecificOptionContent field="ox_wikigene_bool" internalName="phumanus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_wikigene_bool" internalName="agambiae_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_wikigene_bool" internalName="aclavatus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_wikigene_bool" internalName="afumigatus_eg_gene" key="translation_id_1068_key"/>
