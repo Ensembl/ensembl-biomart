@@ -5361,15 +5361,7 @@
         <AttributeDescription hidden="true" checkForNulls="true" displayName="ENA/GenBank feature transcript ID" field="dbprimary_acc_1074" internalName="ena_feature_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ena_feature_transcript__dm"/>
         <AttributeDescription hidden="true" checkForNulls="true" displayName="ENA/GenBank gene ID" field="dbprimary_acc_1074" internalName="ena_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_ena_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ENA/GenBank ID" field="dbprimary_acc_1074" internalName="ena" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_ENA__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="ENA/GenBank protein ID" field="dbprimary_acc_1074" internalName="protein_id" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?db=emblcds&amp;id=%s" maxLength="10" tableConstraint="ox_protein_id__dm">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="foxysporum_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gmoniliformis_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gzeae_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene" key="translation_id_1068_key"/>
-        </AttributeDescription>
+        <AttributeDescription checkForNulls="true" displayName="ENA/GenBank protein ID" field="dbprimary_acc_1074" internalName="protein_id" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?db=emblcds&amp;id=%s" maxLength="10" tableConstraint="ox_protein_id__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ENA/GenBank protein (predicted) ID" field="dbprimary_acc_1074" internalName="protein_id_predicted" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=protein&amp;cmd=&amp;term=%s&amp;go=Go" maxLength="40" tableConstraint="ox_protein_id_predicted__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ENA/GenBank RNA ID" field="dbprimary_acc_1074" internalName="embl_rna" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_EMBL_RNA__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ENA/GenBank RNA ID" field="dbprimary_acc_1074" internalName="ena_rna" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_ENA_RNA__dm"/>
