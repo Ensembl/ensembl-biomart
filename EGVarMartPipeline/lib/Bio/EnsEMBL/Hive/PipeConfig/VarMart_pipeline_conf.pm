@@ -115,8 +115,7 @@ sub pipeline_analyses {
     print STDERR "release, eg_release, $release, $eg_release\n";
 
     my $data_dir      = $self->o('pipeline_dir');
-#    my $sql_dir       = $self->o('EG_cvs_root_dir') . "/ensembl_genomes/eg-biomart/var_mart/ensembl";
-    my $sql_dir       = $self->o('EG_cvs_root_dir') . "/eg-biomart/var_mart/ensembl";
+    my $sql_dir       = $self->o('EG_repo_root_dir') . "/eg-biomart/var_mart/ensembl";
     my $var_sql_file  = "var_mart_$release.var.sql";
 #    my $var_syn_sql_file   = "var_mart_$release.var_syn.sql";
     my $structvar_sql_file = "var_mart_$release.struct_var.sql";
@@ -159,7 +158,7 @@ sub pipeline_analyses {
 		structvar_sql_file => $structvar_sql_file,
 	     },
             -input_ids => [{}],
-            -rc_name => '2Gb',
+            -meadow_type    => 'LOCAL',
         },
 
 	{  -logic_name => 'InitVarMart',
@@ -179,7 +178,7 @@ sub pipeline_analyses {
 	   -flow_into => {
 	       1 => [ 'BuildVarMart' ],
 	   },
-	   -rc_name => '2Gb',
+	   -meadow_type    => 'LOCAL',
         },
 	
         {   -logic_name => 'BuildVarMart',
