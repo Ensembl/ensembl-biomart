@@ -2402,20 +2402,7 @@
           <Option checkForNulls="true" displayName="EcoGene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ecogene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ecogene__dm" type="list"/>
           <Option checkForNulls="true" displayName="EMBLBank gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="emblbank_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_emblbank_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="EMBLBank transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="emblbank_transcript" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_emblbank_transcript__dm" type="list"/>
-          <Option checkForNulls="true" displayName="ENA/GenBank ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="embl" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_EMBL__dm" type="list" useDefault="true">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
-          </Option>
+          <Option checkForNulls="true" displayName="ENA/GenBank ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="embl" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_EMBL__dm" type="list" useDefault="true"/>
           <Option checkForNulls="true" displayName="ENA/GenBank (predicted) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="embl_predicted" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_embl_predicted__dm" type="list"/>
           <Option checkForNulls="true" displayName="ENA/GenBank component ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="embl_component" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_embl_component__dm" type="list"/>
           <Option checkForNulls="true" displayName="ENA/GenBank component ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ena_component" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ena_component__dm" type="list" useDefault="true">
@@ -2428,20 +2415,7 @@
           <Option hidden="true" checkForNulls="true" displayName="ENA/GenBank feature protein ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ena_feature_protein" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ena_feature_protein__dm" type="list"/>
           <Option hidden="true" checkForNulls="true" displayName="ENA/GenBank feature transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ena_feature_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ena_feature_transcript__dm" type="list"/>
           <Option hidden="true" checkForNulls="true" displayName="ENA gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ena_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ena_gene__dm" type="list"/>
-          <Option checkForNulls="true" displayName="ENA/GenBank protein ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="protein_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_protein_id__dm" type="list" useDefault="true">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
-          </Option>
+          <Option checkForNulls="true" displayName="ENA/GenBank protein ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="protein_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_protein_id__dm" type="list" useDefault="true"/>
           <Option checkForNulls="true" displayName="ENA/GenBank protein (predicted) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="protein_id_predicted" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_protein_id_predicted__dm" type="list"/>
           <Option checkForNulls="true" displayName="ENA/GenBank trancript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ena_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ena_transcript__dm" type="list"/>
           <!--
@@ -2478,9 +2452,7 @@
           <Option checkForNulls="true" displayName="Eukaryotic Promoter Database (EPD) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="epd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_epd__dm" type="text"/>
           <Option checkForNulls="true" displayName="Fantom ID(s) [e.g.77208]" displayType="text" field="dbprimary_acc_1074" internalName="fantom" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_Fantom__dm" type="text"/>
           <Option checkForNulls="true" displayName="Fly Reactome ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="flyreactome" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_flyreactome__dm" type="list"/>
-          <Option checkForNulls="true" displayName="FlyBase annotation ID(s) [e.g. FBan0011023]" displayType="text" field="dbprimary_acc_1074" internalName="flybase_annotation_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_flybase_annotation_id__dm" type="list" useDefault="true">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="transcript_id_1064_key"/>
-          </Option>
+          <Option checkForNulls="true" displayName="FlyBase annotation ID(s) [e.g. FBan0011023]" displayType="text" field="dbprimary_acc_1074" internalName="flybase_annotation_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_flybase_annotation_id__dm" type="list" useDefault="true"/>
           <Option checkForNulls="true" displayName="FlyBase gene ID(s) [e.g. FBgn0031208]" displayType="text" field="dbprimary_acc_1074" internalName="flybase_gene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_flybase_gene_id__dm" type="list"/>
           <Option checkForNulls="true" displayName="Flybase protein ID(s) [e.g. FBpp0088316]" displayType="text" field="dbprimary_acc_1074" internalName="flybase_translation_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_flybase_translation_id__dm" type="list"/>
           <Option checkForNulls="true" displayName="FlyBase transcript ID(s) [e.g. FBtr0089256]" displayType="text" field="dbprimary_acc_1074" internalName="flybase_transcript_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_flybase_transcript_id__dm" type="list"/>
@@ -2629,12 +2601,7 @@
           <Option checkForNulls="true" displayName="Leiden3 Zebrafish Microarray ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="array_zfish_leiden3" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ARRAY_ZFISH_LEIDEN3__dm" type="list"/>
           -->
           <Option checkForNulls="true" displayName="MaizeGDB GenBank ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="maizegdb_genbank" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_maizegdb_genbank__dm" type="list"/>
-          <Option checkForNulls="true" displayName="MEROPS ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="merops" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_merops__dm" type="text">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-          </Option>
+          <Option checkForNulls="true" displayName="MEROPS ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="merops" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_merops__dm" type="text"/>
           <!--
           <Option checkForNulls="true" displayName="MGI ID" displayType="text" field="dbprimary_acc_1074" internalName="mgi_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_MGI__dm" type="list"/>
           <Option checkForNulls="true" displayName="MGI Name" displayType="text" field="display_label_1074" internalName="mgi_name" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_MGI__dm" type="list"/>
@@ -5380,20 +5347,7 @@
         <AttributeDescription checkForNulls="true" displayName="EcoGene ID" field="dbprimary_acc_1074" internalName="ecogene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_EcoGene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="EMBLBank gene ID" field="dbprimary_acc_1074" internalName="emblbank_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_emblbank_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="EMBLBank transcript ID" field="dbprimary_acc_1074" internalName="emblbank_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_emblbank_transcript__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="ENA/GenBank ID" field="dbprimary_acc_1074" internalName="embl" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_embl__dm">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
-        </AttributeDescription>
+        <AttributeDescription checkForNulls="true" displayName="ENA/GenBank ID" field="dbprimary_acc_1074" internalName="embl" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_embl__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ENA/GenBank (predicted) ID" field="dbprimary_acc_1074" internalName="embl_predicted" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="40" tableConstraint="ox_EMBL_predicted__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ENA/GenBank component ID" field="dbprimary_acc_1074" internalName="embl_component" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_embl_component__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ENA/GenBank component ID" field="dbprimary_acc_1074" internalName="ena_component" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_ena_component__dm" useDefault="true">
@@ -5408,18 +5362,6 @@
         <AttributeDescription hidden="true" checkForNulls="true" displayName="ENA/GenBank gene ID" field="dbprimary_acc_1074" internalName="ena_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_ena_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ENA/GenBank ID" field="dbprimary_acc_1074" internalName="ena" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?format=default&amp;id=%s" maxLength="8" tableConstraint="ox_ENA__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ENA/GenBank protein ID" field="dbprimary_acc_1074" internalName="protein_id" key="translation_id_1068_key" linkoutURL="exturl1|http://www.ebi.ac.uk/cgi-bin/dbfetch?db=emblcds&amp;id=%s" maxLength="10" tableConstraint="ox_protein_id__dm">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dananassae_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmojavensis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpersimilis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsechellia_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dsimulans_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dwillistoni_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dyakuba_eg_gene" key="gene_id_1020_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="scerevisiae_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="foxysporum_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="gmoniliformis_eg_gene" key="translation_id_1068_key"/>
@@ -5474,9 +5416,7 @@
         <AttributeDescription checkForNulls="true" displayName="Eukaryotic Promoter Database (EPD) ID(s)" field="dbprimary_acc_1074" internalName="epd" key="gene_id_1020_key" linkoutURL="exturl|http://www.genome.jp/dbget-bin/www_bfind_sub?dbkey=epd&amp;keywords=%s" maxLength="40" tableConstraint="ox_EPD__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Fantom ID" field="dbprimary_acc_1074" internalName="fantom" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_Fantom__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Fly Reactome ID" field="dbprimary_acc_1074" internalName="flyreactome" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_flyreactome__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="FlyBase annotation ID" field="dbprimary_acc_1074" internalName="flybase_annotation_id" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_annotation_id__dm">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dpseudoobscura_eg_gene" key="transcript_id_1064_key"/>
-        </AttributeDescription>
+        <AttributeDescription checkForNulls="true" displayName="FlyBase annotation ID" field="dbprimary_acc_1074" internalName="flybase_annotation_id" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_annotation_id__dm"/>
         <AttributeDescription checkForNulls="true" displayName="FlyBase gene ID" field="dbprimary_acc_1074" internalName="flybase_gene_id" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_gene_id__dm"/>
         <AttributeDescription checkForNulls="true" displayName="FlyBase protein id" field="dbprimary_acc_1074" internalName="flybase_translation_id" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_flybase_translation_id__dm"/>
         <AttributeDescription checkForNulls="true" displayName="FlyBase transcript ID" field="dbprimary_acc_1074" internalName="flybase_transcript_id" key="transcript_id_1064_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_transcript_id__dm"/>
@@ -5596,12 +5536,7 @@
         <AttributeDescription checkForNulls="true" displayName="LGB Pratt EST Cluster" field="dbprimary_acc_1074" internalName="lgbpratt_est_cluster" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_lgbpratt_est_cluster__dm"/>
         <AttributeDescription checkForNulls="true" displayName="LNCC gene ID" field="dbprimary_acc_1074" internalName="lncc" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_lncc__dm"/>
         <AttributeDescription checkForNulls="true" displayName="MaizeGDB GenBank ID" field="dbprimary_acc_1074" internalName="maizegdb_genbank" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_maizegdb_genbank__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="MEROPS ID" field="dbprimary_acc_1074" internalName="merops" key="translation_id_1068_key" linkoutURL="exturl1|http://merops.sanger.ac.uk/cgi-bin/make_frame_file?id=%s" maxLength="40" tableConstraint="ox_merops__dm" useDefault="true">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="derecta_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dgrimshawi_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
-        </AttributeDescription>
+        <AttributeDescription checkForNulls="true" displayName="MEROPS ID" field="dbprimary_acc_1074" internalName="merops" key="translation_id_1068_key" linkoutURL="exturl1|http://merops.sanger.ac.uk/cgi-bin/make_frame_file?id=%s" maxLength="40" tableConstraint="ox_merops__dm" useDefault="true"/>
         <!--
         <AttributeDescription checkForNulls="true" displayName="Oxford Ponting Group Monodelphis predictions gene ID(s)" field="dbprimary_acc_1074" internalName="oxford_fgu_md_gene" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/geneview?gene=%s" maxLength="40" tableConstraint="ox_Oxford_FGU_Md_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Oxford Ponting Group Monodelphis predictions transcript ID(s)" field="dbprimary_acc_1074" internalName="oxford_fgu_md_tscript" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Oxford_FGU_Md_tscript__dm"/>
