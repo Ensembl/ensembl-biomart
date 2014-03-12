@@ -45,22 +45,23 @@ my $mart_db;
 
 sub usage {
   print
-"Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-p <pwd>] [-mart <mart db>] [-help]\n";
-  print "-h <host> Default is $db_host\n";
+"Usage: $0 [-host <host>] [-port <port>] [-u user <user>] [-pass <pwd>] [-mart <mart db>] [-help]\n";
+  print "-host <host> Default is $db_host\n";
   print "-port <port> Default is $db_port\n";
   print "-u <host> Default is $db_user\n";
-  print "-p <password> Default is top secret unless you know cat\n";
+  print "-pass <password> Default is top secret unless you know cat\n";
   print "-mart <target mart> Default is $mart_db\n";
   print "-help - this usage\n";
   exit 1;
 }
 
 my $options_okay = GetOptions("host=s" => \$db_host,
-							  "port=s" => \$db_port,
-							  "user=s" => \$db_user,
-							  "pass=s" => \$db_pwd,
-							  "mart=s" => \$mart_db,
-							  "help"   => sub { usage() });
+			      "port=s" => \$db_port,
+			      "user=s" => \$db_user,
+			      "pass=s" => \$db_pwd,
+			      "mart=s" => \$mart_db,
+                              "help"   => sub { usage() }
+                             );
 
 if (!$options_okay || !defined $mart_db) {
   usage();
