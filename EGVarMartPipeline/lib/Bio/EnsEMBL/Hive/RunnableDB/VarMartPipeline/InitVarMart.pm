@@ -45,6 +45,10 @@ sub run {
     # * VAR_DB
     
     my $species_abbrev = $short_species_name;
+    # if it is missing '_eg' suffix, add it, as the dataset name as to include this suffix
+    if ($species_abbrev !~ /_eg$/) {
+        $species_abbrev .= "_eg";
+    }
     
     my $variation_adaptor = Bio::EnsEMBL::Registry->get_adaptor($species, 'variation', 'Variation');
     my $variation_db = $variation_adaptor->db()->dbc()->dbname();
