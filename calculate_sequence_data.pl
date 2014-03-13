@@ -40,7 +40,7 @@ my $logger = get_logger();
 my $verbose = 1;
 
 # db params
-my $db_host          = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
+my $db_host          = 'mysql-eg-prod-1.ebi.ac.uk';
 my $db_port          = 4238;
 my $db_user          = 'ensrw';
 my $db_pwd           = 'writ3rp1';
@@ -51,11 +51,11 @@ my $dataset;
 my $limit_species;
 
 sub usage {
-    print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-p <pwd>] [-mart <mart db>] [-release <e! release>] [-dataset_basename <basename>]\n";
-    print "-h <host> Default is $db_host\n";
+    print "Usage: $0 [-host <host>] [-port <port>] [-user user <user>] [-pass <pwd>] [-mart <mart db>] [-release <e! release>] [-dataset_basename <basename>]\n";
+    print "-host <host> Default is $db_host\n";
     print "-port <port> Default is $db_port\n";
-    print "-u <host> Default is $db_user\n";
-    print "-p <password> Default is top secret unless you know cat\n";
+    print "-user <host> Default is $db_user\n";
+    print "-pass <password> Default is top secret unless you know cat\n";
     print "-mart <mart_db>\n";
     print "-release <e! release>\n";
     print "-dataset_basename <dataset basename> Default is $dataset_basename\n";
@@ -109,8 +109,7 @@ for my $dataset (@datasets) {
 	print "Updating $ds_base ($species_name)\n";
 
 	my $dba =
-	  Bio::EnsEMBL::Registry->get_DBAdaptor( $species_name, 'Core',
-											 'transcript' );
+	  Bio::EnsEMBL::Registry->get_DBAdaptor( $species_name, 'Core', 'transcript' );
 
 	my @sql;
 
