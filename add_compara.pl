@@ -243,9 +243,9 @@ for my $dataset (@datasets) {
   my $id = get_string($get_species_id_sth,$dataset);
   my $clade = get_string($get_species_clade_sth,$dataset);
   $logger->info("Processing paralogs for $ds_name_sql as $dataset");
-  my $method_link_species_id = get_string($species_paralog_sth,$ds_name_sql,$ds_name_full,$ds_name_sql,$ds_name_full);
-  if($method_link_species_id && $id) {
-    write_species($dataset, $method_link_species_id, $dataset, $dataset, $paralog_sql);
+  my $paralog_mlss_id = get_string($species_paralog_sth,$ds_name_sql,$ds_name_full,$ds_name_sql,$ds_name_full);
+  if($paralog_mlss_id && $id) {
+    write_species($dataset, $paralog_mlss_id, $dataset, $dataset, $paralog_sql);
     $logger->info("Completed paralogs for $ds_name_sql as $dataset");
   }
 
@@ -262,17 +262,11 @@ for my $dataset (@datasets) {
 
   # get homoeologs, this time, within the species only
   # this one should produce data
-  my $id = get_string($get_species_id_sth,$dataset);
-  my $clade = get_string($get_species_clade_sth,$dataset);
-  warn("id, clade, $id, $clade\n");
   $logger->info("Processing homoeologs for $ds_name_sql as $dataset");
-  my $method_link_species_id = get_string($species_homoeolog_within_species_sth,$ds_name_sql,$ds_name_full,$ds_name_sql,$ds_name_full);
-  if($method_link_species_id && $id) {
-    write_species($dataset, $method_link_species_id, $dataset, $dataset, $homoeolog_sql);
+  my $homoeolog_mlss_id = get_string($species_homoeolog_within_species_sth,$ds_name_sql,$ds_name_full,$ds_name_sql,$ds_name_full);
+  if($homoeolog_mlss_id && $id) {
+    write_species($dataset, $homoeolog_mlss_id, $dataset, $dataset, $homoeolog_sql);
     $logger->info("Completed homoeologs for $ds_name_sql as $dataset");
-  }
-  elsif (!defined $method_link_species_id) {
-      warn("no mlss_id found\n");
   }
 
 }
