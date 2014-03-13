@@ -32,7 +32,7 @@ Log::Log4perl->easy_init($DEBUG);
 
 my $logger = get_logger();
 
-my $db_host = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
+my $db_host = 'mysql-eg-prod-1.ebi.ac.uk';
 my $db_port = 4238;
 my $db_user = 'ensrw';
 my $db_pwd = 'writ3rp1';
@@ -158,13 +158,37 @@ s.species_set_id in (
 AND (g.name=? OR g.name=?) AND m.type='ENSEMBL_PARALOGUES'
 AND g.assembly_default=1
 and ms.method_link_species_set_id in
-(select method_link_species_set_id  from $compara_db.homology where description='within_species_paralog')
+(select distinct method_link_species_set_id  from $compara_db.homology where description='within_species_paralog')
 };
+
+my $species_homoeolog_sql = qq{
+select ms.method_link_species_set_id, g.name, CONCAT(CONCAT(n.src_dataset,'_'),n.species_id), n.name
+from $compara_db.species_set s
+join $compara_db.method_link_species_set ms using (species_set_id)
+join $compara_db.method_link m using (method_link_id)
+join $compara_db.genome_db g using (genome_db_id)
+join $mart_db.dataset_names n on (n.sql_name=g.name or n.species_name=g.name)
+where
+s.species_set_id in (
+  select distinct (ss.species_set_id) from
+  $compara_db.species_set ss
+  join $compara_db.genome_db gg
+  using (genome_db_id)
+  where (gg.name=? or gg.name=?)
+  AND gg.assembly_default=1
+)
+AND g.name<>? AND g.name<>?
+AND g.assembly_default=1
+AND m.type='ENSEMBL_HOMOEOLOGUES'
+};
+
 
 my $species_homolog_sth = $mart_handle->prepare($species_homolog_sql);
 my $species_paralog_sth = $mart_handle->prepare($species_paralog_sql);
+my $species_homoeolog_sth = $mart_handle->prepare($species_homoeolog_sql);
 my $homolog_sql = './templates/generate_homolog.sql.template';
 my $paralog_sql = './templates/generate_paralog.sql.template';
+my $homoeolog_sql = './templates/generate_homoeolog.sql.template';
 
 my $get_species_id_sth = $mart_handle->prepare('select species_id from dataset_names where name=?');
 my $get_species_clade_sth = $mart_handle->prepare('select src_dataset from dataset_names where name=?');
@@ -177,7 +201,7 @@ for my $dataset (@datasets) {
   $logger->info("Processing $ds_name_sql as $dataset");
   for my $table_type (('gene','transcript','translation')) {
     my $table_name = $dataset.'_gene__'.$table_type.'__main';
-    for my $type (qw(homolog paralog)) {
+    for my $type (qw(homolog paralog homoeolog)) {
       for my $col (query_to_strings($mart_handle,"show columns from $table_name like '${type}_%_bool'")) {
         $mart_handle->do("alter table $table_name drop column $col") or croak "Could not drop column $table_name.$col";
       }
@@ -201,10 +225,20 @@ for my $dataset (@datasets) {
     write_species($dataset, $method_link_species_id, $dataset, $dataset, $paralog_sql);
     $logger->info("Completed paralogs for $ds_name_sql as $dataset");
   }
+
+  # work out species name from $dataset
+  # get list of method_link_species_set_id/name pairs for homoeolog partners
+  for my $species_set (get_species_sets($species_homoeolog_sth,$ds_name_sql,$ds_name_full)) {
+    $logger->info('Processing homoeologs for '.$species_set->{name}.' as '.$species_set->{tld});
+    write_species($dataset, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homoeolog_sql);
+    $logger->info('Completed homoeologs for '.$species_set->{name}.' as '.$species_set->{tld});
+  }
+
 }
 $logger->info("Completed processing");
 $species_homolog_sth->finish() or carp "Could not close statement handle";
 $species_paralog_sth->finish() or carp "Could not close statement handle";
+$species_homoeolog_sth->finish() or carp "Could not close statement handle";
 $get_species_id_sth->finish() or carp "Could not close statement handle";
 $get_species_clade_sth->finish() or carp "Could not close statement handle";
 $mart_handle->disconnect() or carp "Could not close handle to $mart_string";
