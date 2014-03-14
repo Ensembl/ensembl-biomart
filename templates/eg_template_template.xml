@@ -1010,10 +1010,7 @@
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="aflavus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="aoryzae_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="lmajor_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="ox_entrezgene_bool" internalName="bdistachyon_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="ox_entrezgene_bool" internalName="oindica_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="ox_entrezgene_bool" internalName="ptrichocarpa_eg_gene" key="transcript_1064_key"/>
-            <SpecificOptionContent field="ox_entrezgene_bool" internalName="sbicolor_eg_gene" key="translation_id_1068_key"/>
           </Option>
           <Option displayName="with EntrezGene ID(s)" displayType="list" field="ox_geneid_bool" internalName="with_ox_geneid" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -2158,8 +2155,6 @@
           <Option displayName="with WikiGene ID(s)" displayType="list" field="ox_wikigene_bool" internalName="with_wikigene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="bdistachyon_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="sbicolor_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="oindica_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="ox_wikigene_bool" internalName="lmajor_eg_gene"/>
             <SpecificOptionContent field="ox_wikigene_bool" internalName="agambiae_eg_gene" key="translation_id_1068_key"/>
@@ -2431,9 +2426,6 @@
           <Option checkForNulls="true" displayName="EntrezGene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="entrezgene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_EntrezGene__dm" type="text" useDefault="true">
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="spurpuratus_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="lmajor_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="translation_id_1068_key"/>
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="translation_id_1068_key"/>
@@ -2791,8 +2783,6 @@
           <Option checkForNulls="true" displayName="Vega Translation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="vega_translation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Vega_translation__dm" type="list"/>
           -->
           <Option checkForNulls="true" displayName="WikiGene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wikigene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wikigene__dm" type="text" useDefault="true">
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="aclavatus_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="afumigatus_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="anidulans_eg_gene"/>
@@ -2803,8 +2793,6 @@
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
           </Option>
           <Option checkForNulls="true" displayName="WikiGene name(s)" displayType="text" field="display_label_1074" internalName="wikigene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wikigene__dm" type="text" useDefault="true">
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="osativa_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="aclavatus_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="afumigatus_eg_gene"/>
@@ -4957,9 +4945,6 @@
       <FilterCollection displayName="PO evidence code" hidden="true" internalName="po_evidence_code">
         <FilterDescription displayName="PO evidence code" displayType="list" field="linkage_type_1024" hidden="true" internalName="po_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_po__dm" type="list">
           <SpecificFilterContent hidden="true" internalName="replaceMe"/>
-          <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="bdistachyon_eg_gene" />
-          <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="ptrichocarpa_eg_gene" />
-          <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="sbicolor_eg_gene" />
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
@@ -5385,9 +5370,6 @@
         -->
         <AttributeDescription checkForNulls="true" displayName="EntrezGene ID" field="dbprimary_acc_1074" internalName="entrezgene" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?cmd=search&amp;db=gene&amp;term=%s[uid]" maxLength="40" tableConstraint="ox_entrezgene__dm" useDefault="true">
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="brapa_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="nfischeri_eg_gene" key="translation_id_1068_key"/>
@@ -5686,8 +5668,6 @@
         <AttributeDescription checkForNulls="true" displayName="VEGA transcript" field="dbprimary_acc_1074" hidden="true" internalName="Vega_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_Vega_transcript__dm"/>
         -->
         <AttributeDescription checkForNulls="true" displayName="WikiGene ID" field="dbprimary_acc_1074" internalName="wikigene_id" key="gene_id_1020_key" linkoutURL="http://www.wikigenes.org/e/gene/e/%s.html" maxLength="40" tableConstraint="ox_wikigene__dm" useDefault="true">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aclavatus_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="afumigatus_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
@@ -5698,8 +5678,6 @@
           <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="WikiGene name" field="display_label_1074" internalName="wikigene_name" key="gene_id_1020_key" maxLength="128" tableConstraint="ox_wikigene__dm" useDefault="true">
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="aclavatus_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="afumigatus_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="anidulans_eg_gene"/>
@@ -5710,8 +5688,6 @@
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="lmajor_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="WikiGene description" field="description_1074" internalName="wikigene_description" key="gene_id_1020_key" maxLength="255" tableConstraint="ox_wikigene__dm" useDefault="true">
-          <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="bdistachyon_eg_gene"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="sbicolor_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="lmajor_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="aclavatus_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="afumigatus_eg_gene"/>
