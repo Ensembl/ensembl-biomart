@@ -185,6 +185,15 @@ PARAFIL_END
     $text;
 }
 
+sub get_dataset_homoeolog_filter {
+    my $dataset = shift;
+    my $text = << "HOMOEOFIL_END";
+<Option displayName="Homoeologous $dataset->{species_name} Genes" displayType="list" field="homoeolog_$dataset->{dataset}_bool" hidden="false" internalName="with_$dataset->{dataset}_homoeolog" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"><Option displayName="Only" hidden="false" internalName="only" isSelectable="true" value="only" /><Option displayName="Excluded" hidden="false" internalName="excluded" isSelectable="true" value="excluded" /></Option>
+HOMOEOFIL_END
+    $text;
+}
+
+
 sub get_dataset_homolog_attribute {
     my $dataset = shift;
     my $text = << "HOMOATT_END";
@@ -235,6 +244,30 @@ PARAATT_END
     $text;
 }
 
+sub get_dataset_homoeolog_attribute {
+    my $dataset = shift;
+    my $text = << "HOMOEOATT_END";
+      <AttributeCollection displayName="$dataset->{species_name} Homoeolog Attributes" internalName="homoeologs_$dataset->{dataset}">
+        <AttributeDescription displayName="Homoeolog gene stable ID" field="stable_id_4016_r2" internalName="$dataset->{dataset}_homoeolog_gene" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/Gene/Summary?g=%s" maxLength="140" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Homoeolog protein stable ID" field="stable_id_4016_r3" internalName="$dataset->{dataset}_homoeolog_homoeolog_ensembl_peptide" key="gene_id_1020_key" maxLength="40" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Homoeolog chromosome/scaffold" field="chr_name_4016_r2" internalName="$dataset->{dataset}_homoeolog_chromosome" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/Location/View?r=$dataset->{dataset}_homoeolog_chromosome" maxLength="40" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Homoeolog start (bp)" field="chr_start_4016_r2" internalName="$dataset->{dataset}_homoeolog_chrom_start" key="gene_id_1020_key" maxLength="10" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Homoeolog end (bp)" field="chr_end_4016_r2" internalName="$dataset->{dataset}_homoeolog_chrom_end" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/Location/View?r=$dataset->{dataset}_homoeolog_chromosome:$dataset->{dataset}_homoeolog_chrom_start-$dataset->{dataset}_homoeolog_chrom_end" maxLength="10" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Representative protein stable ID" field="stable_id_4016_r1" internalName="$dataset->{dataset}_homoeolog_ensembl_peptide" key="gene_id_1020_key" maxLength="40" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Ancestor" field="node_name_40192" internalName="$dataset->{dataset}_homoeolog_ancestor" key="gene_id_1020_key" maxLength="40" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Homology type" field="description_4014" internalName="homoeolog_$dataset->{dataset}__dm_description_4014" key="gene_id_1020_key" maxLength="25" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="% identity" field="perc_id_4015" internalName="homoeolog_$dataset->{dataset}__dm_perc_id_4015" key="gene_id_1020_key" maxLength="10" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Homoeolog % identity" field="perc_id_4015_r1" internalName="homoeolog_$dataset->{dataset}__dm_perc_id_4015_r1" key="gene_id_1020_key" maxLength="10" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="dN" field="dn_4014" internalName="homoeolog_$dataset->{dataset}__dm_dn_4014" key="gene_id_1020_key" maxLength="10" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="dS" field="ds_4014" internalName="homoeolog_$dataset->{dataset}__dm_ds_4014" key="gene_id_1020_key" maxLength="10" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Homoeology confidence [0 low, 1 high]" field="is_tree_compliant_4014" internalName="$dataset->{dataset}_homoeolog_is_tree_compliant" key="gene_id_1020_key" maxLength="10" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Bootstrap/Duplication Confidence Score Type" field="tag_4060" internalName="$dataset->{dataset}_tag" key="gene_id_1020_key" maxLength="50" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+        <AttributeDescription displayName="Bootstrap/Duplication Confidence Score" field="value_4060" internalName="$dataset->{dataset}_value" key="gene_id_1020_key" maxLength="255" tableConstraint="homoeolog_$dataset->{dataset}__dm"/>
+      </AttributeCollection>
+HOMOEOATT_END
+    $text;
+}
+
 
 sub write_template_xml {
     my $datasets = shift;
@@ -244,24 +277,35 @@ sub write_template_xml {
     my $homology_filters_text='';
     my $homology_attributes_text='';
     my $paralogy_attributes_text='';
+    my $homoeology_attributes_text='';
     my $exportables_text='';
     my $exportables_link_text='';
     my $poly_attrs_text = '';
     foreach my $dataset (@$datasets) {
-      print "Generating elems for ".$dataset->{dataset};
+      print STDERR "Generating elems for ".$dataset->{dataset}."\n";
       $datasets_text .= get_dataset_element($dataset);
       $exportables_text .= get_dataset_exportable($dataset);
       $exportables_link_text .= get_dataset_exportable_link($dataset);
       $homology_filters_text .= get_dataset_homolog_filter($dataset);
       $homology_filters_text .= get_dataset_paralog_filter($dataset);
+
       $homology_attributes_text .= get_dataset_homolog_attribute($dataset);
       $paralogy_attributes_text .= get_dataset_paralog_attribute($dataset);
+      
+      if ($dataset->{dataset} =~ /taestivum/) {
+	  
+	  # Add homoeolog filters and attributes only for bread wheat
+	  
+	  $homology_filters_text .= get_dataset_homoeolog_filter($dataset);
+	  $homoeology_attributes_text .= get_dataset_homoeolog_attribute($dataset);
+      }
     }
     my %placeholders = (
     '.*<Replace id="datasets"/>'=>$datasets_text,
     '.*<Replace id="homology_filters"/>'=>$homology_filters_text,
     '.*<Replace id="homology_attributes"/>'=>$homology_attributes_text,
     '.*<Replace id="paralogy_attributes"/>'=>$paralogy_attributes_text,
+    '.*<Replace id="homoeology_attributes"/>'=>$homoeology_attributes_text,
     '.*<Replace id="exportables"/>'=>$exportables_text,
     '.*<Replace id="exportables_link"/>'=>$exportables_link_text,
     '.*<Replace id="poly_attrs"/>'=>$poly_attrs_text

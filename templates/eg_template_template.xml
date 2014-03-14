@@ -6882,6 +6882,9 @@
     <AttributeGroup displayName="PARALOGS:" internalName="paralogs">
       <Replace id="paralogy_attributes"/>
     </AttributeGroup>
+    <AttributeGroup displayName="HOMOEOLOGS:" internalName="homoeologs" hideDisplay="true" hidden="true">
+      <Replace id="homoeology_attributes"/>
+    </AttributeGroup>
   </AttributePage>
   <AttributePage displayName="Sequences" internalName="sequences" outFormats="fasta">
     <AttributeGroup displayName="SEQUENCES:" internalName="sequence">
