@@ -1706,25 +1706,31 @@
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
           -->
+	  <!--
           <Option displayName="with PO ID(s)" displayType="list" field="ox_po_bool" internalName="with_po" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="osativa_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
           </Option>
+	  -->
+	  <!--
           <Option displayName="with PO ID(s)" displayType="list" field="ox_po_to_gene_bool" internalName="with_po_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+	  -->
           <Option displayName="with PO ID(s)" displayType="list" field="ontology_PO_bool" internalName="with_ontology_po" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="ontology_PO_bool" internalName="bdistachyon_eg_gene"/>
           </Option>
+	  <!--
           <Option hidden="true" displayName="with PO (transcript) ID(s)" displayType="list" field="ox_po_to_transcript_bool" internalName="with_po_to_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+	  -->
           <Option displayName="with PomBase ID(s)" displayType="list" field="ox_pombase_bool" internalName="with_pombase" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2635,15 +2641,19 @@
           <!--
           <Option checkForNulls="true" displayName="Platypus olfactory receptor ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="platypus_olfactory_receptor" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Platypus_olfactory_receptor__dm" type="list"/>
           -->
+	  <!--
           <Option checkForNulls="true" displayName="PO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="po_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_PO_to_gene__dm" type="list"/>
-          <Option checkForNulls="true" displayName="PO ID(s) for proteins" displayType="text" field="dbprimary_acc_1074" internalName="po" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_PO__dm" type="list" useDefault="true">
+	  -->
+          <Option checkForNulls="true" displayName="PO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="po" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_PO__dm" type="list" useDefault="true">
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="oglaberrima_eg_gene"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_po__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_po__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_po__dm"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" key="transcript_id_1064_key" tableConstraint="ox_po__dm"/>
           </Option>
+	  <!--
           <Option hidden="true" checkForNulls="true" displayName="po_to_transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="po_to_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_po_to_transcript__dm" type="list"/>
+	  -->
           <Option checkForNulls="true" displayName="PomBase ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pombase" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pombase__dm" type="list"/>
           <Option checkForNulls="true" displayName="PomBase gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pombase_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pombase_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="PomBase gene name(s)" displayType="text" field="dbprimary_acc_1074" internalName="pombase_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pombase_gene_name__dm" type="list"/>
@@ -4944,6 +4954,9 @@
       </FilterCollection>
       <FilterCollection displayName="PO evidence code" hidden="true" internalName="po_evidence_code">
         <FilterDescription displayName="PO evidence code" displayType="list" field="linkage_type_1024" hidden="true" internalName="po_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_po__dm" type="list">
+	  <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="bdistachyon_eg_gene"/>
+	  <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="sbicolor_eg_gene"/>
+	  <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="ptrichocarpa_eg_gene"/>
           <SpecificFilterContent hidden="true" internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
