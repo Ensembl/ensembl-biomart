@@ -86,6 +86,11 @@ if ($mart_db =~ /snp_mart/) {
 				 '%structural\_\_variation\_annotation\_\_dm'    => 'description_2033',
       );
 }
+elsif ($mart_db =~ /egontology_mart/) {
+  %tables_to_tidy = (
+				 'closure\_%\_\_closure__main' => 'name_302'
+  );
+}
 else {
   %tables_to_tidy = (
 			   '%\_transcript\_variation\_\_dm'     => 'seq_region_id_2026',
