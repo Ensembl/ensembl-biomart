@@ -107,45 +107,36 @@ ${mart_db}.${dataset}_gene__${external_db}_extension__dm/;
     $mart_handle->do($drop_base_table);
     
     my $key = 'transcript_id_1064_key';
+    my $ensemblObjType = 'transcript';
     if (  $object_type eq 'translation' ) {
       $key = 'translation_id_1068_key';
+      $ensemblObjType = 'translation';
     }
 
     my $create_base_table = qq/
     create table 
 ${mart_db}.${dataset}_gene__${external_db}_extension__dm as
 select 
-distinct t.${object_type}_id as ${key}, 
-x.object_xref_id as object_xref_id,  
-x.subject_acc,
-x.subject_label,
-x.source_acc, 
-x.source_label, 
-x.source_db,       
-x.group_id,
-x.group_des  
-from 
-${core_db}.translation t 
-left join (
-select 
-ox.object_xref_id as object_xref_id,
-ox.ensembl_id as ensembl_id, 
-ox.ensembl_object_type as ensembl_object_type, 
-tx.dbprimary_acc as subject_acc,
-tx.display_label as subject_label,
-sx.dbprimary_acc source_acc, 
-sx.display_label source_label, 
-sd.db_name source_db,       
-ag.associated_group_id group_id,
-ag.description group_des 
-from ${core_db}.object_xref ox
-join ${core_db}.xref tx on (tx.xref_id=ox.xref_id)  
-join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id)
-left join ${core_db}.associated_xref ax using (object_xref_id)
-left join ${core_db}.associated_group ag using (associated_group_id)  
-left join ${core_db}.xref sx on (sx.xref_id=ax.source_xref_id) 
-left join ${core_db}.external_db sd on (sx.external_db_id=sd.external_db_id)
-where td.db_name='$external_db') x on (x.ensembl_id=t.translation_id and x.ensembl_object_type='${object_type}')/;
+  distinct t.${ensemblObjType}_id as ${key},
+  ox.object_xref_id as object_xref_id,
+  tx.dbprimary_acc as subject_acc,
+  tx.display_label as subject_label,
+  sx.dbprimary_acc source_acc, 
+  sx.display_label source_label, 
+  sd.db_name source_db,       
+  ag.associated_group_id group_id,
+  ag.description group_des 
+from
+  ${core_db}.${ensemblObjType} t
+  join ${core_db}.object_xref ox on (t.${ensemblObjType}_id=ox.ensembl_id and ox.ensembl_object_type='${object_type}')
+  join ${core_db}.xref tx on (tx.xref_id=ox.xref_id)  
+  join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id)
+  join ${core_db}.associated_xref ax using (object_xref_id)
+  left join ${core_db}.associated_group ag using (associated_group_id)  
+  left join ${core_db}.xref sx on (sx.xref_id=ax.source_xref_id) 
+  left join ${core_db}.external_db sd on (sx.external_db_id=sd.external_db_id)
+where
+  td.db_name='$external_db';/;
     $logger->debug($create_base_table);
     $mart_handle->do($create_base_table);
 
