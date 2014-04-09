@@ -2608,7 +2608,7 @@
           -->
           <Option checkForNulls="true" displayName="MaizeGDB GenBank ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="maizegdb_genbank" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_maizegdb_genbank__dm" type="list"/>
           <Option checkForNulls="true" displayName="MEROPS ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="merops" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_merops__dm" type="text"/>
-	  <Option checkForNulls="true" displayName="Metacyc ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="metacyc" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_metacyc__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="Metacyc ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="metacyc" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_metacyc__dm" type="list"/>
           <!--
           <Option checkForNulls="true" displayName="MGI ID" displayType="text" field="dbprimary_acc_1074" internalName="mgi_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_MGI__dm" type="list"/>
           <Option checkForNulls="true" displayName="MGI Name" displayType="text" field="display_label_1074" internalName="mgi_name" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_MGI__dm" type="list"/>
@@ -2712,7 +2712,7 @@
           <Option checkForNulls="true" displayName="Rfam ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="rfam" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_rfam__dm" type="text" useDefault="true">
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
           </Option>
-          <Option checkForNulls="true" displayName="rfam_trans_name ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="rfam_trans_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_rfam_trans_name__dm" type="list"/>
+          <Option checkForNulls="true" displayName="rfam_trans_name ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="rfam_trans_name" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_rfam_trans_name__dm" type="list"/>
           <!--
           <Option checkForNulls="true" displayName="RGD ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="rgd" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RGD__dm" type="list"/>
           <Option checkForNulls="true" displayName="RGD Symbol [e.g. Cntnap5b]" displayType="text" field="display_label_1074" internalName="rgd_symbol" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RGD__dm" type="list"/>
@@ -2765,7 +2765,7 @@
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="sbicolor_eg_gene"/>
           </Option>
           <Option checkForNulls="true" displayName="UniParc ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniparc" isSelectable="true" hidden="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniparc__dm" type="list"/>
-          <Option checkForNulls="true" displayName="UniPathway ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="unipathway" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_unipathway__dm" type="list"/>
+          <Option checkForNulls="true" displayName="UniPathway ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="unipathway" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_unipathway__dm" type="list"/>
           <Option checkForNulls="true" displayName="Uniprot Gene Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_gn" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_gn__dm" type="list"/>
           <Option checkForNulls="true" displayName="UniProtKB Gene Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_genename" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_genename__dm" type="list" useDefault="true">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene"/>
