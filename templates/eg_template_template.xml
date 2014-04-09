@@ -1576,6 +1576,10 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="gene_id_1020_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="dvirilis_eg_gene" key="gene_id_1020_key"/>
           </Option>
+	  <Option displayName="with Metacyc ID(s)" displayType="list" field="ox_metacyc_bool" internalName="with_metacyc" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <!--
           <Option displayName="with MGI ID(s)" displayType="list" field="ox_mgi_bool" internalName="with_mgi" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -2604,6 +2608,7 @@
           -->
           <Option checkForNulls="true" displayName="MaizeGDB GenBank ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="maizegdb_genbank" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_maizegdb_genbank__dm" type="list"/>
           <Option checkForNulls="true" displayName="MEROPS ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="merops" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_merops__dm" type="text"/>
+	  <Option checkForNulls="true" displayName="Metacyc ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="metacyc" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_metacyc__dm" type="list"/>
           <!--
           <Option checkForNulls="true" displayName="MGI ID" displayType="text" field="dbprimary_acc_1074" internalName="mgi_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_MGI__dm" type="list"/>
           <Option checkForNulls="true" displayName="MGI Name" displayType="text" field="display_label_1074" internalName="mgi_name" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_MGI__dm" type="list"/>
@@ -5529,6 +5534,7 @@
         <AttributeDescription checkForNulls="true" displayName="LNCC gene ID" field="dbprimary_acc_1074" internalName="lncc" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_lncc__dm"/>
         <AttributeDescription checkForNulls="true" displayName="MaizeGDB GenBank ID" field="dbprimary_acc_1074" internalName="maizegdb_genbank" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_maizegdb_genbank__dm"/>
         <AttributeDescription checkForNulls="true" displayName="MEROPS ID" field="dbprimary_acc_1074" internalName="merops" key="translation_id_1068_key" linkoutURL="exturl1|http://merops.sanger.ac.uk/cgi-bin/make_frame_file?id=%s" maxLength="40" tableConstraint="ox_merops__dm" useDefault="true"/>
+	<AttributeDescription checkForNulls="true" displayName="Metacyc ID" field="dbprimary_acc_1074" internalName="metacyc" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_metacyc__dm"/>
         <!--
         <AttributeDescription checkForNulls="true" displayName="Oxford Ponting Group Monodelphis predictions gene ID(s)" field="dbprimary_acc_1074" internalName="oxford_fgu_md_gene" key="gene_id_1020_key" linkoutURL="exturl1|/*species2*/geneview?gene=%s" maxLength="40" tableConstraint="ox_Oxford_FGU_Md_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Oxford Ponting Group Monodelphis predictions transcript ID(s)" field="dbprimary_acc_1074" internalName="oxford_fgu_md_tscript" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Oxford_FGU_Md_tscript__dm"/>
