@@ -1530,6 +1530,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with KEGG enzyme ID(s)" displayType="list" field="ox_kegg_enzyme_bool" internalName="with_kegg_enzyme" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <!--
           <Option displayName="with Leiden2 ID(s)" displayType="list" field="eFG_LEIDEN_LEIDEN2_bool" internalName="with_leiden_leiden2" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -2080,6 +2084,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with Uniprot transcript Name(s)" displayType="list" field="ox_uniprot_gn_trans_name_bool" internalName="with_uniprot_gn_trans_name" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with UniProtKB Gene Name(s)" displayType="list" field="ox_uniprot_genename_bool" internalName="with_uniprot_genename" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2599,6 +2607,7 @@
           <Option checkForNulls="true" displayName="KEGG description(s)" displayType="text" field="description_1074" hidden="true" internalName="kegg_description" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_kegg__dm" type="list" useDefault="true">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ncrassa_eg_gene"/>
           </Option>
+	<Option checkForNulls="true" displayName="KEGG enzyme ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="kegg_enzyme" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_kegg_enzyme__dm" type="list"/>
           <Option checkForNulls="true" displayName="Leproma ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="leproma" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_leproma__dm" type="list"/>
           <Option checkForNulls="true" displayName="LGB Pratt EST cluster ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="lgbpratt_est_cluster" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_lgbpratt_est_cluster__dm" type="list"/>
           <Option checkForNulls="true" displayName="LNCC gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="lncc" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_lncc__dm" type="list"/>
@@ -2767,6 +2776,7 @@
           <Option checkForNulls="true" displayName="UniParc ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniparc" isSelectable="true" hidden="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniparc__dm" type="list"/>
           <Option checkForNulls="true" displayName="UniPathway ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="unipathway" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_unipathway__dm" type="list"/>
           <Option checkForNulls="true" displayName="Uniprot Gene Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_gn" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_gn__dm" type="list"/>
+	<Option checkForNulls="true" displayName="Uniprot transcript Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_gn_trans_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_gn_trans_name__dm" type="list"/>
           <Option checkForNulls="true" displayName="UniProtKB Gene Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_genename" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_genename__dm" type="list" useDefault="true">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
@@ -5529,6 +5539,7 @@
         <AttributeDescription checkForNulls="true" displayName="KEGG description" field="description_1074" internalName="kegg_description" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_kegg__dm" linkoutURL="exturl|http://www.genome.jp/dbget-bin/www_bget?path:%s" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="translation_id_1068_key"/>
         </AttributeDescription>
+	<AttributeDescription checkForNulls="true" displayName="KEGG enzyme ID" field="dbprimary_acc_1074" internalName="kegg_enzyme" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_kegg_enzyme__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Leproma ID" field="dbprimary_acc_1074" internalName="leproma" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_Leproma__dm"/>
         <AttributeDescription checkForNulls="true" displayName="LGB Pratt EST Cluster" field="dbprimary_acc_1074" internalName="lgbpratt_est_cluster" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_lgbpratt_est_cluster__dm"/>
         <AttributeDescription checkForNulls="true" displayName="LNCC gene ID" field="dbprimary_acc_1074" internalName="lncc" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_lncc__dm"/>
@@ -5663,6 +5674,7 @@
         <AttributeDescription checkForNulls="true" displayName="UniParc ID" field="dbprimary_acc_1074" internalName="uniparc" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_UniParc__dm" linkoutURL="exturl|http://www.uniprot.org/uniparc/%s"/>
         <AttributeDescription checkForNulls="true" displayName="UniPathway ID" field="dbprimary_acc_1074" internalName="unipathway" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_unipathway__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Uniprot Gene Name" field="dbprimary_acc_1074" internalName="uniprot_gn" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_uniprot_gn__dm"/>
+	<AttributeDescription checkForNulls="true" displayName="Uniprot Transcript Name" field="dbprimary_acc_1074" internalName="uniprot_gn_trans_name" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_uniprot_gn_trans_name__dm"/>
         <AttributeDescription checkForNulls="true" displayName="UniProtKB Gene Name" field="display_label_1074" internalName="uniprot_genename" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_uniprot_genename__dm" useDefault="true">
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="lmajor_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="pgraministritici_eg_gene"/>
