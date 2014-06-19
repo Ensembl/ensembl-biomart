@@ -5,6 +5,12 @@ DIVISION=$3
 ENS_VERSION=$4
 EG_VERSION=$5
 
+if [ -z "$PROD_CMD" ] || [ -z "$STAG_CMD" ] || [ -z "$DIVISION" ] || [ -z "$ENS_VERSION" ] || [ -z "$EG_VERSION" ]; then
+    echo "Usage: $0 PROD_CMD STAG_CMD DIVISION ENS_VERSION EG_VERSION"
+    echo "Example: $0 mysql-prod-1-ensrw mysql-staging-1-ensrw metazoa 76 23
+    exit 1
+fi
+
 # Create a sequence mart.
 # Run on an interactive cluster node with plenty of memory.
 
