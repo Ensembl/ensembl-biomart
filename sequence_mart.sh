@@ -49,6 +49,8 @@ done < /tmp/dbs.tmp
 
 rm /tmp/dbs.tmp
 
+cd ../scripts
+
 perl generate_sequence_template.pl \
   $($PROD_CMD details script) \
   -seq_mart $MART_DBNAME
