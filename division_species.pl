@@ -27,8 +27,6 @@ if ($division !~ /^Ensembl/) {
 
 # List all species in a division for a given release. 
 
-my $cmd = 'echo SPECIES';
-
 my $registry = 'Bio::EnsEMBL::Registry';
 $registry->load_registry_from_db(
   -host       => $host,
