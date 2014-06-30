@@ -41,12 +41,12 @@ my $logger = get_logger();
 my $release = undef;
 my $species = undef;
 
-my $output_dir = "./output";
+my $output_dir = "/tmp/seq_mart_output";
 my $mart_version = "0.7";
 
 sub write_dataset_xml {
     my $dataset_names = shift;
-    my $fname = "./$output_dir/".$dataset_names->{dataset}.'.xml';
+    my $fname = "$output_dir/".$dataset_names->{dataset}.'.xml';
     open my $dataset_file, '>', $fname or croak "Could not open $fname for writing";
     my $template_file_name = 'templates/dataset_sequence_template.xml';
     open my $template_file, '<', $template_file_name or croak "Could not open $template_file_name";
@@ -161,7 +161,7 @@ sub write_metatables {
 	my $template_filename = $dataset_href->{template};
 	my $dataset_name      = $dataset_href->{dataset};
 
-	my $compressed_template_path = "$pwd/$output_dir/" . $template_filename . ".gz";
+	my $compressed_template_path = "$output_dir/" . $template_filename . ".gz";
 
 	if (! -f $compressed_template_path) {
 	    die "Could not find compressed template file, $compressed_template_path!\n";
@@ -178,9 +178,9 @@ sub write_metatables {
     print Dumper $dataset_href;
 	# meta_conf__xml__dm
 	$meta_conf__xml__dm_sth->execute($dataset_href->{species_id},
-				     file_to_bytes("$pwd/$output_dir/$dataset_href->{dataset}.xml"),
-				     file_to_bytes("$pwd/$output_dir/$dataset_href->{dataset}.xml.gz"),
-				     file_to_bytes("$pwd/$output_dir/$dataset_href->{dataset}.xml.gz.md5")
+				     file_to_bytes("$output_dir/$dataset_href->{dataset}.xml"),
+				     file_to_bytes("$output_dir/$dataset_href->{dataset}.xml.gz"),
+				     file_to_bytes("$output_dir/$dataset_href->{dataset}.xml.gz.md5")
 				     ) or croak "Could not update meta_conf__xml__dm";
 	# meta_conf__user__dm
 	$meta_conf__user__dm_sth->execute($dataset_href->{species_id})
