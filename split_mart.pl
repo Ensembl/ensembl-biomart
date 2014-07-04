@@ -29,7 +29,7 @@ use List::MoreUtils qw(any);
 use Data::Dumper;
 use DbiUtils;
 use MartUtils;
-use Getopt::Long;
+use Getopt::Long qw(:config no_ignore_case);
 use Log::Log4perl qw(:easy);
 
 Log::Log4perl->easy_init($DEBUG);
@@ -76,10 +76,10 @@ sub usage {
 };
 
 my $options_okay = GetOptions (
-    "h=s"=>\$db_host,
-    "P=s"=>\$db_port,
-    "u=s"=>\$db_user,
-    "p=s"=>\$db_pwd,
+    "host=s"=>\$db_host,
+    "P|port=s"=>\$db_port,
+    "user=s"=>\$db_user,
+    "p|password=s"=>\$db_pwd,
     "src_mart=s"=>\$src_mart_db,
     "target_mart=s"=>\$target_mart_db,
     "release=s"=>\$release,
