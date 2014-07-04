@@ -2923,11 +2923,6 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on transcript splice events" displayName="TRANSCRIPT EVENT:" internalName="transcript_event" hidden="true">
-      <FilterCollection displayName="Event Type (See PMID: 18978772 for type code key)" internalName="event_collection">
-        <FilterDescription displayName="Event Type" displayType="list" field="type_1078" internalName="event_type" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="splicing_event__dm" type="list"/>
-      </FilterCollection>
-    </FilterGroup>
     <FilterGroup description="Filter on GO IDs, terms, and evidence codes" displayName="GENE ONTOLOGY:" internalName="go">
       <FilterCollection displayName="GO term accession [e.g. GO:0050789]" internalName="go_filters">
         <FilterDescription internalName="go_clos" multipleValues="1" pointerDataset="closure_GO" pointerFilter="go_parent_term" pointerInterface="default"/>
@@ -6840,33 +6835,6 @@
         <AttributeDescription internalName="event_transcript_stable_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="event_translation_stable_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
         <AttributeDescription internalName="event_exon_stable_id" pointerAttribute="ensembl_exon_id" pointerDataset="*species3*_gene" pointerInterface="default"/>
-      </AttributeCollection>
-      <AttributeCollection displayName="Splicing Event" internalName="splicing_event">
-        <AttributeDescription displayName="Event Type" field="type_1078" internalName="type_1078" key="gene_id_1020_key" maxLength="4" tableConstraint="splicing_event__dm"/>
-        <AttributeDescription displayName="Gene Name With Corresponding Event" field="name_1078" internalName="name_1078" key="gene_id_1020_key" maxLength="134" tableConstraint="splicing_event__dm"/>
-        <AttributeDescription displayName="Chromosome Name" field="name_1059" internalName="splicing_event__dm_name_1059" key="gene_id_1020_key" maxLength="40" tableConstraint="splicing_event__dm"/>
-        <AttributeDescription displayName="Seq Region Start (bp)" field="seq_region_start_1078" internalName="seq_region_start_1078" key="gene_id_1020_key" maxLength="10" tableConstraint="splicing_event__dm"/>
-        <AttributeDescription displayName="Seq Region End (bp)" field="seq_region_end_1078" internalName="seq_region_end_1078" key="gene_id_1020_key" maxLength="10" tableConstraint="splicing_event__dm"/>
-        <AttributeDescription displayName="Strand" field="seq_region_strand_1078" internalName="seq_region_strand_1078" key="gene_id_1020_key" maxLength="2" tableConstraint="splicing_event__dm"/>
-      </AttributeCollection>
-      <AttributeCollection displayName="Splicing Event Feature" hidden="true" internalName="splicing_event_feature">
-        <AttributeDescription displayName="Start 1079" field="start_1079" hidden="true" internalName="start_1079" key="transcript_id_1064_key" maxLength="10" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="End 1079" field="end_1079" hidden="true" internalName="end_1079" key="transcript_id_1064_key" maxLength="10" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="Transcript association 1079" field="transcript_association_1079" hidden="true" internalName="transcript_association_1079" key="transcript_id_1064_key" maxLength="10" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="Feature order 1079" field="feature_order_1079" hidden="true" internalName="feature_order_1079" key="transcript_id_1064_key" maxLength="10" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="Seq region start 1015" field="seq_region_start_1015" hidden="true" internalName="splicing_event_feature__dm_seq_region_start_1015" key="transcript_id_1064_key" maxLength="10" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="End phase 1015" field="end_phase_1015" hidden="true" internalName="splicing_event_feature__dm_end_phase_1015" key="transcript_id_1064_key" maxLength="2" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="Phase 1015" field="phase_1015" hidden="true" internalName="splicing_event_feature__dm_phase_1015" key="transcript_id_1064_key" maxLength="2" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="Seq region end 1015" field="seq_region_end_1015" hidden="true" internalName="splicing_event_feature__dm_seq_region_end_1015" key="transcript_id_1064_key" maxLength="10" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="Seq region strand 1015" field="seq_region_strand_1015" hidden="true" internalName="splicing_event_feature__dm_seq_region_strand_1015" key="transcript_id_1064_key" maxLength="2" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="Is current 1015" field="is_current_1015" hidden="true" internalName="splicing_event_feature__dm_is_current_1015" key="transcript_id_1064_key" maxLength="1" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="Name 1059" field="name_1059" hidden="true" internalName="splicing_event_feature__dm_name_1059" key="transcript_id_1064_key" maxLength="40" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="Seq region start 1078" field="seq_region_start_1078" hidden="true" internalName="splicing_event_feature__dm_seq_region_start_1078" key="transcript_id_1064_key" maxLength="10" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="Type 1078" field="type_1078" hidden="true" internalName="splicing_event_feature__dm_type_1078" key="transcript_id_1064_key" maxLength="4" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="Seq region end 1078" field="seq_region_end_1078" hidden="true" internalName="splicing_event_feature__dm_seq_region_end_1078" key="transcript_id_1064_key" maxLength="10" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="Seq region strand 1078" field="seq_region_strand_1078" hidden="true" internalName="splicing_event_feature__dm_seq_region_strand_1078" key="transcript_id_1064_key" maxLength="2" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="Name 1078" field="name_1078" hidden="true" internalName="splicing_event_feature__dm_name_1078" key="transcript_id_1064_key" maxLength="134" tableConstraint="splicing_event_feature__dm"/>
-        <AttributeDescription displayName="Name 1059 r1" field="name_1059_r1" hidden="true" internalName="name_1059_r1" key="transcript_id_1064_key" maxLength="40" tableConstraint="splicing_event_feature__dm"/>
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
