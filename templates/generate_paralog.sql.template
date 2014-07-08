@@ -43,8 +43,7 @@ create table %martSchema%.TEMP306 as
   select
     a.*,
     b.stable_id as stable_id_4016,
-    b.genome_db_id as genome_db_id_4016,
-    b.sequence_id as sequence_id_4016
+    b.genome_db_id as genome_db_id_4016
   from
     %martSchema%.TEMP304 as a
       inner join
@@ -84,17 +83,19 @@ create index %indexName% on %martSchema%.TEMP314(gene_member_id_4015_r1);
 create table %martSchema%.TEMP316 as
   select
     a.*,
-    b.chr_start as chr_start_4016_r2,
     b.stable_id as stable_id_4016_r2,
-    b.chr_name as chr_name_4016_r2,
-    b.chr_end as chr_end_4016_r2,
-    b.genome_db_id as genome_db_id_4016_r2,
-    b.sequence_id as sequence_id_4016_r2
+    c.name as chr_name_4016_r2,
+    b.dnafrag_start as chr_start_4016_r2,
+    b.dnafrag_end as chr_end_4016_r2,
+    b.genome_db_id as genome_db_id_4016_r2
   from
     %martSchema%.TEMP314 as a
       inner join
     %srcSchema%.gene_member as b
-      on a.gene_member_id_4015_r1=b.gene_member_id;
+      on a.gene_member_id_4015_r1=b.gene_member_id
+      inner join
+    %srcSchema%.dnafrag as c
+      on b.dnafrag_id=c.dnafrag_id;
 drop table %martSchema%.TEMP314;
 
 create index %indexName% on %martSchema%.TEMP316(seq_member_id_4015_r1);
@@ -148,7 +149,6 @@ create table %martSchema%.TEMP325 as
     b.seq_member_id_4015,
     b.genome_db_id_4016,
     b.seq_member_id_4015_r1,
-    b.sequence_id_4016_r2,
     b.perc_id_4015_r1,
     b.stable_id_4016_r2,
     b.ds_4014,
@@ -156,7 +156,6 @@ create table %martSchema%.TEMP325 as
     b.sequence_id_4016_r3,
     b.chr_start_4016_r2,
     b.perc_id_4015,
-    b.sequence_id_4016,
     b.genome_db_id_4016_r2,
     b.description_4014,
     b.sequence_id_4016_r1,
