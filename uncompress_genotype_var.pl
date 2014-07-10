@@ -93,7 +93,7 @@ $sth->execute
   or die;
 
 print "/*!40000 ALTER TABLE `tmp_individual_genotype_single_bp` DISABLE KEYS */;\n";
-print "INSERT INTO tmp_individual_genotype_single_bp VALUES ";
+print "INSERT INTO `tmp_individual_genotype_single_bp` VALUES ";
 my $index = 0;
 while(my ($variation_id, $subsnp_id, $compressed_genotypes) = $sth->fetchrow_array()) {
     my @genotypes = unpack("(ww)*", $compressed_genotypes);
