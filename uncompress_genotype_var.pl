@@ -92,9 +92,6 @@ warn "Executing SQL\n";
 $sth->execute
   or die;
 
-print "/*!40000 ALTER TABLE `tmp_individual_genotype_single_bp` DISABLE KEYS */;\n";
-print "INSERT INTO `tmp_individual_genotype_single_bp` VALUES ";
-my $index = 0;
 while(my ($variation_id, $subsnp_id, $compressed_genotypes) = $sth->fetchrow_array()) {
     my @genotypes = unpack("(ww)*", $compressed_genotypes);
     
@@ -108,18 +105,17 @@ while(my ($variation_id, $subsnp_id, $compressed_genotypes) = $sth->fetchrow_arr
 	    $subsnp_id = 'NULL';
 	}
 	
-	if ($index != 0) {
-	    print ",";
-	}
-	
-	print "($variation_id,$subsnp_id,'$allele_1','$allele_2',$individual_id)";
-	
-	$index++;
+	print
+	    join("\t",
+		 $variation_id,
+		 $subsnp_id || '\N',
+		 $allele_1,
+		 $allele_2,
+		 $individual_id,
+	    ), "\n";
+
     }
 }
 $sth->finish();
-
-print ";\n";
-print "/*!40000 ALTER TABLE `tmp_individual_genotype_single_bp` ENABLE KEYS */;";
 
 warn "OK\n";
