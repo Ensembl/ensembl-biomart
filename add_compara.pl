@@ -72,7 +72,6 @@ if (!defined $mart_db || !defined $compara_db) {
   usage();
 }
 
-my %statement_cache = ();
 my $mart_string = "DBI:mysql:$mart_db:$db_host:$db_port";
 my $mart_handle =
   DBI->connect($mart_string, $db_user, $db_pwd, { RaiseError => 1 })
@@ -94,7 +93,7 @@ sub write_species {
   my ($dataset, $species_id, $species_name, $speciesTld, $sql_file_name) = @_;
   my $ds = $dataset.'_gene';
   open my $sql_file, '<', $sql_file_name or croak "Could not open SQL file $sql_file_name for reading";
-  my $indexN = 0; my $i=0; my $mySql="";
+  my $indexN = 0; my $mySql="";
   while (my $sql = <$sql_file>) {
     chomp($sql);
     if($sql ne q{} && !($sql =~ m/^#/) && $sql ne "" ) {
@@ -108,11 +107,7 @@ sub write_species {
       
        $mySql .=  $sql;
        if ($mySql =~ m/;/){
-			my $sth = $statement_cache{$mySql};
-		   if(!$sth) {
 			$sth = $mart_handle->prepare($mySql);
-			$statement_cache{$mySql} = $sth;
-			}
 			$sth->execute();
 			$mySql= "";
 	   }
