@@ -94,12 +94,11 @@ sub write_species {
   my ($dataset, $species_id, $species_name, $speciesTld, $sql_file_name) = @_;
   my $ds = $dataset.'_gene';
   open my $sql_file, '<', $sql_file_name or croak "Could not open SQL file $sql_file_name for reading";
-  my $indexN = 0;
+  my $indexN = 0; my $i=0; my $mySql="";
   while (my $sql = <$sql_file>) {
     chomp($sql);
-    if($sql ne q{} && !($sql =~ m/^#/)) {
+    if($sql ne q{} && !($sql =~ m/^#/) && $sql ne "" ) {
       my $indexName = 'I_'.$species_id.'_'.++$indexN;
-      $sql =~ s/;$//;
       $sql =~ s/%srcSchema%/$compara_db/g;
       $sql =~ s/%martSchema%/$mart_db/g;
       $sql =~ s/%dataSet%/$ds/g;
@@ -107,13 +106,17 @@ sub write_species {
       $sql =~ s/%method_link_species_set_id%/$species_id/g;
       $sql =~ s/%indexName%/$indexName/;
       
-      my $sth = $statement_cache{$sql};
-      if(!$sth) {
-        $sth = $mart_handle->prepare($sql);
-        $statement_cache{$sql} = $sth;
-	    }
-	    $sth->execute();
-    }
+       $mySql .=  $sql;
+       if ($mySql =~ m/;/){
+			my $sth = $statement_cache{$mySql};
+		   if(!$sth) {
+			$sth = $mart_handle->prepare($mySql);
+			$statement_cache{$mySql} = $sth;
+			}
+			$sth->execute();
+			$mySql= "";
+	   }
+     }
   }
   close($sql_file);
 }
@@ -234,7 +237,7 @@ for my $dataset (@datasets) {
   # work out species name from $dataset
   # get list of method_link_species_set_id/name pairs for homolog partners
   for my $species_set (get_species_sets($species_homolog_sth,$ds_name_sql,$ds_name_full)) {
-    $logger->info('Processing homologs for '.$species_set->{name}.' as '.$species_set->{tld});
+    $logger->info('Processing homologs for '.$species_set->{name}.' as '.$species_set->{tld}); 
     write_species($dataset, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homolog_sql);
     $logger->info('Completed homologs for '.$species_set->{name}.' as '.$species_set->{tld});
   }
