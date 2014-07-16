@@ -1246,6 +1246,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with GFBGP ID(s)" displayType="list" field="ox_gfbgp_bool" internalName="with_gfbgp" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with GermOnline ID(s)" displayType="list" field="ox_germonline_bool" internalName="with_germonline" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2502,6 +2506,7 @@
           <Option checkForNulls="true" displayName="GermOnline ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="germonline" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_germonline__dm" type="list" useDefault="true">
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
           </Option>
+          <Option checkForNulls="true" displayName="GFBGP ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gfbgp" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gfbgp__dm" type="list"/>
           <Option checkForNulls="true" displayName="GI ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="gi" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_gi__dm" type="list"/>
           <Option checkForNulls="true" displayName="GlycoSuiteDB ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="glycosuitedb" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_glycosuitedb__dm" type="list"/>
           <Option checkForNulls="true" displayName="GO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="go" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_GO__dm" type="list" useDefault="true">
@@ -5453,6 +5458,7 @@
         <AttributeDescription checkForNulls="true" displayName="GermOnline ID" field="dbprimary_acc_1074" internalName="germonline" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_germonline__dm" useDefault="true">
           <SpecificAttributeContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
         </AttributeDescription>
+        <AttributeDescription checkForNulls="true" displayName="GFBGP ID" field="dbprimary_acc_1074" internalName="gfbgp" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_gfbgp__dm"/>
         <AttributeDescription checkForNulls="true" displayName="GI ID" field="dbprimary_acc_1074" internalName="gi" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_gi__dm" useDefault="true"/>
         <AttributeDescription checkForNulls="true" displayName="GlycoSuiteDB ID" field="dbprimary_acc_1074" internalName="glycosuitedb" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_GlycoSuiteDB__dm"/>
         <AttributeDescription checkForNulls="true" displayName="GO ID" field="dbprimary_acc_1074" internalName="go_to_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_go_to_gene__dm"/>
