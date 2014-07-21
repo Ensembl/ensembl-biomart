@@ -22,8 +22,8 @@
 #
 # Script for uncompressing the individual genotypes from table 'compressed_genotype_var'
 # Generate a SQL file
-# e.g. perl uncompress_genotype_var.pl zea_mays | gzip -c > zea_mays.sql.gz
-# Then just load the sql file into the database
+# e.g. perl uncompress_genotype_var.pl zea_mays > zea_mays.tsv
+# Then just load the tsv file into the database, using mysqlimport
 
 use strict;
 use warnings;
