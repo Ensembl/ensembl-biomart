@@ -760,7 +760,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with chembl ID(s)" displayType="list" field="ox_chembl_bool" internalName="with_chembl" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with ChEMBL ID(s)" displayType="list" field="ox_chembl_bool" internalName="with_chembl" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -1894,7 +1894,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with rfam_trans_name ID(s)" displayType="list" field="ox_rfam_trans_name_bool" internalName="with_rfam_trans_name" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with Rfam transcript ID(s)" displayType="list" field="ox_rfam_trans_name_bool" internalName="with_rfam_trans_name" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2395,7 +2395,7 @@
           <Option checkForNulls="true" displayName="Celera gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="celera_gene" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Celera_Gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="Celera protein ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="celera_pep" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Celera_Pep__dm" type="list"/>
           <Option checkForNulls="true" displayName="Celera transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="celera_trans" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Celera_Trans__dm" type="list"/>
-          <Option checkForNulls="true" displayName="chembl ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="chembl" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_chembl__dm" type="list"/>
+          <Option checkForNulls="true" displayName="ChEMBL ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="chembl" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_chembl__dm" type="list"/>
 
           <!--
           <Option checkForNulls="true" displayName="Cint ANISEED v1 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="cint_aniseed_v1" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_cint_aniseed_v1__dm" type="list"/>
@@ -2726,7 +2726,7 @@
           <Option checkForNulls="true" displayName="Rfam ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="rfam" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_rfam__dm" type="text" useDefault="true">
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
           </Option>
-          <Option checkForNulls="true" displayName="rfam_trans_name ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="rfam_trans_name" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_rfam_trans_name__dm" type="list"/>
+          <Option checkForNulls="true" displayName="Rfam transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="rfam_trans_name" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_rfam_trans_name__dm" type="list"/>
           <!--
           <Option checkForNulls="true" displayName="RGD ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="rgd" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RGD__dm" type="list"/>
           <Option checkForNulls="true" displayName="RGD Symbol [e.g. Cntnap5b]" displayType="text" field="display_label_1074" internalName="rgd_symbol" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RGD__dm" type="list"/>
@@ -5345,7 +5345,7 @@
         <AttributeDescription checkForNulls="true" displayName="Celera gene ID(s)" field="dbprimary_acc_1074" internalName="celera_gene" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/Gene/Summary?g=%s" maxLength="40" tableConstraint="ox_Celera_Gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Celera protein ID(s)" field="dbprimary_acc_1074" internalName="celera_pep" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/protview?peptide=%s" maxLength="40" tableConstraint="ox_Celera_Pep__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Celera transcript ID(s)" field="dbprimary_acc_1074" internalName="celera_trans" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Celera_Trans__dm"/>
-	<AttributeDescription checkForNulls="true" displayName="chembl ID" field="dbprimary_acc_1074" internalName="chembl" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_chembl__dm"/>
+	<AttributeDescription checkForNulls="true" displayName="ChEMBL ID" field="dbprimary_acc_1074" internalName="chembl" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_chembl__dm"/>
 
         <!--
         <AttributeDescription checkForNulls="true" displayName="Cint ANISEED v1" field="dbprimary_acc_1074" internalName="cint_aniseed_v1" key="translation_id_1068_key" linkoutURL="exturl1|http://crfb.univ-mrs.fr/aniseed/molecule-gene.php?name=%s" maxLength="40" tableConstraint="ox_cint_aniseed_v1__dm"/>
@@ -5623,7 +5623,7 @@
         <AttributeDescription checkForNulls="true" displayName="RegulonDB gene ID" field="dbprimary_acc_1074" internalName="regulondb_gene" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_regulondb_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RegulonDB transcript ID" field="dbprimary_acc_1074" internalName="regulondb_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_regulondb_transcript__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Rfam ID" field="dbprimary_acc_1074" internalName="rfam" key="gene_id_1020_key" linkoutURL="exturl1|http://rfam.sanger.ac.uk/family?entry=%s" maxLength="40" tableConstraint="ox_rfam__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="rfam_trans_name ID" field="dbprimary_acc_1074" internalName="rfam_trans_name" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_rfam_trans_name__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Rfam transcript ID" field="dbprimary_acc_1074" internalName="rfam_trans_name" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_rfam_trans_name__dm"/>
         <!--
         <AttributeDescription checkForNulls="true" displayName="RGD ID" field="dbprimary_acc_1074" internalName="rgd" key="transcript_id_1064_key" linkoutURL="exturl1|http://rgd.mcw.edu/tools/genes/genes_view.cgi?id=%s" maxLength="40" tableConstraint="ox_RGD__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RGD Symbol" field="display_label_1074" internalName="rgd_symbol" key="transcript_id_1064_key" linkoutURL="exturl|http://rgd.mcw.edu/tools/genes/genes_view.cgi?id=%s|rgd" maxLength="40" tableConstraint="ox_RGD__dm"/>
