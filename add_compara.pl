@@ -107,10 +107,13 @@ sub write_species {
       
        $mySql .=  $sql;
        if ($mySql =~ m/;/){
-			$sth = $mart_handle->prepare($mySql);
-			$sth->execute();
-			$mySql= "";
-	   }
+	   my $sth = $mart_handle->prepare($mySql);
+	   $sth->execute();
+	   $mySql= "";
+       }
+      else {
+	  # Keep going until we have a fully formed SQL query to execute
+      }
      }
   }
   close($sql_file);
