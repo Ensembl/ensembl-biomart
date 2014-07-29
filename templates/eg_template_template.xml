@@ -2013,7 +2013,7 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
-          <Option displayName="with TIGR locus ID(s)" displayType="list" field="ox_tigr_locus_bool" internalName="with_ox_tigr_locus" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with MSU/TIGR locus ID(s)" displayType="list" field="ox_tigr_locus_bool" internalName="with_ox_tigr_locus" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2761,7 +2761,7 @@
           <Option checkForNulls="true" displayName="TIGR ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tigr" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tigr__dm" type="list"/>
           <Option checkForNulls="true" displayName="TIGR GeneIndex ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tigr_geneindex" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tigr_geneindex__dm" type="list"/>
           <Option checkForNulls="true" displayName="TIGR GeneIndex ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tigrgeneindex" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tigrgeneindex__dm" type="list"/>
-          <Option checkForNulls="true" displayName="TIGR locus ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tigr_locus" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tigr_locus__dm" type="list"/>
+          <Option checkForNulls="true" displayName="MSU/TIGR locus ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tigr_locus" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tigr_locus__dm" type="list"/>
           <Option checkForNulls="true" displayName="TIGR locus model ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tigr_locus_model" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tigr_locus_model__dm" type="list"/>
           <Option checkForNulls="true" displayName="TIGR transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tigr_transcript_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tigr_transcript_id__dm" type="list"/>
           <Option checkForNulls="true" displayName="TO term(s)" displayType="text" field="dbprimary_acc_1074" internalName="to" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_TO__dm" type="list"/>
@@ -5655,7 +5655,7 @@
         <AttributeDescription checkForNulls="true" displayName="TIGR ID" field="dbprimary_acc_1074" internalName="tigr_id" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_TIGR_ID__dm"/>
         <AttributeDescription checkForNulls="true" displayName="TIGR GeneIndex ID" field="dbprimary_acc_1074" internalName="tigrgeneindex" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_TigrGeneIndex__dm"/>
         <AttributeDescription checkForNulls="true" displayName="TIGR GeneIndex ID" field="dbprimary_acc_1074" internalName="tigr_geneindex" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_TIGR_GeneIndex__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="TIGR locus" field="dbprimary_acc_1074" internalName="tigr_locus" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_TIGR_LOCUS__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="MSU/TIGR locus" field="dbprimary_acc_1074" internalName="tigr_locus" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_TIGR_LOCUS__dm" linkoutURL="exturl1|http://rice.plantbiology.msu.edu/cgi-bin/ORF_infopage.cgi?orf=%s"/>
         <AttributeDescription checkForNulls="true" displayName="TIGR locus model" field="dbprimary_acc_1074" internalName="tigr_locus_model" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_TIGR_LOCUS_MODEL__dm"/>
         <AttributeDescription checkForNulls="true" displayName="TIGR transcript" field="dbprimary_acc_1074" internalName="tigr_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_TIGR_TRANSCRIPT__dm"/>
         <AttributeDescription checkForNulls="true" displayName="TIGR transcript ID" field="dbprimary_acc_1074" internalName="tigr_transcript_id" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_tigr_transcript_id__dm"/>
