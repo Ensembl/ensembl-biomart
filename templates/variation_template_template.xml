@@ -141,6 +141,9 @@
           <SpecificFilterContent internalName="ReplaceMe"/>
         </FilterDescription>
       </FilterCollection>
+      <FilterCollection displayName="Variation synonym ID (e.g. BS00185364) [Max 500 advised]" internalName="snp_synonym_filter_collection">
+        <FilterDescription displayName="Variation synonym ID (e.g. BS00185364)" displayType="text" field="name_2030" internalName="snp_synonym_filter" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="variation_synonym__dm" type="list"/>
+      </FilterCollection>
       <!--
       <FilterCollection displayName="Validation status" internalName="validation_status">
         <FilterDescription displayName="Validation status" displayType="list" field="validation_status_2025" internalName="validation_status" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" isDefault="true">
