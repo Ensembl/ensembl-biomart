@@ -6636,13 +6636,13 @@
       </AttributeCollection>
       <AttributeCollection displayName="Pathogen Phenotypes (source: PHI-base)" internalName="phi_extension">
         <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="dbprimary_acc_1074" internalName="phi" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_phi__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="phibase_id" internalName="phibase_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hideDisplay="true"/>
+        <!-- <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="phibase_id" internalName="phibase_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hideDisplay="true"/> -->
         <AttributeDescription checkForNulls="true" displayName="Plant host" field="host_label" internalName="phibase_host" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="PHI-base host ID" field="host_acc" internalName="phibase_host_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hideDisplay="true"/>
+        <!-- <AttributeDescription checkForNulls="true" displayName="PHI-base host ID" field="host_acc" internalName="phibase_host_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hideDisplay="true"/> -->
         <AttributeDescription checkForNulls="true" displayName="Pathogenic phenotype" field="phenotype_label" internalName="phibase_phenotype" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="PHI-base phenotype ID" field="phenotype_acc" internalName="phibase_phenotype_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hideDisplay="true"/>
+        <!-- <AttributeDescription checkForNulls="true" displayName="PHI-base phenotype ID" field="phenotype_acc" internalName="phibase_phenotype_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hideDisplay="true"/> -->
         <AttributeDescription checkForNulls="true" displayName="Experimental condition" field="experimental_evidence_label" internalName="phibase_condition" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="PHI-base condition ID" field="experimental_evidence_acc" internalName="phibase_condition_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hideDisplay="true"/>
+        <!-- <AttributeDescription checkForNulls="true" displayName="PHI-base condition ID" field="experimental_evidence_acc" internalName="phibase_condition_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hideDisplay="true"/> -->
       </AttributeCollection>
     </AttributeGroup>
     <!--
