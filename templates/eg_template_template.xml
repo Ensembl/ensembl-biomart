@@ -2901,7 +2901,7 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection internalName="phibase_host_id" displayName="PHI-base host term" description="PHI-base host term">
+      <FilterCollection internalName="phibase_host_id" displayName="PHI-base host term" description="PHI-base host term" hidden="true">
         <FilterDescription displayName="PHI-base host ID" displayType="list" field="host_acc" internalName="phibase_host_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text">
         </FilterDescription>
       </FilterCollection>
@@ -2919,7 +2919,7 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection internalName="phibase_condition_id" displayName="PHI-base condition ID" description="PHI-base condition ID">
+      <FilterCollection internalName="phibase_condition_id" displayName="PHI-base condition ID" description="PHI-base condition ID" hidden="true">
         <FilterDescription displayName="PHI-base condition ID" displayType="list" field="experimental_evidence_acc" internalName="phibase_condition_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text">
         </FilterDescription>
       </FilterCollection>
@@ -5569,7 +5569,7 @@
         <AttributeDescription checkForNulls="true" displayName="PGD gene ID" field="dbprimary_acc_1074" internalName="pgd_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_pgd_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PGSC ID" field="dbprimary_acc_1074" internalName="pgsc" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_pgsc_gene__dm" linkoutURL="exturl1|http://solanaceae.plantbiology.msu.edu/cgi-bin/gbrowse/potato/?name=%s"/>
         <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="dbprimary_acc_1074" internalName="phibase" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_phibase__dm" linkoutURL="exturl1|http://www.phibase.org/query.php?detail=yes&amp;phi_acc=%s"/>
-        <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="dbprimary_acc_1074" internalName="phi" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_phi__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="dbprimary_acc_1074" internalName="phi" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_phi__dm" hidden="true"/>
         <AttributeDescription checkForNulls="true" displayName="PhosSite ID" field="dbprimary_acc_1074" internalName="phossite" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PhosSite__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PlantGDB PUT ID" field="dbprimary_acc_1074" internalName="plantgdb_put" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_plantgdb_put__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PlasmoDB" field="dbprimary_acc_1074" internalName="plasmodb" key="gene_id_1020_key" linkoutURL="exturl1|http://plasmodb.org/plasmo/showRecord.do?name=GeneRecordClasses.GeneRecordClass&amp;project_id=PlasmoDB&amp;source_id=%s" maxLength="40" tableConstraint="ox_PlasmoDB__dm"/>
@@ -6637,11 +6637,11 @@
       <AttributeCollection displayName="Pathogen Phenotypes (source: PHI-base)" internalName="phi_extension">
         <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="phibase_id" internalName="phibase_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Plant host" field="host_label" internalName="phibase_host" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="PHI-base host ID" field="host_acc" internalName="phibase_host_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="PHI-base host ID" field="host_acc" internalName="phibase_host_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hidden="true"/>
         <AttributeDescription checkForNulls="true" displayName="Pathogenic phenotype" field="phenotype_label" internalName="phibase_phenotype" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="PHI-base phenotype ID" field="phenotype_acc" internalName="phibase_phenotype_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="PHI-base phenotype ID" field="phenotype_acc" internalName="phibase_phenotype_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hidden="true"/>
         <AttributeDescription checkForNulls="true" displayName="Experimental condition" field="experimental_evidence_label" internalName="phibase_condition" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="PHI-base condition ID" field="experimental_evidence_acc" internalName="phibase_condition_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="PHI-base condition ID" field="experimental_evidence_acc" internalName="phibase_condition_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hidden="true"/>
       </AttributeCollection>
     </AttributeGroup>
     <!--
