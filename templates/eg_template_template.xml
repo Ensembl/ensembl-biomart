@@ -2608,9 +2608,17 @@
           </Option>
           <Option checkForNulls="true" displayName="KEGG ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="kegg_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_kegg__dm" type="list" useDefault="true">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ncrassa_eg_gene"/>
+            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="lperrieri_eg_gene" />
+            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="obarthii_eg_gene" />
+            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="orufipogon_eg_gene" />
+            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="boleracea_eg_gene" />
           </Option>
           <Option checkForNulls="true" displayName="KEGG description(s)" displayType="text" field="description_1074" hidden="true" internalName="kegg_description" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_kegg__dm" type="list" useDefault="true">
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ncrassa_eg_gene"/>
+            <SpecificOptionContent key="translation_id_1068_key" field="description_1074" internalName="ncrassa_eg_gene"/>
+            <SpecificOptionContent key="translation_id_1068_key" field="description_1074" internalName="lperrieri_eg_gene" />
+            <SpecificOptionContent key="translation_id_1068_key" field="description_1074" internalName="obarthii_eg_gene" />
+            <SpecificOptionContent key="translation_id_1068_key" field="description_1074" internalName="orufipogon_eg_gene" />
+            <SpecificOptionContent key="translation_id_1068_key" field="description_1074" internalName="boleracea_eg_gene" />
           </Option>
 	<Option checkForNulls="true" displayName="KEGG enzyme ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="kegg_enzyme" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_kegg_enzyme__dm" type="list"/>
           <Option checkForNulls="true" displayName="Leproma ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="leproma" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_leproma__dm" type="list"/>
@@ -2688,7 +2696,10 @@
           <Option checkForNulls="true" displayName="PomBase transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pombase_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pombase_transcript__dm" type="list"/>
           <Option checkForNulls="true" displayName="PomBase translation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pombase_translation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pombase_translation__dm" type="list"/>
           <Option checkForNulls="true" displayName="PptaseDB ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pptasedb" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pptasedb__dm" type="list"/>
-          <Option checkForNulls="true" displayName="PRIDE ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pride" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pride__dm" type="list"/>
+          <Option checkForNulls="true" displayName="PRIDE ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pride" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pride__dm" type="list">
+            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="olucimarinus_eg_gene" />
+            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ppersica_eg_gene" />
+          </Option>
           <Option checkForNulls="true" displayName="Pubmed ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="pubmed" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_PUBMED__dm" type="text"/>
           <Option checkForNulls="true" displayName="RAP gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="rap_gene" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_rap_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="Reactome ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="reactome" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_reactome__dm" type="list"/>
@@ -2749,9 +2760,14 @@
           <Option checkForNulls="true" displayName="SPD ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="spd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_spd__dm" type="list">
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
           </Option>
-          <Option checkForNulls="true" displayName="STRING ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="string" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_string__dm" type="list"/>
+          <Option checkForNulls="true" displayName="STRING ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="string" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_string__dm" type="list">
+            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="olucimarinus_eg_gene" />
+          </Option>
           <Option checkForNulls="true" displayName="Swiss 2DPAGE ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="swiss_2dpage" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_swiss_2dpage__dm" type="list"/>
-          <Option checkForNulls="true" displayName="SWISS-MODEL ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="swiss_model" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_swiss_model__dm" type="list"/>
+          <Option checkForNulls="true" displayName="SWISS-MODEL ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="swiss_model" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_swiss_model__dm" type="list">
+            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="olucimarinus_eg_gene" />
+            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ppersica_eg_gene" />
+          </Option>
           <Option checkForNulls="true" displayName="TAIR ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tair" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tair__dm" type="list"/>
           <Option checkForNulls="true" displayName="TAIR locus ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tair_locus" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tair_locus__dm" type="list"/>
           <Option checkForNulls="true" displayName="TAIR locus model ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="tair_model_locus" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_tair_model_locus__dm" type="list"/>
@@ -2781,7 +2797,7 @@
           <Option checkForNulls="true" displayName="UniParc ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniparc" isSelectable="true" hidden="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniparc__dm" type="list"/>
           <Option checkForNulls="true" displayName="UniPathway ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="unipathway" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_unipathway__dm" type="list"/>
           <Option checkForNulls="true" displayName="Uniprot Gene Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_gn" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_gn__dm" type="list"/>
-	<Option checkForNulls="true" displayName="Uniprot transcript Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_gn_trans_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_gn_trans_name__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="Uniprot transcript Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_gn_trans_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_gn_trans_name__dm" type="list"/>
           <Option checkForNulls="true" displayName="UniProtKB Gene Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_genename" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_genename__dm" type="list" useDefault="true">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
@@ -2828,7 +2844,6 @@
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
           </Option>
           <Option checkForNulls="true" displayName="WikiGene name(s)" displayType="text" field="display_label_1074" internalName="wikigene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wikigene__dm" type="text" useDefault="true">
-            <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="osativa_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="aclavatus_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="afumigatus_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="anidulans_eg_gene"/>
@@ -5535,10 +5550,18 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="slycopersicum_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="KEGG ID" field="dbprimary_acc_1074" internalName="kegg_id" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_kegg__dm" linkoutURL="exturl|http://www.genome.jp/dbget-bin/www_bget?path:%s" useDefault="true">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" />
+          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="lperrieri_eg_gene" />
+          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="obarthii_eg_gene" />
+          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="orufipogon_eg_gene" />
+          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="boleracea_eg_gene" />
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="KEGG description" field="description_1074" internalName="kegg_description" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_kegg__dm" linkoutURL="exturl|http://www.genome.jp/dbget-bin/www_bget?path:%s" useDefault="true">
-          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ncrassa_eg_gene" key="translation_id_1068_key"/>
+          <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="ncrassa_eg_gene" />
+          <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="lperrieri_eg_gene" />
+          <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="obarthii_eg_gene" />
+          <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="orufipogon_eg_gene" />
+          <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="boleracea_eg_gene" />
         </AttributeDescription>
 	<AttributeDescription checkForNulls="true" displayName="KEGG enzyme ID" field="dbprimary_acc_1074" internalName="kegg_enzyme" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_kegg_enzyme__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Leproma ID" field="dbprimary_acc_1074" internalName="leproma" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_Leproma__dm"/>
@@ -5713,7 +5736,7 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="aterreus_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="nfischeri_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
-          <SpecificAttributeContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="lmajor_eg_gene" key="translation_id_1068_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="WikiGene name" field="display_label_1074" internalName="wikigene_name" key="gene_id_1020_key" maxLength="128" tableConstraint="ox_wikigene__dm" useDefault="true">
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="aclavatus_eg_gene"/>
