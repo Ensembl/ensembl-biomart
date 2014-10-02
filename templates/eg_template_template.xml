@@ -1634,6 +1634,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with Nimblegen ND Nimblegen 12plex ID(s)" displayType="list" field="efg_nimblegen_nd_nimblegen_12plex_bool" internalName="with_nimblegen_nd_nimblegen_12plex" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with NSF Rice BGIYale probe ID(s)" displayType="list" field="eFG_NSF_BGIYale_bool" internalName="with_NSF_BGIYale" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2649,6 +2653,7 @@
           <Option checkForNulls="true" displayName="NASC transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="nasc_transcript_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_nasc_transcript_id__dm" type="list"/>
           <Option checkForNulls="true" displayName="NASC translation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="nasc_translation_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_nasc_translation_id__dm" type="list"/>
           <Option checkForNulls="true" displayName="Nimblegen ND 65k v1 ID(s)" displayType="text" field="display_label_11056" internalName="nimblegen_nd_65k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nimblegen_nd_65k_v1__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="Nimblegen ND Nimblegen 12plex ID(s)" displayType="text" field="display_label_11056" internalName="nimblegen_nd_nimblegen_12plex" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nimblegen_nd_nimblegen_12plex__dm" type="list"/>
           <Option checkForNulls="true" displayName="NSF Rice 20k probe ID(s)" displayType="text" field="display_label_11056" internalName="nsf_nsf20k" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nsf_nsf20k__dm" type="list"/>
           <Option checkForNulls="true" displayName="NSF Rice 45k probe ID(s)" displayType="text" field="display_label_11056" internalName="nsf_nsf45k" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nsf_nsf45k__dm" type="list"/>
           <Option checkForNulls="true" displayName="NSF Rice BGIYale probe ID(s)" displayType="text" field="display_label_11056" internalName="nsf_bgiyale" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nsf_bgiyale__dm" type="list"/>
@@ -2797,7 +2802,7 @@
           <Option checkForNulls="true" displayName="UniParc ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniparc" isSelectable="true" hidden="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniparc__dm" type="list"/>
           <Option checkForNulls="true" displayName="UniPathway ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="unipathway" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_unipathway__dm" type="list"/>
           <Option checkForNulls="true" displayName="Uniprot Gene Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_gn" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_gn__dm" type="list"/>
-	  <Option checkForNulls="true" displayName="Uniprot transcript Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_gn_trans_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_gn_trans_name__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="Uniprot transcript Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_gn_trans_name" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_gn_trans_name__dm" type="list"/>
           <Option checkForNulls="true" displayName="UniProtKB Gene Name(s)" displayType="text" field="dbprimary_acc_1074" internalName="uniprot_genename" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprot_genename__dm" type="list" useDefault="true">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="pgraministritici_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
@@ -6644,6 +6649,7 @@
         <AttributeDescription displayName="Leiden3 Zebrafish Microarray ID" field="dbprimary_acc_1074" internalName="array_zfish_leiden3" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_ARRAY_ZFISH_LEIDEN3__dm"/>
         -->
         <AttributeDescription displayName="Nimblegen ND 65k v1 ID" field="display_label_11056" internalName="nimblegen_nd_65k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_nimblegen_nd_65k_v1__dm"/>
+	<AttributeDescription displayName="Nimblegen ND Nimblegen 12plex ID" field="display_label_11056" internalName="nimblegen_nd_nimblegen_12plex" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_nimblegen_nd_nimblegen_12plex__dm"/>
         <AttributeDescription displayName="NSF Rice BGIYale probe ID" field="display_label_11056" internalName="NSF_BGIYale" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_BGIYale__dm"/>
         <AttributeDescription displayName="NSF Rice 20k probe ID" field="display_label_11056" internalName="NSF_NSF20K" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_NSF20K__dm"/>
         <AttributeDescription displayName="NSF Rice 45k probe ID" field="display_label_11056" internalName="NSF_NSF45K" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_NSF45K__dm"/>
