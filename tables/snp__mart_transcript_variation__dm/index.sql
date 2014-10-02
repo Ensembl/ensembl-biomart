@@ -1,0 +1,8 @@
+CREATE INDEX idx_1 ON SPECIES_ABBREV_snp__mart_transcript_variation__dm (variation_feature_id_2026_key);
+CREATE INDEX idx_2 ON SPECIES_ABBREV_snp__mart_transcript_variation__dm (stable_id_1023);
+CREATE INDEX idx_3 ON SPECIES_ABBREV_snp__mart_transcript_variation__dm (stable_id_1066);
+CREATE INDEX idx_4 ON SPECIES_ABBREV_snp__mart_transcript_variation__dm (cdna_start_2090);
+CREATE INDEX idx_5 ON SPECIES_ABBREV_snp__mart_transcript_variation__dm (translation_start_2090);
+CREATE INDEX idx_6 ON SPECIES_ABBREV_snp__mart_transcript_variation__dm (consequence_types_2090);
+CREATE INDEX idx_7 ON SPECIES_ABBREV_snp__mart_transcript_variation__dm (polyphen_prediction_2090);
+CREATE INDEX idx_8 ON SPECIES_ABBREV_snp__mart_transcript_variation__dm (sift_prediction_2090);

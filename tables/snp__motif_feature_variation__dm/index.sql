@@ -1,0 +1,1 @@
+CREATE INDEX idx_1 ON SPECIES_ABBREV_snp__motif_feature_variation__dm (variation_feature_id_2026_key);
