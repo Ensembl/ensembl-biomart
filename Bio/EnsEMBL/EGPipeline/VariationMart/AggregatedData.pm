@@ -28,12 +28,7 @@ sub param_defaults {
     'sv_exists' => 0,
   };
 }
-,
-  0 as variation_annotation_bool,
-  0 as variation_citation_bool,
-  0 as variation_feature_count
-  ,
-  0 as structural_variation_feature_count
+
 sub run {
   my ($self) = @_;
   
