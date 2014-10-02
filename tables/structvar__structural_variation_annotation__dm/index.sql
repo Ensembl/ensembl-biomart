@@ -1,0 +1,1 @@
+CREATE INDEX idx_1 ON SPECIES_ABBREV_structvar__structural_variation_annotation__dm (structural_variation_id_2072_key);
