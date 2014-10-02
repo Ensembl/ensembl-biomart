@@ -1,7 +1,52 @@
 #!/bin/bash --
 
-MY_DIR=`dirname $0`
-source $MY_DIR/../SetEnv
+DBUSER=
+DBPASS=
+DBHOST=
+DBPORT=
+DBNAMEMART=
+
+if ( ! getopts "HpuPm" opt); then
+  echo "Usage: `basename $0` -H HOST -p PORT -u USER -P PASSWORD -m DB_MART";
+  exit 10
+fi
+
+while getopts ":H:p:u:P:m:" opt; do
+  case $opt in
+    H)
+      # Host
+      DBHOST=$OPTARG
+      ;;
+    p)
+      # Port
+      DBPORT=$OPTARG
+      ;;
+    u)
+      DBUSER=$OPTARG
+      ;;
+    P)
+      DBPASS=$OPTARG
+      ;;
+    m)
+      DBNAMEMART=$OPTARG
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 11
+      ;;
+  esac
+done
+
+if [ -z $DBHOST ] || [ -z $DBPORT ] || [ -z $DBUSER ] || [ -z $DBPASS ] || [ -z $DBNAMEMART ]
+then
+  echo "WARNING: Missing parameters"
+  echo " -H : Host     = $DBHOST"
+  echo " -p : Port     = $DBPORT"
+  echo " -u : User     = $DBUSER"
+  echo " -P : Password = $DBPASS"
+  echo " -m : Mart     = $DBNAMEMART"
+  exit 10
+fi
 
 echo "Slim down the egontology_mart tables to reference only those in the"
 echo "specified ontology."
