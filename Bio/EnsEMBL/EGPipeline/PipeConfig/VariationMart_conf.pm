@@ -113,8 +113,6 @@ sub default_options {
       'structvar__structural_variation_feature__main',
     ],
     
-    tables_dir => $self->o('eg_biomart_root_dir').'/var_mart/tables',
-    
     snp_cull_tables => {
       'snp__mpoly__dm' => 'name_2019',
       'snp__variation_annotation__dm' => 'name_2021',
@@ -124,6 +122,8 @@ sub default_options {
     sv_cull_tables => {
       'structvar__structural_variation_annotation__dm' => 'name_2019',
     },
+    
+    tables_dir => $self->o('eg_biomart_root_dir').'/var_mart/tables',
     
     # The following are required for adding metadata.
     scripts_lib => $self->o('eg_biomart_root_dir').'/scripts',
