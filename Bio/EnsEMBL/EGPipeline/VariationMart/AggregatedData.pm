@@ -48,7 +48,7 @@ sub run {
 sub variation_annotation_bool {
   my ($self, $mart_table_prefix, $mart_dbh, $variation_db) = @_;
   
-  my $initialise_sql =
+  my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_snp__variation__main '.
     'ADD COLUMN variation_annotation_bool int(11) DEFAULT 0';
   
@@ -58,14 +58,20 @@ sub variation_annotation_bool {
     $variation_db.'.MTMP_variation_annotation va ON v_m.variation_id_2025_key = va.variation_id '.
     'SET v_m.variation_annotation_bool = 1;';
   
-  $mart_dbh->do($initialise_sql) or $self->throw($mart_dbh->errstr);
+  my $index_sql =
+    'CREATE INDEX idx_vab ON '.
+    $mart_table_prefix.'_snp__variation__main '.
+    '(variation_annotation_bool);';
+  
+  $mart_dbh->do($table_sql) or $self->throw($mart_dbh->errstr);
   $mart_dbh->do($update_sql) or $self->throw($mart_dbh->errstr);
+  $mart_dbh->do($index_sql) or $self->throw($mart_dbh->errstr);
 }
 
 sub variation_citation_bool {
   my ($self, $mart_table_prefix, $mart_dbh, $variation_db) = @_;
   
-  my $initialise_sql =
+  my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_snp__variation__main '.
     'ADD COLUMN variation_citation_bool int(11) DEFAULT 0';
   
@@ -75,14 +81,20 @@ sub variation_citation_bool {
     $variation_db.'.variation_citation vc ON v_m.variation_id_2025_key = vc.variation_id '.
     'SET v_m.variation_citation_bool = 1;';
   
-  $mart_dbh->do($initialise_sql) or $self->throw($mart_dbh->errstr);
+  my $index_sql =
+    'CREATE INDEX idx_vcb ON '.
+    $mart_table_prefix.'_snp__variation__main '.
+    '(variation_citation_bool);';
+  
+  $mart_dbh->do($table_sql) or $self->throw($mart_dbh->errstr);
   $mart_dbh->do($update_sql) or $self->throw($mart_dbh->errstr);
+  $mart_dbh->do($index_sql) or $self->throw($mart_dbh->errstr);
 }
 
 sub variation_feature_count {
   my ($self, $mart_table_prefix, $mart_dbh, $variation_db) = @_;
   
-  my $initialise_sql =
+  my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_snp__variation__main '.
     'ADD COLUMN variation_feature_count int(11) DEFAULT 0';
   
@@ -93,14 +105,20 @@ sub variation_feature_count {
       '(SELECT COUNT(vf.variation_id) FROM '.$variation_db.'.variation_feature vf '.
       'WHERE v_m.variation_id_2025_key = vf.variation_id);';
   
-  $mart_dbh->do($initialise_sql) or $self->throw($mart_dbh->errstr);
+  my $index_sql =
+    'CREATE INDEX idx_vfc ON '.
+    $mart_table_prefix.'_snp__variation__main '.
+    '(variation_feature_count);';
+  
+  $mart_dbh->do($table_sql) or $self->throw($mart_dbh->errstr);
   $mart_dbh->do($update_sql) or $self->throw($mart_dbh->errstr);
+  $mart_dbh->do($index_sql) or $self->throw($mart_dbh->errstr);
 }
 
 sub structural_variation_feature_count {
   my ($self, $mart_table_prefix, $mart_dbh, $variation_db) = @_;
   
-  my $initialise_sql =
+  my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_structvar__structural_variation__main '.
     'ADD COLUMN structural_variation_feature_count int(11) DEFAULT 0';
   
@@ -111,8 +129,14 @@ sub structural_variation_feature_count {
       '(SELECT COUNT(svf.structural_variation_id) FROM '.$variation_db.'.structural_variation_feature svf '.
       'WHERE sv_m.structural_variation_id_2072_key = svf.structural_variation_id);';
   
-  $mart_dbh->do($initialise_sql) or $self->throw($mart_dbh->errstr);
+  my $index_sql =
+    'CREATE INDEX idx_svfc ON '.
+    $mart_table_prefix.'_structvar__structural_variation__main '.
+    '(structural_variation_feature_count);';
+
+  $mart_dbh->do($table_sql) or $self->throw($mart_dbh->errstr);
   $mart_dbh->do($update_sql) or $self->throw($mart_dbh->errstr);
+  $mart_dbh->do($index_sql) or $self->throw($mart_dbh->errstr);
 }
 
 1;
