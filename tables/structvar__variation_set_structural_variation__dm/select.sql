@@ -1,7 +1,7 @@
 SELECT
   sv.structural_variation_id as structural_variation_id_2072_key,
   vssv.variation_set_id as variation_set_id_20115,
-  vs.name as name_2077,
+  replace(vs.name, ',', '') as name_2077,
   vs.description as description_2077
 FROM
   VAR_DB.structural_variation sv LEFT OUTER JOIN
