@@ -52,23 +52,25 @@ sub write_output {
     }
   }
   
+  my $vdbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
+  my $count_sql = 'SELECT COUNT(*) FROM structural_variation;';
+  my ($svs) = $vdbh->selectrow_array($count_sql) or $self->throw($vdbh->errstr);
+  my $sv_exists = $svs ? 1 : 0;
+  
   if ($drop_mart_tables) {
     $self->dataflow_output_id({'mart_table_prefix' => $mart_table_prefix}, 2);
   }
   
   if (!$mtmp_tables_exist) {
-    $self->dataflow_output_id({'mart_table_prefix' => $mart_table_prefix}, 3);
+    $self->dataflow_output_id({
+      'mart_table_prefix' => $mart_table_prefix,
+      'sv_exists' => $sv_exists,
+    }, 3);
   }
   
   if ($copy) {
     $self->dataflow_output_id({'mart_table_prefix' => $mart_table_prefix}, 4);
-    
   } else {
-    my $vdbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
-    my $count_sql = 'SELECT COUNT(*) FROM structural_variation;';
-    my ($svs) = $vdbh->selectrow_array($count_sql) or $self->throw($vdbh->errstr);
-    my $sv_exists = $svs ? 1 : 0;
-    
     $self->dataflow_output_id({
       'mart_table_prefix' => $mart_table_prefix,
       'sv_exists' => $sv_exists,
