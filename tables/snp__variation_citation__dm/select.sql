@@ -1,8 +1,8 @@
 SELECT
   v.variation_id as variation_id_2025_key,
-  p.publication_id as publication_id_20139,
   p.authors as authors_20137,
   p.year as year_20137,
+  concat(left(authors_20137, instr(authors_20137,',')-1), ' et al. (', year_20137, ')') as pub_short_ref
   p.title as title_20137,
   p.pmid as pmid_20137,
   p.pmcid as pmcid_20137,
