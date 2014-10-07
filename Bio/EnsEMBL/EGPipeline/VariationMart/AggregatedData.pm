@@ -36,8 +36,13 @@ sub run {
   my $mart_dbh = $self->mart_dbh;
   my $variation_db = $self->get_DBAdaptor('variation')->dbc()->dbname;
   
-  $self->variation_annotation_bool($mart_table_prefix, $mart_dbh, $variation_db);
-  $self->variation_citation_bool($mart_table_prefix, $mart_dbh, $variation_db);
+  # The annotation and citation boolean fields aren't used anywhere, and
+  # aren't that useful (since there are phenotype and citation filter).
+  #$self->variation_annotation_bool($mart_table_prefix, $mart_dbh, $variation_db);
+  #$self->variation_citation_bool($mart_table_prefix, $mart_dbh, $variation_db);
+  
+  # Variation feature counts aren't currently used, but could be useful
+  # in the future, so do them for now.
   $self->variation_feature_count($mart_table_prefix, $mart_dbh, $variation_db);
   
   if ($self->param('sv_exists')) {
