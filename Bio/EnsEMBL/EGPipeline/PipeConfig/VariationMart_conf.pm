@@ -87,7 +87,6 @@ sub default_options {
       'snp__variation__main',
       'snp__poly__dm',
       'snp__mpoly__dm',
-      'snp__strain_gtype_poly__dm',
       'snp__population_genotype__dm',
       'snp__variation_annotation__dm',
       'snp__variation_citation__dm',
@@ -114,13 +113,19 @@ sub default_options {
     ],
     
     snp_cull_tables => {
-      'snp__mpoly__dm' => 'name_2019',
-      'snp__variation_annotation__dm' => 'name_2021',
+      'snp__poly__dm'                    => 'name_2019',
+      'snp__mpoly__dm'                   => 'name_2019',
+      'snp__population_genotype__dm'     => 'name_2019',
+      'snp__variation_annotation__dm'    => 'name_2021',
+      'snp__variation_citation__dm'      => 'authors_20137',
       'snp__variation_set_variation__dm' => 'name_2077',
+      'snp__variation_synonym__dm'       => 'name_2030',
     },
     
     sv_cull_tables => {
-      'structvar__structural_variation_annotation__dm' => 'name_2019',
+      'structvar__structural_variation_annotation__dm'    => 'name_2019',
+      'structvar__supporting_structural_variation__dm',   => 'supporting_structural_variation_id_20116',
+      'structvar__variation_set_structural_variation__dm' => 'name_2077',
     },
     
     tables_dir => $self->o('eg_biomart_root_dir').'/var_mart/tables',
