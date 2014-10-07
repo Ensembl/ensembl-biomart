@@ -2,10 +2,6 @@
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="structvar_template" defaultDataset="*default*" displayName="*species1* structural Variations (*version*)" interfaces="default" internalName="template" martUsers="default" modified="2010-02-10 21:58:05.484" softwareVersion="0.7" template="structvar" type="TableSet" useDefault="true" version="*version*" visible="1">
   <Replace id="datasets"/>
-  <!--
-  <MainTable>hsapiens_structvar__structural_variation__main</MainTable>
-  <Key>structural_variation_id_2072_key</Key>
-  -->
   <Importable filters="chr_name,chrom_start,chrom_end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
   <Importable filters="chr_name,chrom_start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link" useDefault="true"/>
   <Importable filters="chr_name,chrom_end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
@@ -32,6 +28,11 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
+      <FilterCollection displayName="Variation ID" internalName="structural_variation_filter" useDefault="true">
+        <FilterDescription displayType="container" internalName="svfilter" type="id_list" useDefault="true">
+          <Option description="Structural variation name" displayName="Structural Variation Accession [e.g. esv263]" displayType="text" field="variation_name_2072" internalName="sv_name" isSelectable="true" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true"/>
+        </FilterDescription>
+      </FilterCollection>
       <FilterCollection displayName="Study description" internalName="structural_variation_study" useDefault="true">
         <FilterDescription displayName="Study description" displayType="text" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
@@ -42,17 +43,12 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Variation ID" internalName="structural_variation_filter" useDefault="true">
-        <FilterDescription displayType="container" internalName="svfilter" type="id_list" useDefault="true">
-          <Option description="Structural variation name" displayName="Structural Variation Accession [e.g. esv263]" displayType="text" field="variation_name_2072" internalName="sv_name" isSelectable="true" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true"/>
-        </FilterDescription>
-      </FilterCollection>
     </FilterGroup>
   </FilterPage>
   
   <AttributePage displayName="Structural Variations" internalName="structural_variation" outFormats="html,txt,csv,tsv,xls" useDefault="true">
     <AttributeGroup displayName="STRUCTURAL VARIATION:" internalName="structural_variation" useDefault="true">
-      <AttributeCollection displayName="Structural Variation (SV) Information" internalName="structural_variation" useDefault="true">
+      <AttributeCollection displayName="Structural Variation Information" internalName="structural_variation" useDefault="true">
         <AttributeDescription displayName="DGVa study accession" field="name_20100" internalName="dgva_study_accession" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Study description" field="description_20100" internalName="study_description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Variant type" field="value_2092" internalName="sv_variant_type" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
@@ -64,7 +60,7 @@
         <AttributeDescription displayName="Pubmed ID" field="external_reference_20100" internalName="external_reference" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Validation status" field="validation_status_2072" internalName="validation_status" key="structural_variation_id_2072_key" maxLength="13" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Structural Variation (SV) Location" internalName="structural_variation_location" useDefault="true">
+      <AttributeCollection displayName="Structural Variation Location" internalName="structural_variation_location" useDefault="true">
         <AttributeDescription displayName="Chromosome name" field="name_2034" internalName="chr_name" key="structural_variation_feature_id_20104_key" linkoutURL="exturl|/*species2*/mapview?chr=%s" maxLength="40" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Sequence region start" field="seq_region_start_20104" internalName="chrom_start" key="structural_variation_feature_id_20104_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chr_name|chrom_start|chrom_end" maxLength="11" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Sequence region end" field="seq_region_end_20104" internalName="chrom_end" key="structural_variation_feature_id_20104_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chr_name|chrom_start|chrom_end" maxLength="11" tableConstraint="main" useDefault="true"/>
@@ -74,16 +70,16 @@
         <AttributeDescription displayName="Outer start" field="outer_start_20104" internalName="outer_start" key="structural_variation_feature_id_20104_key" maxLength="11" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Outer end" field="outer_end_20104" internalName="outer_end" key="structural_variation_feature_id_20104_key" maxLength="11" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Structural Variation (SV) Set" internalName="variation_set_structural_variation" useDefault="true">
-        <AttributeDescription displayName="SV Set name" field="name_2077" internalName="set_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="variation_set_structural_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="SV Set description" field="description_2077" internalName="set_description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="variation_set_structural_variation__dm" useDefault="true"/>
+      <AttributeCollection displayName="Structural Variation Set" internalName="variation_set_structural_variation" useDefault="true">
+        <AttributeDescription displayName="Variation Set name" field="name_2077" internalName="set_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="variation_set_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Variation Set description" field="description_2077" internalName="set_description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="variation_set_structural_variation__dm" useDefault="true"/>
       </AttributeCollection>
       <AttributeCollection displayName="Supporting Structural Variation (SSV)" internalName="supporting_structural_variation" useDefault="true">
         <AttributeDescription displayName="SSV accession" field="variation_name_20116" internalName="variation_name_20116" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="SSV variant type" field="class_name_20116" internalName="class_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="SSV strain name " field="strain_name_20116" internalName="ssv_strain_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="SSV sample name" field="sample_name_20116" internalName="sample_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Clinical significance" field="clinical_significance_20116" internalName="clinical_significance" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Clinical significance" field="clinical_significance_20116" hidden="true" internalName="clinical_significance" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Allele type" field="value_2092" hidden="true" internalName="ssv_allele_type" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
      </AttributeCollection>
       <AttributeCollection displayName="Supporting Structural Variation (SSV) Location" internalName="supporting_structural_variation_location" useDefault="true">
