@@ -8,6 +8,7 @@ SELECT
   p.description as description_2033,
   st.external_reference as external_reference_20100,
   st.study_type as study_type_20100,
+  st.name as name_20100,
   st.description as description_20100,
   so.name as name_2021
 FROM
