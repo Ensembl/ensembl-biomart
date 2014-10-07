@@ -4,19 +4,13 @@ SELECT
   sv_m.variation_name_2072,
   sv_m.validation_status_2072,
   sv_m.clinical_significance_2072,
-  sv_m.class_attrib_id_2072,
-  sv_m.source_id_2072,
-  sv_m.study_id_2072,
   sv_m.value_2092,
-  sv_m.attrib_type_id_2092,
   sv_m.name_2021,
   sv_m.description_2021,
   sv_m.name_20100,
   sv_m.description_20100,
   sv_m.external_reference_20100,
-  sv_m.source_id_20100,
   sv_m.structural_variation_feature_count,
-  svf.seq_region_id as seq_region_id_20104,
   sr.name as name_2034,
   svf.outer_start as outer_start_20104,
   svf.seq_region_start as seq_region_start_20104,
@@ -26,7 +20,6 @@ SELECT
   svf.outer_end as outer_end_20104,
   svf.seq_region_strand as seq_region_strand_20104,
   svf.allele_string as allele_string_20104,
-  svf.variation_set_id as variation_set_id_20104,
   svf.breakpoint_order as breakpoint_order_20104
 FROM
   SPECIES_ABBREV_structvar__structural_variation__main sv_m LEFT OUTER JOIN
