@@ -2,12 +2,6 @@
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="variation_template" defaultDataset="*default*" displayName="*species1* variations (*version*)" entryLabel="SNPs" interfaces="default" internalName="template" martUsers="default" modified="2007-10-29 10:40:34.292" softwareVersion="0.7" template="variation" type="TableSet" version="*version*" visible="1">
   <Replace id="datasets"/>
-  <!--
-  <MainTable>mmusculus_snp__variation__main</MainTable>
-  <MainTable>mmusculus_snp__variation_feature__main</MainTable>
-  <Key>variation_id_key</Key>
-  <Key>variation_feature_id_key</Key>
-  -->
   <Importable filters="chr_name,chrom_start,chrom_end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link"/>
   <Importable filters="chr_name,chrom_end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link"/>
   <Importable filters="chr_name,chrom_start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link"/>
@@ -42,117 +36,34 @@
       </FilterCollection>
     </FilterGroup>
     <FilterGroup displayName="GENERAL VARIATION FILTERS:" internalName="snpfilters">
-      <!--
-      <FilterCollection displayName="Variation source" internalName="snp_source">
-        <FilterDescription displayName="Variation source" displayType="container" internalName="snp_source" type="boolean_list">
-          <Option displayName="with Phenotype data" displayType="list" field="variation_annotation_bool" internalName="with_variation_annotation" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Variation Set" displayType="list" field="variation_set_variation_bool" internalName="with_variation_set_variation" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Affy6 ID(s)" displayType="list" field="variation_synonym_affy6_bool" internalName="with_variation_synonym_affy6" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Affy500 ID(s)" displayType="list" field="variation_synonym_affy500_bool" internalName="with_variation_synonym_affy500" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Affy100 ID(s)" displayType="list" field="variation_synonym_affy100_bool" internalName="with_variation_synonym_affy100" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with dbSNP rsID(s)" displayType="list" field="variation_synonym_dbSNP_bool" internalName="with_variation_synonym_dbsnp" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Perlegen ID(s)" displayType="list" field="variation_synonym_Perlegen_bool" internalName="with_variation_synonym_perlegen" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with TBGI ID(s)" displayType="list" field="variation_synonym_TBGI_bool" internalName="with_variation_synonym_tbgi" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Ensembl ID(s)" displayType="list" field="variation_synonym_ensembl_bool" internalName="with_variation_synonym_ensembl" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Sanger ID(s)" displayType="list" field="variation_synonym_sanger_bool" internalName="with_variation_synonym_sanger" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Variation synonym uniprot ID(s)" displayType="list" field="variation_synonym_uniprot_bool" internalName="with_variation_synonym_uniprot" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Ensemblstar4strain ID(s)" displayType="list" field="variation_synonym_ENSEMBLSTAR4strain_bool" internalName="with_variation_synonym_ensemblstar4strain" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Ensemblstargtype ID(s)" displayType="list" field="variation_synonym_ENSEMBLSTARgtype_bool" internalName="with_variation_synonym_ensemblstargtype" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Ensembl SNP ID(s)" displayType="list" field="variation_synonym_ensemblsanger_bool" internalName="with_variation_synonym_ensemblsanger" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with EnsemblVenter ID(s)" displayType="list" field="variation_synonym_ensemblventer_bool" internalName="with_variation_synonym_ensemblventer" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with EnsemblWatson ID(s)" displayType="list" field="variation_synonym_ensemblwatson_bool" internalName="with_variation_synonym_ensemblwatson" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Ensemblrnb1 ID(s)" displayType="list" field="variation_synonym_ENSEMBLRNB1_bool" internalName="with_variation_synonym_ensemblrnb1" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Illumina CytoSNP12v1 ID(s)" displayType="list" field="variation_synonym_illumina_cytosnp12v1_bool" internalName="with_variation_synonym_illumina_cytosnp12v1" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Illumina Human 660W quad ID(s)" displayType="list" field="variation_synonym_illumina_human660wquad_bool" internalName="with_variation_synonym_illumina_human660wquad" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Illumina Human 1M duo V3 ID(s)" displayType="list" field="variation_synonym_illumina_human1mduov3_bool" internalName="with_variation_synonym_illumina_human1mduov3" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-          </Option>
-        </FilterDescription>
-      </FilterCollection>
-      -->
       <FilterCollection displayName="Variation source" internalName="variation_source">
         <FilterDescription displayName="Variation source" displayType="list" field="name_2021" internalName="variation_source" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Variation ID (e.g. rs123, CM000001) [Max 500 advised]" internalName="snpfilter_collection">
-        <FilterDescription displayName="Variation ID (e.g. rs123, CM000001)" displayType="text" field="name_2025" internalName="snp_filter" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list"/>
+      <FilterCollection displayName="Variation ID [Max 500 advised]" internalName="snpfilter_collection">
+        <FilterDescription displayName="Variation ID" displayType="text" field="name_2025" internalName="snp_filter" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list"/>
       </FilterCollection>
       <FilterCollection displayName="Variation synonym source" internalName="variation_synonym_source">
         <FilterDescription displayName="Variation synonym source" displayType="list" field="name_2021" internalName="variation_synonym_source" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_synonym__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Variation synonym ID (e.g. BS00185364) [Max 500 advised]" internalName="snp_synonym_filter_collection">
-        <FilterDescription displayName="Variation synonym ID (e.g. BS00185364)" displayType="text" field="name_2030" internalName="snp_synonym_filter" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="variation_synonym__dm" type="list"/>
+      <FilterCollection displayName="Variation synonym ID [Max 500 advised]" internalName="snp_synonym_filter_collection">
+        <FilterDescription displayName="Variation synonym ID" displayType="text" field="name_2030" internalName="snp_synonym_filter" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="variation_synonym__dm" type="list"/>
       </FilterCollection>
-      <!--
-      <FilterCollection displayName="Validation status" internalName="validation_status">
-        <FilterDescription displayName="Validation status" displayType="list" field="validation_status_2025" internalName="validation_status" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" isDefault="true">
+      <FilterCollection displayName="Distance to transcript &lt;=" internalName="distance_to_transcript">
+        <FilterDescription displayName="Distance to transcript &lt;=" displayType="text" field="distance_to_transcript_2090" internalName="distance_to_transcript" key="variation_feature_id_2026_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="mart_transcript_variation__dm" type="text"/>
+      </FilterCollection>
+    </FilterGroup>
+    <FilterGroup displayName="STUDY AND PHENOTYPE FILTERS:" internalName="studyfilters">
+      <FilterCollection displayName="Study type" internalName="study_type">
+        <FilterDescription displayName="Study type" displayType="list" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      -->
-      <FilterCollection displayName="Study type" internalName="study_type">
-        <FilterDescription displayName="Study type" displayType="list" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list">
+      <FilterCollection displayName="Study name" internalName="study_name">
+        <FilterDescription displayName="Study name" displayType="list" field="name_20100" internalName="study_name" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -161,48 +72,48 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <!--
-      <FilterCollection displayName="Phenotype P value range" internalName="phenotype_pvalue">
-        <FilterDescription displayName="P value min" displayType="text" field="p_value_2035" internalName="p_value_min" key="variation_id_2025_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="variation_annotation__dm" type="text"/>
-        <FilterDescription displayName="P value max" displayType="text" field="p_value_2035" internalName="p_value_max" key="variation_id_2025_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="variation_annotation__dm" type="text"/>
-      </FilterCollection>
-      -->
       <FilterCollection displayName="Phenotype significance [0 non-significant, 1 significant]" internalName="phenotype_significance">
         <FilterDescription displayName="Phenotype significance" displayType="list" field="is_significant_20133" internalName="phenotype_significance" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="radio" tableConstraint="variation_annotation__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
+      <FilterCollection displayName="Publication" internalName="pub_short_ref">
+        <FilterDescription displayName="Publication" displayType="list" field="pub_short_ref" internalName="pub_short_ref" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_citation__dm" type="list" isDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
       <FilterCollection displayName="Variation Set name" internalName="variation_set">
-        <FilterDescription displayName="Variation Set Name" displayType="list" field="name_2077" internalName="variation_set_name" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_set_variation__dm" type="list" isDefault="true">
+        <FilterDescription displayName="Variation Set name" displayType="list" field="name_2077" internalName="variation_set_name" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_set_variation__dm" type="list" isDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Population" internalName="population_name">
+        <FilterDescription displayName="Population" displayType="list" field="name_2019" internalName="population_name" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="population_genotype__dm" type="list" isDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Strain (SNP)" internalName="snp_strain_col">
+        <FilterDescription displayName="Strain (SNP)" displayType="list" field="name_2019" internalName="reference_strain" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="poly__dm" type="list" isDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Strain (Indel, MNP)" internalName="mnp_strain_col">
+        <FilterDescription displayName="Strain (Indel, MNP)" displayType="list" field="name_2019" internalName="reference_strain_mnp" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mpoly__dm" type="list" isDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="SIFT prediction" internalName="sift" hidden="true">
-        <FilterDescription displayName="SIFT Prediction" displayType="list" field="sift_prediction_2090" internalName="sift_prediction" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
+        <FilterDescription displayName="SIFT prediction" displayType="list" field="sift_prediction_2090" internalName="sift_prediction" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="PolyPhen prediction" internalName="polyphen" hidden="true">
-        <FilterDescription displayName="PolyPhen Prediction" displayType="list" field="polyphen_prediction_2090" internalName="polyphen_prediction" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
-          <SpecificFilterContent internalName="replaceMe"/>
-        </FilterDescription>
-      </FilterCollection>
-      <FilterCollection displayName="Validated variations" internalName="validated_snp">
-        <FilterDescription displayName="Validated variations" displayType="list" field="validation_status_2025" internalName="with_validated" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-          <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
-          <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
-        </FilterDescription>
-      </FilterCollection>
-      <FilterCollection displayName="Distance to transcript &lt;=" internalName="distance_to_transcript">
-        <FilterDescription displayName="Distance to transcript &lt;=" displayType="text" field="distance_to_transcript_2090" internalName="distance_to_transcript" key="variation_feature_id_2026_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="mart_transcript_variation__dm" type="text"/>
-      </FilterCollection>
-      <FilterCollection displayName="Limit to variations from strain(s)" internalName="snp_strain_col">
-        <FilterDescription displayName="Reference strain" displayType="list" field="name_2019" internalName="reference_strain" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="poly__dm" type="list" isDefault="true">
+        <FilterDescription displayName="PolyPhen prediction" displayType="list" field="polyphen_prediction_2090" internalName="polyphen_prediction" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup displayName="GENE ASSOCIATED VARIATION FILTERS:" internalName="gene_filters">
+    <FilterGroup displayName="GENE ASSOCIATED FILTERS:" internalName="gene_filters">
       <FilterCollection displayName="Gene stable ID(s) [Max 500 advised]" internalName="ensembl_gene_ids">
         <FilterDescription displayName="Gene stable ID(s):" displayType="text" field="stable_id_1023" internalName="ensembl_gene" key="variation_feature_id_2026_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="mart_transcript_variation__dm" type="list"/>
       </FilterCollection>
@@ -214,7 +125,7 @@
     </FilterGroup>
   </FilterPage>
   <AttributePage displayName="Variation" internalName="snp" outFormats="html,txt,csv,tsv,xls">
-    <AttributeGroup displayName="SEQUENCE VARIATION:" internalName="snp">
+    <AttributeGroup displayName="VARIATION:" internalName="snp">
       <AttributeCollection displayName="Variation Information" internalName="snpsatts">
         <AttributeDescription default="true" displayName="Variation ID" field="name_2025" internalName="refsnp_id" key="variation_id_2025_key" linkoutURL="exturl1|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="main"/>
         <AttributeDescription default="true" displayName="Variation source" field="name_2021" internalName="refsnp_source" key="variation_id_2025_key" maxLength="255" tableConstraint="main"/>
@@ -225,10 +136,8 @@
         <AttributeDescription displayName="Variant allele" field="allele_string_2026" internalName="allele" key="variation_feature_id_2026_key" maxLength="255" tableConstraint="main"/>
         <AttributeDescription displayName="Mapweight" field="map_weight_2026" internalName="mapweight" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="main"/>
         <AttributeDescription displayName="Evidence status" field="evidence_2025" internalName="validated" key="variation_id_2025_key" maxLength="9" tableConstraint="main"/>
-        <!--
-        <AttributeDescription displayName="Ancestral allele" field="ancestral_allele_2025" internalName="allele_1" key="variation_id_2025_key" maxLength="255" tableConstraint="main"/>
-        <AttributeDescription displayName="Clinical significance" field="clinical_significance_2025" internalName="clinical_significance" key="variation_id_2025_key" maxLength="255" tableConstraint="main"/>
-        -->
+        <AttributeDescription displayName="Ancestral allele" field="ancestral_allele_2025" hidden="true" internalName="allele_1" key="variation_id_2025_key" maxLength="255" tableConstraint="main"/>
+        <AttributeDescription displayName="Clinical significance" field="clinical_significance_2025" hidden="true" internalName="clinical_significance" key="variation_id_2025_key" maxLength="255" tableConstraint="main"/>
       </AttributeCollection>
       <AttributeCollection displayName="Variation Synonym" internalName="variation_synonym">
         <AttributeDescription displayName="Synonym name" field="name_2030" internalName="synonym_name" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym__dm"/>
@@ -245,60 +154,29 @@
         <AttributeDescription displayName="Associated variant risk allele" field="associated_variant_risk_allele_2035" internalName="associated_variant_risk_allele" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm"/>
         <AttributeDescription displayName="p-value" field="p_value_2035" internalName="p_value" key="variation_id_2025_key" maxLength="20" tableConstraint="variation_annotation__dm"/>
         <AttributeDescription displayName="Study type" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" maxLength="5" tableConstraint="variation_annotation__dm"/>
+        <AttributeDescription displayName="Study name" field="name_20100" internalName="study_name" key="variation_id_2025_key" maxLength="5" tableConstraint="variation_annotation__dm"/>
         <AttributeDescription displayName="Study external reference" field="external_reference_20100" internalName="study_external_ref" key="variation_id_2025_key" maxLength="30" tableConstraint="variation_annotation__dm"/>
         <AttributeDescription displayName="Study description" field="description_20100" internalName="study_description" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm"/>
         <AttributeDescription displayName="Source name" field="name_2021" internalName="source_name" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="Variation Publication" internalName="variation_citation">
+        <AttributeDescription displayName="Title" field="title_20137" internalName="title_20137" key="variation_id_2025_key" tableConstraint="variation_citation__dm"/>
+        <AttributeDescription displayName="Authors" field="authors_20137" internalName="authors_20137" key="variation_id_2025_key" tableConstraint="variation_citation__dm"/>
+        <AttributeDescription displayName="Year" field="year_20137" internalName="year_20137" key="variation_id_2025_key" tableConstraint="variation_citation__dm"/>
+        <AttributeDescription displayName="PubMed ID" field="pmid_20137" internalName="pmid_20137" key="variation_id_2025_key" linkoutURL="exturl|http://europepmc.org/abstract/MED/%s" tableConstraint="variation_citation__dm"/>
+        <AttributeDescription displayName="DOI" field="doi_20137" internalName="doi_20137" key="variation_id_2025_key" linkoutURL="exturl|http://dx.doi.org/%s" tableConstraint="variation_citation__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="Variation Set" internalName="variation_set_variation">
         <AttributeDescription displayName="Variation Set name" field="name_2077" internalName="set_name" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_set_variation__dm"/>
         <AttributeDescription displayName="Variation Set description" field="description_2077" internalName="set_description" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_set_variation__dm"/>
         <AttributeDescription displayName="Variation Set ID" field="variation_set_id_2078" hidden="true" internalName="variation_set_id_2078" key="variation_id_2025_key" maxLength="10" tableConstraint="variation_set_variation__dm"/>
       </AttributeCollection>
-      <!--
-      <AttributeCollection displayName="Variation Citation" internalName="variation_citation">
-        <AttributeDescription displayName="Title" field="title_20137" internalName="title_20137" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_citation__dm">
-          <SpecificAttributeContent field="title_20137" internalName="rnorvegicus_snp" key="variation_id_2025_key" tableConstraint="variation_citation__dm"/>
-        </AttributeDescription>
-        <AttributeDescription displayName="Authors" field="authors_20137" internalName="authors_20137" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_citation__dm">
-          <SpecificAttributeContent field="authors_20137" internalName="rnorvegicus_snp" key="variation_id_2025_key" tableConstraint="variation_citation__dm"/>
-        </AttributeDescription>
-        <AttributeDescription displayName="PubMed ID" field="pmid_20137" internalName="pmid_20137" key="variation_id_2025_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/pubmed/%s" maxLength="10" tableConstraint="variation_citation__dm">
-          <SpecificAttributeContent field="pmid_20137" internalName="rnorvegicus_snp" key="variation_id_2025_key" tableConstraint="variation_citation__dm"/>
-        </AttributeDescription>
-        <AttributeDescription displayName="PMC reference number (PMCID)" field="pmcid_20137" internalName="pmcid_20137" key="variation_id_2025_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/pmc/articles/%s" maxLength="255" tableConstraint="variation_citation__dm">
-          <SpecificAttributeContent field="pmcid_20137" internalName="rnorvegicus_snp" key="variation_id_2025_key" tableConstraint="variation_citation__dm"/>
-        </AttributeDescription>
-      </AttributeCollection>
-      -->
-      <!--
-      <AttributeCollection displayName="Variation Source" internalName="source" maxSelect="0">
-        <AttributeDescription displayName="dbSNP rsID" field="name_2030" internalName="dbSNP" key="variation_id_2025_key" linkoutURL="exturl1|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_dbsnp__dm"/>
-        <AttributeDescription displayName="TBGI ID" field="name_2030" internalName="TBGI" key="variation_id_2025_key" linkoutURL="exturl1|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_tbgi__dm"/>
-        <AttributeDescription displayName="Perlegen ID" field="name_2030" internalName="Perlegen" key="variation_id_2025_key" linkoutURL="exturl1|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_perlegen__dm"/>
-        <AttributeDescription displayName="UniProt synonym" field="name_2030" internalName="uniprot_synonym" key="variation_id_2025_key" linkoutURL=" exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_Uniprot__dm"/>
-        <AttributeDescription displayName="AFFY GeneChip 100K ID" field="name_2030" internalName="affy100" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_Affy100__dm"/>
-        <AttributeDescription displayName="AFFY GeneChip 500K ID" field="name_2030" internalName="affy500" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_Affy500__dm"/>
-        <AttributeDescription displayName="AFFY GenomeWide SNP 6 ID" field="name_2030" internalName="affy6" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_Affy6__dm"/>
-        <AttributeDescription displayName="Ensembl BLRNB1 ID" field="name_2030" internalName="ensembl_BLRNB1" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_ENSEMBLRNB1__dm"/>
-        <AttributeDescription displayName="Ensembl Watson ID" field="name_2030" internalName="ensembl_watson" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_ENSEMBLWatson__dm"/>
-        <AttributeDescription displayName="Ensembl Venter ID" field="name_2030" internalName="ensembl_venter" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_ENSEMBLVenter__dm"/>
-        <AttributeDescription displayName="Ensembl Sanger ID" field="name_2030" internalName="ensembl_sanger" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_ENSEMBLSanger__dm"/>
-        <AttributeDescription displayName="Ensembl Star 4 Strain ID" field="name_2030" internalName="ensembl_star_4strain" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_ENSEMBLSTAR4strain__dm"/>
-        <AttributeDescription displayName="Ensembl Star Gtype ID" field="name_2030" internalName="ensembl_star_gtype" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_ENSEMBLSTARgtype__dm"/>
-        <AttributeDescription displayName="Illumina CytoSNP 12 v1" field="name_2030" internalName="Illumina_CytoSNP12v1" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_Illumina_CytoSNP12v1__dm"/>
-        <AttributeDescription displayName="Illumina Human 1M duo V3" field="name_2030" internalName="Illumina_Human1MduoV3" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_Illumina_Human1MduoV3__dm"/>
-        <AttributeDescription displayName="Illumina Human 660W quad" field="name_2030" internalName="Illumina_Human660Wquad" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Summary?v=%s" maxLength="255" tableConstraint="variation_synonym_Illumina_Human660Wquad__dm"/>
-      </AttributeCollection>
-      -->
       <AttributeCollection displayName="Population Genetics" internalName="population_genetics" maxSelect="0">
         <AttributeDescription displayName="Population name" field="name_2019" internalName="population_genotype__dm_name_2019" key="variation_id_2025_key" maxLength="255" tableConstraint="population_genotype__dm"/>
         <AttributeDescription displayName="Population description" field="description_2019" internalName="population_genotype__dm_description_2019" key="variation_id_2025_key" maxLength="255" tableConstraint="population_genotype__dm"/>
         <AttributeDescription displayName="Population size" field="size_2019" internalName="size_2019" key="variation_id_2025_key" maxLength="11" tableConstraint="population_genotype__dm"/>
         <AttributeDescription displayName="Population genotype" field="allele" internalName="population_genotype__dm_allele" key="variation_id_2025_key" maxLength="255" tableConstraint="population_genotype__dm"/>
         <AttributeDescription displayName="Genotype frequency" field="frequency_2016" internalName="frequency_2016" key="variation_id_2025_key" maxLength="12" tableConstraint="population_genotype__dm"/>
-        <!--
-        <AttributeDescription displayName="Variation Name" field="variation_name_2026" internalName="variation_name" key="variation_feature_id_2026_key" tableConstraint="main"/>
-        -->
       </AttributeCollection>
       <AttributeCollection displayName="Strain: SNPs" internalName="strain_single">
         <AttributeDescription displayName="Strain name" field="name_2019" internalName="strain_name" key="variation_id_2025_key" maxLength="255" tableConstraint="poly__dm">
@@ -308,7 +186,7 @@
           <SpecificAttributeContent internalName="replaceMe"/>
         </AttributeDescription>
       </AttributeCollection>
-      <AttributeCollection displayName="Strain: Other Variants (Indels, Multiple Nucleotide Polymorphisms)" internalName="strain_multiple">
+      <AttributeCollection displayName="Strain: Indels, Multiple Nucleotide Polymorphisms" internalName="strain_multiple">
         <AttributeDescription displayName="Strain name" field="name_2019" internalName="strain_name_multi" key="variation_id_2025_key" maxLength="255" tableConstraint="mpoly__dm">
           <SpecificAttributeContent internalName="replaceMe"/>
         </AttributeDescription>
@@ -339,6 +217,24 @@
     </AttributeGroup>
   </AttributePage>
   <AttributePage displayName="Sequences" internalName="sequences" outFormats="fasta">
+    <AttributeGroup displayName="VARIATION:" internalName="snp">
+      <AttributeCollection displayName="Variation Information" internalName="snpatts">
+        <AttributeDescription default="true" internalName="snp_refsnp_id" pointerAttribute="refsnp_id" pointerDataset="*species3*_snp" pointerInterface="default"/>
+        <AttributeDescription default="true" internalName="snp_refsnp_source" pointerAttribute="refsnp_source" pointerDataset="*species3*_snp" pointerInterface="default"/>
+        <AttributeDescription default="true" internalName="snp_refsnp_source_description" pointerAttribute="refsnp_source_description" pointerDataset="*species3*_snp" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_chr_name" pointerAttribute="chr_name" pointerDataset="*species3*_snp" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_chrom_start" pointerAttribute="chrom_start" pointerDataset="*species3*_snp" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_chrom_strand" pointerAttribute="chrom_strand" pointerDataset="*species3*_snp" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_allele" pointerAttribute="allele" pointerDataset="*species3*_snp" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_mapweight" pointerAttribute="mapweight" pointerDataset="*species3*_snp" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_ensembl_aa_position" pointerAttribute="ensembl_aa_position" pointerDataset="*species3*_snp" pointerInterface="default"/>
+        <AttributeDescription internalName="snp_ensembl_peptide_allele" pointerAttribute="ensembl_peptide_allele" pointerDataset="*species3*_snp" pointerInterface="default"/>
+      </AttributeCollection>
+    </AttributeGroup>
+    <AttributeGroup displayName="REGION:" internalName="region">
+      <AttributeCollection displayName="Chromosome attributes" internalName="chromosomeatts" maxSelect="0">
+      </AttributeCollection>
+    </AttributeGroup>
     <AttributeGroup displayName="SEQUENCES:" internalName="sequence">
       <AttributeCollection displayName="Sequences" internalName="snp_seq_scope">
         <AttributeDescription internalName="snp" pointerAttribute="snp" pointerDataset="*species3*_genomic_sequence" pointerInterface="default"/>
@@ -350,687 +246,7 @@
         <AttributeDescription internalName="downstream_flank" pointerDataset="*species3*_genomic_sequence" pointerFilter="downstream_flank" pointerInterface="default"/>
       </AttributeCollection>
     </AttributeGroup>
-    <AttributeGroup displayName="REGION:" internalName="region">
-      <AttributeCollection displayName="Chromosome attributes" internalName="chromosomeatts" maxSelect="0">
-        <AttributeDescription internalName="snp_chr_name" pointerAttribute="chr_name" pointerDataset="*species3*_snp" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_chrom_start" pointerAttribute="chrom_start" pointerDataset="*species3*_snp" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_chrom_strand" pointerAttribute="chrom_strand" pointerDataset="*species3*_snp" pointerInterface="default"/>
-      </AttributeCollection>
-    </AttributeGroup>
-    <AttributeGroup displayName="VARIATION:" internalName="snp">
-      <AttributeCollection displayName="Variation Information" internalName="snpatts" maxSelct="0">
-        <AttributeDescription default="true" internalName="snp_refsnp_id" pointerAttribute="refsnp_id" pointerDataset="*species3*_snp" pointerInterface="default"/>
-        <AttributeDescription default="true" internalName="snp_refsnp_source" pointerAttribute="refsnp_source" pointerDataset="*species3*_snp" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_allele" pointerAttribute="allele" pointerDataset="*species3*_snp" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_validated" pointerAttribute="validated" pointerDataset="*species3*_snp" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_mapweight" pointerAttribute="mapweight" pointerDataset="*species3*_snp" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_ensembl_aa_position" pointerAttribute="ensembl_aa_position" pointerDataset="*species3*_snp" pointerInterface="default"/>
-        <AttributeDescription internalName="snp_ensembl_peptide_allele" pointerAttribute="ensembl_peptide_allele" pointerDataset="*species3*_snp" pointerInterface="default"/>
-        <!--
-        <AttributeDescription displayName="Source" field="name_2021" internalName="source" key="snp_id_key" maxLength="255" tableConstraint="main"/>
-        -->
-      </AttributeCollection>
-    </AttributeGroup>
   </AttributePage>
-  <!--
-  <AttributePage displayName="Compare Strain Genotypes" internalName="poly_strain" outFormats="all,same,diff,all_tsv,same_tsv,diff_tsv" hidden="true">
-    <AttributeGroup displayName="SEQUENCE VARIATION" internalName="snp_atts">
-      <AttributeCollection displayName="Variation Information" internalName="snpatts" maxSelect="0">
-        <AttributeDescription default="true" internalName="reference_snp_id" pointerAttribute="refsnp_id" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="chr_name_copy" pointerAttribute="chr_name" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="chrom_start_copy" pointerAttribute="chrom_start" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="chrom_strand_copy" pointerAttribute="chrom_strand" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="allele_summary" pointerAttribute="allele" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="validated_copy" pointerAttribute="validated" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="mapweight_copy" pointerAttribute="mapweight" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-      </AttributeCollection>
-      <AttributeCollection displayName="Gene Attributes" internalName="ensemblatts" maxSelect="0">
-        <AttributeDescription default="true" internalName="ensembl_gene_stable_id_copy" pointerAttribute="ensembl_gene_stable_id" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="ensembl_transcript_stable_id_copy" pointerAttribute="ensembl_transcript_stable_id" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="ensembl_biotype" pointerAttribute="ensembl_type" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="ensembl_consequence_type_tv" pointerAttribute="consequence_type_tv" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="ensembl_pep_shift" pointerAttribute="ensembl_peptide_shift" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="ensembl_cdna_start" pointerAttribute="cdna_start" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="ensembl_cdna_end" pointerAttribute="cdna_end" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="ensembl_transcript_chrom_strand_copy" pointerAttribute="ensembl_transcript_chrom_strand" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="ensembl_translation_start" pointerAttribute="translation_start" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-        <AttributeDescription default="true" internalName="ensembl_translation_end" pointerAttribute="translation_end" pointerDataset="*species3*_snp" pointerInterface="default">
-          <SpecificAttributeContent internalName="rnorvegicus_snp"/>
-          <SpecificAttributeContent internalName="mmusculus_snp"/>
-        </AttributeDescription>
-      </AttributeCollection>
-    </AttributeGroup>
-    <AttributeGroup displayName="COMPARE STRAIN GENOTYPES" internalName="new_strain">
-      <AttributeCollection hidden="true" internalName="ref_strain" maxSelect="0">
-        <AttributeDescription hidden="true" internalName="reference_strain" pointerDataset="*species3*_snp" pointerFilter="reference_strain" pointerInterface="default">
-         <SpecificAttributeContent hidden="true" internalName="mmusculus_snp"/>
-          <SpecificAttributeContent hidden="true" internalName="rnorvegicus_snp"/>
-        </AttributeDescription>
-      </AttributeCollection>
-      <Replace id="poly_attrs"/>
-      <AttributeCollection displayName="Select strains for genotype comparison  " internalName="mouse" maxSelect="3">
-
-        <AttributeDescription displayName="129/Sv" field="129_sv_2081" internalName="129_sv" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="129/NBT" field="129_nbt_2081" internalName="129_nbt" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="129P3/J" field="129p3_j_2081" internalName="129p3_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="129P4/J" field="129p4_j_2081" internalName="129p4_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="129S1/SvImJ" field="129s1_svimj_2081" internalName="129s1_svimj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="129S4/SvJae" field="129s4_svjae_2081" internalName="129s4_svjae" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="129S6/SvEvTac" field="129s6_svevtac_2081" internalName="129s6_svevtac" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="129X1/Sv" field="129x1_sv_2081" internalName="129x1_sv" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="129X1/SvJ" field="129x1_svj_2081" internalName="129x1_svj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="A" field="a_2081" internalName="a" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="A/He" field="a_he_2081" internalName="a_he" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="A/HeJ" field="a_hej_2081" internalName="a_hej" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="A/J" field="a_j_2081" internalName="a_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="AKR" field="akr_2081" internalName="akr" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="AKR/J" field="akr_j_2081" internalName="akr_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="AVZ/Ms" field="avz_ms_2081" internalName="avz_ms" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="B10.D2" field="b10_d2_2081" internalName="b10_d2" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="B10.D2-H2/oSnJ" field="b10_d2_h2_osnj_2081" internalName="b10_d2_h2_osnj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="BALB/c" field="balb_c_2081" internalName="balb_c" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="BALB/cA" field="balb_ca_2081" internalName="balb_ca" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="BALB/cBy" field="balb_cby_2081" internalName="balb_cby" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="BALB/cByJ" field="balb_cbyj_2081" internalName="balb_cbyj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="BALB/cJ" field="balb_cj_2081" internalName="balb_cj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="BALB/cUCSD" field="balb_cucsd_2081" internalName="balb_cucsd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="BFM/2Ms" field="bfm_2ms_2081" internalName="bfm_2ms" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="BLG2/Ms" field="blg2_ms_2081" internalName="blg2_ms" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="BTBR T+ tf/J" field="btbr_t__tf_j_2081" internalName="btbr_t__tf_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="BUB" field="bub_2081" internalName="bub" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="BUB/BnJ" field="bub_bnj_2081" internalName="bub_bnj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="C3H/He" field="c3h_he_2081" internalName="c3h_he" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="C3H/HeJ" field="c3h_hej_2081" internalName="c3h_hej" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="C57BL/6" field="c57bl_6_2081" internalName="c57bl_6" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="C57BL/6J" field="c57bl_6j_2081" internalName="c57bl_6j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Reference c57bl 6j" field="reference_c57bl_6j_2081" internalName="reference_c57bl_6j_2032" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="C57BL/10J" field="c57bl_10j_2081" internalName="c57bl_10j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="C57BLKS/J" field="c57blks_j_2081" internalName="c57blks_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="C57BR/cdJ" field="c57br_cdj_2081" internalName="c57br_cdj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="C57L/J" field="c57l_j_2081" internalName="c57l_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="C58/J" field="c58_j_2081" internalName="c58_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="CAST/Ei" field="cast_ei_2081" internalName="cast_ei" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="CAST/EiJ" field="cast_eij_2081" internalName="cast_eij" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="CBA/J" field="cba_j_2081" internalName="cba_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="CE/J" field="ce_j_2081" internalName="ce_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="CHD/Ms" field="chd_ms_2081" internalName="chd_ms" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="CSS/NBT" field="css_nbt_2081" internalName="css_nbt" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="CZECHII/Ei" field="czechii_ei_2081" internalName="czechii_ei" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="CZECHII/EiJ" field="czechii_eij_2081" internalName="czechii_eij" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="DBA/1J" field="dba_1j_2081" internalName="dba_1j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="DBA/2" field="dba_2_2081" internalName="dba_2" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="DBA/2J" field="dba_2j_2081" internalName="dba_2j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="DDK/Pas" field="ddk_pas_2081" internalName="ddk_pas" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="FVB" field="fvb_2081" internalName="fvb" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="FVB/NJ" field="fvb_nj_2081" internalName="fvb_nj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="HMI/Ms" field="hmi_ms_2081" internalName="hmi_ms" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="I/LnJ" field="i_lnj_2081" internalName="i_lnj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="JF1/Ms" field="jf1_ms_2081" internalName="jf1_ms" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="KJR/Ms" field="kjr_ms_2081" internalName="kjr_ms" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="KK/HlJ" field="kk_hlj_2081" internalName="kk_hlj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="LG/J" field="lg_j_2081" internalName="lg_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="LGJ" field="lgj_2081" internalName="lgj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="LP/J" field="lp_j_2081" internalName="lp_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="LPJ" field="lpj_2081" internalName="lpj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="MA/MyJ" field="ma_myj_2081" internalName="ma_myj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="MAI/Pas" field="mai_pas_2081" internalName="mai_pas" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="MOLF" field="molf_2081" internalName="molf" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="MOLF/EiJ" field="molf_eij_2081" internalName="molf_eij" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="MRL/MP" field="mrl_mp_2081" internalName="mrl_mp" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="MRL/MpJ" field="mrl_mpj_2081" internalName="mrl_mpj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="MSM" field="msm_2081" internalName="msm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="MSM/Ms" field="msm_ms_2081" internalName="msm_ms" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="NJL/Ms" field="njl_ms_2081" internalName="njl_ms" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="NOD/DIL" field="nod_dil_2081" internalName="nod_dil" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="NOD/LTJ" field="nod_ltj_2081" internalName="nod_ltj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="NON/LtJ" field="non_ltj_2081" internalName="non_ltj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="NZB/BlN" field="nzb_bln_2081" internalName="nzb_bln" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="NZB/BlNJ" field="nzb_blnj_2081" internalName="nzb_blnj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="NZW/Lac" field="nzw_lac_2081" internalName="nzw_lac" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="NZW/LacJ" field="nzw_lacj_2081" internalName="nzw_lacj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="PERA" field="pera_2081" internalName="pera" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="PERA/EiJ" field="pera_eij_2081" internalName="pera_eij" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="PGN2/Ms" field="pgn2_ms_2081" internalName="pgn2_ms" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="PL/J" field="pl_j_2081" internalName="pl_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="PWD/Ph" field="pwd_ph_2081" internalName="pwd_ph" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="PWD/PhJ" field="pwd_phj_2081" internalName="pwd_phj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="RIIIS/J" field="riiis_j_2081" internalName="riiis_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="SAMP1" field="samp1_2081" internalName="samp1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="SAMP8" field="samp8_2081" internalName="samp8" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="SAMR1" field="samr1_2081" internalName="samr1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="SEA/GnJ" field="sea_gnj_2081" internalName="sea_gnj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="SEG/Pas" field="seg_pas_2081" internalName="seg_pas" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="SJL/J" field="sjl_j_2081" internalName="sjl_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="SMJ" field="smj_2081" internalName="smj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="SM/J" field="sm_j_2081" internalName="sm_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="SPRET/Ei" field="spret_ei_2081" internalName="spret_ei" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="ST/bJ" field="st_bj_2081" internalName="st_bj" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="SWN/Ms" field="swn_ms_2081" internalName="swn_ms" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="SWR/J" field="swr_j_2081" internalName="swr_j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="TSOD" field="tsod_2081" internalName="tsod" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="WSB/EiJ" field="wsb_eij_2081" internalName="wsb_eij" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="ZALENDE/EiJ" field="zalende_eij_2081" internalName="zalende_eij" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-      </AttributeCollection>
-      <AttributeCollection displayName="Select strains for genotype comparison" internalName="rat" maxSelect="3">
-        <AttributeDescription displayName="Reference BN/SsNHsdMcwi" field="reference_bn_ssnhsd_mcwi_2081" internalName="reference_bn_ssnhsd_mcwi" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Buf hsd hannover" field="buf_hsd_hannover_2081" internalName="buf_hsd_hannover" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Rnb1" field="rnb1_2081" internalName="rnb1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 741" field="pkdxlewbc1_741_2081" internalName="pkdxlewbc1_741" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shrsp wky " field="shrsp_wky__2081" internalName="shrsp_wky" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wtc kyo" field="wtc_kyo_2081" internalName="wtc_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb22" field="hxb22_2081" internalName="hxb22" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Cop crl" field="cop_crl_2081" internalName="cop_crl" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Sp wkygla2j" field="sp_wkygla2j_2081" internalName="sp_wkygla2j" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 231" field="hs_231_2081" internalName="hs_231" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Cdr ygl" field="cdr_ygl_2081" internalName="cdr_ygl" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 202" field="hs_202_2081" internalName="hs_202" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 206" field="hs_206_2081" internalName="hs_206" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn1l 2" field="bn1l_2_2081" internalName="bn1l_2" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Aci seghsd" field="aci_seghsd_2081" internalName="aci_seghsd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bb ok" field="bb_ok_2081" internalName="bb_ok" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bxh13" field="bxh13_2081" internalName="bxh13" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Dmy kyo" field="dmy_kyo_2081" internalName="dmy_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 327" field="pkdxlewbc1_327_2081" internalName="pkdxlewbc1_327" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo9" field="pxo9_2081" internalName="pxo9" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 281" field="pkdxlewbc1_281_2081" internalName="pkdxlewbc1_281" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Le ztm" field="le_ztm_2081" internalName="le_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Aci nkyo" field="aci_nkyo_2081" internalName="aci_nkyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb7" field="hxb7_2081" internalName="hxb7" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 223" field="hs_223_2081" internalName="hs_223" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew  2 3 4" field="lew__2_3_4_2081" internalName="lew__2_3_4" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 225" field="hs_225_2081" internalName="hs_225" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf2b" field="lexf2b_2081" internalName="lexf2b" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn nhsdmcwi" field="bn_nhsdmcwi_2081" internalName="bn_nhsdmcwi" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21102" field="_gkxbn_f21102_2081" internalName="_gkxbn_f21102" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle25" field="fxle25_2081" internalName="fxle25" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr 8 10 congenics" field="shr_8_10_congenics_2081" internalName="shr_8_10_congenics" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21061" field="_gkxbn_f21061_2081" internalName="_gkxbn_f21061" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21184" field="_gkxbn_f21184_2081" internalName="_gkxbn_f21184" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="W crl" field="w_crl_2081" internalName="w_crl" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew 1av1 kini" field="lew_1av1_kini_2081" internalName="lew_1av1_kini" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 227" field="hs_227_2081" internalName="hs_227" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bxh6" field="bxh6_2081" internalName="bxh6" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo2" field="pxo2_2081" internalName="pxo2" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21093" field="_gkxbn_f21093_2081" internalName="_gkxbn_f21093" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Aci ztmkini" field="aci_ztmkini_2081" internalName="aci_ztmkini" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21108" field="_gkxbn_f21108_2081" internalName="_gkxbn_f21108" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr molbbb" field="shr_molbbb_2081" internalName="shr_molbbb" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf10b" field="lexf10b_2081" internalName="lexf10b" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bdv ztm" field="bdv_ztm_2081" internalName="bdv_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shrsp gla  shrsp gcrc" field="shrsp_gla__shrsp_gcrc_2081" internalName="shrsp_gla__shrsp_gcrc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 206" field="pkdxlewbc1_206_2081" internalName="pkdxlewbc1_206" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21063" field="_gkxbn_f21063_2081" internalName="_gkxbn_f21063" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr izm" field="shr_izm_2081" internalName="shr_izm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew jms" field="lew_jms_2081" internalName="lew_jms" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 535" field="pkdxlewbc1_535_2081" internalName="pkdxlewbc1_535" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr npy" field="shr_npy_2081" internalName="shr_npy" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bh ztm" field="bh_ztm_2081" internalName="bh_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Sp wkygla2e" field="sp_wkygla2e_2081" internalName="sp_wkygla2e" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21198" field="_gkxbn_f21198_2081" internalName="_gkxbn_f21198" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21065" field="_gkxbn_f21065_2081" internalName="_gkxbn_f21065" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 213" field="hs_213_2081" internalName="hs_213" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21100" field="_gkxbn_f21100_2081" internalName="_gkxbn_f21100" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Om ztm" field="om_ztm_2081" internalName="om_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn ssnhsd" field="bn_ssnhsd_2081" internalName="bn_ssnhsd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Htx kyo" field="htx_kyo_2081" internalName="htx_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Sbn ygl" field="sbn_ygl_2081" internalName="sbn_ygl" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Don kyo" field="don_kyo_2081" internalName="don_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn france" field="bn_france_2081" internalName="bn_france" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf7a" field="lexf7a_2081" internalName="lexf7a" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lewc10 c 2" field="bn_lewc10_c_2_2081" internalName="bn_lewc10_c_2" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Gaers" field="gaers_2081" internalName="gaers" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb24" field="hxb24_2081" internalName="hxb24" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wna nem" field="wna_nem_2081" internalName="wna_nem" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo6b" field="pxo6b_2081" internalName="pxo6b" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21169" field="_gkxbn_f21169_2081" internalName="_gkxbn_f21169" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lew c9 c 3" field="bn_lew_c9_c_3_2081" internalName="bn_lew_c9_c_3" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bxh8" field="bxh8_2081" internalName="bxh8" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Aci ztm" field="aci_ztm_2081" internalName="aci_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 208" field="hs_208_2081" internalName="hs_208" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb31" field="hxb31_2081" internalName="hxb31" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21177" field="_gkxbn_f21177_2081" internalName="_gkxbn_f21177" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Par wslztm" field="par_wslztm_2081" internalName="par_wslztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 817" field="pkdxlewbc1_817_2081" internalName="pkdxlewbc1_817" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wky nmna" field="wky_nmna_2081" internalName="wky_nmna" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shrsp izm" field="shrsp_izm_2081" internalName="shrsp_izm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo3b" field="pxo3b_2081" internalName="pxo3b" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21080" field="_gkxbn_f21080_2081" internalName="_gkxbn_f21080" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pvg 1av1 kini" field="pvg_1av1_kini_2081" internalName="pvg_1av1_kini" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle21" field="fxle21_2081" internalName="fxle21" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 193" field="hs_193_2081" internalName="hs_193" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 229" field="hs_229_2081" internalName="hs_229" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lew c9 d 4" field="bn_lew_c9_d_4_2081" internalName="bn_lew_c9_d_4" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lou ins" field="lou_ins_2081" internalName="lou_ins" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 715" field="pkdxlewbc1_715_2081" internalName="pkdxlewbc1_715" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 215" field="pkdxlewbc1_215_2081" internalName="pkdxlewbc1_215" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Cds ygl" field="cds_ygl_2081" internalName="cds_ygl" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Ser kyo" field="ser_kyo_2081" internalName="ser_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wkah hkmslc" field="wkah_hkmslc_2081" internalName="wkah_hkmslc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Aci eur" field="aci_eur_2081" internalName="aci_eur" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21190" field="_gkxbn_f21190_2081" internalName="_gkxbn_f21190" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Om nslc" field="om_nslc_2081" internalName="om_nslc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21077" field="_gkxbn_f21077_2081" internalName="_gkxbn_f21077" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="E3 rhd" field="e3_rhd_2081" internalName="e3_rhd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="F344 mullins" field="f344_mullins_2081" internalName="f344_mullins" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Sd" field="sd_2081" internalName="sd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 223" field="pkdxlewbc1_223_2081" internalName="pkdxlewbc1_223" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 645" field="pkdxlewbc1_645_2081" internalName="pkdxlewbc1_645" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 312" field="pkdxlewbc1_312_2081" internalName="pkdxlewbc1_312" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lou cztm" field="lou_cztm_2081" internalName="lou_cztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew bnc10 c 1" field="lew_bnc10_c_1_2081" internalName="lew_bnc10_c_1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21192" field="_gkxbn_f21192_2081" internalName="_gkxbn_f21192" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Rico ngs" field="rico_ngs_2081" internalName="rico_ngs" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Ss jrhsdmcwi" field="ss_jrhsdmcwi_2081" internalName="ss_jrhsdmcwi" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo8a" field="pxo8a_2081" internalName="pxo8a" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wag rijkyo" field="wag_rijkyo_2081" internalName="wag_rijkyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn hankini" field="bn_hankini_2081" internalName="bn_hankini" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn gk bw gk1 ox" field="bn_gk_bw_gk1_ox_2081" internalName="bn_gk_bw_gk1_ox" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21071" field="_gkxbn_f21071_2081" internalName="_gkxbn_f21071" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 552" field="pkdxlewbc1_552_2081" internalName="pkdxlewbc1_552" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew bnc10 ia 2" field="lew_bnc10_ia_2_2081" internalName="lew_bnc10_ia_2" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21095" field="_gkxbn_f21095_2081" internalName="_gkxbn_f21095" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew ztm" field="lew_ztm_2081" internalName="lew_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf7c" field="lexf7c_2081" internalName="lexf7c" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Ner kyo" field="ner_kyo_2081" internalName="ner_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Le stm" field="le_stm_2081" internalName="le_stm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 204" field="hs_204_2081" internalName="hs_204" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle23" field="fxle23_2081" internalName="fxle23" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 221" field="hs_221_2081" internalName="hs_221" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lx" field="bn_lx_2081" internalName="bn_lx" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bs ztm" field="bs_ztm_2081" internalName="bs_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Da slc" field="da_slc_2081" internalName="da_slc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21097" field="_gkxbn_f21097_2081" internalName="_gkxbn_f21097" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf1a" field="lexf1a_2081" internalName="lexf1a" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr bn10 ipcv" field="shr_bn10_ipcv_2081" internalName="shr_bn10_ipcv" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf1c" field="lexf1c_2081" internalName="lexf1c" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21076" field="_gkxbn_f21076_2081" internalName="_gkxbn_f21076" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lewc10 b 1" field="bn_lewc10_b_1_2081" internalName="bn_lewc10_b_1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 216" field="hs_216_2081" internalName="hs_216" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21189" field="_gkxbn_f21189_2081" internalName="_gkxbn_f21189" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21197" field="_gkxbn_f21197_2081" internalName="_gkxbn_f21197" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 198" field="hs_198_2081" internalName="hs_198" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="The" field="the_2081" internalName="the" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bdix zte" field="bdix_zte_2081" internalName="bdix_zte" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Mes slc" field="mes_slc_2081" internalName="mes_slc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lej hkm" field="lej_hkm_2081" internalName="lej_hkm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 196" field="hs_196_2081" internalName="hs_196" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wky bbb" field="wky_bbb_2081" internalName="wky_bbb" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf3" field="lexf3_2081" internalName="lexf3" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr b doris" field="shr_b_doris_2081" internalName="shr_b_doris" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle12" field="fxle12_2081" internalName="fxle12" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb17" field="hxb17_2081" internalName="hxb17" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21070" field="_gkxbn_f21070_2081" internalName="_gkxbn_f21070" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn 1" field="bn_1_2081" internalName="bn_1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo7b" field="pxo7b_2081" internalName="pxo7b" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Mhs gib" field="mhs_gib_2081" internalName="mhs_gib" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 746" field="pkdxlewbc1_746_2081" internalName="pkdxlewbc1_746" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21083" field="_gkxbn_f21083_2081" internalName="_gkxbn_f21083" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="F1 2" field="f1_2_2081" internalName="f1_2" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21111" field="_gkxbn_f21111_2081" internalName="_gkxbn_f21111" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21172" field="_gkxbn_f21172_2081" internalName="_gkxbn_f21172" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Rcs kyo" field="rcs_kyo_2081" internalName="rcs_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21074" field="_gkxbn_f21074_2081" internalName="_gkxbn_f21074" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo5a" field="pxo5a_2081" internalName="pxo5a" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wbn kobslc" field="wbn_kobslc_2081" internalName="wbn_kobslc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 568" field="pkdxlewbc1_568_2081" internalName="pkdxlewbc1_568" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Tle" field="tle_2081" internalName="tle" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Da olahsd" field="da_olahsd_2081" internalName="da_olahsd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21174" field="_gkxbn_f21174_2081" internalName="_gkxbn_f21174" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21187" field="_gkxbn_f21187_2081" internalName="_gkxbn_f21187" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lewc10 e 2" field="bn_lewc10_e_2_2081" internalName="bn_lewc10_e_2" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21195" field="_gkxbn_f21195_2081" internalName="_gkxbn_f21195" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew 1" field="lew_1_2081" internalName="lew_1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr lx male" field="shr_lx_male_2081" internalName="shr_lx_male" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21128" field="_gkxbn_f21128_2081" internalName="_gkxbn_f21128" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wka seac" field="wka_seac_2081" internalName="wka_seac" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 539" field="pkdxlewbc1_539_2081" internalName="pkdxlewbc1_539" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 235" field="hs_235_2081" internalName="hs_235" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21125" field="_gkxbn_f21125_2081" internalName="_gkxbn_f21125" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21081" field="_gkxbn_f21081_2081" internalName="_gkxbn_f21081" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wc ztm" field="wc_ztm_2081" internalName="wc_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb13" field="hxb13_2081" internalName="hxb13" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bxh3" field="bxh3_2081" internalName="bxh3" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21179" field="_gkxbn_f21179_2081" internalName="_gkxbn_f21179" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 623" field="pkdxlewbc1_623_2081" internalName="pkdxlewbc1_623" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21091" field="_gkxbn_f21091_2081" internalName="_gkxbn_f21091" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21170" field="_gkxbn_f21170_2081" internalName="_gkxbn_f21170" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb1" field="hxb1_2081" internalName="hxb1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Cop spzirer" field="cop_spzirer_2081" internalName="cop_spzirer" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21104" field="_gkxbn_f21104_2081" internalName="_gkxbn_f21104" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb3" field="hxb3_2081" internalName="hxb3" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21066" field="_gkxbn_f21066_2081" internalName="_gkxbn_f21066" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle17" field="fxle17_2081" internalName="fxle17" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Zi kyo" field="zi_kyo_2081" internalName="zi_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21079" field="_gkxbn_f21079_2081" internalName="_gkxbn_f21079" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21085" field="_gkxbn_f21085_2081" internalName="_gkxbn_f21085" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lh bn17 sassard" field="lh_bn17_sassard_2081" internalName="lh_bn17_sassard" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21087" field="_gkxbn_f21087_2081" internalName="_gkxbn_f21087" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21127" field="_gkxbn_f21127_2081" internalName="_gkxbn_f21127" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 211" field="hs_211_2081" internalName="hs_211" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wf kop" field="wf_kop_2081" internalName="wf_kop" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Da lew rt1f  d20wox15 d20wox13  rhd" field="da_lew_rt1f__d20wox15_d20wox13__rhd_2081" internalName="da_lew_rt1f__d20wox15_d20wox13__rhd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 232" field="hs_232_2081" internalName="hs_232" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lewc10 cd 1" field="bn_lewc10_cd_1_2081" internalName="bn_lewc10_cd_1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21089" field="_gkxbn_f21089_2081" internalName="_gkxbn_f21089" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew bnc10 i 1" field="lew_bnc10_i_1_2081" internalName="lew_bnc10_i_1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="E3 ztm" field="e3_ztm_2081" internalName="e3_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21185" field="_gkxbn_f21185_2081" internalName="_gkxbn_f21185" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle19" field="fxle19_2081" internalName="fxle19" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo4" field="pxo4_2081" internalName="pxo4" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shrsp bbb" field="shrsp_bbb_2081" internalName="shrsp_bbb" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Gh omrmcwi" field="gh_omrmcwi_2081" internalName="gh_omrmcwi" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn ssnslc" field="bn_ssnslc_2081" internalName="bn_ssnslc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr nhsd" field="shr_nhsd_2081" internalName="shr_nhsd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Da bi rt1i  d20rat42 d20rat31  rhd" field="da_bi_rt1i__d20rat42_d20rat31__rhd_2081" internalName="da_bi_rt1i__d20rat42_d20rat31__rhd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle16" field="fxle16_2081" internalName="fxle16" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 224" field="hs_224_2081" internalName="hs_224" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lec hok" field="lec_hok_2081" internalName="lec_hok" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bxh12a" field="bxh12a_2081" internalName="bxh12a" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb15" field="hxb15_2081" internalName="hxb15" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb5" field="hxb5_2081" internalName="hxb5" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 301" field="pkdxlewbc1_301_2081" internalName="pkdxlewbc1_301" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle14" field="fxle14_2081" internalName="fxle14" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Mwf hsdztm" field="mwf_hsdztm_2081" internalName="mwf_hsdztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="F344 nslc" field="f344_nslc_2081" internalName="f344_nslc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf5" field="lexf5_2081" internalName="lexf5" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21181" field="_gkxbn_f21181_2081" internalName="_gkxbn_f21181" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 214" field="hs_214_2081" internalName="hs_214" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkd us cy    1" field="pkd_us_cy____1_2081" internalName="pkd_us_cy____1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wistar kyoto spzirer" field="wistar_kyoto_spzirer_2081" internalName="wistar_kyoto_spzirer" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lewc10 fa 1" field="bn_lewc10_fa_1_2081" internalName="bn_lewc10_fa_1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bxh12" field="bxh12_2081" internalName="bxh12" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Aci n" field="aci_n_2081" internalName="aci_n" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Kdp tky" field="kdp_tky_2081" internalName="kdp_tky" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Tm kyo" field="tm_kyo_2081" internalName="tm_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wild1 hubr" field="wild1_hubr_2081" internalName="wild1_hubr" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Drh seac" field="drh_seac_2081" internalName="drh_seac" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf8d" field="lexf8d_2081" internalName="lexf8d" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shrsr shrsp  klk mt1pa  bbb" field="shrsr_shrsp__klk_mt1pa__bbb_2081" internalName="shrsr_shrsp__klk_mt1pa__bbb" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn1l 1" field="bn1l_1_2081" internalName="bn1l_1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle24" field="fxle24_2081" internalName="fxle24" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb27" field="hxb27_2081" internalName="hxb27" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21101" field="_gkxbn_f21101_2081" internalName="_gkxbn_f21101" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Symbol" field="symbol_2081" internalName="symbol" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 808" field="pkdxlewbc1_808_2081" internalName="pkdxlewbc1_808" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 205" field="hs_205_2081" internalName="hs_205" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lew c9 c 4" field="bn_lew_c9_c_4_2081" internalName="bn_lew_c9_c_4" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle22" field="fxle22_2081" internalName="fxle22" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 212" field="hs_212_2081" internalName="hs_212" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb21" field="hxb21_2081" internalName="hxb21" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bdiv ifz" field="bdiv_ifz_2081" internalName="bdiv_ifz" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="F344 ntac" field="f344_ntac_2081" internalName="f344_ntac" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Ss jrhsd" field="ss_jrhsd_2081" internalName="ss_jrhsd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf7b" field="lexf7b_2081" internalName="lexf7b" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wkah hok" field="wkah_hok_2081" internalName="wkah_hok" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wokw k" field="wokw_k_2081" internalName="wokw_k" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 226" field="hs_226_2081" internalName="hs_226" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew bn c9 ca 2" field="lew_bn_c9_ca_2_2081" internalName="lew_bn_c9_ca_2" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn gk nidd gk5 ox" field="bn_gk_nidd_gk5_ox_2081" internalName="bn_gk_nidd_gk5_ox" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 207" field="pkdxlewbc1_207_2081" internalName="pkdxlewbc1_207" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr bn18 ipcv" field="shr_bn18_ipcv_2081" internalName="shr_bn18_ipcv" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo8b" field="pxo8b_2081" internalName="pxo8b" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb23" field="hxb23_2081" internalName="hxb23" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fhh eurmcwi" field="fhh_eurmcwi_2081" internalName="fhh_eurmcwi" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo6a" field="pxo6a_2081" internalName="pxo6a" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf2c" field="lexf2c_2081" internalName="lexf2c" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 230" field="hs_230_2081" internalName="hs_230" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wky ztm" field="wky_ztm_2081" internalName="wky_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb18" field="hxb18_2081" internalName="hxb18" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21062" field="_gkxbn_f21062_2081" internalName="_gkxbn_f21062" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 201" field="hs_201_2081" internalName="hs_201" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shrsp ngsk" field="shrsp_ngsk_2081" internalName="shrsp_ngsk" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="R33 ztm" field="r33_ztm_2081" internalName="r33_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo1" field="pxo1_2081" internalName="pxo1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bxh5" field="bxh5_2081" internalName="bxh5" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr m" field="shr_m_2081" internalName="shr_m" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shhf bbb" field="shhf_bbb_2081" internalName="shhf_bbb" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Sp wkygla2k" field="sp_wkygla2k_2081" internalName="sp_wkygla2k" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wky gla  wky gcrc" field="wky_gla__wky_gcrc_2081" internalName="wky_gla__wky_gcrc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 733" field="pkdxlewbc1_733_2081" internalName="pkdxlewbc1_733" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21060" field="_gkxbn_f21060_2081" internalName="_gkxbn_f21060" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Ln mav" field="ln_mav_2081" internalName="ln_mav" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21183" field="_gkxbn_f21183_2081" internalName="_gkxbn_f21183" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lewc10 c 1" field="bn_lewc10_c_1_2081" internalName="bn_lewc10_c_1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 228" field="hs_228_2081" internalName="hs_228" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bxh11" field="bxh11_2081" internalName="bxh11" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bdix ztm" field="bdix_ztm_2081" internalName="bdix_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 199" field="pkdxlewbc1_199_2081" internalName="pkdxlewbc1_199" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn mav" field="bn_mav_2081" internalName="bn_mav" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21105" field="_gkxbn_f21105_2081" internalName="_gkxbn_f21105" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo6c" field="pxo6c_2081" internalName="pxo6c" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Mns gib" field="mns_gib_2081" internalName="mns_gib" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 199" field="hs_199_2081" internalName="hs_199" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21094" field="_gkxbn_f21094_2081" internalName="_gkxbn_f21094" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bxh9" field="bxh9_2081" internalName="bxh9" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr lx cub" field="shr_lx_cub_2081" internalName="shr_lx_cub" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bbdr bbdp  d4mit6 d4mit7  rhw" field="bbdr_bbdp__d4mit6_d4mit7__rhw_2081" internalName="bbdr_bbdp__d4mit6_d4mit7__rhw" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21064" field="_gkxbn_f21064_2081" internalName="_gkxbn_f21064" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wky izm" field="wky_izm_2081" internalName="wky_izm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shrsp ezo" field="shrsp_ezo_2081" internalName="shrsp_ezo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 780" field="pkdxlewbc1_780_2081" internalName="pkdxlewbc1_780" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 194" field="hs_194_2081" internalName="hs_194" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21109" field="_gkxbn_f21109_2081" internalName="_gkxbn_f21109" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Sp wkygla2f" field="sp_wkygla2f_2081" internalName="sp_wkygla2f" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 799" field="pkdxlewbc1_799_2081" internalName="pkdxlewbc1_799" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21068" field="_gkxbn_f21068_2081" internalName="_gkxbn_f21068" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21098" field="_gkxbn_f21098_2081" internalName="_gkxbn_f21098" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21191" field="_gkxbn_f21191_2081" internalName="_gkxbn_f21191" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 222" field="hs_222_2081" internalName="hs_222" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Da han" field="da_han_2081" internalName="da_han" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shrsp shrsr  klk d1mit3  bbb" field="shrsp_shrsr__klk_d1mit3__bbb_2081" internalName="shrsp_shrsr__klk_d1mit3__bbb" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn gk nidd gk1 ox" field="bn_gk_nidd_gk1_ox_2081" internalName="bn_gk_nidd_gk1_ox" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21096" field="_gkxbn_f21096_2081" internalName="_gkxbn_f21096" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Khr kyo" field="khr_kyo_2081" internalName="khr_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21175" field="_gkxbn_f21175_2081" internalName="_gkxbn_f21175" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 222" field="pkdxlewbc1_222_2081" internalName="pkdxlewbc1_222" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bdii ztm" field="bdii_ztm_2081" internalName="bdii_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 207" field="hs_207_2081" internalName="hs_207" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="W nhg" field="w_nhg_2081" internalName="w_nhg" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lewc10 e 1" field="bn_lewc10_e_1_2081" internalName="bn_lewc10_e_1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf10c" field="lexf10c_2081" internalName="lexf10c" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Rp aeurrijhsd" field="rp_aeurrijhsd_2081" internalName="rp_aeurrijhsd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Aug olahsd" field="aug_olahsd_2081" internalName="aug_olahsd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Ludw olahsd" field="ludw_olahsd_2081" internalName="ludw_olahsd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew bn c9 c 3" field="lew_bn_c9_c_3_2081" internalName="lew_bn_c9_c_3" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shrsr shrsp  d1rat134 mt1pa  bbb" field="shrsr_shrsp__d1rat134_mt1pa__bbb_2081" internalName="shrsr_shrsp__d1rat134_mt1pa__bbb" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21072" field="_gkxbn_f21072_2081" internalName="_gkxbn_f21072" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle20" field="fxle20_2081" internalName="fxle20" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 791" field="pkdxlewbc1_791_2081" internalName="pkdxlewbc1_791" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo3a" field="pxo3a_2081" internalName="pxo3a" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bde ztm" field="bde_ztm_2081" internalName="bde_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21178" field="_gkxbn_f21178_2081" internalName="_gkxbn_f21178" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr nis" field="shr_nis_2081" internalName="shr_nis" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21092" field="_gkxbn_f21092_2081" internalName="_gkxbn_f21092" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle26" field="fxle26_2081" internalName="fxle26" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb25" field="hxb25_2081" internalName="hxb25" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21129" field="_gkxbn_f21129_2081" internalName="_gkxbn_f21129" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lew c9 d 3" field="bn_lew_c9_d_3_2081" internalName="bn_lew_c9_d_3" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Is kyo" field="is_kyo_2081" internalName="is_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pvg olahsdcpb" field="pvg_olahsdcpb_2081" internalName="pvg_olahsdcpb" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Ne" field="ne_2081" internalName="ne" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr olaipcv" field="shr_olaipcv_2081" internalName="shr_olaipcv" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf9" field="lexf9_2081" internalName="lexf9" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew bnc10 if 1" field="lew_bnc10_if_1_2081" internalName="lew_bnc10_if_1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn crl" field="bn_crl_2081" internalName="bn_crl" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="W kyo" field="w_kyo_2081" internalName="w_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 209" field="hs_209_2081" internalName="hs_209" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="F344 stm" field="f344_stm_2081" internalName="f344_stm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wkyo kyo" field="wkyo_kyo_2081" internalName="wkyo_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf10a" field="lexf10a_2081" internalName="lexf10a" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Aci nslc" field="aci_nslc_2081" internalName="aci_nslc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21193" field="_gkxbn_f21193_2081" internalName="_gkxbn_f21193" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Gk luthmann" field="gk_luthmann_2081" internalName="gk_luthmann" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Sprd cu3 spzirer" field="sprd_cu3_spzirer_2081" internalName="sprd_cu3_spzirer" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 203" field="hs_203_2081" internalName="hs_203" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 342" field="pkdxlewbc1_342_2081" internalName="pkdxlewbc1_342" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Sd crl" field="sd_crl_2081" internalName="sd_crl" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Sd han" field="sd_han_2081" internalName="sd_han" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Sp wkygla2i" field="sp_wkygla2i_2081" internalName="sp_wkygla2i" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21194" field="_gkxbn_f21194_2081" internalName="_gkxbn_f21194" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 593" field="pkdxlewbc1_593_2081" internalName="pkdxlewbc1_593" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bxh2" field="bxh2_2081" internalName="bxh2" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wag" field="wag_2081" internalName="wag" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bb wortky" field="bb_wortky_2081" internalName="bb_wortky" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shrsp wky  d2rat13 d2rat157" field="shrsp_wky__d2rat13_d2rat157__2081_r1" internalName="shrsp_wky__d2rat13_d2rat157" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Aci" field="aci_2081" internalName="aci" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Mns gibztm" field="mns_gibztm_2081" internalName="mns_gibztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb14" field="hxb14_2081" internalName="hxb14" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21073" field="_gkxbn_f21073_2081" internalName="_gkxbn_f21073" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lewc10 fa 2" field="bn_lewc10_fa_2_2081" internalName="bn_lewc10_fa_2" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Sr jrhsd" field="sr_jrhsd_2081" internalName="sr_jrhsd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wky mdc" field="wky_mdc_2081" internalName="wky_mdc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn ztm" field="bn_ztm_2081" internalName="bn_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Sbh ygl" field="sbh_ygl_2081" internalName="sbh_ygl" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo7a" field="pxo7a_2081" internalName="pxo7a" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Buf mna" field="buf_mna_2081" internalName="buf_mna" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21075" field="_gkxbn_f21075_2081" internalName="_gkxbn_f21075" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21171" field="_gkxbn_f21171_2081" internalName="_gkxbn_f21171" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 197" field="hs_197_2081" internalName="hs_197" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hwy slc" field="hwy_slc_2081" internalName="hwy_slc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21099" field="_gkxbn_f21099_2081" internalName="_gkxbn_f21099" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shrsp mdc" field="shrsp_mdc_2081" internalName="shrsp_mdc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle15" field="fxle15_2081" internalName="fxle15" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 195" field="hs_195_2081" internalName="hs_195" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lh mav" field="lh_mav_2081" internalName="lh_mav" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Da hankini" field="da_hankini_2081" internalName="da_hankini" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo5b" field="pxo5b_2081" internalName="pxo5b" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn gk nidd gk3 ox" field="bn_gk_nidd_gk3_ox_2081" internalName="bn_gk_nidd_gk3_ox" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wky ncrl" field="wky_ncrl_2081" internalName="wky_ncrl" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21112" field="_gkxbn_f21112_2081" internalName="_gkxbn_f21112" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Gk  6" field="gk__6_2081" internalName="gk__6" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew bnc10 ia 1" field="lew_bnc10_ia_1_2081" internalName="lew_bnc10_ia_1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shrsp shrsr  d1rat134 mt1pa  bbb" field="shrsp_shrsr__d1rat134_mt1pa__bbb_2081" internalName="shrsp_shrsr__d1rat134_mt1pa__bbb" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21126" field="_gkxbn_f21126_2081" internalName="_gkxbn_f21126" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="F344 luthmann" field="f344_luthmann_2081" internalName="f344_luthmann" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21082" field="_gkxbn_f21082_2081" internalName="_gkxbn_f21082" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Haa fdsc" field="haa_fdsc_2081" internalName="haa_fdsc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lewc10 cc 1" field="bn_lewc10_cc_1_2081" internalName="bn_lewc10_cc_1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Gk mcwi" field="gk_mcwi_2081" internalName="gk_mcwi" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 234" field="hs_234_2081" internalName="hs_234" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf8a" field="lexf8a_2081" internalName="lexf8a" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="F344 ztm" field="f344_ztm_2081" internalName="f344_ztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Leahok" field="leahok_2081" internalName="leahok" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf4" field="lexf4_2081" internalName="lexf4" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21196" field="_gkxbn_f21196_2081" internalName="_gkxbn_f21196" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb29" field="hxb29_2081" internalName="hxb29" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Laa fdsc" field="laa_fdsc_2081" internalName="laa_fdsc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21176" field="_gkxbn_f21176_2081" internalName="_gkxbn_f21176" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 693" field="pkdxlewbc1_693_2081" internalName="pkdxlewbc1_693" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew ssnslc" field="lew_ssnslc_2081" internalName="lew_ssnslc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21173" field="_gkxbn_f21173_2081" internalName="_gkxbn_f21173" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21188" field="_gkxbn_f21188_2081" internalName="_gkxbn_f21188" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb20" field="hxb20_2081" internalName="hxb20" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wistar furth spzirer" field="wistar_furth_spzirer_2081" internalName="wistar_furth_spzirer" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb10" field="hxb10_2081" internalName="hxb10" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Buf han" field="buf_han_2081" internalName="buf_han" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf11" field="lexf11_2081" internalName="lexf11" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21078" field="_gkxbn_f21078_2081" internalName="_gkxbn_f21078" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21103" field="_gkxbn_f21103_2081" internalName="_gkxbn_f21103" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew bn c9 c 4" field="lew_bn_c9_c_4_2081" internalName="lew_bn_c9_c_4" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21110" field="_gkxbn_f21110_2081" internalName="_gkxbn_f21110" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Trmr kyo" field="trmr_kyo_2081" internalName="trmr_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew mullins" field="lew_mullins_2081" internalName="lew_mullins" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle18" field="fxle18_2081" internalName="fxle18" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 200" field="hs_200_2081" internalName="hs_200" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pvg seac" field="pvg_seac_2081" internalName="pvg_seac" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 298" field="pkdxlewbc1_298_2081" internalName="pkdxlewbc1_298" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21069" field="_gkxbn_f21069_2081" internalName="_gkxbn_f21069" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Knd tky" field="knd_tky_2081" internalName="knd_tky" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lew c9 b 4" field="bn_lew_c9_b_4_2081" internalName="bn_lew_c9_b_4" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bn lewc10 fb 3" field="bn_lewc10_fb_3_2081" internalName="bn_lewc10_fb_3" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 764" field="pkdxlewbc1_764_2081" internalName="pkdxlewbc1_764" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Buf simrijhsd" field="buf_simrijhsd_2081" internalName="buf_simrijhsd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Bxh10" field="bxh10_2081" internalName="bxh10" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wag rijhsd" field="wag_rijhsd_2081" internalName="wag_rijhsd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb2" field="hxb2_2081" internalName="hxb2" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21180" field="_gkxbn_f21180_2081" internalName="_gkxbn_f21180" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew bnc10 i 2" field="lew_bnc10_i_2_2081" internalName="lew_bnc10_i_2" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Sd a" field="sd_a_2081" internalName="sd_a" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr lx female" field="shr_lx_female_2081" internalName="shr_lx_female" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21067" field="_gkxbn_f21067_2081" internalName="_gkxbn_f21067" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Shr kyo" field="shr_kyo_2081" internalName="shr_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21084" field="_gkxbn_f21084_2081" internalName="_gkxbn_f21084" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21106" field="_gkxbn_f21106_2081" internalName="_gkxbn_f21106" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wky 1 bbb" field="wky_1_bbb_2081" internalName="wky_1_bbb" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf6b" field="lexf6b_2081" internalName="lexf6b" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 215" field="hs_215_2081" internalName="hs_215" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Domwild gro" field="domwild_gro_2081" internalName="domwild_gro" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Nar sauztm" field="nar_sauztm_2081" internalName="nar_sauztm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkd" field="pkd_2081" internalName="pkd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pxo10" field="pxo10_2081" internalName="pxo10" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Trm kyo" field="trm_kyo_2081" internalName="trm_kyo" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew bnc10 e 1" field="lew_bnc10_e_1_2081" internalName="lew_bnc10_e_1" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21088" field="_gkxbn_f21088_2081" internalName="_gkxbn_f21088" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lew nhsd" field="lew_nhsd_2081" internalName="lew_nhsd" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21086" field="_gkxbn_f21086_2081" internalName="_gkxbn_f21086" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21186" field="_gkxbn_f21186_2081" internalName="_gkxbn_f21186" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 236" field="hs_236_2081" internalName="hs_236" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="To hkm" field="to_hkm_2081" internalName="to_hkm" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21090" field="_gkxbn_f21090_2081" internalName="_gkxbn_f21090" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Lexf2a" field="lexf2a_2081" internalName="lexf2a" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Gk slc" field="gk_slc_2081" internalName="gk_slc" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Fxle13" field="fxle13_2081" internalName="fxle13" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 233" field="hs_233_2081" internalName="hs_233" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wiar iar" field="wiar_iar_2081" internalName="wiar_iar" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21122" field="_gkxbn_f21122_2081" internalName="_gkxbn_f21122" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hs 210" field="hs_210_2081" internalName="hs_210" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Hxb4" field="hxb4_2081" internalName="hxb4" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21182" field="_gkxbn_f21182_2081" internalName="_gkxbn_f21182" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Pkdxlewbc1 261" field="pkdxlewbc1_261_2081" internalName="pkdxlewbc1_261" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName="Wn n" field="wn_n_2081" internalName="wn_n" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-        <AttributeDescription displayName=" gkxbn f21124" field="_gkxbn_f21124_2081" internalName="_gkxbn_f21124" key="variation_id_2025_key" maxLength="100" tableConstraint="main"/>
-      </AttributeCollection>
-    </AttributeGroup>
-  </AttributePage>
-  -->
   <AttributePage hideDisplay="true" internalName="link_attributes">
     <AttributeGroup hideDisplay="true" internalName="link">
       <AttributeCollection hideDisplay="true" internalName="link" maxSelect="0">
