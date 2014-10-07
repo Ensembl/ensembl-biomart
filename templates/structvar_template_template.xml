@@ -14,7 +14,7 @@
     <FilterGroup displayName="REGION:" internalName="region" useDefault="true">
       <FilterCollection displayName="Chromosome" internalName="chromosome" useDefault="true">
         <FilterDescription displayName="Chromosome name" displayType="list" field="name_2034" internalName="chr_name" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" otherFilters="*species4*_karyotype_start.name;*species4*_karyotype_end.name" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
-	  <SpecificFilterContent internalName="ReplaceMe"/>
+	  <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Coordinates" internalName="chromosome_coordinates" useDefault="true">
@@ -29,17 +29,17 @@
     <FilterGroup displayName="GENERAL STRUCTURAL VARIATION FILTERS:" internalName="svfilters" useDefault="true">
       <FilterCollection displayName="Variation source" internalName="structural_variation_source" useDefault="true">
         <FilterDescription displayName="Variation source" displayType="list" field="name_2021" hidden="false" internalName="source_name" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Study description" internalName="structural_variation_study" useDefault="true">
         <FilterDescription displayName="Study description" displayType="text" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Strain" internalName="structural_variation_annotation" useDefault="true" hidden="true">
         <FilterDescription displayName="Strain" displayType="list" field="name_2019" hidden="true" internalName="structural_variation_annotation" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="structural_variation_annotation__dm" type="list" useDefault="true">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Variation ID" internalName="structural_variation_filter" useDefault="true">

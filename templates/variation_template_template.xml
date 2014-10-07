@@ -21,7 +21,7 @@
     <FilterGroup displayName="REGION:" internalName="region">
       <FilterCollection displayName="Chromosome" internalName="chromosome">
         <FilterDescription displayName="Chromosome name" displayType="text" field="name_1059" internalName="chr_name" key="variation_feature_id_2026_key" legal_qualifiers="=" otherFilters="*species4*_karyotype_start.name;*species4*_karyotype_end.name" qualifier="=" tableConstraint="main" type="text">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Coordinates" internalName="chromosome_coordinates">
@@ -130,7 +130,7 @@
       -->
       <FilterCollection displayName="Variation source" internalName="variation_source">
         <FilterDescription displayName="Variation source" displayType="list" field="name_2021" internalName="variation_source" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" type="list">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Variation ID (e.g. rs123, CM000001) [Max 500 advised]" internalName="snpfilter_collection">
@@ -138,7 +138,7 @@
       </FilterCollection>
       <FilterCollection displayName="Variation synonym source" internalName="variation_synonym_source">
         <FilterDescription displayName="Variation synonym source" displayType="list" field="name_2021" internalName="variation_synonym_source" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_synonym__dm" type="list">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Variation synonym ID (e.g. BS00185364) [Max 500 advised]" internalName="snp_synonym_filter_collection">
@@ -147,18 +147,18 @@
       <!--
       <FilterCollection displayName="Validation status" internalName="validation_status">
         <FilterDescription displayName="Validation status" displayType="list" field="validation_status_2025" internalName="validation_status" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" isDefault="true">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       -->
       <FilterCollection displayName="Study type" internalName="study_type">
         <FilterDescription displayName="Study type" displayType="list" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Phenotype" internalName="phenotype_description">
         <FilterDescription displayName="Phenotype description" displayType="list" field="description_2033" internalName="phenotype_description" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list" isDefault="true">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <!--
@@ -169,22 +169,22 @@
       -->
       <FilterCollection displayName="Phenotype significance [0 non-significant, 1 significant]" internalName="phenotype_significance">
         <FilterDescription displayName="Phenotype significance" displayType="list" field="is_significant_20133" internalName="phenotype_significance" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="radio" tableConstraint="variation_annotation__dm" type="list">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Variation Set name" internalName="variation_set">
         <FilterDescription displayName="Variation Set Name" displayType="list" field="name_2077" internalName="variation_set_name" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_set_variation__dm" type="list" isDefault="true">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="SIFT prediction" internalName="sift" hidden="true">
         <FilterDescription displayName="SIFT Prediction" displayType="list" field="sift_prediction_2090" internalName="sift_prediction" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="PolyPhen prediction" internalName="polyphen" hidden="true">
         <FilterDescription displayName="PolyPhen Prediction" displayType="list" field="polyphen_prediction_2090" internalName="polyphen_prediction" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Validated variations" internalName="validated_snp">
@@ -198,7 +198,7 @@
       </FilterCollection>
       <FilterCollection displayName="Limit to variations from strain(s)" internalName="snp_strain_col">
         <FilterDescription displayName="Reference strain" displayType="list" field="name_2019" internalName="reference_strain" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="poly__dm" type="list" isDefault="true">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
@@ -208,7 +208,7 @@
       </FilterCollection>
       <FilterCollection displayName="Consequence type" internalName="consequence_type">
         <FilterDescription displayName="Consequence type" displayType="list" field="consequence_types_2090" internalName="consequence_type" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list">
-          <SpecificFilterContent internalName="ReplaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
