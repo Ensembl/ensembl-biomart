@@ -27,6 +27,8 @@ use File::Spec::Functions qw(catdir);
 sub param_defaults {
   return {
     'variation_feature' => 0,
+    'consequences' =>
+      {'snp__mart_transcript_variation__dm' => 'consequence_types_2090'},
   };
 }
 
@@ -96,6 +98,8 @@ sub create_table {
   
   $mart_dbh->do($create_sql) or $self->throw($mart_dbh->errstr);
   $mart_dbh->do($truncate_sql) or $self->throw($mart_dbh->errstr);
+  
+  $self->order_consequences($mart_dbh, $mart_table);
 }
 
 sub existing_table_check {
@@ -120,32 +124,23 @@ sub read_string {
   return $contents;
 }
 
-sub max_key_id {
-  my ($self, $table, $alias, $column, $conditions) = @_;
+sub order_consequences {
+  my ($self, $mart_dbh, $mart_table) = @_;
   
-  my $vdbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
-  
-  # Don't bother getting the numbers exact, assume that the column has
-  # roughly consecutive IDs; the partition size is thus an upper limit, really.
-  my $sql = "SELECT MAX($column) FROM $table $alias;";
-  if (defined $conditions) {
-    my $where = ' WHERE '.join(' AND ', @$conditions);
-    $sql =~ s/;$/$where;/;
+  my %consequences = %{$self->param('consequences')};
+  foreach my $table (keys %consequences) {
+    if ($mart_table =~ /$table/) {
+      my $column = $consequences{$table};
+      my $sth = $mart_dbh->column_info(undef, undef, $table, $column);
+      my $column_info = $sth->fetchrow_hashref() or $self->throw($mart_dbh->errstr);
+      my $consequences = $$column_info{'mysql_type_name'};
+      $consequences =~ s/set\((.*)\)/$1/;
+      my @consequences = sort { lc($a) cmp lc($b) } split(/,/, $consequences);
+      $consequences = join(',', @consequences);
+      my $sql = "ALTER TABLE $table MODIFY COLUMN $column SET($consequences);";
+      $mart_dbh->do($sql) or $self->throw($mart_dbh->errstr);
+    }
   }
-  my ($max_var_id) = $vdbh->selectrow_array($sql) or $self->throw($vdbh->errstr);
-  return $max_var_id;
-}
-
-sub base_where_sql {
-  my ($self, $table, $alias, $column, $conditions) = @_;
-  
-  my $base_where_sql = ' WHERE '; 
-  if (defined $conditions) {
-    $base_where_sql .= join(' AND ', @$conditions);
-    $base_where_sql .= ' AND ';
-  }
-  $base_where_sql .= "$alias.$column BETWEEN ";
-  return $base_where_sql;
 }
 
 sub write_output {
@@ -207,6 +202,34 @@ sub write_output {
       }, 1);
     }
   }
+}
+
+sub max_key_id {
+  my ($self, $table, $alias, $column, $conditions) = @_;
+  
+  my $vdbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
+  
+  # Don't bother getting the numbers exact, assume that the column has
+  # roughly consecutive IDs; the partition size is thus an upper limit, really.
+  my $sql = "SELECT MAX($column) FROM $table $alias;";
+  if (defined $conditions) {
+    my $where = ' WHERE '.join(' AND ', @$conditions);
+    $sql =~ s/;$/$where;/;
+  }
+  my ($max_var_id) = $vdbh->selectrow_array($sql) or $self->throw($vdbh->errstr);
+  return $max_var_id;
+}
+
+sub base_where_sql {
+  my ($self, $table, $alias, $column, $conditions) = @_;
+  
+  my $base_where_sql = ' WHERE '; 
+  if (defined $conditions) {
+    $base_where_sql .= join(' AND ', @$conditions);
+    $base_where_sql .= ' AND ';
+  }
+  $base_where_sql .= "$alias.$column BETWEEN ";
+  return $base_where_sql;
 }
 
 1;
