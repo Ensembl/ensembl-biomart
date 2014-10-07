@@ -131,13 +131,13 @@ sub order_consequences {
   foreach my $table (keys %consequences) {
     if ($mart_table =~ /$table/) {
       my $column = $consequences{$table};
-      my $sth = $mart_dbh->column_info(undef, undef, $table, $column);
+      my $sth = $mart_dbh->column_info(undef, undef, $mart_table, $column);
       my $column_info = $sth->fetchrow_hashref() or $self->throw($mart_dbh->errstr);
       my $consequences = $$column_info{'mysql_type_name'};
       $consequences =~ s/set\((.*)\)/$1/;
       my @consequences = sort { lc($a) cmp lc($b) } split(/,/, $consequences);
       $consequences = join(',', @consequences);
-      my $sql = "ALTER TABLE $table MODIFY COLUMN $column SET($consequences);";
+      my $sql = "ALTER TABLE $mart_table MODIFY COLUMN $column SET($consequences);";
       $mart_dbh->do($sql) or $self->throw($mart_dbh->errstr);
     }
   }
