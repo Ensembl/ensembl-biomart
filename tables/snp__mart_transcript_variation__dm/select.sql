@@ -1,6 +1,5 @@
 SELECT
   vf.variation_feature_id as variation_feature_id_2026_key,
-  g.gene_id as gene_id_1020,
   g.stable_id as stable_id_1023,
   t.stable_id as stable_id_1066,
   t.biotype as biotype_1064,

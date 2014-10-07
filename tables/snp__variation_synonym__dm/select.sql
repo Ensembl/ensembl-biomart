@@ -1,7 +1,6 @@
 SELECT
   v.variation_id as variation_id_2025_key,
   vs.name as name_2030,
-  s.source_id as source_id_2021,
   s.name as name_2021,
   s.description as description_2021
 FROM
