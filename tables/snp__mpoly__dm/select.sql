@@ -1,8 +1,7 @@
 SELECT DISTINCT
   v.variation_id as variation_id_2025_key,
-  concat(igm.allele_1, "|", igm.allele_2) as allele,
-  i.individual_id as individual_id_2010,
-  i.name as name_2019
+  i.name as name_2019,
+  concat(igm.allele_1, "|", igm.allele_2) as allele
 FROM
   VAR_DB.individual_genotype_multiple_bp igm INNER JOIN
   VAR_DB.individual i ON

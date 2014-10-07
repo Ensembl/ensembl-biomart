@@ -1,6 +1,5 @@
 SELECT
   v.variation_id as variation_id_2025_key,
-  vs.variation_set_id as variation_set_id_2078,
   replace(vs.name, ',', '') as name_2077,
   vs.description as description_2077
 FROM
