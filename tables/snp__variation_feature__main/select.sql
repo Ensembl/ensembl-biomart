@@ -9,8 +9,6 @@ SELECT
   v_m.name_2021,
   v_m.description_2021,
   v_m.evidence_2025,
-  v_m.variation_annotation_bool,
-  v_m.variation_citation_bool,
   v_m.variation_feature_count,
   vf.variation_feature_id as variation_feature_id_2026_key,
   vf.variation_name as variation_name_2026,
