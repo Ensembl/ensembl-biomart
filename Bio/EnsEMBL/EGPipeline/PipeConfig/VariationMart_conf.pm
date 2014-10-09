@@ -176,26 +176,6 @@ sub hive_meta_table {
 sub pipeline_analyses {
   my ($self) = @_;
   
-  #my $mtmp_tables_exist_flow;
-  #if ($self->o('mtmp_tables_exist')) {
-    #$mtmp_tables_exist_flow =
-    #{
-      #'2->A' => ['DropMartTables'],
-      #'A->2' => ['CopyMart'],
-      #'3->A' => ['DropMartTables'],
-      #'A->3' => ['GenerateMart'],
-    #};
-  #} else {
-    #$mtmp_tables_exist_flow =
-    #{
-      #'2->A' => ['DropMartTables'],
-      #'A->2' => ['CopyMart'],
-      #'2' => ['CopyMart'],
-      #'3->A' => ['CreateMTMPTables'],
-      #'A->3' => ['GenerateMart'],
-    #};
-  #}
-  
   return [
     {
       -logic_name      => 'VariationMartPipeline',
@@ -284,7 +264,7 @@ sub pipeline_analyses {
       -max_retry_count   => 0,
       -analysis_capacity => 5,
       -can_be_empty      => 1,
-      -rc_name           => 'normal',
+      -rc_name           => '16Gb_mem_16Gb_tmp',
     },
 
     {

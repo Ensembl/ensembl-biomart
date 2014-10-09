@@ -26,6 +26,7 @@ use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 sub param_defaults {
   return {
     'sv_exists' => 0,
+    'tmp_dir'   => '/tmp',
   };
 }
 
@@ -61,6 +62,7 @@ sub run {
   
   # Reconstitute old tables and views that are still needed by biomart.
   $self->evidence($dbh);
+  $self->sample_genotype($dbh);
   $self->population_genotype($dbh);
   $self->variation_annotation($dbh);
 }
@@ -69,6 +71,7 @@ sub run_vf_script {
   my ($self, $table) = @_;
   my $variation_import_lib = $self->param_required('variation_import_lib');
   my $variation_feature_script = $self->param_required('variation_feature_script');
+  my $tmp_dir = $self->param_required('tmp_dir');
   
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
   my $dbh = $dbc->db_handle();
@@ -83,8 +86,8 @@ sub run_vf_script {
     " --pass ".$dbc->password.
     " --db ".$dbc->dbname.
     " --table $table".
-    " --tmpdir /tmp ".
-    " --tmpfile mtmp.txt";
+    " --tmpdir $tmp_dir ".
+    " --tmpfile mtmp_vf.txt";
   
   if (system($cmd)) {
     $self->throw("Loading failed when running $cmd");
@@ -96,19 +99,84 @@ sub run_vs_script {
   $options ||= '';
   my $variation_import_lib = $self->param_required('variation_import_lib');
   my $variation_set_script = $self->param_required('variation_set_script');
+  my $tmp_dir = $self->param_required('tmp_dir');
   
-  # The script deals with any existing data, so doesn't need to be checked here.
+  # The script deals with any existing data, so doesn't need to be handled here.
   
   my $cmd = "perl -I$variation_import_lib $variation_set_script ".
     " --registry_file ".$self->param_required('registry').
     " --species ".$self->param_required('species').
-    " --tmpdir /tmp ".
-    " --tmpfile mtmp.txt".
+    " --tmpdir $tmp_dir ".
+    " --tmpfile mtmp_vs.txt".
     " $options";
   
   if (system($cmd)) {
     $self->throw("Loading failed when running $cmd");
   }
+}
+
+sub sample_genotype {
+  my ($self, $dbh) = @_;
+  
+  my $tmp_dir = $self->param_required('tmp_dir');
+  my $output_file = "$tmp_dir/mtmp_sg.txt";
+  
+  my $drop_sql = 'DROP TABLE IF EXISTS MTMP_sample_genotype;';
+  
+  my $create_sql =
+  'CREATE TABLE MTMP_sample_genotype ( '.
+    '`variation_id` int(10) unsigned NOT NULL, '.
+    '`allele_1` char(1) DEFAULT NULL, '.
+    '`allele_2` char(1) DEFAULT NULL, '.
+    '`individual_id` int(11) DEFAULT NULL, '.
+    'KEY `variation_idx` (`variation_id`), '.
+    'KEY `individual_idx` (`individual_id`) '.
+  ') ENGINE=MyISAM DEFAULT CHARSET=latin1;';
+  
+  my $alleles_sql =
+  'SELECT '.
+    'genotype_code_id, '.
+    'MAX(IF(haplotype_id=1, allele, 0)) AS allele_1, '.
+    'MAX(IF(haplotype_id=2, allele, 0)) AS allele_2 '.
+  'FROM '.
+    'genotype_code INNER JOIN '.
+    'allele_code USING (allele_code_id) '.
+  'GROUP BY '.
+    'genotype_code_id;';
+  
+  my $genotypes_sql =
+  'SELECT variation_id, genotypes FROM compressed_genotype_var;';
+  
+  my $load_sql = 
+  "LOAD DATA LOCAL INFILE '$output_file' INTO TABLE MTMP_sample_genotype;";
+  
+  my $alleles = $dbh->selectall_arrayref($alleles_sql) or $self->throw($dbh->errstr);
+  my %alleles = map { shift @$_, [ @$_ ]} @$alleles;
+  
+  open my $fh, '>', $output_file or $self->throw("Error opening $output_file - $!");
+  
+  my $sth = $dbh->prepare($genotypes_sql);
+  $sth->execute();
+  while (my ($variation_id, $compressed_genotypes) = $sth->fetchrow_array()) {
+    my @genotypes = unpack("(ww)*", $compressed_genotypes);
+    
+    while (@genotypes) {
+      my $individual_id = shift @genotypes;
+      my $genotype_code_id = shift @genotypes;
+      my $allele_1 = $alleles{$genotype_code_id}[0];
+      my $allele_2 = $alleles{$genotype_code_id}[1];
+      
+      print $fh
+        join("\t", $variation_id, $allele_1, $allele_2, $individual_id).
+        "\n";
+    }
+  }
+  
+  close $fh;
+  
+  $dbh->do($drop_sql) or $self->throw($dbh->errstr);
+  $dbh->do($create_sql) or $self->throw($dbh->errstr);
+  $dbh->do($load_sql) or $self->throw($dbh->errstr);
 }
 
 sub evidence {
