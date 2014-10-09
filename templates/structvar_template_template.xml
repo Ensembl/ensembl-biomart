@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
-<DatasetConfig dataset="structvar_template" defaultDataset="*default*" displayName="*species1* structural Variations (*version*)" interfaces="default" internalName="template" martUsers="default" modified="2010-02-10 21:58:05.484" softwareVersion="0.7" template="structvar" type="TableSet" useDefault="true" version="*version*" visible="1">
+<DatasetConfig dataset="structvar_template" defaultDataset="*default*" displayName="*species1* structural variations (*version*)" interfaces="default" internalName="template" martUsers="default" modified="2010-02-10 21:58:05.484" softwareVersion="0.7" template="structvar" type="TableSet" useDefault="true" version="*version*" visible="1">
   <Replace id="datasets"/>
   <Importable filters="chr_name,chrom_start,chrom_end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
   <Importable filters="chr_name,chrom_start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link" useDefault="true"/>
