@@ -98,8 +98,12 @@ sub get_list {
     my ($dba,$division,$type) = @_;
     my @list = ();
     for my $db (@{$dba->sql_helper()->execute_simple(-SQL=>'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1',-PARAMS=>[$division,$type])}) {
-	$db=~s/([a-z])[^_]+_([^_]+)/$1$2_eg/;
-	push @list, $db;
+	if($division eq 'WormBaseParaSite') {
+          $db=~s/([a-z])[^_]+_([^_]+)_([^_]+)/$3_eg/; # Need to use the BioProject to differentiate between the duplicate genome projects; name becomes too long if we use the species+BioProject
+	} else {
+          $db=~s/([a-z])[^_]+_([^_]+)/$1$2_eg/;
+        }
+        push @list, $db;
     }
     return \@list;
 }

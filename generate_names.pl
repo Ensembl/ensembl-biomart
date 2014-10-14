@@ -164,6 +164,7 @@ unless( $div ){
     elsif ( $mart_db =~ m/metazoa/){ $div = 'metazoa' }
     elsif ( $mart_db =~ m/fung/){ $div = 'fung'}
     elsif ( $mart_db =~ m/vb/){ $div = 'vectorbase' }
+    elsif ( $mart_db =~ m/parasite/) { $div = 'parasite' }
     else{ die "-div division not defined, and unable infer from database name $mart_db\n" }
 }
 
@@ -172,6 +173,7 @@ elsif ( $div eq 'plant' ) { $pId = 20000 }
 elsif ( $div eq 'metazoa' ) { $pId = 30000 }
 elsif ( $div eq 'fung' ) { $pId = 40000 }
 elsif ( $div eq 'vectorbase') { $pId = 50000 }
+elsif ( $div eq 'parasite') { $pId = 60000 }
 else {
     croak "Don't know how to deal with mart $mart_db - doesn't match known divisions\n";
 }
@@ -185,7 +187,7 @@ foreach my $dataset (@datasets) {
     my $base_datasetname = $dataset;
     $base_datasetname =~ s/$suffix//;
 
-    my $ens_db = get_ensembl_db_single(\@src_dbs,$base_datasetname,$release);
+    my $ens_db = $div eq 'parasite' ? get_ensembl_db_single_parasite(\@src_dbs,$base_datasetname,$release) : get_ensembl_db_single(\@src_dbs,$base_datasetname,$release);
     if(!$ens_db) {
 	croak "Could not find original source db for dataset $base_datasetname\n";
     }   
