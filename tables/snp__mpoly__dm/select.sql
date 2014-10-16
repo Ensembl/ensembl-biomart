@@ -6,5 +6,5 @@ FROM
   VAR_DB.individual_genotype_multiple_bp igm INNER JOIN
   VAR_DB.individual i ON
     igm.individual_id = i.individual_id AND
-    i.display IN ("REFERENCE","DEFAULT","DISPLAYABLE","MARTDISPLAYABLE") RIGHT OUTER JOIN
+    i.display NOT IN ("LD", "UNDISPLAYABLE") RIGHT OUTER JOIN
   VAR_DB.variation v ON igm.variation_id = v.variation_id
