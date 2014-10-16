@@ -56,7 +56,7 @@
         <FilterDescription displayName="Distance to transcript &lt;=" displayType="text" field="distance_to_transcript_2090" internalName="distance_to_transcript" key="variation_feature_id_2026_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="mart_transcript_variation__dm" type="text"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup displayName="STUDY AND PHENOTYPE FILTERS:" internalName="studyfilters">
+    <FilterGroup displayName="STUDY AND PHENOTYPE FILTERS:" description="(If filter values are truncated in any lists, hover over the list item to see the full text)" internalName="studyfilters">
       <FilterCollection displayName="Study type" internalName="study_type">
         <FilterDescription displayName="Study type" displayType="list" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>

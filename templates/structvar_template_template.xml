@@ -22,7 +22,7 @@
         <FilterDescription description="Limit to genes within multiple comma-separated regions (e.g. 1:100:10000:-1,1:100000:2000000:1)" displayName="e.g. 1:100:10000:-1,1:100000:2000000:1" displayType="text" field="seq_region_start_20104" filterList="chr_name,chrom_start,chrom_end,strand" hidden="false" internalName="chromosomal_region" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup displayName="GENERAL STRUCTURAL VARIATION FILTERS:" internalName="svfilters" useDefault="true">
+    <FilterGroup displayName="GENERAL STRUCTURAL VARIATION FILTERS:" description="(If filter values are truncated in any lists, hover over the list item to see the full text)" internalName="svfilters" useDefault="true">
       <FilterCollection displayName="Variation source" internalName="structural_variation_source" useDefault="true">
         <FilterDescription displayName="Variation source" displayType="list" field="name_2021" hidden="false" internalName="source_name" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
