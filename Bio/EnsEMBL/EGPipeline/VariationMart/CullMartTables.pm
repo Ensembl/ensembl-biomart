@@ -47,12 +47,16 @@ sub cull_table {
   my $mart_table_prefix = $self->param_required('mart_table_prefix');
   my $mart_table = "$mart_table_prefix\_$table";
   
-  my $count_sql = "SELECT COUNT(*) FROM $mart_table WHERE $column IS NOT NULL";
-  my ($rows) = $mart_dbh->selectrow_array($count_sql) or $self->throw($mart_dbh->errstr);
-  
-  if ($rows == 0) {
-    my $drop_sql = "DROP TABLE $mart_table";
-    $mart_dbh->do($drop_sql) or $self->throw($mart_dbh->errstr);
+  my $tables_sql = "SHOW TABLES LIKE '$mart_table';";
+  my $tables = $mart_dbh->selectcol_arrayref($tables_sql) or $self->throw($mart_dbh->errstr);
+  if (@$tables) {  
+    my $count_sql = "SELECT COUNT(*) FROM $mart_table WHERE $column IS NOT NULL";
+    my ($rows) = $mart_dbh->selectrow_array($count_sql) or $self->throw($mart_dbh->errstr);
+    
+    if ($rows == 0) {
+      my $drop_sql = "DROP TABLE $mart_table";
+      $mart_dbh->do($drop_sql) or $self->throw($mart_dbh->errstr);
+    }
   }
 }
 

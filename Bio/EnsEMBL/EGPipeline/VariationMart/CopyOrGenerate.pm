@@ -25,9 +25,12 @@ use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 
 sub param_defaults {
   return {
-    'drop_mart_tables' => 0,
-    'copy_species'     => [],
-    'copy_all'         => 0,
+    'drop_mart_tables'     => 0,
+    'mtmp_tables_exist'    => 0,
+    'individual_threshold' => 100,
+    'population_threshold' => 100,
+    'copy_species'         => [],
+    'copy_all'             => 0,
   };
 }
 
@@ -52,10 +55,7 @@ sub write_output {
     }
   }
   
-  my $vdbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
-  my $count_sql = 'SELECT COUNT(*) FROM structural_variation;';
-  my ($svs) = $vdbh->selectrow_array($count_sql) or $self->throw($vdbh->errstr);
-  my $sv_exists = $svs ? 1 : 0;
+  my ($sv_exists, $show_inds, $show_pops) = $self->data_display();
   
   if ($drop_mart_tables) {
     $self->dataflow_output_id({'mart_table_prefix' => $mart_table_prefix}, 2);
@@ -65,6 +65,8 @@ sub write_output {
     $self->dataflow_output_id({
       'mart_table_prefix' => $mart_table_prefix,
       'sv_exists' => $sv_exists,
+      'show_inds' => $show_inds,
+      'show_pops' => $show_pops,
     }, 3);
   }
   
@@ -74,8 +76,58 @@ sub write_output {
     $self->dataflow_output_id({
       'mart_table_prefix' => $mart_table_prefix,
       'sv_exists' => $sv_exists,
+      'show_inds' => $show_inds,
+      'show_pops' => $show_pops,
     }, 5);
   }
+}
+
+sub data_display {
+  my ($self) = @_;
+  
+  my $ind_threshold = $self->param('individual_threshold');
+  my $pop_threshold = $self->param('population_threshold');
+  
+  my $vdbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
+  my $sv_sql = 'SELECT COUNT(*) FROM structural_variation;';
+  my ($svs) = $vdbh->selectrow_array($sv_sql) or $self->throw($vdbh->errstr);
+  my $sv_exists = $svs ? 1 : 0;
+  
+  my $ind_sql = 'SELECT COUNT(*) FROM individual WHERE display NOT IN ("LD", "UNDISPLAYABLE");';
+  my ($inds) = $vdbh->selectrow_array($ind_sql) or $self->throw($vdbh->errstr);
+  my $show_inds = $inds <= $ind_threshold ? 1 : 0;
+  
+  my $pop_sql = 'SELECT COUNT(*) FROM population WHERE display NOT IN ("LD", "UNDISPLAYABLE");';
+  my ($pops) = $vdbh->selectrow_array($pop_sql) or $self->throw($vdbh->errstr);
+  my $show_pops = $pops <= $pop_threshold ? 1 : 0;
+  
+  $self->data_display_report($svs, $sv_exists, $inds, $show_inds, $pops, $show_pops);
+  
+  return ($sv_exists, $show_inds, $show_pops);
+}
+
+sub data_display_report {
+  my ($self, $svs, $sv_exists, $inds, $show_inds, $pops, $show_pops) = @_;
+  
+  my $species = $self->param_required('species');
+  
+  my $filter_table_msg = "Species: $species\n";
+  if ($sv_exists) {
+    $filter_table_msg .= "\t$svs structural variations will be displayed.\n";
+  }
+  if ($show_inds) {
+    $filter_table_msg .= "\tGenotypes will be displayed for $inds individuals.\n";
+  } else {
+    $filter_table_msg .= "\tGenotypes will not be displayed for individuals.\n";
+  }
+  if ($show_pops) {
+    $filter_table_msg .= "\tGenotypes will be displayed for $pops populations.\n";
+  } else {
+    $filter_table_msg .= "\tGenotypes will not be displayed for populations.\n";
+  }
+  
+  $self->warning($filter_table_msg);
+  print STDERR $filter_table_msg;
 }
 
 1;
