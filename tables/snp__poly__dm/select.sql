@@ -6,5 +6,5 @@ FROM
   VAR_DB.MTMP_sample_genotype sg INNER JOIN
   VAR_DB.individual i ON
     sg.individual_id = i.individual_id AND
-    i.display IN ("REFERENCE","DEFAULT","DISPLAYABLE","MARTDISPLAYABLE") RIGHT OUTER JOIN
+    i.display NOT IN ("LD", "UNDISPLAYABLE") RIGHT OUTER JOIN
   VAR_DB.variation v ON sg.variation_id = v.variation_id
