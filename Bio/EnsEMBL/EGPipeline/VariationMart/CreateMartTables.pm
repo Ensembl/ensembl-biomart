@@ -26,8 +26,11 @@ use File::Spec::Functions qw(catdir);
 
 sub param_defaults {
   return {
+    'sv_exists'         => 0,
+    'show_inds'         => 1,
+    'show_pops'         => 1,
     'variation_feature' => 0,
-    'consequences' =>
+    'consequences'      =>
       {'snp__mart_transcript_variation__dm' => 'consequence_types_2090'},
   };
 }
@@ -63,13 +66,22 @@ sub remove_unused_tables {
     ($rfs) = $fdbh->selectrow_array($count_rf_sql) or $self->throw($fdbh->errstr);
   }
   
+  my $show_inds = $self->param_required('show_inds');
+  my $show_pops = $self->param_required('show_pops');
+  
   my @tables;
   foreach my $snp_table (@{$self->param_required('snp_tables')}) {
-    if ($snp_table =~ /motif_feature/) {
+    if ($snp_table =~ /__motif_feature/) {
       next unless $mfs;
     }
-    if ($snp_table =~ /regulatory_feature/) {
+    if ($snp_table =~ /__regulatory_feature/) {
       next unless $rfs;
+    }
+    if ($snp_table =~ /__m*poly__/) {
+      next unless $show_inds;
+    }
+    if ($snp_table =~ /__population_genotype__/) {
+      next unless $show_pops;
     }
     push @tables, $snp_table;
   }

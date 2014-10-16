@@ -47,11 +47,13 @@ sub default_options {
   return {
     %{$self->SUPER::default_options},
     
-    pipeline_name     => 'variation_mart_'.$self->o('ensembl_release'),
-    mart_db_name      => $self->o('division_name').'_snp_mart_'.$self->o('eg_release'),
-    drop_mart_db      => 0,
-    drop_mart_tables  => 0,
-    mtmp_tables_exist => 0,
+    pipeline_name        => 'variation_mart_'.$self->o('ensembl_release'),
+    mart_db_name         => $self->o('division_name').'_snp_mart_'.$self->o('eg_release'),
+    drop_mart_db         => 0,
+    drop_mart_tables     => 0,
+    mtmp_tables_exist    => 0,
+    individual_threshold => 100,
+    population_threshold => 100,
     
     previous_mart => {
       -driver => $self->o('hive_driver'),
@@ -225,10 +227,12 @@ sub pipeline_analyses {
       -logic_name        => 'CopyOrGenerate',
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CopyOrGenerate',
       -parameters        => {
-                              drop_mart_tables  => $self->o('drop_mart_tables'),
-                              mtmp_tables_exist => $self->o('mtmp_tables_exist'),
-                              copy_species      => $self->o('copy_species'),
-                              copy_all          => $self->o('copy_all'),
+                              drop_mart_tables     => $self->o('drop_mart_tables'),
+                              mtmp_tables_exist    => $self->o('mtmp_tables_exist'),
+                              copy_species         => $self->o('copy_species'),
+                              copy_all             => $self->o('copy_all'),
+                              individual_threshold => $self->o('individual_threshold'),
+                              population_threshold => $self->o('population_threshold'),
                             },
       -max_retry_count   => 0,
       -rc_name           => 'normal',

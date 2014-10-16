@@ -26,6 +26,8 @@ use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 sub param_defaults {
   return {
     'sv_exists' => 0,
+    'show_inds' => 1,
+    'show_pops' => 1,
     'tmp_dir'   => '/tmp',
   };
 }
@@ -62,8 +64,12 @@ sub run {
   
   # Reconstitute old tables and views that are still needed by biomart.
   $self->evidence($dbh);
-  $self->sample_genotype($dbh);
-  $self->population_genotype($dbh);
+  if ($self->param('show_inds')) {
+    $self->sample_genotype($dbh);
+  }
+  if ($self->param('show_pops')) {
+    $self->population_genotype($dbh);
+  }
   $self->variation_annotation($dbh);
 }
 
