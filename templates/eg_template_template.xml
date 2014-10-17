@@ -6835,6 +6835,8 @@
         <AttributeDescription displayName="Consequence type" field="consequence_types_2076" internalName="synonymous_status" key="transcript_id_1064_key" maxLength="50" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Consequence specific allele" field="allele_string_2076" internalName="allele_string_2076" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Protein allele" field="peptide_allele_string_2076" internalName="peptide_shift" key="transcript_id_1064_key" maxLength="100" tableConstraint="mart_transcript_variation__dm"/>
+	<AttributeDescription displayName="SIFT prediction" field="sift_prediction_2076" internalName="sift_prediction" key="transcript_id_1064_key" maxLength="100" tableConstraint="mart_transcript_variation__dm"/>
+	<AttributeDescription displayName="SIFT score" field="sift_score_2076" internalName="sift_score" key="transcript_id_1064_key" maxLength="100" tableConstraint="mart_transcript_variation__dm"/>
       </AttributeCollection>
     </AttributeGroup>
     <AttributeGroup displayName="SOMATIC VARIATION INFORMATION:" internalName="gene_somatic">
