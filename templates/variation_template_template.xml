@@ -32,7 +32,7 @@
       </FilterCollection>
       <FilterCollection description="Limit to genes within multiple comma-separated regions (e.g. 1:100:10000:-1,1:100000:2000000:1)" displayName="Multiple regions (Chr:Start:End:Strand)" internalName="chromosome_regions">
         <FilterDescription displayName="Strand" displayType="text" field="seq_region_strand_2026" hideDisplay="true" internalName="strand" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
-        <FilterDescription description="Limit to genes within multiple comma-separated regions (e.g. 1:100:10000:-1,1:100000:2000000:1)" displayName="e.g. 1:100:10000:-1,1:100000:2000000:1" displayType="text" field="seq_region_start_2026" filterList="chr_name,chrom_start,chrom_end,strand" internalName="chromosomal_region" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text"/>
+        <FilterDescription description="Limit to genes within multiple comma-separated regions (e.g. 1:100:10000:-1,1:100000:2000000:1)" displayName="Regions" displayType="text" field="seq_region_start_2026" filterList="chr_name,chrom_start,chrom_end,strand" internalName="chromosomal_region" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text"/>
       </FilterCollection>
     </FilterGroup>
     <FilterGroup displayName="GENERAL VARIATION FILTERS:" internalName="snpfilters">
@@ -56,7 +56,7 @@
         <FilterDescription displayName="Distance to transcript &lt;=" displayType="text" field="distance_to_transcript_2090" internalName="distance_to_transcript" key="variation_feature_id_2026_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="mart_transcript_variation__dm" type="text"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup displayName="STUDY AND PHENOTYPE FILTERS:" description="(If filter values are truncated in any lists, hover over the list item to see the full text)" internalName="studyfilters">
+    <FilterGroup displayName="STUDY AND PHENOTYPE FILTERS:" internalName="studyfilters">
       <FilterCollection displayName="Study type" internalName="study_type">
         <FilterDescription displayName="Study type" displayType="list" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list">
           <SpecificFilterContent internalName="replaceMe"/>
