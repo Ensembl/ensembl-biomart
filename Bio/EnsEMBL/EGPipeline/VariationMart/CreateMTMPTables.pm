@@ -171,6 +171,7 @@ sub sample_genotype {
       my $genotype_code_id = shift @genotypes;
       my $allele_1 = $alleles{$genotype_code_id}[0];
       my $allele_2 = $alleles{$genotype_code_id}[1];
+      next if (length($allele_1) > 1) or (length($allele_2) > 1);
       
       print $fh
         join("\t", $variation_id, $allele_1, $allele_2, $individual_id).
