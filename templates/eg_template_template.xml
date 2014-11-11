@@ -2859,8 +2859,8 @@
             <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="lmajor_eg_gene"/>
           </Option>
           <Option checkForNulls="true" displayName="WormBase gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormbase_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_gene__dm" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="WormBase gseqname ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormbase_gseqname" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_gseqname__dm" type="list"/>
-          <Option checkForNulls="true" displayName="WormBase locus ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormbase_locus" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_locus__dm" type="list"/>
+          <Option checkForNulls="true" displayName="WormBase gseqname ID(s)" displayType="text" field="display_label_1074" internalName="wormbase_gseqname" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_gseqname__dm" type="list"/>
+          <Option checkForNulls="true" displayName="WormBase locus ID(s)" displayType="text" field="display_label_1074" internalName="wormbase_locus" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_locus__dm" type="list"/>
           <Option checkForNulls="true" displayName="WormBase pseudogene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormbase_pseudogene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_pseudogene__dm" type="list"/>
           <Option checkForNulls="true" displayName="WormBase transcript ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormbase_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_transcript__dm" type="list"/>
           <Option checkForNulls="true" displayName="WormPep ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormpep_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormpep_id__dm" type="list"/>
@@ -5365,8 +5365,7 @@
         <AttributeDescription checkForNulls="true" displayName="Celera gene ID(s)" field="dbprimary_acc_1074" internalName="celera_gene" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/Gene/Summary?g=%s" maxLength="40" tableConstraint="ox_Celera_Gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Celera protein ID(s)" field="dbprimary_acc_1074" internalName="celera_pep" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/protview?peptide=%s" maxLength="40" tableConstraint="ox_Celera_Pep__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Celera transcript ID(s)" field="dbprimary_acc_1074" internalName="celera_trans" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/transview?transcript=%s" maxLength="40" tableConstraint="ox_Celera_Trans__dm"/>
-	<AttributeDescription checkForNulls="true" displayName="ChEMBL ID" field="dbprimary_acc_1074" internalName="chembl" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_chembl__dm"/>
-
+	<AttributeDescription checkForNulls="true" displayName="ChEMBL" field="dbprimary_acc_1074" internalName="chembl" key="translation_id_1068_key" linkoutURL="exturl1|https://www.ebi.ac.uk/chembldb/target/inspect/%s" maxLength="40" tableConstraint="ox_chembl__dm"/>
         <!--
         <AttributeDescription checkForNulls="true" displayName="Cint ANISEED v1" field="dbprimary_acc_1074" internalName="cint_aniseed_v1" key="translation_id_1068_key" linkoutURL="exturl1|http://crfb.univ-mrs.fr/aniseed/molecule-gene.php?name=%s" maxLength="40" tableConstraint="ox_cint_aniseed_v1__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Cint JGI v1" field="dbprimary_acc_1074" internalName="cint_jgi_v1" key="translation_id_1068_key" linkoutURL="exturl1|http://genome.jgi-psf.org/cgi-bin/dispGeneModel?db=ciona4;id=%s" maxLength="40" tableConstraint="ox_cint_jgi_v1__dm"/>
@@ -5764,8 +5763,8 @@
           <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="umaydis_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="WormBase gene ID" field="dbprimary_acc_1074" internalName="wormbase_gene" key="gene_id_1020_key" linkoutURL="exturl1|http://www.wormbase.org/db/gene/gene?name=%s" maxLength="40" tableConstraint="ox_wormbase_gene__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="WormBase gseqname ID" field="dbprimary_acc_1074" internalName="wormbase_gseqname" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_wormbase_gseqname__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="WormBase locus ID" field="dbprimary_acc_1074" internalName="wormbase_locus" key="gene_id_1020_key" linkoutURL="exturl1|http://www.wormbase.org/db/gene/gene?name=%s" maxLength="40" tableConstraint="ox_wormbase_locus__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="WormBase gseqname ID" field="display_label_1074" internalName="wormbase_gseqname" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_wormbase_gseqname__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="WormBase locus ID" field="display_label_1074" internalName="wormbase_locus" key="gene_id_1020_key" linkoutURL="exturl1|http://www.wormbase.org/db/gene/gene?name=%s" maxLength="40" tableConstraint="ox_wormbase_locus__dm"/>
         <AttributeDescription checkForNulls="true" displayName="WormBase pseudogene ID" field="dbprimary_acc_1074" internalName="wormbase_pseudogene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_wormbase_pseudogene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="WormBase transcript ID" field="dbprimary_acc_1074" internalName="wormbase_transcript" key="transcript_id_1064_key" linkoutURL="exturl1|http://www.wormbase.org/db/seq/sequence?name=%s" maxLength="40" tableConstraint="ox_wormbase_transcript__dm"/>
         <AttributeDescription checkForNulls="true" displayName="WormPep ID" field="dbprimary_acc_1074" internalName="wormpep_id" key="translation_id_1068_key" linkoutURL="exturl1|http://www.wormbase.org/db/seq/protein?name=%s" maxLength="40" tableConstraint="ox_wormpep_id__dm"/>
@@ -6836,6 +6835,8 @@
         <AttributeDescription displayName="Consequence type" field="consequence_types_2076" internalName="synonymous_status" key="transcript_id_1064_key" maxLength="50" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Consequence specific allele" field="allele_string_2076" internalName="allele_string_2076" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation__dm"/>
         <AttributeDescription displayName="Protein allele" field="peptide_allele_string_2076" internalName="peptide_shift" key="transcript_id_1064_key" maxLength="100" tableConstraint="mart_transcript_variation__dm"/>
+	<AttributeDescription displayName="SIFT prediction" field="sift_prediction_2076" internalName="sift_prediction" key="transcript_id_1064_key" maxLength="100" tableConstraint="mart_transcript_variation__dm"/>
+	<AttributeDescription displayName="SIFT score" field="sift_score_2076" internalName="sift_score" key="transcript_id_1064_key" maxLength="100" tableConstraint="mart_transcript_variation__dm"/>
       </AttributeCollection>
     </AttributeGroup>
     <AttributeGroup displayName="SOMATIC VARIATION INFORMATION:" internalName="gene_somatic">
