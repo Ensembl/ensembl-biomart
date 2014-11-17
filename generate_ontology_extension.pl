@@ -82,7 +82,7 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
     ) or croak "Could not connect to $mart_string";
 
 my $core_db = get_string($mart_handle->prepare("SELECT src_db FROM dataset_names WHERE name='$dataset'"));
-
+$logger->info("Found database $core_db for dataset $dataset");
 if(!defined $core_db) {
     croak "Could not find core database for dataset $dataset";
 }
@@ -116,27 +116,25 @@ ${mart_db}.${dataset}_gene__${external_db}_extension__dm/;
     my $create_base_table = qq/
     create table 
 ${mart_db}.${dataset}_gene__${external_db}_extension__dm as
-select 
+select
   distinct t.${ensemblObjType}_id as ${key},
-  ox.object_xref_id as object_xref_id,
+  ox.object_xref_id  as object_xref_id,
   tx.dbprimary_acc as subject_acc,
   tx.display_label as subject_label,
-  sx.dbprimary_acc source_acc, 
-  sx.display_label source_label, 
-  sd.db_name source_db,       
+  sx.dbprimary_acc source_acc,
+  sx.display_label source_label,
+  sd.db_name source_db,
   ag.associated_group_id group_id,
-  ag.description group_des 
+  ag.description group_des
 from
-  ${core_db}.${ensemblObjType} t
-  join ${core_db}.object_xref ox on (t.${ensemblObjType}_id=ox.ensembl_id and ox.ensembl_object_type='${object_type}')
-  join ${core_db}.xref tx on (tx.xref_id=ox.xref_id)  
-  join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id)
-  join ${core_db}.associated_xref ax using (object_xref_id)
-  left join ${core_db}.associated_group ag using (associated_group_id)  
-  left join ${core_db}.xref sx on (sx.xref_id=ax.source_xref_id) 
-  left join ${core_db}.external_db sd on (sx.external_db_id=sd.external_db_id)
-where
-  td.db_name='$external_db';/;
+  ${core_db}.object_xref ox
+  join ${core_db}.xref tx on (ox.xref_id=tx.xref_id)
+  join ${core_db}.external_db td on (tx.external_db_id=td.external_db_id and td.db_name='$external_db')
+  join ${core_db}.associated_xref ax on (ox.object_xref_id=ax.object_xref_id)
+  join ${core_db}.associated_group ag on (ax.associated_group_id=ag.associated_group_id)
+  join ${core_db}.xref sx on (sx.xref_id=ax.source_xref_id)
+  join ${core_db}.external_db sd on (sx.external_db_id=sd.external_db_id)
+  right join ${core_db}.${ensemblObjType} t on (t.${ensemblObjType}_id=ox.ensembl_id and ox.ensembl_object_type='${object_type}');/;
     $logger->debug($create_base_table);
     $mart_handle->do($create_base_table);
 
