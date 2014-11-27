@@ -6626,7 +6626,7 @@
         <AttributeDescription displayName="WUSTL C. elegans ID" field="display_label_11056" internalName="wustl_wustl_c_elegans" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_wustl_wustl_c_elegans__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="Pathogen Phenotypes (source: PHI-base)" internalName="phi_extension">
-        <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="dbprimary_acc_1074" internalName="phi" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_phi__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="dbprimary_acc_1074" internalName="phi" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
         <!-- <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="phibase_id" internalName="phibase_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hideDisplay="true"/> -->
         <AttributeDescription checkForNulls="true" displayName="Plant host" field="host_label" internalName="phibase_host" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
         <!-- <AttributeDescription checkForNulls="true" displayName="PHI-base host ID" field="host_acc" internalName="phibase_host_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hideDisplay="true"/> -->
