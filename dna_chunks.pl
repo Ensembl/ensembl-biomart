@@ -242,6 +242,7 @@ if (! defined $meta_container) {
     die "meta_container couldn't be instanciated for species, \"$species_arg\"\n";
 }
 my $db_name = $meta_container->db->dbc->dbname;
+my $mart_db = $tf->mart_db();
 
 if ($multispecies_mode) {
     # Todo: Reformat the dataset name:
@@ -273,6 +274,10 @@ elsif (defined @{$meta_container->list_value_by_key('species.division')}[0]) {
 
 	# Add a prefix 'eg_' to avoid conflicting dataset names in Biomart.org!
 	$formatted_species_name = $1  . $2 . "_eg";
+    }
+    elsif($division_value =~ /parasite/) {
+      $db_name =~ /^(.*?)_(.*?)_(.*?)_.+/;
+      $formatted_species_name = $3 . "_eg";
     }
     else {
 	 $db_name =~ /^(\w)[^_]+_([^_]+)_.+/;
@@ -327,9 +332,6 @@ open (STDERR, ">>${logfile}") or die "Could not open $logfile: $!\n";
 print STDERR "running   dna_chunks.pl ".join(" ", @ARGV)."\n";
 
 print STDERR "BUILDING DNA_CHUNKS FOR SPECIES $formatted_species_name\n";
-
-# create names of dbs and tables
-my $mart_db = $tf->mart_db();
 
 my $final_table = "${mart_db}." . $formatted_species_name . "_genomic_sequence__$this_table" . "__main";
 

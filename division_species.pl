@@ -19,7 +19,7 @@ GetOptions(
 die "Option -r[elease] is required" unless $release;
 die "Option -d[ivision] is required" unless $division;
 
-if ($division ne 'vb' && $division !~ /^Ensembl/) {
+if ($division ne 'vb' && $division !~ /^Ensembl/ && $division ne 'parasite') {
   $division = "Ensembl".ucfirst($division);
 }
     
