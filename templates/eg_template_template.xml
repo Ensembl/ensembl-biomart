@@ -1015,6 +1015,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+	  <Option displayName="with EntrezGene transcript name ID(s)" displayType="list" field="ox_entrezgene_trans_name_bool" internalName="with_entrezgene_trans_name" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with Enzyme Commission (EC) ID(s)" displayType="list" field="ox_ec_number_bool" internalName="with_ec_number" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" value="only"/>
             <Option displayName="Excluded" internalName="excluded" value="excluded"/>
@@ -2463,6 +2467,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
           </Option>
+	  <Option checkForNulls="true" displayName="EntrezGene transcript name ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="entrezgene_trans_name" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_entrezgene_trans_name__dm" type="list"/>
           <Option checkForNulls="true" displayName="Enzyme Commission (EC) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ec_number" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ec_number__dm" type="list" useDefault="true">
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
@@ -5416,6 +5421,7 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="lmajor_eg_gene" key="translation_id_1068_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="EntrezGene ID" field="dbprimary_acc_1074" internalName="geneid" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_GeneID__dm"/>
+	<AttributeDescription checkForNulls="true" displayName="EntrezGene transcript name ID" field="dbprimary_acc_1074" internalName="entrezgene_trans_name" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_entrezgene_trans_name__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Enzyme Commission (EC) ID" field="dbprimary_acc_1074" internalName="ec_number" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_ec_number__dm">
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="athaliana_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="osativa_eg_gene"/>
