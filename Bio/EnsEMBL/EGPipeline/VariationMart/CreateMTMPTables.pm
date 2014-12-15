@@ -57,6 +57,8 @@ sub run {
     $self->run_vf_script('regulatory_features');
   }
   
+  $self->order_consequences($dbh);
+  
   # Apparently, the variation set MTMP table is only required for human. If you
   # run this script for any other species, the table doesn't get created. So
   # don't bother for now, but I'll leave it here in case we need it back...
@@ -338,6 +340,21 @@ sub supporting_structural_variation {
   
   $dbh->do($drop_sql) or $self->throw($dbh->errstr);
   $dbh->do($create_sql) or $self->throw($dbh->errstr);
+}
+
+sub order_consequences {
+  my ($self, $dbh) = @_;
+  
+  my $table = 'MTMP_transcript_variation';
+  my $column = 'consequence_types';
+  my $sth = $dbh->column_info(undef, undef, $table, $column);
+  my $column_info = $sth->fetchrow_hashref() or $self->throw($dbh->errstr);
+  my $consequences = $$column_info{'mysql_type_name'};
+  $consequences =~ s/set\((.*)\)/$1/;
+  my @consequences = sort { lc($a) cmp lc($b) } split(/,/, $consequences);
+  $consequences = join(',', @consequences);
+  my $sql = "ALTER TABLE $table MODIFY COLUMN $column SET($consequences);";
+  $dbh->do($sql) or $self->throw($dbh->errstr);
 }
 
 1;
