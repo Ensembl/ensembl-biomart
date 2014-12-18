@@ -1498,6 +1498,14 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+         <Option displayName="with JGI (Phatr v2) gene ID(s)" displayType="list" field="ox_phatr_jgi_v2_gene_bool" internalName="with_phatr_jgi_v2_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with JGI (Phatr v2 bd) gene ID(s)" displayType="list" field="ox_phatr_jgi_v2_bd_gene_bool" internalName="with_phatr_jgi_v2_bd_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with JGI (Phyra v1.1) ID(s)" displayType="list" field="ox_phyra_jgi_v11_bool" internalName="with_phyra_jgi_v11" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -1721,6 +1729,10 @@
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
           <Option displayName="with PlasmoDB ID(s)" displayType="list" field="ox_PlasmoDB_bool" internalName="with_plasmodb" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with PlasmoGem ID(s)" displayType="list" field="ox_plasmogem_bool" internalName="with_plasmogem" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2231,6 +2243,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with ZNGP ID(s)" displayType="list" field="ox_zngp_bool" internalName="with_zngp" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <!--
           <Option displayName="with Xenopus jamboree ID(s)" displayType="list" field="ox_xenopus_jamboree_bool" internalName="with_xenopus_jamboree" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -2602,6 +2618,8 @@
           <Option checkForNulls="true" displayName="JGI (Necha v2.0) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="necha_jgi_v20" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_necha_jgi_v20__dm" type="list"/>
           <Option checkForNulls="true" displayName="JGI (Phatr v2) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="phatr_jgi_v2" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_phatr_jgi_v2__dm" type="list"/>
           <Option checkForNulls="true" displayName="JGI (Phatr v2 bd) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="phatr_jgi_v2_bd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_phatr_jgi_v2_bd__dm" type="list"/>
+          <Option checkForNulls="true" displayName="JGI (Phatr v2) gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="phatr_jgi_v2_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_phatr_jgi_v2_gene__dm" type="list"/>
+          <Option checkForNulls="true" displayName="JGI (Phatr v2 bd) gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="phatr_jgi_v2_bd_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_phatr_jgi_v2_bd_gene__dm" type="list"/>
           <Option checkForNulls="true" displayName="JGI (Phyra v1.1) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="phyra_jgi_v11" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_phyra_jgi_v11__dm" type="list"/>
           <Option checkForNulls="true" displayName="JGI (Physo1 v1.1) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="physo1_jgi_v11" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_physo1_jgi_v11__dm" type="list"/>
           <Option checkForNulls="true" displayName="JGI (Thaps v2) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="thaps_jgi_v2" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_thaps_jgi_v2__dm" type="list"/>
@@ -2677,6 +2695,7 @@
           <Option checkForNulls="true" displayName="PhosSite ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="phossite" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_phossite__dm" type="list"/>
           <Option checkForNulls="true" displayName="PlantGDB PUT ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="plantgdb_put" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_plantgdb_put__dm" type="list"/>
           <Option checkForNulls="true" displayName="PlasmoDB ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="plasmodb" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_PlasmoDB__dm" type="list"/>
+	<Option checkForNulls="true" displayName="PlasmoGem ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="plasmogem" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_plasmogem__dm" type="list"/>
           <!--
           <Option checkForNulls="true" displayName="Platypus olfactory receptor ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="platypus_olfactory_receptor" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Platypus_olfactory_receptor__dm" type="list"/>
           -->
@@ -2864,6 +2883,7 @@
           <Option checkForNulls="true" displayName="ZFIN xpat" displayType="text" field="dbprimary_acc_1074" internalName="zfin_xpat" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ZFIN_xpat__dm" type="list"/>
           -->
           <Option checkForNulls="true" displayName="Wustl C. elegans ID(s)" displayType="text" field="display_label_11056" internalName="wustl_wustl_c_elegans" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_wustl_wustl_c_elegans__dm" type="list"/>
+          <Option checkForNulls="true" displayName="ZNGP ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="zngp" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_zngp__dm" type="list"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Transcript count &gt;=" internalName="transcript_count_filter">
@@ -5533,6 +5553,8 @@
         <AttributeDescription checkForNulls="true" displayName="JGI (Necha v2.0) ID" field="dbprimary_acc_1074" internalName="necha_jgi_v20" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_necha_jgi_v20__dm" linkoutURL="exturl1|http://genome.jgi-psf.org/cgi-bin/dispGeneModel?db=Necha2&amp;id=%s"/>
         <AttributeDescription checkForNulls="true" displayName="JGI (Phatr v2) ID" field="dbprimary_acc_1074" internalName="phatr_jgi_v2" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_phatr_jgi_v2__dm"/>
         <AttributeDescription checkForNulls="true" displayName="JGI (Phatr v2 bd) ID" field="dbprimary_acc_1074" internalName="phatr_jgi_v2_bd" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_phatr_jgi_v2_bd__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="JGI (Phatr v2) gene ID" field="dbprimary_acc_1074" internalName="phatr_jgi_v2_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_phatr_jgi_v2_gene__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="JGI (Phatr v2 bd) gene ID" field="dbprimary_acc_1074" internalName="phatr_jgi_v2_bd_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_phatr_jgi_v2_bd_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="JGI (Phyra v1.1) ID" field="dbprimary_acc_1074" internalName="phyra_jgi_v11" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_phyra_jgi_v11__dm"/>
         <AttributeDescription checkForNulls="true" displayName="JGI (Physo1 v1.1) ID" field="dbprimary_acc_1074" internalName="physo1_jgi_v11" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_physo1_jgi_v11__dm"/>
         <AttributeDescription checkForNulls="true" displayName="JGI (Thaps v2) ID" field="dbprimary_acc_1074" internalName="thaps_jgi_v2" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_thaps_jgi_v2__dm"/>
@@ -5591,6 +5613,7 @@
         <AttributeDescription checkForNulls="true" displayName="PhosSite ID" field="dbprimary_acc_1074" internalName="phossite" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_PhosSite__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PlantGDB PUT ID" field="dbprimary_acc_1074" internalName="plantgdb_put" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_plantgdb_put__dm"/>
         <AttributeDescription checkForNulls="true" displayName="PlasmoDB" field="dbprimary_acc_1074" internalName="plasmodb" key="gene_id_1020_key" linkoutURL="exturl1|http://plasmodb.org/plasmo/showRecord.do?name=GeneRecordClasses.GeneRecordClass&amp;project_id=PlasmoDB&amp;source_id=%s" maxLength="40" tableConstraint="ox_PlasmoDB__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="PlasmoGem ID" field="dbprimary_acc_1074" internalName="plasmogem" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_plasmogem__dm"/>
         <!--
         <AttributeDescription checkForNulls="true" displayName="Platypus olfactory receptor" field="dbprimary_acc_1074" internalName="platypus_olfactory_receptor" key="transcript_id_1064_key" linkoutURL="exturl1|http://bip.weizmann.ac.il/cgi-bin/HORDE/showPlatypus.pl?symbol=%s" maxLength="40" tableConstraint="ox_Platypus_olfactory_receptor__dm"/>
         -->
@@ -5742,6 +5765,7 @@
         <AttributeDescription checkForNulls="true" displayName="WormBase pseudogene ID" field="dbprimary_acc_1074" internalName="wormbase_pseudogene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_wormbase_pseudogene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="WormBase transcript ID" field="dbprimary_acc_1074" internalName="wormbase_transcript" key="transcript_id_1064_key" linkoutURL="exturl1|http://www.wormbase.org/db/seq/sequence?name=%s" maxLength="40" tableConstraint="ox_wormbase_transcript__dm"/>
         <AttributeDescription checkForNulls="true" displayName="WormPep ID" field="dbprimary_acc_1074" internalName="wormpep_id" key="translation_id_1068_key" linkoutURL="exturl1|http://www.wormbase.org/db/seq/protein?name=%s" maxLength="40" tableConstraint="ox_wormpep_id__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="ZNGP ID" field="dbprimary_acc_1074" internalName="zngp" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_zngp__dm"/>
         <!--
         <AttributeDescription checkForNulls="true" displayName="Xenopus jamboree" field="dbprimary_acc_1074" internalName="xenopus_jamboree" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/geneview?gene=%s" maxLength="40" tableConstraint="ox_Xenopus_Jamboree__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ZFIN ID" field="dbprimary_acc_1074" internalName="zfin_id" key="transcript_id_1064_key" linkoutURL="exturl1|http://zfin.org/cgi-bin/webdriver?MIval=aa-markerview.apg&amp;OID=%s" maxLength="40" tableConstraint="ox_ZFIN_ID__dm"/>
