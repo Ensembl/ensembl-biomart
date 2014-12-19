@@ -225,6 +225,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+	  <Option displayName="with Affymetrix array Barley ID(s)" displayType="list" field="eFG_AFFY_Hordeum_vulgare_bool" internalName="with_affy_barley" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <!--
           <Option displayName="with Affymetrix array Bovine ID(s)" displayType="list" field="eFG_AFFY_Bovine_bool" internalName="with_affy_bovine" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -2265,6 +2269,7 @@
           <Option checkForNulls="true" displayName="Aedes manual annotation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="aedes_manualannotation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_aedes_manualannotation__dm" type="list"/>
           <Option checkForNulls="true" displayName="Affymetrix array AGSNP01 ID(s)" displayType="text" field="display_label_11056" internalName="affy_agsnp01" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_affy_agsnp01__dm" type="list"/>
           <Option checkForNulls="true" displayName="Affymetrix array Arabidopsis ATH1 121501 ID(s)" displayType="text" field="display_label_11056" internalName="affy_ath1_121501" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="eFG_AFFY_ATH1_121501__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="Affymetrix array Barley ID(s)" displayType="text" field="display_label_11056" internalName="affy_barley" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_affy_hordeum_vulgare__dm" type="list"/>
           <Option checkForNulls="true" displayName="Affymetrix array C. elegans ID(s)" displayType="text" field="display_label_11056" internalName="affy_c_elegans" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_AFFY_C_elegans__dm" type="list"/>
           <!--
           <Option checkForNulls="true" displayName="Affymetrix array Bovine ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="affy_bovine" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_AFFY_Bovine__dm" type="list"/>
@@ -6488,6 +6493,7 @@
         <AttributeDescription displayName="A. gambiae Liverpool Detox 25k v2 probe ID" field="display_label_11056" internalName="custom_est_liv_gamdetox_0_25k_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_liv_gamdetox_0_25k_v2__dm"/>
         <AttributeDescription displayName="Affymetrix array AGSNP01 ID" field="display_label_11056" internalName="affy_agsnp01" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_agsnp01__dm"/>
         <AttributeDescription displayName="Affymetrix array Arabidopsis ATH1 121501 ID" field="display_label_11056" internalName="affy_ath1_121501" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_AFFY_ATH1_121501__dm"/>
+	<AttributeDescription displayName="Affymetrix array Barley ID" field="display_label_11056" internalName="affy_barley" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_hordeum_vulgare__dm"/>
         <AttributeDescription displayName="Affymetrix array C. elegans ID" field="display_label_11056" internalName="affy_c_elegans" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_AFFY_C_elegans__dm"/>
         <!--
         <AttributeDescription displayName="Affymetrix array Bovine" field="dbprimary_acc_1074" internalName="affy_bovine" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_AFFY_Bovine__dm"/>
