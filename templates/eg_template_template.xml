@@ -1113,6 +1113,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with FGDB ID(s)" displayType="list" field="ox_fgdb_bool" internalName="with_fgdb" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with FlyBase annotation ID(s)" displayType="list" field="ox_flybase_annotation_id_bool" internalName="with_flybase_annotation_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2494,6 +2498,7 @@
           <Option checkForNulls="true" displayName="EO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="eo" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_EO__dm" type="list"/>
           <Option checkForNulls="true" displayName="Eukaryotic Promoter Database (EPD) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="epd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_epd__dm" type="text"/>
           <Option checkForNulls="true" displayName="Fantom ID(s) [e.g.77208]" displayType="text" field="dbprimary_acc_1074" internalName="fantom" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_Fantom__dm" type="text"/>
+	<Option checkForNulls="true" displayName="fgdb ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="fgdb" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_fgdb__dm" type="list"/>
           <Option checkForNulls="true" displayName="Fly Reactome ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="flyreactome" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_flyreactome__dm" type="list"/>
           <Option checkForNulls="true" displayName="FlyBase annotation ID(s) [e.g. FBan0011023]" displayType="text" field="dbprimary_acc_1074" internalName="flybase_annotation_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_flybase_annotation_id__dm" type="list" useDefault="true"/>
           <Option checkForNulls="true" displayName="FlyBase gene ID(s) [e.g. FBgn0031208]" displayType="text" field="dbprimary_acc_1074" internalName="flybase_gene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_flybase_gene_id__dm" type="list"/>
@@ -5451,6 +5456,7 @@
         <AttributeDescription checkForNulls="true" displayName="EO" field="dbprimary_acc_1074" internalName="eo" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_eo__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Eukaryotic Promoter Database (EPD) ID(s)" field="dbprimary_acc_1074" internalName="epd" key="gene_id_1020_key" linkoutURL="exturl|http://www.genome.jp/dbget-bin/www_bfind_sub?dbkey=epd&amp;keywords=%s" maxLength="40" tableConstraint="ox_EPD__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Fantom ID" field="dbprimary_acc_1074" internalName="fantom" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_Fantom__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="FGDB ID" field="dbprimary_acc_1074" internalName="fgdb" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_fgdb__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Fly Reactome ID" field="dbprimary_acc_1074" internalName="flyreactome" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_flyreactome__dm"/>
         <AttributeDescription checkForNulls="true" displayName="FlyBase annotation ID" field="dbprimary_acc_1074" internalName="flybase_annotation_id" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_annotation_id__dm"/>
         <AttributeDescription checkForNulls="true" displayName="FlyBase gene ID" field="dbprimary_acc_1074" internalName="flybase_gene_id" key="gene_id_1020_key" linkoutURL="exturl1|http://flybase.org/reports/%s.html" maxLength="40" tableConstraint="ox_flybase_gene_id__dm"/>
