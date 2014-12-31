@@ -63,7 +63,7 @@ if(!$options_okay) {
     usage();
 }
 
-if (!defined $mart_db || !defined $dataset) {
+if (!defined $mart_db) {
     usage();
 }
 if(defined $verbose) {
@@ -81,21 +81,30 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
 			       { RaiseError => 1 }
     ) or croak "Could not connect to $mart_string";
 
-my $core_db = get_string($mart_handle->prepare("SELECT src_db FROM dataset_names WHERE name='$dataset'"));
-$logger->info("Found database $core_db for dataset $dataset");
-if(!defined $core_db) {
-    croak "Could not find core database for dataset $dataset";
+my @datasets = ();
+if(defined $dataset) {
+    push @datasets, $dataset;
+} else {
+     @datasets = get_strings($mart_handle->prepare("SELECT distinct(name) FROM dataset_names"));
 }
 
-for my $row (get_dbs($mart_handle,$core_db)) {
-    my $external_db = $row->[0];
-    my $object_type = $row->[1];
-    $logger->info("Creating base table for $dataset $external_db on $mart_db using $core_db");
-
-    create_base_table($mart_handle,$mart_db,$core_db,$dataset,$external_db,$object_type);
-    for my $condition (get_conditions($mart_handle,$core_db,$external_db)) {
-        $logger->info("Adding condition $condition for $dataset $external_db on $mart_db using $core_db");
-        add_condition($mart_handle,$mart_db,$core_db,$dataset,$condition,$external_db);
+for $dataset (@datasets) {
+    my $core_db = get_string($mart_handle->prepare("SELECT src_db FROM dataset_names WHERE name='$dataset'"));
+    $logger->info("Found database $core_db for dataset $dataset");
+    if(!defined $core_db) {
+	croak "Could not find core database for dataset $dataset";
+    }
+    
+    for my $row (get_dbs($mart_handle,$core_db)) {
+	my $external_db = $row->[0];
+	my $object_type = $row->[1];
+	$logger->info("Creating base table for $dataset $external_db on $mart_db using $core_db");
+	
+	create_base_table($mart_handle,$mart_db,$core_db,$dataset,$external_db,$object_type);
+	for my $condition (get_conditions($mart_handle,$core_db,$external_db)) {
+	    $logger->info("Adding condition $condition for $dataset $external_db on $mart_db using $core_db");
+	    add_condition($mart_handle,$mart_db,$core_db,$dataset,$condition,$external_db);
+	}
     }
 }
 
