@@ -2486,8 +2486,10 @@
           <Option checkForNulls="true" displayName="Ensembl transcript (Identical to OTTT)" displayType="text" field="dbprimary_acc_1074" internalName="shares_cds_and_utr_with_ottt" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_shares_CDS_and_UTR_with_OTTT__dm" type="list"/>
           -->
           <Option checkForNulls="true" displayName="EntrezGene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="entrezgene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_EntrezGene__dm" type="text" useDefault="true">
+            <!-->
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
+            -->
           </Option>
 	  <Option checkForNulls="true" displayName="EntrezGene transcript name ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="entrezgene_trans_name" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_entrezgene_trans_name__dm" type="list"/>
           <Option checkForNulls="true" displayName="Enzyme Commission (EC) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="ec_number" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ec_number__dm" type="list" useDefault="true">
@@ -2637,7 +2639,6 @@
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="slycopersicum_eg_gene"/>
           </Option>
           <Option checkForNulls="true" displayName="KEGG ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="kegg_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_kegg__dm" type="list" useDefault="true">
-            <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="aaegypti_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="agambiae_eg_gene"/>
             <SpecificOptionContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene"/>
@@ -2868,12 +2869,16 @@
           <Option checkForNulls="true" displayName="Vega Translation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="vega_translation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_Vega_translation__dm" type="list"/>
           -->
           <Option checkForNulls="true" displayName="WikiGene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wikigene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wikigene__dm" type="text" useDefault="true">
+            <!--
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="anidulans_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="umaydis_eg_gene"/>
+            -->
           </Option>
           <Option checkForNulls="true" displayName="WikiGene name(s)" displayType="text" field="display_label_1074" internalName="wikigene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wikigene__dm" type="text" useDefault="true">
+            <!--
             <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="anidulans_eg_gene"/>
             <SpecificOptionContent key="translation_id_1068_key" field="display_label_1074" internalName="umaydis_eg_gene"/>
+            -->
           </Option>
           <Option checkForNulls="true" displayName="WormBase gene ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="wormbase_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_gene__dm" type="list" useDefault="true"/>
           <Option checkForNulls="true" displayName="WormBase gseqname ID(s)" displayType="text" field="display_label_1074" internalName="wormbase_gseqname" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_wormbase_gseqname__dm" type="list"/>
@@ -3007,7 +3012,7 @@
         	displayType="list" field="evidence_acc" internalName="go_evidence_acc" 
         	key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="go_extension__dm" type="text"/>
       </FilterCollection>
-<!--
+
       <FilterCollection internalName="with_go_with" 
       	displayName="GO annotations with with" 
       	description="GO entries with with">
@@ -3936,7 +3941,7 @@
         	displayType="list" field="requires_localization_acc" internalName="go_requires_localization_acc" 
         	key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="go_extension__dm" type="text"/>
       </FilterCollection>
--->
+
     </FilterGroup>
     <FilterGroup hidden="true" description="Filter on PBO IDs, terms, and evidence codes" displayName="POMBASE ONTOLOGY:" internalName="pbo">
       <FilterCollection displayName="PBO term accession [e.g. PBO:0000001]" internalName="pbo_filters">
@@ -5443,8 +5448,10 @@
         <AttributeDescription displayName="Ensembl transcript having exact match with Havana" field="display_label_1074" hidden="true" internalName="enst_ident" key="transcript_id_1064_key" maxLength="128" tableConstraint="ox_ENST_ident__dm"/>
         -->
         <AttributeDescription checkForNulls="true" displayName="EntrezGene ID" field="dbprimary_acc_1074" internalName="entrezgene" key="gene_id_1020_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?cmd=search&amp;db=gene&amp;term=%s[uid]" maxLength="40" tableConstraint="ox_entrezgene__dm" useDefault="true">
+          <!-->
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
+          -->
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="EntrezGene ID" field="dbprimary_acc_1074" internalName="geneid" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_GeneID__dm"/>
 	<AttributeDescription checkForNulls="true" displayName="EntrezGene transcript name ID" field="dbprimary_acc_1074" internalName="entrezgene_trans_name" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_entrezgene_trans_name__dm"/>
@@ -5572,7 +5579,6 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="slycopersicum_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="KEGG ID" field="dbprimary_acc_1074" internalName="kegg_id" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_kegg__dm" linkoutURL="exturl|http://www.genome.jp/dbget-bin/www_bget?path:%s" useDefault="true">
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="aaegypti_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="agambiae_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene"/>       
@@ -5580,7 +5586,6 @@
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="phumanus_eg_gene"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="KEGG description" field="description_1074" internalName="kegg_description" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_kegg__dm" linkoutURL="exturl|http://www.genome.jp/dbget-bin/www_bget?path:%s" useDefault="true">
-          <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="aaegypti_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="agambiae_eg_gene"/>
           <SpecificAttributeContent key="gene_id_1020_key" field="dbprimary_acc_1074" internalName="cquinquefasciatus_eg_gene"/>                                 
@@ -5752,16 +5757,22 @@
         <AttributeDescription checkForNulls="true" displayName="VEGA transcript" field="dbprimary_acc_1074" hidden="true" internalName="Vega_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_Vega_transcript__dm"/>
         -->
         <AttributeDescription checkForNulls="true" displayName="WikiGene ID" field="dbprimary_acc_1074" internalName="wikigene_id" key="gene_id_1020_key" linkoutURL="http://www.wikigenes.org/e/gene/e/%s.html" maxLength="40" tableConstraint="ox_wikigene__dm" useDefault="true">
+          <!--
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="translation_id_1068_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="umaydis_eg_gene" key="translation_id_1068_key"/>
+          -->
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="WikiGene name" field="display_label_1074" internalName="wikigene_name" key="gene_id_1020_key" maxLength="128" tableConstraint="ox_wikigene__dm" useDefault="true">
+          <!--
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="anidulans_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="display_label_1074" internalName="umaydis_eg_gene"/>
+          -->
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="WikiGene description" field="description_1074" internalName="wikigene_description" key="gene_id_1020_key" maxLength="255" tableConstraint="ox_wikigene__dm" useDefault="true">
+          <!--
           <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="anidulans_eg_gene"/>
           <SpecificAttributeContent key="translation_id_1068_key" field="description_1074" internalName="umaydis_eg_gene"/>
+          -->
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="WormBase gene ID" field="dbprimary_acc_1074" internalName="wormbase_gene" key="gene_id_1020_key" linkoutURL="exturl1|http://www.wormbase.org/db/gene/gene?name=%s" maxLength="40" tableConstraint="ox_wormbase_gene__dm"/>
         <AttributeDescription checkForNulls="true" displayName="WormBase gseqname ID" field="display_label_1074" internalName="wormbase_gseqname" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_wormbase_gseqname__dm"/>
@@ -6661,7 +6672,7 @@
         <AttributeDescription displayName="WUSTL C. elegans ID" field="display_label_11056" internalName="wustl_wustl_c_elegans" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_wustl_wustl_c_elegans__dm"/>
       </AttributeCollection>
       <AttributeCollection displayName="Pathogen Phenotypes (source: PHI-base)" internalName="phi_extension">
-        <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="dbprimary_acc_1074" internalName="phi" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="subject_label" internalName="phi" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
         <!-- <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="phibase_id" internalName="phibase_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hideDisplay="true"/> -->
         <AttributeDescription checkForNulls="true" displayName="Plant host" field="host_label" internalName="phibase_host" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
         <!-- <AttributeDescription checkForNulls="true" displayName="PHI-base host ID" field="host_acc" internalName="phibase_host_id" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm" hideDisplay="true"/> -->
