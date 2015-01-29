@@ -8,9 +8,9 @@ SELECT
   p.description as description_2033,
   st.external_reference as external_reference_20100,
   st.study_type as study_type_20100,
-  st.name as name_20100,
+  REPLACE(st.name, ',', '') as name_20100,
   st.description as description_20100,
-  so.name as name_2021
+  REPLACE(so.name, ',', '') as name_2021
 FROM
   VAR_DB.MTMP_variation_annotation va INNER JOIN
   VAR_DB.phenotype p ON va.phenotype_id = p.phenotype_id LEFT OUTER JOIN
