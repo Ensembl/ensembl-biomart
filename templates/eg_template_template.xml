@@ -1298,6 +1298,7 @@
           <Option hidden="true" displayName="with GO (gene) ID(s)" displayType="list" field="ox_go_to_gene_bool" internalName="with_go_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="transcript_id_1064_key"/>
           </Option>
           <Option hidden="true" displayName="with GO (transcript) ID(s)" displayType="list" field="ox_go_to_transcript_bool" internalName="with_go_to_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -1984,6 +1985,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with Strigamia maritima gene name(s)" displayType="list" field="ox_smar_community_annotation_bool" internalName="with_smar_community_annotation" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with STRING ID(s)" displayType="list" field="ox_string_bool" internalName="with_string" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2545,7 +2550,9 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="anidulans_eg_gene" key="transcript_id_1064_key"/>
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="spombe_eg_gene" key="transcript_id_1064_key"/>
           </Option>
-          <Option checkForNulls="true" displayName="GO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="go_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_go_to_gene__dm" type="list"/>
+          <Option checkForNulls="true" displayName="GO ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="go_to_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_go_to_gene__dm" type="list">
+            <SpecificOptionContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="transcript_id_1064_key"/>
+          </Option>
           <Option hidden="true" checkForNulls="true" displayName="go_mb001 ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="go_mb001" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_go_mb001__dm" type="list">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="anidulans_eg_gene"/>
           </Option>
@@ -2795,6 +2802,7 @@
           <Option checkForNulls="true" displayName="SPD ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="spd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_spd__dm" type="list">
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="spombe_eg_gene"/>
           </Option>
+          <Option checkForNulls="true" displayName="Strigamia maritima gene name(s)" displayType="text" field="dbprimary_acc_1074" internalName="smar_community_annotation" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_smar_community_annotation__dm" type="list"/>
           <Option checkForNulls="true" displayName="STRING ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="string" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_string__dm" type="list">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="olucimarinus_eg_gene" />
           </Option>
@@ -5503,7 +5511,9 @@
         <AttributeDescription checkForNulls="true" displayName="GFBGP ID" field="dbprimary_acc_1074" internalName="gfbgp" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_gfbgp__dm"/>
         <AttributeDescription checkForNulls="true" displayName="GI ID" field="dbprimary_acc_1074" internalName="gi" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_gi__dm" useDefault="true"/>
         <AttributeDescription checkForNulls="true" displayName="GlycoSuiteDB ID" field="dbprimary_acc_1074" internalName="glycosuitedb" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_GlycoSuiteDB__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="GO ID" field="dbprimary_acc_1074" internalName="go_to_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_go_to_gene__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="GO ID" field="dbprimary_acc_1074" internalName="go_to_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_go_to_gene__dm">
+          <SpecificAttributeContent field="dbprimary_acc_1074" internalName="dmelanogaster_eg_gene" key="transcript_id_1064_key"/>
+        </AttributeDescription>
         <AttributeDescription hidden="true" checkForNulls="true" displayName="GO ID" field="dbprimary_acc_1074" internalName="go_mb001" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_go_mb001__dm"/>
         <AttributeDescription checkForNulls="true" displayName="GOA ID" field="dbprimary_acc_1074" internalName="goa" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_goa__dm"/>
         <AttributeDescription hidden="true" displayName="go_to_transcript ID" field="dbprimary_acc_1074" internalName="go_to_transcript" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_go_to_transcript__dm"/>
@@ -5695,6 +5705,7 @@
         <AttributeDescription checkForNulls="true" displayName="SO ID" field="dbprimary_acc_1074" internalName="so" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_so__dm"/>
         <AttributeDescription checkForNulls="true" displayName="SpBase ID" field="dbprimary_acc_1074" internalName="spbase" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_spbase__dm"/>
         <AttributeDescription checkForNulls="true" displayName="SPD ID" field="dbprimary_acc_1074" internalName="spd" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_spd__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Strigamia maritima gene name" field="dbprimary_acc_1074" internalName="smar_community_annotation" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_smar_community_annotation__dm"/>
         <AttributeDescription checkForNulls="true" displayName="STRING ID" field="dbprimary_acc_1074" internalName="string" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_string__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Swiss 2DPAGE ID" field="dbprimary_acc_1074" internalName="swiss_2dpage" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_swiss_2dpage__dm"/>
         <AttributeDescription checkForNulls="true" displayName="SWISS MODEL ID" field="dbprimary_acc_1074" internalName="swiss_model" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_swiss_model__dm"/>
