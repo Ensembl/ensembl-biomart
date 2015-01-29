@@ -1,6 +1,6 @@
 SELECT
   v.variation_id as variation_id_2025_key,
-  replace(vs.name, ",", "") as name_2077,
+  REPLACE(vs.name, ',', '') as name_2077,
   vs.description as description_2077
 FROM
   VAR_DB.variation_set vs INNER JOIN

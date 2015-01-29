@@ -1,6 +1,6 @@
 SELECT
   v.variation_id as variation_id_2025_key,
-  p.name as name_2019,
+  REPLACE(p.name, ',', '') as name_2019,
   concat(pg.allele_1, "|", pg.allele_2) as allele,
   p.size as size_2019,
   pg.frequency as frequency_2016
