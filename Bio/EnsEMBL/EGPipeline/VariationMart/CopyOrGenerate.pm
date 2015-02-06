@@ -25,12 +25,14 @@ use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 
 sub param_defaults {
   return {
-    'drop_mart_tables'     => 0,
-    'mtmp_tables_exist'    => 0,
-    'individual_threshold' => 100,
-    'population_threshold' => 100,
-    'copy_species'         => [],
-    'copy_all'             => 0,
+    'drop_mart_tables'      => 0,
+    'mtmp_tables_exist'     => 0,
+    'individual_threshold'  => 100,
+    'population_threshold'  => 100,
+    'always_skip_genotypes' => [],
+    'never_skip_genotypes'  => [],
+    'copy_species'          => [],
+    'copy_all'              => 0,
   };
 }
 
@@ -85,21 +87,41 @@ sub write_output {
 sub data_display {
   my ($self) = @_;
   
+  my $species       = $self->param_required('species');
   my $ind_threshold = $self->param('individual_threshold');
   my $pop_threshold = $self->param('population_threshold');
+  my $always_skip   = $self->param('always_skip_genotypes');
+  my $never_skip    = $self->param('never_skip_genotypes');
+  
+  my %always_skip = map {$_ => 1} @$always_skip;
+  my %never_skip  = map {$_ => 1} @$never_skip;
   
   my $vdbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
   my $sv_sql = 'SELECT COUNT(*) FROM structural_variation;';
   my ($svs) = $vdbh->selectrow_array($sv_sql) or $self->throw($vdbh->errstr);
   my $sv_exists = $svs ? 1 : 0;
   
-  my $ind_sql = 'SELECT COUNT(*) FROM individual WHERE display NOT IN ("LD", "UNDISPLAYABLE");';
-  my ($inds) = $vdbh->selectrow_array($ind_sql) or $self->throw($vdbh->errstr);
-  my $show_inds = $inds <= $ind_threshold ? 1 : 0;
-  
-  my $pop_sql = 'SELECT COUNT(*) FROM population WHERE display NOT IN ("LD", "UNDISPLAYABLE");';
-  my ($pops) = $vdbh->selectrow_array($pop_sql) or $self->throw($vdbh->errstr);
-  my $show_pops = $pops <= $pop_threshold ? 1 : 0;
+  my ($show_inds, $show_pops, $inds, $pops);
+  if (exists $always_skip{$species}) {
+    $show_inds = 0;
+    $show_pops = 0;
+    $self->warning("Genotypes always skipped for $species");
+  } else {
+    my $ind_sql = 'SELECT COUNT(*) FROM individual WHERE display NOT IN ("LD", "UNDISPLAYABLE");';
+    ($inds) = $vdbh->selectrow_array($ind_sql) or $self->throw($vdbh->errstr);
+    
+    my $pop_sql = 'SELECT COUNT(*) FROM population WHERE display NOT IN ("LD", "UNDISPLAYABLE");';
+    ($pops) = $vdbh->selectrow_array($pop_sql) or $self->throw($vdbh->errstr);
+    
+    if (exists $never_skip{$species}) {
+      $show_inds = $inds ? 1 : 0;
+      $show_pops = $pops ? 1 : 0;
+      $self->warning("Genotypes never skipped for $species");
+    } else {
+      $show_inds = $inds <= $ind_threshold ? 1 : 0;
+      $show_pops = $pops <= $pop_threshold ? 1 : 0;
+    }
+  }
   
   $self->data_display_report($svs, $sv_exists, $inds, $show_inds, $pops, $show_pops);
   
@@ -127,7 +149,6 @@ sub data_display_report {
   }
   
   $self->warning($filter_table_msg);
-  print STDERR $filter_table_msg;
 }
 
 1;
