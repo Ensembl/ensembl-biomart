@@ -2262,6 +2262,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+	  <Option displayName="with MTGD ID(s)" displayType="list" field="ox_mtgd_bool" internalName="with_mtgd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <!--
           <Option displayName="with Xenopus jamboree ID(s)" displayType="list" field="ox_xenopus_jamboree_bool" internalName="with_xenopus_jamboree" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
@@ -2907,6 +2911,7 @@
           <Option checkForNulls="true" displayName="Wustl C. elegans ID(s)" displayType="text" field="display_label_11056" internalName="wustl_wustl_c_elegans" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_wustl_wustl_c_elegans__dm" type="list"/>
           <Option checkForNulls="true" displayName="ZNGP ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="zngp" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_zngp__dm" type="list"/>
 	  <Option checkForNulls="true" displayName="PGSB ID(s) (formely MIPS)" displayType="text" field="dbprimary_acc_1074" internalName="pgsb" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pgsb__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="MTGD ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="mtgd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mtgd__dm" type="list"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Transcript count &gt;=" internalName="transcript_count_filter">
@@ -5798,6 +5803,7 @@
         <AttributeDescription checkForNulls="true" displayName="WormPep ID" field="dbprimary_acc_1074" internalName="wormpep_id" key="translation_id_1068_key" linkoutURL="exturl1|http://www.wormbase.org/db/seq/protein?name=%s" maxLength="40" tableConstraint="ox_wormpep_id__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ZNGP ID" field="dbprimary_acc_1074" internalName="zngp" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_zngp__dm"/>
 	<AttributeDescription checkForNulls="true" displayName="PGSB ID (formerly MIPS)" field="dbprimary_acc_1074" internalName="pgsb" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_pgsb__dm"/>
+	<AttributeDescription checkForNulls="true" displayName="MTGD ID" field="dbprimary_acc_1074" internalName="mtgd" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_mtgd__dm"/>
         <!--
         <AttributeDescription checkForNulls="true" displayName="Xenopus jamboree" field="dbprimary_acc_1074" internalName="xenopus_jamboree" key="translation_id_1068_key" linkoutURL="exturl1|/*species2*/geneview?gene=%s" maxLength="40" tableConstraint="ox_Xenopus_Jamboree__dm"/>
         <AttributeDescription checkForNulls="true" displayName="ZFIN ID" field="dbprimary_acc_1074" internalName="zfin_id" key="transcript_id_1064_key" linkoutURL="exturl1|http://zfin.org/cgi-bin/webdriver?MIval=aa-markerview.apg&amp;OID=%s" maxLength="40" tableConstraint="ox_ZFIN_ID__dm"/>
