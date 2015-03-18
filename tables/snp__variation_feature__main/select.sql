@@ -11,7 +11,7 @@ SELECT
   v_m.evidence_2025,
   v_m.variation_feature_count,
   vf.variation_feature_id as variation_feature_id_2026_key,
-  REPLACE(vf.variation_name, ',', '') as variation_name_2026,
+  REPLACE(vf.variation_name, ",", "") as variation_name_2026,
   sr.name as name_1059,
   vf.seq_region_start as seq_region_start_2026,
   vf.seq_region_end as seq_region_end_2026,

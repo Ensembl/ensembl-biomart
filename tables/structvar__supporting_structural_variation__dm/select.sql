@@ -1,7 +1,7 @@
 SELECT
   sv.structural_variation_id as structural_variation_id_2072_key,
   ssv.supporting_structural_variation_id as supporting_structural_variation_id_20116,
-  REPLACE(ssv.variation_name, ',', '') as variation_name_20116,
+  REPLACE(ssv.variation_name, ",", "") as variation_name_20116,
   ssv.class_name as class_name_20116,
   ssv.seq_region_name as seq_region_name_20116,
   ssv.outer_start as outer_start_20116,
@@ -12,8 +12,8 @@ SELECT
   ssv.outer_end as outer_end_20116,
   ssv.seq_region_strand as seq_region_strand_20116,
   ssv.clinical_significance as clinical_significance_20116,
-  REPLACE(ssv.sample_name, ',', '') as sample_name_20116,
-  REPLACE(ssv.strain_name, ',', '') as strain_name_20116,
+  REPLACE(ssv.sample_name, ",", "") as sample_name_20116,
+  REPLACE(ssv.strain_name, ",", "") as strain_name_20116,
   ssv.phenotype as phenotype_20116
 FROM
   VAR_DB.structural_variation sv LEFT OUTER JOIN
