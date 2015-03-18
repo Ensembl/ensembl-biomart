@@ -1,12 +1,12 @@
 SELECT
   sv.structural_variation_id as structural_variation_id_2072_key,
-  REPLACE(sv.variation_name, ',', '') as variation_name_2072,
+  REPLACE(sv.variation_name, ",", "") as variation_name_2072,
   sv.validation_status as validation_status_2072,
   sv.clinical_significance as clinical_significance_2072,
   a.value as value_2092,
-  REPLACE(so.name, ',', '') as name_2021,
+  REPLACE(so.name, ",", "") as name_2021,
   so.description as description_2021,
-  REPLACE(st.name, ',', '') as name_20100,
+  REPLACE(st.name, ",", "") as name_20100,
   st.description as description_20100,
   st.external_reference as external_reference_20100
 FROM

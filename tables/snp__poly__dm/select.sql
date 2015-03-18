@@ -1,6 +1,6 @@
 SELECT DISTINCT
   v.variation_id as variation_id_2025_key,
-  REPLACE(i.name, ',', '') as name_2019,
+  REPLACE(i.name, ",", "") as name_2019,
   concat(sg.allele_1, "|", sg.allele_2) as allele
 FROM
   VAR_DB.MTMP_sample_genotype sg INNER JOIN
