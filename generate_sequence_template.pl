@@ -40,6 +40,7 @@ my $division = '';
 my $logger = get_logger();
 my $release = undef;
 my $species = undef;
+my $registry = undef;
 
 my $output_dir = "/tmp/seq_mart_output";
 my $mart_version = "0.7";
@@ -246,6 +247,7 @@ my $options_okay = GetOptions (
     "seq_mart=s"=>\$seq_mart_db,
     "release=s"=>\$release,
     "species=s"=>\$species,
+    "registry=s" => \$registry,
     "help"=>sub {usage()}
     );
 
@@ -299,12 +301,20 @@ my $seq_mart_handle = DBI->connect($seq_mart_string, $db_user, $db_pwd,
 
 # Use Registry rather than dataset_names table from gene mart
 # to get the dataset name, the species id etc.
-Bio::EnsEMBL::Registry->load_registry_from_db(
-                                              -host => $db_host,
-                                              -user => $db_user,
-                                              -pass => $db_pwd,
-                                              -port => $db_port,
-                                              -db_version => $release);
+
+if( $registry ){
+
+    unless( -f $registry ){ die "unable to locate registry file $registry\n" }
+    Bio::EnsEMBL::Registry->load_all( $registry );
+}
+else{
+    Bio::EnsEMBL::Registry->load_registry_from_db(
+	-host => $db_host,
+	-user => $db_user,
+	-pass => $db_pwd,
+	-port => $db_port,
+	-db_version => $release);
+}
 Bio::EnsEMBL::Registry->set_disconnect_when_inactive(1);
 
 # Get all species for the given Ensembl division, or VectorBase
