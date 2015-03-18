@@ -228,7 +228,7 @@ my $db_pwd = "writ3rp1";
 my $seq_mart_db;
 
 sub usage {
-    print "Usage: $0 -host <host> -port <port> -user <user> -pass|pwd <pwd> -seq_mart <target mart database> -release <release number>\n";
+    print "Usage: $0 -host <host> -port <port> -user <user> -pass|pwd <pwd> -seq_mart <target mart database> -release <release number> -registry <file>\n";
     print "-host <host>\n";
     print "-port <port>\n";
     print "-user <host>\n";
@@ -236,6 +236,7 @@ sub usage {
     print "-seq_mart <mart>\n";
     print "-release <ensembl release number>\n";
     print "-species <comma separated list of species names> (optional, used by VectorBase)\n";
+    print "-registry <file> (optional, process only the entries in an Ensembl registry file)\n";
     exit 1;
 };
 
