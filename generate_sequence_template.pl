@@ -40,6 +40,7 @@ my $division = '';
 my $logger = get_logger();
 my $release = undef;
 my $species = undef;
+my $registry = undef;
 
 my $output_dir = "/tmp/seq_mart_output";
 my $mart_version = "0.7";
@@ -227,7 +228,7 @@ my $db_pwd = "writ3rp1";
 my $seq_mart_db;
 
 sub usage {
-    print "Usage: $0 -host <host> -port <port> -user <user> -pass|pwd <pwd> -seq_mart <target mart database> -release <release number>\n";
+    print "Usage: $0 -host <host> -port <port> -user <user> -pass|pwd <pwd> -seq_mart <target mart database> -release <release number> -registry <file>\n";
     print "-host <host>\n";
     print "-port <port>\n";
     print "-user <host>\n";
@@ -235,6 +236,7 @@ sub usage {
     print "-seq_mart <mart>\n";
     print "-release <ensembl release number>\n";
     print "-species <comma separated list of species names> (optional, used by VectorBase)\n";
+    print "-registry <file> (optional, process only the entries in an Ensembl registry file)\n";
     exit 1;
 };
 
@@ -246,6 +248,7 @@ my $options_okay = GetOptions (
     "seq_mart=s"=>\$seq_mart_db,
     "release=s"=>\$release,
     "species=s"=>\$species,
+    "registry=s" => \$registry,
     "help"=>sub {usage()}
     );
 
@@ -299,12 +302,20 @@ my $seq_mart_handle = DBI->connect($seq_mart_string, $db_user, $db_pwd,
 
 # Use Registry rather than dataset_names table from gene mart
 # to get the dataset name, the species id etc.
-Bio::EnsEMBL::Registry->load_registry_from_db(
-                                              -host => $db_host,
-                                              -user => $db_user,
-                                              -pass => $db_pwd,
-                                              -port => $db_port,
-                                              -db_version => $release);
+
+if( $registry ){
+
+    unless( -f $registry ){ die "unable to locate registry file $registry\n" }
+    Bio::EnsEMBL::Registry->load_all( $registry );
+}
+else{
+    Bio::EnsEMBL::Registry->load_registry_from_db(
+	-host => $db_host,
+	-user => $db_user,
+	-pass => $db_pwd,
+	-port => $db_port,
+	-db_version => $release);
+}
 Bio::EnsEMBL::Registry->set_disconnect_when_inactive(1);
 
 # Get all species for the given Ensembl division, or VectorBase
