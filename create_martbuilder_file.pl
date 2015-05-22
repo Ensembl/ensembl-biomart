@@ -70,7 +70,7 @@ if(defined $opts->{collection}) {
     # collections have no variation or funcgen at the moment
 } else {
     # strip out collections
-    @cores = grep {$_ !~ m/collection/} @cores;
+    @cores = map {s/_collection//} grep {$_ !~ m/collection/} @cores;
     # 2. assemble variation list
     @variation = @{get_list($dba,$opts->{division},'variation')};
     # 3. assemble funcgen list
@@ -88,7 +88,7 @@ my $inname = $opts->{template};
 print "Reading $inname\n";
 open(my $in_file, "<", $inname) or croak "Could not open $inname";
 
-my $outname = $opts->{mart}.'.xml';
+my $outname = $opts->{mart}.((defined $opts->{collection})?'_collection':'').'.xml';
 print "Writing $outname\n";
 open(my $out_file, '>', $outname) or croak "Could not open $outname";
 
