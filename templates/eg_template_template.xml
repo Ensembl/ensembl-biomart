@@ -6728,7 +6728,7 @@
         <AttributeDescription displayName="Ensembl Family ID" field="family" internalName="family" key="transcript_id_1064_key" linkoutURL="exturl1|/*species2*/familyview?family=%s" maxLength="15" tableConstraint="main"/>
         <AttributeDescription displayName="Family description" field="family_description" internalName="family_description" key="transcript_id_1064_key" maxLength="230" tableConstraint="main"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Domains" internalName="prot_domain" maxSelect="2">
+      <AttributeCollection displayName="Domains" internalName="prot_domain">
         <AttributeDescription displayName="Gene3D ID" field="hit_name_1048" internalName="gene3d_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_gene3d__dm"/>
         <AttributeDescription displayName="Gene3D start" field="seq_start_1048" internalName="gene3d_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_gene3d__dm"/>
         <AttributeDescription displayName="Gene3D end" field="seq_end_1048" internalName="gene3d_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_gene3d__dm"/>
@@ -6804,7 +6804,7 @@
         <AttributeDescription displayName="InterPro short description" field="display_label_1074" internalName="interpro_short_description" key="translation_id_1068_key" maxLength="25" tableConstraint="interpro__dm"/>
         <AttributeDescription displayName="InterPro description" field="description_1074" internalName="interpro_description" key="translation_id_1068_key" maxLength="60" tableConstraint="interpro__dm"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Transmembrane and Signal Domain Attributes" internalName="tm_and_signal" maxSelect="0">
+      <AttributeCollection displayName="Transmembrane and Signal Domain Attributes" internalName="tm_and_signal">
         <AttributeDescription displayName="Chain domain" field="hit_name_1048" internalName="chain_domain" key="translation_id_1068_key" tableConstraint="protein_feature_Chain__dm"/>
         <AttributeDescription displayName="Chain domain start" field="seq_start_1048" internalName="chain_domain_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_Chain__dm"/>
         <AttributeDescription displayName="Chain domain end" field="seq_end_1048" internalName="chain_domain_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_Chain__dm"/>
