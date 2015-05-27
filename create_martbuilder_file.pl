@@ -36,6 +36,7 @@ my $optsd = $cli_helper->get_dba_opts();
 push(@{$optsd},"division:s");
 push(@{$optsd},"template:s");
 push(@{$optsd},"mart:s");
+push(@{$optsd},"collection");
 
 # process the command line with the supplied options plus a help subroutine
 my $opts = $cli_helper->process_args($optsd,\&usage);
@@ -61,11 +62,20 @@ my $dba = Bio::EnsEMBL::DBSQL::DBConnection->new(-USER => $opts->{user}, -PASS =
 print "Getting db lists from $opts->{dbname}\n";
 # 1. assemble core species list
 my @cores = @{get_list($dba,$opts->{division},'core')};
-
-# 2. assemble variation list
-my @variation = @{get_list($dba,$opts->{division},'variation')};
-# 3. assemble funcgen list
-my @funcgen = @{get_list($dba,$opts->{division},'funcgen')};
+my @variation = ();
+my @funcgen = ();
+if(defined $opts->{collection}) {
+    # keep collection only
+    @cores = grep {$_ =~ m/collection/} @cores;
+    # collections have no variation or funcgen at the moment
+} else {
+    # strip out collections
+    @cores = map {s/_collection//} grep {$_ !~ m/collection/} @cores;
+    # 2. assemble variation list
+    @variation = @{get_list($dba,$opts->{division},'variation')};
+    # 3. assemble funcgen list
+    @funcgen = @{get_list($dba,$opts->{division},'funcgen')};
+}
 
 my $core_str = join ',',@cores;
 print "Cores found: $core_str\n";
@@ -78,7 +88,7 @@ my $inname = $opts->{template};
 print "Reading $inname\n";
 open(my $in_file, "<", $inname) or croak "Could not open $inname";
 
-my $outname = $opts->{mart}.'.xml';
+my $outname = $opts->{mart}.((defined $opts->{collection})?'_collection':'').'.xml';
 print "Writing $outname\n";
 open(my $out_file, '>', $outname) or croak "Could not open $outname";
 
@@ -99,9 +109,13 @@ sub get_list {
     my @list = ();
     for my $db (@{$dba->sql_helper()->execute_simple(-SQL=>'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1',-PARAMS=>[$division,$type])}) {
 	if($division eq 'WormBaseParaSite') {
-          $db=~s/([a-z])[^_]+_([^_]+)_([^_]+)/$3_eg/; # Need to use the BioProject to differentiate between the duplicate genome projects; name becomes too long if we use the species+BioProject
+          $db =~ s/([a-z])[^_]+_([^_]+)_([^_]+)/$3_eg/; # Need to use the BioProject to differentiate between the duplicate genome projects; name becomes too long if we use the species+BioProject
 	} else {
-          $db=~s/([a-z])[^_]+_([^_]+)/$1$2_eg/;
+            if(defined $opts->{collection}) {
+                $db =~ s/^[^_]+_([^_]+_collection)/$1_eg/;
+            } else {
+                $db =~ s/([a-z])[^_]+_([^_]+)/$1$2_eg/;
+            }
         }
         push @list, $db;
     }
