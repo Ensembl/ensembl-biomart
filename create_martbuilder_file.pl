@@ -70,7 +70,7 @@ if(defined $opts->{collection}) {
     # collections have no variation or funcgen at the moment
 } else {
     # strip out collections
-    @cores = map {s/_collection//} grep {$_ !~ m/collection/} @cores;
+    @cores = grep {$_ !~ m/collection/} @cores;
     # 2. assemble variation list
     @variation = @{get_list($dba,$opts->{division},'variation')};
     # 3. assemble funcgen list
