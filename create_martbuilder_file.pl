@@ -44,7 +44,7 @@ my $opts = $cli_helper->process_args($optsd,\&usage);
 $opts->{dbname} ||= 'ensembl_production';
 
 if(!defined $opts->{host}) {
-    $opts->{host} = 'mysql-eg-pan-1.ebi.ac.uk';
+    $opts->{host} = 'mysql-eg-pan-prod.ebi.ac.uk';
     $opts->{port} = 4276;
     $opts->{user} = 'ensro';
     delete $opts->{'pass'};
@@ -126,7 +126,7 @@ sub usage {
 	my $indent = ' ' x length($0);
 	print <<EOF; exit(0);
 
-  -h|host              Database host to connect to (default is mysql-eg-pan-1.ebi.ac.uk)
+  -h|host              Database host to connect to (default is mysql-eg-pan-prod.ebi.ac.uk)
 
   -port                Database port to connect to
 
