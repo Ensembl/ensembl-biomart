@@ -32,8 +32,6 @@ use MartUtils;
 use Getopt::Long qw(:config no_ignore_case);
 use Log::Log4perl qw(:easy);
 
-Log::Log4perl->easy_init($DEBUG);
-my $logger = get_logger();
 
 # db params
 my $db_host = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
@@ -43,6 +41,7 @@ my $db_pwd = 'writ3rp1';
 my $src_mart_db = 'base_bacterial_mart_4';
 my $target_mart_db = 'bacterial_mart_4';
 my $release = 56;
+my $verbose;
 
 my %table_res = (
     qr/protein_feature/ => {
@@ -83,6 +82,8 @@ my $options_okay = GetOptions (
     "src_mart=s"=>\$src_mart_db,
     "target_mart=s"=>\$target_mart_db,
     "release=s"=>\$release,
+    "verbose"=>\$verbose,
+    "clean"=>\$clean,
     "help"=>sub {usage()}
     );
 
@@ -90,7 +91,12 @@ if(!$options_okay) {
     usage();
 }
 
-my $delete = ($src_mart_db eq $target_mart_db);
+if($verbose) {
+    Log::Log4perl->easy_init($DEBUG);
+} else {
+    Log::Log4perl->easy_init($INFO);
+}
+my $logger = get_logger();
 
 my $src_string = "DBI:mysql:$src_mart_db:$db_host:$db_port";
 my $src_handle = DBI->connect($src_string, $db_user, $db_pwd,
@@ -102,7 +108,7 @@ my $target_handle = DBI->connect($target_string, $db_user, $db_pwd,
 				 { RaiseError => 1 }
     )  or croak "Could not connect to $target_string";
 
-if(!$delete) {
+if($clean) {
     $logger->info("Dropping/recreating $target_mart_db");
     $target_handle->do("drop database $target_mart_db");
     $target_handle->do("create database $target_mart_db");
@@ -111,19 +117,21 @@ $target_handle->do("use $target_mart_db");
 
 # create a names table to keep track of whats what
 my $names_table = 'dataset_names';
-drop_and_create_table($target_handle, $names_table,
-		      ['name varchar(100)',
-		       'src_dataset varchar(100)',
-		       'src_db varchar(100)',
-		       'species_id varchar(100)',
-		       'tax_id int(10)',
-		       'species_name varchar(100)',
-		       'sql_name varchar(100)',
-		       'version varchar(100)',
-		       'collection varchar(100)'
-		      ],
-		      'ENGINE=MyISAM DEFAULT CHARSET=latin1'
-    );
+if($clean) {
+    drop_and_create_table($target_handle, $names_table,
+                          ['name varchar(100)',
+                           'src_dataset varchar(100)',
+                           'src_db varchar(100)',
+                           'species_id varchar(100)',
+                           'tax_id int(10)',
+                           'species_name varchar(100)',
+                           'sql_name varchar(100)',
+                           'version varchar(100)',
+                           'collection varchar(100)'
+                          ],
+                          'ENGINE=MyISAM DEFAULT CHARSET=latin1'
+        );
+}
 
 my $names_insert = $target_handle->prepare("INSERT INTO $names_table VALUES(?,?,?,?,?,?,?,?,?)");
 
@@ -132,9 +140,8 @@ my @src_dbs = get_databases($src_handle);
 
 $logger->info("Listing datasets from $src_mart_db");
 # 1. identify datasets based on main tables
-my @datasets = get_datasets(\@src_tables);
-
-my $dataset_basename = 'gene';
+my @datasets = get_datasets(\@src_tables,".*_eg_gene__gene__main");
+my $dataset_basename = 'eg_gene';
 
 my $translation_table=$dataset_basename.'__translation__main';
 my $translation_key='translation_id_1068_key';
@@ -165,7 +172,7 @@ foreach my $dataset (@datasets) {
     my $ens_dbh =  DBI->connect($ens_db_string, $db_user, $db_pwd,
 				{ RaiseError => 1 }
 	) or croak "Could not connect to $ens_db_string";
-my $meta_insert = $ens_dbh->prepare("INSERT INTO meta(species_id,meta_key,meta_value) VALUES(?,'species.biomart_dataset',?)");
+my $meta_insert = $ens_dbh->prepare("INSERT IGNORE INTO meta(species_id,meta_key,meta_value) VALUES(?,'species.biomart_dataset',?)");
 
     # count the original tables
     my %src_table_counts = ();
@@ -179,22 +186,20 @@ my $meta_insert = $ens_dbh->prepare("INSERT INTO meta(species_id,meta_key,meta_v
     }
 
     # get hash of species IDs
-    my %species_ids = query_to_hash($ens_dbh,"select species_id,meta_value from meta where meta_key='species.sql_name'");
+    my %species_ids = query_to_hash($ens_dbh,"select species_id,meta_value from meta where meta_key='species.production_name'");
 
     foreach my $species_id (keys (%species_ids)) {
 
 	## use the species ID to get a hash of everything we need and write it into the names_table
 	my %species_names = query_to_hash($ens_dbh,"select meta_key,meta_value from meta where species_id='$species_id'");	
-	my $sub_dataset = $dataset.'_'.$species_names{'species.proteome_id'};
-	# suppress numbers of datasets
-	$sub_dataset =~ s/[_-]+/_/g;
+        my $sub_dataset = $dataset.'s'.$species_id."_eg";
 	my $collection = $ens_db;
-	$collection =~ s/^(.+)_collection.*/$1/;
+	$collection =~ s/^(.+)_collection.*/$1/;        
 	$names_insert->execute(	    
 	    $sub_dataset,
 	    $dataset,
 	    $ens_db,
-	    $species_names{'species.proteome_id'},
+	    $species_names{'assembly.accession_id'},
 	    $species_names{'species.taxonomy_id'},
 	    $species_names{'species.scientific_name'},
 	    $species_names{'species.production_name'},
@@ -211,7 +216,6 @@ my $meta_insert = $ens_dbh->prepare("INSERT INTO meta(species_id,meta_key,meta_v
 	# 1. create a condensed gene table
 	my $src_gene_table = "${dataset}_$gene_table";
 	my $target_gene_table = "${sub_dataset}_$gene_table";
-	#$target_gene_table =~ s/gene_ensembl/gene/;
 	$logger->info("Creating $target_gene_table from $src_gene_table");
 	create_table_from_query($target_handle,$src_mart_db,$src_gene_table,$target_mart_db,$target_gene_table,
 				"select s.* from $src_mart_db.$src_gene_table s ".
