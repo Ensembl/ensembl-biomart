@@ -3162,7 +3162,8 @@ public class DatabaseDatasetConfigUtils {
 			// ps1.setString(7, datasetID);
 
 			// Timestamp tstamp = new Timestamp(System.currentTimeMillis());
-			ps1.setTimestamp(8, tstamp);
+			//ps1.setTimestamp(8, tstamp); fails with mysql strict mode, which we we are using as of July 2015
+			ps1.setString(8, mytimeStamp[0] );
 
 			int ret = ps1.executeUpdate();
 			ret = ps2.executeUpdate();
