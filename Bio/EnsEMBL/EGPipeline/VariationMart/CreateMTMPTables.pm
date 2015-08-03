@@ -136,9 +136,9 @@ sub sample_genotype {
     '`variation_id` int(10) unsigned NOT NULL, '.
     '`allele_1` char(1) DEFAULT NULL, '.
     '`allele_2` char(1) DEFAULT NULL, '.
-    '`individual_id` int(11) DEFAULT NULL, '.
+    '`sample_id` int(11) DEFAULT NULL, '.
     'KEY `variation_idx` (`variation_id`), '.
-    'KEY `individual_idx` (`individual_id`) '.
+    'KEY `sample_idx` (`sample_id`) '.
   ') ENGINE=MyISAM DEFAULT CHARSET=latin1;';
   
   my $alleles_sql =
@@ -169,14 +169,14 @@ sub sample_genotype {
     my @genotypes = unpack("(ww)*", $compressed_genotypes);
     
     while (@genotypes) {
-      my $individual_id = shift @genotypes;
+      my $sample_id = shift @genotypes;
       my $genotype_code_id = shift @genotypes;
       my $allele_1 = $alleles{$genotype_code_id}[0];
       my $allele_2 = $alleles{$genotype_code_id}[1];
       next if (length($allele_1) > 1) or (length($allele_2) > 1);
       
       print $fh
-        join("\t", $variation_id, $allele_1, $allele_2, $individual_id).
+        join("\t", $variation_id, $allele_1, $allele_2, $sample_id).
         "\n";
     }
   }
@@ -321,15 +321,13 @@ sub supporting_structural_variation {
     'svf.outer_end, '.
     'svf.seq_region_strand, '.
     'clinical_significance, '.
-    'i1.name AS sample_name, '.
-    'i2.name AS strain_name, '.
+    's.name AS sample_name, '.
     'p.description AS phenotype '.
   'FROM structural_variation sv '.
   'LEFT JOIN phenotype_feature pf ON (sv.variation_name=pf.object_id AND pf.type="SupportingStructuralVariation") '.
   'LEFT JOIN phenotype p ON (p.phenotype_id=pf.phenotype_id) '.
   'LEFT JOIN structural_variation_sample svs ON (svs.structural_variation_id=sv.structural_variation_id) '.
-  'LEFT JOIN individual i1 ON (i1.individual_id=svs.individual_id) '.
-  'LEFT JOIN individual i2 ON (i2.individual_id=svs.strain_id), '.
+  'LEFT JOIN sample s ON (s.sample_id=svs.sample_id) '.
   'structural_variation_feature svf '.
   'LEFT JOIN seq_region seq ON (svf.seq_region_id=seq.seq_region_id), '.
   'attrib a1, '.

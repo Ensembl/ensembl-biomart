@@ -27,7 +27,7 @@ use File::Spec::Functions qw(catdir);
 sub param_defaults {
   return {
     'sv_exists'         => 0,
-    'show_inds'         => 1,
+    'show_sams'         => 1,
     'show_pops'         => 1,
     'variation_feature' => 0,
     'consequences'      =>
@@ -66,7 +66,7 @@ sub remove_unused_tables {
     ($rfs) = $fdbh->selectrow_array($count_rf_sql) or $self->throw($fdbh->errstr);
   }
   
-  my $show_inds = $self->param_required('show_inds');
+  my $show_sams = $self->param_required('show_sams');
   my $show_pops = $self->param_required('show_pops');
   
   my @tables;
@@ -78,7 +78,7 @@ sub remove_unused_tables {
       next unless $rfs;
     }
     if ($snp_table =~ /__m*poly__/) {
-      next unless $show_inds;
+      next unless $show_sams;
     }
     if ($snp_table =~ /__population_genotype__/) {
       next unless $show_pops;

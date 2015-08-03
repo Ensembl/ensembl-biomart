@@ -27,7 +27,7 @@ sub param_defaults {
   return {
     'drop_mart_tables'      => 0,
     'mtmp_tables_exist'     => 0,
-    'individual_threshold'  => 100,
+    'sample_threshold'      => 100,
     'population_threshold'  => 100,
     'always_skip_genotypes' => [],
     'never_skip_genotypes'  => [],
@@ -57,7 +57,7 @@ sub write_output {
     }
   }
   
-  my ($sv_exists, $show_inds, $show_pops) = $self->data_display();
+  my ($sv_exists, $show_sams, $show_pops) = $self->data_display();
   
   if ($drop_mart_tables) {
     $self->dataflow_output_id({'mart_table_prefix' => $mart_table_prefix}, 2);
@@ -67,7 +67,7 @@ sub write_output {
     $self->dataflow_output_id({
       'mart_table_prefix' => $mart_table_prefix,
       'sv_exists' => $sv_exists,
-      'show_inds' => $show_inds,
+      'show_sams' => $show_sams,
       'show_pops' => $show_pops,
     }, 3);
   }
@@ -78,7 +78,7 @@ sub write_output {
     $self->dataflow_output_id({
       'mart_table_prefix' => $mart_table_prefix,
       'sv_exists' => $sv_exists,
-      'show_inds' => $show_inds,
+      'show_sams' => $show_sams,
       'show_pops' => $show_pops,
     }, 5);
   }
@@ -88,7 +88,7 @@ sub data_display {
   my ($self) = @_;
   
   my $species       = $self->param_required('species');
-  my $ind_threshold = $self->param('individual_threshold');
+  my $sam_threshold = $self->param('sample_threshold');
   my $pop_threshold = $self->param('population_threshold');
   my $always_skip   = $self->param('always_skip_genotypes');
   my $never_skip    = $self->param('never_skip_genotypes');
@@ -101,35 +101,35 @@ sub data_display {
   my ($svs) = $vdbh->selectrow_array($sv_sql) or $self->throw($vdbh->errstr);
   my $sv_exists = $svs ? 1 : 0;
   
-  my ($show_inds, $show_pops, $inds, $pops);
+  my ($show_sams, $show_pops, $sams, $pops);
   if (exists $always_skip{$species}) {
-    $show_inds = 0;
+    $show_sams = 0;
     $show_pops = 0;
     $self->warning("Genotypes always skipped for $species");
   } else {
-    my $ind_sql = 'SELECT COUNT(*) FROM individual WHERE display NOT IN ("LD", "UNDISPLAYABLE");';
-    ($inds) = $vdbh->selectrow_array($ind_sql) or $self->throw($vdbh->errstr);
+    my $sam_sql = 'SELECT COUNT(*) FROM sample WHERE display NOT IN ("LD", "UNDISPLAYABLE");';
+    ($sams) = $vdbh->selectrow_array($sam_sql) or $self->throw($vdbh->errstr);
     
     my $pop_sql = 'SELECT COUNT(*) FROM population WHERE display NOT IN ("LD", "UNDISPLAYABLE");';
     ($pops) = $vdbh->selectrow_array($pop_sql) or $self->throw($vdbh->errstr);
     
     if (exists $never_skip{$species}) {
-      $show_inds = $inds ? 1 : 0;
+      $show_sams = $sams ? 1 : 0;
       $show_pops = $pops ? 1 : 0;
       $self->warning("Genotypes never skipped for $species");
     } else {
-      $show_inds = $inds <= $ind_threshold ? 1 : 0;
+      $show_sams = $sams <= $sam_threshold ? 1 : 0;
       $show_pops = $pops <= $pop_threshold ? 1 : 0;
     }
   }
   
-  $self->data_display_report($svs, $sv_exists, $inds, $show_inds, $pops, $show_pops);
+  $self->data_display_report($svs, $sv_exists, $sams, $show_sams, $pops, $show_pops);
   
-  return ($sv_exists, $show_inds, $show_pops);
+  return ($sv_exists, $show_sams, $show_pops);
 }
 
 sub data_display_report {
-  my ($self, $svs, $sv_exists, $inds, $show_inds, $pops, $show_pops) = @_;
+  my ($self, $svs, $sv_exists, $sams, $show_sams, $pops, $show_pops) = @_;
   
   my $species = $self->param_required('species');
   
@@ -137,10 +137,10 @@ sub data_display_report {
   if ($sv_exists) {
     $filter_table_msg .= "\t$svs structural variations will be displayed.\n";
   }
-  if ($show_inds) {
-    $filter_table_msg .= "\tGenotypes will be displayed for $inds individuals.\n";
+  if ($show_sams) {
+    $filter_table_msg .= "\tGenotypes will be displayed for $sams samples.\n";
   } else {
-    $filter_table_msg .= "\tGenotypes will not be displayed for individuals.\n";
+    $filter_table_msg .= "\tGenotypes will not be displayed for samples.\n";
   }
   if ($show_pops) {
     $filter_table_msg .= "\tGenotypes will be displayed for $pops populations.\n";
