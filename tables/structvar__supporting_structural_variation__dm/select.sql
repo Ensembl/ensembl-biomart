@@ -13,7 +13,6 @@ SELECT
   ssv.seq_region_strand as seq_region_strand_20116,
   ssv.clinical_significance as clinical_significance_20116,
   REPLACE(ssv.sample_name, ",", "") as sample_name_20116,
-  REPLACE(ssv.strain_name, ",", "") as strain_name_20116,
   ssv.phenotype as phenotype_20116
 FROM
   VAR_DB.structural_variation sv LEFT OUTER JOIN
