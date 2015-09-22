@@ -327,7 +327,7 @@ sub supporting_structural_variation {
   'LEFT JOIN phenotype_feature pf ON (sv.variation_name=pf.object_id AND pf.type="SupportingStructuralVariation") '.
   'LEFT JOIN phenotype p ON (p.phenotype_id=pf.phenotype_id) '.
   'LEFT JOIN structural_variation_sample svs ON (svs.structural_variation_id=sv.structural_variation_id) '.
-  'LEFT JOIN sample s ON (s.sample_id=svs.sample_id) '.
+  'LEFT JOIN sample s ON (s.sample_id=svs.sample_id), '.
   'structural_variation_feature svf '.
   'LEFT JOIN seq_region seq ON (svf.seq_region_id=seq.seq_region_id), '.
   'attrib a1, '.
