@@ -201,6 +201,10 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+	  <Option displayName="with A. funestus agilent Liverpool 4x44k_native ID(s)" displayType="list" field="efg_agilent_lstm_an_funestus_4x44k_native_bool" internalName="with_agilent_lstm_an_funestus_4x44k_native" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with A. gambiae Liverpool Detox 25k v1 probe ID(s)" displayType="list" field="efg_custom_est_liv_gamdetox_0_25k_v1_bool" internalName="with_custom_est_liv_gamdet0_25k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -1926,6 +1930,10 @@
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pfalciparum_eg_gene"/>
           </Option>
+	  <Option displayName="with refseq_gene_name ID(s)" displayType="list" field="ox_refseq_gene_name_bool" internalName="with_refseq_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with RefSeq genomic ID(s)" displayType="list" field="ox_refseq_genomic_bool" internalName="with_ox_refseq_genomic" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2366,6 +2374,7 @@
           <Option checkForNulls="true" displayName="2DBase E. coli ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="2dbase_ecoli" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_2dbase_ecoli__dm" type="list"/>
           <Option checkForNulls="true" displayName="A. aegypti Liverpool Detox 25k v1 probe ID(s)" displayType="text" field="display_label_11056" internalName="liv_liv_aegdetox_0_25k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_liv_liv_aegdetox_0_25k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="A. aegypti Liverpool Detox 25k v2 probe ID(s)" displayType="text" field="display_label_11056" internalName="liv_liv_aegdetox_0_25k_v2" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_liv_liv_aegdetox_0_25k_v2__dm" type="list"/>
+	  <Option checkForNulls="true" displayName="A. funestus Liverpool agilent 4x44k_native ID(s)" displayType="text" field="display_label_11056" internalName="agilent_lstm_an_funestus_4x44k_native" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_agilent_lstm_an_funestus_4x44k_native__dm" type="list"/>
           <Option checkForNulls="true" displayName="A. gambiae Liverpool Detox 25k v1 probe ID(s)" displayType="text" field="display_label_11056" internalName="custom_est_liv_gamdetox_0_25k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_custom_est_liv_gamdetox_0_25k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="A. gambiae Liverpool Detox 25k v2 probe ID(s)" displayType="text" field="display_label_11056" internalName="custom_est_liv_gamdetox_0_25k_v2" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_custom_est_liv_gamdetox_0_25k_v2__dm" type="list"/>
           <Option checkForNulls="true" displayName="Aedes GenBank ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="aedesgenbank" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_aedesgenbank__dm" type="list"/>
@@ -2862,6 +2871,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="zmays_eg_gene" key="transcript_id_1064_key"/>
           </Option>
           <Option checkForNulls="true" displayName="RefSeq DNA (predicted) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_dna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_dna_predicted__dm" type="text" useDefault="true"/>
+	  <Option checkForNulls="true" displayName="refseq_gene_name ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_gene_name__dm" type="list"/>
           <Option checkForNulls="true" displayName="Refseq genomic ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_genomic" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RefSeq_genomic__dm" type="text"/>
           <Option checkForNulls="true" displayName="RefSeq mRNA ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_mrna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_mrna__dm" type="list"/>
           <Option checkForNulls="true" displayName="RefSeq mRNA (predicted) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_mrna_predicted__dm" type="list"/>
@@ -4763,6 +4773,7 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" key="gene_id_1020_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="RefSeq DNA (predicted) ID" field="dbprimary_acc_1074" internalName="refseq_dna_predicted" key="transcript_id_1064_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_dna_predicted__dm" useDefault="true"/>
+        <AttributeDescription checkForNulls="true" displayName="refseq_gene_name ID" field="dbprimary_acc_1074" internalName="refseq_gene_name" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_gene_name__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RefSeq genomic ID(s)" field="dbprimary_acc_1074" internalName="refseq_genomic" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="40" tableConstraint="ox_RefSeq_genomic__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RefSeq mRNA ID" field="dbprimary_acc_1074" internalName="refseq_mrna" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_refseq_mrna__dm" useDefault="true"/>
         <AttributeDescription checkForNulls="true" displayName="RefSeq mRNA (predicted) ID" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_refseq_mrna_predicted__dm" useDefault="true"/>
@@ -5216,6 +5227,7 @@
         <AttributeDescription checkForNulls="true" displayName="A. aegypti custom EST UCR_GillMgMT_v2 ID" field="display_label_11056" internalName="custom_est_ucr_gillmgmt_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_ucr_gillmgmt_v2__dm"/>
         <AttributeDescription displayName="A. aegypti Liverpool Detox 25k v1 probe ID" field="display_label_11056" internalName="liv_liv_aegdetox_0_25k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_liv_liv_aegdetox_0_25k_v1__dm"/>
         <AttributeDescription displayName="A. aegypti Liverpool Detox 25k v2 probe ID" field="display_label_11056" internalName="liv_liv_aegdetox_0_25k_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_liv_liv_aegdetox_0_25k_v2__dm"/>
+	<AttributeDescription checkForNulls="true" displayName="A. funestus Liverpool agilent 4x44k_native ID(s)" field="display_label_11056" internalName="agilent_lstm_an_funestus_4x44k_native" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_agilent_lstm_an_funestus_4x44k_native__dm"/>
         <AttributeDescription displayName="A. gambiae Liverpool Detox 25k v1 probe ID" field="display_label_11056" internalName="custom_est_liv_gamdetox_0_25k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_liv_gamdetox_0_25k_v1__dm"/>
         <AttributeDescription displayName="A. gambiae Liverpool Detox 25k v2 probe ID" field="display_label_11056" internalName="custom_est_liv_gamdetox_0_25k_v2" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_custom_est_liv_gamdetox_0_25k_v2__dm"/>
         <AttributeDescription displayName="Affymetrix array AGSNP01 ID" field="display_label_11056" internalName="affy_agsnp01" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_affy_agsnp01__dm"/>

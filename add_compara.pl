@@ -133,10 +133,8 @@ s.species_set_id in (
   join $compara_db.genome_db gg
   using (genome_db_id)
   where (gg.name=? or gg.name=?)
-  AND gg.assembly_default=1
 )
 AND g.name<>? AND g.name<>?
-AND g.assembly_default=1
 AND m.type='ENSEMBL_ORTHOLOGUES'
 };
 
@@ -154,10 +152,8 @@ s.species_set_id in (
   join $compara_db.genome_db gg
   using (genome_db_id)
   where (gg.name=? or gg.name=?)
-  AND gg.assembly_default=1
 )
 AND (g.name=? OR g.name=?) AND m.type='ENSEMBL_PARALOGUES'
-AND g.assembly_default=1
 and ms.method_link_species_set_id in
 (select distinct method_link_species_set_id  from $compara_db.homology where description='within_species_paralog')
 };
@@ -176,10 +172,8 @@ s.species_set_id in (
   join $compara_db.genome_db gg
   using (genome_db_id)
   where (gg.name=? or gg.name=?)
-  AND gg.assembly_default=1
 )
 AND g.name<>? AND g.name<>?
-AND g.assembly_default=1
 AND m.type='ENSEMBL_HOMOEOLOGUES'
 };
 
@@ -199,10 +193,8 @@ s.species_set_id in (
   join $compara_db.genome_db gg
   using (genome_db_id)
   where (gg.name=? or gg.name=?)
-  AND gg.assembly_default=1
 )
 AND (g.name=? OR g.name=?) AND m.type='ENSEMBL_HOMOEOLOGUES'
-AND g.assembly_default=1
 };
 
 my $species_homolog_sth = $mart_handle->prepare($species_homolog_sql);
@@ -221,7 +213,7 @@ for my $dataset (@datasets) {
   my $ds_name_sql = get_sql_name_for_dataset($mart_handle,$dataset);
   next if (defined $limit_species && $ds_name_sql ne $limit_species);
   my $ds_name_full = get_species_name_for_dataset($mart_handle,$dataset);
-  $logger->info("Processing $ds_name_sql as $dataset");
+  $logger->info("Processing dataset $ds_name_sql as $dataset");
   for my $table_type (('gene','transcript','translation')) {
     my $table_name = $dataset.'_gene__'.$table_type.'__main';
     #for my $type (qw(homolog paralog homoeolog)) {
@@ -235,9 +227,9 @@ for my $dataset (@datasets) {
   # work out species name from $dataset
   # get list of method_link_species_set_id/name pairs for homolog partners
   for my $species_set (get_species_sets($species_homolog_sth,$ds_name_sql,$ds_name_full)) {
-    $logger->info('Processing homologs for '.$species_set->{name}.' as '.$species_set->{tld}); 
+    $logger->info('Processing '.$ds_name_sql.' homologs for '.$species_set->{name}.' as '.$species_set->{tld}); 
     write_species($dataset, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homolog_sql);
-    $logger->info('Completed homologs for '.$species_set->{name}.' as '.$species_set->{tld});
+    $logger->info('Completed '.$ds_name_sql.' homologs for '.$species_set->{name}.' as '.$species_set->{tld});
   }
 
   # get paralogs
