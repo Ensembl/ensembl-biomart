@@ -133,10 +133,8 @@ s.species_set_id in (
   join $compara_db.genome_db gg
   using (genome_db_id)
   where (gg.name=? or gg.name=?)
-  AND gg.assembly_default=1
 )
 AND g.name<>? AND g.name<>?
-AND g.assembly_default=1
 AND m.type='ENSEMBL_ORTHOLOGUES'
 };
 
@@ -154,10 +152,8 @@ s.species_set_id in (
   join $compara_db.genome_db gg
   using (genome_db_id)
   where (gg.name=? or gg.name=?)
-  AND gg.assembly_default=1
 )
 AND (g.name=? OR g.name=?) AND m.type='ENSEMBL_PARALOGUES'
-AND g.assembly_default=1
 and ms.method_link_species_set_id in
 (select distinct method_link_species_set_id  from $compara_db.homology where description='within_species_paralog')
 };
@@ -176,10 +172,8 @@ s.species_set_id in (
   join $compara_db.genome_db gg
   using (genome_db_id)
   where (gg.name=? or gg.name=?)
-  AND gg.assembly_default=1
 )
 AND g.name<>? AND g.name<>?
-AND g.assembly_default=1
 AND m.type='ENSEMBL_HOMOEOLOGUES'
 };
 
@@ -199,10 +193,8 @@ s.species_set_id in (
   join $compara_db.genome_db gg
   using (genome_db_id)
   where (gg.name=? or gg.name=?)
-  AND gg.assembly_default=1
 )
 AND (g.name=? OR g.name=?) AND m.type='ENSEMBL_HOMOEOLOGUES'
-AND g.assembly_default=1
 };
 
 my $species_homolog_sth = $mart_handle->prepare($species_homolog_sql);
