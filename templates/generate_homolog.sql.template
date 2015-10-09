@@ -26,7 +26,7 @@ create table %martSchema%.TEMP17_%method_link_species_set_id% as
       on a.method_link_species_set_id_4019=b.method_link_species_set_id;
 drop table %martSchema%.TEMP14_%method_link_species_set_id%;
 
-create index %indexName% on %martSchema%.TEMP17_%method_link_species_set_id%(homology_id_4014)
+create index %indexName% on %martSchema%.TEMP17_%method_link_species_set_id%(homology_id_4014);
 drop table if exists %martSchema%.TEMP18_%method_link_species_set_id%;
 create table %martSchema%.TEMP18_%method_link_species_set_id% as
   select
