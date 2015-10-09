@@ -216,18 +216,25 @@ for my $dataset (@datasets) {
   $logger->info("Processing $ds_name_sql as $dataset");
   for my $table_type (('gene','transcript','translation')) {
     my $table_name = $dataset.'_gene__'.$table_type.'__main';
-    #for my $type (qw(homolog paralog homoeolog)) {
     for my $type (qw(homoeolog)) {
       for my $col (query_to_strings($mart_handle,"show columns from $table_name like '${type}_%_bool'")) {
-        $mart_handle->do("alter table $table_name drop column $col") or croak "Could not drop column $table_name.$col";
-      }
+          $mart_handle->do("alter table $table_name drop column $col") or croak "Could not drop column $table_name.$col";
     }
   }
+}
 
   # work out species name from $dataset
   # get list of method_link_species_set_id/name pairs for homolog partners
   for my $species_set (get_species_sets($species_homolog_sth,$ds_name_sql,$ds_name_full)) {
     $logger->info('Processing homologs for '.$species_set->{name}.' as '.$species_set->{tld}); 
+  for my $table_type (('gene','transcript','translation')) {
+    my $table_name = $dataset.'_gene__'.$table_type.'__main';
+
+my $sql = "show columns from $table_name like 'homolog_".$species_set->{tld}."_bool'";
+    for my $col (query_to_strings($mart_handle,$sql)) {
+        $mart_handle->do("alter table $table_name drop column $col") or croak "Could not drop column $table_name.$col";
+    }
+}
     write_species($dataset, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homolog_sql);
     $logger->info('Completed homologs for '.$species_set->{name}.' as '.$species_set->{tld});
   }
@@ -238,6 +245,13 @@ for my $dataset (@datasets) {
   $logger->info("Processing paralogs for $ds_name_sql as $dataset");
   my $paralog_mlss_id = get_string($species_paralog_sth,$ds_name_sql,$ds_name_full,$ds_name_sql,$ds_name_full);
   if($paralog_mlss_id && $id) {
+  for my $table_type (('gene','transcript','translation')) {
+    my $table_name = $dataset.'_gene__'.$table_type.'__main';
+
+    for my $col (query_to_strings($mart_handle,"show columns from $table_name like 'paralog_".$dataset."._bool'")) {
+        $mart_handle->do("alter table $table_name drop column $col") or croak "Could not drop column $table_name.$col";
+    }
+}
     write_species($dataset, $paralog_mlss_id, $dataset, $dataset, $paralog_sql);
     $logger->info("Completed paralogs for $ds_name_sql as $dataset");
   }

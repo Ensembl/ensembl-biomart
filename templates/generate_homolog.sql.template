@@ -83,7 +83,7 @@ create table %martSchema%.TEMP28_%method_link_species_set_id% as
       inner join
     %srcSchema%.homology_member as b
       on a.homology_id_4014=b.homology_id and a.gene_member_id_4015<>b.gene_member_id;
-drop table %martSchema%.TEMP24;
+drop table %martSchema%.TEMP24_%method_link_species_set_id%;
 
 create index %indexName% on %martSchema%.TEMP28_%method_link_species_set_id%(gene_member_id_4015_r1);
 drop table if exists %martSchema%.TEMP30_%method_link_species_set_id%;
@@ -114,14 +114,14 @@ create table %martSchema%.TEMP41_%method_link_species_set_id% as
     b.genome_db_id as genome_db_id_4016_r3,
     b.sequence_id as sequence_id_4016_r3
   from
-    %martSchema%.TEMP30 as a
+    %martSchema%.TEMP30_%method_link_species_set_id% as a
       inner join
     %srcSchema%.seq_member as b
       on a.seq_member_id_4015_r1=b.seq_member_id;
-drop table %martSchema%.TEMP30;
+drop table %martSchema%.TEMP30_%method_link_species_set_id%;
 
-create index %indexName% on %martSchema%.TEMP41_%method_link_species_set_id%(species_tree_node_id_
-drop table if exists %martSchema%.TEMP34_%method_link_species_set_id%;4014);
+create index %indexName% on %martSchema%.TEMP41_%method_link_species_set_id%(species_tree_node_id_4014);
+drop table if exists %martSchema%.TEMP34_%method_link_species_set_id%;
 create table %martSchema%.TEMP34_%method_link_species_set_id% as
   select
     a.*,
@@ -245,21 +245,21 @@ alter table %martSchema%.%dataSet%__gene__main
   add column (homolog_%speciesTld%_bool integer default NULL);
 update
   %martSchema%.%dataSet%__gene__main a inner join
-  %martSchema%.homo_TEMP_%method_link_species_set_id%; using (gene_id_1020_key)
+  %martSchema%.homo_TEMP_%method_link_species_set_id% using (gene_id_1020_key)
   set homolog_%speciesTld%_bool=1;
 
 alter table %martSchema%.%dataSet%__transcript__main
   add column (homolog_%speciesTld%_bool integer default NULL);
 update
   %martSchema%.%dataSet%__transcript__main a inner join
-  %martSchema%.homo_TEMP_%method_link_species_set_id%; using (gene_id_1020_key)
+  %martSchema%.homo_TEMP_%method_link_species_set_id% using (gene_id_1020_key)
   set homolog_%speciesTld%_bool=1;
 
 alter table %martSchema%.%dataSet%__translation__main
   add column (homolog_%speciesTld%_bool integer default NULL);
 update
   %martSchema%.%dataSet%__translation__main a inner join
-  %martSchema%.homo_TEMP_%method_link_species_set_id%; using (gene_id_1020_key)
+  %martSchema%.homo_TEMP_%method_link_species_set_id% using (gene_id_1020_key)
   set homolog_%speciesTld%_bool=1;
 
 drop table %martSchema%.homo_TEMP_%method_link_species_set_id%;;
