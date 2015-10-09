@@ -60,7 +60,7 @@ drop table if exists %martSchema%.TEMP24_%method_link_species_set_id%;
 create table %martSchema%.TEMP24_%method_link_species_set_id% as
   select
     a.*,
-    b.stable_id as stable_id_4016_r1,s
+    b.stable_id as stable_id_4016_r1,
     b.genome_db_id as genome_db_id_4016_r1,
     b.sequence_id as sequence_id_4016_r1
   from
