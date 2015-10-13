@@ -3085,7 +3085,7 @@ public class DatabaseDatasetConfigUtils {
 					+ "."
 					+ metatable
 					+ " (display_name, dataset, description, "
-					+ "type, visible, version,dataset_id_key,modified) values (?, ?, ?, ?, ?, ?,?,?)";
+					+ "type, visible, version,dataset_id_key,modified) values (?, ?, ?, ?, ?, ?,?,NOW())";
 			final String insertSQL2 = "INSERT INTO " + this.getSchema()[0]
 					+ "." + this.MARTXMLTABLE
 					+ " (dataset_id_key, xml, compressed_xml, "
@@ -3163,7 +3163,7 @@ public class DatabaseDatasetConfigUtils {
 
 			// Timestamp tstamp = new Timestamp(System.currentTimeMillis());
 			//ps1.setTimestamp(8, tstamp); fails with mysql strict mode, which we we are using as of July 2015
-			ps1.setString(8, mytimeStamp[0] );
+			//ps1.setString(8, mytimeStamp[0] );
 
 			int ret = ps1.executeUpdate();
 			ret = ps2.executeUpdate();
@@ -6329,12 +6329,14 @@ public class DatabaseDatasetConfigUtils {
 		Set columns = (Set) getTableColumns(dset, schema, catalog, conn).get(
 				tableConstraint.toLowerCase());
 		String key = null;
+		if(columns!=null) {
 		for (Object col : columns) {
 			String c = (String) col;
 			if (c.matches(".*_key$")) {
 				key = (String) col;
 				break;
 			}
+		}
 		}
 		return key;
 	}

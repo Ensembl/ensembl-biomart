@@ -1424,12 +1424,14 @@ public class DatasetConfigTree extends JTree implements Autoscroll { // ,
 								"Many options have been found ("
 										+ options.length
 										+ " of them). This may affect the performance of MartEditor and MartView.");
-			}
+
+			} 
 
 			for (int k = options.length - 1; k > -1; k--) {
 
 				insert(node, options[k], "Option");
 			}
+			
 		} catch (Exception e) {
 			System.out.println("PROBLEM MAKING DROP DOWN");
 			e.printStackTrace();
