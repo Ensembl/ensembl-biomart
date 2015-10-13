@@ -207,7 +207,7 @@ for my $dataset (sort @datasets) {
   my $ds_name_sql = get_sql_name_for_dataset($mart_handle,$dataset);
   next if (defined $limit_species && $ds_name_sql ne $limit_species);
   my $ds_name_full = get_species_name_for_dataset($mart_handle,$dataset);
-  $logger->info("Processing $ds_name_sql as $dataset");
+  $logger->info("Processing dataset $ds_name_sql as $dataset");
   for my $table_type (('gene','transcript','translation')) {
     my $table_name = $dataset.'_gene__'.$table_type.'__main';
     for my $type (qw(homoeolog)) {

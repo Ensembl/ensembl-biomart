@@ -1930,6 +1930,10 @@
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pfalciparum_eg_gene"/>
           </Option>
+	  <Option displayName="with refseq_gene_name ID(s)" displayType="list" field="ox_refseq_gene_name_bool" internalName="with_refseq_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with RefSeq genomic ID(s)" displayType="list" field="ox_refseq_genomic_bool" internalName="with_ox_refseq_genomic" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2867,6 +2871,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="zmays_eg_gene" key="transcript_id_1064_key"/>
           </Option>
           <Option checkForNulls="true" displayName="RefSeq DNA (predicted) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_dna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_dna_predicted__dm" type="text" useDefault="true"/>
+	  <Option checkForNulls="true" displayName="refseq_gene_name ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_gene_name__dm" type="list"/>
           <Option checkForNulls="true" displayName="Refseq genomic ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_genomic" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RefSeq_genomic__dm" type="text"/>
           <Option checkForNulls="true" displayName="RefSeq mRNA ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_mrna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_mrna__dm" type="list"/>
           <Option checkForNulls="true" displayName="RefSeq mRNA (predicted) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_mrna_predicted__dm" type="list"/>
@@ -4768,6 +4773,7 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" key="gene_id_1020_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="RefSeq DNA (predicted) ID" field="dbprimary_acc_1074" internalName="refseq_dna_predicted" key="transcript_id_1064_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_dna_predicted__dm" useDefault="true"/>
+        <AttributeDescription checkForNulls="true" displayName="refseq_gene_name ID" field="dbprimary_acc_1074" internalName="refseq_gene_name" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_gene_name__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RefSeq genomic ID(s)" field="dbprimary_acc_1074" internalName="refseq_genomic" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="40" tableConstraint="ox_RefSeq_genomic__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RefSeq mRNA ID" field="dbprimary_acc_1074" internalName="refseq_mrna" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_refseq_mrna__dm" useDefault="true"/>
         <AttributeDescription checkForNulls="true" displayName="RefSeq mRNA (predicted) ID" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_refseq_mrna_predicted__dm" useDefault="true"/>
