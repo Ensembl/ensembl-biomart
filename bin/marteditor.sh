@@ -34,5 +34,5 @@ echo "Starting MartEditor please wait .... "
 # Note: If you get Java "Out of memory" errors, try increasing the numbers
 # in the -Xmx and -Xms parameters in the java command below. For performance
 # sake it is best if they are both the same value.
-java -Xmx1024m -Xms256m -ea -cp $TMP_CLASSPATH org.ensembl.mart.editor.MartEditor $@
+java -Xmx2048m -Xms2048m -ea -cp $TMP_CLASSPATH org.ensembl.mart.editor.MartEditor $@
 
