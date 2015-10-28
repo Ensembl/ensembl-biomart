@@ -1,0 +1,1 @@
+ALTER TABLE SPECIES_ABBREV_snp_som__motif_feature_variation__dm ADD INDEX (variation_feature_id_2026_key);
