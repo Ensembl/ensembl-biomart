@@ -32,6 +32,14 @@ sub run {
   foreach my $table (keys %snp_cull_tables) {
     $self->cull_table($table, $snp_cull_tables{$table}, $mart_dbh);
   }
+
+  if ($self->param_required('species') eq 'homo_sapiens'){
+    my %snp_som_cull_tables = %{$self->param_required('snp_som_cull_tables')};
+    foreach my $table (keys %snp_som_cull_tables) {
+      $self->cull_table($table, $snp_som_cull_tables{$table}, $mart_dbh);
+    }
+  }
+
   
   if ($self->param('sv_exists')) {
     my %sv_cull_tables = %{$self->param_required('sv_cull_tables')};
@@ -39,6 +47,14 @@ sub run {
       $self->cull_table($table, $sv_cull_tables{$table}, $mart_dbh);
     }
   }
+
+  if ($self->param('sv_som_exists') and $self->param_required('species') eq 'homo_sapiens') {
+    my %sv_som_cull_tables = %{$self->param_required('sv_som_cull_tables')};
+    foreach my $table (keys %sv_som_cull_tables) {
+      $self->cull_table($table, $sv_som_cull_tables{$table}, $mart_dbh);
+    }
+  }
+
 }
 
 sub cull_table {
