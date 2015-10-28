@@ -27,6 +27,7 @@ use File::Spec::Functions qw(catdir);
 sub param_defaults {
   return {
     'sv_exists'         => 0,
+    'sv_som_exists'     => 0,
     'show_sams'         => 1,
     'show_pops'         => 1,
     'variation_feature' => 0,
@@ -39,11 +40,23 @@ sub run {
   my ($self) = @_;
   
   my $mart_dbh = $self->mart_dbh;
-  
+  my @tables=(); 
   $self->remove_unused_tables();
   
   foreach my $table ( @{$self->param_required('snp_tables')} ) {
     $self->create_table($table, $mart_dbh);
+  }
+
+  if ($self->param_required('species') eq 'homo_sapiens')
+  {
+    foreach my $table ( @{$self->param_required('snp_som_tables')} ) {
+      $self->create_table($table, $mart_dbh);
+    }
+    if ($self->param('sv_som_exists') and $self->param_required('species') eq 'homo_sapiens') {
+      foreach my $table ( @{$self->param_required('sv_som_tables')} ) {
+        $self->create_table($table, $mart_dbh);
+      }
+    }
   }
   
   if ($self->param('sv_exists')) {
@@ -162,30 +175,60 @@ sub write_output {
     'variation',
     'v',
     'variation_id',
-    ['v.somatic = 0']);
+    ['v.somatic = 0', 'v.display = 1']);
+  my @vsom = (
+      'variation',
+    'v',
+    'variation_id',
+    ['v.somatic = 1', 'v.display = 1']);
   my @vf = (
     'variation_feature',
     'vf',
     'variation_feature_id',
-    undef);
+    ['vf.somatic = 0', 'vf.display = 1']);
+  my @vfsom = (
+    'variation_feature',
+    'vf',
+    'variation_feature_id',
+    ['vf.somatic = 1', 'vf.display = 1']);
   my @sv = (
     'structural_variation',
     'sv',
     'structural_variation_id',
     ['sv.is_evidence = 0', 'sv.somatic = 0']);
+  my @svsom = (
+    'structural_variation',
+    'sv',
+    'structural_variation_id',
+    ['sv.is_evidence = 0', 'sv.somatic = 1']);
   my @svf = (
     'structural_variation_feature',
     'svf',
     'structural_variation_feature_id',
-    undef);
-  
-  my ($max_key_id, $base_where_sql);
+    ['svf.somatic = 0']);
+   my @svfsom = (
+    'structural_variation_feature',
+    'svf',
+    'structural_variation_feature_id',
+    ['svf.somatic = 1']);
+
+  my ($max_key_id, $base_where_sql, $max_key_id_som, $base_where_sql_som);
   if ($self->param('variation_feature')) {
     $max_key_id = $self->max_key_id(@vf);
     $base_where_sql = $self->base_where_sql(@vf);
+    if ($self->param_required('species') eq 'homo_sapiens')
+    {
+      $max_key_id_som = $self->max_key_id(@vfsom);
+      $base_where_sql_som = $self->base_where_sql(@vfsom);
+    }
   } else {
     $max_key_id = $self->max_key_id(@v);
     $base_where_sql = $self->base_where_sql(@v);
+    if ($self->param_required('species') eq 'homo_sapiens')
+    {
+      $max_key_id_som = $self->max_key_id(@vsom);
+    $base_where_sql_som = $self->base_where_sql(@vsom);
+    }
   }
   
   foreach my $table ( @{$self->param_required('snp_tables')} ) {
@@ -195,22 +238,53 @@ sub write_output {
       'base_where_sql' => $base_where_sql,
     }, 1);
   }
-  
+
+  if ($self->param_required('species') eq 'homo_sapiens')
+  {
+    foreach my $table ( @{$self->param_required('snp_som_tables')} ) {
+      $self->dataflow_output_id({
+          'table'          => $table,
+          'max_key_id'     => $max_key_id_som,
+          'base_where_sql' => $base_where_sql_som,
+          }, 1);
+    }
+  }
   if ($self->param('sv_exists')) {
     my ($sv_max_key_id, $sv_base_where_sql);
     if ($self->param('variation_feature')) {
       $sv_max_key_id = $self->max_key_id(@svf);
-      $sv_base_where_sql = $self->base_where_sql(@svf);
-    } else {
+      $sv_base_where_sql = $self->base_where_sql(@svf); 
+    }
+    else {
       $sv_max_key_id = $self->max_key_id(@sv);
       $sv_base_where_sql = $self->base_where_sql(@sv);
     }
-    
-    foreach my $table ( @{$self->param_required('sv_tables')} ) {
+        foreach my $table ( @{$self->param_required('sv_tables')} ) {
       $self->dataflow_output_id({
         'table'          => $table,
         'max_key_id'     => $sv_max_key_id,
         'base_where_sql' => $sv_base_where_sql,
+      }, 1);
+    }
+  }
+
+    if ($self->param('sv_som_exists') and $self->param_required('species') eq 'homo_sapiens')
+    {
+      my ($sv_max_key_id_som, $sv_base_where_sql_som);
+      if ($self->param('variation_feature')) {
+        $sv_max_key_id_som = $self->max_key_id(@svfsom);
+        $sv_base_where_sql_som = $self->base_where_sql(@svfsom);
+      }
+      elsif ($self->param_required('species') eq 'homo_sapiens')  {
+        $sv_max_key_id_som = $self->max_key_id(@svsom);
+        $sv_base_where_sql_som = $self->base_where_sql(@svsom);
+      }
+    
+      foreach my $table ( @{$self->param_required('sv_som_tables')} ) {
+      $self->dataflow_output_id({
+        'table'          => $table,
+        'max_key_id'     => $sv_max_key_id_som,
+        'base_where_sql' => $sv_base_where_sql_som,
       }, 1);
     }
   }
