@@ -56,6 +56,9 @@ sub default_options {
     population_threshold  => 100,
     always_skip_genotypes => [],
     never_skip_genotypes  => [],
+    tmp_dir               => '/tmp',
+# Set to 0 if you want to run AddMetaData, AddSVMetaData and AnalyseTables analysis
+    skip_meta_data => 0,
     
     previous_mart => {
       -driver => $self->o('hive_driver'),
@@ -82,12 +85,15 @@ sub default_options {
       '/ensembl-variation/scripts/misc/mart_variation_effect.pl',
     
     variation_set_script => $self->o('ensembl_cvs_root_dir').
-      '/import/post_process_variation_feature_variation_set.pl',
+      '/ensembl-variation/scripts/import/post_process_variation_feature_variation_set.pl',
+
+    variation_evidence_script => $self->o('ensembl_cvs_root_dir').
+      '/ensembl-variation/scripts/misc/create_evidence_MTMP.pl',
     
     # Mart tables are mostly independent in that their construction does not
     # rely on other mart tables. The only execption are the *_feature__main
     # tables, which contain all of the columns in the *_variation__main tables.
-    snp_indep_tables => [
+  snp_indep_tables => [
       'snp__variation__main',
       'snp__poly__dm',
       'snp__population_genotype__dm',
@@ -96,24 +102,53 @@ sub default_options {
       'snp__variation_set_variation__dm',
       'snp__variation_synonym__dm',
     ],
-    
-    snp_dep_tables => [
+
+    snp_som_indep_tables => [
+      'snp_som__variation__main',
+      'snp_som__population_genotype__dm',
+      'snp_som__variation_annotation__dm',
+      'snp_som__variation_citation__dm',
+      'snp_som__variation_set_variation__dm',
+      'snp_som__variation_synonym__dm',
+    ],
+
+  snp_dep_tables => [
       'snp__variation_feature__main',
       'snp__mart_transcript_variation__dm',
       'snp__motif_feature_variation__dm',
       'snp__regulatory_feature_variation__dm',
     ],
+
+  snp_som_dep_tables => [
+      'snp_som__variation_feature__main',
+      'snp_som__mart_transcript_variation__dm',
+      'snp_som__motif_feature_variation__dm',
+      'snp_som__regulatory_feature_variation__dm',
+    ],
+
     
-    sv_indep_tables => [
-      'structvar__structural_variation__main',
+sv_indep_tables => [
+     'structvar__structural_variation__main',
       'structvar__structural_variation_annotation__dm',
       'structvar__supporting_structural_variation__dm',
       'structvar__variation_set_structural_variation__dm',
     ],
-    
-    sv_dep_tables => [
+
+    sv_som_indep_tables => [
+      'structvar_som__structural_variation__main',
+      'structvar_som__structural_variation_annotation__dm',
+      'structvar_som__supporting_structural_variation__dm',
+      'structvar_som__variation_set_structural_variation__dm',
+    ],
+
+ sv_dep_tables => [
       'structvar__structural_variation_feature__main',
     ],
+
+    sv_som_dep_tables => [
+      'structvar_som__structural_variation_feature__main',
+    ],
+
     
     snp_cull_tables => {
       'snp__poly__dm'                    => 'name_2019',
@@ -123,11 +158,25 @@ sub default_options {
       'snp__variation_set_variation__dm' => 'name_2077',
       'snp__variation_synonym__dm'       => 'name_2030',
     },
+
+    snp_som_cull_tables => {
+      'snp_som__population_genotype__dm'     => 'name_2019',
+      'snp_som__variation_annotation__dm'    => 'name_2021',
+      'snp_som__variation_citation__dm'      => 'authors_20137',
+      'snp_som__variation_set_variation__dm' => 'name_2077',
+      'snp_som__variation_synonym__dm'       => 'name_2030',
+    },
     
     sv_cull_tables => {
       'structvar__structural_variation_annotation__dm'    => 'name_2019',
       'structvar__supporting_structural_variation__dm',   => 'supporting_structural_variation_id_20116',
       'structvar__variation_set_structural_variation__dm' => 'name_2077',
+    },
+
+    sv_som_cull_tables => {
+      'structvar_som__structural_variation_annotation__dm'    => 'name_2019',
+      'structvar_som__supporting_structural_variation__dm',   => 'supporting_structural_variation_id_20116',
+      'structvar_som__variation_set_structural_variation__dm' => 'name_2077',
     },
     
     tables_dir => $self->o('eg_biomart_root_dir').'/var_mart/tables',
@@ -200,8 +249,7 @@ sub pipeline_analyses {
       -max_retry_count => 0,
       -rc_name         => 'normal',
       -flow_into       => {
-                            '1->A' => ['ScheduleSpecies'],
-                            'A->1' => ['AddMetaData'],
+                            $self->o('skip_meta_data') eq 0 ? ('1->A' => ['ScheduleSpecies'], 'A->1' => ['AddMetaData'],) : ('1' => 'ScheduleSpecies',),
                           },
       -meadow_type     => 'LOCAL',
     },
@@ -266,6 +314,7 @@ sub pipeline_analyses {
                               variation_feature_script => $self->o('variation_feature_script'),
                               variation_set_script     => $self->o('variation_set_script'),
                               registry                 => $self->o('registry'),
+                              tmp_dir                  => $self->o('tmp_dir'),
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 5,
@@ -317,7 +366,9 @@ sub pipeline_analyses {
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartTables',
       -parameters        => {
                               snp_tables        => $self->o('snp_indep_tables'),
+                              snp_som_tables   => $self->o('snp_som_indep_tables'),
                               sv_tables         => $self->o('sv_indep_tables'),
+                              sv_som_tables         => $self->o('sv_som_indep_tables'),
                               tables_dir        => $self->o('tables_dir'),
                               variation_feature => 0,
                             },
@@ -335,7 +386,9 @@ sub pipeline_analyses {
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartTables',
       -parameters        => {
                               snp_tables        => $self->o('snp_dep_tables'),
+                              snp_som_tables        => $self->o('snp_som_dep_tables'),
                               sv_tables         => $self->o('sv_dep_tables'),
+                              sv_som_tables     => $self->o('sv_som_dep_tables'),
                               tables_dir        => $self->o('tables_dir'),
                               variation_feature => 1,
                             },
@@ -375,7 +428,12 @@ sub pipeline_analyses {
     {
       -logic_name        => 'AggregatedData',
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::AggregatedData',
-      -parameters        => {},
+      -parameters        => {
+                              snp_tables        => $self->o('snp_indep_tables'),
+                              snp_som_tables   => $self->o('snp_som_indep_tables'),
+                              sv_tables         => $self->o('sv_indep_tables'),
+                              sv_som_tables         => $self->o('sv_som_indep_tables'),
+                            },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
       -flow_into         => ['CreateDependentTables'],
@@ -398,7 +456,9 @@ sub pipeline_analyses {
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CullMartTables',
       -parameters        => {
                               snp_cull_tables => $self->o('snp_cull_tables'),
+                              snp_som_cull_tables => $self->o('snp_som_cull_tables'), 
                               sv_cull_tables  => $self->o('sv_cull_tables'),
+                              sv_som_cull_tables => $self->o('sv_som_cull_tables'),
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
