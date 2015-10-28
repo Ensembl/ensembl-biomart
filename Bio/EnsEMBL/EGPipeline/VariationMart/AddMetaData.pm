@@ -29,7 +29,7 @@ sub param_defaults {
     'dataset_main'   => 'variation__main',
     'species_suffix' => '_eg',
     'description'    => 'variations',
-    'output_dir'     => '/tmp',
+    'tmp_dir'     => '/tmp',
   };
 }
 
@@ -88,7 +88,7 @@ sub run_template_script {
     " -description ".$self->param_required('description').
     " -template ".$self->param_required('template_template').
     " -ds_template ".$self->param_required('dataset_template').
-    " -output_dir ".$self->param_required('output_dir').
+    " -tmp_dir ".$self->param_required('tmp_dir').
     " -release ".$self->param_required('ensembl_release');
   
   if (system($cmd)) {
