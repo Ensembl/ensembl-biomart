@@ -1,3 +1,1 @@
-CREATE INDEX idx_1 ON SPECIES_ABBREV_snp__variation__main (variation_id_2025_key);
-CREATE INDEX idx_2 ON SPECIES_ABBREV_snp__variation__main (name_2025);
-CREATE INDEX idx_3 ON SPECIES_ABBREV_snp__variation__main (name_2021);
+ALTER TABLE SPECIES_ABBREV_snp__variation__main ADD INDEX (variation_id_2025_key), ADD INDEX (name_2025), ADD INDEX (name_2021), ADD INDEX (evidence_2025), ADD INDEX (clinical_significance_2025);

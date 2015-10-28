@@ -1,2 +1,1 @@
-CREATE INDEX idx_1 ON SPECIES_ABBREV_snp__regulatory_feature_variation__dm (variation_feature_id_2026_key);
-CREATE INDEX idx_1 ON SPECIES_ABBREV_snp__regulatory_feature_variation__dm (feature_stable_id_20126);
+ALTER TABLE SPECIES_ABBREV_snp__regulatory_feature_variation__dm ADD INDEX (variation_feature_id_2026_key), ADD INDEX (feature_stable_id_20126);
