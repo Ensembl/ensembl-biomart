@@ -12,6 +12,8 @@ SELECT
   ssv.outer_end as outer_end_20116,
   ssv.seq_region_strand as seq_region_strand_20116,
   ssv.clinical_significance as clinical_significance_20116,
+  ssv.strain_name as strain_name_20116,
+  ssv.copy_number as copy_number_20116,
   REPLACE(ssv.sample_name, ",", "") as sample_name_20116,
   ssv.phenotype as phenotype_20116
 FROM
