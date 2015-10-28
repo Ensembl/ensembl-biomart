@@ -5,4 +5,4 @@ SELECT
   rfv.consequence_types as consequence_types_20126
 FROM
   VAR_DB.MTMP_regulatory_feature_variation rfv RIGHT OUTER JOIN
-  VAR_DB.variation_feature__main vf ON rfv.variation_feature_id = vf.variation_feature_id
+  VAR_DB.variation_feature vf ON rfv.variation_feature_id = vf.variation_feature_id
