@@ -41,8 +41,10 @@ sub run {
     # Apparently, the variation set MTMP table is only required for human. If you
     # run this script for any other species, the table doesn't get created. So
     # don't bother for now, but I'll leave it here in case we need it back...
-    #$self->run_vs_script('--sv 1');
-    
+    if ($self->param_required('species') eq 'homo_sapiens')
+    {
+      $self->run_vs_script('--sv 1');
+    }   
     $self->supporting_structural_variation($dbh);
   }
   
@@ -63,9 +65,13 @@ sub run {
   # run this script for any other species, the table doesn't get created. So
   # don't bother for now, but I'll leave it here in case we need it back...
   #$self->run_vs_script();
-  
-  # Reconstitute old tables and views that are still needed by biomart.
-  $self->evidence($dbh);
+  if ($self->param_required('species') eq 'homo_sapiens')
+  {
+    $self->run_vs_script();
+  }
+  # Create the MTMP_evidence view using the Variation script
+  $self->run_evidence_script('evidence');
+  # Reconstitute old tables and views that are still needed by biomart. 
   if ($self->param('show_inds')) {
     $self->sample_genotype($dbh);
   }
@@ -95,8 +101,8 @@ sub run_vf_script {
     " --db ".$dbc->dbname.
     " --table $table".
     " --tmpdir $tmp_dir ".
-    " --tmpfile mtmp_vf.txt";
-  
+    " --tmpfile mtmp_vf_".$self->param_required('species').".txt";
+
   if (system($cmd)) {
     $self->throw("Loading failed when running $cmd");
   }
@@ -115,7 +121,7 @@ sub run_vs_script {
     " --registry_file ".$self->param_required('registry').
     " --species ".$self->param_required('species').
     " --tmpdir $tmp_dir ".
-    " --tmpfile mtmp_vs.txt".
+    " --tmpfile mtmp_vs_".$self->param_required('species').".txt".
     " $options";
   
   if (system($cmd)) {
@@ -127,7 +133,7 @@ sub sample_genotype {
   my ($self, $dbh) = @_;
   
   my $tmp_dir = $self->param_required('tmp_dir');
-  my $output_file = "$tmp_dir/mtmp_sg.txt";
+  my $output_file = "$tmp_dir/mtmp_sg_".$self->param_required('species').".txt";
   
   my $drop_sql = 'DROP TABLE IF EXISTS MTMP_sample_genotype;';
   
@@ -173,7 +179,7 @@ sub sample_genotype {
       my $genotype_code_id = shift @genotypes;
       my $allele_1 = $alleles{$genotype_code_id}[0];
       my $allele_2 = $alleles{$genotype_code_id}[1];
-      next if (length($allele_1) > 1) or (length($allele_2) > 1);
+      next if (length($allele_1) > 1) or (length($allele_2) > 1) or ($allele_1 eq 0) or ($allele_2 eq 0);
       
       print $fh
         join("\t", $variation_id, $allele_1, $allele_2, $sample_id).
@@ -188,31 +194,28 @@ sub sample_genotype {
   $dbh->do($load_sql) or $self->throw($dbh->errstr);
 }
 
-sub evidence {
-  my ($self, $dbh) = @_;
-  
-  my $drop_sql = 'DROP TABLE IF EXISTS MTMP_evidence;';
-  
-  my $create_sql =
-  'CREATE TABLE MTMP_evidence ( '.
-    '`variation_id` int(10) unsigned NOT NULL, '.
-    '`evidence` SET("Multiple_observations","Frequency","HapMap","1000Genomes","Cited","ESP"), '.
-    'PRIMARY KEY (`variation_id`))'.
-  'ENGINE=MyISAM DEFAULT CHARSET=latin1;';
-  
-  my $insert_sql =
-  'INSERT INTO MTMP_evidence '.
-  'SELECT '.
-    'v.variation_id, '.
-    'GROUP_CONCAT(a.value) '.
-  'FROM '.
-    'variation v INNER JOIN '.
-    'attrib a ON FIND_IN_SET(attrib_id, evidence_attribs) '.
-  'GROUP BY v.variation_id;';
-  
+sub run_evidence_script {
+  my ($self, $table) = @_;
+  my $variation_import_lib = $self->param_required('variation_import_lib');
+  my $variation_evidence_script = $self->param_required('variation_evidence_script');
+  my $tmp_dir = $self->param_required('tmp_dir');
+
+  my $dbc = $self->get_DBAdaptor('variation')->dbc();
+  my $dbh = $dbc->db_handle();
+
+  my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
   $dbh->do($drop_sql) or $self->throw($dbh->errstr);
-  $dbh->do($create_sql) or $self->throw($dbh->errstr);
-  $dbh->do($insert_sql) or $self->throw($dbh->errstr);
+
+  my $cmd = "perl -I$variation_import_lib $variation_evidence_script ".
+    " --host ".$dbc->host.
+    " --port ".$dbc->port.
+    " --user ".$dbc->username.
+    " --pass ".$dbc->password.
+    " --db ".$dbc->dbname;
+
+  if (system($cmd)) {
+    $self->throw("Loading failed when running $cmd");
+  }
 }
 
 sub population_genotype {
@@ -238,7 +241,7 @@ sub population_genotype {
   'ENGINE=MyISAM DEFAULT CHARSET=latin1;';
   
   my $insert_sql =
-  'INSERT INTO MTMP_population_genotype '.
+  'INSERT IGNORE INTO MTMP_population_genotype '.
   'SELECT '.
     'p.population_genotype_id, '.
     'p.variation_id, '.
@@ -275,7 +278,6 @@ sub variation_annotation {
     'a2.value AS risk_allele, '.
     'a3.value AS p_value, '.
     'pf.study_id, '.
-    'pf.is_significant, '.
     'a4.value AS variation_names '.
   'FROM (variation v, phenotype_feature pf) '.
   'LEFT JOIN ( '.
@@ -322,12 +324,15 @@ sub supporting_structural_variation {
     'svf.seq_region_strand, '.
     'clinical_significance, '.
     's.name AS sample_name, '.
-    'p.description AS phenotype '.
+    'i.name AS strain_name, '.
+    'p.description AS phenotype, '.
+    'sv.copy_number AS copy_number '.
   'FROM structural_variation sv '.
   'LEFT JOIN phenotype_feature pf ON (sv.variation_name=pf.object_id AND pf.type="SupportingStructuralVariation") '.
   'LEFT JOIN phenotype p ON (p.phenotype_id=pf.phenotype_id) '.
   'LEFT JOIN structural_variation_sample svs ON (svs.structural_variation_id=sv.structural_variation_id) '.
-  'LEFT JOIN sample s ON (s.sample_id=svs.sample_id), '.
+  'LEFT JOIN sample s ON (s.sample_id=svs.sample_id) '.
+  'LEFT JOIN individual i ON (i.individual_id=s.individual_id AND s.display!="UNDISPLAYABLE"), '.
   'structural_variation_feature svf '.
   'LEFT JOIN seq_region seq ON (svf.seq_region_id=seq.seq_region_id), '.
   'attrib a1, '.
