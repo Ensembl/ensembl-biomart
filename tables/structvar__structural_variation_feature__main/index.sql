@@ -1,4 +1,1 @@
-CREATE INDEX idx_1 ON SPECIES_ABBREV_structvar__structural_variation_feature__main (structural_variation_id_2072_key);
-CREATE INDEX idx_2 ON SPECIES_ABBREV_structvar__structural_variation_feature__main (structural_variation_feature_id_20104_key);
-CREATE INDEX idx_3 ON SPECIES_ABBREV_structvar__structural_variation_feature__main (name_2034);
-CREATE INDEX idx_4 ON SPECIES_ABBREV_structvar__structural_variation_feature__main (seq_region_start_20104);
+ALTER TABLE SPECIES_ABBREV_structvar__structural_variation_feature__main ADD INDEX (structural_variation_id_2072_key), ADD INDEX (structural_variation_feature_id_20104_key), ADD INDEX (name_2034), ADD INDEX (seq_region_start_20104), ADD INDEX (name_20100), ADD INDEX (clinical_significance_2072), ADD INDEX (variation_name_2072), ADD INDEX (name_2021), ADD INDEX (structural_variation_feature_count);

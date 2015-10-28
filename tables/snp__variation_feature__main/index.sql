@@ -1,5 +1,1 @@
-CREATE INDEX idx_1 ON SPECIES_ABBREV_snp__variation_feature__main (variation_id_2025_key);
-CREATE INDEX idx_2 ON SPECIES_ABBREV_snp__variation_feature__main (variation_feature_id_2026_key);
-CREATE INDEX idx_3 ON SPECIES_ABBREV_snp__variation_feature__main (name_2025);
-CREATE INDEX idx_4 ON SPECIES_ABBREV_snp__variation_feature__main (name_1059);
-CREATE INDEX idx_5 ON SPECIES_ABBREV_snp__variation_feature__main (seq_region_start_2026);
+ALTER TABLE SPECIES_ABBREV_snp__variation_feature__main ADD INDEX (variation_id_2025_key), ADD INDEX (variation_feature_id_2026_key), ADD INDEX (name_2025), ADD INDEX (name_1059), ADD INDEX (seq_region_start_2026);
