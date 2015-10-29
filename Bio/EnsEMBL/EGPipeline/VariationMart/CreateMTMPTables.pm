@@ -78,7 +78,7 @@ sub run {
     $self->sample_genotype($dbh);
   }
   if ($self->param('show_pops')) {
-    $self->population_genotype($dbh);
+    $self->population_genotype('population_genotype');
   }
   $self->variation_annotation($dbh);
 }
@@ -199,7 +199,7 @@ sub sample_genotype {
 sub run_evidence_script {
   my ($self, $table) = @_;
   my $variation_import_lib = $self->param_required('variation_import_lib');
-  my $variation_evidence_script = $self->param_required('variation_evidence_script');
+  my $variation_evidence_pop_geno_script = $self->param_required('variation_evidence_pop_geno_script');
   my $tmp_dir = $self->param_required('tmp_dir');
 
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
@@ -208,12 +208,15 @@ sub run_evidence_script {
   my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
   $dbh->do($drop_sql) or $self->throw($dbh->errstr);
 
-  my $cmd = "perl -I$variation_import_lib $variation_evidence_script ".
+  my $cmd = "perl -I$variation_import_lib $variation_evidence_pop_geno_script ".
     " --host ".$dbc->host.
     " --port ".$dbc->port.
     " --user ".$dbc->username.
     " --pass ".$dbc->password.
-    " --db ".$dbc->dbname;
+    " --db ".$dbc->dbname.
+    " --mode "."evi".
+    " --tmpdir $tmp_dir ".
+    " --tmpfile mtmp_evidence_".$self->param_required('species').".txt";
 
   if (system($cmd)) {
     $self->throw("Loading failed when running $cmd");
@@ -221,49 +224,30 @@ sub run_evidence_script {
 }
 
 sub population_genotype {
-  my ($self, $dbh) = @_;
-  
-  my $drop_sql = 'DROP TABLE IF EXISTS MTMP_population_genotype;';
-  
-  my $create_sql =
-  'CREATE TABLE MTMP_population_genotype ( '.
-    '`population_genotype_id` int(10) unsigned NOT NULL AUTO_INCREMENT, '.
-    '`variation_id` int(10) unsigned NOT NULL, '.
-    '`subsnp_id` int(15) unsigned DEFAULT NULL, '.
-    '`allele_1` varchar(25000) DEFAULT NULL, '.
-    '`allele_2` varchar(25000) DEFAULT NULL, '.
-    '`frequency` float DEFAULT NULL, '.
-    '`population_id` int(10) unsigned DEFAULT NULL,'.
-    '`count` int(10) unsigned DEFAULT NULL, '.
-    'PRIMARY KEY (`population_genotype_id`),'.
-    'UNIQUE KEY `pop_genotype_idx` (`variation_id`,`subsnp_id`,`frequency`,`population_id`,`allele_1`(5),`allele_2`(5)), '.
-    'KEY `variation_idx` (`variation_id`), '.
-    'KEY `subsnp_idx` (`subsnp_id`), '.
-    'KEY `population_idx` (`population_id`))'.
-  'ENGINE=MyISAM DEFAULT CHARSET=latin1;';
-  
-  my $insert_sql =
-  'INSERT IGNORE INTO MTMP_population_genotype '.
-  'SELECT '.
-    'p.population_genotype_id, '.
-    'p.variation_id, '.
-    'p.subsnp_id, '.
-    'ac1.allele, '.
-    'ac2.allele, '.
-    'p.frequency, '.
-    'p.population_id, '.
-    'p.count '.
-  'FROM '.
-    'population_genotype p INNER JOIN '.
-    'genotype_code gc1 ON p.genotype_code_id = gc1.genotype_code_id INNER JOIN '.
-    'genotype_code gc2 ON p.genotype_code_id = gc2.genotype_code_id INNER JOIN '.
-    'allele_code ac1 ON gc1.allele_code_id = ac1.allele_code_id INNER JOIN '.
-    'allele_code ac2 ON gc2.allele_code_id = ac2.allele_code_id '.
-  'WHERE gc1.haplotype_id = 1 AND gc2.haplotype_id = 2;';
-  
+  my ($self, $table) = @_;
+  my $variation_import_lib = $self->param_required('variation_import_lib');
+  my $variation_evidence_pop_geno_script = $self->param_required('variation_evidence_pop_geno_script');
+  my $tmp_dir = $self->param_required('tmp_dir');
+
+  my $dbc = $self->get_DBAdaptor('variation')->dbc();
+  my $dbh = $dbc->db_handle();
+
+  my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
   $dbh->do($drop_sql) or $self->throw($dbh->errstr);
-  $dbh->do($create_sql) or $self->throw($dbh->errstr);
-  $dbh->do($insert_sql) or $self->throw($dbh->errstr);
+
+  my $cmd = "perl -I$variation_import_lib $variation_evidence_pop_geno_script ".
+    " --host ".$dbc->host.
+    " --port ".$dbc->port.
+    " --user ".$dbc->username.
+    " --pass ".$dbc->password.
+    " --db ".$dbc->dbname.
+    " --mode "."pop_geno".
+    " --tmpdir $tmp_dir ".
+    " --tmpfile mtmp_pop_geno_".$self->param_required('species').".txt";
+
+  if (system($cmd)) {
+    $self->throw("Loading failed when running $cmd");
+  }
 }
 
 sub variation_annotation {

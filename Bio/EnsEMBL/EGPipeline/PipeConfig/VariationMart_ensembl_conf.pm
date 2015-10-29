@@ -89,8 +89,8 @@ sub default_options {
     variation_set_script => $self->o('ensembl_cvs_root_dir').
       '/ensembl-variation/scripts/import/post_process_variation_feature_variation_set.pl',
 
-    variation_evidence_script => $self->o('ensembl_cvs_root_dir').
-      '/ensembl-variation/scripts/misc/create_evidence_MTMP.pl',   
+    variation_evidence_pop_geno_script => $self->o('ensembl_cvs_root_dir').
+      '/ensembl-variation/scripts/misc/create_MTMP_tables.pl',
 
     # Mart tables are mostly independent in that their construction does not
     # rely on other mart tables. The only execption are the *_feature__main
