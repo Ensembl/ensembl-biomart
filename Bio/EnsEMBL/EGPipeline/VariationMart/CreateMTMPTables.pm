@@ -28,6 +28,8 @@ sub param_defaults {
     'sv_exists' => 0,
     'show_inds' => 1,
     'show_pops' => 1,
+    'motif_feature' => 1,
+    'regulatory_feature' => 1,
     'tmp_dir'   => '/tmp',
   };
 }
