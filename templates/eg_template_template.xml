@@ -3619,6 +3619,34 @@
       <FilterCollection internalName="pbo_during_acc" displayName="PBO annotations with specified during accession" description="PBO annotations with specified during accession">
         <FilterDescription displayName="PBO annotations with specified during" displayType="list" field="during_acc" internalName="pbo_during_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="pbo_extension__dm" type="text"/>
       </FilterCollection>
+      <FilterCollection internalName="with_pbo_InteractorA" displayName="PBO annotations with InteractorA" description="PBO entries with interactorA">
+        <FilterDescription description="Limit to PBO entries with InteractorA" displayName="PBO entries with InteractorA" displayType="list" field="InteractorA_db" internalName="with_pbo_InteractorA" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="pbo_extension__dm" type="boolean">
+          <Option displayName="Only" internalName="only" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" value="excluded"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection internalName="pbo_InteractorA" displayName="PBO annotations with specified InteractorA" description="PBO annotations with specified InteractorA">
+        <FilterDescription displayName="PBO annotations with specified InteractorA" displayType="list" field="InteractorA_label" internalName="pbo_InteractorA" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" style="menu" tableConstraint="pbo_extension__dm" type="text">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection internalName="pbo_InteractorA_acc" displayName="PBO annotations with specified InteractorA accession" description="PBO annotations with specified InteractorA accession">
+        <FilterDescription displayName="PBO annotations with specified InteractorA" displayType="list" field="InteractorA_acc" internalName="pbo_InteractorA_acc" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" multipleValues="1" tableConstraint="pbo_extension__dm" type="text"/>
+      </FilterCollection>
+      <FilterCollection internalName="with_pbo_InteractorB" displayName="PBO annotations with InteractorB" description="PBO entries with InteractorB">
+        <FilterDescription description="Limit to PBO entries with InteractorB" displayName="PBO entries with InteractorB" displayType="list" field="InteractorB_db" internalName="with_pbo_InteractorB" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="pbo_extension__dm" type="boolean">
+          <Option displayName="Only" internalName="only" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" value="excluded"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection internalName="pbo_InteractorB" displayName="PBO annotations with specified InteractorB" description="PBO annotations with specified InteractorB">
+        <FilterDescription displayName="PBO annotations with specified InteractorB" displayType="list" field="InteractorB_label" internalName="pbo_InteractorB" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" style="menu" tableConstraint="pbo_extension__dm" type="text">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection internalName="pbo_InteractorB_acc" displayName="PBO annotations with specified InteractorB accession" description="PBO annotations with specified InteractorB accession">
+        <FilterDescription displayName="PBO annotations with specified InteractorB" displayType="list" field="InteractorB_acc" internalName="pbo_InteractorB_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="pbo_extension__dm" type="text"/>
+      </FilterCollection>
       <FilterCollection internalName="with_pbo_requires_sequence_feature" displayName="PBO annotations with requires_sequence_feature" description="PBO entries with requires_sequence_feature">
         <FilterDescription description="Limit to PBO entries with requires_sequence_feature" displayName="PBO entries with requires_sequence_feature" displayType="list" field="requires_sequence_feature_db" internalName="with_pbo_requires_sequence_feature" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="pbo_extension__dm" type="boolean">
           <Option displayName="Only" internalName="only" value="only"/>
@@ -5039,6 +5067,12 @@
         <AttributeDescription displayName="PBO during" field="during_label" internalName="pbo_during_label" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="PBO during accession" field="during_acc" internalName="pbo_during_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="PBO during database" field="during_db" internalName="pbo_during_db" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
+        <AttributeDescription displayName="PBO InteractorA" field="InteractorA_label" internalName="pbo_InteractorA_label" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
+        <AttributeDescription displayName="PBO InteractorA accession" field="InteractorA_acc" internalName="pbo_InteractorA_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
+        <AttributeDescription displayName="PBO InteractorA database" field="InteractorA_db" internalName="pbo_InteractorA_db" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
+        <AttributeDescription displayName="PBO InteractorB" field="InteractorB_label" internalName="pbo_InteractorB_label" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
+        <AttributeDescription displayName="PBO InteractorB accession" field="InteractorB_acc" internalName="pbo_InteractorB_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
+        <AttributeDescription displayName="PBO InteractorB database" field="InteractorB_db" internalName="pbo_InteractorB_db" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="PBO requires_sequence_feature" field="requires_sequence_feature_label" internalName="pbo_requires_sequence_feature_label" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="PBO requires_sequence_feature accession" field="requires_sequence_feature_acc" internalName="pbo_requires_sequence_feature_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="PBO requires_sequence_feature database" field="requires_sequence_feature_db" internalName="pbo_requires_sequence_feature_db" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
