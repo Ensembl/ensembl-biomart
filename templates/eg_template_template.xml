@@ -10,6 +10,7 @@
   <Importable filters="link_gro_closure" internalName="gro_closure" linkName="gro_closure" name="gro_closure" type="link"/>
   <Importable filters="link_gr_tax_closure" internalName="gr_tax_closure" linkName="gr_tax_closure" name="gr_tax_closure" type="link"/>
   <Importable filters="link_pbo_closure" internalName="pbo_closure" linkName="pbo_closure" name="pbo_closure" type="link"/>
+  <Importable filters="link_pbo_extension_closure" internalName="pbo_closure" linkName="pbo_closure" name="pbo_closure" type="link"/>
   <Importable filters="link_fypo_closure" internalName="fypo_closure" linkName="fypo_closure" name="fypo_closure" type="link"/>
   <Importable filters="link_mod_closure" internalName="mod_closure" linkName="mod_closure" name="mod_closure" type="link"/>
   <Importable filters="ensembl_gene_id" internalName="ensembl_gene_id" linkName="ensembl_gene_id" linkVersion="*link_version*" name="ensembl_gene_id" type="link"/>
@@ -3102,6 +3103,9 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
+      <FilterCollection internalName="go_subject_acc" displayName="GO annotations with specified subject accession" description="GO annotations with specified subject accession">
+        <FilterDescription displayName="GO annotations with specified subject" displayType="text" field="subject_acc" internalName="go_subject_acc" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" multipleValues="1" tableConstraint="go_extension__dm" type="text"/>
+      </FilterCollection>
       <FilterCollection internalName="with_go_evidence" displayName="GO annotations with evidence" description="GO entries with evidence">
         <FilterDescription description="Limit to GO entries with evidence" displayName="GO entries with evidence" displayType="list" field="evidence_db" internalName="with_go_evidence" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="go_extension__dm" type="boolean">
           <Option displayName="Only" internalName="only" value="only"/>
@@ -3577,6 +3581,9 @@
           <SpecificFilterContent hidden="true" internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
+      <FilterCollection internalName="pbo_subject_acc" displayName="PBO annotations with specified subject accession" description="PBO annotations with specified subject accession">
+        <FilterDescription displayName="PBO annotations with specified subject" displayType="text" field="subject_acc" internalName="pbo_subject_acc" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" multipleValues="1" tableConstraint="pbo_extension__dm" type="text"/>
+      </FilterCollection>
       <FilterCollection internalName="with_pbo_qualifier" displayName="PBO annotations with qualifier" description="PBO entries with qualifier">
         <FilterDescription description="Limit to PBO entries with qualifier" displayName="PBO entries with qualifier" displayType="list" field="qualifier_db" internalName="with_pbo_qualifier" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="pbo_extension__dm" type="boolean">
           <Option displayName="Only" internalName="only" value="only"/>
@@ -3589,7 +3596,7 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="pbo_qualifier_acc" displayName="PBO annotations with specified qualifier accession" description="PBO annotations with specified qualifier accession">
-        <FilterDescription displayName="PBO annotations with specified qualifier" displayType="list" field="qualifier_acc" internalName="pbo_qualifier_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="pbo_extension__dm" type="text"/>
+        <FilterDescription displayName="PBO annotations with specified qualifier" displayType="text" field="qualifier_acc" internalName="pbo_qualifier_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="pbo_extension__dm" type="text"/>
       </FilterCollection>
       <FilterCollection internalName="with_pbo_evidence" displayName="PBO annotations with evidence" description="PBO entries with evidence">
         <FilterDescription description="Limit to PBO entries with evidence" displayName="PBO entries with evidence" displayType="list" field="evidence_db" internalName="with_pbo_evidence" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="pbo_extension__dm" type="boolean">
@@ -3729,6 +3736,9 @@
       </FilterCollection>
       <FilterCollection internalName="fypo_evidence_acc" displayName="FYPO annotations with specified evidence accession" description="FYPO annotations with specified evidence accession">
         <FilterDescription displayName="FYPO annotations with specified evidence" displayType="list" field="evidence_acc" internalName="fypo_evidence_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="fypo_extension__dm" type="text"/>
+      </FilterCollection>
+      <FilterCollection internalName="fypo_subject_acc" displayName="FYPO annotations with specified subject accession" description="FYPO annotations with specified subject accession">
+        <FilterDescription displayName="FYPO annotations with specified subject" displayType="text" field="subject_acc" internalName="fypo_subject_acc" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" multipleValues="1" tableConstraint="fypo_extension__dm" type="text"/>
       </FilterCollection>
       <FilterCollection internalName="with_fypo_allele" displayName="FYPO annotations with allele" description="FYPO entries with allele">
         <FilterDescription description="Limit to FYPO entries with allele" displayName="FYPO entries with allele" displayType="list" field="allele_db" internalName="with_fypo_allele" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="fypo_extension__dm" type="boolean">
