@@ -39,12 +39,12 @@ sub run {
   my $prefix = "";
 
    foreach my $table ( @{$self->param_required('snp_tables')} ) {
-     if ($table eq 'snp__variation_annotation__dm') {
+    #if ($table eq 'snp__variation_annotation__dm') {
         # The annotation and citation boolean fields aren't used anywhere, and
         # aren't that useful (since there are phenotype and citation filter).
-        $self->variation_annotation_bool($mart_table_prefix, $mart_dbh, $variation_db, $prefix);
-     }
-     elsif ($table eq 'snp__variation_citation__dm') {
+#    $self->variation_annotation_bool($mart_table_prefix, $mart_dbh, $variation_db, $prefix);
+#     }
+     if ($table eq 'snp__variation_citation__dm') {
         # The annotation and citation boolean fields aren't used anywhere, and
         # aren't that useful (since there are phenotype and citation filter).
         $self->variation_citation_bool($mart_table_prefix, $mart_dbh, $variation_db, $prefix);
