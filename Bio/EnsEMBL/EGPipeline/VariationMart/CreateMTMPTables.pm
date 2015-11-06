@@ -31,6 +31,7 @@ sub param_defaults {
     'motif_feature' => 1,
     'regulatory_feature' => 1,
     'tmp_dir'   => '/tmp',
+    'division'  => [], 
   };
 }
 
@@ -38,7 +39,8 @@ sub run {
   my ($self) = @_;
   
   my $dbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
-  
+  my $division = $self->param('division');
+
   if ($self->param('sv_exists')) {
     # Apparently, the variation set MTMP table is only required for human. If you
     # run this script for any other species, the table doesn't get created. So
@@ -67,9 +69,12 @@ sub run {
   # run this script for any other species, the table doesn't get created. So
   # don't bother for now, but I'll leave it here in case we need it back...
   #$self->run_vs_script();
-  if ($self->param_required('species') eq 'homo_sapiens')
-  {
+
+  if ($self->param_required('species') eq 'homo_sapiens' or @$division){
     $self->run_vs_script();
+  }
+  else{
+    $self->empty_variation_set_variation($dbh);
   }
   # Create the MTMP_evidence view using the Variation script
   $self->run_evidence_script('evidence');
@@ -344,6 +349,22 @@ sub order_consequences {
   $consequences = join(',', @consequences);
   my $sql = "ALTER TABLE $table MODIFY COLUMN $column SET($consequences);";
   $dbh->do($sql) or $self->throw($dbh->errstr);
+}
+
+sub empty_variation_set_variation {
+  my ($self, $dbh) = @_;
+
+  my $drop_sql = 'DROP TABLE IF EXISTS MTMP_variation_set_variation;';
+
+  my $create_sql =
+  'CREATE TABLE MTMP_variation_set_variation ('.
+    'variation_id int(11) unsigned NOT NULL, '.
+    'variation_set_id int(11) unsigned NOT NULL, '.
+    'KEY variation_id (variation_id), '.
+    'KEY variation_set_id (variation_set_id)) ';
+
+  $dbh->do($drop_sql) or $self->throw($dbh->errstr);
+  $dbh->do($create_sql) or $self->throw($dbh->errstr);
 }
 
 1;
