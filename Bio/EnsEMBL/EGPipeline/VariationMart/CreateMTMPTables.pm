@@ -26,7 +26,7 @@ use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 sub param_defaults {
   return {
     'sv_exists' => 0,
-    'show_inds' => 1,
+    'show_sams' => 1,
     'show_pops' => 1,
     'motif_feature' => 1,
     'regulatory_feature' => 1,
@@ -79,7 +79,7 @@ sub run {
   # Create the MTMP_evidence view using the Variation script
   $self->run_evidence_script('evidence');
   # Reconstitute old tables and views that are still needed by biomart. 
-  if ($self->param('show_inds')) {
+  if ($self->param('show_sams')) {
     $self->sample_genotype($dbh);
   }
   if ($self->param('show_pops')) {
