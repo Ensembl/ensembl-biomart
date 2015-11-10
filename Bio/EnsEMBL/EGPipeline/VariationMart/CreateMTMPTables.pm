@@ -26,10 +26,10 @@ use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 sub param_defaults {
   return {
     'sv_exists' => 0,
+    'regulatory_exists' => 1,
+    'motif_exits' => 1,
     'show_sams' => 1,
     'show_pops' => 1,
-    'motif_feature' => 1,
-    'regulatory_feature' => 1,
     'tmp_dir'   => '/tmp',
     'division'  => [], 
   };
@@ -47,7 +47,7 @@ sub run {
     # don't bother for now, but I'll leave it here in case we need it back...
     if ($self->param_required('species') eq 'homo_sapiens')
     {
-      $self->run_vs_script('--sv 1');
+      $self->run_variation_set_evidence_pop_geno_script('variation_set_structural_variation');
     }   
     $self->supporting_structural_variation($dbh);
   }
@@ -56,13 +56,12 @@ sub run {
   # data in EG, but if we have it in the future it will automatically be
   # detected and these options switched on by the preceding pipeline module.
   $self->run_vf_script('transcript_variation');
-  if ($self->param('motif_features')) {
-    $self->run_vf_script('motif_features');
+  if ($self->param('motif_exists')) {
+    $self->run_vf_script('motif_feature_variation');
   }
-  if ($self->param('regulatory_features')) {
-    $self->run_vf_script('regulatory_features');
+  if ($self->param('regulatory_exists')) {
+    $self->run_vf_script('regulatory_feature_variation');
   }
-  
   $self->order_consequences($dbh);
   
   # Apparently, the variation set MTMP table is only required for human. If you
@@ -71,19 +70,19 @@ sub run {
   #$self->run_vs_script();
 
   if ($self->param_required('species') eq 'homo_sapiens' or @$division){
-    $self->run_vs_script();
+    $self->run_variation_set_evidence_pop_geno_script('variation_set_variation');
   }
   else{
     $self->empty_variation_set_variation($dbh);
   }
   # Create the MTMP_evidence view using the Variation script
-  $self->run_evidence_script('evidence');
+  $self->run_variation_set_evidence_pop_geno_script('evidence');
   # Reconstitute old tables and views that are still needed by biomart. 
   if ($self->param('show_sams')) {
     $self->sample_genotype($dbh);
   }
   if ($self->param('show_pops')) {
-    $self->population_genotype('population_genotype');
+    $self->run_variation_set_evidence_pop_geno_script('population_genotype');
   }
   $self->variation_annotation($dbh);
 }
@@ -108,29 +107,8 @@ sub run_vf_script {
     " --db ".$dbc->dbname.
     " --table $table".
     " --tmpdir $tmp_dir ".
-    " --tmpfile mtmp_vf_".$self->param_required('species').".txt";
+    " --tmpfile mtmp_".$table."_".$self->param_required('species').".txt";
 
-  if (system($cmd)) {
-    $self->throw("Loading failed when running $cmd");
-  }
-}
-
-sub run_vs_script {
-  my ($self, $options) = @_;
-  $options ||= '';
-  my $variation_import_lib = $self->param_required('variation_import_lib');
-  my $variation_set_script = $self->param_required('variation_set_script');
-  my $tmp_dir = $self->param_required('tmp_dir');
-  
-  # The script deals with any existing data, so doesn't need to be handled here.
-  
-  my $cmd = "perl -I$variation_import_lib $variation_set_script ".
-    " --registry_file ".$self->param_required('registry').
-    " --species ".$self->param_required('species').
-    " --tmpdir $tmp_dir ".
-    " --tmpfile mtmp_vs_".$self->param_required('species').".txt".
-    " $options";
-  
   if (system($cmd)) {
     $self->throw("Loading failed when running $cmd");
   }
@@ -201,10 +179,10 @@ sub sample_genotype {
   $dbh->do($load_sql) or $self->throw($dbh->errstr);
 }
 
-sub run_evidence_script {
+sub run_variation_set_evidence_pop_geno_script {
   my ($self, $table) = @_;
   my $variation_import_lib = $self->param_required('variation_import_lib');
-  my $variation_evidence_pop_geno_script = $self->param_required('variation_evidence_pop_geno_script');
+  my $variation_set_evidence_pop_geno_script = $self->param_required('variation_set_evidence_pop_geno_script');
   my $tmp_dir = $self->param_required('tmp_dir');
 
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
@@ -213,42 +191,15 @@ sub run_evidence_script {
   my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
   $dbh->do($drop_sql) or $self->throw($dbh->errstr);
 
-  my $cmd = "perl -I$variation_import_lib $variation_evidence_pop_geno_script ".
+  my $cmd = "perl -I$variation_import_lib $variation_set_evidence_pop_geno_script ".
     " --host ".$dbc->host.
     " --port ".$dbc->port.
     " --user ".$dbc->username.
     " --pass ".$dbc->password.
     " --db ".$dbc->dbname.
-    " --mode "."evi".
+    " --mode ".$table.
     " --tmpdir $tmp_dir ".
-    " --tmpfile mtmp_evidence_".$self->param_required('species').".txt";
-
-  if (system($cmd)) {
-    $self->throw("Loading failed when running $cmd");
-  }
-}
-
-sub population_genotype {
-  my ($self, $table) = @_;
-  my $variation_import_lib = $self->param_required('variation_import_lib');
-  my $variation_evidence_pop_geno_script = $self->param_required('variation_evidence_pop_geno_script');
-  my $tmp_dir = $self->param_required('tmp_dir');
-
-  my $dbc = $self->get_DBAdaptor('variation')->dbc();
-  my $dbh = $dbc->db_handle();
-
-  my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
-  $dbh->do($drop_sql) or $self->throw($dbh->errstr);
-
-  my $cmd = "perl -I$variation_import_lib $variation_evidence_pop_geno_script ".
-    " --host ".$dbc->host.
-    " --port ".$dbc->port.
-    " --user ".$dbc->username.
-    " --pass ".$dbc->password.
-    " --db ".$dbc->dbname.
-    " --mode "."pop_geno".
-    " --tmpdir $tmp_dir ".
-    " --tmpfile mtmp_pop_geno_".$self->param_required('species').".txt";
+    " --tmpfile mtmp_".$table."_".$self->param_required('species').".txt";
 
   if (system($cmd)) {
     $self->throw("Loading failed when running $cmd");

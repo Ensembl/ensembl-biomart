@@ -83,11 +83,8 @@ sub default_options {
     
     variation_feature_script => $self->o('ensembl_cvs_root_dir').
       '/ensembl-variation/scripts/misc/mart_variation_effect.pl',
-    
-    variation_set_script => $self->o('ensembl_cvs_root_dir').
-      '/ensembl-variation/scripts/import/post_process_variation_feature_variation_set.pl',
 
-    variation_evidence_pop_geno_script => $self->o('ensembl_cvs_root_dir').
+    variation_set_evidence_pop_geno_script => $self->o('ensembl_cvs_root_dir').
       '/ensembl-variation/scripts/misc/create_MTMP_tables.pl',
     
     # Mart tables are mostly independent in that their construction does not
@@ -312,9 +309,10 @@ sub pipeline_analyses {
       -parameters        => {
                               variation_import_lib     => $self->o('variation_import_lib'),
                               variation_feature_script => $self->o('variation_feature_script'),
-                              variation_set_script     => $self->o('variation_set_script'),
+                              variation_set_evidence_pop_geno_script => $self->o('variation_set_evidence_pop_geno_script'),
                               registry                 => $self->o('registry'),
                               tmp_dir                  => $self->o('tmp_dir'),
+                              division                 => $self->o('division'),
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 5,
