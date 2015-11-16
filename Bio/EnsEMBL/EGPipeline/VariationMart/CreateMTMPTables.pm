@@ -177,6 +177,8 @@ sub sample_genotype {
   $dbh->do($drop_sql) or $self->throw($dbh->errstr);
   $dbh->do($create_sql) or $self->throw($dbh->errstr);
   $dbh->do($load_sql) or $self->throw($dbh->errstr);
+
+  unlink "$output_file" || warn "Failed to remove temp file: $output_file :$!\n";
 }
 
 sub run_variation_set_evidence_pop_geno_script {
