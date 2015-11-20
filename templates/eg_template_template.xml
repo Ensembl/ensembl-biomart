@@ -10,6 +10,7 @@
   <Importable filters="link_gro_closure" internalName="gro_closure" linkName="gro_closure" name="gro_closure" type="link"/>
   <Importable filters="link_gr_tax_closure" internalName="gr_tax_closure" linkName="gr_tax_closure" name="gr_tax_closure" type="link"/>
   <Importable filters="link_pbo_closure" internalName="pbo_closure" linkName="pbo_closure" name="pbo_closure" type="link"/>
+  <Importable filters="link_pbo_extension_closure" internalName="pbo_closure" linkName="pbo_closure" name="pbo_closure" type="link"/>
   <Importable filters="link_fypo_closure" internalName="fypo_closure" linkName="fypo_closure" name="fypo_closure" type="link"/>
   <Importable filters="link_mod_closure" internalName="mod_closure" linkName="mod_closure" name="mod_closure" type="link"/>
   <Importable filters="ensembl_gene_id" internalName="ensembl_gene_id" linkName="ensembl_gene_id" linkVersion="*link_version*" name="ensembl_gene_id" type="link"/>
@@ -1930,7 +1931,7 @@
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="lmajor_eg_gene"/>
             <SpecificOptionContent key="transcript_id_1064_key" field="dbprimary_acc_1074" internalName="pfalciparum_eg_gene"/>
           </Option>
-	  <Option displayName="with refseq_gene_name ID(s)" displayType="list" field="ox_refseq_gene_name_bool" internalName="with_refseq_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+          <Option displayName="with RefSeq gene name(s)" displayType="list" field="ox_refseq_gene_name_bool" internalName="with_refseq_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2871,7 +2872,7 @@
             <SpecificOptionContent field="dbprimary_acc_1074" internalName="zmays_eg_gene" key="transcript_id_1064_key"/>
           </Option>
           <Option checkForNulls="true" displayName="RefSeq DNA (predicted) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_dna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_dna_predicted__dm" type="text" useDefault="true"/>
-	  <Option checkForNulls="true" displayName="refseq_gene_name ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_gene_name__dm" type="list"/>
+          <Option checkForNulls="true" displayName="RefSeq gene name(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_gene_name__dm" type="list"/>
           <Option checkForNulls="true" displayName="Refseq genomic ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_genomic" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_RefSeq_genomic__dm" type="text"/>
           <Option checkForNulls="true" displayName="RefSeq mRNA ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_mrna" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_mrna__dm" type="list"/>
           <Option checkForNulls="true" displayName="RefSeq mRNA (predicted) ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_mrna_predicted__dm" type="list"/>
@@ -3101,6 +3102,9 @@
         <FilterDescription displayName="GO evidence code" displayType="list" field="linkage_type_1024" internalName="go_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_go__dm" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
+      </FilterCollection>
+      <FilterCollection internalName="go_subject_acc" displayName="GO annotations with specified subject accession" description="GO annotations with specified subject accession">
+        <FilterDescription displayName="GO annotations with specified subject" displayType="text" field="subject_acc" internalName="go_subject_acc" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" multipleValues="1" tableConstraint="go_extension__dm" type="text"/>
       </FilterCollection>
       <FilterCollection internalName="with_go_evidence" displayName="GO annotations with evidence" description="GO entries with evidence">
         <FilterDescription description="Limit to GO entries with evidence" displayName="GO entries with evidence" displayType="list" field="evidence_db" internalName="with_go_evidence" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="go_extension__dm" type="boolean">
@@ -3577,6 +3581,9 @@
           <SpecificFilterContent hidden="true" internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
+      <FilterCollection internalName="pbo_subject_acc" displayName="PBO annotations with specified subject accession" description="PBO annotations with specified subject accession">
+        <FilterDescription displayName="PBO annotations with specified subject" displayType="text" field="subject_acc" internalName="pbo_subject_acc" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" multipleValues="1" tableConstraint="pbo_extension__dm" type="text"/>
+      </FilterCollection>
       <FilterCollection internalName="with_pbo_qualifier" displayName="PBO annotations with qualifier" description="PBO entries with qualifier">
         <FilterDescription description="Limit to PBO entries with qualifier" displayName="PBO entries with qualifier" displayType="list" field="qualifier_db" internalName="with_pbo_qualifier" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="pbo_extension__dm" type="boolean">
           <Option displayName="Only" internalName="only" value="only"/>
@@ -3589,7 +3596,7 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="pbo_qualifier_acc" displayName="PBO annotations with specified qualifier accession" description="PBO annotations with specified qualifier accession">
-        <FilterDescription displayName="PBO annotations with specified qualifier" displayType="list" field="qualifier_acc" internalName="pbo_qualifier_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="pbo_extension__dm" type="text"/>
+        <FilterDescription displayName="PBO annotations with specified qualifier" displayType="text" field="qualifier_acc" internalName="pbo_qualifier_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="pbo_extension__dm" type="text"/>
       </FilterCollection>
       <FilterCollection internalName="with_pbo_evidence" displayName="PBO annotations with evidence" description="PBO entries with evidence">
         <FilterDescription description="Limit to PBO entries with evidence" displayName="PBO entries with evidence" displayType="list" field="evidence_db" internalName="with_pbo_evidence" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="pbo_extension__dm" type="boolean">
@@ -3618,6 +3625,34 @@
       </FilterCollection>
       <FilterCollection internalName="pbo_during_acc" displayName="PBO annotations with specified during accession" description="PBO annotations with specified during accession">
         <FilterDescription displayName="PBO annotations with specified during" displayType="list" field="during_acc" internalName="pbo_during_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="pbo_extension__dm" type="text"/>
+      </FilterCollection>
+      <FilterCollection internalName="with_pbo_InteractorA" displayName="PBO annotations with InteractorA" description="PBO entries with interactorA">
+        <FilterDescription description="Limit to PBO entries with InteractorA" displayName="PBO entries with InteractorA" displayType="list" field="InteractorA_db" internalName="with_pbo_InteractorA" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="pbo_extension__dm" type="boolean">
+          <Option displayName="Only" internalName="only" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" value="excluded"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection internalName="pbo_InteractorA" displayName="PBO annotations with specified InteractorA" description="PBO annotations with specified InteractorA">
+        <FilterDescription displayName="PBO annotations with specified InteractorA" displayType="list" field="InteractorA_label" internalName="pbo_InteractorA" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" style="menu" tableConstraint="pbo_extension__dm" type="text">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection internalName="pbo_InteractorA_acc" displayName="PBO annotations with specified InteractorA accession" description="PBO annotations with specified InteractorA accession">
+        <FilterDescription displayName="PBO annotations with specified InteractorA" displayType="list" field="InteractorA_acc" internalName="pbo_InteractorA_acc" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" multipleValues="1" tableConstraint="pbo_extension__dm" type="text"/>
+      </FilterCollection>
+      <FilterCollection internalName="with_pbo_InteractorB" displayName="PBO annotations with InteractorB" description="PBO entries with InteractorB">
+        <FilterDescription description="Limit to PBO entries with InteractorB" displayName="PBO entries with InteractorB" displayType="list" field="InteractorB_db" internalName="with_pbo_InteractorB" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="pbo_extension__dm" type="boolean">
+          <Option displayName="Only" internalName="only" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" value="excluded"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection internalName="pbo_InteractorB" displayName="PBO annotations with specified InteractorB" description="PBO annotations with specified InteractorB">
+        <FilterDescription displayName="PBO annotations with specified InteractorB" displayType="list" field="InteractorB_label" internalName="pbo_InteractorB" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" style="menu" tableConstraint="pbo_extension__dm" type="text">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection internalName="pbo_InteractorB_acc" displayName="PBO annotations with specified InteractorB accession" description="PBO annotations with specified InteractorB accession">
+        <FilterDescription displayName="PBO annotations with specified InteractorB" displayType="list" field="InteractorB_acc" internalName="pbo_InteractorB_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="pbo_extension__dm" type="text"/>
       </FilterCollection>
       <FilterCollection internalName="with_pbo_requires_sequence_feature" displayName="PBO annotations with requires_sequence_feature" description="PBO entries with requires_sequence_feature">
         <FilterDescription description="Limit to PBO entries with requires_sequence_feature" displayName="PBO entries with requires_sequence_feature" displayType="list" field="requires_sequence_feature_db" internalName="with_pbo_requires_sequence_feature" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="pbo_extension__dm" type="boolean">
@@ -3701,6 +3736,9 @@
       </FilterCollection>
       <FilterCollection internalName="fypo_evidence_acc" displayName="FYPO annotations with specified evidence accession" description="FYPO annotations with specified evidence accession">
         <FilterDescription displayName="FYPO annotations with specified evidence" displayType="list" field="evidence_acc" internalName="fypo_evidence_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="fypo_extension__dm" type="text"/>
+      </FilterCollection>
+      <FilterCollection internalName="fypo_subject_acc" displayName="FYPO annotations with specified subject accession" description="FYPO annotations with specified subject accession">
+        <FilterDescription displayName="FYPO annotations with specified subject" displayType="text" field="subject_acc" internalName="fypo_subject_acc" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" multipleValues="1" tableConstraint="fypo_extension__dm" type="text"/>
       </FilterCollection>
       <FilterCollection internalName="with_fypo_allele" displayName="FYPO annotations with allele" description="FYPO entries with allele">
         <FilterDescription description="Limit to FYPO entries with allele" displayName="FYPO entries with allele" displayType="list" field="allele_db" internalName="with_fypo_allele" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="fypo_extension__dm" type="boolean">
@@ -4773,8 +4811,8 @@
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="vvinifera_eg_gene" key="gene_id_1020_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="RefSeq DNA (predicted) ID" field="dbprimary_acc_1074" internalName="refseq_dna_predicted" key="transcript_id_1064_key" linkoutURL="exturl1|http://www.ncbi.nlm.nih.gov/sites/entrez?db=nuccore&amp;cmd=search&amp;term=%s" maxLength="40" tableConstraint="ox_RefSeq_dna_predicted__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="refseq_gene_name ID" field="dbprimary_acc_1074" internalName="refseq_gene_name" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_gene_name__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="RefSeq genomic ID(s)" field="dbprimary_acc_1074" internalName="refseq_genomic" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="40" tableConstraint="ox_RefSeq_genomic__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="RefSeq gene name" field="dbprimary_acc_1074" internalName="refseq_gene_name" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_refseq_gene_name__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="RefSeq genomic ID" field="dbprimary_acc_1074" internalName="refseq_genomic" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="40" tableConstraint="ox_RefSeq_genomic__dm"/>
         <AttributeDescription checkForNulls="true" displayName="RefSeq mRNA ID" field="dbprimary_acc_1074" internalName="refseq_mrna" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_refseq_mrna__dm" useDefault="true"/>
         <AttributeDescription checkForNulls="true" displayName="RefSeq mRNA (predicted) ID" field="dbprimary_acc_1074" internalName="refseq_mrna_predicted" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_refseq_mrna_predicted__dm" useDefault="true"/>
         <AttributeDescription checkForNulls="true" displayName="RefSeq ncRNA ID" field="dbprimary_acc_1074" internalName="refseq_ncrna" key="transcript_id_1064_key" maxLength="40" tableConstraint="ox_refseq_ncrna__dm"/>
@@ -5039,6 +5077,12 @@
         <AttributeDescription displayName="PBO during" field="during_label" internalName="pbo_during_label" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="PBO during accession" field="during_acc" internalName="pbo_during_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="PBO during database" field="during_db" internalName="pbo_during_db" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
+        <AttributeDescription displayName="PBO InteractorA" field="InteractorA_label" internalName="pbo_InteractorA_label" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
+        <AttributeDescription displayName="PBO InteractorA accession" field="InteractorA_acc" internalName="pbo_InteractorA_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
+        <AttributeDescription displayName="PBO InteractorA database" field="InteractorA_db" internalName="pbo_InteractorA_db" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
+        <AttributeDescription displayName="PBO InteractorB" field="InteractorB_label" internalName="pbo_InteractorB_label" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
+        <AttributeDescription displayName="PBO InteractorB accession" field="InteractorB_acc" internalName="pbo_InteractorB_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
+        <AttributeDescription displayName="PBO InteractorB database" field="InteractorB_db" internalName="pbo_InteractorB_db" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="PBO requires_sequence_feature" field="requires_sequence_feature_label" internalName="pbo_requires_sequence_feature_label" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="PBO requires_sequence_feature accession" field="requires_sequence_feature_acc" internalName="pbo_requires_sequence_feature_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="PBO requires_sequence_feature database" field="requires_sequence_feature_db" internalName="pbo_requires_sequence_feature_db" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
