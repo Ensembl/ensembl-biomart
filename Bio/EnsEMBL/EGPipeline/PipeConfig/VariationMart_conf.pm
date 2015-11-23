@@ -240,7 +240,6 @@ sub pipeline_analyses {
       -rc_name           => 'normal',
       -flow_into         => {
                               '2->A' => ['DropMartTables'],
-                              '2->B' => ['DropMartTables'],
                               '3->B' => ['CreateMTMPTables'],
                               'A->4' => ['CopyMart'],
                               'B->5' => ['GenerateMart'],
