@@ -133,7 +133,7 @@ my @src_dbs;
 
 my $regexp = undef;
 
-if( $div eq 'vectorbase' ){
+if(defined $div && $div eq 'vectorbase' ){
      $regexp = ".*_core_${release}_.*";
 }
 else{
