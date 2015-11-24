@@ -92,13 +92,8 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Strain (SNP)" internalName="snp_strain_col">
-        <FilterDescription displayName="Strain (SNP)" displayType="list" field="name_2019" internalName="reference_strain" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="poly__dm" type="list" isDefault="true">
-          <SpecificFilterContent internalName="replaceMe"/>
-        </FilterDescription>
-      </FilterCollection>
-      <FilterCollection displayName="Strain (Indel, MNP)" internalName="mnp_strain_col">
-        <FilterDescription displayName="Strain (Indel, MNP)" displayType="list" field="name_2019" internalName="reference_strain_mnp" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mpoly__dm" type="list" isDefault="true">
+      <FilterCollection displayName="Strain" internalName="snp_strain_col">
+        <FilterDescription displayName="Strain" displayType="list" field="name_2019" internalName="reference_strain" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="poly__dm" type="list" isDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -178,19 +173,11 @@
         <AttributeDescription displayName="Population genotype" field="allele" internalName="population_genotype__dm_allele" key="variation_id_2025_key" maxLength="255" tableConstraint="population_genotype__dm"/>
         <AttributeDescription displayName="Genotype frequency" field="frequency_2016" internalName="frequency_2016" key="variation_id_2025_key" maxLength="12" tableConstraint="population_genotype__dm"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Strain: SNPs" internalName="strain_single">
+      <AttributeCollection displayName="Strain" internalName="strain_single">
         <AttributeDescription displayName="Strain name" field="name_2019" internalName="strain_name" key="variation_id_2025_key" maxLength="255" tableConstraint="poly__dm">
           <SpecificAttributeContent internalName="replaceMe"/>
         </AttributeDescription>
         <AttributeDescription displayName="Strain genotype" field="allele" internalName="strain_allele" key="variation_id_2025_key" maxLength="255" tableConstraint="poly__dm">
-          <SpecificAttributeContent internalName="replaceMe"/>
-        </AttributeDescription>
-      </AttributeCollection>
-      <AttributeCollection displayName="Strain: Indels, Multiple Nucleotide Polymorphisms" internalName="strain_multiple">
-        <AttributeDescription displayName="Strain name" field="name_2019" internalName="strain_name_multi" key="variation_id_2025_key" maxLength="255" tableConstraint="mpoly__dm">
-          <SpecificAttributeContent internalName="replaceMe"/>
-        </AttributeDescription>
-        <AttributeDescription displayName="Strain genotype" field="allele" internalName="strain_allele_multi" key="variation_id_2025_key" maxLength="255" tableConstraint="mpoly__dm">
           <SpecificAttributeContent internalName="replaceMe"/>
         </AttributeDescription>
       </AttributeCollection>

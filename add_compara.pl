@@ -191,7 +191,6 @@ my $species_homoeolog_within_species_sql = qq/
     )
     AND (g.name=? OR g.name=?) AND m.type='ENSEMBL_HOMOEOLOGUES'/;
 
-
 my $species_homolog_sth = $mart_handle->prepare($species_homolog_sql);
 my $species_paralog_sth = $mart_handle->prepare($species_paralog_sql);
 my $species_homoeolog_across_species_sth = $mart_handle->prepare($species_homoeolog_across_species_sql);
@@ -226,7 +225,7 @@ for my $dataset (sort @datasets) {
       my $table_name = $dataset.'_gene__'.$table_type.'__main';
       my $sql = "show columns from $table_name like 'homolog_".$species_set->{tld}."_bool'";
       for my $col (query_to_strings($mart_handle,$sql)) {
-$logger->info("Dropping $table_name $col");
+        $logger->info("Dropping $table_name $col");
         $mart_handle->do("alter table $table_name drop column $col") or croak "Could not drop column $table_name.$col";
       }
     }
@@ -244,7 +243,7 @@ $logger->info("Dropping $table_name $col");
     my $table_name = $dataset.'_gene__'.$table_type.'__main';
 
     for my $col (query_to_strings($mart_handle,"show columns from $table_name like 'paralog_".$dataset."_bool'")) {
-$logger->info("Dropping $table_name $col");
+        $logger->info("Dropping $table_name $col");
         $mart_handle->do("alter table $table_name drop column $col") or croak "Could not drop column $table_name.$col";
     }
 }
