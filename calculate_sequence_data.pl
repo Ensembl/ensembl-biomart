@@ -174,6 +174,8 @@ for my $dataset (@datasets) {
 			  "INSERT INTO ${dataset}_temp VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
 	while ( my $transcript = shift( @{$transcripts} ) ) {
+
+            eval {
 		  if ( ( ++$transcript_count % 500 ) == 0 ) {
 		  		print "Done $transcript_count transcripts for $species_name\n";
 }
@@ -300,6 +302,10 @@ for my $dataset (@datasets) {
 		} ## end foreach my $exon ( @{ $transcript...})
 
 		#$out->print( "\t", join( ",\n\t", @exon_data_string ), ";\n" );
+            };
+            if($@) {
+                print "Problem processing transcript ".$transcript->stable_id().": ".$@;
+            }
 
 	} ## end while ( my $transcript = ...)
 

@@ -166,7 +166,25 @@ sub pipeline_wide_parameters {
             },
                     -input_ids=>[{}],              
             -analysis_capacity => 1
-        }  
+        },
+        {   
+            -logic_name    => 'generate_template',
+            -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+            -meadow_type => 'LSF',
+            -wait_for => 'tidy_tables',
+            -parameters    => {
+                'cmd'        => 'perl #script_dir#/generate_template.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -release #release#',  
+                'mart' => $self->o('mart'),
+                'user' => $self->o('user'),
+                'pass' => $self->o('pass'),
+                'host' => $self->o('host'),
+                'port' => $self->o('port'),
+                'release' => $self->o('release'),
+                'script_dir' => $self->o('script_dir')
+            },
+                    -input_ids=>[{}],              
+            -analysis_capacity => 1
+        }    
          
         ];
     return $anal;
