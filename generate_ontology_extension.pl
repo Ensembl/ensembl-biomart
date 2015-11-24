@@ -54,7 +54,7 @@ my $options_okay = GetOptions (
 			       "u|user=s"=>\$db_user,
 			       "p|pass=s"=>\$db_pwd,
 			       "mart=s"=>\$mart_db,
-			       "dataset=s"=>\$dataset,
+			       "dataset:s"=>\$dataset,
 			       "verbose"=>\$verbose,
 			       "help"=>sub {usage()}
     );

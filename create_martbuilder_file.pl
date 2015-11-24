@@ -31,35 +31,37 @@ use Carp;
 my $cli_helper = Bio::EnsEMBL::Utils::CliHelper->new();
 
 # get the basic options for connecting to a database server
-my $optsd = $cli_helper->get_dba_opts();
+my $optsd = [@{$cli_helper->get_dba_opts()},@{$cli_helper->get_dba_opts('pan')}];
 # add the print option
 push(@{$optsd},"division:s");
 push(@{$optsd},"template:s");
 push(@{$optsd},"mart:s");
 push(@{$optsd},"collection");
+push(@{$optsd},"eg:s");
+push(@{$optsd},"ens:s");
 
 # process the command line with the supplied options plus a help subroutine
 my $opts = $cli_helper->process_args($optsd,\&usage);
 
-$opts->{dbname} ||= 'ensembl_production';
+$opts->{pandbname} ||= 'ensembl_production';
 
-if(!defined $opts->{host}) {
-    $opts->{host} = 'mysql-eg-pan-prod.ebi.ac.uk';
-    $opts->{port} = 4276;
-    $opts->{user} = 'ensro';
-    delete $opts->{'pass'};
+if(!defined $opts->{panhost}) {
+    $opts->{panhost} = 'mysql-eg-pan-prod.ebi.ac.uk';
+    $opts->{panport} = 4276;
+    $opts->{panuser} = 'ensro';
+    delete $opts->{panpass};
 }
 
-if(!defined $opts->{division} || !defined $opts->{template}|| !defined $opts->{mart}) {
+if(!defined $opts->{division} || !defined $opts->{template}|| !defined $opts->{mart} || !defined $opts->{eg} || !defined $opts->{ens} || !defined $opts->{host}) {
     usage();
 }
 
-print "Connecting to $opts->{dbname}\n";
+print "Connecting to $opts->{pandbname}\n";
 # use the args to create a DBA
-my $dba = Bio::EnsEMBL::DBSQL::DBConnection->new(-USER => $opts->{user}, -PASS => $opts->{pass},
--DBNAME=>$opts->{dbname}, -HOST=>$opts->{host}, -PORT=>$opts->{port});
+my $dba = Bio::EnsEMBL::DBSQL::DBConnection->new(-USER => $opts->{panuser}, -PASS => $opts->{panpass},
+-DBNAME=>$opts->{pandbname}, -HOST=>$opts->{panhost}, -PORT=>$opts->{panport});
 
-print "Getting db lists from $opts->{dbname}\n";
+print "Getting db lists from $opts->{pandbname}\n";
 # 1. assemble core species list
 my @cores = @{get_list($dba,$opts->{division},'core')};
 my @variation = ();
@@ -97,6 +99,12 @@ while (<$in_file>) {
     s/core_species_list/$core_str/g;
     s/funcgen_species_list/$func_str/g;
     s/variation_species_list/$var_str/g;
+    s/%EG%/$opts->{eg}/g;
+    s/%ENS%/$opts->{ens}/g;
+    s/%HOST%/$opts->{host}/g;
+    s/%USER%/$opts->{user}/g;
+    s/%PORT%/$opts->{port}/g;
+    s/%PASS%/$opts->{pass}/g;
     s/division_mart_[0-9]+/$opts->{mart}/g;
     print $out_file $_;
 }
