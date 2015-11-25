@@ -97,7 +97,7 @@ sub pipeline_wide_parameters {
             },
                     -input_ids=>[{}],              
             -flow_into => {
-                1 => ['calculate_sequence','add_compara','add_xrefs'],
+                1 => ['calculate_sequence','add_compara','add_xrefs', 'add_slims'],
                 2 => 'tidy_tables'
             },
             -meadow_type => 'LOCAL'
@@ -151,10 +151,26 @@ sub pipeline_wide_parameters {
             -analysis_capacity => 10
         },        
         {   
+            -logic_name    => 'add_slims',
+            -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+            -meadow_type => 'LSF',
+            -parameters    => {
+                'cmd'        => 'perl #script_dir#/generate_slim.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset#',  
+                'mart' => $self->o('mart'),
+                'user' => $self->o('user'),
+                'pass' => $self->o('pass'),
+                'host' => $self->o('host'),
+                'port' => $self->o('port'),
+                'release' => $self->o('release'),
+                'script_dir' => $self->o('script_dir')
+            },
+            -analysis_capacity => 10
+        },        
+        {   
             -logic_name    => 'tidy_tables',
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
-            -wait_for => ['add_xrefs','add_compara','calculate_sequence'],
+            -wait_for => ['add_xrefs','add_compara','calculate_sequence','add_slims'],
             -parameters    => {
                 'cmd'        => 'perl #script_dir#/tidy_tables.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',  
                 'mart' => $self->o('mart'),

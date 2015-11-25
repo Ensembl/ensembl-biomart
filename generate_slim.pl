@@ -199,32 +199,66 @@ for $dataset (@datasets) {
     $mart_handle->do("alter table ${dataset}_${basename}__ontology_goslim_goa__dm add index (dbprimary_acc_1074), add index (linkage_type_1024), add index (${key_column});");
     
     if ($level eq 'Transcript') {
-        
-        $logger->info(" Modifying ${dataset}_${basename}__transcript__main ...");
-        $mart_handle->do("alter table ${mart_db}.${dataset}_${basename}__transcript__main add column (ox_goslim_goa_bool integer default 0);");
+
+        eval {
+            $logger->info(" Modifying ${dataset}_${basename}__transcript__main ...");
+            $mart_handle->do("alter table ${mart_db}.${dataset}_${basename}__transcript__main add column (ox_goslim_goa_bool integer default 0);");
+        };
+        if($@) {            
+            $logger->info("Ignoring error with existing column index...");
+        }
         
         $logger->info(" Updating column ${dataset}_${basename}__transcript__main ...");
         $mart_handle->do("update ${mart_db}.${dataset}_${basename}__transcript__main a set ox_goslim_goa_bool=(select case count(1) when 0 then null else 1 end from ${mart_db}.${dataset}_${basename}__ox_go__dm b where a.${key_column}=b.${key_column} and not (b.description_1074 is null and b.dbprimary_acc_1074 is null and b.display_label_1074 is null));");
         
-        $logger->info(" Creating index I_goslim_${dataset} ...");
-        $mart_handle->do("create index I_goslim_${dataset} on ${mart_db}.${dataset}_${basename}__transcript__main(ox_goslim_goa_bool);");
-        
-        $logger->info(" Modifying ${dataset}_${basename}__translation__main ...");
-        $mart_handle->do("alter table ${mart_db}.${dataset}_${basename}__translation__main add column (ox_goslim_goa_bool integer default 0);");
+        eval {
+            $logger->info(" Creating index I_goslim_${dataset} ...");
+            $mart_handle->do("create index I_goslim_${dataset} on ${mart_db}.${dataset}_${basename}__transcript__main(ox_goslim_goa_bool);");
+        };
+        if($@) {            
+            $logger->info("Ignoring error with existing column index...");
+        }
+
+        eval {
+            $logger->info(" Modifying ${dataset}_${basename}__translation__main ...");
+            $mart_handle->do("alter table ${mart_db}.${dataset}_${basename}__translation__main add column (ox_goslim_goa_bool integer default 0);");
+        };
+        if($@) {            
+            $logger->info("Ignoring error with existing column index...");
+        }
+
         
         $logger->info(" Updating column ${dataset}_${basename}__translation__main ...");
         $mart_handle->do("update ${mart_db}.${dataset}_${basename}__translation__main a set ox_goslim_goa_bool=(select case count(1) when 0 then null else 1 end from ${mart_db}.${dataset}_${basename}__ox_go__dm b where a.${key_column}=b.${key_column} and not (b.description_1074 is null and b.dbprimary_acc_1074 is null and b.display_label_1074 is null));");
-        
-        $logger->info(" Creating index I_goslim_${dataset} ..." );
-        $mart_handle->do("create index I_goslim_${dataset} on ${mart_db}.${dataset}_${basename}__translation__main(ox_goslim_goa_bool);");
+
+        eval {        
+            $logger->info(" Creating index I_goslim_${dataset} ..." );
+            $mart_handle->do("create index I_goslim_${dataset} on ${mart_db}.${dataset}_${basename}__translation__main(ox_goslim_goa_bool);");
+        };
+        if($@) {            
+            $logger->info("Ignoring error with existing column index...");
+        }
+
     } else {
         $logger->info(" Modifying ${dataset}_${basename}__${level_type}__main ...");
-        $mart_handle->do("alter table ${mart_db}.${dataset}_${basename}__${level_type}__main add column (ox_goslim_goa_bool integer default 0);");
         
+        eval {
+            $mart_handle->do("alter table ${mart_db}.${dataset}_${basename}__${level_type}__main add column (ox_goslim_goa_bool integer default 0);");
+        }; 
+        if($@) {
+            $logger->info("Ignoring error with existing column...");
+        }
+
         $logger->info(" Updating column ${dataset}_${basename}__${level_type}__main ...");
         $mart_handle->do("update ${mart_db}.${dataset}_${basename}__${level_type}__main a set ox_goslim_goa_bool=(select case count(1) when 0 then null else 1 end from ${mart_db}.${dataset}_${basename}__ox_go__dm b where a.${key_column}=b.${key_column} and not (b.description_1074 is null and b.dbprimary_acc_1074 is null and b.display_label_1074 is null));");
         
-        $logger->info(" Creating index I_goslim_${dataset} ..." );
-        $mart_handle->do("create index I_goslim_${dataset} on ${mart_db}.${dataset}_${basename}__${level_type}__main(ox_goslim_goa_bool);");
+        eval {
+            $logger->info(" Creating index I_goslim_${dataset} ..." );
+            $mart_handle->do("create index I_goslim_${dataset} on ${mart_db}.${dataset}_${basename}__${level_type}__main(ox_goslim_goa_bool);");
+        };
+        if($@) {            
+            $logger->info("Ignoring error with existing column index...");
+        }
     }
+    $logger->info("Completed processing $dataset");
 }
