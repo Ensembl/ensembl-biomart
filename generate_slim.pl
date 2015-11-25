@@ -186,8 +186,8 @@ for $dataset (@datasets) {
     $mart_handle->do("drop table if exists ${dataset}_${basename}__ox_goslim_goa__dm");
     $logger->info(" Creating ${dataset}_${basename}__ox_goslim_goa__dm ...");
     $mart_handle->do("create table ${dataset}_${basename}__ox_goslim_goa__dm select distinct t2.name as description_1074, t2.accession as display_label_1074, object_xref.ensembl_id as ${key_column}, t2.accession as dbprimary_acc_1074 from ${core_db}.object_xref join ${core_db}.xref on (object_xref.xref_id=xref.xref_id) join ${core_db}.external_db on (xref.external_db_id=external_db.external_db_id) join ${ontology_db}.term as t on (t.accession=xref.dbprimary_acc) join ${ontology_db}.closure as c on (t.term_id=c.child_term_id) join ${ontology_db}.${slim} as s on (c.parent_term_id=s.term_id) join ${ontology_db}.term as t2 on (t2.term_id=s.subset_term_id) where external_db.db_name='GO' order by object_xref.ensembl_id;");
-    $logger->info(" Creating indexes on ${dataset}_gene_ensembl__ox_goslim_goa__dm ...");
-    $mart_handle->do("alter table ${dataset}_gene_ensembl__ox_goslim_goa__dm add index (dbprimary_acc_1074), add index (${key_column});");
+    $logger->info(" Creating indexes on ${dataset}_${basename}__ox_goslim_goa__dm ...");
+    $mart_handle->do("alter table ${dataset}_${basename}__ox_goslim_goa__dm add index (dbprimary_acc_1074), add index (${key_column});");
     
     $logger->info(" Drop if exist ${dataset}_${basename}__ontology_goslim_goa__dm ...");
     $mart_handle->do("drop table if exists ${dataset}_${basename}__ontology_goslim_goa__dm");
@@ -196,7 +196,7 @@ for $dataset (@datasets) {
     $mart_handle->do("create table ${dataset}_${basename}__ontology_goslim_goa__dm select distinct ontology_xref.linkage_type as linkage_type_1024, t2.ontology_id as ontology_id_1006, t2.definition as definition_1006, object_xref.ensembl_id as ${key_column}, t2.is_root as is_root_1006, t2.name as name_1006, t2.accession as dbprimary_acc_1074 from ${core_db}.object_xref join ${core_db}.xref on (object_xref.xref_id=xref.xref_id) join ${core_db}.external_db on (xref.external_db_id=external_db.external_db_id) join ${core_db}.ontology_xref on (object_xref.object_xref_id=ontology_xref.object_xref_id) join ${ontology_db}.term as t on (t.accession=xref.dbprimary_acc) join ${ontology_db}.closure as c on (t.term_id=c.child_term_id) join ${ontology_db}.${slim} as s on (c.parent_term_id=s.term_id) join ${ontology_db}.term as t2 on (t2.term_id=s.subset_term_id) where external_db.db_name='GO' order by object_xref.ensembl_id;");
     
     $logger->info(" Creating indexes on ${dataset}_${basename}__ontology_goslim_goa__dm ...");
-    $mart_handle->do("alter table ${dataset}_${basename}__ontology_goslim_goa__dm add index (dbprimary_acc_1074), add index (linkage_type_1024) add index (${key_column});");
+    $mart_handle->do("alter table ${dataset}_${basename}__ontology_goslim_goa__dm add index (dbprimary_acc_1074), add index (linkage_type_1024), add index (${key_column});");
     
     if ($level eq 'Transcript') {
         
