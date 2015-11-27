@@ -146,6 +146,18 @@ sub data_display {
       $show_pops = $pops ? 1 : 0;
       $self->warning("Genotypes never skipped for $species");
     } 
+    elsif ($sams == 0 and $pops == 0) {
+      $show_sams = 0;
+      $show_pops = 0;
+    }
+    elsif ($sams == 0 and $pops > 0) {
+      $show_sams = 0;
+      $show_pops = $pops <= $pop_threshold ? 1 : 0;
+    }
+    elsif ($sams > 0 and $pops == 0) {
+      $show_sams = $sams <= $sam_threshold ? 1 : 0;
+      $show_pops = 0;
+    }
     else{
       $show_sams = $sams <= $sam_threshold ? 1 : 0;
       $show_pops = $pops <= $pop_threshold ? 1 : 0;
