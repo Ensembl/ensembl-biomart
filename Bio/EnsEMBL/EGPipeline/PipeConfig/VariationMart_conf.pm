@@ -496,13 +496,13 @@ sub pipeline_analyses {
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
-      -flow_into         => ['AnalyzeTables'],
+      -flow_into         => ['OptimizeTables'],
       -rc_name           => 'normal',
     },
 
     {
-      -logic_name        => 'AnalyzeTables',
-      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::AnalyzeTables',
+      -logic_name        => 'OptimizeTables',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::OptimizeTables',
       -parameters        => {},
       -max_retry_count   => 0,
       -rc_name           => 'normal',
