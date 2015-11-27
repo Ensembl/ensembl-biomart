@@ -48,7 +48,8 @@ sub run {
     if ($self->param_required('species') eq 'homo_sapiens')
     {
       $self->run_variation_set_evidence_pop_geno_script('variation_set_structural_variation');
-    }   
+    }
+    # Creating the Supporting structural variation view
     $self->supporting_structural_variation($dbh);
   }
   
@@ -84,7 +85,6 @@ sub run {
   if ($self->param('show_pops')) {
     $self->run_variation_set_evidence_pop_geno_script('population_genotype');
   }
-  $self->variation_annotation($dbh);
 }
 
 sub run_vf_script {
@@ -95,22 +95,23 @@ sub run_vf_script {
   
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
   my $dbh = $dbc->db_handle();
-  
-  my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
-  $dbh->do($drop_sql) or $self->throw($dbh->errstr);
-  
-  my $cmd = "perl -I$variation_import_lib $variation_feature_script ".
-    " --host ".$dbc->host.
-    " --port ".$dbc->port.
-    " --user ".$dbc->username.
-    " --pass ".$dbc->password.
-    " --db ".$dbc->dbname.
-    " --table $table".
-    " --tmpdir $tmp_dir ".
-    " --tmpfile mtmp_".$table."_".$self->param_required('species').".txt";
+  if (does_table_exist($self, $dbh, $table)) {
+    $self->warning($table." already exist for this species");
+  }
+  else{
+    my $cmd = "perl -I$variation_import_lib $variation_feature_script ".
+      " --host ".$dbc->host.
+      " --port ".$dbc->port.
+      " --user ".$dbc->username.
+      " --pass ".$dbc->password.
+      " --db ".$dbc->dbname.
+      " --table $table".
+      " --tmpdir $tmp_dir ".
+      " --tmpfile mtmp_".$table."_".$self->param_required('species').".txt";
 
-  if (system($cmd)) {
-    $self->throw("Loading failed when running $cmd");
+    if (system($cmd)) {
+      $self->throw("Loading failed when running $cmd");
+    }
   }
 }
 
@@ -190,103 +191,67 @@ sub run_variation_set_evidence_pop_geno_script {
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
   my $dbh = $dbc->db_handle();
 
-  my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
-  $dbh->do($drop_sql) or $self->throw($dbh->errstr);
+  if (does_table_exist($self, $dbh, $table)) {
+    $self->warning($table." already exist for this species");
+  }
+  else{
+    my $cmd = "perl -I$variation_import_lib $variation_set_evidence_pop_geno_script ".
+      " --host ".$dbc->host.
+      " --port ".$dbc->port.
+      " --user ".$dbc->username.
+      " --pass ".$dbc->password.
+      " --db ".$dbc->dbname.
+      " --mode ".$table.
+      " --tmpdir $tmp_dir ".
+      " --tmpfile mtmp_".$table."_".$self->param_required('species').".txt";
 
-  my $cmd = "perl -I$variation_import_lib $variation_set_evidence_pop_geno_script ".
-    " --host ".$dbc->host.
-    " --port ".$dbc->port.
-    " --user ".$dbc->username.
-    " --pass ".$dbc->password.
-    " --db ".$dbc->dbname.
-    " --mode ".$table.
-    " --tmpdir $tmp_dir ".
-    " --tmpfile mtmp_".$table."_".$self->param_required('species').".txt";
-
-  if (system($cmd)) {
-    $self->throw("Loading failed when running $cmd");
+    if (system($cmd)) {
+      $self->throw("Loading failed when running $cmd");
+    }
   }
 }
 
-sub variation_annotation {
-  my ($self, $dbh) = @_;
-  
-  my $drop_sql = 'DROP VIEW IF EXISTS MTMP_variation_annotation;';
-  
-  my $create_sql =
-  'CREATE VIEW MTMP_variation_annotation AS '.
-  'SELECT '.
-    'v.variation_id AS variation_id, '.
-    'phenotype_id, '.
-    'a1.value AS associated_gene, '.
-    'a2.value AS risk_allele, '.
-    'a3.value AS p_value, '.
-    'pf.study_id, '.
-    'a4.value AS variation_names '.
-  'FROM (variation v, phenotype_feature pf) '.
-  'LEFT JOIN ( '.
-    'phenotype_feature_attrib a1 '.
-    'JOIN attrib_type at1 ON a1.attrib_type_id = at1.attrib_type_id '.
-  ') ON (a1.phenotype_feature_id = pf.phenotype_feature_id AND at1.code = "associated_gene") '.
-  'LEFT JOIN ( '.
-    'phenotype_feature_attrib a2 '.
-    'JOIN attrib_type at2 ON a2.attrib_type_id = at2.attrib_type_id '.
-  ') ON (a2.phenotype_feature_id = pf.phenotype_feature_id AND at2.code = "risk_allele") '.
-  'LEFT JOIN ( '.
-    'phenotype_feature_attrib a3 '.
-    'JOIN attrib_type at3 ON a3.attrib_type_id = at3.attrib_type_id '.
-  ') ON (a3.phenotype_feature_id = pf.phenotype_feature_id AND at3.code = "p_value") '.
-  'LEFT JOIN ( '.
-    'phenotype_feature_attrib a4 '.
-    'JOIN attrib_type at4 ON a4.attrib_type_id = at4.attrib_type_id '.
-  ') ON (a4.phenotype_feature_id = pf.phenotype_feature_id AND at4.code = "variation_names") '.
-  'WHERE v.name = pf.object_id AND pf.type = "Variation";';
-  
-  $dbh->do($drop_sql) or $self->throw($dbh->errstr);
-  $dbh->do($create_sql) or $self->throw($dbh->errstr);
-}
-
 sub supporting_structural_variation {
-  my ($self, $dbh) = @_;
-  
-  my $drop_sql = 'DROP VIEW IF EXISTS MTMP_supporting_structural_variation;';
-  
-  my $create_sql =
-  'CREATE VIEW MTMP_supporting_structural_variation AS '.
-  'SELECT '.
-    'sv.structural_variation_id AS supporting_structural_variation_id, '.
-    'sva.structural_variation_id, '.
-    'sv.variation_name, '.
-    'a1.value AS class_name, '.
-    'seq.name AS seq_region_name, '.
-    'svf.outer_start, '.
-    'svf.seq_region_start, '.
-    'svf.inner_start, '.
-    'svf.inner_end, '.
-    'svf.seq_region_end, '.
-    'svf.outer_end, '.
-    'svf.seq_region_strand, '.
-    'clinical_significance, '.
-    's.name AS sample_name, '.
-    'i.name AS strain_name, '.
-    'p.description AS phenotype, '.
-    'sv.copy_number AS copy_number '.
-  'FROM structural_variation sv '.
-  'LEFT JOIN phenotype_feature pf ON (sv.variation_name=pf.object_id AND pf.type="SupportingStructuralVariation") '.
-  'LEFT JOIN phenotype p ON (p.phenotype_id=pf.phenotype_id) '.
-  'LEFT JOIN structural_variation_sample svs ON (svs.structural_variation_id=sv.structural_variation_id) '.
-  'LEFT JOIN sample s ON (s.sample_id=svs.sample_id) '.
-  'LEFT JOIN individual i ON (i.individual_id=s.individual_id AND s.display!="UNDISPLAYABLE"), '.
-  'structural_variation_feature svf '.
-  'LEFT JOIN seq_region seq ON (svf.seq_region_id=seq.seq_region_id), '.
-  'attrib a1, '.
-  'structural_variation_association sva '.
-  'WHERE sv.structural_variation_id = sva.supporting_structural_variation_id '.
-  'AND sva.supporting_structural_variation_id=svf.structural_variation_id '.
-  'AND a1.attrib_id=sv.class_attrib_id;';
-  
-  $dbh->do($drop_sql) or $self->throw($dbh->errstr);
-  $dbh->do($create_sql) or $self->throw($dbh->errstr);
+ my ($self, $dbh) = @_;
+
+ my $drop_sql = 'DROP VIEW IF EXISTS MTMP_supporting_structural_variation;';
+
+ my $create_sql =
+ 'CREATE VIEW MTMP_supporting_structural_variation AS '.
+ 'SELECT '.
+   'sv.structural_variation_id AS supporting_structural_variation_id, '.
+   'sva.structural_variation_id, '.
+   'sv.variation_name, '.
+   'a1.value AS class_name, '.
+   'seq.name AS seq_region_name, '.
+   'svf.outer_start, '.
+   'svf.seq_region_start, '.
+   'svf.inner_start, '.
+   'svf.inner_end, '.
+   'svf.seq_region_end, '.
+   'svf.outer_end, '.
+   'svf.seq_region_strand, '.
+   'clinical_significance, '.
+   's.name AS sample_name, '.
+   'i.name AS strain_name, '.
+   'p.description AS phenotype, '.
+   'sv.copy_number AS copy_number '.
+ 'FROM structural_variation sv '.
+ 'LEFT JOIN phenotype_feature pf ON (sv.variation_name=pf.object_id AND pf.type="SupportingStructuralVariation") '.
+ 'LEFT JOIN phenotype p ON (p.phenotype_id=pf.phenotype_id) '.
+ 'LEFT JOIN structural_variation_sample svs ON (svs.structural_variation_id=sv.structural_variation_id) '.
+ 'LEFT JOIN sample s ON (s.sample_id=svs.sample_id) '.
+ 'LEFT JOIN individual i ON (i.individual_id=s.individual_id AND s.display!="UNDISPLAYABLE"), '.
+ 'structural_variation_feature svf '.
+ 'LEFT JOIN seq_region seq ON (svf.seq_region_id=seq.seq_region_id), '.
+ 'attrib a1, '.
+ 'structural_variation_association sva '.
+ 'WHERE sv.structural_variation_id = sva.supporting_structural_variation_id '.
+ 'AND sva.supporting_structural_variation_id=svf.structural_variation_id '.
+ 'AND a1.attrib_id=sv.class_attrib_id;';
+
+ $dbh->do($drop_sql) or $self->throw($dbh->errstr);
+ $dbh->do($create_sql) or $self->throw($dbh->errstr);
 }
 
 sub order_consequences {
@@ -318,6 +283,21 @@ sub empty_variation_set_variation {
 
   $dbh->do($drop_sql) or $self->throw($dbh->errstr);
   $dbh->do($create_sql) or $self->throw($dbh->errstr);
+}
+
+# Check if a MTMP table already exists
+# MTMP_transcript_variation and MTMP_variation_set_variation are quite
+# big for some species so if the table is already there keep it
+sub does_table_exist {
+    my ($self, $dbh,$table_name) = @_;
+
+    my $sth = $dbh->table_info(undef, undef, $table_name, 'TABLE');
+
+    $sth->execute or $self->throw($dbh->errstr);
+    my @info = $sth->fetchrow_array;
+
+    my $exists = scalar @info;
+    return $exists;
 }
 
 1;
