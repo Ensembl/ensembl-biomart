@@ -69,8 +69,8 @@ sub default_options {
       -dbname => undef,
     },
     
-    species      => [ 'bos_taurus','canis_familiaris','danio_rerio','drosophila_melanogaster','equus_caballus','felis_catus','gallus_gallus','homo_sapiens','macaca_mulatta','meleagris_gallopavo','monodelphis_domestica','mus_musculus','nomascus_leucogenys','ornithorhynchus_anatinus','ovis_aries','pan_troglodytes','pongo_abelii','rattus_norvegicus','saccharomyces_cerevisiae','sus_scrofa','taeniopygia_guttata','tetraodon_nigroviridis'],
-#   species      => [],
+#species      => [ 'bos_taurus','canis_familiaris','danio_rerio','drosophila_melanogaster','equus_caballus','felis_catus','gallus_gallus','homo_sapiens','macaca_mulatta','meleagris_gallopavo','monodelphis_domestica','mus_musculus','nomascus_leucogenys','ornithorhynchus_anatinus','ovis_aries','pan_troglodytes','pongo_abelii','rattus_norvegicus','saccharomyces_cerevisiae','sus_scrofa','taeniopygia_guttata','tetraodon_nigroviridis'],
+    species      => [],
     antispecies  => [],
     division     => [],
     run_all      => 0,
@@ -418,8 +418,8 @@ sub pipeline_analyses {
       -parameters        => {
                               tables_dir => $self->o('tables_dir'),
                             },
-      -max_retry_count   => 0,
-      -analysis_capacity => 10,
+      -max_retry_count   => 3,
+      -analysis_capacity => 100,
       -rc_name           => '8Gb_job',
     },
 
@@ -458,6 +458,16 @@ sub pipeline_analyses {
                               sv_cull_tables  => $self->o('sv_cull_tables'),
                               sv_som_cull_tables => $self->o('sv_som_cull_tables'),
                             },
+      -max_retry_count   => 0,
+      -flow_into         => ['OptimizeTables'],
+      -analysis_capacity => 10,
+      -rc_name           => 'normal',
+    },
+
+    {
+      -logic_name        => 'OptimizeTables',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::OptimizeTables',
+      -parameters        => {},
       -max_retry_count   => 0,
       -analysis_capacity => 10,
       -rc_name           => 'normal',
