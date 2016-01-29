@@ -133,7 +133,7 @@ my @src_dbs;
 
 my $regexp = undef;
 
-if( $div eq 'vectorbase' ){
+if( $div eq 'vectorbase' or $div eq 'ensembl'){
      $regexp = ".*_core_${release}_.*";
 }
 else{
@@ -165,6 +165,7 @@ unless( $div ){
     elsif ( $mart_db =~ m/fung/){ $div = 'fung'}
     elsif ( $mart_db =~ m/vb/){ $div = 'vectorbase' }
     elsif ( $mart_db =~ m/parasite/) { $div = 'parasite' }
+    elsif ( $mart_db =~ m/ensembl/)  { $div = 'ensembl' }
     else{ die "-div division not defined, and unable infer from database name $mart_db\n" }
 }
 
@@ -174,6 +175,7 @@ elsif ( $div eq 'metazoa' ) { $pId = 30000 }
 elsif ( $div eq 'fung' ) { $pId = 40000 }
 elsif ( $div eq 'vectorbase') { $pId = 50000 }
 elsif ( $div eq 'parasite') { $pId = 60000 }
+elsif ( $div eq 'ensembl' ) { $pId = 70000 }
 else {
     croak "Don't know how to deal with mart $mart_db - doesn't match known divisions\n";
 }
