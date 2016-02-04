@@ -175,7 +175,7 @@ elsif ( $div eq 'metazoa' ) { $pId = 30000 }
 elsif ( $div eq 'fung' ) { $pId = 40000 }
 elsif ( $div eq 'vectorbase') { $pId = 50000 }
 elsif ( $div eq 'parasite') { $pId = 60000 }
-elsif ( $div eq 'ensembl' ) { $pId = 70000 }
+elsif ( $div eq 'ensembl' ) { $pId = 0 }
 else {
     croak "Don't know how to deal with mart $mart_db - doesn't match known divisions\n";
 }
