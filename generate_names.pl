@@ -235,7 +235,7 @@ foreach my $dataset (@datasets) {
 
 	# Add a meta key on the core database
 	# Do that only when templating gene mart - not SNP mart
-	if ($dataset_basename !~ /snp/i) {
+	if ($dataset_basename !~ /snp|gene_ensembl/i) {
 	    $meta_insert->execute(	    
 		$species_id,
 		$dataset);
