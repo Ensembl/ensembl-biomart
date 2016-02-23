@@ -218,16 +218,27 @@ sub pipeline_analyses {
       -max_retry_count => 0,
       -rc_name         => 'normal',
       -flow_into       => {
-                            '4' => 'CopyOrGenerate'
+                            '4' => 'DropMartTables'
                           },
       -meadow_type     => 'LOCAL',
+    },
+
+    {
+      -logic_name        => 'DropMartTables',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::DropMartTables',
+      -parameters        => {
+                              drop_mart_tables => $self->o('drop_mart_tables'),
+                            },
+      -max_retry_count   => 0,
+      -analysis_capacity => 5,
+      -rc_name           => 'normal',
+      -flow_into         => ['CopyOrGenerate'],
     },
 
     {
       -logic_name        => 'CopyOrGenerate',
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CopyOrGenerate',
       -parameters        => {
-                              drop_mart_tables      => $self->o('drop_mart_tables'),
                               mtmp_tables_exist     => $self->o('mtmp_tables_exist'),
                               copy_species          => $self->o('copy_species'),
                               copy_all              => $self->o('copy_all'),
@@ -239,22 +250,11 @@ sub pipeline_analyses {
       -max_retry_count   => 0,
       -rc_name           => 'normal',
       -flow_into         => {
-                              '2->A' => ['DropMartTables'],
                               '3->B' => ['CreateMTMPTables'],
-                              'A->4' => ['CopyMart'],
+                              '4'    => ['CopyMart'],
                               'B->5' => ['GenerateMart'],
                             },
       -meadow_type       => 'LOCAL',
-    },
-
-    {
-      -logic_name        => 'DropMartTables',
-      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::DropMartTables',
-      -parameters        => {},
-      -max_retry_count   => 0,
-      -analysis_capacity => 5,
-      -can_be_empty      => 1,
-      -rc_name           => 'normal',
     },
 
     {
