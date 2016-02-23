@@ -23,13 +23,23 @@ use warnings;
 
 use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 
-sub run {
+sub param_defaults {
   my ($self) = @_;
   
+  return {
+    'optimize_tables' => 0,
+  };
+  
+}
+
+sub run {
+  my ($self) = @_;
+    
   my $mart_dbh = $self->mart_dbh;
+  my $command = $self->param('optimize_tables') ? 'OPTIMIZE' : 'ANALYZE';
   my $tables = $mart_dbh->selectcol_arrayref('SHOW TABLES;') or $self->throw($mart_dbh->errstr);
   foreach my $table (@$tables) {
-    my $sql = "ANALYZE TABLE $table;";
+    my $sql = "$command TABLE $table;";
     $mart_dbh->do($sql) or $self->throw($mart_dbh->errstr);
   }
 }
