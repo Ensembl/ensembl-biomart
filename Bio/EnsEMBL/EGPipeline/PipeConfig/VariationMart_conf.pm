@@ -84,13 +84,13 @@ sub default_options {
     variation_feature_script => $self->o('ensembl_cvs_root_dir').
       '/ensembl-variation/scripts/misc/mart_variation_effect.pl',
 
-    variation_set_evidence_pop_geno_script => $self->o('ensembl_cvs_root_dir').
+    variation_mtmp_script => $self->o('ensembl_cvs_root_dir').
       '/ensembl-variation/scripts/misc/create_MTMP_tables.pl',
     
     # Mart tables are mostly independent in that their construction does not
     # rely on other mart tables. The only execption are the *_feature__main
     # tables, which contain all of the columns in the *_variation__main tables.
-  snp_indep_tables => [
+    snp_indep_tables => [
       'snp__variation__main',
       'snp__poly__dm',
       'snp__population_genotype__dm',
@@ -308,7 +308,7 @@ sub pipeline_analyses {
       -parameters        => {
                               variation_import_lib     => $self->o('variation_import_lib'),
                               variation_feature_script => $self->o('variation_feature_script'),
-                              variation_set_evidence_pop_geno_script => $self->o('variation_set_evidence_pop_geno_script'),
+                              variation_mtmp_script    => $self->o('variation_mtmp_script'),
                               registry                 => $self->o('registry'),
                               tmp_dir                  => $self->o('tmp_dir'),
                               division                 => $self->o('division'),
@@ -495,14 +495,16 @@ sub pipeline_analyses {
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
-      -flow_into         => ['OptimizeTables'],
+      -flow_into         => ['AnalyzeTables'],
       -rc_name           => 'normal',
     },
 
     {
-      -logic_name        => 'OptimizeTables',
-      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::OptimizeTables',
-      -parameters        => {},
+      -logic_name        => 'AnalyzeTables',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::AnalyzeTables',
+      -parameters        => {
+                              optimize_tables => 1,
+                            },
       -max_retry_count   => 0,
       -rc_name           => 'normal',
     },

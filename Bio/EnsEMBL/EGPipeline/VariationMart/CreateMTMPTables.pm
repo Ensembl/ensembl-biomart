@@ -31,13 +31,16 @@ sub param_defaults {
     'show_sams' => 1,
     'show_pops' => 1,
     'tmp_dir'   => '/tmp',
-    'division'  => [], 
+    'division'  => [],
   };
 }
 
 sub run {
   my ($self) = @_;
   
+  my $variation_feature_script = $self->param_required('variation_feature_script');
+  my $variation_mtmp_script    = $self->param_required('variation_mtmp_script');
+
   my $dbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
   my $division = $self->param('division');
 
@@ -45,9 +48,8 @@ sub run {
     # Apparently, the variation set MTMP table is only required for human. If you
     # run this script for any other species, the table doesn't get created. So
     # don't bother for now, but I'll leave it here in case we need it back...
-    if ($self->param_required('species') eq 'homo_sapiens')
-    {
-      $self->run_variation_set_evidence_pop_geno_script('variation_set_structural_variation');
+    if ($self->param_required('species') eq 'homo_sapiens') {
+      $self->run_script($variation_mtmp_script, 'mode', 'variation_set_structural_variation');
     }
     # Creating the Supporting structural variation view
     $self->supporting_structural_variation($dbh);
@@ -56,56 +58,52 @@ sub run {
   # Always need transcript_variation table; currently don't have regulation
   # data in EG, but if we have it in the future it will automatically be
   # detected and these options switched on by the preceding pipeline module.
-  $self->run_vf_script('transcript_variation');
+  $self->run_script($variation_feature_script, 'table', 'transcript_variation');
   if ($self->param('motif_exists')) {
-    $self->run_vf_script('motif_feature_variation');
+    $self->run_script($variation_feature_script, 'table', 'motif_feature_variation');
   }
   if ($self->param('regulatory_exists')) {
-    $self->run_vf_script('regulatory_feature_variation');
+    $self->run_script($variation_feature_script, 'table', 'regulatory_feature_variation');
   }
   $self->order_consequences($dbh);
   
   # Apparently, the variation set MTMP table is only required for human. If you
-  # run this script for any other species, the table doesn't get created. So
-  # don't bother for now, but I'll leave it here in case we need it back...
-  #$self->run_vs_script();
-
-  if ($self->param_required('species') eq 'homo_sapiens' or @$division){
-    $self->run_variation_set_evidence_pop_geno_script('variation_set_variation');
-  }
-  else{
+  # run this script for any other species, the table doesn't get created.
+  if ($self->param_required('species') eq 'homo_sapiens' or @$division) {
+    $self->run_script($variation_mtmp_script, 'mode', 'variation_set_variation');
+  } else {
     $self->empty_variation_set_variation($dbh);
   }
+  
   # Create the MTMP_evidence view using the Variation script
-  $self->run_variation_set_evidence_pop_geno_script('evidence');
+  $self->run_script($variation_mtmp_script, 'mode', 'evidence');
+  
   # Reconstitute old tables and views that are still needed by biomart. 
   if ($self->param('show_sams')) {
     $self->sample_genotype($dbh);
   }
   if ($self->param('show_pops')) {
-    $self->run_variation_set_evidence_pop_geno_script('population_genotype');
+    $self->run_script($variation_mtmp_script, 'mode', 'population_genotype');
   }
 }
 
-sub run_vf_script {
-  my ($self, $table) = @_;
+sub run_script {
+  my ($self, $script, $table_param_name, $table) = @_;
   my $variation_import_lib = $self->param_required('variation_import_lib');
-  my $variation_feature_script = $self->param_required('variation_feature_script');
   my $tmp_dir = $self->param_required('tmp_dir');
   
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
   my $dbh = $dbc->db_handle();
-  if (does_table_exist($self, $dbh, $table)) {
-    $self->warning($table." already exist for this species");
-  }
-  else{
-    my $cmd = "perl -I$variation_import_lib $variation_feature_script ".
+  if ($self->does_table_exist($dbh, $table)) {
+    $self->warning("MTMP\_$table already exist for this species");
+  } else{
+    my $cmd = "perl -I$variation_import_lib $script ".
       " --host ".$dbc->host.
       " --port ".$dbc->port.
       " --user ".$dbc->username.
       " --pass ".$dbc->password.
       " --db ".$dbc->dbname.
-      " --table $table".
+      " --$table_param_name $table".
       " --tmpdir $tmp_dir ".
       " --tmpfile mtmp_".$table."_".$self->param_required('species').".txt";
 
@@ -180,35 +178,6 @@ sub sample_genotype {
   $dbh->do($load_sql) or $self->throw($dbh->errstr);
 
   unlink "$output_file" || warn "Failed to remove temp file: $output_file :$!\n";
-}
-
-sub run_variation_set_evidence_pop_geno_script {
-  my ($self, $table) = @_;
-  my $variation_import_lib = $self->param_required('variation_import_lib');
-  my $variation_set_evidence_pop_geno_script = $self->param_required('variation_set_evidence_pop_geno_script');
-  my $tmp_dir = $self->param_required('tmp_dir');
-
-  my $dbc = $self->get_DBAdaptor('variation')->dbc();
-  my $dbh = $dbc->db_handle();
-
-  if (does_table_exist($self, $dbh, $table)) {
-    $self->warning($table." already exist for this species");
-  }
-  else{
-    my $cmd = "perl -I$variation_import_lib $variation_set_evidence_pop_geno_script ".
-      " --host ".$dbc->host.
-      " --port ".$dbc->port.
-      " --user ".$dbc->username.
-      " --pass ".$dbc->password.
-      " --db ".$dbc->dbname.
-      " --mode ".$table.
-      " --tmpdir $tmp_dir ".
-      " --tmpfile mtmp_".$table."_".$self->param_required('species').".txt";
-
-    if (system($cmd)) {
-      $self->throw("Loading failed when running $cmd");
-    }
-  }
 }
 
 sub supporting_structural_variation {
@@ -289,15 +258,15 @@ sub empty_variation_set_variation {
 # MTMP_transcript_variation and MTMP_variation_set_variation are quite
 # big for some species so if the table is already there keep it
 sub does_table_exist {
-    my ($self, $dbh,$table_name) = @_;
-
-    my $sth = $dbh->table_info(undef, undef, $table_name, 'TABLE');
-
-    $sth->execute or $self->throw($dbh->errstr);
-    my @info = $sth->fetchrow_array;
-
-    my $exists = scalar @info;
-    return $exists;
+  my ($self, $dbh,$table_name) = @_;
+  
+  my $sth = $dbh->table_info(undef, undef, "MTMP_$table_name", 'TABLE');
+  
+  $sth->execute or $self->throw($dbh->errstr);
+  my @info = $sth->fetchrow_array;
+  
+  my $exists = scalar @info;
+  return $exists;
 }
 
 1;
