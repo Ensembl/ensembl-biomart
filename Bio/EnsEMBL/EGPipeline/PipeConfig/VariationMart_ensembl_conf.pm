@@ -35,7 +35,7 @@ James Allen
 
 =cut
 
-package Bio::EnsEMBL::EGPipeline::PipeConfig::VariationMart_conf;
+package Bio::EnsEMBL::EGPipeline::PipeConfig::VariationMart_ensembl_conf;
 
 use strict;
 use warnings;
@@ -48,17 +48,18 @@ sub default_options {
     %{$self->SUPER::default_options},
     
     pipeline_name         => 'variation_mart_'.$self->o('ensembl_release'),
-    mart_db_name          => $self->o('division_name').'_snp_mart_'.$self->o('eg_release'),
+    mart_db_name          => 'snp_mart_'.$self->o('eg_release'),
+#mart_db_name          => $self->o('division_name').'_snp_mart_'.$self->o('eg_release'),
     drop_mart_db          => 0,
     drop_mart_tables      => 0,
     mtmp_tables_exist     => 0,
-    sample_threshold  => 100,
-    population_threshold  => 100,
+    sample_threshold  => 0,
+    population_threshold  => 500,
     always_skip_genotypes => [],
     never_skip_genotypes  => [],
     tmp_dir               => '/tmp',
 # Set to 0 if you want to run AddMetaData, AddSVMetaData and AnalyseTables analysis
-    skip_meta_data => 0,
+    skip_meta_data => 1,
     
     previous_mart => {
       -driver => $self->o('hive_driver'),
@@ -68,6 +69,7 @@ sub default_options {
       -dbname => undef,
     },
     
+#species      => [ 'bos_taurus','canis_familiaris','danio_rerio','drosophila_melanogaster','equus_caballus','felis_catus','gallus_gallus','homo_sapiens','macaca_mulatta','meleagris_gallopavo','monodelphis_domestica','mus_musculus','nomascus_leucogenys','ornithorhynchus_anatinus','ovis_aries','pan_troglodytes','pongo_abelii','rattus_norvegicus','saccharomyces_cerevisiae','sus_scrofa','taeniopygia_guttata','tetraodon_nigroviridis'],
     species      => [],
     antispecies  => [],
     division     => [],
@@ -83,16 +85,15 @@ sub default_options {
     
     variation_feature_script => $self->o('ensembl_cvs_root_dir').
       '/ensembl-variation/scripts/misc/mart_variation_effect.pl',
-
+    
     variation_set_evidence_pop_geno_script => $self->o('ensembl_cvs_root_dir').
       '/ensembl-variation/scripts/misc/create_MTMP_tables.pl',
-    
+
     # Mart tables are mostly independent in that their construction does not
     # rely on other mart tables. The only execption are the *_feature__main
     # tables, which contain all of the columns in the *_variation__main tables.
   snp_indep_tables => [
       'snp__variation__main',
-      'snp__poly__dm',
       'snp__population_genotype__dm',
       'snp__variation_annotation__dm',
       'snp__variation_citation__dm',
@@ -148,7 +149,6 @@ sv_indep_tables => [
 
     
     snp_cull_tables => {
-      'snp__poly__dm'                    => 'name_2019',
       'snp__population_genotype__dm'     => 'name_2019',
       'snp__variation_annotation__dm'    => 'name_2021',
       'snp__variation_citation__dm'      => 'authors_20137',
@@ -263,27 +263,16 @@ sub pipeline_analyses {
       -max_retry_count => 0,
       -rc_name         => 'normal',
       -flow_into       => {
-                            '4' => 'DropMartTables'
+                            '4' => 'CopyOrGenerate'
                           },
       -meadow_type     => 'LOCAL',
-    },
-
-    {
-      -logic_name        => 'DropMartTables',
-      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::DropMartTables',
-      -parameters        => {
-                              drop_mart_tables => $self->o('drop_mart_tables'),
-                            },
-      -max_retry_count   => 0,
-      -analysis_capacity => 5,
-      -rc_name           => 'normal',
-      -flow_into         => ['CopyOrGenerate'],
     },
 
     {
       -logic_name        => 'CopyOrGenerate',
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CopyOrGenerate',
       -parameters        => {
+                              drop_mart_tables      => $self->o('drop_mart_tables'),
                               mtmp_tables_exist     => $self->o('mtmp_tables_exist'),
                               copy_species          => $self->o('copy_species'),
                               copy_all              => $self->o('copy_all'),
@@ -295,11 +284,23 @@ sub pipeline_analyses {
       -max_retry_count   => 0,
       -rc_name           => 'normal',
       -flow_into         => {
+                              '2->A' => ['DropMartTables'],
+                              '2->B' => ['DropMartTables'],
                               '3->B' => ['CreateMTMPTables'],
-                              '4'    => ['CopyMart'],
+                              'A->4' => ['CopyMart'],
                               'B->5' => ['GenerateMart'],
                             },
       -meadow_type       => 'LOCAL',
+    },
+
+    {
+      -logic_name        => 'DropMartTables',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::DropMartTables',
+      -parameters        => {},
+      -max_retry_count   => 0,
+      -analysis_capacity => 5,
+      -can_be_empty      => 1,
+      -rc_name           => 'normal',
     },
 
     {
@@ -417,9 +418,9 @@ sub pipeline_analyses {
       -parameters        => {
                               tables_dir => $self->o('tables_dir'),
                             },
-      -max_retry_count   => 0,
-      -analysis_capacity => 10,
-      -rc_name           => 'normal',
+      -max_retry_count   => 3,
+      -analysis_capacity => 100,
+      -rc_name           => '8Gb_job',
     },
 
     {
@@ -458,6 +459,16 @@ sub pipeline_analyses {
                               sv_som_cull_tables => $self->o('sv_som_cull_tables'),
                             },
       -max_retry_count   => 0,
+      -flow_into         => ['OptimizeTables'],
+      -analysis_capacity => 10,
+      -rc_name           => 'normal',
+    },
+
+    {
+      -logic_name        => 'OptimizeTables',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::OptimizeTables',
+      -parameters        => {},
+      -max_retry_count   => 0,
       -analysis_capacity => 10,
       -rc_name           => 'normal',
     },
@@ -495,19 +506,34 @@ sub pipeline_analyses {
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
-      -flow_into         => ['OptimizeTables'],
+      -flow_into         => ['AnalyzeTables'],
       -rc_name           => 'normal',
     },
 
     {
-      -logic_name        => 'OptimizeTables',
-      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::OptimizeTables',
+      -logic_name        => 'AnalyzeTables',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::AnalyzeTables',
       -parameters        => {},
       -max_retry_count   => 0,
       -rc_name           => 'normal',
     },
 
   ];
+}
+sub resource_classes {
+    my $self = shift;
+    return {
+      'normal'                 => {'LSF' => '-q normal -M500 -R"select[mem>500] rusage[mem=500]"'},
+      'mem'                     => {'LSF' => '-q normal -M1000 -R"select[mem>1000] rusage[mem=1000]"'},
+      '2Gb_job'         => {'LSF' => '-q normal -M2000 -R"select[mem>2000] rusage[mem=2000]"' },
+      '16Gb_mem_16Gb_tmp'        => {'LSF' => '-q long -M16000 -R"select[mem>16000] rusage[mem=16000]"' },
+          '1Gb_job'             => {'LSF' => '-q normal -M1000  -R"select[mem>1000]  rusage[mem=1000]"' },
+          '2Gb_job'             => {'LSF' => '-q normal -M2000  -R"select[mem>2000]  rusage[mem=2000]"' },
+          '8Gb_job'             => {'LSF' => '-q normal -M8000  -R"select[mem>8000]  rusage[mem=8000]"' },
+          '24Gb_job'            => {'LSF' => '-q normal -M24000 -R"select[mem>24000] rusage[mem=24000]"' },
+          '30Gb_job'            => {'LSF' => '-q normal -M30000 -R"select[mem>30000] rusage[mem=30000]"' },
+          'urgent_hcluster' => {'LSF' => '-q yesterday' },
+    }
 }
 
 1;

@@ -59,7 +59,7 @@ sub write_output {
   my ($self) = @_;
   
   foreach my $where_sql ( @{$self->param('where_sql')} ) {    
-    $self->dataflow_output_id({'where_sql' => $where_sql}, 1);
+    $self->dataflow_output_id({'where_sql' => $where_sql, 'table' => $self->param('table'), 'species' => $self->param('species')}, 1);
   }
 }
 

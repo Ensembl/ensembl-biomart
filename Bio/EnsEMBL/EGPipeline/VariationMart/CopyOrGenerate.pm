@@ -31,6 +31,7 @@ sub param_defaults {
     'population_threshold'  => 100,
     'always_skip_genotypes' => [],
     'never_skip_genotypes'  => [],
+    'division'              => [],
     'copy_species'          => [],
     'copy_all'              => 0,
   };
@@ -43,9 +44,18 @@ sub write_output {
   my $mtmp_tables_exist = $self->param('mtmp_tables_exist');
   my $copy_species = $self->param('copy_species');
   my $copy_all = $self->param('copy_all');
+  my $division = $self->param('division');
+  my $mart_table_prefix;
   
-  $species =~ /^(\w).+_(\w+)$/;
-  my $mart_table_prefix = "$1$2_eg";
+  if (@$division){
+    $species =~ /^(\w).+_(\w+)$/;
+    $mart_table_prefix = "$1$2_eg";
+  }
+  else
+  {
+    $species =~ /^(\w).+_(\w+)$/;
+    $mart_table_prefix = "$1$2";
+  }
   
   my $copy = 0;
   if ($self->param('copy_all')) {
@@ -56,14 +66,17 @@ sub write_output {
     }
   }
   
-  my ($sv_exists, $show_sams, $show_pops) = $self->data_display();
+  my ($sv_exists, $sv_som_exists, $show_sams, $show_pops, $motif_exists, $regulatory_exists) = $self->data_display();
   
   if (!$mtmp_tables_exist) {
     $self->dataflow_output_id({
       'mart_table_prefix' => $mart_table_prefix,
       'sv_exists' => $sv_exists,
+      'sv_som_exists' => $sv_som_exists,
       'show_sams' => $show_sams,
       'show_pops' => $show_pops,
+      'motif_exists' => $motif_exists,
+      'regulatory_exists' => $regulatory_exists,
     }, 3);
   }
   
@@ -73,8 +86,11 @@ sub write_output {
     $self->dataflow_output_id({
       'mart_table_prefix' => $mart_table_prefix,
       'sv_exists' => $sv_exists,
+      'sv_som_exists' => $sv_som_exists,
       'show_sams' => $show_sams,
       'show_pops' => $show_pops,
+      'motif_exists' => $motif_exists,
+      'regulatory_exists' => $regulatory_exists,
     }, 5);
   }
 }
@@ -92,10 +108,22 @@ sub data_display {
   my %never_skip  = map {$_ => 1} @$never_skip;
   
   my $vdbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
-  my $sv_sql = 'SELECT COUNT(*) FROM structural_variation;';
+  my $sv_sql = 'SELECT COUNT(*) FROM structural_variation where somatic=0;';
   my ($svs) = $vdbh->selectrow_array($sv_sql) or $self->throw($vdbh->errstr);
   my $sv_exists = $svs ? 1 : 0;
   
+  my $sv_som_sql = 'SELECT COUNT(*) FROM structural_variation where somatic=1;';
+  my ($svs_som) = $vdbh->selectrow_array($sv_som_sql) or $self->throw($vdbh->errstr);
+  my $sv_som_exists = $svs_som ? 1 : 0;
+
+  my $motif_sql = 'SELECT COUNT(*) FROM motif_feature_variation;';
+  my ($motifs) = $vdbh->selectrow_array($motif_sql) or $self->throw($vdbh->errstr);
+  my $motif_exists = $motifs ? 1 : 0;
+
+  my $regulatory_sql = 'SELECT COUNT(*) FROM regulatory_feature_variation;';
+  my ($regulatory) = $vdbh->selectrow_array($regulatory_sql) or $self->throw($vdbh->errstr);
+  my $regulatory_exists = $regulatory ? 1 : 0;
+
   my ($show_sams, $show_pops, $sams, $pops);
   if (exists $always_skip{$species}) {
     $show_sams = 0;
@@ -112,25 +140,50 @@ sub data_display {
       $show_sams = $sams ? 1 : 0;
       $show_pops = $pops ? 1 : 0;
       $self->warning("Genotypes never skipped for $species");
-    } else {
+    } 
+    elsif ($sams == 0 and $pops == 0) {
+      $show_sams = 0;
+      $show_pops = 0;
+    }
+    elsif ($sams == 0 and $pops > 0) {
+      $show_sams = 0;
+      $show_pops = $pops <= $pop_threshold ? 1 : 0;
+    }
+    elsif ($sams > 0 and $pops == 0) {
+      $show_sams = $sams <= $sam_threshold ? 1 : 0;
+      $show_pops = 0;
+    }
+    else{
       $show_sams = $sams <= $sam_threshold ? 1 : 0;
       $show_pops = $pops <= $pop_threshold ? 1 : 0;
     }
   }
   
-  $self->data_display_report($svs, $sv_exists, $sams, $show_sams, $pops, $show_pops);
+  $self->data_display_report($svs, $svs_som, $sv_exists, $sv_som_exists, $sams, $show_sams, $pops, $show_pops, $motifs, $motif_exists, $regulatory, $regulatory_exists);
   
-  return ($sv_exists, $show_sams, $show_pops);
+  return ($sv_exists, $sv_som_exists, $show_sams, $show_pops, $motif_exists, $regulatory_exists);
 }
 
 sub data_display_report {
-  my ($self, $svs, $sv_exists, $sams, $show_sams, $pops, $show_pops) = @_;
+  my ($self, $svs, $svs_som, $sv_exists, $sv_som_exists, $sams, $show_sams, $pops, $show_pops, $motifs, $motif_exists, $regulatory, $regulatory_exists) = @_;
   
   my $species = $self->param_required('species');
   
   my $filter_table_msg = "Species: $species\n";
   if ($sv_exists) {
     $filter_table_msg .= "\t$svs structural variations will be displayed.\n";
+  }
+  if ($sv_som_exists)
+  {
+    $filter_table_msg .= "\t$svs_som structural variations somatic will be displayed.\n";
+  }
+  if ($motif_exists)
+  {
+    $filter_table_msg .= "\t$motifs motif features will be displayed.\n";
+  }
+  if ($regulatory_exists)
+  {
+    $filter_table_msg .= "\t$regulatory regulatory features will be displayed.\n";
   }
   if ($show_sams) {
     $filter_table_msg .= "\tGenotypes will be displayed for $sams samples.\n";
