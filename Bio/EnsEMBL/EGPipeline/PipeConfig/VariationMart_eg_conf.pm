@@ -22,7 +22,7 @@ limitations under the License.
 
 =head1 NAME
 
-Bio::EnsEMBL::EGPipeline::PipeConfig::VariationMart_ensembl_conf
+Bio::EnsEMBL::EGPipeline::PipeConfig::VariationMart_eg_conf
 
 =head1 DESCRIPTION
 
@@ -35,7 +35,7 @@ James Allen
 
 =cut
 
-package Bio::EnsEMBL::EGPipeline::PipeConfig::VariationMart_ensembl_conf;
+package Bio::EnsEMBL::EGPipeline::PipeConfig::VariationMart_eg_conf;
 
 use strict;
 use warnings;
@@ -47,19 +47,19 @@ sub default_options {
   return {
     %{$self->SUPER::default_options},
     
-    division_name         => undef,
-    mart_db_name          => 'snp_mart_'.$self->o('eg_release'),
-    drop_mtmp             => 0,
-    sample_threshold      => 0,
-    population_threshold  => 500,
-    skip_meta_data        => 1,
-    optimize_tables       => 1,
-    populate_mart_rc_name => '8Gb_job',
+    mart_db_name          => $self->o('division_name').'_snp_mart_'.$self->o('eg_release'),
+    drop_mtmp             => 1,
+    sample_threshold      => 100,
+    population_threshold  => 100,
+    skip_meta_data        => 0,
+    optimize_tables       => 0,
+    populate_mart_rc_name => 'normal',
     
     # Most mart table configuration is in VariationMart_conf, but e! and EG
     # differ in the absence/presence of the poly__dm table.
     snp_indep_tables => [
       'snp__variation__main',
+      'snp__poly__dm',
       'snp__population_genotype__dm',
       'snp__variation_annotation__dm',
       'snp__variation_citation__dm',
@@ -68,6 +68,7 @@ sub default_options {
     ],
 
     snp_cull_tables => {
+      'snp__poly__dm'                    => 'name_2019',
       'snp__population_genotype__dm'     => 'name_2019',
       'snp__variation_annotation__dm'    => 'name_2021',
       'snp__variation_citation__dm'      => 'authors_20137',
@@ -75,21 +76,6 @@ sub default_options {
       'snp__variation_synonym__dm'       => 'name_2030',
     },
   };
-}
-
-sub resource_classes {
-  my $self = shift;
-  return {
-    'normal'            => {'LSF' => '-q normal -M500 -R"select[mem>500] rusage[mem=500]"'},
-    'mem'               => {'LSF' => '-q normal -M1000 -R"select[mem>1000] rusage[mem=1000]"'},
-    '16Gb_mem_16Gb_tmp' => {'LSF' => '-q long -M16000 -R"select[mem>16000] rusage[mem=16000]"' },
-    '1Gb_job'           => {'LSF' => '-q normal -M1000  -R"select[mem>1000]  rusage[mem=1000]"' },
-    '2Gb_job'           => {'LSF' => '-q normal -M2000  -R"select[mem>2000]  rusage[mem=2000]"' },
-    '8Gb_job'           => {'LSF' => '-q normal -M8000  -R"select[mem>8000]  rusage[mem=8000]"' },
-    '24Gb_job'          => {'LSF' => '-q normal -M24000 -R"select[mem>24000] rusage[mem=24000]"' },
-    '30Gb_job'          => {'LSF' => '-q normal -M30000 -R"select[mem>30000] rusage[mem=30000]"' },
-    'urgent_hcluster'   => {'LSF' => '-q yesterday' },
-  }
 }
 
 1;

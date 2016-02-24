@@ -48,17 +48,12 @@ sub default_options {
     %{$self->SUPER::default_options},
     
     pipeline_name         => 'variation_mart_'.$self->o('ensembl_release'),
-    mart_db_name          => $self->o('division_name').'_snp_mart_'.$self->o('eg_release'),
     drop_mart_db          => 0,
     drop_mart_tables      => 0,
     mtmp_tables_exist     => 0,
-    sample_threshold  => 100,
-    population_threshold  => 100,
     always_skip_genotypes => [],
     never_skip_genotypes  => [],
     tmp_dir               => '/tmp',
-# Set to 0 if you want to run AddMetaData, AddSVMetaData and AnalyseTables analysis
-    skip_meta_data => 0,
     
     previous_mart => {
       -driver => $self->o('hive_driver'),
@@ -90,15 +85,8 @@ sub default_options {
     # Mart tables are mostly independent in that their construction does not
     # rely on other mart tables. The only execption are the *_feature__main
     # tables, which contain all of the columns in the *_variation__main tables.
-    snp_indep_tables => [
-      'snp__variation__main',
-      'snp__poly__dm',
-      'snp__population_genotype__dm',
-      'snp__variation_annotation__dm',
-      'snp__variation_citation__dm',
-      'snp__variation_set_variation__dm',
-      'snp__variation_synonym__dm',
-    ],
+    
+    # snp_indep_tables should be defined in an inheriting module
 
     snp_som_indep_tables => [
       'snp_som__variation__main',
@@ -109,23 +97,22 @@ sub default_options {
       'snp_som__variation_synonym__dm',
     ],
 
-  snp_dep_tables => [
+    snp_dep_tables => [
       'snp__variation_feature__main',
       'snp__mart_transcript_variation__dm',
       'snp__motif_feature_variation__dm',
       'snp__regulatory_feature_variation__dm',
     ],
 
-  snp_som_dep_tables => [
+    snp_som_dep_tables => [
       'snp_som__variation_feature__main',
       'snp_som__mart_transcript_variation__dm',
       'snp_som__motif_feature_variation__dm',
       'snp_som__regulatory_feature_variation__dm',
     ],
 
-    
-sv_indep_tables => [
-     'structvar__structural_variation__main',
+    sv_indep_tables => [
+      'structvar__structural_variation__main',
       'structvar__structural_variation_annotation__dm',
       'structvar__supporting_structural_variation__dm',
       'structvar__variation_set_structural_variation__dm',
@@ -138,7 +125,7 @@ sv_indep_tables => [
       'structvar_som__variation_set_structural_variation__dm',
     ],
 
- sv_dep_tables => [
+    sv_dep_tables => [
       'structvar__structural_variation_feature__main',
     ],
 
@@ -146,15 +133,7 @@ sv_indep_tables => [
       'structvar_som__structural_variation_feature__main',
     ],
 
-    
-    snp_cull_tables => {
-      'snp__poly__dm'                    => 'name_2019',
-      'snp__population_genotype__dm'     => 'name_2019',
-      'snp__variation_annotation__dm'    => 'name_2021',
-      'snp__variation_citation__dm'      => 'authors_20137',
-      'snp__variation_set_variation__dm' => 'name_2077',
-      'snp__variation_synonym__dm'       => 'name_2030',
-    },
+    # snp_cull_tables should be defined in an inheriting module
 
     snp_som_cull_tables => {
       'snp_som__population_genotype__dm'     => 'name_2019',
@@ -224,21 +203,18 @@ sub hive_meta_table {
 sub pipeline_analyses {
   my ($self) = @_;
   
+  my $final_flow;
+  if ($self->o('skip_meta_data')) {
+    $final_flow = 'AnalyzeTables';
+  } else {
+    $final_flow = 'AddMetaData';
+  }
+  
   return [
-    {
-      -logic_name      => 'VariationMartPipeline',
-      -module          => 'Bio::EnsEMBL::Hive::RunnableDB::Dummy',
-      -input_ids       => [ {} ],
-      -parameters      => {},
-      -max_retry_count => 1,
-      -rc_name         => 'normal',
-      -flow_into       => ['InitialiseMartDB'],
-      -meadow_type     => 'LOCAL',
-    },
-
     {
       -logic_name      => 'InitialiseMartDB',
       -module          => 'Bio::EnsEMBL::EGPipeline::VariationMart::InitialiseMartDB',
+      -input_ids       => [ {} ],
       -parameters      => {
                             mart_db_name => $self->o('mart_db_name'),
                             drop_mart_db => $self->o('drop_mart_db'),
@@ -246,7 +222,8 @@ sub pipeline_analyses {
       -max_retry_count => 0,
       -rc_name         => 'normal',
       -flow_into       => {
-                            $self->o('skip_meta_data') eq 0 ? ('1->A' => ['ScheduleSpecies'], 'A->1' => ['AddMetaData'],) : ('1' => 'ScheduleSpecies',),
+                            '1->A' => ['ScheduleSpecies'],
+                            'A->1' => [$final_flow],
                           },
       -meadow_type     => 'LOCAL',
     },
@@ -291,6 +268,7 @@ sub pipeline_analyses {
                               population_threshold  => $self->o('population_threshold'),
                               always_skip_genotypes => $self->o('always_skip_genotypes'),
                               never_skip_genotypes  => $self->o('never_skip_genotypes'),
+                              division_name         => $self->o('division_name'),
                             },
       -max_retry_count   => 0,
       -rc_name           => 'normal',
@@ -306,12 +284,13 @@ sub pipeline_analyses {
       -logic_name        => 'CreateMTMPTables',
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMTMPTables',
       -parameters        => {
+                              drop_mtmp                => $self->o('drop_mtmp'),
                               variation_import_lib     => $self->o('variation_import_lib'),
                               variation_feature_script => $self->o('variation_feature_script'),
                               variation_mtmp_script    => $self->o('variation_mtmp_script'),
                               registry                 => $self->o('registry'),
                               tmp_dir                  => $self->o('tmp_dir'),
-                              division                 => $self->o('division'),
+                              division_name            => $self->o('division_name'),
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 5,
@@ -417,9 +396,9 @@ sub pipeline_analyses {
       -parameters        => {
                               tables_dir => $self->o('tables_dir'),
                             },
-      -max_retry_count   => 0,
-      -analysis_capacity => 10,
-      -rc_name           => 'normal',
+      -max_retry_count   => 3,
+      -analysis_capacity => 100,
+      -rc_name           => $self->o('populate_mart_rc_name'),
     },
 
     {
@@ -475,6 +454,7 @@ sub pipeline_analyses {
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
+      -can_be_empty      => 1,
       -flow_into         => ['AddSVMetaData'],
       -rc_name           => 'normal',
     },
@@ -495,6 +475,7 @@ sub pipeline_analyses {
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
+      -can_be_empty      => 1,
       -flow_into         => ['AnalyzeTables'],
       -rc_name           => 'normal',
     },
@@ -503,7 +484,7 @@ sub pipeline_analyses {
       -logic_name        => 'AnalyzeTables',
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::AnalyzeTables',
       -parameters        => {
-                              optimize_tables => 1,
+                              optimize_tables => $self->o('optimize_tables'),
                             },
       -max_retry_count   => 0,
       -rc_name           => 'normal',
