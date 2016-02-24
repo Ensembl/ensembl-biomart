@@ -31,7 +31,6 @@ sub param_defaults {
     'population_threshold'  => 100,
     'always_skip_genotypes' => [],
     'never_skip_genotypes'  => [],
-    'division'              => [],
     'copy_species'          => [],
     'copy_all'              => 0,
   };
@@ -40,25 +39,23 @@ sub param_defaults {
 sub write_output {
   my ($self) = @_;
   
-  my $species = $self->param_required('species');
+  my $species           = $self->param_required('species');
   my $mtmp_tables_exist = $self->param('mtmp_tables_exist');
-  my $copy_species = $self->param('copy_species');
-  my $copy_all = $self->param('copy_all');
-  my $division = $self->param('division');
+  my $copy_species      = $self->param('copy_species');
+  my $copy_all          = $self->param('copy_all');
+  my $division_name     = $self->param('division_name');
   my $mart_table_prefix;
   
-  if (@$division){
+  if (defined $division_name) {
     $species =~ /^(\w).+_(\w+)$/;
     $mart_table_prefix = "$1$2_eg";
-  }
-  else
-  {
+  } else {
     $species =~ /^(\w).+_(\w+)$/;
     $mart_table_prefix = "$1$2";
   }
   
   my $copy = 0;
-  if ($self->param('copy_all')) {
+  if ($copy_all) {
     $copy = 1;
   } elsif (defined $copy_species) {
     foreach my $pspecies (@$copy_species) {

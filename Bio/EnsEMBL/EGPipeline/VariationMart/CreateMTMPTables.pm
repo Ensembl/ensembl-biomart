@@ -25,13 +25,13 @@ use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 
 sub param_defaults {
   return {
-    'sv_exists' => 0,
+    'drop_mtmp'         => 0,
+    'sv_exists'         => 0,
     'regulatory_exists' => 1,
-    'motif_exits' => 1,
-    'show_sams' => 1,
-    'show_pops' => 1,
-    'tmp_dir'   => '/tmp',
-    'division'  => [],
+    'motif_exits'       => 1,
+    'show_sams'         => 1,
+    'show_pops'         => 1,
+    'tmp_dir'           => '/tmp',
   };
 }
 
@@ -42,7 +42,7 @@ sub run {
   my $variation_mtmp_script    = $self->param_required('variation_mtmp_script');
 
   my $dbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
-  my $division = $self->param('division');
+  my $division_name = $self->param('division_name');
 
   if ($self->param('sv_exists')) {
     # Apparently, the variation set MTMP table is only required for human. If you
@@ -67,9 +67,8 @@ sub run {
   }
   $self->order_consequences($dbh);
   
-  # Apparently, the variation set MTMP table is only required for human. If you
-  # run this script for any other species, the table doesn't get created.
-  if ($self->param_required('species') eq 'homo_sapiens' or @$division) {
+  # The variation set MTMP table is only required for human and EG species.
+  if ($self->param_required('species') eq 'homo_sapiens' or defined $division_name) {
     $self->run_script($variation_mtmp_script, 'mode', 'variation_set_variation');
   } else {
     $self->empty_variation_set_variation($dbh);
@@ -89,13 +88,20 @@ sub run {
 
 sub run_script {
   my ($self, $script, $table_param_name, $table) = @_;
+  my $drop_mtmp = $self->param_required('drop_mtmp');
   my $variation_import_lib = $self->param_required('variation_import_lib');
   my $tmp_dir = $self->param_required('tmp_dir');
   
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
   my $dbh = $dbc->db_handle();
+  
+  if ($drop_mtmp) {
+    my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
+    $dbh->do($drop_sql) or $self->throw($dbh->errstr);
+  }
+  
   if ($self->does_table_exist($dbh, $table)) {
-    $self->warning("MTMP\_$table already exist for this species");
+    $self->warning("MTMP_$table already exists for this species");
   } else{
     my $cmd = "perl -I$variation_import_lib $script ".
       " --host ".$dbc->host.
