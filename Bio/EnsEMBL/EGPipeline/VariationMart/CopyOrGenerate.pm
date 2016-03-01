@@ -40,7 +40,6 @@ sub write_output {
   my ($self) = @_;
   
   my $species = $self->param_required('species');
-  my $drop_mart_tables = $self->param('drop_mart_tables');
   my $mtmp_tables_exist = $self->param('mtmp_tables_exist');
   my $copy_species = $self->param('copy_species');
   my $copy_all = $self->param('copy_all');
@@ -58,10 +57,6 @@ sub write_output {
   }
   
   my ($sv_exists, $show_sams, $show_pops) = $self->data_display();
-  
-  if ($drop_mart_tables) {
-    $self->dataflow_output_id({'mart_table_prefix' => $mart_table_prefix}, 2);
-  }
   
   if (!$mtmp_tables_exist) {
     $self->dataflow_output_id({

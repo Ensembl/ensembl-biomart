@@ -26,14 +26,20 @@ use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 sub run {
   my ($self) = @_;
   
-  my $mart_table_prefix = $self->param_required('mart_table_prefix');
-  my $mart_dbh = $self->mart_dbh();
+  my $species = $self->param_required('species');
   
-  my $tables_sql = "SHOW TABLES LIKE '$mart_table_prefix%';";
-  my $tables = $mart_dbh->selectcol_arrayref($tables_sql) or $self->throw($mart_dbh->errstr);
-  foreach my $table (@$tables) {
-    my $drop_sql = "DROP TABLE $table;";
-    $mart_dbh->do($drop_sql) or $self->throw($mart_dbh->errstr);
+  if ($self->param('drop_mart_tables')) {
+    $species =~ /^(\w).+_(\w+)$/;
+    my $mart_table_prefix = "$1$2_eg";
+    
+    my $mart_dbh = $self->mart_dbh();
+    
+    my $tables_sql = "SHOW TABLES LIKE '$mart_table_prefix%';";
+    my $tables = $mart_dbh->selectcol_arrayref($tables_sql) or $self->throw($mart_dbh->errstr);
+    foreach my $table (@$tables) {
+      my $drop_sql = "DROP TABLE $table;";
+      $mart_dbh->do($drop_sql) or $self->throw($mart_dbh->errstr);
+    }
   }
 }
 
