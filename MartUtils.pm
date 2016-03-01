@@ -276,7 +276,7 @@ sub get_all_species {
             }
         }
 
-	$adap->dbc->disconnect_if_idle;
+	$adap->dbc()->disconnect_if_idle();
 
     }
 
