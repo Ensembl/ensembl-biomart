@@ -44,6 +44,7 @@ sub default_options {
         'mart'=>undef,
         'compara'=>undef,
         'release'=>software_version(),
+        'eg_release'=>undef,
         'script_dir'=>getcwd
     }
 }
@@ -77,7 +78,8 @@ sub pipeline_wide_parameters {
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
                 'script_dir' => $self->o('script_dir'),
-                'release' => $self->o('release')
+                'release' => $self->o('release'),
+                'eg_release' => $self->o('eg_release')
             },                    
                     -input_ids=>[{}],              
                     -analysis_capacity => 1,
@@ -114,6 +116,7 @@ sub pipeline_wide_parameters {
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
                 'release' => $self->o('release'),
+                'eg_release' => $self->o('eg_release')
                 'script_dir' => $self->o('script_dir')
             },
             -analysis_capacity => 10
@@ -135,6 +138,23 @@ sub pipeline_wide_parameters {
             -analysis_capacity => 10
         },
         {   
+            -logic_name    => 'tidy_tables',
+            -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+            -meadow_type => 'LSF',
+            -wait_for => ['add_compara','calculate_sequence'],
+            -parameters    => {
+                'cmd'        => 'perl #script_dir#/tidy_tables.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',  
+                'mart' => $self->o('mart'),
+                'user' => $self->o('user'),
+                'pass' => $self->o('pass'),
+                'host' => $self->o('host'),
+                'port' => $self->o('port'),
+                'script_dir' => $self->o('script_dir')
+            },
+            -input_ids=>[{}],              
+            -analysis_capacity => 1
+        },
+        {   
             -logic_name    => 'add_xrefs',
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
@@ -146,9 +166,11 @@ sub pipeline_wide_parameters {
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
                 'release' => $self->o('release'),
+                'eg_release' => $self->o('eg_release')
                 'script_dir' => $self->o('script_dir')
             },
-            -analysis_capacity => 10
+            -analysis_capacity => 10,
+            -wait_for => ['tidy_tables'],
         },        
         {   
             -logic_name    => 'add_slims',
@@ -162,40 +184,26 @@ sub pipeline_wide_parameters {
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
                 'release' => $self->o('release'),
+                'eg_release' => $self->o('eg_release')
                 'script_dir' => $self->o('script_dir')
             },
-            -analysis_capacity => 10
+            -analysis_capacity => 10,
+            -wait_for => ['tidy_tables'],
         },        
-        {   
-            -logic_name    => 'tidy_tables',
-            -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-            -meadow_type => 'LSF',
-            -wait_for => ['add_xrefs','add_compara','calculate_sequence','add_slims'],
-            -parameters    => {
-                'cmd'        => 'perl #script_dir#/tidy_tables.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',  
-                'mart' => $self->o('mart'),
-                'user' => $self->o('user'),
-                'pass' => $self->o('pass'),
-                'host' => $self->o('host'),
-                'port' => $self->o('port'),
-                'script_dir' => $self->o('script_dir')
-            },
-                    -input_ids=>[{}],              
-            -analysis_capacity => 1
-        },
         {   
             -logic_name    => 'generate_template',
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
-            -wait_for => 'tidy_tables',
+            -wait_for => ['add_xrefs','add_slims'],
             -parameters    => {
-                'cmd'        => 'perl #script_dir#/generate_template.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -release #release#',  
+                'cmd'        => 'perl #script_dir#/generate_template.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -release #eg_release#',  
                 'mart' => $self->o('mart'),
                 'user' => $self->o('user'),
                 'pass' => $self->o('pass'),
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
                 'release' => $self->o('release'),
+                'eg_release' => $self->o('eg_release')
                 'script_dir' => $self->o('script_dir')
             },
                     -input_ids=>[{}],              
