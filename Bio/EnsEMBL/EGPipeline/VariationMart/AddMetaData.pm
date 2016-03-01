@@ -89,7 +89,7 @@ sub run_template_script {
     " -template ".$self->param_required('template_template').
     " -ds_template ".$self->param_required('dataset_template').
     " -output_dir ".$self->param_required('output_dir').
-    " -release ".$self->param_required('ensembl_release');
+    " -release ".$self->param_required('eg_release');
   
   if (system($cmd)) {
     $self->throw("Loading failed when running $cmd");
