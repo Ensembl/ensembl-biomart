@@ -136,6 +136,9 @@ my $regexp = undef;
 if( $div eq 'vectorbase' or $div eq 'ensembl'){
      $regexp = ".*_core_${release}_.*";
 }
+elsif( $div eq 'parasite') {
+     $regexp = ".*_core(_[0-9]+){0,1}_${release}_.*";
+}
 else{
     $regexp = ".*_core_[0-9]+_${release}_.*";
 }
@@ -189,7 +192,12 @@ foreach my $dataset (@datasets) {
     my $base_datasetname = $dataset;
     $base_datasetname =~ s/$suffix//;
 
-    my $ens_db = $div eq 'parasite' ? get_ensembl_db_single_parasite(\@src_dbs,$base_datasetname,$release) : get_ensembl_db_single(\@src_dbs,$base_datasetname,$release);
+    my $ens_db;
+    if($div eq 'parasite') {
+      $ens_db = $base_datasetname =~ /^prj/ ? get_ensembl_db_single_parasite(\@src_dbs,$base_datasetname,$release) : get_ensembl_db_single(\@src_dbs,$base_datasetname,$release);
+    } else {
+      $ens_db = get_ensembl_db_single(\@src_dbs,$base_datasetname,$release);
+    }
     if(!$ens_db) {
 	croak "Could not find original source db for dataset $base_datasetname\n";
     }   
