@@ -277,7 +277,7 @@ elsif (defined @{$meta_container->list_value_by_key('species.division')}[0]) {
     }
     elsif($division_value =~ /parasite/) {
       $db_name =~ /^(.*?)_(.*?)_(.*?)_.+/;
-      $formatted_species_name = substr($3, 0, 3) eq 'prj' ? $3 . "_eg" : $1 . $2 . "_eg";
+      $formatted_species_name = substr($3, 0, 3) eq 'prj' ? $3 . "_eg" : substr($1, 0, 1) . $2 . "_eg";
     }
     else {
 	 $db_name =~ /^(\w)[^_]+_([^_]+)_.+/;
