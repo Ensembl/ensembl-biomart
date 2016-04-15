@@ -209,11 +209,8 @@ sub supporting_structural_variation {
    'clinical_significance, '.
    's.name AS sample_name, '.
    'i.name AS strain_name, '.
-   'p.description AS phenotype, '.
    'sv.copy_number AS copy_number '.
  'FROM structural_variation sv '.
- 'LEFT JOIN phenotype_feature pf ON (sv.variation_name=pf.object_id AND pf.type="SupportingStructuralVariation") '.
- 'LEFT JOIN phenotype p ON (p.phenotype_id=pf.phenotype_id) '.
  'LEFT JOIN structural_variation_sample svs ON (svs.structural_variation_id=sv.structural_variation_id) '.
  'LEFT JOIN sample s ON (s.sample_id=svs.sample_id) '.
  'LEFT JOIN individual i ON (i.individual_id=s.individual_id AND s.display!="UNDISPLAYABLE"), '.

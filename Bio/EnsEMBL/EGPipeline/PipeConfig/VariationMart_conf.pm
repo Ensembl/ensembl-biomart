@@ -116,6 +116,7 @@ sub default_options {
       'structvar__structural_variation_annotation__dm',
       'structvar__supporting_structural_variation__dm',
       'structvar__variation_set_structural_variation__dm',
+      'structvar__phenotype__dm',
     ],
 
     sv_som_indep_tables => [
@@ -123,6 +124,7 @@ sub default_options {
       'structvar_som__structural_variation_annotation__dm',
       'structvar_som__supporting_structural_variation__dm',
       'structvar_som__variation_set_structural_variation__dm',
+      'structvar_som__phenotype__dm',
     ],
 
     sv_dep_tables => [
@@ -147,12 +149,14 @@ sub default_options {
       'structvar__structural_variation_annotation__dm'    => 'name_2019',
       'structvar__supporting_structural_variation__dm',   => 'supporting_structural_variation_id_20116',
       'structvar__variation_set_structural_variation__dm' => 'name_2077',
+      'structvar__phenotype__dm'                          => 'phenotype_name',
     },
 
     sv_som_cull_tables => {
       'structvar_som__structural_variation_annotation__dm'    => 'name_2019',
       'structvar_som__supporting_structural_variation__dm',   => 'supporting_structural_variation_id_20116',
       'structvar_som__variation_set_structural_variation__dm' => 'name_2077',
+      'structvar_som__phenotype__dm'                          => 'phenotype_name',
     },
     
     tables_dir => $self->o('eg_biomart_root_dir').'/var_mart/tables',
