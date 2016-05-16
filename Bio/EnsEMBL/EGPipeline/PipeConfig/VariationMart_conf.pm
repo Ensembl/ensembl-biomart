@@ -54,6 +54,15 @@ sub default_options {
     always_skip_genotypes => [],
     never_skip_genotypes  => [],
     tmp_dir               => '/tmp',
+    drop_mtmp             => 1,
+    snp_indep_tables      => [],
+    mart_db_name          => $self->o('division_name').'_snp_mart_'.$self->o('eg_release'),
+    sample_threshold      => 0,
+    populate_mart_rc_name => 'normal',
+    snp_cull_tables       => [],
+    optimize_tables       => 0,
+    skip_meta_data        => 0,
+    population_threshold  => 100,
     
     previous_mart => {
       -driver => $self->o('hive_driver'),
