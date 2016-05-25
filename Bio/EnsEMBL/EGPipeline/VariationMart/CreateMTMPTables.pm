@@ -45,9 +45,10 @@ sub run {
   my $division_name = $self->param('division_name');
 
   if ($self->param('sv_exists')) {
-    # Apparently, the variation set MTMP table is only required for human. If you
-    # run this script for any other species, the table doesn't get created. So
-    # don't bother for now, but I'll leave it here in case we need it back...
+    # Apparently, the variation set structural variation MTMP table is
+    # only required for human. If you run this script for any other
+    # species, the table doesn't get created. So don't bother for now,
+    # but I'll leave it here in case we need it back...
     if ($self->param_required('species') eq 'homo_sapiens') {
       $self->run_script($variation_mtmp_script, 'mode', 'variation_set_structural_variation');
     }
@@ -55,22 +56,28 @@ sub run {
     $self->supporting_structural_variation($dbh);
   }
   
-  # Always need transcript_variation table; currently don't have regulation
-  # data in EG, but if we have it in the future it will automatically be
-  # detected and these options switched on by the preceding pipeline module.
+  # Always need transcript_variation table; currently don't have
+  # regulation data in EG, but if we have it in the future it will
+  # automatically be detected and these options switched on by the
+  # preceding pipeline module.
   $self->run_script($variation_feature_script, 'table', 'transcript_variation');
+
   if ($self->param('motif_exists')) {
     $self->run_script($variation_feature_script, 'table', 'motif_feature_variation');
   }
+
   if ($self->param('regulatory_exists')) {
     $self->run_script($variation_feature_script, 'table', 'regulatory_feature_variation');
   }
+
   $self->order_consequences($dbh);
   
-  # The variation set MTMP table is only required for human and EG species.
+  # The variation set variation MTMP table is only required for human
+  # and EG species.
   if ($self->param_required('species') eq 'homo_sapiens' or defined $division_name) {
     $self->run_script($variation_mtmp_script, 'mode', 'variation_set_variation');
-  } else {
+  }
+  else {
     $self->empty_variation_set_variation($dbh);
   }
   
@@ -81,6 +88,7 @@ sub run {
   if ($self->param('show_sams')) {
     $self->sample_genotype($dbh);
   }
+
   if ($self->param('show_pops')) {
     $self->run_script($variation_mtmp_script, 'mode', 'population_genotype');
   }
@@ -102,7 +110,9 @@ sub run_script {
   
   if ($self->does_table_exist($dbh, $table)) {
     $self->warning("MTMP_$table already exists for this species");
-  } else{
+  }
+  else{
+    ## Is this really how we're doing it?
     my $cmd = "perl -I$variation_import_lib $script ".
       " --host ".$dbc->host.
       " --port ".$dbc->port.
