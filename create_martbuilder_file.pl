@@ -142,7 +142,7 @@ sub usage {
 
   -p|pass              Password for user 
 
-  -d|dbname            Database name (default is ensembl_production)
+  -d|pandbname            Database name (default is ensembl_production)
 
   -mart                Name of mart to generate
 
