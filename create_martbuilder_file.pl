@@ -142,13 +142,17 @@ sub usage {
 
   -p|pass              Password for user 
 
-  -d|pandbname            Database name (default is ensembl_production)
+  -d|pandbname         Database name (default is ensembl_production)
 
   -mart                Name of mart to generate
 
   -template            Template file to read from
 
   -division            Name of division (e.g. EnsemblFungi)
+
+  -ens                 Ensembl version number
+
+  -eg                  Ensembl Genomes version number
 
 EOF
 }
