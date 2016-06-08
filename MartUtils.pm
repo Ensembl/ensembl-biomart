@@ -104,8 +104,8 @@ sub get_ensembl_db_single_parasite {
     my ($src_dbs,$dataset,$release) = @_;
     return get_ensembl_db($src_dbs,$dataset, sub {
         my $var = shift;
-        # The database naming convention is different in ParaSite, and the BioMart partition names have been reduced down to BioProject only otherwise they are too long for MartBuilder
-        $var =~ s/^(.)[^_]*_([^_]+)_([^_]+)_core_*\d*_($release)_[0-9]+[a-z]*$/$3/;
+        # The database naming convention is different in ParaSite, and the BioMart partition names have been reduced down to 5 letters of the species names + BioProject only otherwise they are too long for MartBuilder
+        $var =~ s/^[^_]+_([^_]{1,5})[^_]*_([^_]+)_core_*\d*_($release)_[0-9]+[a-z]*$/$1$2/;
         return $var;
                           }
         );

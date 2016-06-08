@@ -194,7 +194,7 @@ foreach my $dataset (@datasets) {
 
     my $ens_db;
     if($div eq 'parasite') {
-      $ens_db = $base_datasetname =~ /^prj/ ? get_ensembl_db_single_parasite(\@src_dbs,$base_datasetname,$release) : get_ensembl_db_single(\@src_dbs,$base_datasetname,$release);
+      $ens_db = $base_datasetname =~ /prj[a-z]{2}[0-9]+$/ ? get_ensembl_db_single_parasite(\@src_dbs,$base_datasetname,$release) : get_ensembl_db_single(\@src_dbs,$base_datasetname,$release);
     } else {
       $ens_db = get_ensembl_db_single(\@src_dbs,$base_datasetname,$release);
     }
