@@ -19,7 +19,7 @@ GetOptions(
 die "Option -r[elease] is required" unless $release;
 die "Option -d[ivision] is required" unless $division;
 
-if ($division ne 'vb' && $division !~ /^Ensembl/ && $division ne 'parasite') {
+if ($division ne 'vb' && $division !~ /^Ensembl/) {
   $division = "Ensembl".ucfirst($division);
 }
     
@@ -38,7 +38,7 @@ $registry->load_registry_from_db(
 my @dba = @{ $registry->get_all_DBAdaptors(-group => 'core') };
 foreach my $dba (sort {$a->dbc()->dbname() cmp $b->dbc()->dbname()} @dba) {
   my $species = $dba->species();
-  
+
   if ($division eq 'vb') {
     my $status = $dba->get_MetaContainer()->single_value_by_key('vb.release.status');
     if ($status && $status eq 'release') {
