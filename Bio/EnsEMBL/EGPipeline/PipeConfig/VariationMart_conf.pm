@@ -365,7 +365,7 @@ sub pipeline_analyses {
       -analysis_capacity => 10,
       -flow_into         => {
                               '1->A' => ['PartitionTables'],
-                              'A->1' => ['CreateMartIndexes'],
+                              'A->1' => ['OrderColumns'],
                             },
       -rc_name           => 'normal',
     },
@@ -385,7 +385,7 @@ sub pipeline_analyses {
       -analysis_capacity => 10,
       -flow_into         => {
                               '1->A' => ['PartitionTables'],
-                              'A->1' => ['CreateMartIndexes'],
+                              'A->1' => ['OrderColumns'],
                             },
       -rc_name           => 'normal',
     },
@@ -426,6 +426,16 @@ sub pipeline_analyses {
       -max_retry_count   => 0,
       -analysis_capacity => 10,
       -flow_into         => ['CreateDependentTables'],
+      -rc_name           => 'normal',
+    },
+
+    {
+      -logic_name        => 'OrderColumns',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::OrderColumns',
+      -parameters        => {
+                            },
+      -flow_into         => ['CreateMartIndexes'],
+      -max_retry_count   => 0,
       -rc_name           => 'normal',
     },
 
