@@ -14,7 +14,7 @@ SELECT
   ssv.clinical_significance as clinical_significance_20116,
   ssv.strain_name as strain_name_20116,
   ssv.copy_number as copy_number_20116,
-  REPLACE(ssv.sample_name, ",", "") as sample_name_20116,
+  REPLACE(ssv.sample_name, ",", "") as sample_name_20116
 FROM
   VAR_DB.structural_variation sv LEFT OUTER JOIN
   VAR_DB.MTMP_supporting_structural_variation ssv ON sv.structural_variation_id = ssv.structural_variation_id
