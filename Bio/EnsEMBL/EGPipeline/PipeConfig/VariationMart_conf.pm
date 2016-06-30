@@ -436,7 +436,7 @@ sub pipeline_analyses {
                             },
       -flow_into         => ['CreateMartIndexes'],
       -max_retry_count   => 0,
-      -rc_name           => 'normal',
+      -rc_name           => 'default',
     },
 
     {
