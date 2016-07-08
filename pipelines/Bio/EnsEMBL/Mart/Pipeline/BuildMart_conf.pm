@@ -116,7 +116,7 @@ sub pipeline_wide_parameters {
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
                 'release' => $self->o('release'),
-                'eg_release' => $self->o('eg_release')
+                'eg_release' => $self->o('eg_release'),
                 'script_dir' => $self->o('script_dir')
             },
             -analysis_capacity => 10
@@ -166,7 +166,7 @@ sub pipeline_wide_parameters {
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
                 'release' => $self->o('release'),
-                'eg_release' => $self->o('eg_release')
+                'eg_release' => $self->o('eg_release'),
                 'script_dir' => $self->o('script_dir')
             },
             -analysis_capacity => 10,
@@ -184,7 +184,7 @@ sub pipeline_wide_parameters {
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
                 'release' => $self->o('release'),
-                'eg_release' => $self->o('eg_release')
+                'eg_release' => $self->o('eg_release'),
                 'script_dir' => $self->o('script_dir')
             },
             -analysis_capacity => 10,
@@ -203,7 +203,7 @@ sub pipeline_wide_parameters {
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
                 'release' => $self->o('release'),
-                'eg_release' => $self->o('eg_release')
+                'eg_release' => $self->o('eg_release'),
                 'script_dir' => $self->o('script_dir')
             },
                     -input_ids=>[{}],              
