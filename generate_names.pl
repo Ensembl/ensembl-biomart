@@ -133,14 +133,14 @@ my @src_dbs;
 
 my $regexp = undef;
 
-if(defined $div && ($div eq 'vectorbase' || $div eq 'ensembl'){
-     $regexp = ".*_core_${release}_.*";
+if(defined $div && ($div eq 'vectorbase' || $div eq 'ensembl')){
+  $regexp = ".*_core_${release}_.*";
 }
 elsif( $div eq 'parasite') {
-     $regexp = ".*_core(_[0-9]+){0,1}_${release}_.*";
+  $regexp = ".*_core(_[0-9]+){0,1}_${release}_.*";
 }
 else{
-    $regexp = ".*_core_[0-9]+_${release}_.*";
+  $regexp = ".*_core_[0-9]+_${release}_.*";
 }
 
 foreach my $db (get_databases($mart_handle)) {
