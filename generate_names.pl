@@ -133,7 +133,7 @@ my @src_dbs;
 
 my $regexp = undef;
 
-if( $div eq 'vectorbase' or $div eq 'ensembl'){
+if(defined $div && ($div eq 'vectorbase' || $div eq 'ensembl'){
      $regexp = ".*_core_${release}_.*";
 }
 elsif( $div eq 'parasite') {

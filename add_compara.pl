@@ -225,7 +225,7 @@ for my $dataset (sort @datasets) {
       my $table_name = $dataset.'_gene__'.$table_type.'__main';
       my $sql = "show columns from $table_name like 'homolog_".$species_set->{tld}."_bool'";
       for my $col (query_to_strings($mart_handle,$sql)) {
-        $logger->debug("Dropping $table_name $col");
+        $logger->info("Dropping $table_name $col");
         $mart_handle->do("alter table $table_name drop column $col") or croak "Could not drop column $table_name.$col";
       }
     }
@@ -243,7 +243,7 @@ for my $dataset (sort @datasets) {
     my $table_name = $dataset.'_gene__'.$table_type.'__main';
 
     for my $col (query_to_strings($mart_handle,"show columns from $table_name like 'paralog_".$dataset."_bool'")) {
-$logger->debug("Dropping $table_name $col");
+        $logger->info("Dropping $table_name $col");
         $mart_handle->do("alter table $table_name drop column $col") or croak "Could not drop column $table_name.$col";
     }
 }

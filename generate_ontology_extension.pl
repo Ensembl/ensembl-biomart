@@ -50,7 +50,7 @@ sub usage {
 
 my $options_okay = GetOptions (
 			       "h|host=s"=>\$db_host,
-			       "port=i"=>\$db_port,
+			       "P|port=i"=>\$db_port,
 			       "u|user=s"=>\$db_user,
 			       "p|pass=s"=>\$db_pwd,
 			       "mart=s"=>\$mart_db,

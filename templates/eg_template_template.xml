@@ -3080,7 +3080,7 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="phibase_host_id" displayName="PHI-base host term" description="PHI-base host term" hideDisplay="true" hidden="true">
-        <FilterDescription displayName="PHI-base host ID" displayType="list" field="host_acc" internalName="phibase_host_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text">
+        <FilterDescription displayName="PHI-base host ID" hideDisplay="true" displayType="list" field="host_acc" internalName="phibase_host_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text">
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Pathogenic phenotype (source: PHI-base)" internalName="phibase_phenotype" description="Pathogenic phenotype (source: PHI-base)">
@@ -3089,7 +3089,7 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="phibase_phenotype_id" displayName="PHI-base phenotype ID" description="PHI-base phenotype ID">
-        <FilterDescription displayName="PHI-base phenotype ID" displayType="list" field="phenotype_id" internalName="phibase_phenotype_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text">
+        <FilterDescription displayName="PHI-base phenotype ID" hideDisplay="true" displayType="list" field="phenotype_id" internalName="phibase_phenotype_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text">
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Experimental condition (source: PHI-base)" internalName="phibase_condition" description="Experimental condition (source: PHIBase)">
@@ -3098,11 +3098,11 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="phibase_condition_id" displayName="PHI-base condition ID" description="PHI-base condition ID" hidden="true" hideDisplay="true">
-        <FilterDescription displayName="PHI-base condition ID" displayType="list" field="experimental_evidence_acc" internalName="phibase_condition_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text">
+        <FilterDescription displayName="PHI-base condition ID" hideDisplay="true" displayType="list" field="experimental_evidence_acc" internalName="phibase_condition_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text">
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="phibase_record" displayName="PHI-base ID" description="PHI-base record ID">
-        <FilterDescription displayName="PHI-base ID" displayType="list" field="phibase_id" internalName="phibase_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text">
+        <FilterDescription displayName="PHI-base ID" hideDisplay="true" displayType="list" field="phibase_id" internalName="phibase_id" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="phi_extension__dm" type="text">
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>

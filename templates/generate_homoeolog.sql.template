@@ -1,3 +1,5 @@
+
+drop table if exists %martSchema%.%method_link_species_set_id%_TEMP14;
 create table %martSchema%.%method_link_species_set_id%_TEMP14 as
   select
     a.species_set_id as species_set_id_4019,
@@ -8,6 +10,7 @@ create table %martSchema%.%method_link_species_set_id%_TEMP14 as
   where a.method_link_species_set_id=%method_link_species_set_id%;
 
 create index %indexName% on %martSchema%.%method_link_species_set_id%_TEMP14(method_link_species_set_id_4019);
+drop table if exists %martSchema%.%method_link_species_set_id%_TEMP17;
 create table %martSchema%.%method_link_species_set_id%_TEMP17 as
   select
     a.*,
@@ -25,6 +28,7 @@ create table %martSchema%.%method_link_species_set_id%_TEMP17 as
 drop table %martSchema%.%method_link_species_set_id%_TEMP14;
 
 create index %indexName% on %martSchema%.%method_link_species_set_id%_TEMP17(homology_id_4014);
+drop table if exists %martSchema%.%method_link_species_set_id%_TEMP18;
 create table %martSchema%.%method_link_species_set_id%_TEMP18 as
   select
     a.*,
@@ -39,6 +43,7 @@ create table %martSchema%.%method_link_species_set_id%_TEMP18 as
 drop table %martSchema%.%method_link_species_set_id%_TEMP17;
 
 create index %indexName% on %martSchema%.%method_link_species_set_id%_TEMP18(gene_member_id_4015);
+drop table if exists %martSchema%.%method_link_species_set_id%_TEMP20;
 create table %martSchema%.%method_link_species_set_id%_TEMP20 as
   select
     a.*,
@@ -52,6 +57,7 @@ create table %martSchema%.%method_link_species_set_id%_TEMP20 as
 drop table %martSchema%.%method_link_species_set_id%_TEMP18;
 
 create index %indexName% on %martSchema%.%method_link_species_set_id%_TEMP20(seq_member_id_4015);
+drop table if exists %martSchema%.%method_link_species_set_id%_TEMP24;
 create table %martSchema%.%method_link_species_set_id%_TEMP24 as
   select
     a.*,
@@ -66,6 +72,7 @@ create table %martSchema%.%method_link_species_set_id%_TEMP24 as
 drop table %martSchema%.%method_link_species_set_id%_TEMP20;
 
 create index %indexName% on %martSchema%.%method_link_species_set_id%_TEMP24(homology_id_4014);
+drop table if exists %martSchema%.%method_link_species_set_id%_TEMP28;
 create table %martSchema%.%method_link_species_set_id%_TEMP28 as
   select
     a.*,
@@ -80,6 +87,7 @@ create table %martSchema%.%method_link_species_set_id%_TEMP28 as
 drop table %martSchema%.%method_link_species_set_id%_TEMP24;
 
 create index %indexName% on %martSchema%.%method_link_species_set_id%_TEMP28(gene_member_id_4015_r1);
+drop table if exists %martSchema%.%method_link_species_set_id%_TEMP30;
 create table %martSchema%.%method_link_species_set_id%_TEMP30 as
   select
     a.*,
@@ -99,6 +107,7 @@ create table %martSchema%.%method_link_species_set_id%_TEMP30 as
 drop table %martSchema%.%method_link_species_set_id%_TEMP28;
 
 create index %indexName% on %martSchema%.%method_link_species_set_id%_TEMP30(seq_member_id_4015_r1);
+drop table if exists %martSchema%.%method_link_species_set_id%_TEMP41;
 create table %martSchema%.%method_link_species_set_id%_TEMP41 as
   select
     a.*,
@@ -113,6 +122,7 @@ create table %martSchema%.%method_link_species_set_id%_TEMP41 as
 drop table %martSchema%.%method_link_species_set_id%_TEMP30;
 
 create index %indexName% on %martSchema%.%method_link_species_set_id%_TEMP41(species_tree_node_id_4014);
+drop table if exists %martSchema%.%method_link_species_set_id%_TEMP34;
 create table %martSchema%.%method_link_species_set_id%_TEMP34 as
   select
     a.*,
@@ -126,6 +136,7 @@ create table %martSchema%.%method_link_species_set_id%_TEMP34 as
 drop table %martSchema%.%method_link_species_set_id%_TEMP41;
 
 create index %indexName% on %martSchema%.%method_link_species_set_id%_TEMP34(stable_id_4016);
+drop table if exists %martSchema%.%method_link_species_set_id%_TEMP38;
 create table %martSchema%.%method_link_species_set_id%_TEMP38 as
   select
     a.*,
@@ -138,6 +149,7 @@ create table %martSchema%.%method_link_species_set_id%_TEMP38 as
 drop table %martSchema%.%method_link_species_set_id%_TEMP34;
 
 create index %indexName% on %martSchema%.%method_link_species_set_id%_TEMP38(gene_id_1020_key);
+drop table if exists %martSchema%.%method_link_species_set_id%_TEMP39;
 create table %martSchema%.%method_link_species_set_id%_TEMP39 as
   select
     a.gene_id_1020_key,
@@ -178,6 +190,7 @@ create table %martSchema%.%method_link_species_set_id%_TEMP39 as
       on a.gene_id_1020_key=b.gene_id_1020_key;
 drop table %martSchema%.%method_link_species_set_id%_TEMP38;
 
+drop table if exists %martSchema%.%method_link_species_set_id%_TEMP40;
 create table %martSchema%.%method_link_species_set_id%_TEMP40 as
   select distinct
     dn_4014,
@@ -200,9 +213,11 @@ drop table %martSchema%.%method_link_species_set_id%_TEMP39;
 create index %indexName% on %martSchema%.%method_link_species_set_id%_TEMP40(stable_id_4016_r3);
 create index %indexName% on %martSchema%.%method_link_species_set_id%_TEMP40(stable_id_4016_r2);
 create index %indexName% on %martSchema%.%method_link_species_set_id%_TEMP40(stable_id_4016_r1);
+drop table if exists %martSchema%.%dataSet%__homoeolog_%speciesTld%__dm;
 rename table %martSchema%.%method_link_species_set_id%_TEMP40 to %martSchema%.%dataSet%__homoeolog_%speciesTld%__dm;
 create index %indexName% on %martSchema%.%dataSet%__homoeolog_%speciesTld%__dm(gene_id_1020_key);
 
+drop table if exists %martSchema%.homoeo_%method_link_species_set_id%_TEMP;
 create table %martSchema%.homoeo_%method_link_species_set_id%_TEMP as
   select
     a.gene_id_1020_key

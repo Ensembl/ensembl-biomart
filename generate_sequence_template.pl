@@ -316,7 +316,7 @@ else{
 	-port => $db_port,
 	-db_version => $release);
 }
-Bio::EnsEMBL::Registry->set_disconnect_when_inactive(1);
+#Bio::EnsEMBL::Registry->set_disconnect_when_inactive(1);
 
 # Get all species for the given Ensembl division, or VectorBase
 my $species_names_aref;
@@ -352,6 +352,7 @@ foreach my $species_name (@$species_names_aref) {
     }
     push(@datasets,$dataset_href);
     write_dataset_xml($dataset_href);
+    $dba->dbc()->disconnect_if_idle();
 }
 
 # 2. write template files
