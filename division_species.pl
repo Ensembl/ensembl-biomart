@@ -36,7 +36,7 @@ $registry->load_registry_from_db(
 );
 
 my @dba = @{ $registry->get_all_DBAdaptors(-group => 'core') };
-foreach my $dba (sort {$a->dbc()->dbname() cmp $b->dbc()->dbname()} @dba) {
+foreach my $dba (sort {$a->dbc()->dbname() cmp $b->dbc()->dbname()} grep {$_->dbc()->dbname() !~ m/_collection_/} @dba) {
   my $species = $dba->species();
 
   if ($division eq 'vb') {
