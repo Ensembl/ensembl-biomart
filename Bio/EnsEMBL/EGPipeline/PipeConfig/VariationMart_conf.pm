@@ -474,6 +474,7 @@ sub pipeline_analyses {
                               template_template        => $self->o('template_template'),
                               dataset_template         => $self->o('dataset_template'),
                               ensembl_release          => $self->o('ensembl_release'),
+                              eg_release               => $self->o('eg_release'),
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
