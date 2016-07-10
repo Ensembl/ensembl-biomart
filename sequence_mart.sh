@@ -58,8 +58,8 @@ cd ../scripts
 perl generate_sequence_template.pl \
   $($PROD_CMD details script) \
   -seq_mart $MART_DBNAME \
-  -e_release $ENS_VERSION \
-  -release $EG_VERSION \
+  -release $ENS_VERSION \
+  -ens_release $EG_VERSION \
   -species $SPECIES_LIST
 
 # Copy to staging server.
