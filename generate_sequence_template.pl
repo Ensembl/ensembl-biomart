@@ -38,6 +38,7 @@ Log::Log4perl->easy_init($DEBUG);
 my $division = '';
 
 my $logger = get_logger();
+my $e_release = undef;
 my $release = undef;
 my $species = undef;
 my $registry = undef;
@@ -246,7 +247,8 @@ my $options_okay = GetOptions (
     "user=s"=>\$db_user,
     "pass|pwd=s"=>\$db_pwd,
     "seq_mart=s"=>\$seq_mart_db,
-    "release=s"=>\$release,
+    "release=s"=>\$e_release,
+    "eg_release=s"=>\$release,
     "species=s"=>\$species,
     "registry=s" => \$registry,
     "help"=>sub {usage()}
@@ -288,7 +290,7 @@ elsif ($seq_mart_db =~ /vb/i) {
 
 print STDERR "Set Ensembl division to '$division'\n";
 
-print STDERR "working with release, $release\n";
+print STDERR "working with EG release, $release, e! release $e_release\n";
 
 if (! -d $output_dir) {
     print STDERR "create output directory, $output_dir\n";
@@ -314,7 +316,7 @@ else{
 	-user => $db_user,
 	-pass => $db_pwd,
 	-port => $db_port,
-	-db_version => $release);
+	-db_version => $e_release);
 }
 #Bio::EnsEMBL::Registry->set_disconnect_when_inactive(1);
 
