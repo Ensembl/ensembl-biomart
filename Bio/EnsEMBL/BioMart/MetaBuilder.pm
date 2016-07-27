@@ -79,7 +79,7 @@ sub build {
   $self->create_metatables( $template_name, $template );
   # read datasets
   my $datasets = $self->get_datasets();
-  my $n = 1;
+  my $n        = 1;
   for my $dataset ( @{$datasets} ) {
     $dataset->{species_id} = $n++;
     $self->process_dataset( $dataset, $template_name, $template, $datasets );
@@ -225,9 +225,6 @@ sub write_exportables {
   return;
 } ## end sub write_exportables
 
-# use to selectively unhide filters/attributes e.g. ontology terms
-my $unhide = {};
-
 sub write_filters {
   my ( $self, $dataset, $templ_in, $datasets ) = @_;
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
@@ -265,26 +262,25 @@ sub write_filters {
           #### if contains options, treat differently
           #### if its called homolog_filters, add the homologs here
           if ( $fdo->{internalName} eq 'homolog_filters' ) {
-            for my $dataset (@$datasets) {
-# <Option displayName="Orthologous $dataset->{species_name} Genes" displayType="list" field="homolog_$dataset->{dataset}_bool" hidden="false" internalName="with_$dataset->{dataset}_homolog" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"><Option displayName="Only" hidden="false" internalName="only" value="only" /><Option displayName="Excluded" hidden="false" internalName="excluded" value="excluded" /></Option>
-              my $field = "homolog_$dataset->{name}_bool";
-              my $table = "${ds_name}__gene__main";
+
+            # check for paralogues
+            my $table = "${ds_name}__gene__main";
+            {
+              my $field = "paralog_$dataset->{name}_bool";
               if ( defined $self->{tables}->{$table}->{$field} ) {
-                # reset table to main when we store it
-                $table = "main";
                 # add in if the column exists
                 push @{ $fdo->{Option} }, {
-                    displayName => "Orthologous $dataset->{display_name} Genes",
-                    displayType => "list",
-                    field       => $field,
-                    hidden      => "false",
-                    internalName     => "with_$dataset->{name}_homolog",
-                    isSelectable     => "true",
-                    key              => "gene_id_1020_key",
+                    displayName  => "Paralogous $dataset->{display_name} Genes",
+                    displayType  => "list",
+                    field        => $field,
+                    hidden       => "false",
+                    internalName => "with_$dataset->{name}_paralog",
+                    isSelectable => "true",
+                    key          => "gene_id_1020_key",
                     legal_qualifiers => "only,excluded",
                     qualifier        => "only",
                     style            => "radio",
-                    tableConstraint  => $table,
+                    tableConstraint  => "main",
                     type             => "boolean",
                     Option           => [ {
                                   displayName  => "Only",
@@ -296,8 +292,65 @@ sub write_filters {
                                   internalName => "excluded",
                                   value        => "excluded" } ] };
               } ## end if ( defined $self->{tables...})
-            } ## end for my $dataset (@$datasets)
-                # NOTE: ignore paralogs as we don't have a bool for it
+            }
+            {
+              my $field = "homeolog_$dataset->{name}_bool";
+              if ( defined $self->{tables}->{$table}->{$field} ) {
+                # add in if the column exists
+                push @{ $fdo->{Option} }, {
+                    displayName => "Homeologous $dataset->{display_name} Genes",
+                    displayType => "list",
+                    field       => $field,
+                    hidden      => "false",
+                    internalName     => "with_$dataset->{name}_homeolog",
+                    isSelectable     => "true",
+                    key              => "gene_id_1020_key",
+                    legal_qualifiers => "only,excluded",
+                    qualifier        => "only",
+                    style            => "radio",
+                    tableConstraint  => "main",
+                    type             => "boolean",
+                    Option           => [ {
+                                  displayName  => "Only",
+                                  hidden       => "false",
+                                  internalName => "only",
+                                  value        => "only" }, {
+                                  displayName  => "Excluded",
+                                  hidden       => "false",
+                                  internalName => "excluded",
+                                  value        => "excluded" } ] };
+              } ## end if ( defined $self->{tables...})
+            }
+
+            for my $homo_dataset (@$datasets) {
+              my $field = "homolog_$homo_dataset->{name}_bool";
+              if ( defined $self->{tables}->{$table}->{$field} ) {
+                # add in if the column exists
+                push @{ $fdo->{Option} }, {
+                    displayName =>
+                      "Orthologous $homo_dataset->{display_name} Genes",
+                    displayType      => "list",
+                    field            => $field,
+                    hidden           => "false",
+                    internalName     => "with_$homo_dataset->{name}_homolog",
+                    isSelectable     => "true",
+                    key              => "gene_id_1020_key",
+                    legal_qualifiers => "only,excluded",
+                    qualifier        => "only",
+                    style            => "radio",
+                    tableConstraint  => "main",
+                    type             => "boolean",
+                    Option           => [ {
+                                  displayName  => "Only",
+                                  hidden       => "false",
+                                  internalName => "only",
+                                  value        => "only" }, {
+                                  displayName  => "Excluded",
+                                  hidden       => "false",
+                                  internalName => "excluded",
+                                  value        => "excluded" } ] };
+              } ## end if ( defined $self->{tables...})
+            } ## end for my $homo_dataset (@$datasets)
             push @{ $fco->{FilterDescription} }, $fdo;
             $nD++;
           } ## end if ( $fdo->{internalName...})
@@ -350,7 +403,6 @@ sub write_filters {
                   # get contents
                   $logger->info(
                             "Autopopulating dropdown for $fdo->{internalName}");
-
                   my $max = $self->{max_dropdown} + 1;
                   my $vals =
                     $self->{dbc}->sql_helper()
@@ -406,7 +458,7 @@ sub write_filters {
         $nG++;
         if ( defined $fgo->{hidden} &&
              $fgo->{hidden} eq "true" &&
-             defined $unhide->{ $fgo->{internalName} } )
+             defined $self->{unhide}->{ $fgo->{internalName} } )
         {
           $fgo->{hidden} = "false";
         }
@@ -547,15 +599,214 @@ sub write_attributes {
         } ## end for my $dataset (@$datasets)
       } ## end if ( $ago->{internalName...})
       elsif ( $ago->{internalName} eq 'paralogs' ) {
-        ## TODO
-        #push @{$aco->{AttributeDescription}}, $ado;
-        #$nD++;
-      }
+        my $table = "${ds_name}__paralog_$dataset->{name}__dm";
+        if ( defined $self->{tables}->{$table} ) {
+          push @{ $ago->{AttributeCollection} }, {
+
+            displayName          => "$dataset->{display_name} Paralogues",
+            internalName         => "paralogs_$dataset->{name}",
+            AttributeDescription => [ {
+                displayName     => "Paralogue gene stable ID",
+                field           => "stable_id_4016_r2",
+                internalName    => "$dataset->{name}_paralog_gene",
+                key             => "gene_id_1020_key",
+                linkoutURL      => "exturl1|/*species2*/Gene/Summary?g=%s",
+                maxLength       => "140",
+                tableConstraint => $table }, {
+                displayName => "Paralogue protein stable ID",
+                field       => "stable_id_4016_r3",
+                internalName =>
+                  "$dataset->{name}_paralog_paralog_ensembl_peptide",
+                key             => "gene_id_1020_key",
+                maxLength       => "40",
+                tableConstraint => $table }, {
+                displayName     => "Paralogue chromosome/scaffold",
+                field           => "chr_name_4016_r2",
+                internalName    => "$dataset->{name}_paralog_chromosome",
+                key             => "gene_id_1020_key",
+                maxLength       => "40",
+                tableConstraint => $table }, {
+                displayName     => "Paralogue start (bp)",
+                field           => "chr_start_4016_r2",
+                internalName    => "$dataset->{name}_paralog_chrom_start",
+                key             => "gene_id_1020_key",
+                maxLength       => "10",
+                tableConstraint => $table }, {
+                displayName     => "Paralogue end (bp)",
+                field           => "chr_end_4016_r2",
+                internalName    => "$dataset->{name}_paralog_chrom_end",
+                key             => "gene_id_1020_key",
+                maxLength       => "10",
+                tableConstraint => $table }, {
+                displayName     => "Representative protein stable ID",
+                field           => "stable_id_4016_r1",
+                internalName    => "$dataset->{name}_paralog_ensembl_peptide",
+                key             => "gene_id_1020_key",
+                maxLength       => "40",
+                tableConstraint => $table }, {
+                displayName     => "Ancestor",
+                field           => "node_name_40192",
+                internalName    => "$dataset->{name}_paralog_ancestor",
+                key             => "gene_id_1020_key",
+                maxLength       => "40",
+                tableConstraint => $table }, {
+                displayName     => "Homology type",
+                field           => "description_4014",
+                internalName    => "$dataset->{name}_paralog_type",
+                key             => "gene_id_1020_key",
+                maxLength       => "25",
+                tableConstraint => $table }, {
+                displayName     => "% identity",
+                field           => "perc_id_4015",
+                internalName    => "paralog_$dataset->{name}_identity",
+                key             => "gene_id_1020_key",
+                maxLength       => "10",
+                tableConstraint => $table }, {
+                displayName     => "Paralogue % identity",
+                field           => "perc_id_4015_r1",
+                internalName    => "paralog_$dataset->{name}_paralog_identity",
+                key             => "gene_id_1020_key",
+                maxLength       => "10",
+                tableConstraint => $table }, {
+                displayName     => "dN",
+                field           => "dn_4014",
+                internalName    => "$dataset->{name}_paralog_dn",
+                key             => "gene_id_1020_key",
+                maxLength       => "10",
+                tableConstraint => $table }, {
+                displayName     => "dS",
+                field           => "ds_4014",
+                internalName    => "$dataset->{name}_paralog_ds",
+                key             => "gene_id_1020_key",
+                maxLength       => "10",
+                tableConstraint => $table }, {
+                displayName     => "Paralogy confidence [0 low, 1 high]",
+                field           => "is_tree_compliant_4014",
+                internalName    => "$dataset->{name}_paralog_confidence",
+                key             => "gene_id_1020_key",
+                maxLength       => "10",
+                tableConstraint => $table }, {
+                displayName  => "Bootstrap/Duplication Confidence Score Type",
+                field        => "tag_4060",
+                internalName => "$dataset->{name}_paralog_bootstrap_conf_type",
+                key          => "gene_id_1020_key",
+                maxLength    => "50",
+                tableConstraint => $table }, {
+                displayName  => "Bootstrap/Duplication Confidence Score",
+                field        => "value_4060",
+                internalName => "$dataset->{name}_paralog_bootstrap_conf_score",
+                key          => "gene_id_1020_key",
+                maxLength    => "255",
+                tableConstraint => $table } ] };
+          $nC++;
+        } ## end if ( defined $self->{tables...})
+
+      } ## end elsif ( $ago->{internalName... [ if ( $ago->{internalName...})]})
       elsif ( $ago->{internalName} eq 'homeologs' ) {
-        ## TODO
-        #push @{$aco->{AttributeDescription}}, $ado;
-        #$nD++;
-      }
+        my $table = "${ds_name}__homeolog_$dataset->{name}__dm";
+        if ( defined $self->{tables}->{$table} ) {
+          push @{ $ago->{AttributeCollection} }, {
+
+            displayName          => "$dataset->{display_name} Homoeologues",
+            internalName         => "paralogs_$dataset->{name}",
+            AttributeDescription => [ {
+                displayName     => "Homoeologue gene stable ID",
+                field           => "stable_id_4016_r2",
+                internalName    => "$dataset->{name}_homoeolog_gene",
+                key             => "gene_id_1020_key",
+                linkoutURL      => "exturl1|/*species2*/Gene/Summary?g=%s",
+                maxLength       => "140",
+                tableConstraint => $table }, {
+                displayName => "Homoeologue protein stable ID",
+                field       => "stable_id_4016_r3",
+                internalName =>
+                  "$dataset->{name}_homoeolog_homoeolog_ensembl_peptide",
+                key             => "gene_id_1020_key",
+                maxLength       => "40",
+                tableConstraint => $table }, {
+                displayName     => "Homoeologue chromosome/scaffold",
+                field           => "chr_name_4016_r2",
+                internalName    => "$dataset->{name}_homoeolog_chromosome",
+                key             => "gene_id_1020_key",
+                maxLength       => "40",
+                tableConstraint => $table }, {
+                displayName => "Homoeologue start (bp)",
+                field       => "chr_start_4016_r2",
+                internalName    => "$dataset->{name}_homoeolog_chrom_start",
+                key             => "gene_id_1020_key",
+                maxLength       => "10",
+                tableConstraint => $table }, {
+                displayName     => "Homoeologue end (bp)",
+                field           => "chr_end_4016_r2",
+                internalName    => "$dataset->{name}_homoeolog_chrom_end",
+                key             => "gene_id_1020_key",
+                maxLength       => "10",
+                tableConstraint => $table }, {
+                displayName     => "Representative protein stable ID",
+                field           => "stable_id_4016_r1",
+                internalName    => "$dataset->{name}_homoeolog_ensembl_peptide",
+                key             => "gene_id_1020_key",
+                maxLength       => "40",
+                tableConstraint => $table }, {
+                displayName     => "Ancestor",
+                field           => "node_name_40192",
+                internalName    => "$dataset->{name}_homoeolog_ancestor",
+                key             => "gene_id_1020_key",
+                maxLength       => "40",
+                tableConstraint => $table }, {
+                displayName     => "Homology type",
+                field           => "description_4014",
+                internalName    => "$dataset->{name}_homoeolog_type",
+                key             => "gene_id_1020_key",
+                maxLength       => "25",
+                tableConstraint => $table }, {
+                displayName     => "% identity",
+                field           => "perc_id_4015",
+                internalName    => "homoeolog_$dataset->{name}_identity",
+                key             => "gene_id_1020_key",
+                maxLength       => "10",
+                tableConstraint => $table }, {
+                displayName  => "Homoeologue % identity",
+                field        => "perc_id_4015_r1",
+                internalName => "homoeolog_$dataset->{name}_homoeolog_identity",
+                key          => "gene_id_1020_key",
+                maxLength    => "10",
+                tableConstraint => $table }, {
+                displayName     => "dN",
+                field           => "dn_4014",
+                internalName    => "$dataset->{name}_homoeolog_dn",
+                key             => "gene_id_1020_key",
+                maxLength       => "10",
+                tableConstraint => $table }, {
+                displayName     => "dS",
+                field           => "ds_4014",
+                internalName    => "$dataset->{name}_homoeolog_ds",
+                key             => "gene_id_1020_key",
+                maxLength       => "10",
+                tableConstraint => $table }, {
+                displayName     => "Homoeology confidence [0 low, 1 high]",
+                field           => "is_tree_compliant_4014",
+                internalName    => "$dataset->{name}_homoeolog_confidence",
+                key             => "gene_id_1020_key",
+                maxLength       => "10",
+                tableConstraint => $table }, {
+                displayName => "Bootstrap/Duplication Confidence Score Type",
+                field       => "tag_4060",
+                internalName =>
+                  "$dataset->{name}_homoeolog_bootstrap_conf_type",
+                key             => "gene_id_1020_key",
+                maxLength       => "50",
+                tableConstraint => $table }, {
+                displayName => "Bootstrap/Duplication Confidence Score",
+                field       => "value_4060",
+                internalName =>
+                  "$dataset->{name}_homoeolog_bootstrap_conf_score",
+                key             => "gene_id_1020_key",
+                maxLength       => "255",
+                tableConstraint => $table } ] };
+          $nC++;
+        } ## end if ( defined $self->{tables...})
+      } ## end elsif ( $ago->{internalName... [ if ( $ago->{internalName...})]})
       else {
 
         ### Attributecollection
@@ -621,6 +872,14 @@ sub write_attributes {
           }
         } ## end for my $attributeCollection...
       } ## end else [ if ( $ago->{internalName...})]
+
+      if ( defined $ago->{hidden} &&
+           $ago->{hidden} eq "true" &&
+           defined $self->{unhide}->{ $ago->{internalName} } )
+      {
+        $ago->{hidden} = "false";
+      }
+
       if ( $nC > 0 ) {
         push @{ $apo->{AttributeGroup} }, $ago;
         $nG++;
@@ -752,11 +1011,10 @@ sub create_metatables {
                              'message_digest blob',
                              'UNIQUE KEY dataset_id_key (dataset_id_key)' ] );
 
-  $self->create_metatable(
-    'meta_conf__user__dm',
-    [ 'dataset_id_key int(11) default NULL',
-      'mart_user varchar(100) default NULL',
-      'UNIQUE KEY dataset_id_key (dataset_id_key,mart_user)' ] );
+  $self->create_metatable( 'meta_conf__user__dm', [
+                             'dataset_id_key int(11) default NULL',
+                             'mart_user varchar(100) default NULL',
+'UNIQUE KEY dataset_id_key (dataset_id_key,mart_user)' ] );
 
   $self->create_metatable( 'meta_conf__interface__dm', [
                              'dataset_id_key int(11) default NULL',
