@@ -1,4 +1,59 @@
 #!/usr/bin/env perl
+
+=head1 LICENSE
+
+Copyright [2016] EMBL-European Bioinformatics Institute
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+=head1 CONTACT
+
+  Please email comments or questions to the public Ensembl
+  developers list at <dev@ensembl.org>.
+
+  Questions may also be sent to the Ensembl help desk at
+  <helpdesk@ensembl.org>.
+  
+=head1 SYNOPSIS
+
+load_families.pl [arguments]
+
+  --user=user                      username for the BioMart database
+
+  --pass=pass                      password for the BioMart database
+
+  --host=host                      server for the BioMart database
+
+  --port=port                      port for the BioMart database
+
+  --dbname=name                      BioMart database name
+  
+  --template=file                    template file to load
+  
+  --verbose						      show debug info
+
+  --help                              print help (this message)
+
+=head1 DESCRIPTION
+
+This script is used to populate the metatables of the supplied biomart database
+
+=head1 AUTHOR
+
+Dan Staines
+
+=cut
+
 use warnings;
 use strict;
 use XML::Simple;
