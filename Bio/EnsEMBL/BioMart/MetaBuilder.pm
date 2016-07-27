@@ -37,12 +37,15 @@ my $logger = get_logger();
 sub new {
   my ( $proto, @args ) = @_;
   my $self = bless {}, $proto;
-  ( $self->{dbc}, $self->{version} ) = rearrange( [ 'DBC', 'VERSION' ], @args );
+  ( $self->{dbc}, $self->{version}, $self->{max_dropdown}, $self->{unhide} ) =
+    rearrange( [ 'DBC', 'VERSION', 'MAX_DROPDOWN', 'UNHIDE', 'BASENAME' ],
+               @args );
 
   if ( !defined $self->{version} ) {
     ( $self->{version} = $self->{dbc}->dbname() ) =~ s/.*_([0-9]+)$/$1/;
   }
-
+  $self->{max_dropdown} ||= 256;
+  $self->{basename}     ||= 'gene';
   $self->_load_info();
   return $self;
 }
@@ -75,8 +78,11 @@ sub build {
   # create base metatables
   $self->create_metatables( $template_name, $template );
   # read datasets
-  for my $dataset ( @{ $self->get_datasets() } ) {
-    $self->process_dataset( $dataset, $template_name, $template );
+  my $datasets = $self->get_datasets();
+  my $n = 1;
+  for my $dataset ( @{$datasets} ) {
+    $dataset->{species_id} = $n++;
+    $self->process_dataset( $dataset, $template_name, $template, $datasets );
   }
 }
 
@@ -93,7 +99,7 @@ sub get_datasets {
 }
 
 sub process_dataset {
-  my ( $self, $dataset, $template_name, $template ) = @_;
+  my ( $self, $dataset, $template_name, $template, $datasets ) = @_;
   $logger->info( "Processing " . $dataset->{name} );
   my $templ_in = $template->{DatasetConfig};
   $logger->debug("Building output");
@@ -101,12 +107,10 @@ sub process_dataset {
   $self->write_toplevel( $dataset, $templ_in );
   $self->write_importables( $dataset, $templ_in );
   $self->write_exportables( $dataset, $templ_in );
-  #$self->write_filters( $dataset, $templ_in );
-  #$self->write_attributes( $dataset, $templ_in );
+  $self->write_filters( $dataset, $templ_in, $datasets );
+  $self->write_attributes( $dataset, $templ_in, $datasets );
   # write meta
-  #$self->write_dataset_metatables( $dataset, $template_name );
-  print Dumper($dataset);
-  die;
+  $self->write_dataset_metatables( $dataset, $template_name );
   return $dataset;
 }
 
@@ -183,8 +187,7 @@ sub write_importables {
   return;
 } ## end sub write_importables
 my %species_exportables = map { $_ => 1 }
-  qw/genomic_region gene_exon_intron transcript_exon_intron gene_flank transcript_flank coding_gene_flank coding_transcript_flank 3utr 5utr cdna gene_exon peptide coding/
-  ;
+  qw/genomic_region gene_exon_intron transcript_exon_intron gene_flank transcript_flank coding_gene_flank coding_transcript_flank 3utr 5utr cdna gene_exon peptide coding/;
 
 sub write_exportables {
   my ( $self, $dataset, $templ_in ) = @_;
@@ -222,17 +225,417 @@ sub write_exportables {
   return;
 } ## end sub write_exportables
 
+# use to selectively unhide filters/attributes e.g. ontology terms
+my $unhide = {};
+
 sub write_filters {
-  my ( $self, $dataset, $templ_in ) = @_;
+  my ( $self, $dataset, $templ_in, $datasets ) = @_;
+  my $ds_name   = $dataset->{name} . '_' . $self->{basename};
+  my $templ_out = $dataset->{config};
   $logger->info( "Writing filters for " . $dataset->{name} );
+  # FilterPage
+  for my $filterPage ( @{ $templ_in->{FilterPage} } ) {
+    $logger->debug( "Processing filterPage " . $filterPage->{internalName} );
+    # count the number of groups we add
+    my $nG = 0;
+    normalise( $filterPage, "FilterGroup" );
+    my $fpo = copy_hash($filterPage);
+
+    ## FilterGroup
+    for my $filterGroup ( @{ $filterPage->{FilterGroup} } ) {
+      my $nC = 0;
+      normalise( $filterGroup, "FilterCollection" );
+      my $fgo = copy_hash($filterGroup);
+      ### Filtercollection
+      for my $filterCollection ( @{ $filterGroup->{FilterCollection} } ) {
+        my $nD = 0;
+        normalise( $filterCollection, "FilterDescription" );
+        my $fco = copy_hash($filterCollection);
+        ### FilterDescription
+        for
+          my $filterDescription ( @{ $filterCollection->{FilterDescription} } )
+        {
+          my $fdo = copy_hash($filterDescription);
+          #### pointerDataSet *species3*
+          $fdo->{pointerDataset} =~ s/\*species3\*/${ds_name}/
+            if defined $fdo->{pointerDataSet};
+          #### SpecificFilterContent - delete
+          #### tableConstraint - update
+          update_table_keys( $fdo, $ds_name, $self->{keys} );
+          #### if contains options, treat differently
+          #### if its called homolog_filters, add the homologs here
+          if ( $fdo->{internalName} eq 'homolog_filters' ) {
+            for my $dataset (@$datasets) {
+# <Option displayName="Orthologous $dataset->{species_name} Genes" displayType="list" field="homolog_$dataset->{dataset}_bool" hidden="false" internalName="with_$dataset->{dataset}_homolog" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean"><Option displayName="Only" hidden="false" internalName="only" value="only" /><Option displayName="Excluded" hidden="false" internalName="excluded" value="excluded" /></Option>
+              my $field = "homolog_$dataset->{name}_bool";
+              my $table = "${ds_name}__gene__main";
+              if ( defined $self->{tables}->{$table}->{$field} ) {
+                # reset table to main when we store it
+                $table = "main";
+                # add in if the column exists
+                push @{ $fdo->{Option} }, {
+                    displayName => "Orthologous $dataset->{display_name} Genes",
+                    displayType => "list",
+                    field       => $field,
+                    hidden      => "false",
+                    internalName     => "with_$dataset->{name}_homolog",
+                    isSelectable     => "true",
+                    key              => "gene_id_1020_key",
+                    legal_qualifiers => "only,excluded",
+                    qualifier        => "only",
+                    style            => "radio",
+                    tableConstraint  => $table,
+                    type             => "boolean",
+                    Option           => [ {
+                                  displayName  => "Only",
+                                  hidden       => "false",
+                                  internalName => "only",
+                                  value        => "only" }, {
+                                  displayName  => "Excluded",
+                                  hidden       => "false",
+                                  internalName => "excluded",
+                                  value        => "excluded" } ] };
+              } ## end if ( defined $self->{tables...})
+            } ## end for my $dataset (@$datasets)
+                # NOTE: ignore paralogs as we don't have a bool for it
+            push @{ $fco->{FilterDescription} }, $fdo;
+            $nD++;
+          } ## end if ( $fdo->{internalName...})
+          elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'container' ) {
+            my $nO = 0;
+            normalise( $filterDescription, "Option" );
+            for my $option ( @{ $filterDescription->{Option} } ) {
+              my $opt = copy_hash($option);
+              update_table_keys( $opt, $ds_name, $self->{keys} );
+              if ( defined $self->{tables}->{ $opt->{tableConstraint} } &&
+                   defined $self->{tables}->{ $opt->{tableConstraint} }
+                   ->{ $opt->{field} } &&
+                   defined $self->{tables}->{ $opt->{tableConstraint} }
+                   ->{ $opt->{key} } )
+              {
+                push @{ $fdo->{Option} }, $opt;
+                for my $o ( @{ $option->{Option} } ) {
+                  push @{ $opt->{Option} }, $o;
+                }
+                $nO++;
+              }
+              else {
+                $logger->debug( "Could not find table " .
+                            ( $opt->{tableConstraint} || 'undef' ) . " field " .
+                            ( $opt->{field}           || 'undef' ) . ", Key " .
+                            ( $opt->{key} || 'undef' ) . ", Option " .
+                            $opt->{internalName} );
+              }
+              restore_main( $opt, $ds_name );
+            }
+            if ( $nO > 0 ) {
+              push @{ $fco->{FilterDescription} }, $fdo;
+              $nD++;
+            }
+          } ## end elsif ( $fdo->{displayType... [ if ( $fdo->{internalName...})]})
+          else {
+            if ( defined $fdo->{tableConstraint} ) {
+              #### check tableConstraint and field and key
+              if ( defined $self->{tables}->{ $fdo->{tableConstraint} } &&
+                   defined $self->{tables}->{ $fdo->{tableConstraint} }
+                   ->{ $fdo->{field} } &&
+                   defined $self->{tables}->{ $fdo->{tableConstraint} }
+                   ->{ $fdo->{key} } )
+              {
+                if ( defined $filterDescription->{SpecificFilterContent} &&
+                  ref( $filterDescription->{SpecificFilterContent} ) eq 'HASH'
+                  && $filterDescription->{SpecificFilterContent}->{internalName}
+                  eq 'replaceMe' )
+                {
+                  # get contents
+                  $logger->info(
+                            "Autopopulating dropdown for $fdo->{internalName}");
+
+                  my $max = $self->{max_dropdown} + 1;
+                  my @vals =
+                    $self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>
+"select distinct $fdo->{field} from $fdo->{tableConstraint} where $fdo->{field} is not null order by $fdo->{field} limit $max"
+                    );
+
+                  if ( scalar(@vals) <= $self->{max_dropdown} ) {
+                    $fdo->{Option} = [];
+                    for my $val (@vals) {
+                      push @{ $fdo->{Option} }, {
+                          internalName => $val,
+                          displayName  => $val,
+                          value        => $val,
+                          isSelectable => 'true',
+                          useDefault   => 'true' };
+                    }
+                  }
+                  else {
+                    $logger->info("Too many dropdowns, changing to text");
+                    $fdo->{type}        = "text";
+                    $fdo->{displayType} = "text";
+                    $fdo->{style}       = undef;
+                  }
+
+                } ## end if ( defined $filterDescription...)
+                push @{ $fco->{FilterDescription} }, $fdo;
+                $nD++;
+              } ## end if ( defined $self->{tables...})
+              else {
+                $logger->debug( "Could not find table " .
+                           ( $fdo->{tableConstraint} || 'undef' ) . " field " .
+                           ( $fdo->{field}           || 'undef' ) . ", Key " .
+                           ( $fdo->{key} || 'undef' ) . ", FilterDescription " .
+                           $fdo->{internalName} );
+              }
+            } ## end if ( defined $fdo->{tableConstraint...})
+            else {
+              push @{ $fco->{FilterDescription} }, $fdo;
+              $nD++;
+            }
+            restore_main( $fdo, $ds_name );
+          } ## end else [ if ( $fdo->{internalName...})]
+        } ## end for my $filterDescription...
+        if ( $nD > 0 ) {
+          push @{ $fgo->{FilterCollection} }, $fco;
+          $nC++;
+        }
+      } ## end for my $filterCollection...
+
+      if ( $nC > 0 ) {
+        push @{ $fpo->{FilterGroup} }, $fgo;
+        $nG++;
+        if ( defined $fgo->{hidden} &&
+             $fgo->{hidden} eq "true" &&
+             defined $unhide->{ $fgo->{internalName} } )
+        {
+          $fgo->{hidden} = "false";
+        }
+      }
+    } ## end for my $filterGroup ( @...)
+    if ( $nG > 0 ) {
+      push @{ $templ_out->{FilterPage} }, $fpo;
+    }
+  } ## end for my $filterPage ( @{...})
   return;
-}
+} ## end sub write_filters
 
 sub write_attributes {
-  my ( $self, $dataset, $templ_in ) = @_;
+  my ( $self, $dataset, $templ_in, $datasets ) = @_;
   $logger->info( "Writing attributes for " . $dataset->{name} );
+  my $ds_name   = $dataset->{name} . '_' . $self->{basename};
+  my $templ_out = $dataset->{config};
+  # AttributePage
+  for my $attributePage ( @{ $templ_in->{AttributePage} } ) {
+    $logger->debug( "Processing filterPage " . $attributePage->{internalName} );
+    # count the number of groups we add
+    my $nG = 0;
+    normalise( $attributePage, "AttributeGroup" );
+    my $apo = copy_hash($attributePage);
+
+    ## AttributeGroup
+    for my $attributeGroup ( @{ $attributePage->{AttributeGroup} } ) {
+      my $nC = 0;
+      normalise( $attributeGroup, "AttributeCollection" );
+      my $ago = copy_hash($attributeGroup);
+      #### add the homologs here
+      if ( $ago->{internalName} eq 'orthologs' ) {
+
+        for my $dataset (@$datasets) {
+          my $table = "${ds_name}__homolog_$dataset->{name}__dm";
+          if ( defined $self->{tables}->{$table} ) {
+            push @{ $ago->{AttributeCollection} }, {
+              displayName          => "$dataset->{display_name} Orthologues",
+              internalName         => "homolog_$dataset->{name}",
+              AttributeDescription => [ {
+                  displayName  => "$dataset->{display_name} gene stable ID",
+                  field        => "stable_id_4016_r2",
+                  internalName => "$dataset->{name}_gene",
+                  key          => "gene_id_1020_key",
+                  linkoutURL =>
+                    "exturl1|/$dataset->{production_name}/Gene/Summary?g=%s",
+                  maxLength       => "128",
+                  tableConstraint => $table }, {
+                  displayName  => "$dataset->{display_name} protein stable ID",
+                  field        => "stable_id_4016_r3",
+                  internalName => "$dataset->{name}_homolog_ensembl_peptide",
+                  key          => "gene_id_1020_key",
+                  maxLength    => "128",
+                  tableConstraint => $table }, {
+                  displayName => "$dataset->{display_name} chromosome/scaffold",
+                  field       => "chr_name_4016_r2",
+                  internalName    => "$dataset->{name}_chromosome",
+                  key             => "gene_id_1020_key",
+                  maxLength       => "40",
+                  tableConstraint => $table }, {
+                  displayName     => "$dataset->{display_name} start (bp)",
+                  field           => "chr_start_4016_r2",
+                  internalName    => "$dataset->{name}_chrom_start",
+                  key             => "gene_id_1020_key",
+                  maxLength       => "10",
+                  tableConstraint => $table }, {
+                  displayName     => "$dataset->{display_name} end (bp)",
+                  field           => "chr_end_4016_r2",
+                  internalName    => "$dataset->{name}_chrom_end",
+                  key             => "gene_id_1020_key",
+                  maxLength       => "10",
+                  tableConstraint => $table }, {
+                  displayName => "Representative protein or transcript ID",
+                  field       => "stable_id_4016_r1",
+                  internalName =>
+                    "homolog_$dataset->{name}__dm_stable_id_4016_r1",
+                  key             => "gene_id_1020_key",
+                  maxLength       => "128",
+                  tableConstraint => $table }, {
+                  displayName     => "Ancestor",
+                  field           => "node_name_40192",
+                  internalName    => "$dataset->{name}_homolog_ancestor",
+                  key             => "gene_id_1020_key",
+                  maxLength       => "40",
+                  tableConstraint => $table }, {
+                  displayName     => "Homology type",
+                  field           => "description_4014",
+                  internalName    => "$dataset->{name}_orthology_type",
+                  key             => "gene_id_1020_key",
+                  maxLength       => "25",
+                  tableConstraint => $table }, {
+                  displayName     => "% identity",
+                  field           => "perc_id_4015",
+                  internalName    => "$dataset->{name}_homolog_perc_id",
+                  key             => "gene_id_1020_key",
+                  maxLength       => "10",
+                  tableConstraint => $table }, {
+                  displayName     => "$dataset->{display_name} % identity",
+                  field           => "perc_id_4015_r1",
+                  internalName    => "$dataset->{name}_homolog_perc_id_r1",
+                  key             => "gene_id_1020_key",
+                  maxLength       => "10",
+                  tableConstraint => $table }, {
+                  displayName     => "dN",
+                  field           => "dn_4014",
+                  internalName    => "$dataset->{name}_homolog_ds",
+                  key             => "gene_id_1020_key",
+                  maxLength       => "10",
+                  tableConstraint => $table }, {
+                  displayName     => "dS",
+                  field           => "ds_4014",
+                  internalName    => "$dataset->{name}_homolog_dn",
+                  key             => "gene_id_1020_key",
+                  maxLength       => "10",
+                  tableConstraint => $table }, {
+                  displayName  => "Orthology confidence [0 low, 1 high]",
+                  field        => "is_tree_compliant_4014",
+                  internalName => "$dataset->{name}_homolog_is_tree_compliant",
+                  key          => "gene_id_1020_key",
+                  maxLength    => "10",
+                  tableConstraint => $table }, {
+                  displayName  => "Bootstrap/Duplication Confidence Score Type",
+                  field        => "tag_4060",
+                  hidden       => "true",
+                  internalName => "homolog_$dataset->{name}__dm_tag_4060",
+                  key          => "gene_id_1020_key",
+                  maxLength    => "50",
+                  tableConstraint => $table }, {
+                  displayName     => "Bootstrap/Duplication Confidence Score",
+                  field           => "value_4060",
+                  hidden          => "true",
+                  internalName    => "homolog_$dataset->{name}__dm_value_4060",
+                  key             => "gene_id_1020_key",
+                  maxLength       => "255",
+                  tableConstraint => $table } ] };
+            $nC++;
+          } ## end if ( defined $self->{tables...})
+        } ## end for my $dataset (@$datasets)
+      } ## end if ( $ago->{internalName...})
+      elsif ( $ago->{internalName} eq 'paralogs' ) {
+        ## TODO
+        #push @{$aco->{AttributeDescription}}, $ado;
+        #$nD++;
+      }
+      elsif ( $ago->{internalName} eq 'homeologs' ) {
+        ## TODO
+        #push @{$aco->{AttributeDescription}}, $ado;
+        #$nD++;
+      }
+      else {
+
+        ### Attributecollection
+        for my $attributeCollection (
+                                   @{ $attributeGroup->{AttributeCollection} } )
+        {
+          my $nD = 0;
+          normalise( $attributeCollection, "AttributeDescription" );
+          my $aco = copy_hash($attributeCollection);
+          ### AttributeDescription
+          for my $attributeDescription (
+                             @{ $attributeCollection->{AttributeDescription} } )
+          {
+            my $ado = copy_hash($attributeDescription);
+            #### pointerDataSet *species3*
+            $ado->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/
+              if defined $ado->{pointerDataSet};
+            #### SpecificAttributeContent - delete
+            #### tableConstraint - update
+            update_table_keys( $ado, $ds_name, $self->{keys} );
+            #### if contains options, treat differently
+            if ( defined $ado->{tableConstraint} ) {
+              if ( $ado->{tableConstraint} =~ m/__dm$/ ) {
+                $ado->{key} = $self->{keys}->{ $ado->{tableConstraint} } ||
+                  $ado->{key};
+              }
+              #### check tableConstraint and field and key
+              if (
+                 defined defined $self->{tables}->{ $ado->{tableConstraint} } &&
+                 defined $self->{tables}->{ $ado->{tableConstraint} }
+                 ->{ $ado->{field} } &&
+                 defined $self->{tables}->{ $ado->{tableConstraint} }
+                 ->{ $ado->{key} } )
+              {
+                push @{ $aco->{AttributeDescription} }, $ado;
+                $nD++;
+              }
+              else {
+                $logger->debug( "Could not find table " .
+                        ( $ado->{tableConstraint} || 'undef' ) . " field " .
+                        ( $ado->{field}           || 'undef' ) . ", Key " .
+                        ( $ado->{key} || 'undef' ) . ", AttributeDescription " .
+                        $ado->{internalName} );
+              }
+            }
+            else {
+              $ado->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/g
+                if defined $ado->{pointerDataset};
+              push @{ $aco->{AttributeDescription} }, $ado;
+              $nD++;
+            }
+            if ( defined $ado->{linkoutURL} ) {
+              if ( $ado->{linkoutURL} =~ m/exturl|\/\*species2\*/ ) {
+                # reformat to add URL placeholder
+                $ado->{linkoutURL} =~ s/\*species2\*/$dataset->{name}/;
+              }
+            }
+            restore_main( $ado, $ds_name );
+          } ## end for my $attributeDescription...
+          if ( $nD > 0 ) {
+            push @{ $ago->{AttributeCollection} }, $aco;
+            $nC++;
+          }
+        } ## end for my $attributeCollection...
+      } ## end else [ if ( $ago->{internalName...})]
+      if ( $nC > 0 ) {
+        push @{ $apo->{AttributeGroup} }, $ago;
+        $nG++;
+      }
+    } ## end for my $attributeGroup ...
+
+    if ( $nG > 0 ) {
+      $apo->{outFormats} =~ s/,\*mouse_formatter[123]\*//g
+        if defined $apo->{outFormats};
+      push @{ $templ_out->{AttributePage} }, $apo;
+    }
+  } ## end for my $attributePage (...)
+
   return;
-}
+} ## end sub write_attributes
 
 sub copy_hash {
   my ($in) = @_;
@@ -348,17 +751,29 @@ sub create_metatables {
                              'compressed_xml longblob',
                              'message_digest blob',
                              'UNIQUE KEY dataset_id_key (dataset_id_key)' ] );
+
+  $self->create_metatable(
+    'meta_conf__user__dm',
+    [ 'dataset_id_key int(11) default NULL',
+      'mart_user varchar(100) default NULL',
+      'UNIQUE KEY dataset_id_key (dataset_id_key,mart_user)' ] );
+
+  $self->create_metatable( 'meta_conf__interface__dm', [
+                             'dataset_id_key int(11) default NULL',
+                             'interface varchar(100) default NULL',
+'UNIQUE KEY dataset_id_key (dataset_id_key,interface)' ] );
+
   $logger->info("Completed creation of metatables");
   return;
 } ## end sub create_metatables
 
 sub write_dataset_metatables {
-  # TODO accept array of dataset objects
   my ( $self, $dataset, $template_name ) = @_;
 
-  my $ds_name = $dataset->{name};
+  my $ds_name   = $dataset->{name};
+  my $speciesId = $dataset->{species_id};
 
-  $logger->info("Populating metatables for $ds_name");
+  $logger->info("Populating metatables for $ds_name ($speciesId)");
 
   my $dataset_xml =
     XMLout( { DatasetConfig => $dataset->{config} }, KeepRoot => 1 );
@@ -369,15 +784,13 @@ sub write_dataset_metatables {
   my $gzip_dataset_xml;
   gzip \$dataset_xml => \$gzip_dataset_xml;
 
-  my $speciesId = $dataset->{species_id};
-
   $self->{dbc}->sql_helper()
     ->execute_update( -SQL =>
 "INSERT INTO meta_template__template__main VALUES($speciesId,'$template_name')"
     );
 
   $self->{dbc}->sql_helper()->execute_update(
-    -SQL => -SQL =>
+    -SQL =>
 "INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,?,'TableSet',1,?)",
     -PARAMS => [ $speciesId,               $dataset->{name},
                  $dataset->{display_name}, $dataset->{version} ] );
