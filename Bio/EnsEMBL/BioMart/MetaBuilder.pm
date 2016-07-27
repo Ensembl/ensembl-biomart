@@ -18,6 +18,26 @@ limitations under the License.
 
 =cut
 
+=pod
+
+=head1 CONTACT
+
+  Please email comments or questions to the public Ensembl
+  developers list at <http://lists.ensembl.org/mailman/listinfo/dev>.
+
+  Questions may also be sent to the Ensembl help desk at
+  <http://www.ensembl.org/Help/Contact>.
+
+=head1 NAME
+
+Bio::EnsEMBL::BioMart::MetaBuilder
+
+=head1 DESCRIPTION
+
+A module which creates and populates the metatables for a biomart database using a supplied template file
+
+=cut
+
 use warnings;
 use strict;
 
@@ -33,6 +53,27 @@ use Data::Dumper;
 use Log::Log4perl qw/get_logger/;
 
 my $logger = get_logger();
+
+=head1 CONSTRUCTOR
+=head2 new
+ Arg [-DBC] : 
+    Bio::EnsEMBL::DBSQL::DBConnection : instance for the target mart (required)
+ Arg [-VERSION] :
+    Integer : EG/E version (by default the last number in the mart name)
+ Arg [-MAX_DROPDOWN] :
+    Integer : Maximum number of items to show in a dropdown menu (default 255)
+ Arg [-UNHIDE] :
+    Hashref : attributes/filters to unhide for this mart (mainly domain specific ontologies)
+ Arg [-BASENAME] :
+    String : Base name of dataset - default is "gene"
+  Example    : $b = Bio::EnsEMBL::BioMart::MetaBuilder->new(...);
+  Description: Creates a new builder object
+  Returntype : Bio::EnsEMBL::BioMart::MetaBuilder
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+
+=cut
 
 sub new {
   my ( $proto, @args ) = @_;
@@ -50,29 +91,16 @@ sub new {
   return $self;
 }
 
-sub _load_info {
-  my ($self) = @_;
-  $logger->info( "Reading table list for " . $self->{dbc}->dbname() );
-  # create hash of tables to columns
-  $self->{tables} = {};
-  # create lookup of key by table
-  $self->{keys} = {};
-  $self->{dbc}->sql_helper()->execute_no_return(
-    -SQL =>
-'select table_name,column_name from information_schema.columns where table_schema=?',
-    -PARAMS   => [ $self->{dbc}->dbname() ],
-    -CALLBACK => sub {
-      my ( $table, $col ) = @{ shift @_ };
-      $col = lc $col;
-      $self->{tables}->{$table}->{$col} = 1;
-      if ( $col =~ m/[a-z]+_id_[0-9]+_key/ ) {
-        $self->{keys}->{$table} = $col;
-      }
-      return;
-    } );
-  return;
-}
-
+=head1 METHODS
+=head2 build
+  Description: Build metadata for the supplied  mart
+  Arg        : name of template (e.g. gene)
+  Arg        : template as hashref
+  Returntype : none
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
 sub build {
   my ( $self, $template_name, $template ) = @_;
   # create base metatables
@@ -84,8 +112,16 @@ sub build {
     $dataset->{species_id} = $n++;
     $self->process_dataset( $dataset, $template_name, $template, $datasets );
   }
+  return;
 }
 
+=head2 get_datasets
+  Description: Get datasets to process from dataset_names table
+  Returntype : arrayref of hashrefs (1 per dataset)
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
 sub get_datasets {
   my ($self) = @_;
   $logger->debug("Fetching dataset details");
@@ -98,6 +134,17 @@ sub get_datasets {
   return $datasets;
 }
 
+=head2 process_dataset
+  Description: Process a given dataset
+  Arg        : hashref representing a dataset
+  Arg        : name of template (e.g. gene)
+  Arg        : template as hashref
+  Arg        : all datasets (needed for compara) - arrayref of hashrefs (1 per dataset)
+  Returntype : none
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
 sub process_dataset {
   my ( $self, $dataset, $template_name, $template, $datasets ) = @_;
   $logger->info( "Processing " . $dataset->{name} );
@@ -1080,3 +1127,28 @@ sub create_metatable {
                join( ',', @$cols ) . ") ENGINE=MyISAM DEFAULT CHARSET=latin1" );
   return;
 }
+
+sub _load_info {
+  my ($self) = @_;
+  $logger->info( "Reading table list for " . $self->{dbc}->dbname() );
+  # create hash of tables to columns
+  $self->{tables} = {};
+  # create lookup of key by table
+  $self->{keys} = {};
+  $self->{dbc}->sql_helper()->execute_no_return(
+    -SQL =>
+'select table_name,column_name from information_schema.columns where table_schema=?',
+    -PARAMS   => [ $self->{dbc}->dbname() ],
+    -CALLBACK => sub {
+      my ( $table, $col ) = @{ shift @_ };
+      $col = lc $col;
+      $self->{tables}->{$table}->{$col} = 1;
+      if ( $col =~ m/[a-z]+_id_[0-9]+_key/ ) {
+        $self->{keys}->{$table} = $col;
+      }
+      return;
+    } );
+  return;
+}
+
+1;
