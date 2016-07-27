@@ -352,15 +352,15 @@ sub write_filters {
                             "Autopopulating dropdown for $fdo->{internalName}");
 
                   my $max = $self->{max_dropdown} + 1;
-                  my @vals =
+                  my $vals =
                     $self->{dbc}->sql_helper()
                     ->execute_simple( -SQL =>
 "select distinct $fdo->{field} from $fdo->{tableConstraint} where $fdo->{field} is not null order by $fdo->{field} limit $max"
                     );
 
-                  if ( scalar(@vals) <= $self->{max_dropdown} ) {
+                  if ( scalar(@$vals) <= $self->{max_dropdown} ) {
                     $fdo->{Option} = [];
-                    for my $val (@vals) {
+                    for my $val (@$vals) {
                       push @{ $fdo->{Option} }, {
                           internalName => $val,
                           displayName  => $val,
@@ -778,7 +778,7 @@ sub write_dataset_metatables {
   my $dataset_xml =
     XMLout( { DatasetConfig => $dataset->{config} }, KeepRoot => 1 );
 
-  open my $out, ">", "tmp.xml";
+  open my $out, ">", "$ds_name.xml";
   print $out $dataset_xml;
   close $out;
   my $gzip_dataset_xml;
