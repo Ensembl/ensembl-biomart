@@ -42,6 +42,7 @@ sub default_options {
         'port'=>undef,
         'host'=>undef,
         'mart'=>undef,
+        'datasets'=>[],
         'compara'=>undef,
         'release'=>software_version(),
         'eg_release'=>undef,
@@ -95,6 +96,7 @@ sub pipeline_wide_parameters {
                 'pass' => $self->o('pass'),
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
+                'datasets'=>$self->o('datasets'),
                 'script_dir' => $self->o('script_dir')
             },
                     -input_ids=>[{}],              
