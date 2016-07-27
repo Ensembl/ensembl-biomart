@@ -21,16 +21,13 @@ sub run {
   my $datasets   = $self->param('datasets');
   my $output_ids = [];
 
-  if ( !defined $datasets || scalar( @$datasets ) == 0 ) {
-    for my $dataset ( @{$mart_dbc->sql_helper()->execute_simple(
-                              -SQL => "select distinct(name) from dataset_names"
-                        ) } )
-    {
-      push @$output_ids, { dataset => $dataset };
-    }
+  if ( !defined $datasets || scalar(@$datasets) == 0 ) {
+    $datasets =
+      $mart_dbc->sql_helper()
+      ->execute_simple( -SQL => "select distinct(name) from dataset_names" );
   }
-  else {
-      $output_ids = $datasets;
+  for my $dataset (@$datasets) {
+    push @$output_ids, { dataset => $dataset };
   }
   $self->param( 'output_ids', $output_ids );
   return;
