@@ -42,7 +42,7 @@ sub default_options {
         'port'=>undef,
         'host'=>undef,
         'mart'=>undef,
-        'datasets'=>[],
+        'datasets'=>undef,
         'compara'=>undef,
         'release'=>software_version(),
         'eg_release'=>undef,
@@ -67,36 +67,16 @@ sub pipeline_wide_parameters {
     sub pipeline_analyses {
         my ($self) = @_;
     my $anal = [
-        {
-            -logic_name => 'generate_names',
-            -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-            -meadow_type => 'LSF',
-            -parameters    => {
-                'cmd'        => 'perl #script_dir#/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -suffix _eg -release #release#',
-                'mart' => $self->o('mart'),
-                'user' => $self->o('user'),
-                'pass' => $self->o('pass'),
-                'host' => $self->o('host'),
-                'port' => $self->o('port'),
-                'script_dir' => $self->o('script_dir'),
-                'release' => $self->o('release'),
-                'eg_release' => $self->o('eg_release')
-            },                    
-                    -input_ids=>[{}],              
-                    -analysis_capacity => 1,
-                    -meadow_type => 'LOCAL'
-        },
         {   
             -logic_name => 'dataset_factory',
             -module => 'Bio::EnsEMBL::Mart::Pipeline::DatasetFactory',
-            -wait_for => 'generate_names',
             -parameters    => {
+                'datasets' => $self->o('datasets'),
                 'mart' => $self->o('mart'),
                 'user' => $self->o('user'),
                 'pass' => $self->o('pass'),
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
-                'datasets'=>$self->o('datasets'),
                 'script_dir' => $self->o('script_dir')
             },
                     -input_ids=>[{}],              
