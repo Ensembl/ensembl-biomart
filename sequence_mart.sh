@@ -37,6 +37,8 @@ perl division_species.pl \
   -division $DIVISION \
 > /tmp/dbs.tmp
 
+echo -e "amphimedon_queenslandica\ncrassostrea_gigas\ncapitella_teleta\ndrosophila_melanogaster\ndanio_rerio\nhomo_sapiens\nixodes_scapularis\nmus_musculus\nnematostella_vectensis\nsaccharomyces_cerevisiae\ntrichoplax_adhaerens" >> /tmp/dbs.tmp
+
 while read SPECIES; do
   perl dna_chunks.pl \
     $SPECIES \

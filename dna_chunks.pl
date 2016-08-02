@@ -273,11 +273,11 @@ elsif (defined @{$meta_container->list_value_by_key('species.division')}[0]) {
 	$db_name =~ /^(\w)[^_]+_([^_]+)_.+/;
 
 	# Add a prefix 'eg_' to avoid conflicting dataset names in Biomart.org!
-	$formatted_species_name = $1  . $2 . "_eg";
+	$formatted_species_name = $1  . $2;
     }
-    elsif($division_value =~ /parasite/) {
+    elsif($division_value =~ /ensemblparasite/i) {
       $db_name =~ /^(.*?)_(.*?)_(.*?)_.+/;
-      $formatted_species_name = substr($3, 0, 3) eq 'prj' ? $3 . "_eg" : substr($1, 0, 1) . $2 . "_eg";
+      my $formatted_species_name = substr($3, 0, 3) eq 'prj' || substr($3, 0, 3) eq 'iss' ? substr($2, 0, 5) . $3 : substr($1, 0, 1) . $2;
     }
     else {
 	 $db_name =~ /^(\w)[^_]+_([^_]+)_.+/;
