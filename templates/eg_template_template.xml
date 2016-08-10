@@ -1717,6 +1717,18 @@
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
+          <Option displayName="with Nimblegen ND GPL10710 ID(s)" displayType="list" field="efg_nimblegen_nd_ae_aegypti_gpl10710_bool" internalName="with_nimblegen_nd_ae_aegypti_gpl10710" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Nimblegen ND GPL8705 ID(s)" displayType="list" field="efg_nimblegen_nd_ae_aegypti_gpl8705_bool" internalName="with_nimblegen_nd_ae_aegypti_gpl8705" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Nimblegen Yale GPL13335 ID(s)" displayType="list" field="efg_nimblegen_yale_ae_aegypti_gpl13335_bool" internalName="with_nimblegen_yale_ae_aegypti_gpl13335" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with NSF Rice BGIYale probe ID(s)" displayType="list" field="eFG_NSF_BGIYale_bool" internalName="with_NSF_BGIYale" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -2277,7 +2289,6 @@
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
           <Option displayName="with VectorBase community symbol(s)" displayType="list" field="ox_vb_community_symbol_bool" internalName="with_vb_community_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <SpecificOptionContent internalName="aalbopictus_eg_gene" key="transcript_id_1064_key"/>
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -2826,6 +2837,9 @@
           <Option checkForNulls="true" displayName="NASC translation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="nasc_translation_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_nasc_translation_id__dm" type="list"/>
           <Option checkForNulls="true" displayName="Nimblegen ND 65k v1 ID(s)" displayType="text" field="display_label_11056" internalName="nimblegen_nd_65k_v1" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nimblegen_nd_65k_v1__dm" type="list"/>
           <Option checkForNulls="true" displayName="Nimblegen ND Nimblegen 12plex ID(s)" displayType="text" field="display_label_11056" internalName="nimblegen_nd_nimblegen_12plex" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nimblegen_nd_nimblegen_12plex__dm" type="list"/>
+	<Option checkForNulls="true" displayName="Nimblegen ND GPL10710 ID(s)" displayType="text" field="display_label_11056" internalName="nimblegen_nd_ae_aegypti_gpl10710" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nimblegen_nd_ae_aegypti_gpl10710__dm" type="list"/>
+	<Option checkForNulls="true" displayName="Nimblegen ND GPL8705 ID(s)" displayType="text" field="display_label_11056" internalName="nimblegen_nd_ae_aegypti_gpl8705" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nimblegen_nd_ae_aegypti_gpl8705__dm" type="list"/>
+	<Option checkForNulls="true" displayName="Nimblegen Yale GPL13335 ID(s)" displayType="text" field="display_label_11056" internalName="nimblegen_yale_ae_aegypti_gpl13335" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nimblegen_yale_ae_aegypti_gpl13335__dm" type="list"/>
           <Option checkForNulls="true" displayName="NSF Rice 20k probe ID(s)" displayType="text" field="display_label_11056" internalName="nsf_nsf20k" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nsf_nsf20k__dm" type="list"/>
           <Option checkForNulls="true" displayName="NSF Rice 45k probe ID(s)" displayType="text" field="display_label_11056" internalName="nsf_nsf45k" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nsf_nsf45k__dm" type="list"/>
           <Option checkForNulls="true" displayName="NSF Rice BGIYale probe ID(s)" displayType="text" field="display_label_11056" internalName="nsf_bgiyale" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="efg_nsf_bgiyale__dm" type="list"/>
@@ -2968,8 +2982,8 @@
           <Option checkForNulls="true" displayName="SpBase ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="spbase" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_spbase__dm" type="list"/>
           <Option checkForNulls="true" displayName="SPD ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="spd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_spd__dm" type="list"/>
           <Option checkForNulls="true" displayName="Strigamia maritima gene name(s)" displayType="text" field="dbprimary_acc_1074" internalName="smar_community_annotation" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_smar_community_annotation__dm" type="list"/>
-          <Option checkForNulls="true" displayName="STRING ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="string" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_string__dm" type="list"><SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="ddiscoideum_eg_gene"/>`
-            <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="tpseudonana_eg_gene"/><SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="olucimarinus_eg_gene"/></Option>
+          <Option checkForNulls="true" displayName="STRING ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="string" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_string__dm" type="list">
+          </Option>
           <Option checkForNulls="true" displayName="Swiss 2DPAGE ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="swiss_2dpage" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_swiss_2dpage__dm" type="list"/>
           <Option checkForNulls="true" displayName="SWISS-MODEL ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="swiss_model" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_swiss_model__dm" type="list">
             <SpecificOptionContent key="translation_id_1068_key" field="dbprimary_acc_1074" internalName="bnapus_eg_gene"/>
@@ -3061,7 +3075,6 @@
           -->
           <Option checkForNulls="true" displayName="VectorBase community annotation ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="vb_community_annotation" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vb_community_annotation__dm" type="list"/>
           <Option checkForNulls="true" displayName="VectorBase community symbol(s)" displayType="text" field="dbprimary_acc_1074" internalName="vb_community_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vb_community_symbol__dm" type="list">
-            <SpecificOptionContent field="dbprimary_acc_1074" internalName="aalbopictus_eg_gene" key="transcript_id_1064_key"/>
           </Option>
           <Option checkForNulls="true" displayName="VectorBase external description ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="vb_external_description" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vb_external_description__dm" type="list"/>
           <Option checkForNulls="true" displayName="VectorBase RNA description ID(s)" displayType="text" field="dbprimary_acc_1074" internalName="vb_rna_description" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vb_rna_description__dm" type="list"/>
@@ -4986,7 +4999,6 @@
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="VectorBase community annotation ID" field="dbprimary_acc_1074" internalName="vb_community_annotation" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_vb_community_annotation__dm"/>
         <AttributeDescription checkForNulls="true" displayName="VectorBase community symbol" field="dbprimary_acc_1074" internalName="vb_community_symbol" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_vb_community_symbol__dm">
-          <SpecificAttributeContent field="display_label_1074" internalName="aalbopictus_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
         <AttributeDescription checkForNulls="true" displayName="VectorBase external description ID" field="dbprimary_acc_1074" internalName="vb_external_description" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_vb_external_description__dm"/>
         <AttributeDescription checkForNulls="true" displayName="VectorBase RNA description ID" field="dbprimary_acc_1074" internalName="vb_rna_description" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_vb_rna_description__dm"/>
@@ -5503,6 +5515,9 @@
         -->
         <AttributeDescription displayName="Nimblegen ND 65k v1 ID" field="display_label_11056" internalName="nimblegen_nd_65k_v1" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_nimblegen_nd_65k_v1__dm"/>
         <AttributeDescription displayName="Nimblegen ND Nimblegen 12plex ID" field="display_label_11056" internalName="nimblegen_nd_nimblegen_12plex" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_nimblegen_nd_nimblegen_12plex__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Nimblegen ND GPL10710 ID" field="display_label_11056" internalName="nimblegen_nd_ae_aegypti_gpl10710" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_nimblegen_nd_ae_aegypti_gpl10710__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Nimblegen ND GPL8705 ID" field="display_label_11056" internalName="nimblegen_nd_ae_aegypti_gpl8705" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_nimblegen_nd_ae_aegypti_gpl8705__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Nimblegen Yale GPL13335 ID" field="display_label_11056" internalName="nimblegen_yale_ae_aegypti_gpl13335" key="transcript_id_1064_key" maxLength="40" tableConstraint="efg_nimblegen_yale_ae_aegypti_gpl13335__dm"/>
         <AttributeDescription displayName="NSF Rice BGIYale probe ID" field="display_label_11056" internalName="NSF_BGIYale" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_BGIYale__dm"/>
         <AttributeDescription displayName="NSF Rice 20k probe ID" field="display_label_11056" internalName="NSF_NSF20K" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_NSF20K__dm"/>
         <AttributeDescription displayName="NSF Rice 45k probe ID" field="display_label_11056" internalName="NSF_NSF45K" key="transcript_id_1064_key" maxLength="40" tableConstraint="eFG_NSF_NSF45K__dm"/>
