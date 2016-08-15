@@ -40,15 +40,19 @@ my $mart_db;
 my $compara_db;
 my $dataset_name;
 my $limit_species;
+my $basename='gene';
+my $template='.';
 
 sub usage {
-    print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-p <pwd>] [-mart <mart>] [-compara <compara db>]\n";
+    print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-p <pwd>] [-mart <mart>] [-compara <compara db>] [-name <name>] [-template <template>] \n";
     print "-h <host> Default is $db_host\n";
     print "-port <port> Default is $db_port\n";
     print "-u <host> Default is $db_user\n";
     print "-p <password> Default is top secret unless you know cat\n";
     print "-mart <mart_db> Default is $mart_db\n";
     print "-compara <compara_db> Default is $compara_db\n";
+    print "-name <base name> Default is $basename\n";
+    print "-template <template location> Default is $template\n";
     exit 1;
 };
 
@@ -61,6 +65,8 @@ my $options_okay = GetOptions (
     "compara=s"=>\$compara_db,
     "dataset=s"=>\$dataset_name,
     "species=s"=>\$limit_species,
+    "name=s"=>\$basename,
+    "template=s"=>\$template,
     "help"=>sub {usage()}
 );
 
@@ -90,8 +96,8 @@ sub get_species_sets {
 }
 
 sub write_species {
-    my ($dataset, $species_id, $species_name, $speciesTld, $sql_file_name) = @_;
-    my $ds = $dataset.'_gene';
+    my ($dataset, $basename, $species_id, $species_name, $speciesTld, $sql_file_name) = @_;
+    my $ds = $dataset.'_'.$basename;
     open my $sql_file, '<', $sql_file_name or croak "Could not open SQL file $sql_file_name for reading";
     my $indexN = 0; my $mySql="";
     while (my $sql = <$sql_file>) {
@@ -195,9 +201,9 @@ my $species_homolog_sth = $mart_handle->prepare($species_homolog_sql);
 my $species_paralog_sth = $mart_handle->prepare($species_paralog_sql);
 my $species_homoeolog_across_species_sth = $mart_handle->prepare($species_homoeolog_across_species_sql);
 my $species_homoeolog_within_species_sth = $mart_handle->prepare($species_homoeolog_within_species_sql);
-my $homolog_sql = './templates/generate_homolog.sql.template';
-my $paralog_sql = './templates/generate_paralog.sql.template';
-my $homoeolog_sql = './templates/generate_homoeolog.sql.template';
+my $homolog_sql = $template.'/templates/generate_homolog.sql.template';
+my $paralog_sql = $template.'/templates/generate_paralog.sql.template';
+my $homoeolog_sql = $template.'./templates/generate_homoeolog.sql.template';
 
 my $get_species_id_sth = $mart_handle->prepare('select species_id from dataset_names where name=?');
 my $get_species_clade_sth = $mart_handle->prepare('select src_dataset from dataset_names where name=?');
@@ -209,7 +215,7 @@ for my $dataset (sort @datasets) {
   my $ds_name_full = get_species_name_for_dataset($mart_handle,$dataset);
   $logger->info("Processing dataset $ds_name_sql as $dataset");
   for my $table_type (('gene','transcript','translation')) {
-    my $table_name = $dataset.'_gene__'.$table_type.'__main';
+    my $table_name = $dataset.'_'.$basename.'__'.$table_type.'__main';
     for my $type (qw(homoeolog)) {
       for my $col (query_to_strings($mart_handle,"show columns from $table_name like '${type}_%_bool'")) {
           $mart_handle->do("alter table $table_name drop column $col") || croak "Could not drop column $table_name.$col";
@@ -222,14 +228,14 @@ for my $dataset (sort @datasets) {
   for my $species_set (sort {$a->{name} cmp $b->{name}} get_species_sets($species_homolog_sth,$ds_name_sql,$ds_name_full)) {
     $logger->info('Processing '.$ds_name_sql.' homologs for '.$species_set->{name}.' as '.$species_set->{tld}." (mlss=".$species_set->{id}.")"); 
     for my $table_type (('gene','transcript','translation')) {
-      my $table_name = $dataset.'_gene__'.$table_type.'__main';
+      my $table_name = $dataset.'_'.$basename.'__'.$table_type.'__main';
       my $sql = "show columns from $table_name like 'homolog_".$species_set->{tld}."_bool'";
       for my $col (query_to_strings($mart_handle,$sql)) {
         $logger->info("Dropping $table_name $col");
         $mart_handle->do("alter table $table_name drop column $col") or croak "Could not drop column $table_name.$col";
       }
     }
-    write_species($dataset, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homolog_sql);
+    write_species($dataset, $basename, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homolog_sql);
     $logger->info('Completed '.$ds_name_sql.' homologs for '.$species_set->{name}.' as '.$species_set->{tld});
   }
 
@@ -240,14 +246,14 @@ for my $dataset (sort @datasets) {
   my $paralog_mlss_id = get_string($species_paralog_sth,$ds_name_sql,$ds_name_full,$ds_name_sql,$ds_name_full);
   if($paralog_mlss_id && $id) {
   for my $table_type (('gene','transcript','translation')) {
-    my $table_name = $dataset.'_gene__'.$table_type.'__main';
+    my $table_name = $dataset.'_'.$basename.'__'.$table_type.'__main';
 
     for my $col (query_to_strings($mart_handle,"show columns from $table_name like 'paralog_".$dataset."_bool'")) {
         $logger->info("Dropping $table_name $col");
         $mart_handle->do("alter table $table_name drop column $col") or croak "Could not drop column $table_name.$col";
     }
 }
-    write_species($dataset, $paralog_mlss_id, $dataset, $dataset, $paralog_sql);
+    write_species($dataset, $basename, $paralog_mlss_id, $dataset, $dataset, $paralog_sql);
     $logger->info("Completed paralogs for $ds_name_sql as $dataset");
   }
 
@@ -258,7 +264,7 @@ for my $dataset (sort @datasets) {
 
   for my $species_set (get_species_sets($species_homoeolog_across_species_sth,$ds_name_sql,$ds_name_full)) {
     $logger->info('Processing '.$ds_name_sql.' homoeologs for '.$species_set->{name}.' as '.$species_set->{tld});
-    write_species($dataset, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homoeolog_sql);
+    write_species($dataset, $basename, $species_set->{id}, $species_set->{name}, $species_set->{tld}, $homoeolog_sql);
     $logger->info('Completed '.$ds_name_sql.' homoeologs for '.$species_set->{name}.' as '.$species_set->{tld});
   }
 
@@ -267,7 +273,7 @@ for my $dataset (sort @datasets) {
   $logger->info("Processing '.$ds_name_sql.' homoeologs for $ds_name_sql as $dataset");
   my $homoeolog_mlss_id = get_string($species_homoeolog_within_species_sth,$ds_name_sql,$ds_name_full,$ds_name_sql,$ds_name_full);
   if($homoeolog_mlss_id && $id) {
-    write_species($dataset, $homoeolog_mlss_id, $dataset, $dataset, $homoeolog_sql);
+    write_species($dataset, $basename, $homoeolog_mlss_id, $dataset, $dataset, $homoeolog_sql);
     $logger->info("Completed '.$ds_name_sql.' homoeologs for $ds_name_sql as $dataset");
   }
 
