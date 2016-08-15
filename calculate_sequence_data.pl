@@ -127,12 +127,12 @@ for my $dataset (@datasets) {
 	@{$transcripts} =
 	  sort { $a->dbID() <=> $b->dbID() } @{$transcripts};
 
-	print "Updating ${dataset}_temp\n";
+	print "Updating MTMP_${dataset}_exon\n";
 
-	$mart_handle->do("DROP TABLE IF EXISTS ${dataset}_temp");
+	$mart_handle->do("DROP TABLE IF EXISTS MTMP_${dataset}_exon");
 
 	$mart_handle->do(
-		qq{CREATE TABLE ${dataset}_temp (
+		qq{CREATE TABLE MTMP_${dataset}_exon (
   transcript_id_1064_key    INT(10) UNSIGNED,
   exon_id_1017              INT(10) UNSIGNED,
   five_prime_utr_start      INT(10),
@@ -148,7 +148,18 @@ for my $dataset (@datasets) {
   cds_length                INT(10)
 )} );
 
-	#$mart_handle->do("LOCK TABLES ${dataset}_temp WRITE");
+	print "Updating MTMP_${dataset}_tr\n";
+
+	$mart_handle->do("DROP TABLE IF EXISTS MTMP_${dataset}_tr");
+
+	$mart_handle->do(
+		qq{CREATE TABLE MTMP_${dataset}_tr (
+  transcript_id_1064_key    INT(10) UNSIGNED,
+  cdna_coding_start         INT(10),
+  cdna_coding_end           INT(10),
+  transcription_start_site    INT(10),
+  transcript_length           INT(10)
+)} );
 
 	my $t0               = time();
 	my $transcript_count = 0;
@@ -171,7 +182,10 @@ for my $dataset (@datasets) {
 	alarm(10);
 
 	my $insert_sth = $mart_handle->prepare(
-			  "INSERT INTO ${dataset}_temp VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			  "INSERT INTO MTMP_${dataset}_exon VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+
+	my $insert_sth2 = $mart_handle->prepare(
+                          "INSERT INTO MTMP_${dataset}_tr VALUES (?,?,?,?,?)");
 
 	while ( my $transcript = shift( @{$transcripts} ) ) {
 
@@ -179,13 +193,7 @@ for my $dataset (@datasets) {
 		  if ( ( ++$transcript_count % 500 ) == 0 ) {
 		  		print "Done $transcript_count transcripts for $species_name\n";
 }
-		#
-		#		$out->printf( "INSERT INTO %s_temp VALUES\t-- %s:%d:%d:%+d\n",
-		#					  $dataset,
-		#					  $transcript->stable_id(),
-		#					  $transcript->start(),
-		#					  $transcript->end(),
-		#					  $transcript->strand() );
+
 		my @exon_data_string;
 
 		my $translation = $transcript->translation();
@@ -193,30 +201,55 @@ for my $dataset (@datasets) {
 		my $is_coding = defined($translation);
 
 		my $cds_length;
-		## my $cdna_length;
 
 		if ($is_coding) {
 			$cds_length =
 			  $transcript->cdna_coding_end() -
 			  $transcript->cdna_coding_start() + 1;
 
-			## my $utr5 = $transcript->five_prime_utr();
-			## my $utr3 = $transcript->three_prime_utr();
-
-			## $cdna_length =
-			##   $cds_length +
-			##   ( defined($utr5) ? $utr5->length() : 0 ) +
-			##   ( defined($utr3) ? $utr3->length() : 0 );
 		} else {
 			$cds_length = undef;
-			## $cdna_length = '\N';
 		}
+               # If the transcript is coding and strand is forward add the cdna information and TSS=start
+               if ($is_coding and $transcript->strand()==1) {
+                   $insert_sth2->execute(
+                       $transcript->dbID(),
+                       $transcript->cdna_coding_start(),
+                       $transcript->cdna_coding_end(),
+                       $transcript->start(),
+                       $transcript->length());
+               }
+               # If the transcript is coding and strand is reverse add the cdna information and TSS=end
+               elsif ($is_coding and $transcript->strand()==-1) {
+                   $insert_sth2->execute(
+                       $transcript->dbID(),
+                       $transcript->cdna_coding_start(),
+                       $transcript->cdna_coding_end(),
+                       $transcript->end(),
+                       $transcript->length());
+               }
+               # if Transcript is not coding and strand is forward, add TSS=start
+               elsif ($transcript->strand()==1) {
+                    $insert_sth2->execute(
+                        $transcript->dbID(),
+                        'NULL',
+                        'NULL',
+                        $transcript->start(),
+                        $transcript->length());
+               }
+               # if Transcript is not coding and strand is reverse, add TSS=end
+               elsif ($transcript->strand()==-1) {
+                   $insert_sth2->execute(
+                       $transcript->dbID(),
+                       'NULL',
+                       'NULL',
+                       $transcript->end(),
+                       $transcript->length());
+                }
 
 		foreach my $exon ( @{ $transcript->get_all_Exons() } ) {
 
 		    eval {
-			## my $cdna_start = $exon->cdna_start($transcript) || '\N';
-			## my $cdna_end   = $exon->cdna_end($transcript)   || '\N';
 
 			my $exon_cdna_coding_start = $exon->cdna_coding_start($transcript);
 			my $exon_cdna_coding_end   = $exon->cdna_coding_end($transcript);
@@ -274,13 +307,9 @@ for my $dataset (@datasets) {
 				( $utr5_start, $utr3_start ) = ( $utr3_start, $utr5_start );
 				( $utr5_end,   $utr3_end )   = ( $utr3_end,   $utr5_end );
 			}
-
-			#			push(
-			#				@exon_data_string,
-			#				sprintf(
-			#					"(%s,%s , %s,%s , %s,%s , %s,%s , %s,%s , %s,%s,%s)",
+     
 			$insert_sth->execute(
-				$transcript->dbID(),
+      	                        $transcript->dbID(),
 				$exon->dbID(),
 				$utr5_start,
 				$utr5_end,
@@ -290,7 +319,6 @@ for my $dataset (@datasets) {
 				$coding_end,
 				$exon_cdna_coding_start || undef,
 				$exon_cdna_coding_end   || undef,
-				## $cdna_length,
 				$cds_start,
 				$cds_end,
 				$cds_length );
@@ -313,17 +341,17 @@ for my $dataset (@datasets) {
 
 	#$out->print(<<EOT);
 
-	print "Indexing ${dataset}_temp...\n";
+	print "Indexing MTMP_${dataset}_exon...\n";
 
 	#UNLOCK TABLES;
 
 	$mart_handle->do(
-		qq{ALTER TABLE ${dataset}_temp
+		qq{ALTER TABLE MTMP_${dataset}_exon
   ADD INDEX theindex(transcript_id_1064_key, exon_id_1017)} );
 
-	print "Optimizing ${dataset}_temp...\n";
+	print "Optimizing MTMP_${dataset}_exon...\n";
 
-	$mart_handle->do(qq{OPTIMIZE TABLE ${dataset}_temp});
+	$mart_handle->do(qq{OPTIMIZE TABLE MTMP_${dataset}_exon});
 
 	eval {
 	print "Modifying ${ds_base}__exon_transcript__dm...\n";
@@ -349,7 +377,7 @@ for my $dataset (@datasets) {
 	$mart_handle->do(
 		qq{UPDATE
   ${ds_base}__exon_transcript__dm dm,
-  ${dataset}_temp t
+  MTMP_${dataset}_exon t
 SET dm.five_prime_utr_start     = t.five_prime_utr_start,
     dm.five_prime_utr_end       = t.five_prime_utr_end,
     dm.three_prime_utr_start    = t.three_prime_utr_start,
@@ -367,9 +395,83 @@ WHERE   dm.transcript_id_1064_key   = t.transcript_id_1064_key
 
 	$mart_handle->do(qq{OPTIMIZE TABLE ${ds_base}__exon_transcript__dm});
 
-	print "Dropping  ${dataset}_temp...\n";
+	print "Dropping  MTMP_${dataset}_exon...\n";
 
-	$mart_handle->do(qq{DROP TABLE ${dataset}_temp});
-	print "Completed ${dataset}\n";
+	$mart_handle->do(qq{DROP TABLE MTMP_${dataset}_exon});
+
+	print "Indexing MTMP_${dataset}_tr...\n";
+
+	$mart_handle->do(
+		qq{ALTER TABLE MTMP_${dataset}_tr
+  ADD UNIQUE INDEX theindex(transcript_id_1064_key)});
+
+    print "Optimizing MTMP_${dataset}_tr...\n";
+
+	$mart_handle->do(qq{OPTIMIZE TABLE MTMP_${dataset}_tr});
+
+    eval {
+	print "Modifying ${ds_base}__transcript__main...\n";
+
+	$mart_handle->do(
+		qq{ALTER ignore TABLE ${ds_base}__transcript__main
+  ADD COLUMN cdna_coding_start      INT(10),
+  ADD COLUMN cdna_coding_end        INT(10),
+  ADD COLUMN transcription_start_site INT(10),
+  ADD COLUMN transcript_length           INT(10)} );
+    };
+	if($@) {
+      print STDERR "Problems modifying the table".$@;
+	}
+
+	print "Updating ${ds_base}__transcript__main...\n";
+	$mart_handle->do(
+		qq{UPDATE
+  ${ds_base}__transcript__main main,
+  MTMP_${dataset}_tr t
+SET main.cdna_coding_start = t.cdna_coding_start,
+    main.cdna_coding_end   = t.cdna_coding_end,
+    main.transcription_start_site = t.transcription_start_site,
+    main.transcript_length = t.transcript_length
+
+WHERE   main.transcript_id_1064_key = t.transcript_id_1064_key} );
+
+print "Optimizing ${ds_base}__transcript__main...\n";
+
+	$mart_handle->do(qq{OPTIMIZE TABLE ${ds_base}__transcript__main});
+eval {
+	print "Modifying ${ds_base}__translation__main...\n";
+
+	$mart_handle->do(
+		qq{ALTER ignore TABLE ${ds_base}__translation__main
+  ADD COLUMN cdna_coding_start      INT(10),
+  ADD COLUMN cdna_coding_end        INT(10),
+  ADD COLUMN transcription_start_site INT(10),
+  ADD COLUMN transcript_length           INT(10)} );
+    };
+	if($@) {
+      print STDERR "Problems modifying the table".$@;
+	}
+
+print "Updating ${ds_base}__translation__main...\n";
+	$mart_handle->do(
+		qq{UPDATE
+  ${ds_base}__translation__main main,
+  MTMP_${dataset}_tr t
+SET main.cdna_coding_start = t.cdna_coding_start,
+    main.cdna_coding_end   = t.cdna_coding_end,
+    main.transcription_start_site = t.transcription_start_site,
+    main.transcript_length = t.transcript_length
+
+WHERE   main.transcript_id_1064_key = t.transcript_id_1064_key} );
+
+print "Optimizing ${ds_base}__translation__main...\n";
+
+	$mart_handle->do(qq{OPTIMIZE TABLE ${ds_base}__translation__main});
+
+print "Dropping MTMP_${dataset}_tr...\n";
+
+	$mart_handle->do(qq{DROP TABLE  MTMP_${dataset}_tr});
+
+print "Completed ${dataset}\n";
 } ## end for my $dataset (@datasets)
 
