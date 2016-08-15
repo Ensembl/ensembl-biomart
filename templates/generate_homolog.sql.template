@@ -18,7 +18,9 @@ create table %martSchema%.%dataSet%_TEMP17_%method_link_species_set_id% as
     b.description as description_4014,
     b.homology_id as homology_id_4014,
     b.species_tree_node_id as species_tree_node_id_4014,
-    b.is_tree_compliant as is_tree_compliant_4014
+    b.is_tree_compliant as is_tree_compliant_4014,
+    b.goc_score as goc_score_4014,
+    b.wga_coverage as wga_coverage_4014
   from
     %martSchema%.%dataSet%_TEMP14_%method_link_species_set_id% as a
       inner join
@@ -94,7 +96,8 @@ create table %martSchema%.%dataSet%_TEMP30_%method_link_species_set_id% as
     c.name as chr_name_4016_r2,
     b.dnafrag_start as chr_start_4016_r2,
     b.dnafrag_end as chr_end_4016_r2,
-    b.genome_db_id as genome_db_id_4016_r2
+    b.genome_db_id as genome_db_id_4016_r2,
+    b.display_label as display_label_40273_r1
   from
     %martSchema%.%dataSet%_TEMP28_%method_link_species_set_id% as a
       inner join
@@ -181,7 +184,10 @@ create table %martSchema%.%dataSet%_TEMP39_%method_link_species_set_id% as
     b.node_name_40192,
     b.species_tree_node_id_4014,
     b.is_tree_compliant_4014,
-    b.genome_db_id_40192
+    b.genome_db_id_40192,
+    b.goc_score_4014,
+    b.wga_coverage_4014,
+    b.display_label_40273_r1
   from
     %martSchema%.%dataSet%__gene__main as a
       left join
@@ -193,6 +199,7 @@ drop table if exists %martSchema%.%dataSet%_TEMP40_%method_link_species_set_id%;
 create table %martSchema%.%dataSet%_TEMP40_%method_link_species_set_id% as
   select distinct
     dn_4014,
+    wga_coverage_4014,
     chr_name_4016_r2,
     gene_id_1020_key,
     chr_end_4016_r2,
@@ -201,9 +208,11 @@ create table %martSchema%.%dataSet%_TEMP40_%method_link_species_set_id% as
     ds_4014,
     node_name_40192,
     perc_id_4015_r1,
+    goc_score_4014,
     stable_id_4016_r2,
     stable_id_4016_r3,
     stable_id_4016_r1,
+    display_label_40273_r1,
     perc_id_4015,
     is_tree_compliant_4014
   from
@@ -229,11 +238,14 @@ create table %martSchema%.homo_%dataSet%_TEMP_%method_link_species_set_id% as
     b.perc_id_4015_r1 is null and
     b.dn_4014 is null and
     b.node_name_40192 is null and
+    b.wga_coverage_4014 is null and
     b.stable_id_4016_r2 is null and
     b.chr_name_4016_r2 is null and
     b.description_4014 is null and
     b.stable_id_4016_r1 is null and
+    b.display_label_40273_r1 is null and
     b.is_tree_compliant_4014 is null and
+    goc_score_4014 is null and
     b.chr_end_4016_r2 is null and
     b.perc_id_4015 is null and
     b.stable_id_4016_r3 is null and
