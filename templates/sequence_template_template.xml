@@ -73,7 +73,7 @@
         <AttributeDescription datasetLink="gene_exon_intron" displayName="Unspliced (Gene)" imageURL="/martview/images/gene_schematic/gene_schematic_gene_exon_intron.gif" internalName="gene_exon_intron"/>
         <AttributeDescription datasetLink="hsapiens_transcript_flank" displayName="3' flank only" internalName="3_only"/>
         <AttributeDescription datasetLink="hsapiens_transcript_flank" displayName="5' flank only" internalName="5_only"/>
-        <AttributeDescription datasetLink="snp" displayName="Variation sequence" internalName="snp"/>
+        <AttributeDescription datasetLink="snp" displayName="Variant sequence" internalName="snp"/>
         <AttributeDescription datasetLink="5utr" displayName="5' UTR" imageURL="/martview/images/gene_schematic/gene_schematic_5utr.gif" internalName="5utr"/>
         <AttributeDescription datasetLink="3utr" displayName="3' UTR" imageURL="/martview/images/gene_schematic/gene_schematic_3utr.gif" internalName="3utr"/>
         <AttributeDescription datasetLink="cdna" displayName="cDNA sequences" imageURL="/martview/images/gene_schematic/gene_schematic_cdna.gif" internalName="cdna"/>
