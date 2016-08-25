@@ -42,15 +42,23 @@ my $e_release = undef;
 my $release = undef;
 my $species = undef;
 my $registry = undef;
+my $species_id_start = undef;
+my $output_xml_dir = undef;
+my $output_dir=undef;
 
-my $output_dir = "/tmp/seq_mart_output";
 my $mart_version = "0.7";
 
 sub write_dataset_xml {
     my $dataset_names = shift;
     my $fname = "$output_dir/".$dataset_names->{dataset}.'.xml';
     open my $dataset_file, '>', $fname or croak "Could not open $fname for writing";
-    my $template_file_name = 'templates/dataset_sequence_template.xml';
+    my $template_file_name;
+    if ($division eq "Ensembl"){
+      $template_file_name = 'templates/dataset_sequence_template_ensembl.xml';
+    }
+    else {
+      $template_file_name = 'templates/dataset_sequence_template.xml';
+    }
     open my $template_file, '<', $template_file_name or croak "Could not open $template_file_name";
     while (my $line = <$template_file>) {
 	$line =~ s/%name%/$$dataset_names{dataset}/g;
@@ -74,7 +82,7 @@ sub write_replace_file {
 	$line =~ s/%name%/$datasets->{dataset}/g;
 	$line =~ s/%id%/$datasets->{species_id}/g;
 	$line =~ s/%des%/$datasets->{species_name}/g;
-	#$line =~ s/%version%/$$dataset_names{version_num}/g;
+	$line =~ s/%version%/$datasets->{version_num}/g;
 	$line =~ s/%species%/$datasets->{short_species_name}/g;
 	$line =~ s/%release%/$release/g;
 
@@ -93,7 +101,12 @@ sub write_template_xml {
 	    '<DynamicDataset internalName="'.
 	    $dataset->{dataset}.'"/>'."\n";
 	my $template_filename = $dataset->{template};
-	write_replace_file('templates/sequence_template_template.xml',"$output_dir/$template_filename",$dataset);
+        if ($division eq "Ensembl"){
+	  write_replace_file('templates/sequence_template_template_ensembl.xml',"$output_dir/$template_filename",$dataset);
+        }
+        else{
+          write_replace_file('templates/sequence_template_template.xml',"$output_dir/$template_filename",$dataset);
+        }
 	`gzip -c $output_dir/$template_filename > $output_dir/$template_filename.gz`;
     }
 }
@@ -216,7 +229,12 @@ sub write_metatables {
 
 sub get_short_name {
     my ($db_name,$species_id) = @_;
-    uc(substr($db_name,0,3).$species_id);
+    if (defined $species_id){
+      uc(substr($db_name,0,3).$species_id);
+    }
+    else {
+      uc(substr($db_name,0,3));
+    }
 }
 
 
@@ -229,7 +247,7 @@ my $db_pwd = "writ3rp1";
 my $seq_mart_db;
 
 sub usage {
-    print "Usage: $0 -host <host> -port <port> -user <user> -pass|pwd <pwd> -seq_mart <target mart database> -release <release number> -registry <file>\n";
+    print "Usage: $0 -host <host> -port <port> -user <user> -pass|pwd <pwd> -seq_mart <target mart database> -release <release number> -registry <file> -species_id_start <species id number start> -output_xml_dir <dir location>\n";
     print "-host <host>\n";
     print "-port <port>\n";
     print "-user <host>\n";
@@ -238,6 +256,8 @@ sub usage {
     print "-release <ensembl release number>\n";
     print "-species <comma separated list of species names> (optional, used by VectorBase)\n";
     print "-registry <file> (optional, process only the entries in an Ensembl registry file)\n";
+    print "-species_id_start <species id number start> (optional, start number for species_id, avoid duplicated numbers if the core databases are located on two servers. Default is 0)\n";
+    print "-output_xml_dir <dir location> (optional, output directory location. Default is /tmp/seq_mart_output\n";
     exit 1;
 };
 
@@ -251,6 +271,8 @@ my $options_okay = GetOptions (
     "eg_release=s"=>\$release,
     "species=s"=>\$species,
     "registry=s" => \$registry,
+    "species_id_start=s" => \$species_id_start,
+    "output_xml_dir=s" => \$output_xml_dir,
     "help"=>sub {usage()}
     );
 
@@ -263,11 +285,19 @@ if (!defined $release) {
     usage();
 }
 
+if (defined $output_xml_dir)
+{
+  $output_dir=$output_xml_dir;
+}
+else {
+  $output_dir = "/tmp/seq_mart_output";
+}
+
 my $suffix = "_eg";
 # Set the db_patterns, depending on the database mart name
 if ($seq_mart_db =~ /bacteria/i) {
     $division = "EnsemblBacteria";
-    my $suffix = "";
+    $suffix = "";
 }
 elsif ($seq_mart_db =~ /protist/i) {
     $division = "EnsemblProtists";
@@ -284,8 +314,8 @@ elsif ($seq_mart_db =~ /metazoa/i) {
 elsif ($seq_mart_db =~ /vb/i) {
     $division = "EnsemblMetazoa";
 } else {
-    print STDERR "sequence mart db name, $seq_mart_db\n";
-    print STDERR "sequence mart db name doesn't match a known division, so all databases on the server will be taken into account\n";
+    $division = "Ensembl";
+    $suffix = "";
 }
 
 print STDERR "Set Ensembl division to '$division'\n";
@@ -331,7 +361,14 @@ else {
 }
 
 my @datasets = ();
-my $i=0;
+my $i;
+if (defined $species_id_start)
+{
+ $i=$species_id_start;
+}
+else{
+  $i=0;
+}
 foreach my $species_name (@$species_names_aref) {
 
     $logger->info("Processing species, '$species_name'");
