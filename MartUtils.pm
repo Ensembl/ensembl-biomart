@@ -146,7 +146,7 @@ sub build_dataset_href {
     my $species_name = $meta_container->db->species;
     my $is_multispecies = $meta_container->db->{_is_multispecies};
     my $src_db = $meta_container->db->{_dbc}->{_dbname};
-    
+    my $division_value;
     print STDERR "src_db, $src_db\n";
     
     my $formatted_species_name = undef;
@@ -155,7 +155,7 @@ sub build_dataset_href {
 	$formatted_species_name = $1 . $2;
 
 	if (defined @{$meta_container->list_value_by_key('species.division')}[0]) {
-	    my $division_value = @{$meta_container->list_value_by_key('species.division')}[0];
+	    $division_value = @{$meta_container->list_value_by_key('species.division')}[0];
 	    # Add a suffix '_eg' to avoid conflicting dataset names in Biomart.org!
 	    $formatted_species_name = $formatted_species_name . $suffix;
 	}
@@ -210,10 +210,25 @@ sub build_dataset_href {
     
     print STDERR "baseset: $baseset\n";
     
-    my $version_num = @{$meta_container->list_value_by_key('genebuild.version')}[0];
-    if (! defined $version_num) {
-        die "'genebuild.version' meta attribute not defined for species, '$species_name'!\n";
+    my $version_num;
+    if ($division_value ne "Ensembl") {
+      $version_num = @{$meta_container->list_value_by_key('genebuild.version')}[0];
+      if (! defined $version_num) {
+          die "'genebuild.version' meta attribute not defined for species, '$species_name'!\n";
+      }
     }
+    elsif ($species_name eq "homo_sapiens" | $species_name eq "mus_musculus" ){
+      $version_num = @{$meta_container->list_value_by_key('assembly.name')}[0];
+      if (! defined $version_num) {
+          die "'assembly.name' meta attribute not defined for species, '$species_name'!\n";
+      }
+    }
+   else{
+     $version_num = @{$meta_container->list_value_by_key('assembly.default')}[0];
+      if (! defined $version_num) {
+          die "'assembly.default' meta attribute not defined for species, '$species_name'!\n";
+      }
+   }
     print STDERR "version_num, $version_num\n";
     
     $dataset_href->{formatted_species_name} = $formatted_species_name;
@@ -238,7 +253,7 @@ sub build_dataset_href {
     $dataset_href->{short_name} = get_short_name($dataset_href->{species_name},$dataset_href->{species_id});
 
     if (defined $logger) {
-	$logger->debug(join(',',values(%$dataset_href)));
+        $logger->debug(join(',',map { $dataset_href->{$_} // () }keys %$dataset_href));
     }
     
     return $dataset_href;
