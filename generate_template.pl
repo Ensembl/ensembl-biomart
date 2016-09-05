@@ -49,9 +49,10 @@ my $ds_name = 'gene';
 my $template_file_name = 'templates/dataset_template.xml';
 my $description = 'genes';
 my $output_dir = undef;
+my $species_id_start = undef;
 
 sub usage {
-    print "Usage: $0 [-host <host>] [-port <port>] [-user <user>] [-pass <pwd>] [-mart <mart db>] [-release <e! release number>] [-template <template file path>] [-description <description>] [-dataset <dataset name>] [-ds_template <datanase name template>] [-output_dir <output directory>]\n";
+    print "Usage: $0 [-host <host>] [-port <port>] [-user <user>] [-pass <pwd>] [-mart <mart db>] [-release <e! release number>] [-template <template file path>] [-description <description>] [-dataset <dataset name>] [-ds_template <datanase name template>] [-output_dir <output directory>] [-species_id_start <species id number start>]\n";
     print "-host <host> Default is $db_host\n";
     print "-port <port> Default is $db_port\n";
     print "-user <host> Default is $db_user\n";
@@ -63,6 +64,7 @@ sub usage {
     print "-description <description>\n";
     print "-output_dir <output directory> default is ./output\n";
     print "-release <e! releaseN>\n";
+    print "-species_id_start <species id number start> (optional, start number for species_id, avoid duplicated numbers if the core databases are located on two servers. Default is 0)\n";
     exit 1;
 };
 
@@ -78,6 +80,7 @@ my $options_okay = GetOptions (
     "ds_template=s"=>\$template_file_name,
     "description=s"=>\$description,
     "output_dir=s"=>\$output_dir,
+    "species_id_start=s" => \$species_id_start,
     "h|help"=>sub {usage()}
     );
 
@@ -506,7 +509,14 @@ my @datasets = ();
 my $dataset_sth = $mart_handle->prepare('SELECT src_dataset,src_db,species_id,species_name,version,collection,sql_name FROM dataset_names WHERE name=?');
 
 # get names of datasets from names table
-my $i=0;
+my $i;
+if (defined $species_id_start)
+{
+ $i=$species_id_start;
+}
+else{
+  $i=0;
+}
 foreach my $dataset (get_dataset_names($mart_handle)) {
     $logger->info("Processing $dataset");
     # get other naming info from names table
