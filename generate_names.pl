@@ -220,13 +220,24 @@ foreach my $dataset (@datasets) {
 	if(!defined $species_names{'species.proteome_id'} || !isdigit $species_names{'species.proteome_id'}) {
 	    $species_names{'species.proteome_id'} = ++$pId;
 	}
-
         my $version = $species_names{'assembly.name'};
-        if(defined $species_names{'genebuild.version'} ) {
-            if(!defined $version) {
-                $version = $species_names{'genebuild.version'};
-            } else {
-                $version = $version.' ('.$species_names{'genebuild.version'} .')';
+        if ($div ne "ensembl") {
+            if(defined $species_names{'genebuild.version'} ) {
+                if(!defined $version) {
+                    $version = $species_names{'genebuild.version'};
+                } else {
+                    $version = $version.' ('.$species_names{'genebuild.version'} .')';
+                }
+            }
+        }
+        # We want to display the patches information for human and mouse so we should use assembly.name
+        else {
+            if( ($species_names{'species.production_name'} eq "homo_sapiens") || ($species_names{'species.production_name'} eq "mus_musculus")) {
+                1;
+            }
+        # For the other e! species, we should use the human and computer readable assembly.default meta key
+            else{
+                $version = $species_names{'assembly.default'};
             }
         }
 
