@@ -139,18 +139,38 @@ sub write_replace_file {
 
 sub get_dataset_element {
     my $dataset = shift;
-
+    if ($ds_name !~ 'gene_ensembl'){
+        '<DynamicDataset aliases="mouse_formatter1=,mouse_formatter2=,mouse_formatter3=,species1='.
+        $dataset->{species_name}.
+        ',species2='.$dataset->{species_uc_name}.
+        ',species3='.$dataset->{dataset}.
+        ',species4='.$dataset->{short_name}.
+        ',collection_path='.$dataset->{colstr}.
+        ',version='.$dataset->{version_num}.
+#       ',tax_id='.$dataset->{tax_id}.
+        ',link_version='.$dataset->{dataset}.
+        '_'.$release.',default=true" internalName="'.
+        $dataset->{dataset}.'_'.$ds_name.'"/>'
+    }
+# for ensembl species
+    else
+    {
+    my $species1=ucfirst($dataset->{species_uc_name});
+    $species1=~ s/_/ /g;
+    my $species5=ucfirst($dataset->{species_uc_name});
+    $species5=~ s/_/+/g;
     '<DynamicDataset aliases="mouse_formatter1=,mouse_formatter2=,mouse_formatter3=,species1='.
-	$dataset->{species_name}.
-	',species2='.$dataset->{species_uc_name}.
+	$species1.
+	',species2='.ucfirst($dataset->{species_uc_name}).
 	',species3='.$dataset->{dataset}.
-	',species4='.$dataset->{short_name}.
+	',species4='.substr($dataset->{dataset},0,4).
+        ',species5='.$species5.
 	',collection_path='.$dataset->{colstr}.
 	',version='.$dataset->{version_num}.
-#	',tax_id='.$dataset->{tax_id}.
-	',link_version='.$dataset->{dataset}.
+	',link_version='.$dataset->{version_num}.
 	'_'.$release.',default=true" internalName="'.
 	$dataset->{dataset}.'_'.$ds_name.'"/>'
+    }
 }
 
 sub get_dataset_exportable {
