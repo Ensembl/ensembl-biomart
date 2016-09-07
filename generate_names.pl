@@ -48,6 +48,7 @@ my $suffix = '';
 my $dataset_basename = 'gene';
 my $main = 'gene__main';
 my $div = undef;
+my $species_id_start = undef;
 
 my %table_res = (
     qr/protein_feature/ => {
@@ -70,7 +71,7 @@ sub transform_table {
 }
 
 sub usage {
-    print "Usage: $0 [-host <host>] [-port <port>] [ -user <user>] [-pass <pwd>] [-mart <target mart>] [-release <ensembl release>] [-suffix <dataset suffix>] [-div <plant|protist|metazoa|fung|vectorbase>]\n";
+    print "Usage: $0 [-host <host>] [-port <port>] [ -user <user>] [-pass <pwd>] [-mart <target mart>] [-release <ensembl release>] [-suffix <dataset suffix>] [-div <plant|protist|metazoa|fung|vectorbase|ensembl>] [-species_id_start <species id number start>] \n";
     print "-host <host> Default is $db_host\n";
     print "-port <port> Default is $db_port\n";
     print "-user <host> Default is $db_user\n";
@@ -80,6 +81,7 @@ sub usage {
     print "-suffix <dataset suffix> e.g. '_eg' Default is ''\n";
     print "-name base name of the dataset\n";
     print "-main name of the main table in mart, e.g. variation__main\n";
+    print "-species_id_start <species id number start> (optional, start number for species_id, avoid duplicated numbers if the core databases are located on two servers. Default is 0)\n";
     print "-div <plant|protist|metazoa|fung|vectorbase> set taxonomic division for species.proteome_id value\n";
     print "     -div option also sets core database name according to division specific naming practices\n";
     exit 1;
@@ -96,6 +98,7 @@ my $options_okay = GetOptions (
     "name=s"=>\$dataset_basename,
     "main=s"=>\$main,
     "div=s"=>\$div,
+    "species_id_start=s" => \$species_id_start,
     "help"=>sub {usage()}
     );
 
@@ -178,7 +181,14 @@ elsif ( $div eq 'metazoa' ) { $pId = 30000 }
 elsif ( $div eq 'fung' ) { $pId = 40000 }
 elsif ( $div eq 'vectorbase') { $pId = 50000 }
 elsif ( $div eq 'parasite') { $pId = 60000 }
-elsif ( $div eq 'ensembl' ) { $pId = 0 }
+elsif ( $div eq 'ensembl' ) {
+    if (defined $species_id_start) {
+      $pId=$species_id_start;
+    }
+    else{
+      $pId = 0;
+   }
+}
 else {
     croak "Don't know how to deal with mart $mart_db - doesn't match known divisions\n";
 }
