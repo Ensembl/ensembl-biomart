@@ -148,17 +148,21 @@ sub build_dataset_href {
     my $src_db = $meta_container->db->{_dbc}->{_dbname};
     my $division_value;
     print STDERR "src_db, $src_db\n";
-    
     my $formatted_species_name = undef;
     if (! $is_multispecies) {
-	$species_name =~ /^(\w)[^_]+_(.+)/;
+        $species_name =~ /^(\w)[^_]+_(.+)/;
 	$formatted_species_name = $1 . $2;
 
 	if (defined @{$meta_container->list_value_by_key('species.division')}[0]) {
 	    $division_value = @{$meta_container->list_value_by_key('species.division')}[0];
 	    # Add a suffix '_eg' to avoid conflicting dataset names in Biomart.org!
 	    $formatted_species_name = $formatted_species_name . $suffix;
-	}
+        }
+        # If division is ensembl then use the name column in the dataset_names table
+        if ($division_value eq "Ensembl") {
+            $formatted_species_name = $src_db;
+            $formatted_species_name =~ s/^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)_[a-z]{4}_[0-9]{2}_[0-9]*$/$1$2/;
+        }
     }
     else {
 	if (! defined @{$meta_container->list_value_by_key('species.production_name')}[0]) {
