@@ -45,11 +45,13 @@ sub default_options {
         'mart'=>undef,
         'compara'=>undef,
         'release'=>software_version(),
+        'registry'=>undef,
         'eg_release'=>undef,
         'base_dir'=>getcwd,
         'division'=>'ensembl',
         'output_directory'=>undef,
         'pipeline_name' => 'ensembl_gene_mart_post_build_'.$self->o('release'),
+        'registry'      => $self->o('registry')
     }
 }
 
@@ -89,6 +91,7 @@ sub pipeline_create_commands {
                 'pass' => $self->o('pass'),
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
+                'registry' => $self->o('registry'),
                 'base_dir' => $self->o('base_dir'),
                 'release' => $self->o('release'),
                 'eg_release' => $self->o('eg_release'),
@@ -109,6 +112,7 @@ sub pipeline_create_commands {
                 'pass' => $self->o('pass'),
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
+                'registry' => $self->o('registry'),
                 'base_dir' => $self->o('base_dir')
             },
             -flow_into => {
@@ -161,6 +165,7 @@ sub pipeline_create_commands {
                 'pass' => $self->o('pass'),
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
+                'registry' => $self->o('registry'),
                 'release' => $self->o('release'),
                 'base_dir' => $self->o('base_dir'),
             },
@@ -178,6 +183,7 @@ sub pipeline_create_commands {
                 'pass' => $self->o('pass'),
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
+                'port' => $self->o('registry'),
                 'release' => $self->o('release'),
                 'eg_release' => $self->o('eg_release'),
                 'base_dir' => $self->o('base_dir')
