@@ -159,7 +159,7 @@ sub pipeline_create_commands {
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
             -parameters    => {
-                'cmd'        => 'perl #base_dir#/eg-biomart/scripts/calculate_sequence_data.pl -host #host# -port #port# -user #user# -pass #pass# -mart #mart# -dataset #dataset# -release #release# -dataset_basename gene_ensembl -registry #registry',
+                'cmd'        => 'perl #base_dir#/eg-biomart/scripts/calculate_sequence_data.pl -host #host# -port #port# -user #user# -pass #pass# -mart #mart# -dataset #dataset# -release #release# -dataset_basename gene_ensembl -registry #registry#',
                 'mart' => $self->o('mart'),
                 'user' => $self->o('user'),
                 'pass' => $self->o('pass'),
