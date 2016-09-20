@@ -49,6 +49,7 @@ my $dataset_basename = 'gene';
 my $main = 'gene__main';
 my $div = undef;
 my $species_id_start = undef;
+my $registry = undef;
 
 my %table_res = (
     qr/protein_feature/ => {
@@ -93,6 +94,7 @@ my $options_okay = GetOptions (
     "user=s"=>\$db_user,
     "pass=s"=>\$db_pwd,
     "mart=s"=>\$mart_db,
+    "registry=s"=>\$registry,
     "release=s"=>\$release,
     "suffix=s"=>\$suffix,
     "name=s"=>\$dataset_basename,
@@ -132,7 +134,7 @@ drop_and_create_table($mart_handle, $names_table,
 my $names_insert = $mart_handle->prepare("INSERT IGNORE INTO $names_table VALUES(?,?,?,?,?,?,?,?,NULL)");
 
 my @src_tables = get_tables($mart_handle);
-my @src_dbs;
+my %src_dbs;
 
 my $regexp = undef;
 
@@ -146,11 +148,22 @@ else{
   $regexp = ".*_core_[0-9]+_${release}_.*";
 }
 
-foreach my $db (get_databases($mart_handle)) {
-    if($db =~ /$regexp/) {
-	print "$db\n";
-	push @src_dbs, $db;
-    }
+# load registry
+if(defined $registry) {
+  Bio::EnsEMBL::Registry->load_all($registry);
+} else {
+  Bio::EnsEMBL::Registry->load_registry_from_db(
+                                                -host       => $db_host,
+                                                -user       => $db_user,
+                                                -pass       => $db_pwd,
+                                                -port       => $db_port,
+                                                -db_version => $release);
+}
+
+for my $dba (@{Bio::EnsEMBL::Registry->get_all_DBAdaptors(-group=>'core')}) {
+  if($dba->dbc()->dbname() =~ /$regexp/) {
+    %src_dbs->{$dba->dbc()->dbname()} = $dba;
+  }
 }
 
 $logger->info("Listing datasets from $mart_db");
@@ -204,18 +217,15 @@ foreach my $dataset (@datasets) {
 
     my $ens_db;
     if($div eq 'parasite') {
-      $ens_db = $base_datasetname =~ /prj[a-z]{2}[0-9]+$/ ? get_ensembl_db_single_parasite(\@src_dbs,$base_datasetname,$release) : get_ensembl_db_single(\@src_dbs,$base_datasetname,$release);
+      $ens_db = $base_datasetname =~ /prj[a-z]{2}[0-9]+$/ ? get_ensembl_db_single_parasite([keys (%src_dbs)],$base_datasetname,$release) : get_ensembl_db_single([keys (%src_dbs)],$base_datasetname,$release);
     } else {
-      $ens_db = get_ensembl_db_single(\@src_dbs,$base_datasetname,$release);
+      $ens_db = get_ensembl_db_single([keys (%src_dbs)],$base_datasetname,$release);
     }
     if(!$ens_db) {
 	croak "Could not find original source db for dataset $base_datasetname\n";
     }   
     $logger->debug("$dataset derived from $ens_db");
-    my $ens_db_string =  "DBI:mysql:$ens_db:$db_host:$db_port";
-    my $ens_dbh =  DBI->connect($ens_db_string, $db_user, $db_pwd,
-				{ RaiseError => 1 }
-	) or croak "Could not connect to $ens_db_string";
+    my $ens_dbh = $src_dbs->{$ens_db}->dbc()->db_handle();
 
     my $meta_insert = $ens_dbh->prepare("INSERT IGNORE INTO meta(species_id,meta_key,meta_value) VALUES(?,'species.biomart_dataset',?)");
 
@@ -271,7 +281,7 @@ foreach my $dataset (@datasets) {
 	}
 
     }
-	
+    $ens_dbh->disconnect();
     
 }
 

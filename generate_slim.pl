@@ -49,6 +49,7 @@ my $mart_db;
 my $dataset;
 my $basename = "gene";
 my $verbose;
+my $registry;
 
 sub usage {
     print "Usage: $0 [-host <host>] [-port <port>] [-user <user>] [-pass <pwd>] [-mart <mart db>] [-release <e! release number>] [-template <template file path>] [-description <description>] [-dataset <dataset name>] [-ds_template <datanase name template>] [-output_dir <output directory>]\n";
@@ -66,6 +67,7 @@ my $options_okay = GetOptions (
     "user=s"=>\$db_user,
     "pass=s"=>\$db_pwd,
     "mart=s"=>\$mart_db,
+    "registry=s"=>\$registry,
     "dataset=s"=>\$dataset,    
     "name=s"=>\$basename,
     "verbose|v"=>\$verbose,

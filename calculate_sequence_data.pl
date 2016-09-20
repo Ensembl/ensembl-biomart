@@ -49,6 +49,7 @@ my $release;
 my $dataset_basename = 'gene';
 my $dataset;
 my $limit_species;
+my $registry;
 
 sub usage {
     print "Usage: $0 [-host <host>] [-port <port>] [-user user <user>] [-pass <pwd>] [-mart <mart db>] [-release <e! release>] [-dataset_basename <basename>]\n";
@@ -69,6 +70,7 @@ my $options_okay = GetOptions (
     "pass=s"=>\$db_pwd,
     "mart=s"=>\$mart_db,
     "release=i"=>\$release,
+    "registry=s"=>\$registry,
     "dataset_basename=s"=>\$dataset_basename,
     "dataset=s"=>\$dataset,
     "species=s"=>\$limit_species,
@@ -86,12 +88,16 @@ my $mart_handle =
   or croak "Could not connect to $mart_string with db_user, $db_user and db_pwd, $db_pwd";
 
 # load registry
-Bio::EnsEMBL::Registry->load_registry_from_db(
-    -host       => $db_host,
-    -user       => $db_user,
-    -pass       => $db_pwd,
-    -port       => $db_port,
-    -db_version => $release);
+if(defined $registry) {
+  Bio::EnsEMBL::Registry->load_all($registry);
+} else {
+  Bio::EnsEMBL::Registry->load_registry_from_db(
+                                                -host       => $db_host,
+                                                -user       => $db_user,
+                                                -pass       => $db_pwd,
+                                                -port       => $db_port,
+                                                -db_version => $release);
+}
 
 # get hash of datasets and sql names
 my @datasets = get_dataset_names($mart_handle);
