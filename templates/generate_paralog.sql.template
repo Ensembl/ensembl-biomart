@@ -18,7 +18,7 @@ create table %martSchema%.%dataSet%_TEMP303_%method_link_species_set_id% as
     b.description as description_4014,
     b.homology_id as homology_id_4014,
     b.species_tree_node_id as species_tree_node_id_4014,
-    b.is_tree_compliant as is_tree_compliant_4014
+    b.is_high_confidence as is_high_confidence_4014
   from
     %martSchema%.%dataSet%_TEMP300_%method_link_species_set_id% as a
       inner join
@@ -180,7 +180,7 @@ create table %martSchema%.%dataSet%_TEMP325_%method_link_species_set_id% as
     b.method_link_id_4019,
     b.node_name_40192,
     b.species_tree_node_id_4014,
-    b.is_tree_compliant_4014,
+    b.is_high_confidence_4014,
     b.display_label_40273_r1,
     b.genome_db_id_40192
   from
@@ -206,7 +206,7 @@ create table %martSchema%.%dataSet%_TEMP326_%method_link_species_set_id% as
     stable_id_4016_r1,
     display_label_40273_r1,
     perc_id_4015,
-    is_tree_compliant_4014
+    is_high_confidence_4014
   from
     %martSchema%.%dataSet%_TEMP325_%method_link_species_set_id%;
 drop table %martSchema%.%dataSet%_TEMP325_%method_link_species_set_id%;
@@ -235,7 +235,7 @@ create table %martSchema%.para_%dataSet%_TEMP_%method_link_species_set_id% as
     b.chr_name_4016_r2 is null and
     b.description_4014 is null and
     b.stable_id_4016_r1 is null and
-    b.is_tree_compliant_4014 is null and
+    b.is_high_confidence_4014 is null and
     b.chr_end_4016_r2 is null and
     b.perc_id_4015 is null and
     b.stable_id_4016_r3 is null and

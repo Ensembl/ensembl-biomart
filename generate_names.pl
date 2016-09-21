@@ -27,12 +27,11 @@ use DBI;
 use Carp;
 use Log::Log4perl qw(:easy);
 use List::MoreUtils qw(any);
-use Data::Dumper;
 use DbiUtils;
 use MartUtils;
 use Getopt::Long;
 use POSIX;
-
+use Bio::EnsEMBL::Registry;
 Log::Log4perl->easy_init($INFO);
 
 my $logger = get_logger();
@@ -150,6 +149,7 @@ else{
 
 # load registry
 if(defined $registry) {
+    print "Haha\n";
   Bio::EnsEMBL::Registry->load_all($registry);
 } else {
   Bio::EnsEMBL::Registry->load_registry_from_db(
@@ -162,7 +162,7 @@ if(defined $registry) {
 
 for my $dba (@{Bio::EnsEMBL::Registry->get_all_DBAdaptors(-group=>'core')}) {
   if($dba->dbc()->dbname() =~ /$regexp/) {
-    %src_dbs->{$dba->dbc()->dbname()} = $dba;
+    $src_dbs{$dba->dbc()->dbname()} = $dba;
   }
 }
 
@@ -225,7 +225,7 @@ foreach my $dataset (@datasets) {
 	croak "Could not find original source db for dataset $base_datasetname\n";
     }   
     $logger->debug("$dataset derived from $ens_db");
-    my $ens_dbh = $src_dbs->{$ens_db}->dbc()->db_handle();
+    my $ens_dbh = $src_dbs{$ens_db}->dbc()->db_handle();
 
     my $meta_insert = $ens_dbh->prepare("INSERT IGNORE INTO meta(species_id,meta_key,meta_value) VALUES(?,'species.biomart_dataset',?)");
 
