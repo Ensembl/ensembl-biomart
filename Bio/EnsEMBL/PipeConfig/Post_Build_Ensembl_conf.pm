@@ -116,7 +116,7 @@ sub pipeline_create_commands {
                 'base_dir' => $self->o('base_dir')
             },
             -flow_into => {
-                1 => ['add_compara','add_family','calculate_sequence', 'add_slims'],
+                1 => ['add_compara','calculate_sequence', 'add_slims'],
                 2 => 'optimize'
             },
             -meadow_type => 'LOCAL'
@@ -134,23 +134,6 @@ sub pipeline_create_commands {
                 'port' => $self->o('port'),
                 'compara' => $self->o('compara'),
                 'base_dir' => $self->o('base_dir')
-            },
-            -analysis_capacity => 10
-        },
-        {   
-            -logic_name    => 'add_family',
-            -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-            -meadow_type => 'LSF',
-            -parameters    => {
-                'cmd'        => 'cd #base_dir#/ensembl-production_private/biomart/Manual_scripts/Protein_families/; ./protein_family_patch.ksh -h #host# -u #user# -p #pass# -P #port# -r #release# -o #output_directory# -s #dataset# -c #core#',  
-                'mart' => $self->o('mart'),
-                'user' => $self->o('user'),
-                'pass' => $self->o('pass'),
-                'host' => $self->o('host'),
-                'port' => $self->o('port'),
-                'release' => $self->o('release'),
-                'base_dir' => $self->o('base_dir'),
-                'output_directory' => $self->o('output_directory'),
             },
             -analysis_capacity => 10
         },
@@ -177,13 +160,12 @@ sub pipeline_create_commands {
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
             -parameters    => {
-                'cmd'        => 'perl #base_dir#/eg-biomart/scripts/generate_slim.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -name gene_ensembl -registry #registry#',  
+                'cmd'        => 'perl #base_dir#/eg-biomart/scripts/generate_slim.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -name gene_ensembl -registry #registry# -release #release#',  
                 'mart' => $self->o('mart'),
                 'user' => $self->o('user'),
                 'pass' => $self->o('pass'),
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
-                'port' => $self->o('registry'),
                 'release' => $self->o('release'),
                 'registry' => $self->o('registry'),
                 'eg_release' => $self->o('eg_release'),
@@ -195,9 +177,9 @@ sub pipeline_create_commands {
             -logic_name    => 'optimize',
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
-            -wait_for => ['add_family','calculate_sequence','add_slims', 'add_compara'],
+            -wait_for => ['calculate_sequence','add_slims', 'add_compara'],
             -parameters    => {
-                'cmd'        => 'cd #base_dir#/ensembl-production_private/release_coordination/scripts/; ./analyze_db.ksh -h#host# -u#user# -p#pass# -P#port# -o -r "#mart#"',
+                'cmd'        => 'mysqlcheck -h#host# -u#user# -p#pass# -P#port# --optimize "#mart#"',
                 'mart' => $self->o('mart'),
                 'user' => $self->o('user'),
                 'pass' => $self->o('pass'),
