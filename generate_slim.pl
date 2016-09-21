@@ -51,6 +51,7 @@ my $dataset;
 my $basename = "gene";
 my $verbose;
 my $registry;
+my $release;
 
 sub usage {
     print "Usage: $0 [-host <host>] [-port <port>] [-user <user>] [-pass <pwd>] [-mart <mart db>] [-release <e! release number>] [-template <template file path>] [-description <description>] [-dataset <dataset name>] [-ds_template <datanase name template>] [-output_dir <output directory>]\n";
@@ -72,7 +73,8 @@ my $options_okay = GetOptions (
     "dataset=s"=>\$dataset,    
     "name=s"=>\$basename,
     "verbose|v"=>\$verbose,
-    "registry"=>\$registry,                           
+    "registry:s"=>\$registry,                           
+    "release:i"=>\$release,                           
     "h|help"=>sub {usage()}
     );
 
@@ -93,8 +95,10 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
 
 # load registry
 if(defined $registry) {
+    $logger->info("Loading registry from file $registry");
   Bio::EnsEMBL::Registry->load_all($registry);
 } else {
+    $logger->info("Loading registry from $db_host");
   Bio::EnsEMBL::Registry->load_registry_from_db(
                                                 -host       => $db_host,
                                                 -user       => $db_user,
@@ -103,13 +107,16 @@ if(defined $registry) {
                                                 -db_version => $release);
 }
 
+my @datasets;
 if(defined $dataset) {
     push @datasets, $dataset;
 } else {
     @datasets = get_strings($mart_handle->prepare("SELECT distinct(name) FROM dataset_names"));
 }
 
-my ($ontology_db) = grep {m/_ontology_[0-9]+_?[0-9]+?/} get_strings($mart_handle->prepare("SHOW DATABASES LIKE '%ontology%'"));
+
+my $ontology_dba = Bio::EnsEMBL::Registry->get_DBAdaptor("multi","ontology");
+my $ontology_db = $ontology_dba->dbc()->dbname();
 $logger->info("Using ontology database $ontology_db");
 
 for $dataset (@datasets) {
@@ -117,14 +124,14 @@ for $dataset (@datasets) {
 
     my $species_name = get_sql_name_for_dataset( $mart_handle, $dataset );
     my $dba =
-      Bio::EnsEMBL::Registry->get_DBAdaptor( $species_name, 'Core', 'transcript' );
+      Bio::EnsEMBL::Registry->get_DBAdaptor( $species_name, 'core' );
 
     $logger->info("Processing core database $core_db for dataset $dataset");
     if(!defined $core_db) {
 	croak "Could not find core database for dataset $dataset";
     }
 
-    my ($level) = get_strings($mart_handle->prepare("select distinct object_xref.ensembl_object_type from ${core_db}.object_xref join ${core_db}.xref on (object_xref.xref_id=xref.xref_id) join ${core_db}.external_db on (xref.external_db_id=external_db.external_db_id) where external_db.db_name='GO';"));
+    my $level = $dba->dbc()->sql_helper()->execute_single_result(-SQL=>qq/select distinct object_xref.ensembl_object_type from ${core_db}.object_xref join ${core_db}.xref on (object_xref.xref_id=xref.xref_id) join ${core_db}.external_db on (xref.external_db_id=external_db.external_db_id) where external_db.db_name='GO'/);
     
     my $key_column;
     if($level eq "Transcript") {
@@ -162,13 +169,11 @@ for $dataset (@datasets) {
     $mart_handle->do(qq/CREATE TABLE ${dataset}_${basename}__ox_goslim_goa__dm (
   `description_1074` varchar(255) NOT NULL,
   `display_label_1074` varchar(64) NOT NULL,
-  `translation_id_1068_key` int(10) unsigned NOT NULL,
-  `dbprimary_acc_1074` varchar(64) NOT NULL,
-  KEY `dbprimary_acc_1074` (`dbprimary_acc_1074`),
-  KEY `translation_id_1068_key` (`translation_id_1068_key`))/
+  `${key_column}` int(10) unsigned NOT NULL,
+  `dbprimary_acc_1074` varchar(64) NOT NULL)/
                     );
 
-    my $sth = $mart_handle->prepare(qq/INSERT INTO  ${dataset}_${basename}__ox_goslim_goa__dm(descripton_1074, display_label_1074, translation_id_1068_key, dbprimary_acc_1074) VALUES(?,?,?,?)/);
+    my $sth = $mart_handle->prepare(qq/INSERT INTO  ${dataset}_${basename}__ox_goslim_goa__dm(description_1074, display_label_1074, translation_id_1068_key, dbprimary_acc_1074) VALUES(?,?,?,?)/);
     $dba->dbc()->sql_helper->execute_no_return(-SQL=>qq/select distinct t2.name as description_1074, t2.accession as display_label_1074, object_xref.ensembl_id as ${key_column}, t2.accession as dbprimary_acc_1074 
 from ${core_db}.object_xref
 join ${core_db}.xref on (object_xref.xref_id=xref.xref_id)
@@ -180,12 +185,11 @@ join ${ontology_db}.term as t2 on (t2.term_id=s.subset_term_id)
 where external_db.db_name='GO' order by object_xref.ensembl_id/,
                                                -CALLBACK=>sub {
                                                  my ($row) = @_;
-                                                 $sth->execute($row->[0],$row->[1],$row->[2],$row->[3]);
+                                                 $sth->execute(@$row);
                                                  return;
                                                }
                                               );
     $sth->finish();
-
     
     $logger->info(" Creating indexes on ${dataset}_${basename}__ox_goslim_goa__dm ...");
     $mart_handle->do("alter table ${dataset}_${basename}__ox_goslim_goa__dm add index (dbprimary_acc_1074), add index (${key_column});");
@@ -196,7 +200,31 @@ where external_db.db_name='GO' order by object_xref.ensembl_id/,
     # The ontology goslim goa table is only created for EG species.
     if (${basename} !~ 'gene_ensembl') {
       $logger->info(" Creating ${dataset}_${basename}__ontology_goslim_goa__dm ...");
-      $mart_handle->do("create table ${dataset}_${basename}__ontology_goslim_goa__dm select distinct ontology_xref.linkage_type as linkage_type_1024, t2.ontology_id as ontology_id_1006, t2.definition as definition_1006, object_xref.ensembl_id as ${key_column}, t2.is_root as is_root_1006, t2.name as name_1006, t2.accession as dbprimary_acc_1074 from ${core_db}.object_xref join ${core_db}.xref on (object_xref.xref_id=xref.xref_id) join ${core_db}.external_db on (xref.external_db_id=external_db.external_db_id) join ${core_db}.ontology_xref on (object_xref.object_xref_id=ontology_xref.object_xref_id) join ${ontology_db}.term as t on (t.accession=xref.dbprimary_acc) join ${ontology_db}.closure as c on (t.term_id=c.child_term_id) join ${ontology_db}.${slim} as s on (c.parent_term_id=s.term_id) join ${ontology_db}.term as t2 on (t2.term_id=s.subset_term_id) where external_db.db_name='GO' order by object_xref.ensembl_id;");
+
+    $mart_handle->do(qq/
+CREATE TABLE `${dataset}_${basename}__ontology_goslim_goa__dm` (
+  `linkage_type_1024` varchar(3) DEFAULT NULL,
+  `ontology_id_1006` int(10) unsigned NOT NULL,
+  `definition_1006` text,
+  `${key_column}` int(10) unsigned NOT NULL,
+  `is_root_1006` int(11) NOT NULL DEFAULT '0',
+  `name_1006` varchar(255) NOT NULL,
+  `dbprimary_acc_1074` varchar(64) NOT NULL
+/);
+
+    my $sth = $mart_handle->prepare(qq/INSERT INTO  ${dataset}_${basename}__ontology_goslim_goa__dm() VALUES(?,?,?,?,?,?,?)/);
+    $dba->dbc()->sql_helper->execute_no_return(-SQL=>qq/
+select distinct ontology_xref.linkage_type as linkage_type_1024, t2.ontology_id as ontology_id_1006, t2.definition as definition_1006, object_xref.ensembl_id as ${key_column}, t2.is_root as is_root_1006, t2.name as name_1006, t2.accession as dbprimary_acc_1074 from ${core_db}.object_xref join ${core_db}.xref on (object_xref.xref_id=xref.xref_id) join ${core_db}.external_db on (xref.external_db_id=external_db.external_db_id) join ${core_db}.ontology_xref on (object_xref.object_xref_id=ontology_xref.object_xref_id) join ${ontology_db}.term as t on (t.accession=xref.dbprimary_acc) join ${ontology_db}.closure as c on (t.term_id=c.child_term_id) join ${ontology_db}.${slim} as s on (c.parent_term_id=s.term_id) join ${ontology_db}.term as t2 on (t2.term_id=s.subset_term_id) where external_db.db_name='GO' order by object_xref.ensembl_id/,
+                                               -CALLBACK=>sub {
+                                                 my ($row) = @_;
+                                                 $sth->execute(@$row);
+                                                 return;
+                                               }
+                                              );
+    $sth->finish();
+
+
+      $mart_handle->do("create table ${dataset}_${basename}__ontology_goslim_goa__dm ");
     
       $logger->info(" Creating indexes on ${dataset}_${basename}__ontology_goslim_goa__dm ...");
       $mart_handle->do("alter table ${dataset}_${basename}__ontology_goslim_goa__dm add index (dbprimary_acc_1074), add index (linkage_type_1024), add index (${key_column});");
