@@ -126,6 +126,38 @@ sub write_species {
     close($sql_file);
 }
 
+sub write_family {
+    my ($dataset, $basename) = @_;
+    eval {
+	# ignore failure
+    $mart_handle->do(
+	qq/ALTER TABLE ${dataset}_${basename}__translation__main
+ADD COLUMN stable_id_408      VARCHAR(40) DEFAULT NULL,
+ADD COLUMN description_408    VARCHAR(255) DEFAULT NULL
+/
+	);
+    };
+
+    $mart_handle->do(
+	qq/
+UPDATE ${dataset}_${basename}__translation__main m
+JOIN ${compara_db}.seq_member s on (s.stable_id=m.stable_id_1070)
+JOIN ${compara_db}.family_member fm using (seq_member_id)
+JOIN ${compara_db}.family f using (family_id)
+set m.stable_id_408     = f.stable_id,
+m.description_408   = f.description
+/
+	);
+
+    eval {
+	# ignore failure
+    $mart_handle->do(qq/ALTER TABLE ${dataset}_${basename}__translation__main
+ADD INDEX stable_id_408_idx(stable_id_408)/);
+    };
+
+    return;
+}
+
 my $species_homolog_sql = qq/select ms.method_link_species_set_id, g.name, CONCAT(CONCAT(n.src_dataset,'_'),n.species_id), n.name
 from $compara_db.species_set s
 join $compara_db.method_link_species_set ms using (species_set_id)
@@ -222,6 +254,10 @@ for my $dataset (sort @datasets) {
     }
   }
 }
+
+  # add family
+  $logger->info("Adding family data");
+  write_family($dataset_name, $basename);
 
   # work out species name from $dataset
   # get list of method_link_species_set_id/name pairs for homolog partners
