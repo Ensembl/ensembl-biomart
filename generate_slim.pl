@@ -39,6 +39,7 @@ use MartUtils;
 use Cwd;
 use File::Copy;
 use Getopt::Long;
+use Bio::EnsEMBL::Registry;
 
 # db params
 my $db_host = '127.0.0.1';
@@ -71,6 +72,7 @@ my $options_okay = GetOptions (
     "dataset=s"=>\$dataset,    
     "name=s"=>\$basename,
     "verbose|v"=>\$verbose,
+    "registry"=>\$registry,                           
     "h|help"=>sub {usage()}
     );
 
@@ -89,7 +91,18 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
 			       { RaiseError => 1 }
     ) or croak "Could not connect to $mart_string";
 
-my @datasets = ();
+# load registry
+if(defined $registry) {
+  Bio::EnsEMBL::Registry->load_all($registry);
+} else {
+  Bio::EnsEMBL::Registry->load_registry_from_db(
+                                                -host       => $db_host,
+                                                -user       => $db_user,
+                                                -pass       => $db_pwd,
+                                                -port       => $db_port,
+                                                -db_version => $release);
+}
+
 if(defined $dataset) {
     push @datasets, $dataset;
 } else {
@@ -101,6 +114,11 @@ $logger->info("Using ontology database $ontology_db");
 
 for $dataset (@datasets) {
     my $core_db = get_string($mart_handle->prepare("SELECT src_db FROM dataset_names WHERE name='$dataset'"));
+
+    my $species_name = get_sql_name_for_dataset( $mart_handle, $dataset );
+    my $dba =
+      Bio::EnsEMBL::Registry->get_DBAdaptor( $species_name, 'Core', 'transcript' );
+
     $logger->info("Processing core database $core_db for dataset $dataset");
     if(!defined $core_db) {
 	croak "Could not find core database for dataset $dataset";
@@ -136,63 +154,45 @@ for $dataset (@datasets) {
     }
 
     $logger->info("Processing $slim ($slim_short)");
-    
-#    if($mart_db =~ m/ensembl_mart_.*/) {  
-#  if [ $division == "ensembl" ]
-#  then 
-#    echo "  Drop if exist ${short_name}_gene_ensembl__ox_goslim_goa__dm ..." 
-#    mysql -u$DBUSER -p$DBPASS -h$DBHOST -P$DBPORT ${mart_db} -s -N -e "drop table if exists ${short_name}_gene_ensembl__ox_goslim_goa__dm;"
-#    echo "  Creating ${short_name}_gene_ensembl__ox_goslim_goa__dm ..."
-#    mysql -u$DBUSER -p$DBPASS -h$DBHOST -P$DBPORT ${mart_db} -s -N -e "create table ${short_name}_gene_ensembl__ox_goslim_goa__dm select distinct t2.name as description_1074, object_xref.ensembl_id as ${key_column[$level]}, t2.accession as dbprimary_acc_1074 from ${db}.object_xref join ${db}.xref on (object_xref.xref_id=xref.xref_id) join ${db}.external_db on (xref.external_db_id=external_db.external_db_id) join ${ontology_db}.term as t on (t.accession=xref.dbprimary_acc) join ${ontology_db}.closure as c on (t.term_id=c.child_term_id) join ${ontology_db}.${slim} as s on (c.parent_term_id=s.term_id) join ensembl_ontology_82.term as t2 on (t2.term_id=s.subset_term_id) where external_db.db_name='GO' order by object_xref.ensembl_id;"
-# 
-#    echo "  Creating indexes on ${short_name}_gene_ensembl__ox_goslim_goa__dm ..."
-#    mysql -u$DBUSER -p$DBPASS -h$DBHOST -P$DBPORT ${mart_db} -s -N -e "alter table ${short_name}_gene_ensembl__ox_goslim_goa__dm add index (dbprimary_acc_1074), add index (${key_column});"
-# 
-#    if [ ${key_column} == "transcript_id_1064_key" ]
-#    then
-#      echo "  Modifying ${short_name}_gene_ensembl__transcript__main ..."
-#      mysql -u$DBUSER -p$DBPASS -h$DBHOST -P$DBPORT ${mart_db} -s -N -e "alter table ${mart_db}.${short_name}_gene_ensembl__transcript__main add column (ox_goslim_goa_bool integer default 0);"
-#
-#      echo "  Updating column ${short_name}_gene_ensembl__transcript__main ..."
-#      mysql -u$DBUSER -p$DBPASS -h$DBHOST -P$DBPORT ${mart_db} -s -N -e "update ${mart_db}.${short_name}_gene_ensembl__transcript__main a set ox_goslim_goa_bool=(select case count(1) when 0 then null else 1 end from ${mart_db}.${short_name}_gene_ensembl__ox_goslim_goa__dm b where a.${key_column}=b.${key_column} and not (b.description_1074 is null and b.dbprimary_acc_1074 is null));"
-#
-#      levelType=$(echo $level | tr '[:upper:]' '[:lower:]')
-#      echo "  Creating index I_goslim_${short_name} ..."
-#      mysql -u$DBUSER -p$DBPASS -h$DBHOST -P$DBPORT ${mart_db} -s -N -e "create index I_goslim_${short_name} on ${mart_db}.${short_name}_gene_ensembl__transcript__main(ox_goslim_goa_bool);"
-#
-#      echo "  Modifying ${short_name}_gene_ensembl__translation__main ..."
-#      mysql -u$DBUSER -p$DBPASS -h$DBHOST -P$DBPORT ${mart_db} -s -N -e "alter table ${mart_db}.${short_name}_gene_ensembl__translation__main add column (ox_goslim_goa_bool integer default 0);"
-#
-#      echo "  Updating column ${short_name}_gene_ensembl__translation__main ..."
-#      mysql -u$DBUSER -p$DBPASS -h$DBHOST -P$DBPORT ${mart_db} -s -N -e "update ${mart_db}.${short_name}_gene_ensembl__translation__main a set ox_goslim_goa_bool=(select case count(1) when 0 then null else 1 end from ${mart_db}.${short_name}_gene_ensembl__ox_goslim_goa__dm b where a.${key_column}=b.${key_column} and not (b.description_1074 is null and b.dbprimary_acc_1074 is null));"
-#
-#      levelType=$(echo $level | tr '[:upper:]' '[:lower:]')
-#      echo "  Creating index I_goslim_${short_name} ..."
-#      mysql -u$DBUSER -p$DBPASS -h$DBHOST -P$DBPORT ${mart_db} -s -N -e "create index I_goslim_${short_name} on ${mart_db}.${short_name}_gene_ensembl__translation__main(ox_goslim_goa_bool);"
-#    elif [ ${key_column} == "translation_id_1068_key" ]
-#    then
-#      echo "  Modifying ${short_name}_gene_ensembl__translation__main ..."
-#      mysql -u$DBUSER -p$DBPASS -h$DBHOST -P$DBPORT ${mart_db} -s -N -e "alter table ${mart_db}.${short_name}_gene_ensembl__translation__main add column (ox_goslim_goa_bool integer default 0);"
-#  
-#      echo "  Updating column ${short_name}_gene_ensembl__translation__main ..."
-#      mysql -u$DBUSER -p$DBPASS -h$DBHOST -P$DBPORT ${mart_db} -s -N -e "update ${mart_db}.${short_name}_gene_ensembl__translation__main a set ox_goslim_goa_bool=(select case count(1) when 0 then null else 1 end from ${mart_db}.${short_name}_gene_ensembl__ox_goslim_goa__dm b where a.${key_column}=b.${key_column} and not (b.description_1074 is null and b.dbprimary_acc_1074 is null));"
-#  
-#      levelType=$(echo $level | tr '[:upper:]' '[:lower:]')
-#      echo "  Creating index I_goslim_${short_name} ..."
-#      mysql -u$DBUSER -p$DBPASS -h$DBHOST -P$DBPORT ${mart_db} -s -N -e "create index I_goslim_${short_name} on ${mart_db}.${short_name}_gene_ensembl__translation__main(ox_goslim_goa_bool);"
-#     fi
-#        croak "Ensembl mart is not currently supported";
-#    } else {
-    
+
     $logger->info(" Drop if exist ${dataset}_${basename}__ox_goslim_goa__dm ...");
     $mart_handle->do("drop table if exists ${dataset}_${basename}__ox_goslim_goa__dm");
     $logger->info(" Creating ${dataset}_${basename}__ox_goslim_goa__dm ...");
-    $mart_handle->do("create table ${dataset}_${basename}__ox_goslim_goa__dm select distinct t2.name as description_1074, t2.accession as display_label_1074, object_xref.ensembl_id as ${key_column}, t2.accession as dbprimary_acc_1074 from ${core_db}.object_xref join ${core_db}.xref on (object_xref.xref_id=xref.xref_id) join ${core_db}.external_db on (xref.external_db_id=external_db.external_db_id) join ${ontology_db}.term as t on (t.accession=xref.dbprimary_acc) join ${ontology_db}.closure as c on (t.term_id=c.child_term_id) join ${ontology_db}.${slim} as s on (c.parent_term_id=s.term_id) join ${ontology_db}.term as t2 on (t2.term_id=s.subset_term_id) where external_db.db_name='GO' order by object_xref.ensembl_id;");
+
+    $mart_handle->do(qq/CREATE TABLE ${dataset}_${basename}__ox_goslim_goa__dm (
+  `description_1074` varchar(255) NOT NULL,
+  `display_label_1074` varchar(64) NOT NULL,
+  `translation_id_1068_key` int(10) unsigned NOT NULL,
+  `dbprimary_acc_1074` varchar(64) NOT NULL,
+  KEY `dbprimary_acc_1074` (`dbprimary_acc_1074`),
+  KEY `translation_id_1068_key` (`translation_id_1068_key`))/
+                    );
+
+    my $sth = $mart_handle->prepare(qq/INSERT INTO  ${dataset}_${basename}__ox_goslim_goa__dm(descripton_1074, display_label_1074, translation_id_1068_key, dbprimary_acc_1074) VALUES(?,?,?,?)/);
+    $dba->dbc()->sql_helper->execute_no_return(-SQL=>qq/select distinct t2.name as description_1074, t2.accession as display_label_1074, object_xref.ensembl_id as ${key_column}, t2.accession as dbprimary_acc_1074 
+from ${core_db}.object_xref
+join ${core_db}.xref on (object_xref.xref_id=xref.xref_id)
+join ${core_db}.external_db on (xref.external_db_id=external_db.external_db_id)
+join ${ontology_db}.term as t on (t.accession=xref.dbprimary_acc)
+join ${ontology_db}.closure as c on (t.term_id=c.child_term_id)
+join ${ontology_db}.${slim} as s on (c.parent_term_id=s.term_id)
+join ${ontology_db}.term as t2 on (t2.term_id=s.subset_term_id)
+where external_db.db_name='GO' order by object_xref.ensembl_id/,
+                                               -CALLBACK=>sub {
+                                                 my ($row) = @_;
+                                                 $sth->execute($row->[0],$row->[1],$row->[2],$row->[3]);
+                                                 return;
+                                               }
+                                              );
+    $sth->finish();
+
+    
     $logger->info(" Creating indexes on ${dataset}_${basename}__ox_goslim_goa__dm ...");
     $mart_handle->do("alter table ${dataset}_${basename}__ox_goslim_goa__dm add index (dbprimary_acc_1074), add index (${key_column});");
-    
+
     $logger->info(" Drop if exist ${dataset}_${basename}__ontology_goslim_goa__dm ...");
     $mart_handle->do("drop table if exists ${dataset}_${basename}__ontology_goslim_goa__dm");
+
     # The ontology goslim goa table is only created for EG species.
     if (${basename} !~ 'gene_ensembl') {
       $logger->info(" Creating ${dataset}_${basename}__ontology_goslim_goa__dm ...");
@@ -258,4 +258,7 @@ for $dataset (@datasets) {
         }
     }
     $logger->info("Completed processing $dataset");
+
+    $dba->dbc()->disconnect_if_idle();
+
 }
