@@ -51,6 +51,15 @@ my $description = 'genes';
 my $output_dir = undef;
 my $species_id_start = undef;
 
+my $is_default = {
+                  'hsapiens' => 1,
+                  'drerio' => 1,
+                  'rnorvegicus' => 1,
+                  'mmusculus' => 1,
+                  'ggallus' => 1,
+                  'athaliana' => 1
+};
+
 sub usage {
     print "Usage: $0 [-host <host>] [-port <port>] [-user <user>] [-pass <pwd>] [-mart <mart db>] [-release <e! release number>] [-template <template file path>] [-description <description>] [-dataset <dataset name>] [-ds_template <datanase name template>] [-output_dir <output directory>] [-species_id_start <species id number start>]\n";
     print "-host <host> Default is $db_host\n";
@@ -140,41 +149,41 @@ sub write_replace_file {
 sub get_dataset_element {
     my $dataset = shift;
     if ($ds_name !~ 'gene_ensembl'){
-        '<DynamicDataset aliases="mouse_formatter1=,mouse_formatter2=,mouse_formatter3=,species1='.
+        return '<DynamicDataset aliases="mouse_formatter1=,mouse_formatter2=,mouse_formatter3=,species1='.
         $dataset->{species_name}.
-        ',species2='.$dataset->{species_uc_name}.
-        ',species3='.$dataset->{dataset}.
-        ',species4='.$dataset->{short_name}.
-        ',collection_path='.$dataset->{colstr}.
-        ',version='.$dataset->{version_num}.
-#       ',tax_id='.$dataset->{tax_id}.
-        ',link_version='.$dataset->{dataset}.
-        '_'.$release.',default=true" internalName="'.
-        $dataset->{dataset}.'_'.$ds_name.'"/>'
-    }
-# for ensembl species
+          ',species2='.$dataset->{species_uc_name}.
+            ',species3='.$dataset->{dataset}.
+              ',species4='.$dataset->{short_name}.
+                ',collection_path='.$dataset->{colstr}.
+                  ',version='.$dataset->{version_num}.
+                    #       ',tax_id='.$dataset->{tax_id}.
+                    ',link_version='.$dataset->{dataset}.
+                      '_'.$release.',default='.$dataset->{default}.'" internalName="'.
+                        $dataset->{dataset}.'_'.$ds_name.'"/>'
+                      }
+    # for ensembl species
     else
-    {
-    my $species1=ucfirst($dataset->{species_uc_name});
-    $species1=~ s/_/ /g;
-    my $species5=ucfirst($dataset->{species_uc_name});
-    $species5=~ s/_/+/g;
-    '<DynamicDataset aliases="mouse_formatter1=,mouse_formatter2=,mouse_formatter3=,species1='.
-	$species1.
-	',species2='.ucfirst($dataset->{species_uc_name}).
-	',species3='.$dataset->{dataset}.
-	',species4='.substr($dataset->{dataset},0,4).
-        ',species5='.$species5.
-	',collection_path='.$dataset->{colstr}.
-	',version='.$dataset->{version_num}.
-	',link_version='.$dataset->{version_num}.
-	'_'.$release.',default=true" internalName="'.
-	$dataset->{dataset}.'_'.$ds_name.'"/>'
-    }
-}
+      {
+        my $species1=ucfirst($dataset->{species_uc_name});
+        $species1=~ s/_/ /g;
+        my $species5=ucfirst($dataset->{species_uc_name});
+        $species5=~ s/_/+/g;
+        return '<DynamicDataset aliases="mouse_formatter1=,mouse_formatter2=,mouse_formatter3=,species1='.
+          $species1.
+            ',species2='.ucfirst($dataset->{species_uc_name}).
+              ',species3='.$dataset->{dataset}.
+                ',species4='.substr($dataset->{dataset},0,4).
+                  ',species5='.$species5.
+                    ',collection_path='.$dataset->{colstr}.
+                      ',version='.$dataset->{version_num}.
+                        ',link_version='.$dataset->{version_num}.
+                          ',default='.$dataset->{default}.'" internalName="'.
+                            $dataset->{dataset}.'_'.$ds_name.'"/>'
+                          }
+  }
 
 sub get_dataset_exportable {
-    my $dataset = shift;
+  my $dataset = shift;
     my $text = << "EXP_END";
     <Exportable attributes="$dataset->{dataset}_gene" 
 	default="1" internalName="$dataset->{dataset}_gene_stable_id" 
@@ -557,6 +566,13 @@ foreach my $dataset (get_dataset_names($mart_handle)) {
     }
     $dataset_names{compara}=substr($dataset_names{baseset},0,4);
     #$logger->debug(join(',',values(%dataset_names)));
+
+    if($is_default->{$dataset}) {
+      $dataset_names{default} = 'true';
+    } else {
+      $dataset_names{default} = 'false';
+    }
+
     push(@datasets,\%dataset_names);
     write_dataset_xml(\%dataset_names , $output_dir);
 }
