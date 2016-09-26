@@ -59,6 +59,7 @@ my $db_user = 'ensro';
 my $db_pwd;
 my $mart_db;
 my $template = './templates/eg_template_template.xml';
+my $base_name = 'gene';
 
 sub usage {
     print "Usage: $0 [-host|-h <host>] [-port|-P <port>] [-u|-user user <user>] [-p|-pass <pwd>] [-mart <src>] [-template <template file>]\n";
@@ -78,6 +79,7 @@ my $options_okay = GetOptions (
     "pass|p=s"=>\$db_pwd,
     "mart=s"=>\$mart_db,
     "template=s"=>\$template,
+    "ds_name=s"=>\$base_name,
     "help"=>sub {usage()}
     );
 
@@ -112,8 +114,8 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
 
 $mart_handle->do("use $mart_db");
 # get tables
-my %tabs = map{$_ =~ s/.*gene__(ox_.*)__dm/$1/; lc($_)=>1} query_to_strings($mart_handle,"show tables like '%\\_\\_ox\\_%\\_\\_dm'");
-my %tabs2 = map{$_ =~ s/.*gene__(efg_.*)__dm/$1/; lc($_)=>1} query_to_strings($mart_handle,"show tables like '%\\_\\_efg\\_%\\_\\_dm'");
+my %tabs = map{$_ =~ s/.*${base_name}__(ox_.*)__dm/$1/; lc($_)=>1} query_to_strings($mart_handle,"show tables like '%\\_\\_ox\\_%\\_\\_dm'");
+my %tabs2 = map{$_ =~ s/.*${base_name}__(efg_.*)__dm/$1/; lc($_)=>1} query_to_strings($mart_handle,"show tables like '%\\_\\_efg\\_%\\_\\_dm'");
 # get keys
 my %keys = query_to_hash($mart_handle,"select TABLE_NAME,COLUMN_NAME from information_schema.columns where TABLE_SCHEMA='$mart_db' AND TABLE_NAME LIKE '%\\_\\_dm' and column_name like '%\\_key'");
 for my $main (qw(gene transcript translation)) {
