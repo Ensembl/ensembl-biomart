@@ -1,2 +1,0 @@
-# wrapper script
-csh ./generate_sequence_template.csh 58 5 Fungi
