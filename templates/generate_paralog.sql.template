@@ -1,0 +1,268 @@
+drop table if exists %martSchema%.%dataSet%_TEMP300_%method_link_species_set_id%;
+create table %martSchema%.%dataSet%_TEMP300_%method_link_species_set_id% as
+  select
+    a.species_set_id as species_set_id_4019,
+    a.method_link_id as method_link_id_4019,
+    a.method_link_species_set_id as method_link_species_set_id_4019
+  from
+    %srcSchema%.method_link_species_set as a
+  where a.method_link_species_set_id=%method_link_species_set_id%;
+
+create index %indexName% on %martSchema%.%dataSet%_TEMP300_%method_link_species_set_id%(method_link_species_set_id_4019);
+drop table if exists %martSchema%.%dataSet%_TEMP303_%method_link_species_set_id%;
+create table %martSchema%.%dataSet%_TEMP303_%method_link_species_set_id% as
+  select
+    a.*,
+    b.ds as ds_4014,
+    b.dn as dn_4014,
+    b.description as description_4014,
+    b.homology_id as homology_id_4014,
+    b.species_tree_node_id as species_tree_node_id_4014,
+    b.is_high_confidence as is_high_confidence_4014
+  from
+    %martSchema%.%dataSet%_TEMP300_%method_link_species_set_id% as a
+      inner join
+    %srcSchema%.homology as b
+      on a.method_link_species_set_id_4019=b.method_link_species_set_id;
+drop table %martSchema%.%dataSet%_TEMP300_%method_link_species_set_id%;
+
+create index %indexName% on %martSchema%.%dataSet%_TEMP303_%method_link_species_set_id%(homology_id_4014);
+drop table if exists %martSchema%.%dataSet%_TEMP304_%method_link_species_set_id%;
+create table %martSchema%.%dataSet%_TEMP304_%method_link_species_set_id% as
+  select
+    a.*,
+    b.gene_member_id as gene_member_id_4015,
+    b.seq_member_id as seq_member_id_4015,
+    b.perc_id as perc_id_4015
+  from
+    %martSchema%.%dataSet%_TEMP303_%method_link_species_set_id% as a
+      inner join
+    %srcSchema%.homology_member as b
+      on a.homology_id_4014=b.homology_id;
+drop table %martSchema%.%dataSet%_TEMP303_%method_link_species_set_id%;
+
+create index %indexName% on %martSchema%.%dataSet%_TEMP304_%method_link_species_set_id%(gene_member_id_4015);
+drop table if exists %martSchema%.%dataSet%_TEMP306_%method_link_species_set_id%;
+create table %martSchema%.%dataSet%_TEMP306_%method_link_species_set_id% as
+  select
+    a.*,
+    b.stable_id as stable_id_4016,
+    b.genome_db_id as genome_db_id_4016
+  from
+    %martSchema%.%dataSet%_TEMP304_%method_link_species_set_id% as a
+      inner join
+    %srcSchema%.gene_member as b
+      on a.gene_member_id_4015=b.gene_member_id;
+drop table %martSchema%.%dataSet%_TEMP304_%method_link_species_set_id%;
+
+create index %indexName% on %martSchema%.%dataSet%_TEMP306_%method_link_species_set_id%(seq_member_id_4015);
+create table %martSchema%.%dataSet%_TEMP310_%method_link_species_set_id% as
+  select
+    a.*,
+    b.stable_id as stable_id_4016_r1,
+    b.genome_db_id as genome_db_id_4016_r1,
+    b.sequence_id as sequence_id_4016_r1
+  from
+    %martSchema%.%dataSet%_TEMP306_%method_link_species_set_id% as a
+      inner join
+    %srcSchema%.seq_member as b
+      on a.seq_member_id_4015=b.seq_member_id;
+drop table %martSchema%.%dataSet%_TEMP306_%method_link_species_set_id%;
+
+create index %indexName% on %martSchema%.%dataSet%_TEMP310_%method_link_species_set_id%(homology_id_4014);
+drop table if exists %martSchema%.%dataSet%_TEMP314_%method_link_species_set_id%;
+create table %martSchema%.%dataSet%_TEMP314_%method_link_species_set_id% as
+  select
+    a.*,
+    b.seq_member_id as seq_member_id_4015_r1,
+    b.gene_member_id as gene_member_id_4015_r1,
+    b.perc_id as perc_id_4015_r1
+  from
+    %martSchema%.%dataSet%_TEMP310_%method_link_species_set_id% as a
+      inner join
+    %srcSchema%.homology_member as b
+      on a.homology_id_4014=b.homology_id and a.gene_member_id_4015<>b.gene_member_id;
+drop table if exists %martSchema%.%dataSet%_TEMP310_%method_link_species_set_id%;
+
+create index %indexName% on %martSchema%.%dataSet%_TEMP314_%method_link_species_set_id%(gene_member_id_4015_r1);
+drop table if exists %martSchema%.%dataSet%_TEMP316_%method_link_species_set_id%;
+create table %martSchema%.%dataSet%_TEMP316_%method_link_species_set_id% as
+  select
+    a.*,
+    b.stable_id as stable_id_4016_r2,
+    c.name as chr_name_4016_r2,
+    b.dnafrag_start as chr_start_4016_r2,
+    b.dnafrag_end as chr_end_4016_r2,
+    b.display_label as display_label_40273_r1,
+    b.genome_db_id as genome_db_id_4016_r2
+  from
+    %martSchema%.%dataSet%_TEMP314_%method_link_species_set_id% as a
+      inner join
+    %srcSchema%.gene_member as b
+      on a.gene_member_id_4015_r1=b.gene_member_id
+      inner join
+    %srcSchema%.dnafrag as c
+      on b.dnafrag_id=c.dnafrag_id;
+drop table if exists %martSchema%.%dataSet%_TEMP314_%method_link_species_set_id%;
+
+create index %indexName% on %martSchema%.%dataSet%_TEMP316_%method_link_species_set_id%(seq_member_id_4015_r1);
+drop table if exists %martSchema%.%dataSet%_TEMP320_%method_link_species_set_id%;
+create table %martSchema%.%dataSet%_TEMP320_%method_link_species_set_id% as
+  select
+    a.*,
+    b.stable_id as stable_id_4016_r3,
+    b.genome_db_id as genome_db_id_4016_r3,
+    b.sequence_id as sequence_id_4016_r3
+  from
+    %martSchema%.%dataSet%_TEMP316_%method_link_species_set_id% as a
+      inner join
+    %srcSchema%.seq_member as b
+      on a.seq_member_id_4015_r1=b.seq_member_id;
+drop table %martSchema%.%dataSet%_TEMP316_%method_link_species_set_id%;
+
+create index %indexName% on %martSchema%.%dataSet%_TEMP320_%method_link_species_set_id%(species_tree_node_id_4014);
+drop table if exists %martSchema%.%dataSet%_TEMP321_%method_link_species_set_id%;
+create table %martSchema%.%dataSet%_TEMP321_%method_link_species_set_id% as
+  select
+    a.*,
+    b.genome_db_id as genome_db_id_40192,
+    b.node_name as node_name_40192
+  from
+    %martSchema%.%dataSet%_TEMP320_%method_link_species_set_id% as a
+      inner join
+    %srcSchema%.species_tree_node as b
+      on a.species_tree_node_id_4014=b.node_id;
+drop table %martSchema%.%dataSet%_TEMP320_%method_link_species_set_id%;
+
+create index %indexName% on %martSchema%.%dataSet%_TEMP321_%method_link_species_set_id%(stable_id_4016);
+drop table if exists %martSchema%.%dataSet%_TEMP324_%method_link_species_set_id%;
+create table %martSchema%.%dataSet%_TEMP324_%method_link_species_set_id% as
+  select
+    a.*,
+    b.gene_id_1020_key
+  from
+    %martSchema%.%dataSet%_TEMP321_%method_link_species_set_id% as a
+      inner join
+    %martSchema%.%dataSet%__gene__main as b
+      on a.stable_id_4016=b.stable_id_1023;
+drop table %martSchema%.%dataSet%_TEMP321_%method_link_species_set_id%;
+
+create index %indexName% on %martSchema%.%dataSet%_TEMP324_%method_link_species_set_id%(gene_id_1020_key);
+drop table if exists %martSchema%.%dataSet%_TEMP325_%method_link_species_set_id%;
+create table %martSchema%.%dataSet%_TEMP325_%method_link_species_set_id% as
+  select
+    a.gene_id_1020_key,
+    b.genome_db_id_4016_r3,
+    b.chr_name_4016_r2,
+    b.homology_id_4014,
+    b.stable_id_4016,
+    b.stable_id_4016_r3,
+    b.seq_member_id_4015,
+    b.genome_db_id_4016,
+    b.seq_member_id_4015_r1,
+    b.perc_id_4015_r1,
+    b.stable_id_4016_r2,
+    b.ds_4014,
+    b.genome_db_id_4016_r1,
+    b.sequence_id_4016_r3,
+    b.chr_start_4016_r2,
+    b.perc_id_4015,
+    b.genome_db_id_4016_r2,
+    b.description_4014,
+    b.sequence_id_4016_r1,
+    b.chr_end_4016_r2,
+    b.gene_member_id_4015_r1,
+    b.gene_member_id_4015,
+    b.species_set_id_4019,
+    b.method_link_species_set_id_4019,
+    b.stable_id_4016_r1,
+    b.dn_4014,
+    b.method_link_id_4019,
+    b.node_name_40192,
+    b.species_tree_node_id_4014,
+    b.is_high_confidence_4014,
+    b.display_label_40273_r1,
+    b.genome_db_id_40192
+  from
+    %martSchema%.%dataSet%__gene__main as a
+      left join
+    %martSchema%.%dataSet%_TEMP324_%method_link_species_set_id% as b
+      on a.gene_id_1020_key=b.gene_id_1020_key;
+drop table %martSchema%.%dataSet%_TEMP324_%method_link_species_set_id%;
+drop table if exists %martSchema%.%dataSet%_TEMP326_%method_link_species_set_id%;
+create table %martSchema%.%dataSet%_TEMP326_%method_link_species_set_id% as
+  select distinct
+    dn_4014,
+    chr_name_4016_r2,
+    gene_id_1020_key,
+    chr_end_4016_r2,
+    chr_start_4016_r2,
+    description_4014,
+    ds_4014,
+    node_name_40192,
+    perc_id_4015_r1,
+    stable_id_4016_r2,
+    stable_id_4016_r3,
+    stable_id_4016_r1,
+    display_label_40273_r1,
+    perc_id_4015,
+    is_high_confidence_4014
+  from
+    %martSchema%.%dataSet%_TEMP325_%method_link_species_set_id%;
+drop table %martSchema%.%dataSet%_TEMP325_%method_link_species_set_id%;
+create index %indexName% on %martSchema%.%dataSet%_TEMP326_%method_link_species_set_id%(stable_id_4016_r3);
+create index %indexName% on %martSchema%.%dataSet%_TEMP326_%method_link_species_set_id%(stable_id_4016_r2);
+create index %indexName% on %martSchema%.%dataSet%_TEMP326_%method_link_species_set_id%(stable_id_4016_r1);
+drop table if exists %martSchema%.%dataSet%__paralog_%speciesTld%__dm;
+rename table %martSchema%.%dataSet%_TEMP326_%method_link_species_set_id% to %martSchema%.%dataSet%__paralog_%speciesTld%__dm;
+create index %indexName% on %martSchema%.%dataSet%__paralog_%speciesTld%__dm(gene_id_1020_key);
+
+drop table if exists %martSchema%.para_%dataSet%_TEMP_%method_link_species_set_id%;
+create table %martSchema%.para_%dataSet%_TEMP_%method_link_species_set_id% as
+  select
+    a.gene_id_1020_key
+  from
+    %martSchema%.%dataSet%__gene__main a
+      inner join
+    %martSchema%.%dataSet%__paralog_%speciesTld%__dm b
+      on a.gene_id_1020_key=b.gene_id_1020_key
+  where not (
+    b.ds_4014 is null and
+    b.perc_id_4015_r1 is null and
+    b.dn_4014 is null and
+    b.node_name_40192 is null and
+    b.stable_id_4016_r2 is null and
+    b.chr_name_4016_r2 is null and
+    b.description_4014 is null and
+    b.stable_id_4016_r1 is null and
+    b.is_high_confidence_4014 is null and
+    b.chr_end_4016_r2 is null and
+    b.perc_id_4015 is null and
+    b.stable_id_4016_r3 is null and
+    b.chr_start_4016_r2 is null and
+    b.display_label_40273_r1 is null);
+
+create index pkey on %martSchema%.para_%dataSet%_TEMP_%method_link_species_set_id% (gene_id_1020_key);  
+
+alter table %martSchema%.%dataSet%__gene__main
+  add column (paralog_%speciesTld%_bool integer default NULL);
+update
+  %martSchema%.%dataSet%__gene__main a inner join
+  %martSchema%.para_%dataSet%_TEMP_%method_link_species_set_id% using (gene_id_1020_key)
+  set paralog_%speciesTld%_bool=1;
+
+alter table %martSchema%.%dataSet%__transcript__main
+  add column (paralog_%speciesTld%_bool integer default NULL);
+update
+  %martSchema%.%dataSet%__transcript__main a inner join
+  %martSchema%.para_%dataSet%_TEMP_%method_link_species_set_id% using (gene_id_1020_key)
+  set paralog_%speciesTld%_bool=1;
+
+alter table %martSchema%.%dataSet%__translation__main
+  add column (paralog_%speciesTld%_bool integer default NULL);
+update
+  %martSchema%.%dataSet%__translation__main a inner join
+  %martSchema%.para_%dataSet%_TEMP_%method_link_species_set_id% using (gene_id_1020_key)
+  set paralog_%speciesTld%_bool=1;
+
+drop table %martSchema%.para_%dataSet%_TEMP_%method_link_species_set_id%;
