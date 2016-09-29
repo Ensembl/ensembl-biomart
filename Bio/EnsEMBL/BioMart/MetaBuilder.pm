@@ -78,7 +78,7 @@ my $logger = get_logger();
 sub new {
   my ( $proto, @args ) = @_;
   my $self = bless {}, $proto;
-  ( $self->{dbc}, $self->{version}, $self->{max_dropdown}, $self->{unhide} ) =
+  ( $self->{dbc}, $self->{version}, $self->{max_dropdown}, $self->{unhide}, $self->{basename}  ) =
     rearrange( [ 'DBC', 'VERSION', 'MAX_DROPDOWN', 'UNHIDE', 'BASENAME' ],
                @args );
 
@@ -191,12 +191,14 @@ sub write_toplevel {
                                         internalName => $dataset->{name},
                                         displayName => $dataset->{display_name},
                                         useDefault  => "true" };
+ 
+  my $ds_base = $dataset->{name}.'_'.$self->{basename};
   # add MainTable
-  push @{ $dataset->{config}->{MainTable} }, "$dataset->{name}__gene__main";
+  push @{ $dataset->{config}->{MainTable} }, "${ds_base}__gene__main";
   push @{ $dataset->{config}->{MainTable} },
-    "$dataset->{name}__transcript__main";
+    "${ds_base}__transcript__main";
   push @{ $dataset->{config}->{MainTable} },
-    "$dataset->{name}__translation__main";
+    "${ds_base}__translation__main";
   # add Key
   push @{ $dataset->{config}->{Key} }, 'gene_id_1020_key';
   push @{ $dataset->{config}->{Key} }, 'transcript_id_1064_key';
