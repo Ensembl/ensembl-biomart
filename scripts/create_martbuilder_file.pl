@@ -31,7 +31,7 @@ use Carp;
 my $cli_helper = Bio::EnsEMBL::Utils::CliHelper->new();
 
 # get the basic options for connecting to a database server
-my $optsd = [@{$cli_helper->get_dba_opts()},@{$cli_helper->get_dba_opts('pan')}];
+my $optsd = [@{$cli_helper->get_dba_opts()},@{$cli_helper->get_dba_opts('m')}];
 # add the print option
 push(@{$optsd},"division:s");
 push(@{$optsd},"template:s");
@@ -43,25 +43,18 @@ push(@{$optsd},"ens:s");
 # process the command line with the supplied options plus a help subroutine
 my $opts = $cli_helper->process_args($optsd,\&usage);
 
-$opts->{pandbname} ||= 'ensembl_production';
+$opts->{mdbname} ||= 'ensembl_production';
 
-if(!defined $opts->{panhost}) {
-    $opts->{panhost} = 'mysql-eg-pan-prod.ebi.ac.uk';
-    $opts->{panport} = 4276;
-    $opts->{panuser} = 'ensro';
-    delete $opts->{panpass};
-}
-
-if(!defined $opts->{division} || !defined $opts->{template}|| !defined $opts->{mart} || !defined $opts->{eg} || !defined $opts->{ens} || !defined $opts->{host}) {
+if(!defined $opts->{division} || !defined $opts->{template}|| !defined $opts->{mart} || !defined $opts->{eg} || !defined $opts->{ens} || !defined $opts->{host} || !defined $opts->{mhost}) {
     usage();
 }
 
-print "Connecting to $opts->{pandbname}\n";
+print "Connecting to $opts->{mdbname}\n";
 # use the args to create a DBA
-my $dba = Bio::EnsEMBL::DBSQL::DBConnection->new(-USER => $opts->{panuser}, -PASS => $opts->{panpass},
--DBNAME=>$opts->{pandbname}, -HOST=>$opts->{panhost}, -PORT=>$opts->{panport});
+my $dba = Bio::EnsEMBL::DBSQL::DBConnection->new(-USER => $opts->{muser}, -PASS => $opts->{mpass},
+-DBNAME=>$opts->{mdbname}, -HOST=>$opts->{mhost}, -PORT=>$opts->{mport});
 
-print "Getting db lists from $opts->{pandbname}\n";
+print "Getting db lists from $opts->{mdbname}\n";
 # 1. assemble core species list
 my @cores = @{get_list($dba,$opts->{division},'core')};
 my @variation = ();
@@ -134,7 +127,7 @@ sub usage {
 	my $indent = ' ' x length($0);
 	print <<EOF; exit(0);
 
-  -h|host              Database host to connect to (default is mysql-eg-pan-prod.ebi.ac.uk)
+  -h|host              Database host to connect to
 
   -port                Database port to connect to
 
