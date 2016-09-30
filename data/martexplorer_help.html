@@ -1,0 +1,125 @@
+<html>
+<head>
+<title>MartExplorer</title>
+</head>
+<body>
+<a name="top"></a>
+<h1>MartExplorer</h1>
+
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#running">Running MartExplorer</a></li>
+<li><a href="#building">Building and executing a query</a></li>
+<li><a href="#marts">Adding Mart Databases</a></li>
+<li><a href="#advanced">Enabling other Options</a></li>
+</ul>
+
+<a name="overview"></a><h2>Overview</h2> 
+
+MartExplorer provides a graphical user interface that enables the user
+to quickly and easily construct queries and execute them against
+mart datasets. 
+
+<p>
+Each query is built and modified in a separate QueryEditor and the
+main window usually contains one or more of these. The QueryEditor
+contains three panels; a tree (top left), an input panel (top right)
+and a preview panel (bottom).The tree shows the current state of the
+query and can be used to change the contents of the input panel by
+clicking on the appropriate item; <b>Attributes</b>,<b>Filters</b> or
+<b>Format</b>.  Attributes and filters can be added and removed using
+the appropriate input pages and the output format can be set via the
+format page. 
+</p>
+
+<p>The results of a query can be previewed in the preview panel, or all
+results can be saved to a file.
+</p>
+
+<a href="#top">top</a>
+
+<a name="running"></a><h2>Running MartExplorer</h2>
+
+MartExplorer can be started by running the script <i>bin/martexplorer.bat or martexplorer.sh on windows and *nix OS repspectively</i>.
+<p></p>
+<a href="#top">top</a>
+
+
+<a name="building"></a><h2>Building and executing a query</h2>
+
+<p>When MartExplorer starts up the user is presented with a QueryEditor
+with some datasets to choose between. The first thing the user must do
+when building a query is select the dataset that the query is about.
+</p>
+
+<p>Once the dataset is selected the user can select the attributes,
+filters and output format. The attribute panel is shown first but the
+user can switch to the filter or format panels by clicking on the
+<b>Filters</b> or <b>Format</b> items in the tree. The user can return to the
+attributes page by clicking the <b>Attributes</b> item in the tree.
+</p>
+
+<p>
+Once the user has built the query it can be run in one of two ways.
+It can be executed (<b>Execute</b> tool bar button or <b>File -> Execute</b>
+menu item) or the results can be saved (<b>Save</b> tool bar button or
+<b>File -> Save / Save As</b> menu items).  Executing the query causes a
+preview of the results to be displayed in the in the preview panel
+while save results causes all the results to be written to a file
+specified by the user. Results for the query can be saved to different
+files by using the <b>File -> Save As</b> menu item.
+</p>
+
+<p>
+Attributes and filters can also be removed, the attribute order
+changed and the output format altered. There are two ways to delete
+items: (a) select the item in the tree and
+then press delete, (b) Remove it using the appropriate
+input page; for attributes this is done by unchecking the check box
+for the attribute in the data entry area. The order of the attributes
+in the results corresponds to their order in the tree. This can be
+changed by dragging and dropping them in the tree. Finally, the format
+can be changed via the Format page which can be shown by clicking on
+<b>Format</b> in the tree.
+</p>
+
+<p>Additional queries can be created by clicking the <b>New</b> query
+button or selecting the menu item <b>File -> New Query</b>. Conversely the
+currently selected query can be removed by with <b>File -> Close
+Query</b> and all queries by <b>File -> Close All Queries</b>.
+</p>
+
+<a href="#top">top</a>
+
+
+
+<a name="marts"></a><h2>Adding Mart Databases</h2>
+
+It is possible to add new Mart databases in addition to the default ones already present when the application starts up. 
+This can be done in two ways:  by specifying an Mart Registry file and/or interactively during MartExplorer session. 
+The former makes added databases available at a start up the latter only for the duration of the Mart Explorer session.
+
+<br><br><b>Registry file</b><br> 
+At start up MartExplorer reads an registry file, which specifies a set mart databases. The defalut registry file is located in the data directory: defaultMartRegistry.xml. It is possible to overide its contents by placing a .userMartRegistry.xml file in the user's home directory. This must be a valid registry file. See the default file (data/defaultMartRegistry.xml) for an example and the documentation for more details. The easiest approach is to simply copy the defaultMartRegistry.xml to user home directory changing its name to .userMartRegistry.xml and edit the file according to one's requirements.
+
+<br><br><b>Interactively</b><br> 
+Mart databases can also be added using the "Add Mart" settings window. 
+This is opened with the menu item Settings -> Add Mart. 
+This button opens the database connection window from which the user can specify mart database connection parameters. 
+Once this is done the marts will be available for use in new queries. 
+Note that some values are "pre-loaded" into the drop down lists that are available by pressing the small downward arrow 
+at the end of each text entry box. This can save you typing the entries.
+
+<a name="advanced"></a><h2>Enabling other Options</h2>
+
+<p> By selcting Settings -> Enable, a user may choose to enable extra options:
+<ul>
+<li> <b>Optional Dataset Configuration</b> When a dataset has more than one configuration file, the user must check this option to be able to select it in the tree. When this is not set the default configuration file is used.</li>
+<li> <b>Logging</b> With this option set, the actual query sent to the database (e.g. MySQL query) is printed in the shell where MartExplorer is running from.</li>
+</ul>
+</p>
+
+<a href="#top">top</a>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MartRegistry>
+<MartRegistry>
+
+<RegistryDBPointer 
+		    name         = "pointer" 
+                    databaseType = "mysql"
+                    host         = "martdb.ebi.ac.uk" 
+                    port         = "3306" 
+                    database     = "central_registry" 
+                    schema       = "central_registry" 
+                    user         = "anonymous"
+                    password     = ""
+/>
+
+<MartDBLocation   
+		    name         = "MyBioMart"
+                    displayName  = "My BioMart Database"
+                    databaseType = "mysql"
+                    host         = "localhost"
+                    port         = "3306"
+                    database    = "test"
+                    schema       = "test"
+                    user         = "user"
+                    password     = "pass"
+                    visible      ="1"
+                    includeDatasets = ""
+                    default       = ""
+                    martUser      = ""                  
+/>
+
+
+<MartDBLocation   
+		    name         = "MyBioMart"
+                    displayName  = "My BioMart Database"
+                    databaseType = "mysql"
+                    host         = "localhost"
+                    port         = "3306"
+                    database    = "test"
+                    schema       = "test"
+                    user         = "user"
+                    password     = "pass"
+                    visible      ="1"
+                    includeDatasets = "a,b,c"
+                    default       = "1"
+                    martUser      = "default"                  
+/>
+
+<virtualSchema name="new version">
+
+<MartDBLocation   
+		    name         = "MyBioMart"
+                    displayName  = "My BioMart Database"
+                    databaseType = "mysql"
+                    host         = "localhost"
+                    port         = "3306"
+                    database    = "test"
+                    schema       = "test"
+                    user         = "user"
+                    password     = "pass"
+                    visible      ="1"
+                    includeDatasets = ""
+                    default       = ""
+                    martUser      = ""                  
+/>
+
+
+</virtualSchema>
+
+</MartRegistry>
+

@@ -1,0 +1,31 @@
+<!ELEMENT MartRegistry (URLLocation|DatabaseLocation|RegistryLocation|RegistryDBLocation)+>
+
+<!ELEMENT URLLocation EMPTY>
+<!ATTLIST URLLocation url CDATA #REQUIRED
+                      name CDATA #IMPLIED
+                      visible CDATA #REQUIRED>
+
+<!ELEMENT DatabaseLocation EMPTY>
+<!ATTLIST DatabaseLocation host CDATA #REQUIRED
+                           port CDATA #IMPLIED
+                           databaseType CDATA #IMPLIED
+                           instanceName CDATA #REQUIRED
+                           user CDATA #REQUIRED
+                           password CDATA #IMPLIED
+                           name CDATA #IMPLIED
+                           visible CDATA #REQUIRED>
+
+<!ELEMENT RegistryLocation EMPTY>
+<!ATTLIST RegistryLocation url CDATA #REQUIRED
+                           name CDATA #IMPLIED
+                           visible CDATA #REQUIRED>
+
+<!ELEMENT RegistryDBLocation EMPTY>
+<!ATTLIST RegistryDBLocation host CDATA #REQUIRED
+                             port CDATA #IMPLIED
+                             databaseType CDATA #IMPLIED
+                             instanceName CDATA #REQUIRED
+                             user CDATA #REQUIRED
+                             password CDATA #IMPLIED
+                             name CDATA #IMPLIED
+                             visible CDATA #REQUIRED>

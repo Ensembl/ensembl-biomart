@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MartRegistry SYSTEM "classpath:data/XML/MartRegistry.dtd">
+<MartRegistry>
+    <URLLocation name="ensembl_genes" url="file:data/XML/homo_sapiens__ensembl_genes.xml"/>
+    <URLLocation name="vega_genes"
+    url="file:data/XML/homo_sapiens__vega_genes.xml"/>
+    <URLLocation name="vega_genes_simple" url="file:data/XML/homo_sapiens__vega_genes_simple.xml"/>
+    <URLLocation name="snps" url="file:data/XML/homo_sapiens__snps.xml"/>
+    <URLLocation name="mus_musculus_genes" url="file:data/XML/mus_musculus__ensembl_genes.xml"/>
+</MartRegistry>
