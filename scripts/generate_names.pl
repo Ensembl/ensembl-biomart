@@ -125,12 +125,13 @@ drop_and_create_table($mart_handle, $names_table,
 		       'species_name varchar(100)',
 		       'sql_name varchar(100)',
 		       'version varchar(100)',
-		       'collection varchar(100)'
+		       'collection varchar(100)',
+                       'has_chromosomes tinyint'
 		      ],
 		      'ENGINE=MyISAM DEFAULT CHARSET=latin1'
     );
 
-my $names_insert = $mart_handle->prepare("INSERT IGNORE INTO $names_table VALUES(?,?,?,?,?,?,?,?,NULL)");
+my $names_insert = $mart_handle->prepare("INSERT IGNORE INTO $names_table VALUES(?,?,?,?,?,?,?,?,NULL,?)");
 
 my @src_tables = get_tables($mart_handle);
 my %src_dbs;
@@ -261,6 +262,8 @@ foreach my $dataset (@datasets) {
             }
         }
 
+        my $has_chromosomes = get_string($ens_dbh->prepare("select count(*) from coord_system where species_id=${species_id} and name='chromosome'")); 
+
 	$names_insert->execute(	    
 	    $dataset,
 	    $dataset,
@@ -269,7 +272,8 @@ foreach my $dataset (@datasets) {
 	    $species_names{'species.taxonomy_id'},
 	    $species_names{'species.display_name'},
 	    $species_names{'species.production_name'},
-	    $version
+	    $version,
+            $has_chromosomes
 	    ); 
 
 	# Add a meta key on the core database
