@@ -126,7 +126,7 @@ drop_and_create_table($mart_handle, $names_table,
 		       'sql_name varchar(100)',
 		       'version varchar(100)',
 		       'collection varchar(100)',
-                       'has_chromosomes tinyint'
+               'has_chromosomes tinyint'
 		      ],
 		      'ENGINE=MyISAM DEFAULT CHARSET=latin1'
     );
@@ -262,7 +262,7 @@ foreach my $dataset (@datasets) {
             }
         }
 
-        my $has_chromosomes = get_string($ens_dbh->prepare("select count(*) from coord_system where species_id=${species_id} and name='chromosome'")); 
+        my $has_chromosomes = get_string($ens_dbh->prepare("select count(distinct coord_system_id) from coord_system join seq_region using (coord_system_id) join seq_region_attrib using (seq_region_id) join attrib_type using (attrib_type_id) where code='karyotype_rank' and species_id=${species_id}")); 
 
 	$names_insert->execute(	    
 	    $dataset,
@@ -273,7 +273,7 @@ foreach my $dataset (@datasets) {
 	    $species_names{'species.display_name'},
 	    $species_names{'species.production_name'},
 	    $version,
-            $has_chromosomes
+        $has_chromosomes
 	    ); 
 
 	# Add a meta key on the core database
