@@ -20,20 +20,17 @@ $srv -e "CREATE DATABASE IF NOT EXISTS $FUNCGEN;"
 $srv -e "CREATE DATABASE IF NOT EXISTS $VARIATION;"
 
 $srv $CORE < $ENSEMBL_CVS_ROOT_DIR/ensembl/sql/table.sql
-$srv $FUNCGEN < $ENSEMBL_CVS_ROOT_DIR/ensembl-funcgen/sql/efg.sql
+$srv $FUNCGEN < $ENSEMBL_CVS_ROOT_DIR/ensembl-funcgen/sql/table.sql
 $srv $VARIATION < $ENSEMBL_CVS_ROOT_DIR/ensembl-variation/sql/table.sql
 $srv $FUNCGEN < $HELPER_SQL
 
 echo "Creating funcgen helpers"
 HELPER_SQL=$base_dir/probestuff_helper.sql
 $srv -e "show databases" | grep funcgen | while read db; do
-$srv $db < $HELPER_SQL
-done
-
-echo "Creating variation helper for "
-HELPER_SQL=$base_dir/probestuff_helper.sql
-$srv -e "show databases" | grep funcgen | while read db; do
-$srv $db < $HELPER_SQL
+    cnt=$($srv --column-names=false $db -e "show tables like \"MTMP_probestuff_helper\"" | wc -l)
+    if [ $cnt -eq 0 ]; then 
+        $srv $db < $HELPER_SQL
+    fi
 done
 
 echo "Creating variation helper for all dbs"
