@@ -4365,6 +4365,10 @@
     <FilterGroup description="Filter on protein data" displayName="PROTEIN DOMAINS:" internalName="protein">
       <FilterCollection displayName="Limit to genes ..." internalName="family_domain_id">
         <FilterDescription displayType="container" internalName="protein_fam_id_bools" type="boolean_list">
+          <Option displayName="with CDD protein features" displayType="list" field="protein_feature_cdd_bool" internalName="with_cdd" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
           <Option displayName="with coiled coils (Ncoils)" displayType="list" field="protein_feature_ncoils_bool" internalName="with_coil" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
@@ -4410,6 +4414,10 @@
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
           <Option displayName="with ProDom protein features" displayType="list" field="protein_feature_prodom_bool" internalName="with_prodom" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
+          </Option>
+          <Option displayName="with PROSITE pattern" displayType="list" field="protein_feature_scanprosite_bool" internalName="with_pattern" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" internalName="only" isSelectable="true" value="only"/>
             <Option displayName="Excluded" internalName="excluded" isSelectable="true" value="excluded"/>
           </Option>
@@ -4475,6 +4483,7 @@
         <FilterDescription displayName="Entries with following ID(s)" displayType="container" internalName="protein_fam_id_filters" type="id_list">
           <Option displayName="Ensembl Family ID(s)" displayType="text" field="family" internalName="ensembl_family" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list"/>
           <Option displayName="Ensembl Protein Family ID(s) [e.g. ENSFM00250000000002]" displayType="text" field="stable_id_408" internalName="family" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text"/>
+          <Option displayName="CDD ID(s)" displayType="text" field="hit_name_1048" internalName="cdd_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_cdd__dm" type="list"/>
           <Option displayName="Gene3D ID(s)" displayType="text" field="hit_name_1048" internalName="gene3d_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_gene3d__dm" type="list"/>
           <Option displayName="InterPro ID(s)" displayType="text" field="interpro_ac_1026" internalName="interpro_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="interpro__dm" type="text"/>
           <Option displayName="PANTHER ID(s)" displayType="text" field="hit_name_1048" internalName="panther_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_panther__dm" type="list"/>
@@ -4483,6 +4492,7 @@
           <Option displayName="PIRSF ID(s)" displayType="text" field="hit_name_1048" internalName="pirsf_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_pirsf__dm" type="list"/>
           <Option displayName="PRINTS ID(s)" displayType="text" field="hit_name_1048" internalName="prints_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_Prints__dm" type="list"/>
           <Option displayName="ProDom ID(s)" displayType="text" field="hit_name_1048" internalName="blastprodom_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_blastprodom__dm" type="list"/>
+          <Option displayName="PROSITE Pattern ID(s)" displayType="text" field="hit_name_1048" internalName="pattern_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_scanprosite__dm" type="list"/>
           <Option displayName="PROSITE Profile ID(s)" displayType="text" field="hit_name_1048" internalName="profile_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_pfscan__dm" type="list"/>
           <Option displayName="SMART ID(s)" displayType="text" field="hit_name_1048" internalName="smart_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_smart__dm" type="list"/>
           <Option displayName="Superfamily ID(s)" displayType="text" field="hit_name_1048" internalName="superfamily_pf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_superfamily__dm" type="list"/>
@@ -4559,6 +4569,7 @@
         <AttributeDescription displayName="Gene name" field="display_label_1074" internalName="external_gene_id" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s|ensembl_gene_id" maxLength="16" tableConstraint="main"/>
         <AttributeDescription displayName="Source of gene name" field="db_display_name_1018" internalName="external_gene_db" key="gene_id_1020_key" maxLength="17" tableConstraint="main"/>
         <AttributeDescription displayName="Gene description" field="description_1020" internalName="description" key="gene_id_1020_key" maxLength="550" tableConstraint="main"/>
+        <AttributeDescription checkForNulls="true" displayName="External synonym" field="external_synonym" internalName="external_synonym" key="gene_id_1020_key" maxLength="550" tableConstraint="external_synonym__dm"/>
         <AttributeDescription displayName="Gene biotype" field="biotype_1020" internalName="gene_biotype" key="gene_id_1020_key" maxLength="40" tableConstraint="main"/>
         <AttributeDescription description="Percentage GC content" displayName="% GC content" field="value_1022" internalName="percentage_gc_content" key="gene_id_1020_key" maxLength="3" tableConstraint="main"/>
         <AttributeDescription displayName="Transcript count" field="transcript_count" internalName="transcript_count" key="gene_id_1020_key" maxLength="16" tableConstraint="main"/>
@@ -5566,6 +5577,9 @@
         <AttributeDescription displayName="Family description" field="family_description" internalName="family_description" key="transcript_id_1064_key" maxLength="230" tableConstraint="main"/>
       </AttributeCollection>
       <AttributeCollection displayName="Domains" internalName="prot_domain">
+        <AttributeDescription displayName="CDD ID" field="hit_name_1048" internalName="cdd_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_cdd__dm"/>
+        <AttributeDescription displayName="CDD start" field="seq_start_1048" internalName="cdd_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="cdd__dm"/>
+        <AttributeDescription displayName="CDD end" field="seq_end_1048" internalName="cdd_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="cdd__dm"/>
         <AttributeDescription displayName="Gene3D ID" field="hit_name_1048" internalName="gene3d_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_gene3d__dm"/>
         <AttributeDescription displayName="Gene3D start" field="seq_start_1048" internalName="gene3d_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_gene3d__dm"/>
         <AttributeDescription displayName="Gene3D end" field="seq_end_1048" internalName="gene3d_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_gene3d__dm"/>
@@ -5593,9 +5607,12 @@
         <AttributeDescription displayName="ProDom ID" field="hit_name_1048" internalName="prodom_pf" key="translation_id_1068_key" maxLength="7" tableConstraint="protein_feature_prodom__dm"/>
         <AttributeDescription displayName="ProDom start" field="seq_start_1048" internalName="prodom_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_prodom__dm"/>
         <AttributeDescription displayName="ProDom end" field="seq_end_1048" internalName="prodom_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_prodom__dm"/>
+        <AttributeDescription displayName="PROSITE Pattern ID" field="hit_name_1048" internalName="pattern_pf" key="translation_id_1068_key" linkoutURL="exturl1|http://prosite.expasy.org/%s" maxLength="7" tableConstraint="protein_feature_scanprosite__dm"/>
+        <AttributeDescription displayName="PROSITE Pattern start" field="seq_start_1048" internalName="pattern_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_scanprosite__dm"/>
+        <AttributeDescription displayName="PROSITE Pattern end" field="seq_end_1048" internalName="pattern_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_scanprosite__dm"/>
         <AttributeDescription displayName="PROSITE Profile ID" field="hit_name_1048" internalName="profile_pf" key="translation_id_1068_key" linkoutURL="exturl1|http://prosite.expasy.org/%s" maxLength="7" tableConstraint="protein_feature_pfscan__dm"/>
-        <AttributeDescription displayName="PROSITE start" field="seq_start_1048" internalName="profile_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_pfscan__dm"/>
-        <AttributeDescription displayName="PROSITE end" field="seq_end_1048" internalName="profile_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_pfscan__dm"/>
+        <AttributeDescription displayName="PROSITE Profile start" field="seq_start_1048" internalName="profile_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_pfscan__dm"/>
+        <AttributeDescription displayName="PROSITE Profile end" field="seq_end_1048" internalName="profile_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_pfscan__dm"/>
         <AttributeDescription displayName="SMART ID" field="hit_name_1048" internalName="smart_pf" key="translation_id_1068_key" linkoutURL="exturl|http://smart.embl-heidelberg.de/smart/do_annotation.pl?BLAST=DUMMY&amp;DOMAIN=%s" maxLength="40" tableConstraint="protein_feature_Smart__dm"/>
         <AttributeDescription displayName="SMART start" field="seq_start_1048" internalName="smart_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_Smart__dm"/>
         <AttributeDescription displayName="SMART end" field="seq_end_1048" internalName="smart_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" tableConstraint="protein_feature_Smart__dm"/>
