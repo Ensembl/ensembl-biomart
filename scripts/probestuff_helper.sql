@@ -1,16 +1,3 @@
-
--- Look at existing MTMP tables, if any
-SELECT
-  COUNT(*) AS NUM_MTMP_TABLES
-  #TABLE_NAME, TABLE_TYPE, TABLE_ROWS, CREATE_TIME, UPDATE_TIME
-FROM
-  information_schema.TABLES
-WHERE
-  TABLE_SCHEMA = DATABASE()
-AND
-  TABLE_NAME RLIKE 'MTMP'
-;
-
 DROP TABLE IF EXISTS MTMP_probestuff_helper;
 CREATE TABLE MTMP_probestuff_helper (
   array_name            VARCHAR(40),
