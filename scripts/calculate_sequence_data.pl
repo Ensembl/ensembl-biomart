@@ -45,7 +45,6 @@ my $db_port;
 my $db_user;
 my $db_pwd;
 my $mart_db;
-my $release;
 my $dataset_basename = 'gene';
 my $dataset;
 my $limit_species;
@@ -58,7 +57,6 @@ sub usage {
     print "-user <host> Default is $db_user\n";
     print "-pass <password> Default is top secret unless you know cat\n";
     print "-mart <mart_db>\n";
-    print "-release <e! release>\n";
     print "-dataset_basename <dataset basename> Default is $dataset_basename\n";
     exit 1;
 };
@@ -69,7 +67,6 @@ my $options_okay = GetOptions (
     "user=s"=>\$db_user,
     "pass=s"=>\$db_pwd,
     "mart=s"=>\$mart_db,
-    "release=i"=>\$release,
     "registry=s"=>\$registry,
     "dataset_basename=s"=>\$dataset_basename,
     "dataset=s"=>\$dataset,
@@ -77,7 +74,7 @@ my $options_okay = GetOptions (
     "help"=>sub {usage()}
     );
 
-if(!$options_okay || !defined $mart_db || !defined $release) {
+if(!$options_okay || !defined $mart_db) {
     usage();
 }
 
@@ -95,8 +92,7 @@ if(defined $registry) {
                                                 -host       => $db_host,
                                                 -user       => $db_user,
                                                 -pass       => $db_pwd,
-                                                -port       => $db_port,
-                                                -db_version => $release);
+                                                -port       => $db_port);
 }
 
 # get hash of datasets and sql names

@@ -32,6 +32,7 @@ use MartUtils;
 use Getopt::Long;
 use POSIX;
 use Bio::EnsEMBL::Registry;
+use Bio::EnsEMBL::ApiVersion qw/software_version/;
 Log::Log4perl->easy_init($INFO);
 
 my $logger = get_logger();
@@ -42,8 +43,7 @@ my $db_port ;
 my $db_user;
 my $db_pwd;
 my $mart_db;
-my $release;
-my $suffix = '';
+my $release = software_version();
 my $dataset_basename = 'gene';
 my $main = 'gene__main';
 my $div = undef;
@@ -71,14 +71,12 @@ sub transform_table {
 }
 
 sub usage {
-    print "Usage: $0 [-host <host>] [-port <port>] [ -user <user>] [-pass <pwd>] [-mart <target mart>] [-release <ensembl release>] [-suffix <dataset suffix>] [-div <plant|protist|metazoa|fung|vectorbase|ensembl>] [-species_id_start <species id number start>] \n";
+    print "Usage: $0 [-host <host>] [-port <port>] [ -user <user>] [-pass <pwd>] [-mart <target mart>] [-div <plant|protist|metazoa|fung|vectorbase|ensembl>] [-species_id_start <species id number start>] \n";
     print "-host <host> Default is $db_host\n";
     print "-port <port> Default is $db_port\n";
     print "-user <host> Default is $db_user\n";
     print "-pass <password> Default is top secret unless you know cat\n";
     print "-mart <target mart> Default is $mart_db\n";
-    print "-release <ensembl release> Default is $release\n";
-    print "-suffix <dataset suffix> e.g. '_eg' Default is ''\n";
     print "-name base name of the dataset\n";
     print "-main name of the main table in mart, e.g. variation__main\n";
     print "-species_id_start <species id number start> (optional, start number for species_id, avoid duplicated numbers if the core databases are located on two servers. Default is 0)\n";
@@ -94,8 +92,6 @@ my $options_okay = GetOptions (
     "pass=s"=>\$db_pwd,
     "mart=s"=>\$mart_db,
     "registry=s"=>\$registry,
-    "release=s"=>\$release,
-    "suffix=s"=>\$suffix,
     "name=s"=>\$dataset_basename,
     "main=s"=>\$main,
     "div=s"=>\$div,
@@ -141,7 +137,7 @@ my $regexp = undef;
 if(defined $div && ($div eq 'vectorbase' || $div eq 'ensembl')){
   $regexp = ".*_core_${release}_.*";
 }
-elsif( $div eq 'parasite') {
+elsif(defined $div && $div eq 'parasite') {
   $regexp = ".*_core(_[0-9]+){0,1}_${release}_.*";
 }
 else{
@@ -188,10 +184,11 @@ unless( $div ){
     else{ die "-div division not defined, and unable infer from database name $mart_db\n" }
 }
 
-if ( $div eq 'protist' ) { $pId = 10000 }
-elsif ( $div eq 'plant' ) { $pId = 20000 }
-elsif ( $div eq 'metazoa' ) { $pId = 30000 }
-elsif ( $div eq 'fung' ) { $pId = 40000 }
+my $suffix = '';
+if ( $div eq 'protist' ) { $pId = 10000; $suffix = '_eg'; }
+elsif ( $div eq 'plant' ) { $pId = 20000; $suffix = '_eg'; }
+elsif ( $div eq 'metazoa' ) { $pId = 30000; $suffix = '_eg'; }
+elsif ( $div eq 'fung' ) { $pId = 40000; $suffix = '_eg'; }
 elsif ( $div eq 'vectorbase') { $pId = 50000 }
 elsif ( $div eq 'parasite') { $pId = 60000 }
 elsif ( $div eq 'ensembl' ) {

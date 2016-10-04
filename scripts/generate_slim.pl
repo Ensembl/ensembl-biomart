@@ -15,7 +15,7 @@
  
 ## Author
 # Mark Mcdowall <mcdowall@ebi.ac.uk> and Thomas Maurel <maurel@ebi.ac.uk>
-
+5B
 ## Maintainer
 # Thomas Maurel <maurel@ebi.ac.uk>
 
@@ -51,10 +51,9 @@ my $dataset;
 my $basename = "gene";
 my $verbose;
 my $registry;
-my $release;
 
 sub usage {
-    print "Usage: $0 [-host <host>] [-port <port>] [-user <user>] [-pass <pwd>] [-mart <mart db>] [-release <e! release number>] [-template <template file path>] [-description <description>] [-dataset <dataset name>] [-ds_template <datanase name template>] [-output_dir <output directory>]\n";
+    print "Usage: $0 [-host <host>] [-port <port>] [-user <user>] [-pass <pwd>] [-mart <mart db>] [-template <template file path>] [-description <description>] [-dataset <dataset name>] [-ds_template <datanase name template>] [-output_dir <output directory>]\n";
     print "-host <host> Default is $db_host\n";
     print "-port <port> Default is $db_port\n";
     print "-user <host> Default is $db_user\n";
@@ -74,7 +73,6 @@ my $options_okay = GetOptions (
     "name=s"=>\$basename,
     "verbose|v"=>\$verbose,
     "registry:s"=>\$registry,                           
-    "release:i"=>\$release,                           
     "h|help"=>sub {usage()}
     );
 
@@ -103,8 +101,7 @@ if(defined $registry) {
                                                 -host       => $db_host,
                                                 -user       => $db_user,
                                                 -pass       => $db_pwd,
-                                                -port       => $db_port,
-                                                -db_version => $release);
+                                                -port       => $db_port);
 }
 
 my @datasets;
