@@ -92,7 +92,7 @@ sub pipeline_analyses {
       -input_ids => [ {} ],
       -flow_into => { 1 => [ 'calculate_sequence', 'add_compara',
                              'add_xrefs',          'add_slims' ],
-                      2 => 'tidy_tables' },
+                      2 => ['tidy_tables'.'optimize'] },
       -meadow_type => 'LOCAL' },
     { -logic_name  => 'calculate_sequence',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
