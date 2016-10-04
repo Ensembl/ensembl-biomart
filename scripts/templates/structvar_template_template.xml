@@ -34,12 +34,17 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Study description" internalName="structural_variation_study" useDefault="true">
-        <FilterDescription displayName="Study description" displayType="text" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true">
+        <FilterDescription displayName="Study description" displayType="list" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Strain" internalName="structural_variation_annotation" useDefault="true" hidden="true">
         <FilterDescription displayName="Strain" displayType="list" field="name_2019" hidden="true" internalName="structural_variation_annotation" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="structural_variation_annotation__dm" type="list" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Phenotype" internalName="structural_phenotype" useDefault="true">
+        <FilterDescription displayName="Phenotype description" displayType="list" field="phenotype_name" hidden="false" internalName="phenotype_name" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" style="menu" tableConstraint="phenotype__dm" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -57,6 +62,7 @@
         <AttributeDescription displayName="Strain name" field="name_2019" internalName="strain_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="structural_variation_annotation__dm" useDefault="true"/>
         <AttributeDescription displayName="Strain description" field="description_2019" internalName="strain_description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="structural_variation_annotation__dm" useDefault="true"/>
         <AttributeDescription displayName="Source name" field="name_2021" internalName="source_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Phenotype description" field="phenotype_name" internalName="phenotype_description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="phenotype__dm" useDefault="true"/>
         <AttributeDescription displayName="Pubmed ID" field="external_reference_20100" internalName="external_reference" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Validation status" field="validation_status_2072" internalName="validation_status" key="structural_variation_id_2072_key" maxLength="13" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
