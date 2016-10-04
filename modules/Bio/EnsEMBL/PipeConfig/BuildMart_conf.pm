@@ -191,14 +191,30 @@ sub pipeline_wide_parameters {
             },
             -analysis_capacity => 10,
             -wait_for => ['tidy_tables'],
-        },        
-        {   
-            -logic_name    => 'generate_template',
+        },
+        {
+            -logic_name    => 'optimize',
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
             -wait_for => ['add_xrefs','add_slims'],
             -parameters    => {
-                'cmd'        => 'perl #script_dir#/generate_template.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -release #eg_release#',  
+                'cmd'        => 'mysqlcheck -h#host# -u#user# -p#pass# -P#port# --optimize "#mart#"',
+                'mart' => $self->o('mart'),
+                'user' => $self->o('user'),
+                'pass' => $self->o('pass'),
+                'host' => $self->o('host'),
+                'port' => $self->o('port'),
+                'base_dir' => $self->o('base_dir')
+            },
+            -analysis_capacity => 1
+        },                    
+        {   
+            -logic_name    => 'generate_meta',
+            -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+            -meadow_type => 'LSF',
+            -wait_for => 'optimize',
+            -parameters    => {
+                'cmd'        => 'perl #script_dir#/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -release #eg_release#',  
                 'mart' => $self->o('mart'),
                 'user' => $self->o('user'),
                 'pass' => $self->o('pass'),
