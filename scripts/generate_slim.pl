@@ -15,7 +15,7 @@
  
 ## Author
 # Mark Mcdowall <mcdowall@ebi.ac.uk> and Thomas Maurel <maurel@ebi.ac.uk>
-5B
+
 ## Maintainer
 # Thomas Maurel <maurel@ebi.ac.uk>
 
@@ -49,7 +49,7 @@ my $db_pwd;
 my $mart_db;
 my $dataset;
 my $basename = "gene";
-my $verbose;
+my $verbose = 1;
 my $registry;
 
 sub usage {
@@ -198,7 +198,7 @@ where external_db.db_name='GO' order by object_xref.ensembl_id/,
     if (${basename} !~ 'gene_ensembl') {
       $logger->info(" Creating ${dataset}_${basename}__ontology_goslim_goa__dm ...");
 
-    $mart_handle->do(qq/
+my $create_sql = qq/
 CREATE TABLE `${dataset}_${basename}__ontology_goslim_goa__dm` (
   `linkage_type_1024` varchar(3) DEFAULT NULL,
   `ontology_id_1006` int(10) unsigned NOT NULL,
@@ -206,8 +206,10 @@ CREATE TABLE `${dataset}_${basename}__ontology_goslim_goa__dm` (
   `${key_column}` int(10) unsigned NOT NULL,
   `is_root_1006` int(11) NOT NULL DEFAULT '0',
   `name_1006` varchar(255) NOT NULL,
-  `dbprimary_acc_1074` varchar(64) NOT NULL
-/);
+  `dbprimary_acc_1074` varchar(64) NOT NULL)
+/;
+$logger->debug("Executing $create_sql");
+    $mart_handle->do($create_sql);
 
     my $sth = $mart_handle->prepare(qq/INSERT INTO  ${dataset}_${basename}__ontology_goslim_goa__dm() VALUES(?,?,?,?,?,?,?)/);
     $dba->dbc()->sql_helper->execute_no_return(-SQL=>qq/
@@ -220,8 +222,6 @@ select distinct ontology_xref.linkage_type as linkage_type_1024, t2.ontology_id 
                                               );
     $sth->finish();
 
-
-      $mart_handle->do("create table ${dataset}_${basename}__ontology_goslim_goa__dm ");
     
       $logger->info(" Creating indexes on ${dataset}_${basename}__ontology_goslim_goa__dm ...");
       $mart_handle->do("alter table ${dataset}_${basename}__ontology_goslim_goa__dm add index (dbprimary_acc_1074), add index (linkage_type_1024), add index (${key_column});");
