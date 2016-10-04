@@ -124,6 +124,8 @@ sub run_script {
       " --tmpfile mtmp_".$table."_".$self->param_required('species').".txt";
 
     if (system($cmd)) {
+      my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
+      $dbh->do($drop_sql) or $self->throw($dbh->errstr);
       $self->throw("Loading failed when running $cmd");
     }
   }

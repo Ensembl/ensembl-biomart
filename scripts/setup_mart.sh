@@ -1,5 +1,6 @@
 #!/bin/bash --
 
+
 srv=$1
 mart=$2
 
@@ -15,31 +16,51 @@ ENSEMBL_VERSION=$(perl -e "use Bio::EnsEMBL::ApiVersion qw/software_version/; pr
 CORE=master_schema_$ENSEMBL_VERSION
 FUNCGEN=master_schema_funcgen_$ENSEMBL_VERSION
 VARIATION=master_schema_variation_$ENSEMBL_VERSION
-$srv -e "CREATE DATABASE IF NOT EXISTS $CORE;"
-$srv -e "CREATE DATABASE IF NOT EXISTS $FUNCGEN;"
-$srv -e "CREATE DATABASE IF NOT EXISTS $VARIATION;"
-
-$srv $CORE < $ENSEMBL_CVS_ROOT_DIR/ensembl/sql/table.sql
-$srv $FUNCGEN < $ENSEMBL_CVS_ROOT_DIR/ensembl-funcgen/sql/table.sql
-$srv $VARIATION < $ENSEMBL_CVS_ROOT_DIR/ensembl-variation/sql/table.sql
-$srv $FUNCGEN < $HELPER_SQL
-
-echo "Creating funcgen helpers"
 HELPER_SQL=$base_dir/probestuff_helper.sql
+
+function count_database {
+    $srv --column-names=false -e "show databases" | grep $1 | wc -l
+}
+
+if [ $(count_database $CORE) -eq 0 ]; then
+    echo "Creating $CORE"
+    $srv -e "CREATE DATABASE $CORE"
+    $srv $CORE < $ENSEMBL_CVS_ROOT_DIR/ensembl/sql/table.sql
+fi
+    
+if [ $(count_database $FUNCGEN) -eq 0 ]; then
+    echo "Creating $FUNCGEN"
+    $srv -e "CREATE DATABASE $FUNCGEN"
+    $srv $FUNCGEN < $ENSEMBL_CVS_ROOT_DIR/ensembl-funcgen/sql/table.sql
+fi
+
+if [ $(count_database $VARIATION) -eq 0 ]; then
+    echo "Creating $VARIATION"
+    $srv -e "CREATE DATABASE $VARIATION;"
+    $srv $VARIATION < $ENSEMBL_CVS_ROOT_DIR/ensembl-variation/sql/table.sql
+fi
+
 $srv -e "show databases" | grep funcgen | while read db; do
     cnt=$($srv --column-names=false $db -e "show tables like \"MTMP_probestuff_helper\"" | wc -l)
     if [ $cnt -eq 0 ]; then 
+	echo "Creating funcgen helper for $db"
         $srv $db < $HELPER_SQL
     fi
 done
 
-echo "Creating variation helper for all dbs"
-cd ${ENSEMBL_CVS_ROOT_DIR}/ensembl-variation
-perl -I modules -I scripts/import \
-    scripts/misc/mart_variation_effect.pl \
-    $($srv details naga) \
-    -tmpdir /tmp -tmpfile mtmp.txt \
-    -table transcript_variation
-cd -
-
+$srv -e "show databases" | grep variation | while read db; do
+    cnt=$($srv --column-names=false $db -e "show tables like \"MTMP_transcript_variation\"" | wc -l)
+    if [ $cnt -eq 0 ]; then 
+	echo "Creating variation helper for $db"
+	cd ${ENSEMBL_CVS_ROOT_DIR}/ensembl-variation
+	perl -I modules -I scripts/import \
+	    scripts/misc/mart_variation_effect.pl \
+	    $($srv details script) \
+	    -db $db \
+	    -tmpdir /tmp -tmpfile mtmp.txt \
+	    -table transcript_variation
+	cd -
+    fi
+done
+	
 echo "Completed setup of $mart on $srv"
