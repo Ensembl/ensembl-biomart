@@ -69,7 +69,7 @@ if (!defined $mart_db) {
 if(defined $verbose) {
 	Log::Log4perl->easy_init($DEBUG);	
 } else {
-[A	Log::Log4perl->easy_init($INFO);
+	Log::Log4perl->easy_init($INFO);
 }
 
 my $logger = get_logger();
