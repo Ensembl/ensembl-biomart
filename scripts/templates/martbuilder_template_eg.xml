@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mart PUBLIC "-//EBI//DTD MartBuilder 0.7-//EBI//DTD MartBuilder " "http://www.biomart.org/DTD/MartBuilder-0.7.dtd">
-<mart outputDatabase="division_mart_%EG%" outputSchema="division_mart_%EG%" outputHost="ebi-007.ebi.ac.uk" outputPort="18888" overrideHost="mysql-eg-staging-2.ebi.ac.uk" overridePort="%PORT%" nameCase="0" hideMaskedDataSets="false" hideMaskedSchemas="false">
+<mart outputDatabase="division_mart_%EG%" outputSchema="division_mart_%EG%" outputHost="%RUNNER_HOST%" outputPort="%RUNNER_PORT%" overrideHost="%HOST%" overridePort="%PORT%" nameCase="0" hideMaskedDataSets="false" hideMaskedSchemas="false">
 	<jdbcSchema uniqueId="1" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_%ENS%" databaseName="master_schema_%ENS%" schemaName="master_schema_%ENS%" username="%USER%" password="%PASS%" name="ensembl" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]+_([^_]+)_core_%EG%_%ENS%_[0-9]*$" partitionExpression="$1$2_eg">
 		<table uniqueId="94" id="1" name="alt_allele_group" ignore="false" inSchemaPartition="core_species_list">
 			<column id="2" name="alt_allele_group_id" visibleModified="false" inSchemaPartition="core_species_list"/>

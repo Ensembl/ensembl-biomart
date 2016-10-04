@@ -39,13 +39,16 @@ push(@{$optsd},"mart:s");
 push(@{$optsd},"collection");
 push(@{$optsd},"eg:s");
 push(@{$optsd},"ens:s");
+push(@{$optsd},"runner_host:s");
+push(@{$optsd},"runner_port:s");
 
 # process the command line with the supplied options plus a help subroutine
 my $opts = $cli_helper->process_args($optsd,\&usage);
 
 $opts->{mdbname} ||= 'ensembl_production';
+$opts->{runner_port} ||= 8888;
 
-if(!defined $opts->{division} || !defined $opts->{template}|| !defined $opts->{mart} || !defined $opts->{eg} || !defined $opts->{ens} || !defined $opts->{host} || !defined $opts->{mhost}) {
+if(!defined $opts->{division} || !defined $opts->{template}|| !defined $opts->{mart} || !defined $opts->{eg} || !defined $opts->{ens} || !defined $opts->{host} || !defined $opts->{mhost} || !defined $opts->{runner_host}) {
     usage();
 }
 
@@ -98,6 +101,8 @@ while (<$in_file>) {
     s/%USER%/$opts->{user}/g;
     s/%PORT%/$opts->{port}/g;
     s/%PASS%/$opts->{pass}/g;
+    s/%RUNNER_HOST%/$opts->{runner_host}/g;
+    s/%RUNNER_PORT%/$opts->{runner_port}/g;
     s/division_mart_[0-9]+/$opts->{mart}/g;
     print $out_file $_;
 }
