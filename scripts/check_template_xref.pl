@@ -53,9 +53,9 @@ sub search_nodes {
 }
 
 # db params
-my $db_host = 'mysql-eg-prod-1.ebi.ac.uk';
-my $db_port = '4238';
-my $db_user = 'ensro';
+my $db_host;
+my $db_port;
+my $db_user;
 my $db_pwd;
 my $mart_db;
 my $template = './templates/eg_template_template.xml';
@@ -113,6 +113,7 @@ my $mart_handle = DBI->connect($mart_string, $db_user, $db_pwd,
     ) or croak "Could not connect to $mart_string";
 
 $mart_handle->do("use $mart_db");
+print "Checking $mart_db vs $template\n";
 # get tables
 my %tabs = map{$_ =~ s/.*${base_name}__(ox_.*)__dm/$1/; lc($_)=>1} query_to_strings($mart_handle,"show tables like '%\\_\\_ox\\_%\\_\\_dm'");
 my %tabs2 = map{$_ =~ s/.*${base_name}__(efg_.*)__dm/$1/; lc($_)=>1} query_to_strings($mart_handle,"show tables like '%\\_\\_efg\\_%\\_\\_dm'");
@@ -124,24 +125,25 @@ for my $main (qw(gene transcript translation)) {
 my %ds_keys;
 while (my ($table,$key) = each(%keys)) {
     my $t = $table;
-    $t =~ s/.*gene__(.*)__(dm|main)/$1/;
+    $t =~ s/.*($base_name)__(.*)__(dm|main)/$1/;
     push @{$ds_keys{$t}{$key}}, $table;
 }
 
 my $missing = {};
-for my $tab (\%tabs,\%tabs2) {
+for my $tab (\%tabs,\%tabs2) {  
     for my $table (keys %$tab) {
-	if(!$f_nodes{$table}) {
-	    push @{$missing->{filter}}, $table;
-	}
-	if(!$o_nodes{$table}) {
-	    push @{$missing->{option}}, $table;
-	}
-	if(!$a_nodes{$table}) {
-	    push @{$missing->{attribute}}, $table;
-	}
+      $table = lc($table);
+      if(!$f_nodes{$table}) {
+        push @{$missing->{filter}}, $table;
+      }
+      if(!$o_nodes{$table}) {
+        push @{$missing->{option}}, $table;
+      }
+      if(!$a_nodes{$table}) {
+        push @{$missing->{attribute}}, $table;
+      }
     }
-}
+  }
 
 my $key;
 my $field;
@@ -152,10 +154,8 @@ if(defined $missing->{filter}) {
 	$key = get_key(\%ds_keys,$table);
 	if($name =~ /efg_/) {
 	    $name =~ s/efg_//;
-#	    $key = "transcript_id_1064_key";
 	} else {
 	    $name =~ s/ox_//;
-#	    $key="gene_id_1020_key";
 	}
 	my $opt = <<END;
           <Option displayName="with $name ID(s)" displayType="list" field="${table}_bool" internalName="with_$name" isSelectable="true" key="$key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
@@ -165,7 +165,10 @@ if(defined $missing->{filter}) {
 END
 	print $opt;
     }
+} else {
+  print "No missing filters found!\n"
 }
+
 if(defined $missing->{option}) {
     print "Missing list filters:\n";
     for my $table (sort @{$missing->{option}}) {
@@ -176,7 +179,6 @@ if(defined $missing->{option}) {
 	    $field="display_label_11056";
 	} else {
 	    $name =~ s/ox_//;
-#	    $key="gene_id_1020_key";
 	    $field="dbprimary_acc_1074";
 	}
 	my $opt = <<END;
@@ -184,6 +186,8 @@ if(defined $missing->{option}) {
 END
 	print $opt;
     }
+} else {
+  print "No missing options found!\n"
 }
 if(defined $missing->{attribute}) {
     print "Missing attributes:\n";
@@ -193,11 +197,9 @@ if(defined $missing->{attribute}) {
 	$key = get_key(\%ds_keys,$table);
 	if($name =~ /efg_/) {
 	    $name =~ s/efg_//;
-#	    $key = "transcript_id_1064_key";
 	    $field="display_label_11056";
 	} else {
 	    $name =~ s/ox_//;
-#	    $key="gene_id_1020_key";
 	    $field="dbprimary_acc_1074";
 	}
 	my $opt = <<END;
@@ -205,6 +207,8 @@ if(defined $missing->{attribute}) {
 END
 print $opt;
     }
+} else {
+  print "No missing attributes found!\n"
 }
 
 sub get_key {

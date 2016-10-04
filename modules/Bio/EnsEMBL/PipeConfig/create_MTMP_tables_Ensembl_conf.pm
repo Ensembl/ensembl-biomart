@@ -107,6 +107,7 @@ sub pipeline_create_commands {
             -logic_name    => 'MTMP_phenotype',
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
+            -rc_name         => 'mem',
             -parameters    => {
                 'cmd'        => 'perl #base_dir#/ensembl-variation/scripts/misc/mart_phenotypes.pl -user #user# -pass #pass# -port #port# -host #host# -tmpdir #tmp_dir# -tmpfile tmp_#species#.txt -pattern #species#',
                 'user' => $self->o('user'),

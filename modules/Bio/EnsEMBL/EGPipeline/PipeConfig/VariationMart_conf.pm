@@ -213,6 +213,15 @@ sub hive_meta_table {
   };
 }
 
+sub pipeline_create_commands {
+    my ($self) = @_;
+    return [
+      # inheriting database and hive tables' creation
+      @{$self->SUPER::pipeline_create_commands},
+      'mkdir -p '.$self->o('tmp_dir'),
+    ];
+}
+
 sub pipeline_analyses {
   my ($self) = @_;
   

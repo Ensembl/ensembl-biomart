@@ -32,10 +32,10 @@ Log::Log4perl->easy_init($DEBUG);
 
 my $logger = get_logger();
 
-my $db_host = 'mysql-eg-prod-1.ebi.ac.uk';
-my $db_port = 4238;
-my $db_user = 'ensrw';
-my $db_pwd = 'writ3rp1';
+my $db_host;
+my $db_port;
+my $db_user;
+my $db_pwd;
 my $mart_db;
 my $compara_db;
 my $dataset_name;
@@ -250,11 +250,11 @@ for my $dataset (sort @datasets) {
     my $table_name = $dataset.'_'.$basename.'__'.$table_type.'__main';
     for my $type (qw(homoeolog)) {
       for my $col (query_to_strings($mart_handle,"show columns from $table_name like '${type}_%_bool'")) {
-          $mart_handle->do("alter table $table_name drop column $col") || croak "Could not drop column $table_name.$col";
+        $mart_handle->do("alter table $table_name drop column $col") || croak "Could not drop column $table_name.$col";
+        }
     }
   }
-}
-
+  
   # add family
   $logger->info("Adding family data");
   write_family($dataset_name, $basename);
