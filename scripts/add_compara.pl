@@ -27,6 +27,7 @@ use MartUtils;
 use Cwd;
 use File::Copy;
 use Getopt::Long;
+use FindBin;
 
 Log::Log4perl->easy_init($DEBUG);
 
@@ -41,7 +42,8 @@ my $compara_db;
 my $dataset_name;
 my $limit_species;
 my $basename='gene';
-my $template='.';
+
+my $template_dir = "$FindBin::Bin/templates";
 
 sub usage {
     print "Usage: $0 [-h <host>] [-port <port>] [-u user <user>] [-p <pwd>] [-mart <mart>] [-compara <compara db>] [-name <name>] [-template <template>] \n";
@@ -52,7 +54,6 @@ sub usage {
     print "-mart <mart_db> Default is $mart_db\n";
     print "-compara <compara_db> Default is $compara_db\n";
     print "-name <base name> Default is $basename\n";
-    print "-template <template location> Default is $template\n";
     exit 1;
 };
 
@@ -66,7 +67,6 @@ my $options_okay = GetOptions (
     "dataset=s"=>\$dataset_name,
     "species=s"=>\$limit_species,
     "name=s"=>\$basename,
-    "template=s"=>\$template,
     "help"=>sub {usage()}
 );
 
@@ -233,9 +233,9 @@ my $species_homolog_sth = $mart_handle->prepare($species_homolog_sql);
 my $species_paralog_sth = $mart_handle->prepare($species_paralog_sql);
 my $species_homoeolog_across_species_sth = $mart_handle->prepare($species_homoeolog_across_species_sql);
 my $species_homoeolog_within_species_sth = $mart_handle->prepare($species_homoeolog_within_species_sql);
-my $homolog_sql = $template.'/templates/generate_homolog.sql.template';
-my $paralog_sql = $template.'/templates/generate_paralog.sql.template';
-my $homoeolog_sql = $template.'./templates/generate_homoeolog.sql.template';
+my $homolog_sql = $template_dir.'/generate_homolog.sql.template';
+my $paralog_sql = $template_dir.'/generate_paralog.sql.template';
+my $homoeolog_sql = $template_dir.'/generate_homoeolog.sql.template';
 
 my $get_species_id_sth = $mart_handle->prepare('select species_id from dataset_names where name=?');
 my $get_species_clade_sth = $mart_handle->prepare('select src_dataset from dataset_names where name=?');
