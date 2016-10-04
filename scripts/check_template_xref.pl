@@ -53,9 +53,9 @@ sub search_nodes {
 }
 
 # db params
-my $db_host = 'mysql-eg-prod-1.ebi.ac.uk';
-my $db_port = '4238';
-my $db_user = 'ensro';
+my $db_host;
+my $db_port;
+my $db_user;
 my $db_pwd;
 my $mart_db;
 my $template = './templates/eg_template_template.xml';
@@ -131,17 +131,18 @@ while (my ($table,$key) = each(%keys)) {
 my $missing = {};
 for my $tab (\%tabs,\%tabs2) {
     for my $table (keys %$tab) {
-	if(!$f_nodes{$table}) {
-	    push @{$missing->{filter}}, $table;
-	}
-	if(!$o_nodes{$table}) {
-	    push @{$missing->{option}}, $table;
-	}
-	if(!$a_nodes{$table}) {
-	    push @{$missing->{attribute}}, $table;
-	}
+      $table = lc($table);
+      if(!$f_nodes{$table}) {
+        push @{$missing->{filter}}, $table;
+      }
+      if(!$o_nodes{$table}) {
+        push @{$missing->{option}}, $table;
+      }
+      if(!$a_nodes{$table}) {
+        push @{$missing->{attribute}}, $table;
+      }
     }
-}
+  }
 
 my $key;
 my $field;

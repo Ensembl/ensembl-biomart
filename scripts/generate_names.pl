@@ -37,12 +37,12 @@ Log::Log4perl->easy_init($INFO);
 my $logger = get_logger();
 
 # db params
-my $db_host = 'mysql-cluster-eg-prod-1.ebi.ac.uk';
-my $db_port = '4238';
-my $db_user = 'ensrw';
-my $db_pwd = 'writ3rp1';
-my $mart_db = 'fungal_mart_7';
-my $release = 60;
+my $db_host;
+my $db_port ;
+my $db_user;
+my $db_pwd;
+my $mart_db;
+my $release;
 my $suffix = '';
 my $dataset_basename = 'gene';
 my $main = 'gene__main';
@@ -150,7 +150,6 @@ else{
 
 # load registry
 if(defined $registry) {
-    print "Haha\n";
   Bio::EnsEMBL::Registry->load_all($registry);
 } else {
   Bio::EnsEMBL::Registry->load_registry_from_db(

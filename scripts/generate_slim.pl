@@ -42,10 +42,10 @@ use Getopt::Long;
 use Bio::EnsEMBL::Registry;
 
 # db params
-my $db_host = '127.0.0.1';
-my $db_port = 4238;
-my $db_user = 'ensrw';
-my $db_pwd = 'writ3rp1';
+my $db_host;
+my $db_port;
+my $db_user;
+my $db_pwd;
 my $mart_db;
 my $dataset;
 my $basename = "gene";

@@ -40,10 +40,10 @@ my $logger = get_logger();
 my $verbose = 1;
 
 # db params
-my $db_host          = 'mysql-eg-prod-1.ebi.ac.uk';
-my $db_port          = 4238;
-my $db_user          = 'ensrw';
-my $db_pwd           = 'writ3rp1';
+my $db_host;
+my $db_port;
+my $db_user;
+my $db_pwd;
 my $mart_db;
 my $release;
 my $dataset_basename = 'gene';
