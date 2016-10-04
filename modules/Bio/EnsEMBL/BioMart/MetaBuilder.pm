@@ -180,7 +180,7 @@ sub write_toplevel {
         $value = $dataset->{display_name} . ' Genes';
       }
       elsif ( $key eq 'version' ) {
-        $value = $dataset->{version};
+        $value = $dataset->{assembly};
       }
       $dataset->{config}->{$key} = $value;
     }
@@ -211,7 +211,7 @@ sub write_importables {
   my ( $self, $dataset, $templ_in ) = @_;
   $logger->info( "Writing importables for " . $dataset->{name} );
 
-  my $version = $dataset->{name} . "_" . $self->{version};
+  my $version = $dataset->{name} . "_" . $dataset->{assembly};
   my $ds_name = $dataset->{name};
 
   # Importable
@@ -241,7 +241,7 @@ my %species_exportables = map { $_ => 1 }
 sub write_exportables {
   my ( $self, $dataset, $templ_in ) = @_;
   $logger->info( "Writing exportables for " . $dataset->{name} );
-  my $version = $dataset->{name} . "_" . $self->{version};
+  my $version = $dataset->{name} . "_" . $dataset->{assembly};
   my $ds_name = $dataset->{name};
   $logger->info("Processing exportables");
   for my $exp ( @{ $templ_in->{Exportable} } ) {
