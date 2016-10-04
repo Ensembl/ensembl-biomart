@@ -184,7 +184,7 @@ sub pipeline_analyses {
       -wait_for    => 'optimize',
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -release #eg_release#',
+'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',
         'mart'     => $self->o('mart'),
         'user'     => $self->o('user'),
         'pass'     => $self->o('pass'),
