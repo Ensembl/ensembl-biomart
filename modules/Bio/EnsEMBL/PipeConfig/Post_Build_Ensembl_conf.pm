@@ -85,7 +85,7 @@ sub pipeline_create_commands {
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
             -parameters    => {
-                'cmd'        => 'perl #base_dir#/eg-biomart/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -name gene_ensembl -release #release# -div #division# -registry #registry#',
+                'cmd'        => 'perl #base_dir#/ensembl-biomart/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -name gene_ensembl -release #release# -div #division# -registry #registry#',
                 'mart' => $self->o('mart'),
                 'user' => $self->o('user'),
                 'pass' => $self->o('pass'),
@@ -117,7 +117,7 @@ sub pipeline_create_commands {
             },
             -flow_into => {
                 1 => ['add_compara','calculate_sequence', 'add_slims'],
-                2 => 'optimize'
+                2 => ['tidy_tables','optimize']
             },
             -meadow_type => 'LOCAL'
         },        
@@ -126,7 +126,7 @@ sub pipeline_create_commands {
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
             -parameters    => {
-                'cmd'        => 'perl #base_dir#/eg-biomart/scripts/add_compara.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -compara #compara# -dataset #dataset# -name gene_ensembl -template #base_dir#/eg-biomart/scripts',
+                'cmd'        => 'perl #base_dir#/ensembl-biomart/scripts/add_compara.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -compara #compara# -dataset #dataset# -name gene_ensembl -template #base_dir#/ensembl-biomart/scripts',
                 'mart' => $self->o('mart'),
                 'user' => $self->o('user'),
                 'pass' => $self->o('pass'),
@@ -138,11 +138,28 @@ sub pipeline_create_commands {
             -analysis_capacity => 10
         },
         {
+            -logic_name    => 'tidy_tables',
+            -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+            -meadow_type => 'LSF',
+            -wait_for => ['add_compara','calculate_sequence', 'add_slims'],
+            -parameters    => {
+                'cmd'        => 'perl #base_dir#/ensembl-biomart/scripts/tidy_tables.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',  
+                'mart' => $self->o('mart'),
+                'user' => $self->o('user'),
+                'pass' => $self->o('pass'),
+                'host' => $self->o('host'),
+                'port' => $self->o('port'),
+                'base_dir' => $self->o('base_dir')
+            },
+            -input_ids=>[{}],
+            -analysis_capacity => 1
+        },
+        {
             -logic_name    => 'calculate_sequence',
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
             -parameters    => {
-                'cmd'        => 'perl #base_dir#/eg-biomart/scripts/calculate_sequence_data.pl -host #host# -port #port# -user #user# -pass #pass# -mart #mart# -dataset #dataset# -release #release# -dataset_basename gene_ensembl -registry #registry#',
+                'cmd'        => 'perl #base_dir#/ensembl-biomart/scripts/calculate_sequence_data.pl -host #host# -port #port# -user #user# -pass #pass# -mart #mart# -dataset #dataset# -release #release# -dataset_basename gene_ensembl -registry #registry#',
                 'mart' => $self->o('mart'),
                 'user' => $self->o('user'),
                 'pass' => $self->o('pass'),
@@ -160,7 +177,7 @@ sub pipeline_create_commands {
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
             -parameters    => {
-                'cmd'        => 'perl #base_dir#/eg-biomart/scripts/generate_slim.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -name gene_ensembl -registry #registry# -release #release#',  
+                'cmd'        => 'perl #base_dir#/ensembl-biomart/scripts/generate_slim.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -name gene_ensembl -registry #registry# -release #release#',
                 'mart' => $self->o('mart'),
                 'user' => $self->o('user'),
                 'pass' => $self->o('pass'),
