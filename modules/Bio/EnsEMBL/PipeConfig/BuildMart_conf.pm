@@ -44,6 +44,7 @@ sub default_options {
            'datasets'  => [],
            'compara'   => undef,
            'base_dir'  => getcwd,
+	   'template' => undef,
            'base_name' => 'gene' };
 }
 
@@ -184,8 +185,9 @@ sub pipeline_analyses {
       -wait_for    => 'optimize',
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',
-        'mart'     => $self->o('mart'),
+'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -',
+        'dbname'     => $self->o('mart'),
+        'template'     => $self->o('template'),
         'user'     => $self->o('user'),
         'pass'     => $self->o('pass'),
         'host'     => $self->o('host'),
