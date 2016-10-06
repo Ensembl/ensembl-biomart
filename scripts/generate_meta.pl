@@ -26,7 +26,7 @@ limitations under the License.
   
 =head1 SYNOPSIS
 
-load_families.pl [arguments]
+generate_meta.pl [arguments]
 
   --user=user                      username for the BioMart database
 
@@ -39,8 +39,12 @@ load_families.pl [arguments]
   --dbname=name                      BioMart database name
   
   --template=file                    template file to load
+
+  --template_name=name               name of the template
+
+  --ds_basename=name                 mart dataset base name
   
-  --verbose						      show debug info
+  --verbose			     show debug info
 
   --help                              print help (this message)
 
@@ -70,12 +74,14 @@ my $cli_helper = Bio::EnsEMBL::Utils::CliHelper->new();
 my $optsd = $cli_helper->get_dba_opts();
 # add the print option
 push( @{$optsd}, "template_name:s" );
+push( @{$optsd}, "ds_basename:s" );
 push( @{$optsd}, "template:s" );
 push( @{$optsd}, "verbose" );
 
 # process the command line with the supplied options plus a help subroutine
 my $opts = $cli_helper->process_args( $optsd, \&pod2usage );
 $opts->{template_name} ||= 'genes';
+$opts->{ds_basename}   ||= 'gene';
 if ( $opts->{verbose} ) {
   Log::Log4perl->easy_init($DEBUG);
 }
@@ -125,7 +131,8 @@ elsif ( $dba->dbc()->dbname() =~ 'plants' ) {
 # build
 my $builder =
   Bio::EnsEMBL::BioMart::MetaBuilder->new( -DBC    => $dba->dbc(),
-                                           -UNHIDE => $unhide );
+                                           -UNHIDE => $unhide,
+                                           -BASENAME => $opts->{ds_basename} );
 
 $builder->build( $opts->{template_name}, $templ );
 
