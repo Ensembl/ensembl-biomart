@@ -127,7 +127,7 @@ sub get_datasets {
   my $datasets =
     $self->{dbc}->sql_helper()->execute(
     -SQL =>
-'select name, species_name as display_name, sql_name as production_name, assembly from dataset_names',
+'select name, species_name as display_name, sql_name as production_name, assembly, genebuild from dataset_names',
     -USE_HASHREFS => 1 );
   $logger->debug( "Found " . scalar(@$datasets) . " datasets" );
   return $datasets;
@@ -164,7 +164,6 @@ sub write_toplevel {
   my ( $self, $dataset, $templ_in ) = @_;
   $logger->info( "Writing toplevel elements for " . $dataset->{name} );
   $dataset->{production_name} =~ s/_/ /g;
-  my $display_species_name = ucfirst($dataset->{production_name}).' genes ('.$dataset->{assembly}.')';
   my $is_default = {
                   'hsapiens' => 1,
                   'drerio' => 1,
@@ -177,6 +176,9 @@ sub write_toplevel {
   # defaultDataSet
   # displayName
   # version
+  my $display_name = $dataset->{display_name};
+  my $version = $dataset->{assembly};
+  my $ds_base = $dataset->{name}.'_'.$self->{basename};
   while ( my ( $key, $value ) = each %{$templ_in} ) {
     if ( !ref($value) ) {
       if ( $key eq 'defaultDataSet' ) {
@@ -187,38 +189,53 @@ sub write_toplevel {
         }
       }
       elsif ( $key eq 'displayName' ) {
-        $value = $display_species_name;
+        $value =~ s/\*species1\*/${display_name}/g;
+        $value =~ s/\*version\*/${version}/g;
       }
       elsif ( $key eq 'description' ) {
-        $value = $dataset->{display_name} . ' Genes';
+        $value =~ s/\*species1\*/${display_name}/g;
+        $value =~ s/\*version\*/${version}/g;
       }
       elsif ( $key eq 'version' ) {
-        $value = $dataset->{assembly};
+        $value = $version;
       }
       elsif ( $key eq 'datasetID' ) {
         $value = $dataset->{species_id};
       }
       elsif ( $key eq 'dataset' ) {
-        $value = $dataset->{name}.'_'.$self->{basename};
+        $value = $ds_base;
       }
+      elsif ( $key eq 'template' ) {
+        $value = $ds_base;
+      }
+      elsif ( $key eq 'modified' ) {
+        $value = scalar(localtime);
+      }
+      elsif ( $key eq 'optional_parameters' ) {
+        $value =~ s/\*base_name\*/${ds_base}/g;
+      }      
       $dataset->{config}->{$key} = $value;
     }
   }
-
-  # add dynamicdataset
-  $dataset->{config}->{DynamicDataset} = {
-                                        internalName => $dataset->{name},
-                                        displayName => $dataset->{display_name},
-                                        useDefault  => "true" };
  
-  my $ds_base = $dataset->{name}.'_'.$self->{basename};
   # add MainTable
-  for my $mainTable ( @{ $templ_in->{MainTable} } ) {
+  my $mt = $templ_in->{MainTable};
+  if(ref($mt) ne 'ARRAY') {
+    $mt = [$mt];
+  }
+  $dataset->{config}->{MainTable} = [];
+  for my $mainTable ( @$mt ) {
     $mainTable =~ s/\*base_name\*/$ds_base/;
     push @{ $dataset->{config}->{MainTable}}, $mainTable;
   }
+
   # add MainTable
-  for my $key ( @{ $templ_in->{Key} } ) {
+  my $keys = $templ_in->{Key};
+  if(ref($keys) ne 'ARRAY') {
+    $keys = [$keys];
+  }
+  $dataset->{config}->{Key} = [];
+  for my $key ( @$keys ) {
     push @{ $dataset->{config}->{Key}}, $key;
   }
 
@@ -231,9 +248,10 @@ sub write_importables {
 
   my $version = $dataset->{name} . "_" . $dataset->{assembly};
   my $ds_name = $dataset->{name} . "_" . $self->{basename};
-
+  print "*** $version $ds_name\n";
   # Importable
-  for my $imp ( @{ $templ_in->{Importable} } ) {
+  for my $impt ( @{ $templ_in->{Importable} } ) {
+    my $imp = copy_hash($impt);
     # replace linkVersion.*link_version* with $version
     if ( defined $imp->{linkVersion} ) {
       $imp->{linkVersion} =~ s/\*link_version\*/$version/;
@@ -262,7 +280,8 @@ sub write_exportables {
   my $version = $dataset->{name} . "_" . $dataset->{assembly};
   my $ds_name = $dataset->{name} . "_" . $self->{basename};
   $logger->info("Processing exportables");
-  for my $exp ( @{ $templ_in->{Exportable} } ) {
+  for my $expt ( @{ $templ_in->{Exportable} } ) {
+    my $exp = copy_hash($expt);
     # replace linkVersion.*link_version* with $version
     if ( defined $exp->{linkVersion} ) {
       $exp->{linkVersion} =~ s/\*link_version\*/${version}/;
@@ -928,7 +947,7 @@ sub write_attributes {
             if ( defined $ado->{linkoutURL} ) {
               if ( $ado->{linkoutURL} =~ m/exturl|\/\*species2\*/ ) {
                 # reformat to add URL placeholder
-                $ado->{linkoutURL} =~ s/\*species2\*/$dataset->{name}/;
+                $ado->{linkoutURL} =~ s/\*species2\*/$dataset->{production_name}/;
               }
             }
             restore_main( $ado, $ds_name );
@@ -985,7 +1004,7 @@ sub normalise {
 
 sub update_table_keys {
   my ( $obj, $ds_name, $keys ) = @_;
-  if ( defined $obj->{tableConstraint} ) {
+  if ( defined $obj->{tableConstraint} && defined $obj->{key} ) {
     if ( $obj->{tableConstraint} eq 'main' ) {
       if ( $obj->{key} eq 'gene_id_1020_key' ) {
         $obj->{tableConstraint} = "${ds_name}__gene__main";
@@ -1100,15 +1119,14 @@ sub write_dataset_metatables {
 
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
   my $speciesId = $dataset->{species_id};
-  $dataset->{production_name} =~ s/_/ /g;
-  my $display_species_name = ucfirst($dataset->{production_name}).' genes ('.$dataset->{assembly}.')';
+  my $display_species_name = $dataset->{display_name}.' genes ('.$dataset->{assembly}.')';
 
   $logger->info("Populating metatables for $ds_name ($speciesId)");
 
   my $dataset_xml =
     XMLout( { DatasetConfig => $dataset->{config} }, KeepRoot => 1 );
 
-  open my $out, ">", "$ds_name.xml";
+  open my $out, ">", "./tmp/$ds_name.xml";
   print $out $dataset_xml;
   close $out;
   my $gzip_dataset_xml;
@@ -1121,9 +1139,9 @@ sub write_dataset_metatables {
 
   $self->{dbc}->sql_helper()->execute_update(
     -SQL =>
-"INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,'Ensembl Genes','TableSet',1,?)",
+"INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,?,'TableSet',1,?)",
     -PARAMS => [ $speciesId,               $ds_name,
-                 $display_species_name, $dataset->{assembly} ] );
+                 $display_species_name, "Ensemmbl $template_name", $dataset->{assembly} ] );
 
   $self->{dbc}->sql_helper()->execute_update(
               -SQL    => 'INSERT INTO meta_conf__xml__dm VALUES (?,?,?,?)',
