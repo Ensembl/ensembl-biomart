@@ -213,15 +213,14 @@ sub write_toplevel {
  
   my $ds_base = $dataset->{name}.'_'.$self->{basename};
   # add MainTable
-  push @{ $dataset->{config}->{MainTable} }, "${ds_base}__gene__main";
-  push @{ $dataset->{config}->{MainTable} },
-    "${ds_base}__transcript__main";
-  push @{ $dataset->{config}->{MainTable} },
-    "${ds_base}__translation__main";
-  # add Key
-  push @{ $dataset->{config}->{Key} }, 'gene_id_1020_key';
-  push @{ $dataset->{config}->{Key} }, 'transcript_id_1064_key';
-  push @{ $dataset->{config}->{Key} }, 'translation_id_1068_key';
+  for my $mainTable ( @{ $templ_in->{MainTable} } ) {
+    $mainTable =~ s/\*base_name\*/$ds_base/;
+    push @{ $dataset->{config}->{MainTable}}, $mainTable;
+  }
+  # add MainTable
+  for my $key ( @{ $templ_in->{Key} } ) {
+    push @{ $dataset->{config}->{Key}}, $key;
+  }
 
   return;
 } ## end sub write_toplevel
