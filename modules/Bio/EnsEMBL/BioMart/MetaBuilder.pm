@@ -987,7 +987,7 @@ sub normalise {
 sub update_table_keys {
   my ( $obj, $ds_name, $keys ) = @_;
   if ( defined $obj->{tableConstraint} ) {
-    if ( $obj->{tableConstraint} eq 'main' ) {
+    if ( defined $obj->{key} && $obj->{tableConstraint} eq 'main' ) {
       if ( $obj->{key} eq 'gene_id_1020_key' ) {
         $obj->{tableConstraint} = "${ds_name}__gene__main";
       }

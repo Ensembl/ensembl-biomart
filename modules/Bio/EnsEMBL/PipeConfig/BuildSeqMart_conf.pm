@@ -18,7 +18,7 @@
     Please subscribe to the Hive mailing list:  http://listserver.ebi.ac.uk/mailman/listinfo/ehive-users  to discuss Hive-related questions or to be notified of our updates
 =cut
 
-package Bio::EnsEMBL::PipeConfig::BuildMart_conf;
+package Bio::EnsEMBL::PipeConfig::BuildSeqMart_conf;
 
 use strict;
 use warnings;
@@ -30,7 +30,10 @@ use Cwd;
 
 sub resource_classes {
   my ($self) = @_;
-  return { 'default' => { 'LSF' => '-q production-rh6' } };
+  return { 
+	  'default' => { 'LSF' => '-q production-rh6' },
+	  'himem' => { 'LSF' => '-q production-rh6 -M 16384 -R "rusage[mem=16384]"' } 
+	 };
 }
 
 sub default_options {
@@ -50,7 +53,7 @@ sub default_options {
            'datasets'  => [],
            'compara'   => undef,
            'base_dir'  => getcwd,
-	   'template' => undef,
+	   'suffix' => '',
            'base_name' => 'gene' };
 }
 
@@ -73,19 +76,25 @@ sub pipeline_analyses {
   my $analyses = [
     { -logic_name => 'sequence_dataset_factory',
       -module     => 'Bio::EnsEMBL::BioMart::SequenceDatasetFactory',
-      -wait_for   => 'generate_names',
       -parameters => { 
-                       'division' => $self->o('division'),
-                       'user'     => $self->o('user'),
-                       'pass'     => $self->o('pass'),
-                       'host'     => $self->o('host'),
-                       'port'     => $self->o('port'),
-                       'datasets' => $self->o('datasets'),
-                       'base_dir' => $self->o('base_dir') },
+		      'division' => $self->o('division'),
+		      'suffix'     => $self->o('suffix'),
+		      'user'     => $self->o('user'),
+		      'pass'     => $self->o('pass'),
+		      'host'     => $self->o('host'),
+		      'port'     => $self->o('port'),
+		      'mart'     => $self->o('mart'),
+		      'muser'     => $self->o('muser'),
+		      'mpass'     => $self->o('mpass'),
+		      'mhost'     => $self->o('mhost'),
+		      'mport'     => $self->o('mport'),
+		      'mdbname'     => $self->o('mdbname'),
+		      'datasets' => $self->o('datasets'),
+		      'base_dir' => $self->o('base_dir') },
       -input_ids => [ {} ],
       -flow_into => { 1 => [ 'build_sequence' ],
                       2 => [ 'optimize', 'generate_meta' ]
-                    }
+                    },
       -meadow_type => 'LOCAL' },
     { -logic_name  => 'build_sequence',
       -module     => 'Bio::EnsEMBL::BioMart::BuildSequenceMart',
@@ -96,7 +105,7 @@ sub pipeline_analyses {
         'pass'      => $self->o('pass'),
         'host'      => $self->o('host'),
         'port'      => $self->o('port') },
-      -rc_name           => '16Gb_mem_16Gb_tmp',
+      -rc_name           => 'himem',
       -analysis_capacity => 10 },
     { -logic_name  => 'optimize',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
@@ -117,9 +126,8 @@ sub pipeline_analyses {
         -wait_for    => 'optimize',
         -parameters  => {
                          'cmd' =>
-                         'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -base_name genomic_sequence',
-                         'dbname'   => $self->o('mart'),
-                         'template' => $self->o('template'),
+                         'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #base_dir#/scripts/templates/sequence_template_template.xml  -ds_basename genomic_sequence -template_name sequences',
+                         'mart'   => $self->o('mart'),
                          'user'     => $self->o('user'),
                          'pass'     => $self->o('pass'),
                          'host'     => $self->o('host'),

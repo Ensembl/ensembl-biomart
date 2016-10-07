@@ -5,6 +5,8 @@ use Bio::EnsEMBL::Hive::Utils qw/go_figure_dbc/;
 use base ('Bio::EnsEMBL::Hive::RunnableDB::JobFactory');  # All Hive databases configuration files should inherit from HiveGeneric, directly or indirectly
 use Data::Dumper;
 use Bio::EnsEMBL::ApiVersion;
+use Bio::EnsEMBL::DBSQL::DBAdaptor;
+use Bio::EnsEMBL::DBSQL::DBConnection;
 
 sub run {
     my $self = shift @_;
@@ -12,7 +14,7 @@ sub run {
     if(!defined $databases) {
       my $prod_dba = Bio::EnsEMBL::DBSQL::DBAdaptor->new(
                                                          -USER => $self->param('muser'),
-                                                         -PASS => $self->param('mpassword'),
+                                                         -PASS => $self->param('mpass'),
                                                          -HOST => $self->param('mhost'),
                                                          -PORT => $self->param('mport'),
                                                          -DBNAME => $self->param('mdbname')    
@@ -22,14 +24,14 @@ sub run {
                                                                  -SQL => q/
 select full_db_name from db_list join db using (db_id) 
 join species using (species_id) join division_species using (species_id) join division using (division_id) 
-where db.is_current=1 and db_type='core' and division.name=?/,
+where db.is_current=1 and db_type='core' and division.name=? and full_db_name not like '%collection%'/,
                                                                  -PARAMS => [$self->param('division')]
                                                                 );
     }
 
     my $mart_dbc = Bio::EnsEMBL::DBSQL::DBConnection->new(
                                                           -USER => $self->param('user'),
-                                                          -PASS => $self->param('password'),
+                                                          -PASS => $self->param('pass'),
                                                           -HOST => $self->param('host'),
                                                           -PORT => $self->param('port'),
                                                           -DBNAME => $self->param('mart')    
@@ -52,18 +54,18 @@ create table if not exists dataset_names (
 /
                                            );
     
+    my $suffix = $self->param('suffix');
+
     my $output_ids = [];
     for my $database (@$databases) {
 
       my $ds = $mart_dbc->sql_helper()->execute_into_hash(
-                                                 -SQL = qq/select meta_key,meta_value from ${database}.meta where species_id=1/
+                                                 -SQL => qq/select meta_key,meta_value from ${database}.meta where species_id=1/
                                                 );
 
-      (my $dataset = $database) =~ s/^([a-z])[a-z]+_[^_]+_.*/$1$2/;
-      if(defined $self->params('suffix')) {
-        $dataset = $dataset.$self->params('suffix');
-      }
-
+      (my $dataset = $database) =~ s/^([a-z])[a-z]+_([^_]+)_.*/$1$2/;
+      $dataset = $dataset.$suffix;
+      
       my $assembly = $ds->{'assembly.default'};
       if($dataset eq 'hsapiens' || $dataset eq 'mmusculus') {
         $assembly = $ds->{'assembly.name'};
@@ -75,7 +77,7 @@ create table if not exists dataset_names (
 
       $mart_dbc->sql_helper()->execute_update(-SQL => q/delete from dataset_names where name=?/, -PARAMS=>[$dataset]);
       $mart_dbc->sql_helper()->execute_update(
-                                              -SQL=q/insert into dataset_names() values(?,?,?,?,?,?,?,?,?,NULL,?)/,
+                                              -SQL=>q/insert into dataset_names() values(?,?,?,?,?,?,?,?,?,NULL,?)/,
                                               -PARAMS=>[
                                                         $dataset,
                                                         $dataset,
@@ -89,6 +91,7 @@ create table if not exists dataset_names (
                                                         0
                                                        ]
                                               );
+      push @$output_ids, {dataset=>$dataset};
 
     }
     $self->param('output_ids',$output_ids);

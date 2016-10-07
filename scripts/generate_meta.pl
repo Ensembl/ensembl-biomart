@@ -89,7 +89,7 @@ else {
   Log::Log4perl->easy_init($INFO);
 }
 my $logger = get_logger();
-
+print Dumper($opts);
 $logger->info( "Reading " . $opts->{template_name} . " template XML from " .
                $opts->{template} );
 # load in template
