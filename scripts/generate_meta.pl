@@ -37,13 +37,13 @@ generate_meta.pl [arguments]
   --port=port                      port for the BioMart database
 
   --dbname=name                      BioMart database name
-  
+
   --template=file                    template file to load
 
   --template_name=name               name of the template
 
   --ds_basename=name                 mart dataset base name
-  
+
   --verbose			     show debug info
 
   --help                              print help (this message)
