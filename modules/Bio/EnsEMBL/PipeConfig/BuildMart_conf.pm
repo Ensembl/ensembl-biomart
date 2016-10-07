@@ -185,14 +185,14 @@ sub pipeline_analyses {
       -wait_for    => 'optimize',
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -',
-        'dbname'     => $self->o('mart'),
-        'template'     => $self->o('template'),
-        'user'     => $self->o('user'),
-        'pass'     => $self->o('pass'),
-        'host'     => $self->o('host'),
-        'port'     => $self->o('port'),
-        'base_dir' => $self->o('base_dir') },
+                       'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #basename#',
+                       'dbname'     => $self->o('mart'),
+                       'template'     => $self->o('template'),
+                       'user'     => $self->o('user'),
+                       'pass'     => $self->o('pass'),
+                       'host'     => $self->o('host'),
+                       'port'     => $self->o('port'),
+                       'base_dir' => $self->o('base_dir') },
       -input_ids         => [ {} ],
       -analysis_capacity => 1 }
 
