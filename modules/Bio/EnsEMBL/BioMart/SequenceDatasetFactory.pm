@@ -66,10 +66,7 @@ create table if not exists dataset_names (
       (my $dataset = $database) =~ s/^([a-z])[a-z]+_([^_]+)_.*/$1$2/;
       $dataset = $dataset.$suffix;
       
-      my $assembly = $ds->{'assembly.default'};
-      if($dataset eq 'hsapiens' || $dataset eq 'mmusculus') {
-        $assembly = $ds->{'assembly.name'};
-      }
+      my $assembly = $assembly = $ds->{'assembly.name'};
       my $genebuild = $ds->{'genebuild.last_geneset_update'} ||
         $ds->{'genebuild.start_date'} ||
           $ds->{'genebuild_version'};

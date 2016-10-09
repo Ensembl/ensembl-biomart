@@ -270,11 +270,6 @@ foreach my $dataset (@datasets) {
         $species_names{'genebuild.last_geneset_update'} ||
         $species_names{'genebuild.start_date'}          ||
         $species_names{'genebuild_version'};
-      if ($species_names{'species.production_name'} ne "homo_sapiens" &&
-          $species_names{'species.production_name'} ne "mus_musculus" )
-      {
-        $assembly = $species_names{'assembly.default'};
-      }
     }
 
     my $has_chromosomes = get_string(
