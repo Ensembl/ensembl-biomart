@@ -47,6 +47,7 @@
   <Importable filters="mgi_symbol" internalName="mgi_symbol" linkName="mgi_symbol" name="mgi_symbol" type="link"/>
   <Importable filters="rgd" internalName="rgd_id" linkName="rgd_id" name="rgd_id" type="link"/>
   -->
+  <Exportable attributes="*species3*" internalName="*species3*_stable_id" linkName="*$species3*_stable_id" name="*species3*" type="link" default="1" />
   <Exportable attributes="chromosome_name,start_position,end_position" internalName="genomic_region" linkName="genomic_region" linkVersion="*link_version*" name="genomic_region" type="link"/>
   <Exportable attributes="external_id" internalName="refsnp_id" linkName="refsnp_id" name="refsnp_id" type="link"/>
   <Exportable attributes="uniprot_swissprot_accession" internalName="uniprot_swissprot" linkName="uniprot_swissprot" name="uniprot_swissprot" type="link"/>
@@ -69,7 +70,7 @@
   <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id" internalName="5utr" linkName="5utr" linkVersion="*link_version*" name="5utr" orderBy="ensembl_transcript_id,rank" type="link"/>
   <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand,rank,rna_seq_edits" internalName="cdna" linkName="cdna" linkVersion="*link_version*" name="cdna" orderBy="ensembl_transcript_id" type="link"/>
   <Exportable attributes="exon_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand" internalName="gene_exon" linkName="gene_exon" linkVersion="*link_version*" name="gene_exon" orderBy="exon_id" type="link"/>
-  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,codon_table_id,seq_edits,rna_seq_edits" default="1" internalName="peptide" linkName="peptide" linkVersion="*link_version*" name="peptide" orderBy="ensembl_transcript_id,rank" type="link"/>
+  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,codon_table_id,seq_edits,rna_seq_edits" default="1" internalName="peptide" linkName="peptide" linkVersion="*link_version*" name="peptide" orderBy="ensembl_transcript_id,rank" type="link" useDefault="true"/>
   <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,rna_seq_edits" internalName="coding" linkName="coding" linkVersion="*link_version*" name="coding" orderBy="ensembl_transcript_id,rank" type="link"/>
   <!--
   <Exportable attributes="link_probe" internalName="probe_one" linkName="probe_one" linkVersion="*link_version*" name="probe_one" type="link"/>

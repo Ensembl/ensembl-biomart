@@ -47,8 +47,8 @@
       </FilterCollection>
     </FilterGroup>
   </FilterPage>
-  <FilterPage displayName="NEW_FILTERS" hidden="true" internalName="unwanted_filters" useDefault="true">
-    <FilterGroup displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+  <FilterPage displayName="MAIN_FILTERS" hidden="true" internalName="main_filters" useDefault="true">
+    <FilterGroup displayName="MAIN_FILTERS" hidden="true" internalName="main_filters" useDefault="true">
       <FilterCollection displayName="dna chunks" hidden="true" internalName="dna_chunks" useDefault="true">
         <FilterDescription displayName="Chr name" displayType="text" field="chr_name" hidden="false" internalName="chr_name" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
         <FilterDescription displayName="Chr start" displayType="text" field="chr_start" hidden="false" internalName="chr_start" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
@@ -97,8 +97,8 @@
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
-  <AttributePage displayName="NEW_ATTRIBUTES" hidden="true" internalName="unwanted_attributes" useDefault="true">
-    <AttributeGroup displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+  <AttributePage displayName="MAIN_ATTRIBUTES" hidden="true" internalName="main_attributes" useDefault="true">
+    <AttributeGroup displayName="MAIN_ATTRIBUTES" hidden="true" internalName="main_attributes" useDefault="true">
       <AttributeCollection displayName="dna chunks" hidden="true" internalName="dna_chunks" useDefault="true">
         <AttributeDescription displayName="Chr name" field="chr_name" hidden="false" internalName="chr_name" maxLength="20" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Chr start" field="chr_start" hidden="false" internalName="chr_start" maxLength="10" tableConstraint="main" useDefault="true"/>

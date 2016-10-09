@@ -248,7 +248,6 @@ sub write_importables {
 
   my $version = $dataset->{name} . "_" . $dataset->{assembly};
   my $ds_name = $dataset->{name} . "_" . $self->{basename};
-  print "*** $version $ds_name\n";
   # Importable
   for my $impt ( @{ $templ_in->{Importable} } ) {
     my $imp = copy_hash($impt);
@@ -262,9 +261,6 @@ sub write_importables {
     }
     # replace name.*species3* with ${name}_e
     $imp->{name} =~ s/\*species3\*/${ds_name}/;
-    if ( $imp->{internalName} eq 'genomic_sequence' ) {
-      $imp->{filters} .= ",species_id_key";
-    }
     # push onto out stack
     push @{ $dataset->{config}->{Importable} }, $imp;
   }
@@ -292,21 +288,11 @@ sub write_exportables {
     }
     # replace name.*species3* with ${ds_name}_eg
     $exp->{name} =~ s/\*species3\*/${ds_name}/;
-    if ( $species_exportables{ $exp->{internalName} } ) {
-      $exp->{attributes} .= ",species_id_key";
-    }
+    $exp->{internalName} =~ s/\*species3\*/${ds_name}/;
+    $exp->{attributes} =~ s/\*species3\*/${ds_name}/;
     # push onto out stack
     push @{ $dataset->{config}->{Exportable} }, $exp;
   }
-
-  # additional exporter
-  push @{ $dataset->{config}->{Exportable} }, {
-      attributes   => "${ds_name}",
-      default      => 1,
-      internalName => "${ds_name}_stable_id",
-      name         => "${ds_name}_stable_id",
-      linkName     => "${ds_name}_stable_id",
-      type         => "link" };
 
   return;
 } ## end sub write_exportables
@@ -344,7 +330,7 @@ sub write_filters {
             if defined $fdo->{pointerDataSet};
           #### SpecificFilterContent - delete
           #### tableConstraint - update
-          update_table_keys( $fdo, $ds_name, $self->{keys} );
+          update_table_keys( $fdo, $dataset, $self->{keys} );
           #### if contains options, treat differently
           #### if its called homolog_filters, add the homologs here
           if ( $fdo->{internalName} eq 'homolog_filters' ) {
@@ -445,12 +431,12 @@ sub write_filters {
             normalise( $filterDescription, "Option" );
             for my $option ( @{ $filterDescription->{Option} } ) {
               my $opt = copy_hash($option);
-              update_table_keys( $opt, $ds_name, $self->{keys} );
+              update_table_keys( $opt, $dataset, $self->{keys} );
               if ( defined $self->{tables}->{ $opt->{tableConstraint} } &&
                    defined $self->{tables}->{ $opt->{tableConstraint} }
                    ->{ $opt->{field} } &&
-                   defined $self->{tables}->{ $opt->{tableConstraint} }
-                   ->{ $opt->{key} } )
+                   (!defined $opt->{key} || defined $self->{tables}->{ $opt->{tableConstraint} }
+                    ->{ $opt->{key} }) )
               {
                 push @{ $fdo->{Option} }, $opt;
                 for my $o ( @{ $option->{Option} } ) {
@@ -478,8 +464,8 @@ sub write_filters {
               if ( defined $self->{tables}->{ $fdo->{tableConstraint} } &&
                    defined $self->{tables}->{ $fdo->{tableConstraint} }
                    ->{ $fdo->{field} } &&
-                   defined $self->{tables}->{ $fdo->{tableConstraint} }
-                   ->{ $fdo->{key} } )
+                   (!defined $fdo->{key} || defined $self->{tables}->{ $fdo->{tableConstraint} }
+                   ->{ $fdo->{key} }) )
               {
                 if ( defined $filterDescription->{SpecificFilterContent} &&
                   ref( $filterDescription->{SpecificFilterContent} ) eq 'HASH'
@@ -912,7 +898,7 @@ sub write_attributes {
               if defined $ado->{pointerDataSet};
             #### SpecificAttributeContent - delete
             #### tableConstraint - update
-            update_table_keys( $ado, $ds_name, $self->{keys} );
+            update_table_keys( $ado, $dataset, $self->{keys} );
             #### if contains options, treat differently
             if ( defined $ado->{tableConstraint} ) {
               if ( $ado->{tableConstraint} =~ m/__dm$/ ) {
@@ -924,8 +910,8 @@ sub write_attributes {
                  defined defined $self->{tables}->{ $ado->{tableConstraint} } &&
                  defined $self->{tables}->{ $ado->{tableConstraint} }
                  ->{ $ado->{field} } &&
-                 defined $self->{tables}->{ $ado->{tableConstraint} }
-                 ->{ $ado->{key} } )
+                 (!defined $ado->{key} || defined $self->{tables}->{ $ado->{tableConstraint} }
+                 ->{ $ado->{key} }) )
               {
                 push @{ $aco->{AttributeDescription} }, $ado;
                 $nD++;
@@ -1003,17 +989,24 @@ sub normalise {
 }
 
 sub update_table_keys {
-  my ( $obj, $ds_name, $keys ) = @_;
-  if ( defined $obj->{tableConstraint} && defined $obj->{key} ) {
+  my ( $obj, $dataset, $keys ) = @_;
+  my $ds_name = $dataset->{config}->{dataset};
+  if ( defined $obj->{tableConstraint}) {
     if ( $obj->{tableConstraint} eq 'main' ) {
-      if ( $obj->{key} eq 'gene_id_1020_key' ) {
-        $obj->{tableConstraint} = "${ds_name}__gene__main";
-      }
-      elsif ( $obj->{key} eq 'transcript_id_1064_key' ) {
-        $obj->{tableConstraint} = "${ds_name}__transcript__main";
-      }
-      elsif ( $obj->{key} eq 'translation_id_1068_key' ) {
-        $obj->{tableConstraint} = "${ds_name}__translation__main";
+      if(!defined $obj->{key}) {
+        ($obj->{tableConstraint}) = @{$dataset->{config}->{MainTable}};
+        $obj->{tableConstraint} =~ s/\*base_name\*/${ds_name}/;
+      } else {
+        # use key to find the correct main table
+        if ( $obj->{key} eq 'gene_id_1020_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__gene__main";
+        }
+        elsif ( $obj->{key} eq 'transcript_id_1064_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__transcript__main";
+        }
+        elsif ( $obj->{key} eq 'translation_id_1068_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__translation__main";
+        }
       }
     }
     else {
@@ -1032,10 +1025,11 @@ sub update_table_keys {
 
 sub restore_main {
   my ( $obj, $ds_name ) = @_;
+  # switch main back to placeholder name after we've checked the real table name
   if ( defined $obj->{tableConstraint} ) {
-    if ( $obj->{tableConstraint} eq "${ds_name}__gene__main" ||
-         $obj->{tableConstraint} eq "${ds_name}__transcript__main" ||
-         $obj->{tableConstraint} eq "${ds_name}__translation__main" )
+    if ( $obj->{tableConstraint} =~ m/^${ds_name}__.+__main$/ ||
+         $obj->{tableConstraint} =~ m/^${ds_name}__.+__main$/ ||
+         $obj->{tableConstraint} =~ m/^${ds_name}__.+__main$/ )
     {
       $obj->{tableConstraint} = 'main';
     }
