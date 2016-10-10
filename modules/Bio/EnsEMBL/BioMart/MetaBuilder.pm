@@ -49,6 +49,7 @@ use IO::Compress::Gzip qw(gzip);
 use Carp;
 use XML::Simple;
 use Data::Dumper;
+use Sort::Naturally;
 
 use Log::Log4perl qw/get_logger/;
 
@@ -481,7 +482,11 @@ sub write_filters {
                     ->execute_simple( -SQL =>
 "select distinct $fdo->{field} from $fdo->{tableConstraint} where $fdo->{field} is not null order by $fdo->{field} limit $max"
                     );
-
+                  # We need to sort the chromosome dropdown to make it more user friendly
+                  if ($fdo->{internalName} eq "chromosome_name")
+                  {
+                    @$vals = nsort(@$vals);
+                  }
                   if ( scalar(@$vals) <= $self->{max_dropdown} ) {
                     $fdo->{Option} = [];
                     for my $val (@$vals) {
