@@ -62,7 +62,7 @@ my $logger = get_logger();
  Arg [-VERSION] :
     Integer : EG/E version (by default the last number in the mart name)
  Arg [-MAX_DROPDOWN] :
-    Integer : Maximum number of items to show in a dropdown menu (default 255)
+    Integer : Maximum number of items to show in a dropdown menu (default 256)
  Arg [-UNHIDE] :
     Hashref : attributes/filters to unhide for this mart (mainly domain specific ontologies)
  Arg [-BASENAME] :
@@ -328,7 +328,7 @@ sub write_filters {
           my $fdo = copy_hash($filterDescription);
           #### pointerDataSet *species3*
           $fdo->{pointerDataset} =~ s/\*species3\*/${ds_name}/
-            if defined $fdo->{pointerDataSet};
+            if defined $fdo->{pointerDataset};
           #### SpecificFilterContent - delete
           #### tableConstraint - update
           update_table_keys( $fdo, $dataset, $self->{keys} );
@@ -518,13 +518,13 @@ sub write_filters {
                         # If the species has band information, creating chromosome option and associated band start and end push action dropdowns
                         if (defined $kstart_config{$val} and defined $kend_config{$val})
                         {
-                        push @{ $fdo->{Option} }, {
-                          internalName => $val,
-                          displayName  => $val,
-                          value        => $val,
-                          isSelectable => 'true',
-                          useDefault   => 'true',
-                          PushAction => [ {
+                          push @{ $fdo->{Option} }, {
+                            internalName => $val,
+                            displayName  => $val,
+                            value        => $val,
+                            isSelectable => 'true',
+                            useDefault   => 'true',
+                            PushAction => [ {
                                    internalName => "band_start_push_$val",
                                    useDefault   => 'true',
                                    ref => 'band_start',
@@ -534,7 +534,7 @@ sub write_filters {
                                    useDefault   => 'true',
                                    ref => 'band_end',
                                    Option => $kend_config{$val} } ],
-                        };
+                          };
                         }
                         else {
                           push @{ $fdo->{Option} }, {
@@ -544,29 +544,19 @@ sub write_filters {
                             isSelectable => 'true',
                             useDefault   => 'true'};
                         }
-#     push @{ $fdo->{Option} }, {
-#                               "Push Action" => {
-#                                   internalName => 'band_start_push_1',
-#                                   useDefault   => 'true',
-#                                   ref => 'band_start',
-#                                   Option => @kstart_config}};
-#                                   push @{ $fdo->{Option}[0]->{internalName}->$val->{'Push Action'} }, {
-#                              internalName => 'band_start_push_1',
-#                              useDefault   => 'true',
-#                               ref => 'band_start' };
-                        }
                       }
-                      else {
-                        $fdo->{Option} = [];
-                        for my $val (@$vals) {
+                    }
+                    else {
+                      $fdo->{Option} = [];
+                      for my $val (@$vals) {
                           push @{ $fdo->{Option} }, {
                             internalName => $val,
                             displayName  => $val,
                             value        => $val,
                             isSelectable => 'true',
                             useDefault   => 'true' };
-                         }
                       }
+                    }
                   }
                   else {
                     $logger->info("Too many dropdowns, changing to text");
@@ -590,6 +580,16 @@ sub write_filters {
             else {
               push @{ $fco->{FilterDescription} }, $fdo;
               $nD++;
+            }
+            #### otherFilters *species4*
+            if (defined $fdo->{otherFilters}){
+              my $gfm_ds_name=substr($dataset->{name},0,4);
+              $fdo->{otherFilters} =~ s/\*species4\*/${gfm_ds_name}/g;
+            }
+            #### pointerDataSet *species4*
+            if (defined $fdo->{pointerDataset}){
+              my $gfm_ds_name=substr($dataset->{name},0,4);
+              $fdo->{pointerDataset} =~ s/\*species4\*/${gfm_ds_name}/g;
             }
             restore_main( $fdo, $ds_name );
           } ## end else [ if ( $fdo->{internalName...})]
@@ -970,7 +970,7 @@ sub write_attributes {
             my $ado = copy_hash($attributeDescription);
             #### pointerDataSet *species3*
             $ado->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/
-              if defined $ado->{pointerDataSet};
+             if defined $ado->{pointerDataset};
             #### SpecificAttributeContent - delete
             #### tableConstraint - update
             update_table_keys( $ado, $dataset, $self->{keys} );
@@ -1265,7 +1265,7 @@ sub _load_info {
 
 sub generate_chromosome_bands_push_action {
 my ($self,$dataset_name,$genomic_features_mart)= @_;
-my $gfm_ds_name=substr $dataset_name, 0, 4;
+my $gfm_ds_name=substr($dataset_name,0,4);
 my $chr_bands_kstart;
 my $chr_bands_kend;
 
