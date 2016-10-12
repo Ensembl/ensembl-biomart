@@ -102,7 +102,7 @@ sub new {
   Status     : Stable
 =cut
 sub build {
-  my ( $self, $template_name, $template ) = @_;
+  my ( $self, $template_name, $template, $genomic_features_mart ) = @_;
   # create base metatables
   $self->create_metatables( $template_name, $template );
   # read datasets
@@ -110,7 +110,7 @@ sub build {
   my $n        = 1;
   for my $dataset ( @{$datasets} ) {
     $dataset->{species_id} = $n++;
-    $self->process_dataset( $dataset, $template_name, $template, $datasets );
+    $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart );
   }
   return;
 }
@@ -146,7 +146,7 @@ sub get_datasets {
   Status     : Stable
 =cut
 sub process_dataset {
-  my ( $self, $dataset, $template_name, $template, $datasets ) = @_;
+  my ( $self, $dataset, $template_name, $template, $datasets, $genomic_features_mart ) = @_;
   $logger->info( "Processing " . $dataset->{name} );
   my $templ_in = $template->{DatasetConfig};
   $logger->debug("Building output");
@@ -154,7 +154,7 @@ sub process_dataset {
   $self->write_toplevel( $dataset, $templ_in );
   $self->write_importables( $dataset, $templ_in );
   $self->write_exportables( $dataset, $templ_in );
-  $self->write_filters( $dataset, $templ_in, $datasets );
+  $self->write_filters( $dataset, $templ_in, $datasets, $genomic_features_mart );
   $self->write_attributes( $dataset, $templ_in, $datasets );
   # write meta
   $self->write_dataset_metatables( $dataset, $template_name );
@@ -299,7 +299,7 @@ sub write_exportables {
 } ## end sub write_exportables
 
 sub write_filters {
-  my ( $self, $dataset, $templ_in, $datasets ) = @_;
+  my ( $self, $dataset, $templ_in, $datasets, $genomic_features_mart ) = @_;
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
   my $templ_out = $dataset->{config};
   $logger->info( "Writing filters for " . $dataset->{name} );
@@ -477,26 +477,96 @@ sub write_filters {
                   $logger->info(
                             "Autopopulating dropdown for $fdo->{internalName}");
                   my $max = $self->{max_dropdown} + 1;
+                  my %kstart_config=();
+                  my %kend_config=();
                   my $vals =
                     $self->{dbc}->sql_helper()
                     ->execute_simple( -SQL =>
 "select distinct $fdo->{field} from $fdo->{tableConstraint} where $fdo->{field} is not null order by $fdo->{field} limit $max"
                     );
-                  # We need to sort the chromosome dropdown to make it more user friendly
-                  if ($fdo->{internalName} eq "chromosome_name")
-                  {
-                    @$vals = nsort(@$vals);
-                  }
                   if ( scalar(@$vals) <= $self->{max_dropdown} ) {
-                    $fdo->{Option} = [];
-                    for my $val (@$vals) {
-                      push @{ $fdo->{Option} }, {
+                    if ($fdo->{internalName} eq "chromosome_name") {
+                      # We need to sort the chromosome dropdown to make it more user friendly
+                      @$vals = nsort(@$vals);
+                      # Retrieving chr band informations
+                      my ($chr_bands_kstart,$chr_bands_kend)=generate_chromosome_bands_push_action($self,$dataset->{name},$genomic_features_mart);
+                      $fdo->{Option} = [];
+                      for my $val (@$vals) {
+                      # Creating band start and end configuration for a given chromosome
+                      if (defined $chr_bands_kstart->{$val} and defined $chr_bands_kend->{$val}){
+                        my %hchr_bands_kstart=%$chr_bands_kstart;
+                        foreach my $kstart (@{$hchr_bands_kstart{$val}}){
+                          push @{ $kstart_config{$val} }, {
+                               internalName => $kstart,
+                               displayName  => $kstart,
+                               value        => $kstart,
+                               isSelectable => 'true',
+                               useDefault   => 'true'
+                           };
+                         }
+                         my %hchr_bands_kend=%$chr_bands_kend;
+                         foreach my $kend (@{$hchr_bands_kend{$val}}){
+                           push @{ $kend_config{$val} }, {
+                               internalName => $kend,
+                               displayName  => $kend,
+                               value        => $kend,
+                               isSelectable => 'true',
+                               useDefault   => 'true'
+                            };
+                          }
+                        }
+                        # If the species has band information, creating chromosome option and associated band start and end push action dropdowns
+                        if (defined $kstart_config{$val} and defined $kend_config{$val})
+                        {
+                        push @{ $fdo->{Option} }, {
                           internalName => $val,
                           displayName  => $val,
                           value        => $val,
                           isSelectable => 'true',
-                          useDefault   => 'true' };
-                    }
+                          useDefault   => 'true',
+                          PushAction => [ {
+                                   internalName => "band_start_push_$val",
+                                   useDefault   => 'true',
+                                   ref => 'band_start',
+                                   Option => $kstart_config{$val} },
+                                   {
+                                   internalName => "band_end_push_$val",
+                                   useDefault   => 'true',
+                                   ref => 'band_end',
+                                   Option => $kend_config{$val} } ],
+                        };
+                        }
+                        else {
+                          push @{ $fdo->{Option} }, {
+                            internalName => $val,
+                            displayName  => $val,
+                            value        => $val,
+                            isSelectable => 'true',
+                            useDefault   => 'true'};
+                        }
+#     push @{ $fdo->{Option} }, {
+#                               "Push Action" => {
+#                                   internalName => 'band_start_push_1',
+#                                   useDefault   => 'true',
+#                                   ref => 'band_start',
+#                                   Option => @kstart_config}};
+#                                   push @{ $fdo->{Option}[0]->{internalName}->$val->{'Push Action'} }, {
+#                              internalName => 'band_start_push_1',
+#                              useDefault   => 'true',
+#                               ref => 'band_start' };
+                        }
+                      }
+                      else {
+                        $fdo->{Option} = [];
+                        for my $val (@$vals) {
+                          push @{ $fdo->{Option} }, {
+                            internalName => $val,
+                            displayName  => $val,
+                            value        => $val,
+                            isSelectable => 'true',
+                            useDefault   => 'true' };
+                         }
+                      }
                   }
                   else {
                     $logger->info("Too many dropdowns, changing to text");
@@ -1191,6 +1261,44 @@ sub _load_info {
       return;
     } );
   return;
+}
+
+sub generate_chromosome_bands_push_action {
+my ($self,$dataset_name,$genomic_features_mart)= @_;
+my $gfm_ds_name=substr $dataset_name, 0, 4;
+my $chr_bands_kstart;
+my $chr_bands_kend;
+
+my $database_tables =$self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${genomic_features_mart}'" );
+if ($database_tables->[0] > 0) {
+  my $empty_ks_table=$self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${gfm_ds_name}_karyotype_start__karyotype__main'" );
+  my $empty_ke_table=$self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${gfm_ds_name}_karyotype_start__karyotype__main'" );
+
+  if ($empty_ks_table->[0] > 0 and $empty_ke_table->[0] > 0) {
+    $chr_bands_kstart = $self->{dbc}->sql_helper()->execute_into_hash(
+      -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${gfm_ds_name}_karyotype_start__karyotype__main where band_1027 is not null order by band_1027",
+      -CALLBACK => sub {
+        my ( $row, $value ) = @_;
+        $value = [] if !defined $value;
+        push($value, $row->[1] );
+        return $value;
+        }
+    );
+    $chr_bands_kend = $self->{dbc}->sql_helper()->execute_into_hash(
+      -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${gfm_ds_name}_karyotype_end__karyotype__main where band_1027 is not null order by band_1027",
+      -CALLBACK => sub {
+        my ( $row, $value ) = @_;
+        $value = [] if !defined $value;
+        push($value, $row->[1] );
+        return $value;
+        }
+    );
+  }
+}
+return ($chr_bands_kstart,$chr_bands_kend);
 }
 
 1;
