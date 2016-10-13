@@ -50,7 +50,7 @@ use Carp;
 use XML::Simple;
 use Data::Dumper;
 use Sort::Naturally;
-
+use Clone qw/clone/;
 use Log::Log4perl qw/get_logger/;
 
 my $logger = get_logger();
@@ -229,7 +229,7 @@ sub write_toplevel {
   } ## end while ( my ( $key, $value...))
 
   # add MainTable
-  my $mt = $templ_in->{MainTable};
+  my $mt = clone($templ_in->{MainTable});
   if ( ref($mt) ne 'ARRAY' ) {
     $mt = [$mt];
   }
@@ -240,7 +240,7 @@ sub write_toplevel {
   }
 
   # add MainTable
-  my $keys = $templ_in->{Key};
+  my $keys = clone($templ_in->{Key});
   if ( ref($keys) ne 'ARRAY' ) {
     $keys = [$keys];
   }
@@ -500,34 +500,39 @@ sub write_filters {
                       # We need to sort the chromosome dropdown to make it more user friendly
                       @$vals = nsort(@$vals);
                       # Retrieving chr band informations
-                      my ($chr_bands_kstart,$chr_bands_kend)=generate_chromosome_bands_push_action($self,$dataset->{name},$genomic_features_mart);
                       $fdo->{Option} = [];
+                      my $chr_bands_kstart;
+                      my $chr_bands_kend;
+                      if(defined $genomic_features_mart) {
+                        ($chr_bands_kstart,$chr_bands_kend)=generate_chromosome_bands_push_action($self,$dataset->{name},$genomic_features_mart);
+                      }
                       for my $val (@$vals) {
-                      # Creating band start and end configuration for a given chromosome
-                      if (defined $chr_bands_kstart->{$val} and defined $chr_bands_kend->{$val}){
-                        my %hchr_bands_kstart=%$chr_bands_kstart;
-                        foreach my $kstart (@{$hchr_bands_kstart{$val}}){
-                          push @{ $kstart_config{$val} }, {
-                               internalName => $kstart,
-                               displayName  => $kstart,
-                               value        => $kstart,
-                               isSelectable => 'true',
-                               useDefault   => 'true'
-                           };
-                         }
-                         my %hchr_bands_kend=%$chr_bands_kend;
-                         foreach my $kend (@{$hchr_bands_kend{$val}}){
-                           push @{ $kend_config{$val} }, {
-                               internalName => $kend,
-                               displayName  => $kend,
-                               value        => $kend,
-                               isSelectable => 'true',
-                               useDefault   => 'true'
-                            };
+                        # Creating band start and end configuration for a given chromosome
+                        if (defined $chr_bands_kstart->{$val} and defined $chr_bands_kend->{$val}){
+                          my %hchr_bands_kstart=%$chr_bands_kstart;
+                          foreach my $kstart (@{$hchr_bands_kstart{$val}}){
+                            push @{ $kstart_config{$val} }, {
+                                                             internalName => $kstart,
+                                                             displayName  => $kstart,
+                                                             value        => $kstart,
+                                                             isSelectable => 'true',
+                                                             useDefault   => 'true'
+                                                            };
+                          }
+                          my %hchr_bands_kend=%$chr_bands_kend;
+                          foreach my $kend (@{$hchr_bands_kend{$val}}){
+                            push @{ $kend_config{$val} }, {
+                                                           internalName => $kend,
+                                                           displayName  => $kend,
+                                                           value        => $kend,
+                                                           isSelectable => 'true',
+                                                           useDefault   => 'true'
+                                                          };
                           }
                         }
-                        # If the species has band information, creating chromosome option and associated band start and end push action dropdowns
-                        if (defined $kstart_config{$val} and defined $kend_config{$val})
+                      
+                      # If the species has band information, creating chromosome option and associated band start and end push action dropdowns
+                      if (defined $kstart_config{$val} and defined $kend_config{$val})
                         {
                           push @{ $fdo->{Option} }, {
                             internalName => $val,
