@@ -54,6 +54,12 @@ use Log::Log4perl qw/get_logger/;
 
 my $logger = get_logger();
 
+# properties of
+my $template_properties = {
+         genes      => { type => 'TableSet',        visible => 1 },
+         variations => { type => 'TableSet',        visible => 1 },
+         sequences  => { type => 'GenomicSequence', visible => 0 } };
+
 =head1 CONSTRUCTOR
 =head2 new
  Arg [-DBC] : 
@@ -78,9 +84,10 @@ my $logger = get_logger();
 sub new {
   my ( $proto, @args ) = @_;
   my $self = bless {}, $proto;
-  ( $self->{dbc}, $self->{version}, $self->{max_dropdown}, $self->{unhide}, $self->{basename}  ) =
-    rearrange( [ 'DBC', 'VERSION', 'MAX_DROPDOWN', 'UNHIDE', 'BASENAME' ],
-               @args );
+  ( $self->{dbc},    $self->{version}, $self->{max_dropdown},
+    $self->{unhide}, $self->{basename} )
+    = rearrange( [ 'DBC', 'VERSION', 'MAX_DROPDOWN', 'UNHIDE', 'BASENAME' ],
+                 @args );
 
   if ( !defined $self->{version} ) {
     ( $self->{version} = $self->{dbc}->dbname() ) =~ s/.*_([0-9]+)$/$1/;
@@ -100,6 +107,7 @@ sub new {
   Caller     : general
   Status     : Stable
 =cut
+
 sub build {
   my ( $self, $template_name, $template ) = @_;
   # create base metatables
@@ -121,6 +129,7 @@ sub build {
   Caller     : general
   Status     : Stable
 =cut
+
 sub get_datasets {
   my ($self) = @_;
   $logger->debug("Fetching dataset details");
@@ -144,6 +153,7 @@ sub get_datasets {
   Caller     : general
   Status     : Stable
 =cut
+
 sub process_dataset {
   my ( $self, $dataset, $template_name, $template, $datasets ) = @_;
   $logger->info( "Processing " . $dataset->{name} );
@@ -164,27 +174,26 @@ sub write_toplevel {
   my ( $self, $dataset, $templ_in ) = @_;
   $logger->info( "Writing toplevel elements for " . $dataset->{name} );
   $dataset->{production_name} =~ s/_/ /g;
-  my $is_default = {
-                  'hsapiens' => 1,
-                  'drerio' => 1,
-                  'rnorvegicus' => 1,
-                  'mmusculus' => 1,
-                  'ggallus' => 1,
-                  'athaliana' => 1
-  };
+  my $is_default = { 'hsapiens'    => 1,
+                     'drerio'      => 1,
+                     'rnorvegicus' => 1,
+                     'mmusculus'   => 1,
+                     'ggallus'     => 1,
+                     'athaliana'   => 1 };
   # handle the top level scalars
   # defaultDataSet
   # displayName
   # version
   my $display_name = $dataset->{display_name};
-  my $version = $dataset->{assembly};
-  my $ds_base = $dataset->{name}.'_'.$self->{basename};
+  my $version      = $dataset->{assembly};
+  my $ds_base      = $dataset->{name} . '_' . $self->{basename};
   while ( my ( $key, $value ) = each %{$templ_in} ) {
     if ( !ref($value) ) {
       if ( $key eq 'defaultDataSet' ) {
-        if($is_default->{$dataset->{name}}) {
+        if ( $is_default->{ $dataset->{name} } ) {
           $value = 'true';
-        } else {
+        }
+        else {
           $value = 'false';
         }
       }
@@ -213,30 +222,30 @@ sub write_toplevel {
       }
       elsif ( $key eq 'optional_parameters' ) {
         $value =~ s/\*base_name\*/${ds_base}/g;
-      }      
+      }
       $dataset->{config}->{$key} = $value;
-    }
-  }
- 
+    } ## end if ( !ref($value) )
+  } ## end while ( my ( $key, $value...))
+
   # add MainTable
   my $mt = $templ_in->{MainTable};
-  if(ref($mt) ne 'ARRAY') {
+  if ( ref($mt) ne 'ARRAY' ) {
     $mt = [$mt];
   }
   $dataset->{config}->{MainTable} = [];
-  for my $mainTable ( @$mt ) {
+  for my $mainTable (@$mt) {
     $mainTable =~ s/\*base_name\*/$ds_base/;
-    push @{ $dataset->{config}->{MainTable}}, $mainTable;
+    push @{ $dataset->{config}->{MainTable} }, $mainTable;
   }
 
   # add MainTable
   my $keys = $templ_in->{Key};
-  if(ref($keys) ne 'ARRAY') {
+  if ( ref($keys) ne 'ARRAY' ) {
     $keys = [$keys];
   }
   $dataset->{config}->{Key} = [];
-  for my $key ( @$keys ) {
-    push @{ $dataset->{config}->{Key}}, $key;
+  for my $key (@$keys) {
+    push @{ $dataset->{config}->{Key} }, $key;
   }
 
   return;
@@ -287,9 +296,9 @@ sub write_exportables {
       $exp->{linkName} =~ s/\*species3\*/${ds_name}/;
     }
     # replace name.*species3* with ${ds_name}_eg
-    $exp->{name} =~ s/\*species3\*/${ds_name}/;
+    $exp->{name}         =~ s/\*species3\*/${ds_name}/;
     $exp->{internalName} =~ s/\*species3\*/${ds_name}/;
-    $exp->{attributes} =~ s/\*species3\*/${ds_name}/;
+    $exp->{attributes}   =~ s/\*species3\*/${ds_name}/;
     # push onto out stack
     push @{ $dataset->{config}->{Exportable} }, $exp;
   }
@@ -435,8 +444,9 @@ sub write_filters {
               if ( defined $self->{tables}->{ $opt->{tableConstraint} } &&
                    defined $self->{tables}->{ $opt->{tableConstraint} }
                    ->{ $opt->{field} } &&
-                   (!defined $opt->{key} || defined $self->{tables}->{ $opt->{tableConstraint} }
-                    ->{ $opt->{key} }) )
+                   ( !defined $opt->{key} ||
+                     defined $self->{tables}->{ $opt->{tableConstraint} }
+                     ->{ $opt->{key} } ) )
               {
                 push @{ $fdo->{Option} }, $opt;
                 for my $o ( @{ $option->{Option} } ) {
@@ -452,7 +462,7 @@ sub write_filters {
                             $opt->{internalName} );
               }
               restore_main( $opt, $ds_name );
-            }
+            } ## end for my $option ( @{ $filterDescription...})
             if ( $nO > 0 ) {
               push @{ $fco->{FilterDescription} }, $fdo;
               $nD++;
@@ -464,8 +474,9 @@ sub write_filters {
               if ( defined $self->{tables}->{ $fdo->{tableConstraint} } &&
                    defined $self->{tables}->{ $fdo->{tableConstraint} }
                    ->{ $fdo->{field} } &&
-                   (!defined $fdo->{key} || defined $self->{tables}->{ $fdo->{tableConstraint} }
-                   ->{ $fdo->{key} }) )
+                   ( !defined $fdo->{key} ||
+                     defined $self->{tables}->{ $fdo->{tableConstraint} }
+                     ->{ $fdo->{key} } ) )
               {
                 if ( defined $filterDescription->{SpecificFilterContent} &&
                   ref( $filterDescription->{SpecificFilterContent} ) eq 'HASH'
@@ -802,8 +813,8 @@ sub write_attributes {
                 key             => "gene_id_1020_key",
                 maxLength       => "40",
                 tableConstraint => $table }, {
-                displayName => "Homoeologue start (bp)",
-                field       => "chr_start_4016_r2",
+                displayName     => "Homoeologue start (bp)",
+                field           => "chr_start_4016_r2",
                 internalName    => "$dataset->{name}_homoeolog_chrom_start",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
@@ -910,8 +921,9 @@ sub write_attributes {
                  defined defined $self->{tables}->{ $ado->{tableConstraint} } &&
                  defined $self->{tables}->{ $ado->{tableConstraint} }
                  ->{ $ado->{field} } &&
-                 (!defined $ado->{key} || defined $self->{tables}->{ $ado->{tableConstraint} }
-                 ->{ $ado->{key} }) )
+                 ( !defined $ado->{key} ||
+                   defined $self->{tables}->{ $ado->{tableConstraint} }
+                   ->{ $ado->{key} } ) )
               {
                 push @{ $aco->{AttributeDescription} }, $ado;
                 $nD++;
@@ -923,7 +935,7 @@ sub write_attributes {
                         ( $ado->{key} || 'undef' ) . ", AttributeDescription " .
                         $ado->{internalName} );
               }
-            }
+            } ## end if ( defined $ado->{tableConstraint...})
             else {
               $ado->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/g
                 if defined $ado->{pointerDataset};
@@ -933,7 +945,8 @@ sub write_attributes {
             if ( defined $ado->{linkoutURL} ) {
               if ( $ado->{linkoutURL} =~ m/exturl|\/\*species2\*/ ) {
                 # reformat to add URL placeholder
-                $ado->{linkoutURL} =~ s/\*species2\*/$dataset->{production_name}/;
+                $ado->{linkoutURL} =~
+                  s/\*species2\*/$dataset->{production_name}/;
               }
             }
             restore_main( $ado, $ds_name );
@@ -991,12 +1004,13 @@ sub normalise {
 sub update_table_keys {
   my ( $obj, $dataset, $keys ) = @_;
   my $ds_name = $dataset->{config}->{dataset};
-  if ( defined $obj->{tableConstraint}) {
+  if ( defined $obj->{tableConstraint} ) {
     if ( $obj->{tableConstraint} eq 'main' ) {
-      if(!defined $obj->{key}) {
-        ($obj->{tableConstraint}) = @{$dataset->{config}->{MainTable}};
+      if ( !defined $obj->{key} ) {
+        ( $obj->{tableConstraint} ) = @{ $dataset->{config}->{MainTable} };
         $obj->{tableConstraint} =~ s/\*base_name\*/${ds_name}/;
-      } else {
+      }
+      else {
         # use key to find the correct main table
         if ( $obj->{key} eq 'gene_id_1020_key' ) {
           $obj->{tableConstraint} = "${ds_name}__gene__main";
@@ -1019,7 +1033,7 @@ sub update_table_keys {
     {
       $obj->{key} = $keys->{ $obj->{tableConstraint} };
     }
-  }
+  } ## end if ( defined $obj->{tableConstraint...})
   return;
 } ## end sub update_table_keys
 
@@ -1062,7 +1076,7 @@ sub create_metatables {
   my $template_xml =
     XMLout( { DatasetConfig => $template->{config} }, KeepRoot => 1 );
 
-  if( ! -d "./tmp" ) {
+  if ( !-d "./tmp" ) {
     mkdir "./tmp";
   }
   open my $out, ">", "./tmp/tmp.xml";
@@ -1113,7 +1127,8 @@ sub write_dataset_metatables {
 
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
   my $speciesId = $dataset->{species_id};
-  my $display_species_name = $dataset->{display_name}.' genes ('.$dataset->{assembly}.')';
+  my $display_species_name =
+    $dataset->{display_name} . ' genes (' . $dataset->{assembly} . ')';
 
   $logger->info("Populating metatables for $ds_name ($speciesId)");
 
@@ -1133,9 +1148,14 @@ sub write_dataset_metatables {
 
   $self->{dbc}->sql_helper()->execute_update(
     -SQL =>
-"INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,?,'TableSet',1,?)",
-    -PARAMS => [ $speciesId,               $ds_name,
-                 $display_species_name, "Ensemmbl $template_name", $dataset->{assembly} ] );
+"INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,?,?,?,?)",
+    -PARAMS => [ $speciesId,
+                 $ds_name,
+                 $display_species_name,
+                 "Ensemmbl $template_name",
+                 $template_properties->{$template_name}->{type},
+                 $template_properties->{$template_name}->{visible},
+                 $dataset->{assembly} ] );
 
   $self->{dbc}->sql_helper()->execute_update(
               -SQL    => 'INSERT INTO meta_conf__xml__dm VALUES (?,?,?,?)',
