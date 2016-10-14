@@ -93,7 +93,7 @@ sub new {
   if ( !defined $self->{version} ) {
     ( $self->{version} = $self->{dbc}->dbname() ) =~ s/.*_([0-9]+)$/$1/;
   }
-  $self->{max_dropdown} ||= 256;
+  $self->{max_dropdown} ||= 20000;
   $self->_load_info();
   return $self;
 }
@@ -163,7 +163,7 @@ sub process_dataset {
   $dataset->{config} = {};
   $self->write_toplevel( $dataset, $templ_in );
   $self->write_importables( $dataset, $templ_in );
-  $self->write_exportables( $dataset, $templ_in );
+  $self->write_exportables( $dataset, $templ_in, $datasets, $template_name );
   $self->write_filters( $dataset, $templ_in, $datasets, $genomic_features_mart );
   $self->write_attributes( $dataset, $templ_in, $datasets );
   # write meta
@@ -190,7 +190,7 @@ sub write_toplevel {
   my $ds_base      = $dataset->{name} . '_' . $self->{basename};
   while ( my ( $key, $value ) = each %{$templ_in} ) {
     if ( !ref($value) ) {
-      if ( $key eq 'defaultDataSet' ) {
+      if ( $key eq 'defaultDataset') {
         if ( $is_default->{ $dataset->{name} } ) {
           $value = 'true';
         }
@@ -281,7 +281,7 @@ my %species_exportables = map { $_ => 1 }
   qw/genomic_region gene_exon_intron transcript_exon_intron gene_flank transcript_flank coding_gene_flank coding_transcript_flank 3utr 5utr cdna gene_exon peptide coding/;
 
 sub write_exportables {
-  my ( $self, $dataset, $templ_in ) = @_;
+  my ( $self, $dataset, $templ_in, $datasets, $template_name ) = @_;
   $logger->info( "Writing exportables for " . $dataset->{name} );
   my $version = $dataset->{name} . "_" . $dataset->{assembly};
   my $ds_name = $dataset->{name} . "_" . $self->{basename};
@@ -303,7 +303,19 @@ sub write_exportables {
     # push onto out stack
     push @{ $dataset->{config}->{Exportable} }, $exp;
   }
-
+  # For gene mart only
+  if ($template_name eq "genes") {
+    # additional exporter for multiple dataset selection
+    foreach my $ds (@$datasets){
+      push @{ $dataset->{config}->{Exportable} }, {
+        attributes   => "$ds->{name}"."_homolog_ensembl_gene",
+        default      => 1,
+        internalName => "$ds->{name}_gene_stable_id",
+        name         => "$ds->{name}_gene_stable_id",
+        linkName     => "$ds->{name}_gene_stable_id",
+        type         => "link" };
+    }
+  }
   return;
 } ## end sub write_exportables
 
@@ -1232,8 +1244,10 @@ sub write_dataset_metatables {
 
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
   my $speciesId = $dataset->{species_id};
+  my $formatting_display_name = ucfirst($dataset->{production_name});
+  $formatting_display_name =~ s/_/ /g;
   my $display_species_name =
-    $dataset->{display_name} . ' genes (' . $dataset->{assembly} . ')';
+    $formatting_display_name . ' genes (' . $dataset->{assembly} . ')';
 
   $logger->info("Populating metatables for $ds_name ($speciesId)");
 
@@ -1257,7 +1271,7 @@ sub write_dataset_metatables {
     -PARAMS => [ $speciesId,
                  $ds_name,
                  $display_species_name,
-                 "Ensemmbl $template_name",
+                 "Ensembl $template_name",
                  $template_properties->{$template_name}->{type},
                  $template_properties->{$template_name}->{visible},
                  $dataset->{assembly} ] );
