@@ -170,7 +170,7 @@ for $dataset (@datasets) {
   `dbprimary_acc_1074` varchar(64) NOT NULL)/
                     );
 
-    my $sth = $mart_handle->prepare(qq/INSERT INTO  ${dataset}_${basename}__ox_goslim_goa__dm(description_1074, display_label_1074, translation_id_1068_key, dbprimary_acc_1074) VALUES(?,?,?,?)/);
+    my $sth = $mart_handle->prepare(qq/INSERT INTO  ${dataset}_${basename}__ox_goslim_goa__dm(description_1074, display_label_1074, ${key_column}, dbprimary_acc_1074) VALUES(?,?,?,?)/);
     $dba->dbc()->sql_helper->execute_no_return(-SQL=>qq/select distinct t2.name as description_1074, t2.accession as display_label_1074, object_xref.ensembl_id as ${key_column}, t2.accession as dbprimary_acc_1074 
 from ${core_db}.object_xref
 join ${core_db}.xref on (object_xref.xref_id=xref.xref_id)
