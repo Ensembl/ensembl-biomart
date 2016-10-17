@@ -697,6 +697,8 @@ sub write_attributes {
       if ( $ago->{internalName} eq 'orthologs' ) {
         $page_hidden = 0;
         $group_hidden = 0;
+        #Sorting orthologues, Paralogues and homeologues attribute by dataset display name
+        @$datasets = sort { $a->{display_name} cmp $b->{display_name} } @$datasets;
         for my $dataset (@$datasets) {
           my $table = "${ds_name}__homolog_$dataset->{name}__dm";
           if ( defined $self->{tables}->{$table} ) {
