@@ -1486,7 +1486,7 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Source (transcript)" internalName="transcript_source_coll" useDefault="true">
-        <FilterDescription displayName="Source (transcript)" displayType="text" field="source_1064" internalName="transcript_source" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true">
+        <FilterDescription displayName="Source (transcript)" displayType="text" field="source_1064" internalName="transcript_source" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -1502,17 +1502,20 @@
       </FilterCollection>
       <FilterCollection displayName="Transcript Support Level (TSL)" internalName="transcript_tsl" useDefault="true">
         <FilterDescription displayName="Transcript Support Level (TSL)" displayType="list" field="value_1065" internalName="transcript_tsl" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_tsl__dm" type="boolean" useDefault="true">
-          <SpecificFilterContent internalName="replaceMe"/>
+          <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="GENCODE basic annotation" internalName="transcript_gencode_basic" useDefault="true">
         <FilterDescription displayName="GENCODE basic annotation" displayType="list" field="value_1065" internalName="transcript_gencode_basic" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_gencode_basic__dm" type="boolean" useDefault="true">
-        <SpecificFilterContent internalName="replaceMe"/>
+          <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="APPRIS annotation" internalName="transcript_appris" useDefault="true">
         <FilterDescription displayName="APPRIS annotation" displayType="list" field="value_1065" internalName="transcript_appris" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_appris__dm" type="boolean" useDefault="true">
-          <SpecificFilterContent internalName="replaceMe"/>
+          <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
