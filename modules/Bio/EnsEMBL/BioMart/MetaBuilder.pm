@@ -109,15 +109,20 @@ sub new {
   Status     : Stable
 =cut
 
+my $offsets = {
+               "genes"=>0,
+               "variations"=>0,
+               "structural_variations"=>100
+};
 sub build {
   my ( $self, $template_name, $template, $genomic_features_mart ) = @_;
   # create base metatables
   $self->create_metatables( $template_name, $template );
   # read datasets
   my $datasets = $self->get_datasets();
-  my $n        = 1;
+  my $n        = $offsets->{$template_name} || 0;
   for my $dataset ( @{$datasets} ) {
-    $dataset->{species_id} = $n++;
+    $dataset->{species_id} = ++$n;
     $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart );
   }
   return;
@@ -229,23 +234,15 @@ sub write_toplevel {
   } ## end while ( my ( $key, $value...))
 
   # add MainTable
-  my $mt = clone($templ_in->{MainTable});
-  if ( ref($mt) ne 'ARRAY' ) {
-    $mt = [$mt];
-  }
   $dataset->{config}->{MainTable} = [];
-  for my $mainTable (@$mt) {
+  for my $mainTable (@{elem_as_array(clone($templ_in->{MainTable}))}) {
     $mainTable =~ s/\*base_name\*/$ds_base/;
     push @{ $dataset->{config}->{MainTable} }, $mainTable;
   }
 
-  # add MainTable
-  my $keys = clone($templ_in->{Key});
-  if ( ref($keys) ne 'ARRAY' ) {
-    $keys = [$keys];
-  }
+  # add Key
   $dataset->{config}->{Key} = [];
-  for my $key (@$keys) {
+  for my $key (@{elem_as_array(clone($templ_in->{Key}))}) {
     push @{ $dataset->{config}->{Key} }, $key;
   }
 
@@ -325,7 +322,8 @@ sub write_filters {
   my $templ_out = $dataset->{config};
   $logger->info( "Writing filters for " . $dataset->{name} );
   # FilterPage
-  for my $filterPage ( @{ $templ_in->{FilterPage} } ) {
+  for my $filterPage ( @{ elem_as_array( $templ_in->{FilterPage}) } ) {
+    my $page_hidden = 1;
     $logger->debug( "Processing filterPage " . $filterPage->{internalName} );
     # count the number of groups we add
     my $nG = 0;
@@ -333,20 +331,24 @@ sub write_filters {
     my $fpo = copy_hash($filterPage);
 
     ## FilterGroup
-    for my $filterGroup ( @{ $filterPage->{FilterGroup} } ) {
+    for my $filterGroup ( @{ elem_as_array($filterPage->{FilterGroup}) } ) {
+      my $group_hidden = 1;
       my $nC = 0;
       normalise( $filterGroup, "FilterCollection" );
       my $fgo = copy_hash($filterGroup);
+      $fgo->{hidden} = $fpo->{hidden};
       ### Filtercollection
-      for my $filterCollection ( @{ $filterGroup->{FilterCollection} } ) {
+      for my $filterCollection ( @{ elem_as_array($filterGroup->{FilterCollection}) } ) {
         my $nD = 0;
         normalise( $filterCollection, "FilterDescription" );
         my $fco = copy_hash($filterCollection);
+        $fco->{hidden} = $fgo->{hidden} if defined $fgo->{hidden};
         ### FilterDescription
         for
-          my $filterDescription ( @{ $filterCollection->{FilterDescription} } )
+          my $filterDescription ( @{ elem_as_array($filterCollection->{FilterDescription}) } )
         {
           my $fdo = copy_hash($filterDescription);
+          $fdo->{hidden} = $fco->{hidden}  if defined $fco->{hidden};
           #### pointerDataSet *species3*
           $fdo->{pointerDataset} =~ s/\*species3\*/${ds_name}/
             if defined $fdo->{pointerDataset};
@@ -356,7 +358,8 @@ sub write_filters {
           #### if contains options, treat differently
           #### if its called homolog_filters, add the homologs here
           if ( $fdo->{internalName} eq 'homolog_filters' ) {
-
+            $page_hidden = 0;
+            $group_hidden = 0;
             # check for paralogues
             my $table = "${ds_name}__gene__main";
             {
@@ -477,6 +480,7 @@ sub write_filters {
               restore_main( $opt, $ds_name );
             } ## end for my $option ( @{ $filterDescription...})
             if ( $nO > 0 ) {
+              
               push @{ $fco->{FilterDescription} }, $fdo;
               $nD++;
             }
@@ -594,6 +598,10 @@ sub write_filters {
                   }
 
                 } ## end if ( defined $filterDescription...)
+                if(!defined $fdo->{hidden} || $fdo->{hidden} ne 'true') {
+                  $page_hidden = 0;
+                  $group_hidden = 0;
+                }
                 push @{ $fco->{FilterDescription} }, $fdo;
                 $nD++;
               } ## end if ( defined $self->{tables...})
@@ -607,6 +615,10 @@ sub write_filters {
             } ## end if ( defined $fdo->{tableConstraint...})
             else {
               push @{ $fco->{FilterDescription} }, $fdo;
+              if(!defined $fdo->{hidden} || $fdo->{hidden} ne 'true') {
+                $page_hidden = 0;
+                $group_hidden = 0;
+              }
               $nD++;
             }
             #### otherFilters *species4*
@@ -622,7 +634,11 @@ sub write_filters {
             restore_main( $fdo, $ds_name );
           } ## end else [ if ( $fdo->{internalName...})]
         } ## end for my $filterDescription...
-        if ( $nD > 0 ) {
+        if ( $nD > 0 ) {          
+          if(!defined $fco->{hidden} || $fco->{hidden} ne 'true') {
+            $page_hidden = 0;
+            $group_hidden = 0;
+          }
           push @{ $fgo->{FilterCollection} }, $fco;
           $nC++;
         }
@@ -634,12 +650,23 @@ sub write_filters {
         if ( defined $fgo->{hidden} &&
              $fgo->{hidden} eq "true" &&
              defined $self->{unhide}->{ $fgo->{internalName} } )
-        {
-          $fgo->{hidden} = "false";
+        {         
+          $page_hidden = 0;
+          $group_hidden = 0;
         }
+        
+        if($group_hidden == 1) {
+          $logger->info("Hiding FilterGroup ".$fgo->{internalName});
+          $fgo->{hidden} = "true";
+        }
+
       }
     } ## end for my $filterGroup ( @...)
     if ( $nG > 0 ) {
+      if($page_hidden == 1) {
+        $logger->info("Hiding FilterPage ".$fpo->{internalName});
+        $fpo->{hidden} = "true";
+      }
       push @{ $templ_out->{FilterPage} }, $fpo;
     }
   } ## end for my $filterPage ( @{...})
@@ -653,6 +680,7 @@ sub write_attributes {
   my $templ_out = $dataset->{config};
   # AttributePage
   for my $attributePage ( @{ $templ_in->{AttributePage} } ) {
+    my $page_hidden = 1;
     $logger->debug( "Processing filterPage " . $attributePage->{internalName} );
     # count the number of groups we add
     my $nG = 0;
@@ -661,12 +689,14 @@ sub write_attributes {
 
     ## AttributeGroup
     for my $attributeGroup ( @{ $attributePage->{AttributeGroup} } ) {
+      my $group_hidden = 1;
       my $nC = 0;
       normalise( $attributeGroup, "AttributeCollection" );
       my $ago = copy_hash($attributeGroup);
       #### add the homologs here
       if ( $ago->{internalName} eq 'orthologs' ) {
-
+        $page_hidden = 0;
+        $group_hidden = 0;
         for my $dataset (@$datasets) {
           my $table = "${ds_name}__homolog_$dataset->{name}__dm";
           if ( defined $self->{tables}->{$table} ) {
@@ -793,6 +823,8 @@ sub write_attributes {
         } ## end for my $dataset (@$datasets)
       } ## end if ( $ago->{internalName...})
       elsif ( $ago->{internalName} eq 'paralogs' ) {
+        $page_hidden = 0;
+        $group_hidden = 0;
         my $table = "${ds_name}__paralog_$dataset->{name}__dm";
         if ( defined $self->{tables}->{$table} ) {
           push @{ $ago->{AttributeCollection} }, {
@@ -903,6 +935,8 @@ sub write_attributes {
 
       } ## end elsif ( $ago->{internalName... [ if ( $ago->{internalName...})]})
       elsif ( $ago->{internalName} eq 'homeologs' ) {
+        $page_hidden = 0;
+        $group_hidden = 0;        
         my $table = "${ds_name}__homeolog_$dataset->{name}__dm";
         if ( defined $self->{tables}->{$table} ) {
           push @{ $ago->{AttributeCollection} }, {
@@ -1013,14 +1047,16 @@ sub write_attributes {
         for my $attributeCollection (
                                    @{ $attributeGroup->{AttributeCollection} } )
         {
-          my $nD = 0;
+          my $nD = 0;          
           normalise( $attributeCollection, "AttributeDescription" );
           my $aco = copy_hash($attributeCollection);
+          $aco->{hidden} = $apo->{hidden} if defined $apo->{hidden};
           ### AttributeDescription
           for my $attributeDescription (
                              @{ $attributeCollection->{AttributeDescription} } )
           {
             my $ado = copy_hash($attributeDescription);
+            $ado->{hidden} = $aco->{hidden} if defined $aco->{hidden};
             #### pointerDataSet *species3*
             $ado->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/
              if defined $ado->{pointerDataset};
@@ -1042,6 +1078,10 @@ sub write_attributes {
                    defined $self->{tables}->{ $ado->{tableConstraint} }
                    ->{ $ado->{key} } ) )
               {
+                if(!defined $ago->{hidden} || $ado->{hidden} ne 'true') {
+                  $page_hidden = 0;
+                  $group_hidden = 0;
+                }
                 push @{ $aco->{AttributeDescription} }, $ado;
                 $nD++;
               }
@@ -1056,6 +1096,12 @@ sub write_attributes {
             else {
               $ado->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/g
                 if defined $ado->{pointerDataset};
+
+              if(!defined $ado->{hidden} || $ado->{hidden} ne 'true') {
+                $page_hidden = 0;
+                $group_hidden = 0;
+              }
+
               push @{ $aco->{AttributeDescription} }, $ado;
               $nD++;
             }
@@ -1069,6 +1115,10 @@ sub write_attributes {
             restore_main( $ado, $ds_name );
           } ## end for my $attributeDescription...
           if ( $nD > 0 ) {
+            if(!defined $aco->{hidden} || $aco->{hidden} ne 'true') {
+              $page_hidden = 0;
+              $group_hidden = 0;
+            }          
             push @{ $ago->{AttributeCollection} }, $aco;
             $nC++;
           }
@@ -1079,7 +1129,12 @@ sub write_attributes {
            $ago->{hidden} eq "true" &&
            defined $self->{unhide}->{ $ago->{internalName} } )
       {
-        $ago->{hidden} = "false";
+        $page_hidden = 0;
+        $group_hidden = 0;
+      }
+
+      if($group_hidden == 1) {
+        $ago->{hidden} = "true";
       }
 
       if ( $nC > 0 ) {
@@ -1089,6 +1144,11 @@ sub write_attributes {
     } ## end for my $attributeGroup ...
 
     if ( $nG > 0 ) {
+
+      if($page_hidden == 1) {
+        $apo->{hidden} = "true";
+      }
+
       $apo->{outFormats} =~ s/,\*mouse_formatter[123]\*//g
         if defined $apo->{outFormats};
       push @{ $templ_out->{AttributePage} }, $apo;
@@ -1118,6 +1178,14 @@ sub normalise {
   return;
 }
 
+sub elem_as_array {
+  my ($elem) = @_;
+  if(ref($elem) ne 'ARRAY') {
+    $elem = [$elem];
+  }
+  return $elem;
+}
+
 sub update_table_keys {
   my ( $obj, $dataset, $keys ) = @_;
   my $ds_name = $dataset->{config}->{dataset};
@@ -1137,6 +1205,12 @@ sub update_table_keys {
         }
         elsif ( $obj->{key} eq 'translation_id_1068_key' ) {
           $obj->{tableConstraint} = "${ds_name}__translation__main";
+        }
+        elsif ( $obj->{key} eq 'variation_id_2025_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__variation__main";
+        }
+        elsif ( $obj->{key} eq 'variation_feature_id_2026_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__variation_feature__main";
         }
       }
     }
@@ -1202,6 +1276,12 @@ sub create_metatables {
   my $gzip_template;
   gzip \$template_xml => \$gzip_template;
 
+  $self->{dbc}->sql_helper()
+    ->execute_update( -SQL =>
+                      "DELETE FROM  meta_template__xml__dm WHERE template=?",
+                      -PARAMS=>[$template_name]
+                    );
+  
   $self->{dbc}->sql_helper()->execute_update(
                       -SQL => 'INSERT INTO meta_template__xml__dm VALUES (?,?)',
                       -PARAMS => [ $template_name, $gzip_template ] );
@@ -1260,6 +1340,15 @@ sub write_dataset_metatables {
   my $gzip_dataset_xml;
   gzip \$dataset_xml => \$gzip_dataset_xml;
 
+  for my $table (qw/meta_conf__dataset__main meta_conf__interface__dm meta_conf__user__dm meta_conf__user__dm meta_conf__xml__dm meta_template__template__main/) {
+    $self->{dbc}->sql_helper()
+      ->execute_update( -SQL =>
+                        "DELETE FROM ${table} WHERE dataset_id_key=?",
+                        -PARAMS=>[$speciesId]
+                      );
+  }
+  
+
   $self->{dbc}->sql_helper()
     ->execute_update( -SQL =>
 "INSERT INTO meta_template__template__main VALUES($speciesId,'$template_name')"
@@ -1297,9 +1386,7 @@ sub create_metatable {
   my ( $self, $table_name, $cols ) = @_;
   $logger->info("Creating $table_name");
   $self->{dbc}
-    ->sql_helper->execute_update( -SQL => "DROP TABLE IF EXISTS $table_name" );
-  $self->{dbc}
-    ->sql_helper->execute_update( -SQL => "CREATE TABLE $table_name (" .
+    ->sql_helper->execute_update( -SQL => "CREATE TABLE IF NOT EXISTS $table_name (" .
                join( ',', @$cols ) . ") ENGINE=MyISAM DEFAULT CHARSET=latin1" );
   return;
 }
