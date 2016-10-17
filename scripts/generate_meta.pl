@@ -44,6 +44,8 @@ generate_meta.pl [arguments]
 
   --ds_basename=name                 mart dataset base name
 
+  --genomic_features_dbname          genomic_features_mart database name
+
   --verbose			     show debug info
 
   --help                              print help (this message)
@@ -76,6 +78,7 @@ my $optsd = $cli_helper->get_dba_opts();
 push( @{$optsd}, "template_name:s" );
 push( @{$optsd}, "ds_basename:s" );
 push( @{$optsd}, "template:s" );
+push( @{$optsd}, "genomic_features_dbname:s" );
 push( @{$optsd}, "verbose" );
 
 # process the command line with the supplied options plus a help subroutine
@@ -134,5 +137,5 @@ my $builder =
                                            -UNHIDE => $unhide,
                                            -BASENAME => $opts->{ds_basename} );
 
-$builder->build( $opts->{template_name}, $templ );
+$builder->build( $opts->{template_name}, $templ, $opts->{genomic_features_dbname} );
 

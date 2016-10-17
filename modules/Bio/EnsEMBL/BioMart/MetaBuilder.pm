@@ -49,10 +49,17 @@ use IO::Compress::Gzip qw(gzip);
 use Carp;
 use XML::Simple;
 use Data::Dumper;
-
+use Sort::Naturally;
+use Clone qw/clone/;
 use Log::Log4perl qw/get_logger/;
 
 my $logger = get_logger();
+
+# properties of
+my $template_properties = {
+         genes      => { type => 'TableSet',        visible => 1 },
+         variations => { type => 'TableSet',        visible => 1 },
+         sequences  => { type => 'GenomicSequence', visible => 0 } };
 
 =head1 CONSTRUCTOR
 =head2 new
@@ -61,7 +68,7 @@ my $logger = get_logger();
  Arg [-VERSION] :
     Integer : EG/E version (by default the last number in the mart name)
  Arg [-MAX_DROPDOWN] :
-    Integer : Maximum number of items to show in a dropdown menu (default 255)
+    Integer : Maximum number of items to show in a dropdown menu (default 256)
  Arg [-UNHIDE] :
     Hashref : attributes/filters to unhide for this mart (mainly domain specific ontologies)
  Arg [-BASENAME] :
@@ -78,14 +85,15 @@ my $logger = get_logger();
 sub new {
   my ( $proto, @args ) = @_;
   my $self = bless {}, $proto;
-  ( $self->{dbc}, $self->{version}, $self->{max_dropdown}, $self->{unhide}, $self->{basename}  ) =
-    rearrange( [ 'DBC', 'VERSION', 'MAX_DROPDOWN', 'UNHIDE', 'BASENAME' ],
-               @args );
+  ( $self->{dbc},    $self->{version}, $self->{max_dropdown},
+    $self->{unhide}, $self->{basename} )
+    = rearrange( [ 'DBC', 'VERSION', 'MAX_DROPDOWN', 'UNHIDE', 'BASENAME' ],
+                 @args );
 
   if ( !defined $self->{version} ) {
     ( $self->{version} = $self->{dbc}->dbname() ) =~ s/.*_([0-9]+)$/$1/;
   }
-  $self->{max_dropdown} ||= 256;
+  $self->{max_dropdown} ||= 20000;
   $self->_load_info();
   return $self;
 }
@@ -100,8 +108,9 @@ sub new {
   Caller     : general
   Status     : Stable
 =cut
+
 sub build {
-  my ( $self, $template_name, $template ) = @_;
+  my ( $self, $template_name, $template, $genomic_features_mart ) = @_;
   # create base metatables
   $self->create_metatables( $template_name, $template );
   # read datasets
@@ -109,7 +118,7 @@ sub build {
   my $n        = 1;
   for my $dataset ( @{$datasets} ) {
     $dataset->{species_id} = $n++;
-    $self->process_dataset( $dataset, $template_name, $template, $datasets );
+    $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart );
   }
   return;
 }
@@ -121,6 +130,7 @@ sub build {
   Caller     : general
   Status     : Stable
 =cut
+
 sub get_datasets {
   my ($self) = @_;
   $logger->debug("Fetching dataset details");
@@ -144,16 +154,17 @@ sub get_datasets {
   Caller     : general
   Status     : Stable
 =cut
+
 sub process_dataset {
-  my ( $self, $dataset, $template_name, $template, $datasets ) = @_;
+  my ( $self, $dataset, $template_name, $template, $datasets, $genomic_features_mart ) = @_;
   $logger->info( "Processing " . $dataset->{name} );
   my $templ_in = $template->{DatasetConfig};
   $logger->debug("Building output");
   $dataset->{config} = {};
   $self->write_toplevel( $dataset, $templ_in );
   $self->write_importables( $dataset, $templ_in );
-  $self->write_exportables( $dataset, $templ_in );
-  $self->write_filters( $dataset, $templ_in, $datasets );
+  $self->write_exportables( $dataset, $templ_in, $datasets, $template_name );
+  $self->write_filters( $dataset, $templ_in, $datasets, $genomic_features_mart );
   $self->write_attributes( $dataset, $templ_in, $datasets );
   # write meta
   $self->write_dataset_metatables( $dataset, $template_name );
@@ -164,27 +175,26 @@ sub write_toplevel {
   my ( $self, $dataset, $templ_in ) = @_;
   $logger->info( "Writing toplevel elements for " . $dataset->{name} );
   $dataset->{production_name} =~ s/_/ /g;
-  my $is_default = {
-                  'hsapiens' => 1,
-                  'drerio' => 1,
-                  'rnorvegicus' => 1,
-                  'mmusculus' => 1,
-                  'ggallus' => 1,
-                  'athaliana' => 1
-  };
+  my $is_default = { 'hsapiens'    => 1,
+                     'drerio'      => 1,
+                     'rnorvegicus' => 1,
+                     'mmusculus'   => 1,
+                     'ggallus'     => 1,
+                     'athaliana'   => 1 };
   # handle the top level scalars
   # defaultDataSet
   # displayName
   # version
   my $display_name = $dataset->{display_name};
-  my $version = $dataset->{assembly};
-  my $ds_base = $dataset->{name}.'_'.$self->{basename};
+  my $version      = $dataset->{assembly};
+  my $ds_base      = $dataset->{name} . '_' . $self->{basename};
   while ( my ( $key, $value ) = each %{$templ_in} ) {
     if ( !ref($value) ) {
-      if ( $key eq 'defaultDataSet' ) {
-        if($is_default->{$dataset->{name}}) {
+      if ( $key eq 'defaultDataset') {
+        if ( $is_default->{ $dataset->{name} } ) {
           $value = 'true';
-        } else {
+        }
+        else {
           $value = 'false';
         }
       }
@@ -213,30 +223,30 @@ sub write_toplevel {
       }
       elsif ( $key eq 'optional_parameters' ) {
         $value =~ s/\*base_name\*/${ds_base}/g;
-      }      
+      }
       $dataset->{config}->{$key} = $value;
-    }
-  }
- 
+    } ## end if ( !ref($value) )
+  } ## end while ( my ( $key, $value...))
+
   # add MainTable
-  my $mt = $templ_in->{MainTable};
-  if(ref($mt) ne 'ARRAY') {
+  my $mt = clone($templ_in->{MainTable});
+  if ( ref($mt) ne 'ARRAY' ) {
     $mt = [$mt];
   }
   $dataset->{config}->{MainTable} = [];
-  for my $mainTable ( @$mt ) {
+  for my $mainTable (@$mt) {
     $mainTable =~ s/\*base_name\*/$ds_base/;
-    push @{ $dataset->{config}->{MainTable}}, $mainTable;
+    push @{ $dataset->{config}->{MainTable} }, $mainTable;
   }
 
   # add MainTable
-  my $keys = $templ_in->{Key};
-  if(ref($keys) ne 'ARRAY') {
+  my $keys = clone($templ_in->{Key});
+  if ( ref($keys) ne 'ARRAY' ) {
     $keys = [$keys];
   }
   $dataset->{config}->{Key} = [];
-  for my $key ( @$keys ) {
-    push @{ $dataset->{config}->{Key}}, $key;
+  for my $key (@$keys) {
+    push @{ $dataset->{config}->{Key} }, $key;
   }
 
   return;
@@ -271,7 +281,7 @@ my %species_exportables = map { $_ => 1 }
   qw/genomic_region gene_exon_intron transcript_exon_intron gene_flank transcript_flank coding_gene_flank coding_transcript_flank 3utr 5utr cdna gene_exon peptide coding/;
 
 sub write_exportables {
-  my ( $self, $dataset, $templ_in ) = @_;
+  my ( $self, $dataset, $templ_in, $datasets, $template_name ) = @_;
   $logger->info( "Writing exportables for " . $dataset->{name} );
   my $version = $dataset->{name} . "_" . $dataset->{assembly};
   my $ds_name = $dataset->{name} . "_" . $self->{basename};
@@ -287,18 +297,30 @@ sub write_exportables {
       $exp->{linkName} =~ s/\*species3\*/${ds_name}/;
     }
     # replace name.*species3* with ${ds_name}_eg
-    $exp->{name} =~ s/\*species3\*/${ds_name}/;
+    $exp->{name}         =~ s/\*species3\*/${ds_name}/;
     $exp->{internalName} =~ s/\*species3\*/${ds_name}/;
-    $exp->{attributes} =~ s/\*species3\*/${ds_name}/;
+    $exp->{attributes}   =~ s/\*species3\*/${ds_name}/;
     # push onto out stack
     push @{ $dataset->{config}->{Exportable} }, $exp;
   }
-
+  # For gene mart only
+  if ($template_name eq "genes") {
+    # additional exporter for multiple dataset selection
+    foreach my $ds (@$datasets){
+      push @{ $dataset->{config}->{Exportable} }, {
+        attributes   => "$ds->{name}"."_homolog_ensembl_gene",
+        default      => 1,
+        internalName => "$ds->{name}_gene_stable_id",
+        name         => "$ds->{name}_gene_stable_id",
+        linkName     => "$ds->{name}_gene_stable_id",
+        type         => "link" };
+    }
+  }
   return;
 } ## end sub write_exportables
 
 sub write_filters {
-  my ( $self, $dataset, $templ_in, $datasets ) = @_;
+  my ( $self, $dataset, $templ_in, $datasets, $genomic_features_mart ) = @_;
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
   my $templ_out = $dataset->{config};
   $logger->info( "Writing filters for " . $dataset->{name} );
@@ -327,7 +349,7 @@ sub write_filters {
           my $fdo = copy_hash($filterDescription);
           #### pointerDataSet *species3*
           $fdo->{pointerDataset} =~ s/\*species3\*/${ds_name}/
-            if defined $fdo->{pointerDataSet};
+            if defined $fdo->{pointerDataset};
           #### SpecificFilterContent - delete
           #### tableConstraint - update
           update_table_keys( $fdo, $dataset, $self->{keys} );
@@ -435,8 +457,9 @@ sub write_filters {
               if ( defined $self->{tables}->{ $opt->{tableConstraint} } &&
                    defined $self->{tables}->{ $opt->{tableConstraint} }
                    ->{ $opt->{field} } &&
-                   (!defined $opt->{key} || defined $self->{tables}->{ $opt->{tableConstraint} }
-                    ->{ $opt->{key} }) )
+                   ( !defined $opt->{key} ||
+                     defined $self->{tables}->{ $opt->{tableConstraint} }
+                     ->{ $opt->{key} } ) )
               {
                 push @{ $fdo->{Option} }, $opt;
                 for my $o ( @{ $option->{Option} } ) {
@@ -452,7 +475,7 @@ sub write_filters {
                             $opt->{internalName} );
               }
               restore_main( $opt, $ds_name );
-            }
+            } ## end for my $option ( @{ $filterDescription...})
             if ( $nO > 0 ) {
               push @{ $fco->{FilterDescription} }, $fdo;
               $nD++;
@@ -464,8 +487,9 @@ sub write_filters {
               if ( defined $self->{tables}->{ $fdo->{tableConstraint} } &&
                    defined $self->{tables}->{ $fdo->{tableConstraint} }
                    ->{ $fdo->{field} } &&
-                   (!defined $fdo->{key} || defined $self->{tables}->{ $fdo->{tableConstraint} }
-                   ->{ $fdo->{key} }) )
+                   ( !defined $fdo->{key} ||
+                     defined $self->{tables}->{ $fdo->{tableConstraint} }
+                     ->{ $fdo->{key} } ) )
               {
                 if ( defined $filterDescription->{SpecificFilterContent} &&
                   ref( $filterDescription->{SpecificFilterContent} ) eq 'HASH'
@@ -476,21 +500,90 @@ sub write_filters {
                   $logger->info(
                             "Autopopulating dropdown for $fdo->{internalName}");
                   my $max = $self->{max_dropdown} + 1;
+                  my %kstart_config=();
+                  my %kend_config=();
                   my $vals =
                     $self->{dbc}->sql_helper()
                     ->execute_simple( -SQL =>
 "select distinct $fdo->{field} from $fdo->{tableConstraint} where $fdo->{field} is not null order by $fdo->{field} limit $max"
                     );
-
                   if ( scalar(@$vals) <= $self->{max_dropdown} ) {
-                    $fdo->{Option} = [];
-                    for my $val (@$vals) {
-                      push @{ $fdo->{Option} }, {
-                          internalName => $val,
-                          displayName  => $val,
-                          value        => $val,
-                          isSelectable => 'true',
-                          useDefault   => 'true' };
+                    if ($fdo->{internalName} eq "chromosome_name") {
+                      # We need to sort the chromosome dropdown to make it more user friendly
+                      @$vals = nsort(@$vals);
+                      # Retrieving chr band informations
+                      $fdo->{Option} = [];
+                      my $chr_bands_kstart;
+                      my $chr_bands_kend;
+                      if(defined $genomic_features_mart) {
+                        ($chr_bands_kstart,$chr_bands_kend)=generate_chromosome_bands_push_action($self,$dataset->{name},$genomic_features_mart);
+                      }
+                      for my $val (@$vals) {
+                        # Creating band start and end configuration for a given chromosome
+                        if (defined $chr_bands_kstart->{$val} and defined $chr_bands_kend->{$val}){
+                          my %hchr_bands_kstart=%$chr_bands_kstart;
+                          foreach my $kstart (@{$hchr_bands_kstart{$val}}){
+                            push @{ $kstart_config{$val} }, {
+                                                             internalName => $kstart,
+                                                             displayName  => $kstart,
+                                                             value        => $kstart,
+                                                             isSelectable => 'true',
+                                                             useDefault   => 'true'
+                                                            };
+                          }
+                          my %hchr_bands_kend=%$chr_bands_kend;
+                          foreach my $kend (@{$hchr_bands_kend{$val}}){
+                            push @{ $kend_config{$val} }, {
+                                                           internalName => $kend,
+                                                           displayName  => $kend,
+                                                           value        => $kend,
+                                                           isSelectable => 'true',
+                                                           useDefault   => 'true'
+                                                          };
+                          }
+                        }
+                      
+                      # If the species has band information, creating chromosome option and associated band start and end push action dropdowns
+                      if (defined $kstart_config{$val} and defined $kend_config{$val})
+                        {
+                          push @{ $fdo->{Option} }, {
+                            internalName => $val,
+                            displayName  => $val,
+                            value        => $val,
+                            isSelectable => 'true',
+                            useDefault   => 'true',
+                            PushAction => [ {
+                                   internalName => "band_start_push_$val",
+                                   useDefault   => 'true',
+                                   ref => 'band_start',
+                                   Option => $kstart_config{$val} },
+                                   {
+                                   internalName => "band_end_push_$val",
+                                   useDefault   => 'true',
+                                   ref => 'band_end',
+                                   Option => $kend_config{$val} } ],
+                          };
+                        }
+                        else {
+                          push @{ $fdo->{Option} }, {
+                            internalName => $val,
+                            displayName  => $val,
+                            value        => $val,
+                            isSelectable => 'true',
+                            useDefault   => 'true'};
+                        }
+                      }
+                    }
+                    else {
+                      $fdo->{Option} = [];
+                      for my $val (@$vals) {
+                          push @{ $fdo->{Option} }, {
+                            internalName => $val,
+                            displayName  => $val,
+                            value        => $val,
+                            isSelectable => 'true',
+                            useDefault   => 'true' };
+                      }
                     }
                   }
                   else {
@@ -515,6 +608,16 @@ sub write_filters {
             else {
               push @{ $fco->{FilterDescription} }, $fdo;
               $nD++;
+            }
+            #### otherFilters *species4*
+            if (defined $fdo->{otherFilters}){
+              my $gfm_ds_name=substr($dataset->{name},0,4);
+              $fdo->{otherFilters} =~ s/\*species4\*/${gfm_ds_name}/g;
+            }
+            #### pointerDataSet *species4*
+            if (defined $fdo->{pointerDataset}){
+              my $gfm_ds_name=substr($dataset->{name},0,4);
+              $fdo->{pointerDataset} =~ s/\*species4\*/${gfm_ds_name}/g;
             }
             restore_main( $fdo, $ds_name );
           } ## end else [ if ( $fdo->{internalName...})]
@@ -573,82 +676,101 @@ sub write_attributes {
               AttributeDescription => [ {
                   displayName  => "$dataset->{display_name} gene stable ID",
                   field        => "stable_id_4016_r2",
-                  internalName => "$dataset->{name}_gene",
+                  internalName => "$dataset->{name}_homolog_ensembl_gene",
                   key          => "gene_id_1020_key",
                   linkoutURL =>
                     "exturl1|/$dataset->{production_name}/Gene/Summary?g=%s",
                   maxLength       => "128",
                   tableConstraint => $table }, {
-                  displayName  => "$dataset->{display_name} protein stable ID",
+                  displayName  => "$dataset->{display_name} associated gene name",
+                  field        => "display_label_40273_r1",
+                  linkoutURL  => "exturl|/*species2*/Gene/Summary?g=%s|$dataset->{name}_homolog_ensembl_gene",
+                  internalName => "$dataset->{name}_homolog_associated_gene_name",
+                  key          => "gene_id_1020_key",
+                  maxLength    => "128",
+                  tableConstraint => $table },{
+                  displayName  => "$dataset->{display_name} protein or transcript stable ID",
                   field        => "stable_id_4016_r3",
                   internalName => "$dataset->{name}_homolog_ensembl_peptide",
                   key          => "gene_id_1020_key",
                   maxLength    => "128",
                   tableConstraint => $table }, {
-                  displayName => "$dataset->{display_name} chromosome/scaffold",
+                  displayName => "$dataset->{display_name} chromosome/scaffold name",
                   field       => "chr_name_4016_r2",
-                  internalName    => "$dataset->{name}_chromosome",
+                  internalName    => "$dataset->{name}_homolog_chromosome",
                   key             => "gene_id_1020_key",
                   maxLength       => "40",
                   tableConstraint => $table }, {
-                  displayName     => "$dataset->{display_name} start (bp)",
+                  displayName     => "$dataset->{display_name} chromosome/scaffold start (bp)",
                   field           => "chr_start_4016_r2",
-                  internalName    => "$dataset->{name}_chrom_start",
+                  internalName    => "$dataset->{name}_homolog_chrom_start",
                   key             => "gene_id_1020_key",
                   maxLength       => "10",
                   tableConstraint => $table }, {
-                  displayName     => "$dataset->{display_name} end (bp)",
+                  displayName     => "$dataset->{display_name} chromosome/scaffold end (bp)",
                   field           => "chr_end_4016_r2",
-                  internalName    => "$dataset->{name}_chrom_end",
+                  internalName    => "$dataset->{name}_homolog_chrom_end",
                   key             => "gene_id_1020_key",
                   maxLength       => "10",
                   tableConstraint => $table }, {
-                  displayName => "Representative protein or transcript ID",
+                  displayName => "Query protein or transcript ID",
                   field       => "stable_id_4016_r1",
                   internalName =>
-                    "homolog_$dataset->{name}__dm_stable_id_4016_r1",
+                    "$dataset->{name}_homolog_canonical_transcript_protein",
                   key             => "gene_id_1020_key",
                   maxLength       => "128",
                   tableConstraint => $table }, {
-                  displayName     => "Ancestor",
+                  displayName     => "Last common ancestor with $dataset->{display_name}",
                   field           => "node_name_40192",
-                  internalName    => "$dataset->{name}_homolog_ancestor",
+                  internalName    => "$dataset->{name}_homolog_subtype",
                   key             => "gene_id_1020_key",
                   maxLength       => "40",
                   tableConstraint => $table }, {
-                  displayName     => "Homology type",
+                  displayName     => "$dataset->{display_name} homology type",
                   field           => "description_4014",
-                  internalName    => "$dataset->{name}_orthology_type",
+                  internalName    => "$dataset->{name}_homolog_orthology_type",
                   key             => "gene_id_1020_key",
                   maxLength       => "25",
                   tableConstraint => $table }, {
-                  displayName     => "% identity",
+                  displayName     => "%id. target $dataset->{display_name} gene identical to query gene",
                   field           => "perc_id_4015",
                   internalName    => "$dataset->{name}_homolog_perc_id",
                   key             => "gene_id_1020_key",
                   maxLength       => "10",
                   tableConstraint => $table }, {
-                  displayName     => "$dataset->{display_name} % identity",
+                  displayName     => "%id. query gene identical to target $dataset->{display_name} gene",
                   field           => "perc_id_4015_r1",
                   internalName    => "$dataset->{name}_homolog_perc_id_r1",
                   key             => "gene_id_1020_key",
                   maxLength       => "10",
-                  tableConstraint => $table }, {
-                  displayName     => "dN",
-                  field           => "dn_4014",
-                  internalName    => "$dataset->{name}_homolog_ds",
+                  tableConstraint => $table },{
+                  displayName     => "$dataset->{display_name} Gene-order conservation score",
+                  field           => "goc_score_4014",
+                  internalName    => "$dataset->{name}_homolog_goc_score",
                   key             => "gene_id_1020_key",
                   maxLength       => "10",
+                  tableConstraint => $table },{
+                  displayName     => "$dataset->{display_name} Whole-genome alignment coverage",
+                  field           => "wga_coverage_4014",
+                  internalName    => "$dataset->{name}_homolog_wga_coverage",
+                  key             => "gene_id_1020_key",
+                  maxLength       => "5",
                   tableConstraint => $table }, {
-                  displayName     => "dS",
-                  field           => "ds_4014",
+                  displayName     => "dN with $dataset->{display_name}",
+                  field           => "dn_4014",
                   internalName    => "$dataset->{name}_homolog_dn",
                   key             => "gene_id_1020_key",
                   maxLength       => "10",
                   tableConstraint => $table }, {
-                  displayName  => "Orthology confidence [0 low, 1 high]",
-                  field        => "is_tree_compliant_4014",
-                  internalName => "$dataset->{name}_homolog_is_tree_compliant",
+                  displayName     => "dS with $dataset->{display_name}",
+                  field           => "ds_4014",
+                  internalName    => "$dataset->{name}_homolog_ds",
+                  key             => "gene_id_1020_key",
+                  maxLength       => "10",
+                  tableConstraint => $table }, {
+                  displayName  => "$dataset->{display_name} orthology confidence [0 low, 1 high]",
+                  field        => "is_high_confidence_4014",
+                  internalName => "$dataset->{name}_homolog_orthology_confidence",
                   key          => "gene_id_1020_key",
                   maxLength    => "10",
                   tableConstraint => $table }, {
@@ -678,93 +800,99 @@ sub write_attributes {
             displayName          => "$dataset->{display_name} Paralogues",
             internalName         => "paralogs_$dataset->{name}",
             AttributeDescription => [ {
-                displayName     => "Paralogue gene stable ID",
+                displayName     => "$dataset->{display_name} paralogue gene stable ID",
                 field           => "stable_id_4016_r2",
-                internalName    => "$dataset->{name}_paralog_gene",
+                internalName    => "$dataset->{name}_paralog_ensembl_gene",
                 key             => "gene_id_1020_key",
                 linkoutURL      => "exturl1|/*species2*/Gene/Summary?g=%s",
                 maxLength       => "140",
                 tableConstraint => $table }, {
-                displayName => "Paralogue protein stable ID",
+                displayName => "$dataset->{display_name} paralogue associated gene name",
+                field       => "display_label_40273_r1",
+                linkoutURL  => "exturl|/*species2*/Gene/Summary?g=%s|$dataset->{name}_paralog_ensembl_gene",
+                internalName => "$dataset->{name}_paralog_associated_gene_name",
+                key             => "gene_id_1020_key",
+                maxLength       => "128",
+                tableConstraint => $table }, {
+                displayName => "$dataset->{display_name} paralogue protein or transcript ID",
                 field       => "stable_id_4016_r3",
-                internalName =>
-                  "$dataset->{name}_paralog_paralog_ensembl_peptide",
+                internalName => "$dataset->{name}_paralog_ensembl_peptide",
                 key             => "gene_id_1020_key",
                 maxLength       => "40",
                 tableConstraint => $table }, {
-                displayName     => "Paralogue chromosome/scaffold",
+                displayName     => "$dataset->{display_name} paralogue chromosome/scaffold name",
                 field           => "chr_name_4016_r2",
                 internalName    => "$dataset->{name}_paralog_chromosome",
                 key             => "gene_id_1020_key",
                 maxLength       => "40",
                 tableConstraint => $table }, {
-                displayName     => "Paralogue start (bp)",
+                displayName     => "$dataset->{display_name} paralogue chromosome/scaffold start (bp)",
                 field           => "chr_start_4016_r2",
                 internalName    => "$dataset->{name}_paralog_chrom_start",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
                 tableConstraint => $table }, {
-                displayName     => "Paralogue end (bp)",
+                displayName     => "$dataset->{display_name} paralogue chromosome/scaffold end (bp)",
                 field           => "chr_end_4016_r2",
                 internalName    => "$dataset->{name}_paralog_chrom_end",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
                 tableConstraint => $table }, {
-                displayName     => "Representative protein stable ID",
+                displayName     => "Paralogue query protein or transcript ID",
                 field           => "stable_id_4016_r1",
-                internalName    => "$dataset->{name}_paralog_ensembl_peptide",
+                internalName    => "$dataset->{name}_paralog_canonical_transcript_protein",
                 key             => "gene_id_1020_key",
                 maxLength       => "40",
                 tableConstraint => $table }, {
-                displayName     => "Ancestor",
+                displayName     => "Paralogue last common ancestor with $dataset->{display_name}",
                 field           => "node_name_40192",
-                internalName    => "$dataset->{name}_paralog_ancestor",
+                internalName    => "$dataset->{name}_paralog_subtype",
                 key             => "gene_id_1020_key",
                 maxLength       => "40",
                 tableConstraint => $table }, {
-                displayName     => "Homology type",
+                displayName     => "$dataset->{display_name} paralogue homology type",
                 field           => "description_4014",
-                internalName    => "$dataset->{name}_paralog_type",
+                internalName    => "$dataset->{name}_paralog_orthology_type",
                 key             => "gene_id_1020_key",
                 maxLength       => "25",
                 tableConstraint => $table }, {
-                displayName     => "% identity",
+                displayName     => "Paralogue %id. target $dataset->{display_name} gene identical to query gene",
                 field           => "perc_id_4015",
-                internalName    => "paralog_$dataset->{name}_identity",
+                internalName    => "$dataset->{name}_paralog_perc_id",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
                 tableConstraint => $table }, {
-                displayName     => "Paralogue % identity",
+                displayName     => "Paralogue %id. query gene identical to target $dataset->{display_name} gene",
                 field           => "perc_id_4015_r1",
-                internalName    => "paralog_$dataset->{name}_paralog_identity",
+                internalName    => "$dataset->{name}_paralog_perc_id_r1",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
                 tableConstraint => $table }, {
-                displayName     => "dN",
+                displayName     => "Paralogue dN with $dataset->{display_name}",
                 field           => "dn_4014",
                 internalName    => "$dataset->{name}_paralog_dn",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
                 tableConstraint => $table }, {
-                displayName     => "dS",
+                displayName     => "Paralogue dS with $dataset->{display_name}",
                 field           => "ds_4014",
                 internalName    => "$dataset->{name}_paralog_ds",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
                 tableConstraint => $table }, {
-                displayName     => "Paralogy confidence [0 low, 1 high]",
-                field           => "is_tree_compliant_4014",
-                internalName    => "$dataset->{name}_paralog_confidence",
+                displayName     => "$dataset->{display_name} paralogy confidence [0 low, 1 high]",
+                field           => "is_high_confidence_4014",
+                internalName    => "$dataset->{name}_paralog_paralogy_confidence",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
                 tableConstraint => $table }, {
-                displayName  => "Bootstrap/Duplication Confidence Score Type",
+                displayName  => "$dataset->{display_name} paralogue Bootstrap/Duplication Confidence Score Type",
                 field        => "tag_4060",
                 internalName => "$dataset->{name}_paralog_bootstrap_conf_type",
                 key          => "gene_id_1020_key",
                 maxLength    => "50",
                 tableConstraint => $table }, {
-                displayName  => "Bootstrap/Duplication Confidence Score",
+                displayName  => "$dataset->{display_name} paralogue Bootstrap/Duplication Confidence Score",
                 field        => "value_4060",
                 internalName => "$dataset->{name}_paralog_bootstrap_conf_score",
                 key          => "gene_id_1020_key",
@@ -782,94 +910,94 @@ sub write_attributes {
             displayName          => "$dataset->{display_name} Homoeologues",
             internalName         => "paralogs_$dataset->{name}",
             AttributeDescription => [ {
-                displayName     => "Homoeologue gene stable ID",
+                displayName     => "$dataset->{display_name} homoeologue gene stable ID",
                 field           => "stable_id_4016_r2",
                 internalName    => "$dataset->{name}_homoeolog_gene",
                 key             => "gene_id_1020_key",
                 linkoutURL      => "exturl1|/*species2*/Gene/Summary?g=%s",
                 maxLength       => "140",
                 tableConstraint => $table }, {
-                displayName => "Homoeologue protein stable ID",
+                displayName => "$dataset->{display_name} homoeologue protein or transcript stable ID",
                 field       => "stable_id_4016_r3",
                 internalName =>
                   "$dataset->{name}_homoeolog_homoeolog_ensembl_peptide",
                 key             => "gene_id_1020_key",
                 maxLength       => "40",
                 tableConstraint => $table }, {
-                displayName     => "Homoeologue chromosome/scaffold",
+                displayName     => "$dataset->{display_name} homoeologue chromosome/scaffold name",
                 field           => "chr_name_4016_r2",
                 internalName    => "$dataset->{name}_homoeolog_chromosome",
                 key             => "gene_id_1020_key",
                 maxLength       => "40",
                 tableConstraint => $table }, {
-                displayName => "Homoeologue start (bp)",
-                field       => "chr_start_4016_r2",
+                displayName     => "$dataset->{display_name} homoeologue chromosome/scaffold start (bp)",
+                field           => "chr_start_4016_r2",
                 internalName    => "$dataset->{name}_homoeolog_chrom_start",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
                 tableConstraint => $table }, {
-                displayName     => "Homoeologue end (bp)",
+                displayName     => "$dataset->{display_name} homoeologue chromosome/scaffold end (bp)",
                 field           => "chr_end_4016_r2",
                 internalName    => "$dataset->{name}_homoeolog_chrom_end",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
                 tableConstraint => $table }, {
-                displayName     => "Representative protein stable ID",
+                displayName     => "Homoeologue query protein or transcript ID",
                 field           => "stable_id_4016_r1",
                 internalName    => "$dataset->{name}_homoeolog_ensembl_peptide",
                 key             => "gene_id_1020_key",
                 maxLength       => "40",
                 tableConstraint => $table }, {
-                displayName     => "Ancestor",
+                displayName     => "Homoelogue last common ancestor with $dataset->{display_name}",
                 field           => "node_name_40192",
                 internalName    => "$dataset->{name}_homoeolog_ancestor",
                 key             => "gene_id_1020_key",
                 maxLength       => "40",
                 tableConstraint => $table }, {
-                displayName     => "Homology type",
+                displayName     => "$dataset->{display_name} homoelogue homology type",
                 field           => "description_4014",
                 internalName    => "$dataset->{name}_homoeolog_type",
                 key             => "gene_id_1020_key",
                 maxLength       => "25",
                 tableConstraint => $table }, {
-                displayName     => "% identity",
+                displayName     => "Homoelogue %id. target $dataset->{display_name} gene identical to query gene",
                 field           => "perc_id_4015",
                 internalName    => "homoeolog_$dataset->{name}_identity",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
                 tableConstraint => $table }, {
-                displayName  => "Homoeologue % identity",
+                displayName  => "Homoeologue %id. query gene identical to target $dataset->{display_name} gene",
                 field        => "perc_id_4015_r1",
                 internalName => "homoeolog_$dataset->{name}_homoeolog_identity",
                 key          => "gene_id_1020_key",
                 maxLength    => "10",
                 tableConstraint => $table }, {
-                displayName     => "dN",
+                displayName     => "Homoeologue dN with $dataset->{display_name}",
                 field           => "dn_4014",
                 internalName    => "$dataset->{name}_homoeolog_dn",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
                 tableConstraint => $table }, {
-                displayName     => "dS",
+                displayName     => "Homoeologue dS with $dataset->{display_name}",
                 field           => "ds_4014",
                 internalName    => "$dataset->{name}_homoeolog_ds",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
                 tableConstraint => $table }, {
-                displayName     => "Homoeology confidence [0 low, 1 high]",
-                field           => "is_tree_compliant_4014",
+                displayName     => "$dataset->{display_name} homoeology confidence [0 low, 1 high]",
+                field           => "is_high_confidence_4014",
                 internalName    => "$dataset->{name}_homoeolog_confidence",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
                 tableConstraint => $table }, {
-                displayName => "Bootstrap/Duplication Confidence Score Type",
+                displayName => "$dataset->{display_name} homoeologue Bootstrap/Duplication Confidence Score Type",
                 field       => "tag_4060",
                 internalName =>
                   "$dataset->{name}_homoeolog_bootstrap_conf_type",
                 key             => "gene_id_1020_key",
                 maxLength       => "50",
                 tableConstraint => $table }, {
-                displayName => "Bootstrap/Duplication Confidence Score",
+                displayName => "$dataset->{display_name} homoeologue Bootstrap/Duplication Confidence Score",
                 field       => "value_4060",
                 internalName =>
                   "$dataset->{name}_homoeolog_bootstrap_conf_score",
@@ -895,7 +1023,7 @@ sub write_attributes {
             my $ado = copy_hash($attributeDescription);
             #### pointerDataSet *species3*
             $ado->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/
-              if defined $ado->{pointerDataSet};
+             if defined $ado->{pointerDataset};
             #### SpecificAttributeContent - delete
             #### tableConstraint - update
             update_table_keys( $ado, $dataset, $self->{keys} );
@@ -910,8 +1038,9 @@ sub write_attributes {
                  defined defined $self->{tables}->{ $ado->{tableConstraint} } &&
                  defined $self->{tables}->{ $ado->{tableConstraint} }
                  ->{ $ado->{field} } &&
-                 (!defined $ado->{key} || defined $self->{tables}->{ $ado->{tableConstraint} }
-                 ->{ $ado->{key} }) )
+                 ( !defined $ado->{key} ||
+                   defined $self->{tables}->{ $ado->{tableConstraint} }
+                   ->{ $ado->{key} } ) )
               {
                 push @{ $aco->{AttributeDescription} }, $ado;
                 $nD++;
@@ -923,7 +1052,7 @@ sub write_attributes {
                         ( $ado->{key} || 'undef' ) . ", AttributeDescription " .
                         $ado->{internalName} );
               }
-            }
+            } ## end if ( defined $ado->{tableConstraint...})
             else {
               $ado->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/g
                 if defined $ado->{pointerDataset};
@@ -933,7 +1062,8 @@ sub write_attributes {
             if ( defined $ado->{linkoutURL} ) {
               if ( $ado->{linkoutURL} =~ m/exturl|\/\*species2\*/ ) {
                 # reformat to add URL placeholder
-                $ado->{linkoutURL} =~ s/\*species2\*/$dataset->{production_name}/;
+                $ado->{linkoutURL} =~
+                  s/\*species2\*/$dataset->{production_name}/;
               }
             }
             restore_main( $ado, $ds_name );
@@ -991,12 +1121,13 @@ sub normalise {
 sub update_table_keys {
   my ( $obj, $dataset, $keys ) = @_;
   my $ds_name = $dataset->{config}->{dataset};
-  if ( defined $obj->{tableConstraint}) {
+  if ( defined $obj->{tableConstraint} ) {
     if ( $obj->{tableConstraint} eq 'main' ) {
-      if(!defined $obj->{key}) {
-        ($obj->{tableConstraint}) = @{$dataset->{config}->{MainTable}};
+      if ( !defined $obj->{key} ) {
+        ( $obj->{tableConstraint} ) = @{ $dataset->{config}->{MainTable} };
         $obj->{tableConstraint} =~ s/\*base_name\*/${ds_name}/;
-      } else {
+      }
+      else {
         # use key to find the correct main table
         if ( $obj->{key} eq 'gene_id_1020_key' ) {
           $obj->{tableConstraint} = "${ds_name}__gene__main";
@@ -1019,7 +1150,7 @@ sub update_table_keys {
     {
       $obj->{key} = $keys->{ $obj->{tableConstraint} };
     }
-  }
+  } ## end if ( defined $obj->{tableConstraint...})
   return;
 } ## end sub update_table_keys
 
@@ -1062,7 +1193,7 @@ sub create_metatables {
   my $template_xml =
     XMLout( { DatasetConfig => $template->{config} }, KeepRoot => 1 );
 
-  if( ! -d "./tmp" ) {
+  if ( !-d "./tmp" ) {
     mkdir "./tmp";
   }
   open my $out, ">", "./tmp/tmp.xml";
@@ -1113,7 +1244,10 @@ sub write_dataset_metatables {
 
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
   my $speciesId = $dataset->{species_id};
-  my $display_species_name = $dataset->{display_name}.' genes ('.$dataset->{assembly}.')';
+  my $formatting_display_name = ucfirst($dataset->{production_name});
+  $formatting_display_name =~ s/_/ /g;
+  my $display_species_name =
+    $formatting_display_name . ' genes (' . $dataset->{assembly} . ')';
 
   $logger->info("Populating metatables for $ds_name ($speciesId)");
 
@@ -1133,9 +1267,14 @@ sub write_dataset_metatables {
 
   $self->{dbc}->sql_helper()->execute_update(
     -SQL =>
-"INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,?,'TableSet',1,?)",
-    -PARAMS => [ $speciesId,               $ds_name,
-                 $display_species_name, "Ensemmbl $template_name", $dataset->{assembly} ] );
+"INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,?,?,?,?)",
+    -PARAMS => [ $speciesId,
+                 $ds_name,
+                 $display_species_name,
+                 "Ensembl $template_name",
+                 $template_properties->{$template_name}->{type},
+                 $template_properties->{$template_name}->{visible},
+                 $dataset->{assembly} ] );
 
   $self->{dbc}->sql_helper()->execute_update(
               -SQL    => 'INSERT INTO meta_conf__xml__dm VALUES (?,?,?,?)',
@@ -1186,6 +1325,44 @@ sub _load_info {
       return;
     } );
   return;
+}
+
+sub generate_chromosome_bands_push_action {
+my ($self,$dataset_name,$genomic_features_mart)= @_;
+my $gfm_ds_name=substr($dataset_name,0,4);
+my $chr_bands_kstart;
+my $chr_bands_kend;
+
+my $database_tables =$self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${genomic_features_mart}'" );
+if ($database_tables->[0] > 0) {
+  my $empty_ks_table=$self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${gfm_ds_name}_karyotype_start__karyotype__main'" );
+  my $empty_ke_table=$self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${gfm_ds_name}_karyotype_start__karyotype__main'" );
+
+  if ($empty_ks_table->[0] > 0 and $empty_ke_table->[0] > 0) {
+    $chr_bands_kstart = $self->{dbc}->sql_helper()->execute_into_hash(
+      -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${gfm_ds_name}_karyotype_start__karyotype__main where band_1027 is not null order by band_1027",
+      -CALLBACK => sub {
+        my ( $row, $value ) = @_;
+        $value = [] if !defined $value;
+        push($value, $row->[1] );
+        return $value;
+        }
+    );
+    $chr_bands_kend = $self->{dbc}->sql_helper()->execute_into_hash(
+      -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${gfm_ds_name}_karyotype_end__karyotype__main where band_1027 is not null order by band_1027",
+      -CALLBACK => sub {
+        my ( $row, $value ) = @_;
+        $value = [] if !defined $value;
+        push($value, $row->[1] );
+        return $value;
+        }
+    );
+  }
+}
+return ($chr_bands_kstart,$chr_bands_kend);
 }
 
 1;
