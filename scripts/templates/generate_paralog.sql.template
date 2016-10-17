@@ -56,6 +56,7 @@ create table %martSchema%.%dataSet%_TEMP306_%method_link_species_set_id% as
 drop table %martSchema%.%dataSet%_TEMP304_%method_link_species_set_id%;
 
 create index %indexName% on %martSchema%.%dataSet%_TEMP306_%method_link_species_set_id%(seq_member_id_4015);
+drop table if exists %martSchema%.%dataSet%_TEMP310_%method_link_species_set_id%;
 create table %martSchema%.%dataSet%_TEMP310_%method_link_species_set_id% as
   select
     a.*,
