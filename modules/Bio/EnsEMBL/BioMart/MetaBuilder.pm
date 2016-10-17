@@ -206,6 +206,7 @@ sub write_toplevel {
       elsif ( $key eq 'displayName' ) {
         $value =~ s/\*species1\*/${display_name}/g;
         $value =~ s/\*version\*/${version}/g;
+        $dataset->{dataset_display_name} = $value; # record for later use
       }
       elsif ( $key eq 'description' ) {
         $value =~ s/\*species1\*/${display_name}/g;
@@ -1282,7 +1283,7 @@ sub create_metatables {
 
   $self->{dbc}->sql_helper()
     ->execute_update( -SQL =>
-                      "DELETE FROM  meta_template__xml__dm WHERE template=?",
+                      "DELETE FROM meta_template__xml__dm WHERE template=?",
                       -PARAMS=>[$template_name]
                     );
   
@@ -1328,10 +1329,6 @@ sub write_dataset_metatables {
 
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
   my $speciesId = $dataset->{species_id};
-  my $formatting_display_name = ucfirst($dataset->{production_name});
-  $formatting_display_name =~ s/_/ /g;
-  my $display_species_name =
-    $formatting_display_name . ' genes (' . $dataset->{assembly} . ')';
 
   $logger->info("Populating metatables for $ds_name ($speciesId)");
 
@@ -1344,14 +1341,16 @@ sub write_dataset_metatables {
   my $gzip_dataset_xml;
   gzip \$dataset_xml => \$gzip_dataset_xml;
 
-  for my $table (qw/meta_conf__dataset__main meta_conf__interface__dm meta_conf__user__dm meta_conf__user__dm meta_conf__xml__dm meta_template__template__main/) {
-    $self->{dbc}->sql_helper()
-      ->execute_update( -SQL =>
-                        "DELETE FROM ${table} WHERE dataset_id_key=?",
-                        -PARAMS=>[$speciesId]
-                      );
-  }
-  
+  $self->{dbc}->sql_helper()
+    ->execute_update( -SQL =>
+                      q/DELETE m,i,u,x,t FROM meta_conf__dataset__main m
+left join meta_conf__interface__dm i using (dataset_id_key) 
+left join meta_conf__user__dm u using (dataset_id_key) 
+left join meta_conf__xml__dm x using (dataset_id_key) 
+left join meta_template__template__main t using (dataset_id_key) 
+ WHERE dataset=?/,
+                      -PARAMS=>[$ds_name]
+                    );
 
   $self->{dbc}->sql_helper()
     ->execute_update( -SQL =>
@@ -1363,7 +1362,7 @@ sub write_dataset_metatables {
 "INSERT INTO meta_conf__dataset__main(dataset_id_key,dataset,display_name,description,type,visible,version) VALUES(?,?,?,?,?,?,?)",
     -PARAMS => [ $speciesId,
                  $ds_name,
-                 $display_species_name,
+                 $dataset->{dataset_display_name},
                  "Ensembl $template_name",
                  $template_properties->{$template_name}->{type},
                  $template_properties->{$template_name}->{visible},
