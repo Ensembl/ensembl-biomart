@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="variation_template" defaultDataset="*default*" displayName="*species1* variations (*version*)" entryLabel="SNPs" interfaces="default" internalName="template" martUsers="default" modified="2007-10-29 10:40:34.292" softwareVersion="0.7" template="variation" type="TableSet" version="*version*" visible="1">
+  <MainTable>*base_name*__variation__main</MainTable>
+  <MainTable>*base_name*__variation_feature__main</MainTable>
+  <Key>variation_id_2025_key</Key>
+  <Key>variation_feature_id_2026_key</Key>
   <Replace id="datasets"/>
   <Importable filters="chr_name,chrom_start,chrom_end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link"/>
   <Importable filters="chr_name,chrom_end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link"/>
