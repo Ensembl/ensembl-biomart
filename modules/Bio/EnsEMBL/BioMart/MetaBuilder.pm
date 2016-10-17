@@ -1049,7 +1049,7 @@ sub write_attributes {
         for my $attributeCollection (
                                    @{ $attributeGroup->{AttributeCollection} } )
         {
-          my $nD = 0;          
+          my $nD = 0;
           normalise( $attributeCollection, "AttributeDescription" );
           my $aco = copy_hash($attributeCollection);
           $aco->{hidden} = $apo->{hidden} if defined $apo->{hidden};
@@ -1176,7 +1176,9 @@ sub copy_hash {
 
 sub normalise {
   my ( $hash, $key ) = @_;
-  $hash->{$key} = [ $hash->{$key} ] unless ref( $hash->{$key} ) eq 'ARRAY';
+  if(defined $hash->{$key}) {
+    $hash->{$key} = [ $hash->{$key} ] unless ref( $hash->{$key} ) eq 'ARRAY';
+  }
   return;
 }
 
