@@ -59,6 +59,7 @@ my $logger = get_logger();
 my $template_properties = {
          genes      => { type => 'TableSet',        visible => 1 },
          variations => { type => 'TableSet',        visible => 1 },
+         structural_variations => { type => 'TableSet',        visible => 1 },
          sequences  => { type => 'GenomicSequence', visible => 0 } };
 
 =head1 CONSTRUCTOR
@@ -120,6 +121,7 @@ sub build {
   $self->create_metatables( $template_name, $template );
   # read datasets
   my $datasets = $self->get_datasets();
+  # avoid clashes for multiple template types
   my $n        = $offsets->{$template_name} || 0;
   for my $dataset ( @{$datasets} ) {
     $dataset->{species_id} = ++$n;
@@ -167,13 +169,28 @@ sub process_dataset {
   $logger->debug("Building output");
   $dataset->{config} = {};
   $self->write_toplevel( $dataset, $templ_in );
+  if($self->has_main_tables($dataset)==0) {
+    $logger->warn("No main tables found for $template_name for ".$dataset->{name});
+    return;
+  }
   $self->write_importables( $dataset, $templ_in );
   $self->write_exportables( $dataset, $templ_in, $datasets, $template_name );
   $self->write_filters( $dataset, $templ_in, $datasets, $genomic_features_mart );
   $self->write_attributes( $dataset, $templ_in, $datasets );
   # write meta
   $self->write_dataset_metatables( $dataset, $template_name );
-  return $dataset;
+  return;
+}
+
+sub has_main_tables {
+  my ($self, $dataset) = @_;
+  for my $mainTable (@{$dataset->{config}->{MainTable}}) {
+    if(!defined $self->{tables}->{$mainTable}) {
+      $logger->warn("Main table $mainTable not found");
+      return 0;
+    }
+  }
+  return 1;
 }
 
 sub write_toplevel {
@@ -257,7 +274,7 @@ sub write_importables {
   my $version = $dataset->{name} . "_" . $dataset->{assembly};
   my $ds_name = $dataset->{name} . "_" . $self->{basename};
   # Importable
-  for my $impt ( @{ $templ_in->{Importable} } ) {
+  for my $impt ( @{ elem_as_array($templ_in->{Importable}) } ) {
     my $imp = copy_hash($impt);
     # replace linkVersion.*link_version* with $version
     if ( defined $imp->{linkVersion} ) {
@@ -284,7 +301,7 @@ sub write_exportables {
   my $version = $dataset->{name} . "_" . $dataset->{assembly};
   my $ds_name = $dataset->{name} . "_" . $self->{basename};
   $logger->info("Processing exportables");
-  for my $expt ( @{ $templ_in->{Exportable} } ) {
+  for my $expt ( @{ elem_as_array($templ_in->{Exportable}) } ) {
     my $exp = copy_hash($expt);
     # replace linkVersion.*link_version* with $version
     if ( defined $exp->{linkVersion} ) {
@@ -680,7 +697,7 @@ sub write_attributes {
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
   my $templ_out = $dataset->{config};
   # AttributePage
-  for my $attributePage ( @{ $templ_in->{AttributePage} } ) {
+  for my $attributePage ( @{ elem_as_array($templ_in->{AttributePage}) } ) {
     my $page_hidden = 1;
     $logger->debug( "Processing filterPage " . $attributePage->{internalName} );
     # count the number of groups we add
@@ -1216,6 +1233,12 @@ sub update_table_keys {
         }
         elsif ( $obj->{key} eq 'variation_feature_id_2026_key' ) {
           $obj->{tableConstraint} = "${ds_name}__variation_feature__main";
+        }
+        elsif ( $obj->{key} eq 'structural_variation_id_2072_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__structural_variation__main";
+        }
+        elsif ( $obj->{key} eq 'structural_variation_feature_id_20104_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__structural_variation_feature__main";
         }
       }
     }
