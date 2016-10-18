@@ -4240,14 +4240,14 @@
         <FilterDescription displayName="MOD annotations with specified not_during" displayType="list" field="not_during_acc" internalName="mod_not_during_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="mod_extension__dm" type="text"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on PO IDs, terms, and evidence codes" displayName="PLANT ONTOLOGY:" hidden="true" hideDisplay="true" internalName="po">
-      <FilterCollection displayName="PO term accession [e.g. PO:0009066]" hidden="true" internalName="po_filters">
+    <FilterGroup description="Filter on PO IDs, terms, and evidence codes" displayName="PLANT ONTOLOGY:" hidden="true" internalName="po">
+      <FilterCollection displayName="PO term accession [e.g. PO:0009066]" internalName="po_filters">
         <FilterDescription hidden="true" internalName="po_clos" multipleValues="1" pointerDataset="closure_PO" pointerFilter="po_parent_term" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="PO term name [e.g. anther]" hidden="true" internalName="po_filters_name">
+      <FilterCollection displayName="PO term name [e.g. anther]" internalName="po_filters_name">
         <FilterDescription hidden="true" internalName="po_name" pointerDataset="closure_PO" pointerFilter="po_parent_name" pointerInterface="default"/>
       </FilterCollection>
-      <FilterCollection displayName="PO evidence code" hidden="true" internalName="po_evidence_code">
+      <FilterCollection displayName="PO evidence code" internalName="po_evidence_code">
         <FilterDescription displayName="PO evidence code" displayType="list" field="linkage_type_1024" hidden="true" internalName="po_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_po__dm" type="list">
           <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="bdistachyon_eg_gene"/>
           <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="sbicolor_eg_gene"/>
@@ -5324,27 +5324,27 @@
         <AttributeDescription displayName="SO residue database" field="residue_db" internalName="so_residue_db" key="transcript_id_1064_key" maxLength="3" tableConstraint="so_extension__dm" useDefault="true"/>
       </AttributeCollection>
       <AttributeCollection displayName="PO" hidden="true" internalName="po_closure">
-        <AttributeDescription displayName="PO term accession (bp)" field="dbprimary_acc_1074" hidden="true" internalName="po_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.genpontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ontology_po__dm" useDefault="true">
+        <AttributeDescription displayName="PO term accession (bp)" field="dbprimary_acc_1074" internalName="po_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.genpontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ontology_po__dm" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
-        <AttributeDescription displayName="PO term name (bp)" field="name_1006" hidden="true" internalName="po_name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_po__dm" useDefault="true">
+        <AttributeDescription displayName="PO term name (bp)" field="name_1006" internalName="po_name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_po__dm" useDefault="true">
           <SpecificAttributeContent field="name_1006" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="name_1006" internalName="sbicolor_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="name_1006" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
-        <AttributeDescription displayName="PO term definition (bp)" field="definition_1006" hidden="true" internalName="po_definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_po__dm" useDefault="true">
+        <AttributeDescription displayName="PO term definition (bp)" field="definition_1006" internalName="po_definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="ontology_po__dm" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
-        <AttributeDescription displayName="PO term evidence code (bp)" field="linkage_type_1024" hidden="true" internalName="po_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="ontology_po__dm" useDefault="true">
+        <AttributeDescription displayName="PO term evidence code (bp)" field="linkage_type_1024" internalName="po_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="ontology_po__dm" useDefault="true">
           <SpecificAttributeContent field="linkage_type_1024" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="linkage_type_1024" internalName="sbicolor_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="linkage_type_1024" internalName="ptrichocarpa_eg_gene" key="transcript_id_1064_key"/>
         </AttributeDescription>
-        <AttributeDescription displayName="PO domain" field="namespace_1003" hidden="true" internalName="po_namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="ontology_po__dm" useDefault="true">
+        <AttributeDescription displayName="PO domain" field="namespace_1003" internalName="po_namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="ontology_po__dm" useDefault="true">
           <SpecificAttributeContent key="transcript_id_1064_key" field="namespace_1003" internalName="bdistachyon_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="namespace_1003" internalName="ptrichocarpa_eg_gene"/>
           <SpecificAttributeContent key="transcript_id_1064_key" field="namespace_1003" internalName="sbicolor_eg_gene"/>
