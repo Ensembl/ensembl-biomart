@@ -282,10 +282,10 @@ sub write_importables {
     }
     # replace linkName.*species3*
     if ( defined $imp->{linkName} ) {
-      $imp->{linkName} =~ s/\*species3\*/${ds_name}/;
+      $imp->{linkName} =~ s/\*species3\*/$dataset->{name}/;
     }
     # replace name.*species3* with ${name}_e
-    $imp->{name} =~ s/\*species3\*/${ds_name}/;
+    $imp->{name} =~ s/\*species3\*/$dataset->{name}/;
     # push onto out stack
     push @{ $dataset->{config}->{Importable} }, $imp;
   }
@@ -299,7 +299,6 @@ sub write_exportables {
   my ( $self, $dataset, $templ_in, $datasets, $template_name ) = @_;
   $logger->info( "Writing exportables for " . $dataset->{name} );
   my $version = $dataset->{name} . "_" . $dataset->{assembly};
-  my $ds_name = $dataset->{name} . "_" . $self->{basename};
   $logger->info("Processing exportables");
   for my $expt ( @{ elem_as_array($templ_in->{Exportable}) } ) {
     my $exp = copy_hash($expt);
@@ -309,12 +308,12 @@ sub write_exportables {
     }
     if ( defined $exp->{linkName} ) {
       # replace linkName.*species3*
-      $exp->{linkName} =~ s/\*species3\*/${ds_name}/;
+      $exp->{linkName} =~ s/\*species3\*/$dataset->{name}/;
     }
     # replace name.*species3* with ${ds_name}_eg
-    $exp->{name}         =~ s/\*species3\*/${ds_name}/;
-    $exp->{internalName} =~ s/\*species3\*/${ds_name}/;
-    $exp->{attributes}   =~ s/\*species3\*/${ds_name}/;
+    $exp->{name}         =~ s/\*species3\*/$dataset->{name}/;
+    $exp->{internalName} =~ s/\*species3\*/$dataset->{name}/;
+    $exp->{attributes}   =~ s/\*species3\*/$dataset->{name}/;
     # push onto out stack
     push @{ $dataset->{config}->{Exportable} }, $exp;
   }
@@ -322,13 +321,15 @@ sub write_exportables {
   if ($template_name eq "genes") {
     # additional exporter for multiple dataset selection
     foreach my $ds (@$datasets){
-      push @{ $dataset->{config}->{Exportable} }, {
-        attributes   => "$ds->{name}"."_homolog_ensembl_gene",
-        default      => 1,
-        internalName => "$ds->{name}_gene_stable_id",
-        name         => "$ds->{name}_gene_stable_id",
-        linkName     => "$ds->{name}_gene_stable_id",
-        type         => "link" };
+      if($ds->{name} ne $dataset->{name}) {
+        push @{ $dataset->{config}->{Exportable} }, {
+                                                     attributes   => "$ds->{name}"."_homolog_ensembl_gene",
+                                                     default      => 1,
+                                                     internalName => "$ds->{name}_gene_stable_id",
+                                                     name         => "$ds->{name}_gene_stable_id",
+                                                     linkName     => "$ds->{name}_gene_stable_id",
+                                                   type         => "link" };
+    }
     }
   }
   return;
@@ -368,7 +369,7 @@ sub write_filters {
           my $fdo = copy_hash($filterDescription);
           $fdo->{hidden} = $fco->{hidden}  if (defined $fco->{hidden} && !defined $self->{unhide}->{$fco->{internalName}});
           #### pointerDataSet *species3*
-          $fdo->{pointerDataset} =~ s/\*species3\*/${ds_name}/
+          $fdo->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/
             if defined $fdo->{pointerDataset};
           #### SpecificFilterContent - delete
           #### tableConstraint - update
@@ -1177,7 +1178,9 @@ sub normalise {
 
 sub elem_as_array {
   my ($elem) = @_;
-  if(ref($elem) ne 'ARRAY') {
+  if(!defined $elem) {
+    $elem = [];
+  } elsif(ref($elem) ne 'ARRAY') {
     $elem = [$elem];
   }
   return $elem;
