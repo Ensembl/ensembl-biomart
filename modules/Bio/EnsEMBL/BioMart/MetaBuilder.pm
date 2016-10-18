@@ -354,19 +354,19 @@ sub write_filters {
       my $nC = 0;
       normalise( $filterGroup, "FilterCollection" );
       my $fgo = copy_hash($filterGroup);
-      $fgo->{hidden} = $fpo->{hidden};
+      $fgo->{hidden} = $fpo->{hidden} if (defined $fpo->{hidden} && !defined $self->{unhide}->{$fpo->{internalName}});
       ### Filtercollection
       for my $filterCollection ( @{ elem_as_array($filterGroup->{FilterCollection}) } ) {
         my $nD = 0;
         normalise( $filterCollection, "FilterDescription" );
         my $fco = copy_hash($filterCollection);
-        $fco->{hidden} = $fgo->{hidden} if defined $fgo->{hidden};
+        $fco->{hidden} = $fgo->{hidden} if (defined $fgo->{hidden} && !defined $self->{unhide}->{$fgo->{internalName}});
         ### FilterDescription
         for
           my $filterDescription ( @{ elem_as_array($filterCollection->{FilterDescription}) } )
         {
           my $fdo = copy_hash($filterDescription);
-          $fdo->{hidden} = $fco->{hidden}  if defined $fco->{hidden};
+          $fdo->{hidden} = $fco->{hidden}  if (defined $fco->{hidden} && !defined $self->{unhide}->{$fco->{internalName}});
           #### pointerDataSet *species3*
           $fdo->{pointerDataset} =~ s/\*species3\*/${ds_name}/
             if defined $fdo->{pointerDataset};
@@ -668,11 +668,11 @@ sub write_filters {
         if ( defined $fgo->{hidden} &&
              $fgo->{hidden} eq "true" &&
              defined $self->{unhide}->{ $fgo->{internalName} } )
-        {         
+        {
           $page_hidden = 0;
           $group_hidden = 0;
         }
-        
+
         if($group_hidden == 1) {
           $logger->info("Hiding FilterGroup ".$fgo->{internalName});
           $fgo->{hidden} = "true";
@@ -823,20 +823,6 @@ sub write_attributes {
                   internalName => "$dataset->{name}_homolog_orthology_confidence",
                   key          => "gene_id_1020_key",
                   maxLength    => "10",
-                  tableConstraint => $table }, {
-                  displayName  => "Bootstrap/Duplication Confidence Score Type",
-                  field        => "tag_4060",
-                  hidden       => "true",
-                  internalName => "homolog_$dataset->{name}__dm_tag_4060",
-                  key          => "gene_id_1020_key",
-                  maxLength    => "50",
-                  tableConstraint => $table }, {
-                  displayName     => "Bootstrap/Duplication Confidence Score",
-                  field           => "value_4060",
-                  hidden          => "true",
-                  internalName    => "homolog_$dataset->{name}__dm_value_4060",
-                  key             => "gene_id_1020_key",
-                  maxLength       => "255",
                   tableConstraint => $table } ] };
             $nC++;
           } ## end if ( defined $self->{tables...})
@@ -937,18 +923,6 @@ sub write_attributes {
                 internalName    => "$dataset->{name}_paralog_paralogy_confidence",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
-                tableConstraint => $table }, {
-                displayName  => "$dataset->{display_name} paralogue Bootstrap/Duplication Confidence Score Type",
-                field        => "tag_4060",
-                internalName => "$dataset->{name}_paralog_bootstrap_conf_type",
-                key          => "gene_id_1020_key",
-                maxLength    => "50",
-                tableConstraint => $table }, {
-                displayName  => "$dataset->{display_name} paralogue Bootstrap/Duplication Confidence Score",
-                field        => "value_4060",
-                internalName => "$dataset->{name}_paralog_bootstrap_conf_score",
-                key          => "gene_id_1020_key",
-                maxLength    => "255",
                 tableConstraint => $table } ] };
           $nC++;
         } ## end if ( defined $self->{tables...})
@@ -1043,21 +1017,7 @@ sub write_attributes {
                 internalName    => "$dataset->{name}_homoeolog_confidence",
                 key             => "gene_id_1020_key",
                 maxLength       => "10",
-                tableConstraint => $table }, {
-                displayName => "$dataset->{display_name} homoeologue Bootstrap/Duplication Confidence Score Type",
-                field       => "tag_4060",
-                internalName =>
-                  "$dataset->{name}_homoeolog_bootstrap_conf_type",
-                key             => "gene_id_1020_key",
-                maxLength       => "50",
-                tableConstraint => $table }, {
-                displayName => "$dataset->{display_name} homoeologue Bootstrap/Duplication Confidence Score",
-                field       => "value_4060",
-                internalName =>
-                  "$dataset->{name}_homoeolog_bootstrap_conf_score",
-                key             => "gene_id_1020_key",
-                maxLength       => "255",
-                tableConstraint => $table } ] };
+                tableConstraint => $table }]};
           $nC++;
         } ## end if ( defined $self->{tables...})
       } ## end elsif ( $ago->{internalName... [ if ( $ago->{internalName...})]})
@@ -1068,15 +1028,16 @@ sub write_attributes {
                                    @{ $attributeGroup->{AttributeCollection} } )
         {
           my $nD = 0;
+          my $collection_hidden = 1;
           normalise( $attributeCollection, "AttributeDescription" );
           my $aco = copy_hash($attributeCollection);
-          $aco->{hidden} = $apo->{hidden} if defined $apo->{hidden};
+          $aco->{hidden} = $apo->{hidden} if (defined $apo->{hidden} && !defined $self->{unhide}->{$aco->{internalName}});
           ### AttributeDescription
           for my $attributeDescription (
                              @{ $attributeCollection->{AttributeDescription} } )
           {
             my $ado = copy_hash($attributeDescription);
-            $ado->{hidden} = $aco->{hidden} if defined $aco->{hidden};
+            $ado->{hidden} = $aco->{hidden} if (defined $aco->{hidden} && !defined $self->{unhide}->{$aco->{internalName}});
             #### pointerDataSet *species3*
             $ado->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/
              if defined $ado->{pointerDataset};
@@ -1134,11 +1095,25 @@ sub write_attributes {
             }
             restore_main( $ado, $ds_name );
           } ## end for my $attributeDescription...
+
           if ( $nD > 0 ) {
+            
+            if ( defined $aco->{hidden} &&
+                 $aco->{hidden} eq "true" &&
+                 defined $self->{unhide}->{ $aco->{internalName} } )
+              {
+                $collection_hidden = 0;
+                $page_hidden = 0;
+                $group_hidden = 0;
+              }
+            
             if(!defined $aco->{hidden} || $aco->{hidden} ne 'true') {
               $page_hidden = 0;
               $group_hidden = 0;
-            }          
+            }
+            if($collection_hidden==0 && defined $aco->{hidden}) {
+              $aco->{hidden} = 'false';
+            }
             push @{ $ago->{AttributeCollection} }, $aco;
             $nC++;
           }
