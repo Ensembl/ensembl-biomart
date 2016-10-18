@@ -47,7 +47,7 @@
   <Importable filters="mgi_symbol" internalName="mgi_symbol" linkName="mgi_symbol" name="mgi_symbol" type="link"/>
   <Importable filters="rgd" internalName="rgd_id" linkName="rgd_id" name="rgd_id" type="link"/>
   -->
-  <Exportable attributes="*species3*" internalName="*species3*_stable_id" linkName="*$species3*_stable_id" name="*species3*" type="link" default="1" />
+  <Exportable attributes="*species3*" internalName="*species3*_stable_id" linkName="*species3*_stable_id" name="*species3*" type="link" default="1" />
   <Exportable attributes="chromosome_name,start_position,end_position" internalName="genomic_region" linkName="genomic_region" linkVersion="*link_version*" name="genomic_region" type="link"/>
   <Exportable attributes="external_id" internalName="refsnp_id" linkName="refsnp_id" name="refsnp_id" type="link"/>
   <Exportable attributes="uniprot_swissprot_accession" internalName="uniprot_swissprot" linkName="uniprot_swissprot" name="uniprot_swissprot" type="link"/>
