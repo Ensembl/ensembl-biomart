@@ -38,7 +38,7 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Study description" internalName="structural_variation_study" useDefault="true">
-        <FilterDescription displayName="Study description" displayType="list" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true">
+        <FilterDescription displayName="Study description" displayType="list" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" style="menu" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>

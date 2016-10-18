@@ -18,7 +18,7 @@
   <FilterPage displayName="FILTERS" internalName="filters">
     <FilterGroup displayName="REGION:" internalName="region">
       <FilterCollection displayName="Chromosome/scaffold" internalName="chromosome">
-        <FilterDescription displayName="Chromosome name name" displayType="list" field="name_1059" internalName="chr_name" key="variation_feature_id_2026_key" legal_qualifiers="=" otherFilters="*species4*_karyotype_start.name;*species4*_karyotype_end.name" qualifier="=" tableConstraint="main" type="text">
+        <FilterDescription displayName="Chromosome name name" style="menu" displayType="list" field="name_1059" internalName="chr_name" key="variation_feature_id_2026_key" legal_qualifiers="=" otherFilters="*species4*_karyotype_start.name;*species4*_karyotype_end.name" qualifier="=" tableConstraint="main" type="text">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
