@@ -506,6 +506,24 @@ sub write_filters {
               $nD++;
             }
           } ## end elsif ( $fdo->{displayType... [ if ( $fdo->{internalName...})]})
+          # Extra code to deal with Boolean filters
+          elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'list' && $fdo->{type} eq 'boolean' && defined $filterDescription->{Option}){
+            my $nO = 0;
+            normalise( $filterDescription, "Option" );
+            for my $option ( @{ $filterDescription->{Option} } ) {
+              my $opt = copy_hash($option);
+              push @{ $fdo->{Option} }, $opt;
+                for my $o ( @{ $option->{Option} } ) {
+                  push @{ $opt->{Option} }, $o;
+                }
+                $nO++;
+             }
+             if ( $nO > 0 ) {
+              push @{ $fco->{FilterDescription} }, $fdo;
+              $nD++;
+            }
+          }
+          ### end elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'list' && $fdo->{type} eq 'boolean' && defined $filterDescription->{Option})
           else {
             if ( defined $fdo->{tableConstraint} ) {
               #### check tableConstraint and field and key
