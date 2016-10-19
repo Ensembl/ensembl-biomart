@@ -358,6 +358,7 @@ sub write_filters {
       $fgo->{hidden} = $fpo->{hidden} if (defined $fpo->{hidden} && !defined $self->{unhide}->{$fpo->{internalName}});
       ### Filtercollection
       for my $filterCollection ( @{ elem_as_array($filterGroup->{FilterCollection}) } ) {
+        my $collection_hidden = 1;
         my $nD = 0;
         normalise( $filterCollection, "FilterDescription" );
         my $fco = copy_hash($filterCollection);
@@ -379,6 +380,7 @@ sub write_filters {
           if ( $fdo->{internalName} eq 'homolog_filters' ) {
             $page_hidden = 0;
             $group_hidden = 0;
+            $collection_hidden = 0;
             # check for paralogues
             my $table = "${ds_name}__gene__main";
             {
@@ -504,6 +506,24 @@ sub write_filters {
               $nD++;
             }
           } ## end elsif ( $fdo->{displayType... [ if ( $fdo->{internalName...})]})
+          # Extra code to deal with Boolean filters
+          elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'list' && $fdo->{type} eq 'boolean' && defined $filterDescription->{Option}){
+            my $nO = 0;
+            normalise( $filterDescription, "Option" );
+            for my $option ( @{ $filterDescription->{Option} } ) {
+              my $opt = copy_hash($option);
+              push @{ $fdo->{Option} }, $opt;
+                for my $o ( @{ $option->{Option} } ) {
+                  push @{ $opt->{Option} }, $o;
+                }
+                $nO++;
+             }
+             if ( $nO > 0 ) {
+              push @{ $fco->{FilterDescription} }, $fdo;
+              $nD++;
+            }
+          }
+          ### end elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'list' && $fdo->{type} eq 'boolean' && defined $filterDescription->{Option})
           else {
             if ( defined $fdo->{tableConstraint} ) {
               #### check tableConstraint and field and key
@@ -620,6 +640,7 @@ sub write_filters {
                 if(!defined $fdo->{hidden} || $fdo->{hidden} ne 'true') {
                   $page_hidden = 0;
                   $group_hidden = 0;
+                  $collection_hidden = 0;
                 }
                 push @{ $fco->{FilterDescription} }, $fdo;
                 $nD++;
@@ -637,6 +658,7 @@ sub write_filters {
               if(!defined $fdo->{hidden} || $fdo->{hidden} ne 'true') {
                 $page_hidden = 0;
                 $group_hidden = 0;
+                $collection_hidden = 0;
               }
               $nD++;
             }
@@ -653,10 +675,20 @@ sub write_filters {
             restore_main( $fdo, $ds_name );
           } ## end else [ if ( $fdo->{internalName...})]
         } ## end for my $filterDescription...
-        if ( $nD > 0 ) {          
-          if(!defined $fco->{hidden} || $fco->{hidden} ne 'true') {
-            $page_hidden = 0;
-            $group_hidden = 0;
+        if ( $nD > 0 ) {
+          if ( defined $fco->{hidden} &&
+               $fco->{hidden} eq "true" &&
+               defined $self->{unhide}->{ $fco->{internalName} } )
+            {
+              $page_hidden = 0;
+              $group_hidden = 0;
+              $collection_hidden = 0;
+            }
+          if($collection_hidden == 1) {
+            $logger->info("Hiding FilterCollection ".$fco->{internalName});
+            $fco->{hidden} = "true";
+          } else {
+            $fco->{hidden} = "false";
           }
           push @{ $fgo->{FilterCollection} }, $fco;
           $nC++;
@@ -677,6 +709,8 @@ sub write_filters {
         if($group_hidden == 1) {
           $logger->info("Hiding FilterGroup ".$fgo->{internalName});
           $fgo->{hidden} = "true";
+        } else {
+          $fgo->{hidden} = "false";
         }
 
       }
@@ -685,6 +719,8 @@ sub write_filters {
       if($page_hidden == 1) {
         $logger->info("Hiding FilterPage ".$fpo->{internalName});
         $fpo->{hidden} = "true";
+      } else {
+        $fpo->{hidden} = "false";
       }
       push @{ $templ_out->{FilterPage} }, $fpo;
     }
