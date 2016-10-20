@@ -1291,10 +1291,13 @@ sub create_metatables {
   # create tables
   $self->create_metatable( 'meta_version__version__main',
                            ['version varchar(10) default NULL'] );
-  $self->{dbc}->sql_helper()
-    ->execute_update(
-             -SQL => "INSERT INTO meta_version__version__main VALUES ('0.7')" );
-
+  my $rows = $self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select count(version) from meta_version__version__main" );
+  # Only add a row if the table is empty
+  if ($rows->[0] == 0) {
+    $self->{dbc}->sql_helper()
+                    ->execute_update(-SQL => "INSERT INTO meta_version__version__main VALUES ('0.7')" );
+  }
   # template tables
   $self->create_metatable( 'meta_template__template__main', [
                              'dataset_id_key int(11) NOT NULL',
