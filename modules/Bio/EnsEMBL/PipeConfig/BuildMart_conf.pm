@@ -93,7 +93,7 @@ sub pipeline_analyses {
       -input_ids => [ {} ],
       -flow_into => { 1 => [ 'calculate_sequence', 'add_compara',
                              'add_xrefs',          'add_slims' ],
-                      2 => ['tidy_tables','optimize'] },
+                      2 => ['tidy_tables','optimize','generate_meta'] },
       -meadow_type => 'LOCAL' },
     { -logic_name  => 'calculate_sequence',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
@@ -136,7 +136,6 @@ sub pipeline_analyses {
         'host'     => $self->o('host'),
         'port'     => $self->o('port'),
         'base_dir' => $self->o('base_dir') },
-      -input_ids         => [ {} ],
       -analysis_capacity => 1 },
     { -logic_name  => 'add_xrefs',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
@@ -182,7 +181,7 @@ sub pipeline_analyses {
     { -logic_name  => 'generate_meta',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
       -meadow_type => 'LSF',
-      -wait_for    => 'optimize',
+      -wait_for    => ['generate_names','optimize'],
       -parameters  => {
         'cmd' =>
                        'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #basename#',
@@ -193,7 +192,6 @@ sub pipeline_analyses {
                        'host'     => $self->o('host'),
                        'port'     => $self->o('port'),
                        'base_dir' => $self->o('base_dir') },
-      -input_ids         => [ {} ],
       -analysis_capacity => 1 }
 
   ];
