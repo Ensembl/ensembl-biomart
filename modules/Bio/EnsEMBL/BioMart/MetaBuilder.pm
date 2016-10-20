@@ -551,7 +551,7 @@ sub write_filters {
 "select distinct $fdo->{field} from $fdo->{tableConstraint} where $fdo->{field} is not null order by $fdo->{field} limit $max"
                     );
                   if ( scalar(@$vals) <= $self->{max_dropdown} ) {
-                    if ($fdo->{internalName} eq "chromosome_name") {
+                    if ($fdo->{internalName} eq "chromosome_name" || $fdo->{internalName} eq "chromosome" || $fdo->{internalName} eq 'chr_name') {
                       # We need to sort the chromosome dropdown to make it more user friendly
                       @$vals = nsort(@$vals);
                       # Retrieving chr band informations
