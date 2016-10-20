@@ -1,3 +1,4 @@
+
 #!/bin/env perl
 # Copyright [2009-2015] EMBL-European Bioinformatics Institute
 # 
@@ -258,9 +259,13 @@ select distinct ontology_xref.linkage_type as linkage_type_1024, t2.ontology_id 
         
         $logger->info(" Updating column ${dataset}_${basename}__translation__main ...");
         $mart_handle->do("update ${mart_db}.${dataset}_${basename}__translation__main a set ox_goslim_goa_bool=(select case count(1) when 0 then null else 1 end from ${mart_db}.${dataset}_${basename}__ox_goslim_goa__dm b where a.${key_column}=b.${key_column} and not (b.description_1074 is null and b.dbprimary_acc_1074 is null and b.display_label_1074 is null));");
-        
-        $logger->info(" Creating index I_goslim_${dataset} ..." );
-        $mart_handle->do("create index I_goslim_${dataset} on ${mart_db}.${dataset}_${basename}__translation__main(ox_goslim_goa_bool);");
+	eval {
+	  $logger->info(" Creating index I_goslim_${dataset} ..." );
+	};
+
+	eval {
+	  $mart_handle->do("create index I_goslim_${dataset} on ${mart_db}.${dataset}_${basename}__translation__main(ox_goslim_goa_bool);");
+	};
     } else {
         $logger->info(" Modifying ${dataset}_${basename}__${level_type}__main ...");
         
