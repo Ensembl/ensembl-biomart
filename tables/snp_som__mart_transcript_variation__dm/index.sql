@@ -1,1 +1,0 @@
-ALTER TABLE SPECIES_ABBREV_snp_som__mart_transcript_variation__dm ADD INDEX (variation_feature_id_2026_key), ADD INDEX (stable_id_1023), ADD INDEX (stable_id_1066), ADD INDEX (cdna_start_2090), ADD INDEX (translation_start_2090), ADD INDEX (consequence_types_2090), ADD INDEX (polyphen_prediction_2090), ADD INDEX (sift_prediction_2090);
