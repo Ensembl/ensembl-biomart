@@ -1,1 +1,0 @@
-ALTER TABLE SPECIES_ABBREV_structvar__structural_variation__main ADD INDEX (structural_variation_id_2072_key), ADD INDEX (name_2021), ADD INDEX (variation_name_2072), ADD INDEX (name_20100), ADD INDEX (clinical_significance_2072);

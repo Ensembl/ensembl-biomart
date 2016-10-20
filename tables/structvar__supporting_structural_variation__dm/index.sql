@@ -1,1 +1,0 @@
-ALTER TABLE SPECIES_ABBREV_structvar__supporting_structural_variation__dm ADD INDEX (structural_variation_id_2072_key);
