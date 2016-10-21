@@ -8,7 +8,7 @@ use Bio::EnsEMBL::DBSQL::DBConnection;
 sub run {
     my $self = shift @_;
     my $dataset = $self->param('dataset'); 
-    my $table = $self->param('mart').".${dataset}__genomic_sequence__dna_chunks__main";
+    my $table = $self->param('mart').".${dataset}_genomic_sequence__dna_chunks__main";
     print "Processing $dataset into $table";
     my $mart_dbc = Bio::EnsEMBL::DBSQL::DBConnection->new(
                                                           -USER => $self->param('user'),
