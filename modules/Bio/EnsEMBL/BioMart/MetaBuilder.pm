@@ -59,7 +59,9 @@ my $logger = get_logger();
 my $template_properties = {
          genes      => { type => 'TableSet',        visible => 1 },
          variations => { type => 'TableSet',        visible => 1 },
+         variations_som => { type => 'TableSet',        visible => 1 },
          structural_variations => { type => 'TableSet',        visible => 1 },
+         structural_variations_som => { type => 'TableSet',        visible => 1 },
          sequences  => { type => 'GenomicSequence', visible => 0 } };
 
 =head1 CONSTRUCTOR
@@ -110,19 +112,16 @@ sub new {
   Status     : Stable
 =cut
 
-my $offsets = {
-               "genes"=>0,
-               "variations"=>0,
-               "structural_variations"=>100
-};
 sub build {
   my ( $self, $template_name, $template, $genomic_features_mart ) = @_;
   # create base metatables
   $self->create_metatables( $template_name, $template );
   # read datasets
   my $datasets = $self->get_datasets();
+  # get latest species_id from the dataset_name table
+  my $offsets = $self->{dbc}->sql_helper()->execute_simple( -SQL =>"select max(dataset_id_key) from meta_conf__dataset__main" );
   # avoid clashes for multiple template types
-  my $n        = $offsets->{$template_name} || 0;
+  my $n        = $offsets->[0] || 0;
   for my $dataset ( @{$datasets} ) {
     $dataset->{species_id} = ++$n;
     $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart );
