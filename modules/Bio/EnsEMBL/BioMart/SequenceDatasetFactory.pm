@@ -7,29 +7,20 @@ use Data::Dumper;
 use Bio::EnsEMBL::ApiVersion;
 use Bio::EnsEMBL::DBSQL::DBAdaptor;
 use Bio::EnsEMBL::DBSQL::DBConnection;
+use Bio::EnsEMBL::Registry;
+use Bio::EnsEMBL::ApiVersion qw/software_version/;
 
 sub run {
     my $self = shift @_;
-    my $databases = $self->param('databases');
-    if(!defined $databases) {
-      my $prod_dba = Bio::EnsEMBL::DBSQL::DBAdaptor->new(
-                                                         -USER => $self->param('muser'),
-                                                         -PASS => $self->param('mpass'),
-                                                         -HOST => $self->param('mhost'),
-                                                         -PORT => $self->param('mport'),
-                                                         -DBNAME => $self->param('mdbname')    
-                                                        );
-      
-      $databases = $prod_dba->dbc()->sql_helper()->execute_simple(
-                                                                 -SQL => q/
-select full_db_name from db_list join db using (db_id) 
-join species using (species_id) join division_species using (species_id) join division using (division_id) 
-where db.is_current=1 and db_type='core' and division.name=? and full_db_name not like '%collection%'/,
-                                                                 -PARAMS => [$self->param('division')]
-                                                                );
-      print $self->param('division');
+    my $release = software_version();
 
-    }
+    Bio::EnsEMBL::Registry->load_registry_from_db( -host => $self->param('host'),
+                                                 -user => $self->param('user'),
+                                                 -pass => $self->param('pass'),
+                                                 -port => $self->param('port'),
+                                                 -db_version => $release);
+
+    my $dbas = Bio::EnsEMBL::Registry->get_all_DBAdaptors( -group => 'core' );
 
     my $mart_dbc = Bio::EnsEMBL::DBSQL::DBConnection->new(
                                                           -USER => $self->param('user'),
@@ -59,13 +50,13 @@ create table if not exists dataset_names (
     my $suffix = $self->param('suffix');
 
     my $output_ids = [];
-    for my $database (@$databases) {
-
+    for my $dba (@{$dbas}) {
+      my $database=$dba->dbc()->dbname();
       my $ds = $mart_dbc->sql_helper()->execute_into_hash(
                                                  -SQL => qq/select meta_key,meta_value from ${database}.meta where species_id=1/
                                                 );
 
-      (my $dataset = $database) =~ s/^([a-z])[a-z]+_([^_]+)_.*/$1$2/;
+      (my $dataset = $database) =~ s/^([a-z])[a-z]+.*_([^_]+)_core.*/$1$2/;
       $dataset = $dataset.$suffix;
       
       my $assembly = $ds->{'assembly.name'};
