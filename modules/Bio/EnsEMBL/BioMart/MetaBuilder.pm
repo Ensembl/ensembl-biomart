@@ -119,7 +119,8 @@ sub build {
   # read datasets
   my $datasets = $self->get_datasets();
   # get latest species_id from the dataset_name table
-  my $offsets = $self->{dbc}->sql_helper()->execute_simple( -SQL =>"select max(dataset_id_key) from meta_conf__dataset__main" );
+  my $description="Ensembl $template_name";
+  my $offsets = $self->{dbc}->sql_helper()->execute_simple( -SQL =>"select max(dataset_id_key) from meta_conf__dataset__main where description != '${description}'");
   # avoid clashes for multiple template types
   my $n        = $offsets->[0] || 0;
   for my $dataset ( @{$datasets} ) {
