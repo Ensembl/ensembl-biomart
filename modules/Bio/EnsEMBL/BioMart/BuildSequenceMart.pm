@@ -40,7 +40,7 @@ sequence mediumtext
 )ENGINE=MyISAM MAX_ROWS=100000 AVG_ROW_LENGTH=100000/
 );
     my $row = 1;
-    my $slices = $sa->fetch_all('toplevel',undef,1,1); #default_version,include references (DR52,DR53),include duplicate (eg HAP and PAR)
+    my $slices = $sa->fetch_all('toplevel',undef,1,1,1); #default_version,include references (DR52,DR53),include duplicate (eg HAP and PAR). Include LRGs for human
     my $chunk_size = 100000;
     while( my $slice = shift @{$slices} ){
 
@@ -68,6 +68,7 @@ sequence mediumtext
         $current_base += $chunk_size;
       }
     }
+    create_indexes($mart_dbc, $table);
     return;
 }
 
@@ -82,6 +83,13 @@ sub chunks_to_mart{
                              );
 }
 
+sub create_indexes{
+  my ($dbc, $table)=@_;
+
+  $dbc->sql_helper()->execute_update(
+                              -SQL=>qq/ALTER TABLE $table ADD INDEX (chunk_key), ADD INDEX (chr_name), ADD INDEX (chr_start), ADD INDEX chr_st(chr_name,chr_start)/
+                             );
+}
 
 sub write_output {
     my $self = shift @_;    
