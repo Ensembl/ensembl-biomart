@@ -102,38 +102,38 @@ $logger->info("Opening connection to mart database");
 my ($dba) = @{ $cli_helper->get_dbas_for_opts($opts) };
 
 # for EG, there are specific sets of attributes/filters that we need to unhide in the interface
-my $unhide = {};
-if ( $dba->dbc()->dbname() =~ 'fungi' ) {
-  $unhide->{pbo}           = 1;
-  $unhide->{so}            = 1;
-  $unhide->{mod}           = 1;
-  $unhide->{fypo}          = 1;
-  $unhide->{pbo_closure}   = 1;
-  $unhide->{so_closure}    = 1;
-  $unhide->{mod_closure}   = 1;
-  $unhide->{fypo_closure}  = 1;
-  $unhide->{phi_extension} = 1;
+my $delete = {};
+if ( $dba->dbc()->dbname() !~ 'fungi' ) {
+  $delete->{pbo}           = 1;
+  $delete->{so}            = 1;
+  $delete->{mod}           = 1;
+  $delete->{fypo}          = 1;
+  $delete->{pbo_closure}   = 1;
+  $delete->{so_closure}    = 1;
+  $delete->{mod_closure}   = 1;
+  $delete->{fypo_closure}  = 1;
+  $delete->{phi_extension} = 1;
 }
-elsif ( $dba->dbc()->dbname() =~ 'protists' ) {
-  $unhide->{phi_extension} = 1;
+if ( $dba->dbc()->dbname() !~ 'protists' ) {
+  $delete->{phi_extension} = 1;
 }
-elsif ( $dba->dbc()->dbname() =~ 'plants' ) {
-  $unhide->{po}             = 1;
-  $unhide->{eo}             = 1;
-  $unhide->{to}             = 1;
-  $unhide->{gro}            = 1;
-  $unhide->{gr_tax}         = 1;
-  $unhide->{po_closure}     = 1;
-  $unhide->{eo_closure}     = 1;
-  $unhide->{to_closure}     = 1;
-  $unhide->{gro_closure}    = 1;
-  $unhide->{gr_tax_closure} = 1;
+if ( $dba->dbc()->dbname() !~ 'plants' ) {
+  $delete->{po}             = 1;
+  $delete->{eo}             = 1;
+  $delete->{to}             = 1;
+  $delete->{gro}            = 1;
+  $delete->{gr_tax}         = 1;
+  $delete->{po_closure}     = 1;
+  $delete->{eo_closure}     = 1;
+  $delete->{to_closure}     = 1;
+  $delete->{gro_closure}    = 1;
+  $delete->{gr_tax_closure} = 1;
 }
 
 # build
 my $builder =
   Bio::EnsEMBL::BioMart::MetaBuilder->new( -DBC    => $dba->dbc(),
-                                           -UNHIDE => $unhide,
+                                           -DELETE => $delete,
                                            -BASENAME => $opts->{ds_basename} );
 
 $builder->build( $opts->{template_name}, $templ, $opts->{genomic_features_dbname} );

@@ -3664,7 +3664,7 @@
         <FilterDescription displayName="GO annotations with specified requires_localization" displayType="list" field="requires_localization_acc" internalName="go_requires_localization_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="go_extension__dm" type="text"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup hidden="true" description="Filter on PBO IDs, terms, and evidence codes" displayName="POMBASE ONTOLOGY:" internalName="pbo">
+    <FilterGroup description="Filter on PBO IDs, terms, and evidence codes" displayName="POMBASE ONTOLOGY:" internalName="pbo">
       <FilterCollection displayName="PBO term accession [e.g. PBO:0000001]" internalName="pbo_filters">
         <FilterDescription internalName="pbo_clos" multipleValues="1" pointerDataset="closure_PBO" pointerFilter="pbo_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -3673,7 +3673,7 @@
       </FilterCollection>
       <FilterCollection displayName="PBO evidence code" internalName="pbo_evidence_code">
         <FilterDescription displayName="PBO evidence code" displayType="list" field="linkage_type_1024" internalName="pbo_evidence_code" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_pbo__dm" type="list" useDefault="true">
-          <SpecificFilterContent hidden="true" internalName="replaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="pbo_subject_acc" displayName="PBO annotations with specified subject accession" description="PBO annotations with specified subject accession">
@@ -3806,7 +3806,7 @@
         <FilterDescription displayName="PBO annotations with specified in_presence_of" displayType="list" field="in_presence_of_acc" internalName="pbo_in_presence_of_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="pbo_extension__dm" type="text"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup hidden="true" description="Filter on FYPO IDs, terms, and evidence codes" displayName="FISSION YEAST PHENOTYPE ONTOLOGY:" internalName="fypo">
+    <FilterGroup description="Filter on FYPO IDs, terms, and evidence codes" displayName="FISSION YEAST PHENOTYPE ONTOLOGY:" internalName="fypo">
       <FilterCollection displayName="FYPO term accession [e.g. FYPO:0000001]" internalName="fypo_filters">
         <FilterDescription internalName="fypo_clos" multipleValues="1" pointerDataset="closure_FYPO" pointerFilter="fypo_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -3815,7 +3815,7 @@
       </FilterCollection>
       <FilterCollection displayName="FYPO evidence code" internalName="fypo_evidence_code">
         <FilterDescription displayName="FYPO evidence code" displayType="list" field="linkage_type_1024" internalName="fypo_evidence_code" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_fypo__dm" type="list">
-          <SpecificFilterContent hidden="true" internalName="replaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="with_fypo_evidence" displayName="FYPO annotations with evidence" description="FYPO entries with evidence">
@@ -4004,7 +4004,7 @@
         <FilterDescription displayName="FYPO annotations with specified has_direct_input" displayType="list" field="has_direct_input_acc" internalName="fypo_has_direct_input_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="fypo_extension__dm" type="text"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup hidden="true" description="Filter on SO IDs, terms, and evidence codes" displayName="SEQUENCE ONTOLOGY:" internalName="so">
+    <FilterGroup description="Filter on SO IDs, terms, and evidence codes" displayName="SEQUENCE ONTOLOGY:" internalName="so">
       <FilterCollection displayName="SO term accession [e.g. SO:0000001]" internalName="so_filters">
         <FilterDescription internalName="so_clos" multipleValues="1" pointerDataset="closure_SO" pointerFilter="so_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4013,7 +4013,7 @@
       </FilterCollection>
       <FilterCollection displayName="SO evidence code" internalName="so_evidence_code">
         <FilterDescription displayName="SO Evidence code" displayType="list" field="linkage_type_1024" internalName="so_evidence_code" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_so__dm" type="list">
-          <SpecificFilterContent hidden="true" internalName="replaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="with_so_evidence" displayName="SO annotations with evidence" description="SO entries with evidence">
@@ -4059,7 +4059,7 @@
         <FilterDescription displayName="SO annotations with specified residue" displayType="list" field="residue_acc" internalName="so_residue_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="so_extension__dm" type="text"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup hidden="true" description="Filter on MOD IDs, terms, and evidence codes" displayName="MOD ONTOLOGY:" internalName="mod">
+    <FilterGroup description="Filter on MOD IDs, terms, and evidence codes" displayName="MOD ONTOLOGY:" internalName="mod">
       <FilterCollection displayName="MOD term accession [e.g. MOD:000001]" internalName="mod_filters">
         <FilterDescription internalName="mod_clos" multipleValues="1" pointerDataset="closure_MOD" pointerFilter="mod_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4068,7 +4068,7 @@
       </FilterCollection>
       <FilterCollection displayName="MOD evidence code" internalName="mod_evidence_code">
         <FilterDescription displayName="MOD Evidence code" displayType="list" field="linkage_type_1024" internalName="mod_evidence_code" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_mod__dm" type="list">
-          <SpecificFilterContent hidden="true" internalName="replaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection internalName="with_mod_evidence" displayName="MOD annotations with evidence" description="MOD entries with evidence">
@@ -4240,23 +4240,23 @@
         <FilterDescription displayName="MOD annotations with specified not_during" displayType="list" field="not_during_acc" internalName="mod_not_during_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="mod_extension__dm" type="text"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on PO IDs, terms, and evidence codes" displayName="PLANT ONTOLOGY:" hidden="true" internalName="po">
+    <FilterGroup description="Filter on PO IDs, terms, and evidence codes" displayName="PLANT ONTOLOGY:" internalName="po">
       <FilterCollection displayName="PO term accession [e.g. PO:0009066]" internalName="po_filters">
-        <FilterDescription hidden="true" internalName="po_clos" multipleValues="1" pointerDataset="closure_PO" pointerFilter="po_parent_term" pointerInterface="default"/>
+        <FilterDescription internalName="po_clos" multipleValues="1" pointerDataset="closure_PO" pointerFilter="po_parent_term" pointerInterface="default"/>
       </FilterCollection>
       <FilterCollection displayName="PO term name [e.g. anther]" internalName="po_filters_name">
-        <FilterDescription hidden="true" internalName="po_name" pointerDataset="closure_PO" pointerFilter="po_parent_name" pointerInterface="default"/>
+        <FilterDescription internalName="po_name" pointerDataset="closure_PO" pointerFilter="po_parent_name" pointerInterface="default"/>
       </FilterCollection>
       <FilterCollection displayName="PO evidence code" internalName="po_evidence_code">
-        <FilterDescription displayName="PO evidence code" displayType="list" field="linkage_type_1024" hidden="true" internalName="po_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_po__dm" type="list">
+        <FilterDescription displayName="PO evidence code" displayType="list" field="linkage_type_1024" internalName="po_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_po__dm" type="list">
           <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="bdistachyon_eg_gene"/>
           <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="sbicolor_eg_gene"/>
           <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="ptrichocarpa_eg_gene"/>
-          <SpecificFilterContent hidden="true" internalName="replaceMe"/>
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on EO IDs, terms, and evidence codes" displayName="ENVIRONMENT ONTOLOGY:" hidden="true" internalName="eo">
+    <FilterGroup description="Filter on EO IDs, terms, and evidence codes" displayName="ENVIRONMENT ONTOLOGY:" internalName="eo">
       <FilterCollection displayName="EO term accession [e.g. EO:0007001]" internalName="eo_filters">
         <FilterDescription internalName="eo_clos" multipleValues="1" pointerDataset="closure_EO" pointerFilter="eo_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4269,7 +4269,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on GR TAX IDs, terms, and evidence codes" displayName="GRAMENE TAXONOMIC ONTOLOGY:" hidden="true" internalName="gr_tax">
+    <FilterGroup description="Filter on GR TAX IDs, terms, and evidence codes" displayName="GRAMENE TAXONOMIC ONTOLOGY:" internalName="gr_tax">
       <FilterCollection displayName="GR TAX term accession [e.g. GR_tax:078858]" internalName="gr_tax_filters">
         <FilterDescription internalName="gr_tax_clos" multipleValues="1" pointerDataset="closure_GR_TAX" pointerFilter="gr_tax_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4282,7 +4282,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on GRO IDs, terms, and evidence codes" displayName="GROWTH STAGE ONTOLOGY:" hidden="true" internalName="gro">
+    <FilterGroup description="Filter on GRO IDs, terms, and evidence codes" displayName="GROWTH STAGE ONTOLOGY:" internalName="gro">
       <FilterCollection displayName="GRO term accession [e.g. GRO:0007114]" internalName="gro_filters">
         <FilterDescription internalName="gro_clos" multipleValues="1" pointerDataset="closure_GRO" pointerFilter="gro_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4295,7 +4295,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on TO IDs, terms, and evidence codes" displayName="TRAIT ONTOLOGY:" hidden="true" internalName="to">
+    <FilterGroup description="Filter on TO IDs, terms, and evidence codes" displayName="TRAIT ONTOLOGY:" internalName="to">
       <FilterCollection displayName="TO term accession [e.g. TO:0050789]" internalName="to_filters">
         <FilterDescription internalName="to_clos" multipleValues="1" pointerDataset="closure_TO" pointerFilter="to_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -5184,7 +5184,7 @@
         <AttributeDescription displayName="GO requires_localization accession" field="requires_localization_acc" internalName="go_requires_localization_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="go_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="GO requires_localization database" field="requires_localization_db" internalName="go_requires_localization_db" key="transcript_id_1064_key" maxLength="3" tableConstraint="go_extension__dm" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="PBO" hidden="true" internalName="pbo_transc_closure">
+      <AttributeCollection displayName="PBO" internalName="pbo_transc_closure">
         <AttributeDescription displayName="PBO term accession" field="dbprimary_acc_1074" internalName="pbo_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_pbo__dm"/>
         <AttributeDescription displayName="PBO term name" field="name_1006" internalName="pbo_name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_pbo__dm"/>
         <AttributeDescription displayName="PBO term definition" field="definition_1006" internalName="pbo_definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_pbo__dm"/>
@@ -5218,7 +5218,7 @@
         <AttributeDescription displayName="PBO in_presence_of accession" field="in_presence_of_acc" internalName="pbo_in_presence_of_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="PBO in_presence_of database" field="in_presence_of_db" internalName="pbo_in_presence_of_db" key="transcript_id_1064_key" maxLength="3" tableConstraint="pbo_extension__dm" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="FYPO" hidden="true" internalName="fypo_transc_closure">
+      <AttributeCollection displayName="FYPO" internalName="fypo_transc_closure">
         <AttributeDescription displayName="FYPO term accession" field="dbprimary_acc_1074" internalName="fypo_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_fypo__dm"/>
         <AttributeDescription displayName="FYPO term name" field="name_1006" internalName="fypo_name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_fypo__dm"/>
         <AttributeDescription displayName="FYPO term definition" field="definition_1006" internalName="fypo_definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_fypo__dm"/>
@@ -5264,7 +5264,7 @@
         <AttributeDescription displayName="FYPO has_direct_input accession" field="has_direct_input_acc" internalName="fypo_has_direct_input_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="fypo_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="FYPO has_direct_input database" field="has_direct_input_db" internalName="fypo_has_direct_input_db" key="transcript_id_1064_key" maxLength="3" tableConstraint="fypo_extension__dm" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="MOD" hidden="true" internalName="mod_transc_closure">
+      <AttributeCollection displayName="MOD" internalName="mod_transc_closure">
         <AttributeDescription displayName="MOD term accession" field="dbprimary_acc_1074" internalName="mod_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_mod__dm"/>
         <AttributeDescription displayName="MOD term name" field="name_1006" internalName="name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_mod__dm"/>
         <AttributeDescription displayName="MOD term definition" field="definition_1006" internalName="definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_mod__dm"/>
@@ -5307,7 +5307,7 @@
         <AttributeDescription displayName="MOD not_during accession" field="not_during_acc" internalName="mod_not_during_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="mod_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="MOD not_during database" field="not_during_db" internalName="mod_not_during_db" key="transcript_id_1064_key" maxLength="3" tableConstraint="mod_extension__dm" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="SO" hidden="true" internalName="so_closure">
+      <AttributeCollection displayName="SO" internalName="so_closure">
         <AttributeDescription displayName="SO term accession" field="dbprimary_acc_1074" internalName="so_accession" key="transcript_id_1064_key" linkoutURL="exturl|http://www.pombase.org" maxLength="40" tableConstraint="ontology_so__dm"/>
         <AttributeDescription displayName="SO term name" field="name_1006" internalName="so_name_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_so__dm"/>
         <AttributeDescription displayName="SO term definition" field="definition_1006" internalName="so_definition_1006" key="transcript_id_1064_key" maxLength="255" tableConstraint="ontology_so__dm"/>
@@ -5323,7 +5323,7 @@
         <AttributeDescription displayName="SO residue accession" field="residue_acc" internalName="so_residue_acc" key="transcript_id_1064_key" maxLength="3" tableConstraint="so_extension__dm" useDefault="true"/>
         <AttributeDescription displayName="SO residue database" field="residue_db" internalName="so_residue_db" key="transcript_id_1064_key" maxLength="3" tableConstraint="so_extension__dm" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="PO" hidden="true" internalName="po_closure">
+      <AttributeCollection displayName="PO" internalName="po_closure">
         <AttributeDescription displayName="PO term accession (bp)" field="dbprimary_acc_1074" internalName="po_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.genpontology.org/cgi-bin/amigo/term-details.cgi?term=%s" maxLength="40" tableConstraint="ontology_po__dm" useDefault="true">
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="bdistachyon_eg_gene" key="transcript_id_1064_key"/>
           <SpecificAttributeContent field="dbprimary_acc_1074" internalName="sbicolor_eg_gene" key="transcript_id_1064_key"/>
