@@ -39,12 +39,12 @@ chr_start int(10) not null default '0',
 sequence mediumtext
 )ENGINE=MyISAM MAX_ROWS=100000 AVG_ROW_LENGTH=100000/
 );
-    my $row = 0;
+    my $row = 1;
     my $slices = $sa->fetch_all('toplevel',undef,1,1); #default_version,include references (DR52,DR53),include duplicate (eg HAP and PAR)
     my $chunk_size = 100000;
     while( my $slice = shift @{$slices} ){
 
-      my $chr_name = "\'".$slice->seq_region_name."\'";
+      my $chr_name = $slice->seq_region_name;
       print "Processing $chr_name\n";
       
       my $current_base = 1;
@@ -63,7 +63,7 @@ sequence mediumtext
         my $sub_slice = $slice->sub_Slice($current_base,
                                           $current_base+$step);
         
-        my $chr_start = "\'".$current_base."\'";
+        my $chr_start = $current_base;
         chunks_to_mart($mart_dbc, $table, $row++, $chr_name, $chr_start, $sub_slice->seq);
         $current_base += $chunk_size;
       }
@@ -74,7 +74,6 @@ sequence mediumtext
 sub chunks_to_mart{
   my ($dbc, $table, $row, $chr_name, $chr_start, $seq)=@_;
 
-  my $current_base = 0;
   my $length = length($seq);
   
   $dbc->sql_helper()->execute_update(
