@@ -61,13 +61,14 @@ create table if not exists $mart.dataset_names (
   my $division   = $self->param('division');
   for my $dba ( @{$dbas} ) {
 
-    if ( defined $division &&
-         $dba->get_MetaContainer()->get_division() ne $division )
-    {
-      $dba->dbc()->disconnect_if_idle();
-      next;
-    }
-
+    if ( $dba->dbc()->dbname() =~ m/_collection_/ || 
+         (defined $division &&
+          $dba->get_MetaContainer()->get_division() ne $division ))
+      {
+        $dba->dbc()->disconnect_if_idle();
+        next;
+      }
+    
     my $database = $dba->dbc()->dbname();
     my $ds =
       $mart_dbc->sql_helper()
