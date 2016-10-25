@@ -72,8 +72,8 @@ my $template_properties = {
     Integer : EG/E version (by default the last number in the mart name)
  Arg [-MAX_DROPDOWN] :
     Integer : Maximum number of items to show in a dropdown menu (default 256)
- Arg [-UNHIDE] :
-    Hashref : attributes/filters to unhide for this mart (mainly domain specific ontologies)
+ Arg [-DELETE] :
+    Hashref : attributes/filters to delete for this mart (mainly domain specific ontologies)
  Arg [-BASENAME] :
     String : Base name of dataset - default is "gene"
   Example    : $b = Bio::EnsEMBL::BioMart::MetaBuilder->new(...);
@@ -89,8 +89,8 @@ sub new {
   my ( $proto, @args ) = @_;
   my $self = bless {}, $proto;
   ( $self->{dbc},    $self->{version}, $self->{max_dropdown},
-    $self->{unhide}, $self->{basename} )
-    = rearrange( [ 'DBC', 'VERSION', 'MAX_DROPDOWN', 'UNHIDE', 'BASENAME' ],
+    $self->{delete}, $self->{basename} )
+    = rearrange( [ 'DBC', 'VERSION', 'MAX_DROPDOWN', 'DELETE', 'BASENAME' ],
                  @args );
 
   if ( !defined $self->{version} ) {
@@ -342,7 +342,6 @@ sub write_filters {
   $logger->info( "Writing filters for " . $dataset->{name} );
   # FilterPage
   for my $filterPage ( @{ elem_as_array( $templ_in->{FilterPage}) } ) {
-    my $page_hidden = 1;
     $logger->debug( "Processing filterPage " . $filterPage->{internalName} );
     # count the number of groups we add
     my $nG = 0;
@@ -351,24 +350,19 @@ sub write_filters {
 
     ## FilterGroup
     for my $filterGroup ( @{ elem_as_array($filterPage->{FilterGroup}) } ) {
-      my $group_hidden = 1;
       my $nC = 0;
       normalise( $filterGroup, "FilterCollection" );
       my $fgo = copy_hash($filterGroup);
-      $fgo->{hidden} = $fpo->{hidden} if (defined $fpo->{hidden} && !defined $self->{unhide}->{$fpo->{internalName}});
       ### Filtercollection
       for my $filterCollection ( @{ elem_as_array($filterGroup->{FilterCollection}) } ) {
-        my $collection_hidden = 1;
         my $nD = 0;
         normalise( $filterCollection, "FilterDescription" );
         my $fco = copy_hash($filterCollection);
-        $fco->{hidden} = $fgo->{hidden} if (defined $fgo->{hidden} && !defined $self->{unhide}->{$fgo->{internalName}});
         ### FilterDescription
         for
           my $filterDescription ( @{ elem_as_array($filterCollection->{FilterDescription}) } )
         {
           my $fdo = copy_hash($filterDescription);
-          $fdo->{hidden} = $fco->{hidden}  if (defined $fco->{hidden} && !defined $self->{unhide}->{$fco->{internalName}});
           #### pointerDataSet *species3*
           $fdo->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/
             if defined $fdo->{pointerDataset};
@@ -378,9 +372,6 @@ sub write_filters {
           #### if contains options, treat differently
           #### if its called homolog_filters, add the homologs here
           if ( $fdo->{internalName} eq 'homolog_filters' ) {
-            $page_hidden = 0;
-            $group_hidden = 0;
-            $collection_hidden = 0;
             # check for paralogues
             my $table = "${ds_name}__gene__main";
             {
@@ -469,7 +460,7 @@ sub write_filters {
                                   value        => "excluded" } ] };
               } ## end if ( defined $self->{tables...})
             } ## end for my $homo_dataset (@$datasets)
-            push @{ $fco->{FilterDescription} }, $fdo;
+            push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
           } ## end if ( $fdo->{internalName...})
           elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'container' ) {
@@ -502,7 +493,7 @@ sub write_filters {
             } ## end for my $option ( @{ $filterDescription...})
             if ( $nO > 0 ) {
               
-              push @{ $fco->{FilterDescription} }, $fdo;
+              push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
               $nD++;
             }
           } ## end elsif ( $fdo->{displayType... [ if ( $fdo->{internalName...})]})
@@ -519,7 +510,7 @@ sub write_filters {
                 $nO++;
              }
              if ( $nO > 0 ) {
-              push @{ $fco->{FilterDescription} }, $fdo;
+              push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
               $nD++;
             }
           }
@@ -637,12 +628,7 @@ sub write_filters {
                   }
 
                 } ## end if ( defined $filterDescription...)
-                if(!defined $fdo->{hidden} || $fdo->{hidden} ne 'true') {
-                  $page_hidden = 0;
-                  $group_hidden = 0;
-                  $collection_hidden = 0;
-                }
-                push @{ $fco->{FilterDescription} }, $fdo;
+                push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
                 $nD++;
               } ## end if ( defined $self->{tables...})
               else {
@@ -654,12 +640,7 @@ sub write_filters {
               }
             } ## end if ( defined $fdo->{tableConstraint...})
             else {
-              push @{ $fco->{FilterDescription} }, $fdo;
-              if(!defined $fdo->{hidden} || $fdo->{hidden} ne 'true') {
-                $page_hidden = 0;
-                $group_hidden = 0;
-                $collection_hidden = 0;
-              }
+              push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
               $nD++;
             }
             #### otherFilters *species4*
@@ -676,53 +657,18 @@ sub write_filters {
           } ## end else [ if ( $fdo->{internalName...})]
         } ## end for my $filterDescription...
         if ( $nD > 0 ) {
-          if ( defined $fco->{hidden} &&
-               $fco->{hidden} eq "true" &&
-               defined $self->{unhide}->{ $fco->{internalName} } )
-            {
-              $page_hidden = 0;
-              $group_hidden = 0;
-              $collection_hidden = 0;
-            }
-          if($collection_hidden == 1) {
-            $logger->info("Hiding FilterCollection ".$fco->{internalName});
-            $fco->{hidden} = "true";
-          } else {
-            $fco->{hidden} = "false";
-          }
-          push @{ $fgo->{FilterCollection} }, $fco;
+          push @{ $fgo->{FilterCollection} }, $fco unless exists $self->{delete}{$fco->{internalName}};
           $nC++;
         }
       } ## end for my $filterCollection...
 
       if ( $nC > 0 ) {
-        push @{ $fpo->{FilterGroup} }, $fgo;
+        push @{ $fpo->{FilterGroup} }, $fgo unless exists $self->{delete}{$fgo->{internalName}};
         $nG++;
-        if ( defined $fgo->{hidden} &&
-             $fgo->{hidden} eq "true" &&
-             defined $self->{unhide}->{ $fgo->{internalName} } )
-        {
-          $page_hidden = 0;
-          $group_hidden = 0;
-        }
-
-        if($group_hidden == 1) {
-          $logger->info("Hiding FilterGroup ".$fgo->{internalName});
-          $fgo->{hidden} = "true";
-        } else {
-          $fgo->{hidden} = "false";
-        }
-
       }
     } ## end for my $filterGroup ( @...)
     if ( $nG > 0 ) {
-      if($page_hidden == 1) {
-        $logger->info("Hiding FilterPage ".$fpo->{internalName});
-        $fpo->{hidden} = "true";
-      } else {
-        $fpo->{hidden} = "false";
-      }
-      push @{ $templ_out->{FilterPage} }, $fpo;
+      push @{ $templ_out->{FilterPage} }, $fpo unless exists $self->{delete}{$fpo->{internalName}};
     }
   } ## end for my $filterPage ( @{...})
   return;
@@ -735,7 +681,6 @@ sub write_attributes {
   my $templ_out = $dataset->{config};
   # AttributePage
   for my $attributePage ( @{ elem_as_array($templ_in->{AttributePage}) } ) {
-    my $page_hidden = 1;
     $logger->debug( "Processing filterPage " . $attributePage->{internalName} );
     # count the number of groups we add
     my $nG = 0;
@@ -744,14 +689,11 @@ sub write_attributes {
 
     ## AttributeGroup
     for my $attributeGroup ( @{ $attributePage->{AttributeGroup} } ) {
-      my $group_hidden = 1;
       my $nC = 0;
       normalise( $attributeGroup, "AttributeCollection" );
       my $ago = copy_hash($attributeGroup);
       #### add the homologs here
       if ( $ago->{internalName} eq 'orthologs' ) {
-        $page_hidden = 0;
-        $group_hidden = 0;
         #Sorting orthologues, Paralogues and homeologues attribute by dataset display name
         @$datasets = sort { $a->{display_name} cmp $b->{display_name} } @$datasets;
         for my $dataset (@$datasets) {
@@ -866,8 +808,6 @@ sub write_attributes {
         } ## end for my $dataset (@$datasets)
       } ## end if ( $ago->{internalName...})
       elsif ( $ago->{internalName} eq 'paralogs' ) {
-        $page_hidden = 0;
-        $group_hidden = 0;
         my $table = "${ds_name}__paralog_$dataset->{name}__dm";
         if ( defined $self->{tables}->{$table} ) {
           push @{ $ago->{AttributeCollection} }, {
@@ -966,8 +906,6 @@ sub write_attributes {
 
       } ## end elsif ( $ago->{internalName... [ if ( $ago->{internalName...})]})
       elsif ( $ago->{internalName} eq 'homeologs' ) {
-        $page_hidden = 0;
-        $group_hidden = 0;        
         my $table = "${ds_name}__homeolog_$dataset->{name}__dm";
         if ( defined $self->{tables}->{$table} ) {
           push @{ $ago->{AttributeCollection} }, {
@@ -1065,16 +1003,13 @@ sub write_attributes {
                                    @{ $attributeGroup->{AttributeCollection} } )
         {
           my $nD = 0;
-          my $collection_hidden = 1;
           normalise( $attributeCollection, "AttributeDescription" );
           my $aco = copy_hash($attributeCollection);
-          $aco->{hidden} = $apo->{hidden} if (defined $apo->{hidden} && !defined $self->{unhide}->{$aco->{internalName}});
           ### AttributeDescription
           for my $attributeDescription (
                              @{ $attributeCollection->{AttributeDescription} } )
           {
             my $ado = copy_hash($attributeDescription);
-            $ado->{hidden} = $aco->{hidden} if (defined $aco->{hidden} && !defined $self->{unhide}->{$aco->{internalName}});
             #### pointerDataSet *species3*
             $ado->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/
              if defined $ado->{pointerDataset};
@@ -1096,10 +1031,6 @@ sub write_attributes {
                    defined $self->{tables}->{ $ado->{tableConstraint} }
                    ->{ $ado->{key} } ) )
               {
-                if(!defined $ago->{hidden} || $ado->{hidden} ne 'true') {
-                  $page_hidden = 0;
-                  $group_hidden = 0;
-                }
                 push @{ $aco->{AttributeDescription} }, $ado;
                 $nD++;
               }
@@ -1114,11 +1045,6 @@ sub write_attributes {
             else {
               $ado->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/g
                 if defined $ado->{pointerDataset};
-
-              if(!defined $ado->{hidden} || $ado->{hidden} ne 'true') {
-                $page_hidden = 0;
-                $group_hidden = 0;
-              }
 
               push @{ $aco->{AttributeDescription} }, $ado;
               $nD++;
@@ -1135,39 +1061,11 @@ sub write_attributes {
 
           if ( $nD > 0 ) {
             
-            if ( defined $aco->{hidden} &&
-                 $aco->{hidden} eq "true" &&
-                 defined $self->{unhide}->{ $aco->{internalName} } )
-              {
-                $collection_hidden = 0;
-                $page_hidden = 0;
-                $group_hidden = 0;
-              }
-            
-            if(!defined $aco->{hidden} || $aco->{hidden} ne 'true') {
-              $page_hidden = 0;
-              $group_hidden = 0;
-            }
-            if($collection_hidden==0 && defined $aco->{hidden}) {
-              $aco->{hidden} = 'false';
-            }
             push @{ $ago->{AttributeCollection} }, $aco;
             $nC++;
           }
         } ## end for my $attributeCollection...
       } ## end else [ if ( $ago->{internalName...})]
-
-      if ( defined $ago->{hidden} &&
-           $ago->{hidden} eq "true" &&
-           defined $self->{unhide}->{ $ago->{internalName} } )
-      {
-        $page_hidden = 0;
-        $group_hidden = 0;
-      }
-
-      if($group_hidden == 1) {
-        $ago->{hidden} = "true";
-      }
 
       if ( $nC > 0 ) {
         push @{ $apo->{AttributeGroup} }, $ago;
@@ -1176,11 +1074,6 @@ sub write_attributes {
     } ## end for my $attributeGroup ...
 
     if ( $nG > 0 ) {
-
-      if($page_hidden == 1) {
-        $apo->{hidden} = "true";
-      }
-
       $apo->{outFormats} =~ s/,\*mouse_formatter[123]\*//g
         if defined $apo->{outFormats};
       push @{ $templ_out->{AttributePage} }, $apo;
