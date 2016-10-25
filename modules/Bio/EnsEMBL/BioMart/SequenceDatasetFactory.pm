@@ -50,7 +50,14 @@ create table if not exists dataset_names (
     my $suffix = $self->param('suffix');
 
     my $output_ids = [];
+    my $division = $self->param('division');
     for my $dba (@{$dbas}) {
+
+        if(defined $division && $dba->get_MetaContainer()->get_division() ne $division ) {
+            $dba->dbc()->disconnect_if_idle();
+            next;
+        }
+
       my $database=$dba->dbc()->dbname();
       my $ds = $mart_dbc->sql_helper()->execute_into_hash(
                                                  -SQL => qq/select meta_key,meta_value from ${database}.meta where species_id=1/
@@ -80,9 +87,9 @@ create table if not exists dataset_names (
                                                         $genebuild,                                                        
                                                         0
                                                        ]
-                                              );
+          );
       push @$output_ids, {dataset=>$dataset};
-
+        $dba->dbc()->disconnect_if_idle();
     }
     $self->param('output_ids',$output_ids);
     
