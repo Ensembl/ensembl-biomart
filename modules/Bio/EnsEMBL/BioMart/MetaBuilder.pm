@@ -96,7 +96,6 @@ sub new {
   if ( !defined $self->{version} ) {
     ( $self->{version} = $self->{dbc}->dbname() ) =~ s/.*_([0-9]+)$/$1/;
   }
-  $self->{max_dropdown} ||= 20000;
   $self->_load_info();
   return $self;
 }
