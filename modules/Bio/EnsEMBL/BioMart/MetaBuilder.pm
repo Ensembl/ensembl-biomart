@@ -144,9 +144,11 @@ sub get_datasets {
   my $datasets =
     $self->{dbc}->sql_helper()->execute(
     -SQL =>
-'select name, species_name as display_name, sql_name as production_name, assembly, genebuild from dataset_names',
+'select name, species_name as display_name, sql_name as production_name, assembly, genebuild from dataset_names order by name',
     -USE_HASHREFS => 1 );
   $logger->debug( "Found " . scalar(@$datasets) . " datasets" );
+  #Sorting orthologues, Paralogues and homeologues attribute by dataset display name
+  $datasets = [sort { $a->{display_name} cmp $b->{display_name} } @$datasets];
   return $datasets;
 }
 
@@ -463,7 +465,7 @@ sub write_filters {
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
           } ## end if ( $fdo->{internalName...})
-          elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'container' ) {
+          elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'container') {
             my $nO = 0;
             normalise( $filterDescription, "Option" );
             for my $option ( @{ $filterDescription->{Option} } ) {
@@ -500,19 +502,34 @@ sub write_filters {
           # Extra code to deal with Boolean filters
           elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'list' && $fdo->{type} eq 'boolean' && defined $filterDescription->{Option}){
             my $nO = 0;
-            normalise( $filterDescription, "Option" );
-            for my $option ( @{ $filterDescription->{Option} } ) {
-              my $opt = copy_hash($option);
-              push @{ $fdo->{Option} }, $opt;
-                for my $o ( @{ $option->{Option} } ) {
-                  push @{ $opt->{Option} }, $o;
+            if ( defined $self->{tables}->{ $filterDescription->{tableConstraint} } &&
+                   defined $self->{tables}->{ $filterDescription->{tableConstraint} }
+                   ->{ $filterDescription->{field} } &&
+                   ( !defined $filterDescription->{key} ||
+                     defined $self->{tables}->{ $filterDescription->{tableConstraint} }
+                     ->{ $filterDescription->{key} } ) )
+              {
+                normalise( $filterDescription, "Option" );
+                for my $option ( @{ $filterDescription->{Option} } ) {
+                  my $opt = copy_hash($option);
+                  push @{ $fdo->{Option} }, $opt;
+                  for my $o ( @{ $option->{Option} } ) {
+                    push @{ $opt->{Option} }, $o;
+                  }
+                  $nO++;
                 }
-                $nO++;
-             }
-             if ( $nO > 0 ) {
-              push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
-              $nD++;
-            }
+                if ( $nO > 0 ) {
+                  push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
+                  $nD++;
+                }
+              } else {
+                $logger->debug( "Could not find table " .
+                                ( $filterDescription->{tableConstraint} || 'undef' ) . " field " .
+                                ( $filterDescription->{field}           || 'undef' ) . ", Key " .
+                                ( $filterDescription->{key} || 'undef' ) . ", FilterDescription " .
+                                $filterDescription->{internalName} );
+              }
+            restore_main( $filterDescription, $ds_name );
           }
           ### end elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'list' && $fdo->{type} eq 'boolean' && defined $filterDescription->{Option})
           else {
@@ -704,118 +721,116 @@ sub write_attributes {
       my $ago = copy_hash($attributeGroup);
       #### add the homologs here
       if ( $ago->{internalName} eq 'orthologs' ) {
-        #Sorting orthologues, Paralogues and homeologues attribute by dataset display name
-        @$datasets = sort { $a->{display_name} cmp $b->{display_name} } @$datasets;
-        for my $dataset (@$datasets) {
-          my $table = "${ds_name}__homolog_$dataset->{name}__dm";
+        for my $o_dataset (@$datasets) {
+          my $table = "${ds_name}__homolog_$o_dataset->{name}__dm";
           if ( defined $self->{tables}->{$table} ) {
             push @{ $ago->{AttributeCollection} }, {
-              displayName          => "$dataset->{display_name} Orthologues",
-              internalName         => "homolog_$dataset->{name}",
+              displayName          => "$o_dataset->{display_name} Orthologues",
+              internalName         => "homolog_$o_dataset->{name}",
               AttributeDescription => [ {
-                  displayName  => "$dataset->{display_name} gene stable ID",
+                  displayName  => "$o_dataset->{display_name} gene stable ID",
                   field        => "stable_id_4016_r2",
-                  internalName => "$dataset->{name}_homolog_ensembl_gene",
+                  internalName => "$o_dataset->{name}_homolog_ensembl_gene",
                   key          => "gene_id_1020_key",
                   linkoutURL =>
-                    "exturl1|/$dataset->{production_name}/Gene/Summary?g=%s",
+                    "exturl1|/$o_dataset->{production_name}/Gene/Summary?g=%s",
                   maxLength       => "128",
                   tableConstraint => $table }, {
-                  displayName  => "$dataset->{display_name} associated gene name",
+                  displayName  => "$o_dataset->{display_name} associated gene name",
                   field        => "display_label_40273_r1",
-                  linkoutURL  => "exturl|/*species2*/Gene/Summary?g=%s|$dataset->{name}_homolog_ensembl_gene",
-                  internalName => "$dataset->{name}_homolog_associated_gene_name",
+                  linkoutURL  => "exturl|/*species2*/Gene/Summary?g=%s|$o_dataset->{name}_homolog_ensembl_gene",
+                  internalName => "$o_dataset->{name}_homolog_associated_gene_name",
                   key          => "gene_id_1020_key",
                   maxLength    => "128",
                   tableConstraint => $table },{
-                  displayName  => "$dataset->{display_name} protein or transcript stable ID",
+                  displayName  => "$o_dataset->{display_name} protein or transcript stable ID",
                   field        => "stable_id_4016_r3",
-                  internalName => "$dataset->{name}_homolog_ensembl_peptide",
+                  internalName => "$o_dataset->{name}_homolog_ensembl_peptide",
                   key          => "gene_id_1020_key",
                   maxLength    => "128",
                   tableConstraint => $table }, {
-                  displayName => "$dataset->{display_name} chromosome/scaffold name",
+                  displayName => "$o_dataset->{display_name} chromosome/scaffold name",
                   field       => "chr_name_4016_r2",
-                  internalName    => "$dataset->{name}_homolog_chromosome",
+                  internalName    => "$o_dataset->{name}_homolog_chromosome",
                   key             => "gene_id_1020_key",
                   maxLength       => "40",
                   tableConstraint => $table }, {
-                  displayName     => "$dataset->{display_name} chromosome/scaffold start (bp)",
+                  displayName     => "$o_dataset->{display_name} chromosome/scaffold start (bp)",
                   field           => "chr_start_4016_r2",
-                  internalName    => "$dataset->{name}_homolog_chrom_start",
+                  internalName    => "$o_dataset->{name}_homolog_chrom_start",
                   key             => "gene_id_1020_key",
                   maxLength       => "10",
                   tableConstraint => $table }, {
-                  displayName     => "$dataset->{display_name} chromosome/scaffold end (bp)",
+                  displayName     => "$o_dataset->{display_name} chromosome/scaffold end (bp)",
                   field           => "chr_end_4016_r2",
-                  internalName    => "$dataset->{name}_homolog_chrom_end",
+                  internalName    => "$o_dataset->{name}_homolog_chrom_end",
                   key             => "gene_id_1020_key",
                   maxLength       => "10",
                   tableConstraint => $table }, {
                   displayName => "Query protein or transcript ID",
                   field       => "stable_id_4016_r1",
                   internalName =>
-                    "$dataset->{name}_homolog_canonical_transcript_protein",
+                    "$o_dataset->{name}_homolog_canonical_transcript_protein",
                   key             => "gene_id_1020_key",
                   maxLength       => "128",
                   tableConstraint => $table }, {
-                  displayName     => "Last common ancestor with $dataset->{display_name}",
+                  displayName     => "Last common ancestor with $o_dataset->{display_name}",
                   field           => "node_name_40192",
-                  internalName    => "$dataset->{name}_homolog_subtype",
+                  internalName    => "$o_dataset->{name}_homolog_subtype",
                   key             => "gene_id_1020_key",
                   maxLength       => "40",
                   tableConstraint => $table }, {
-                  displayName     => "$dataset->{display_name} homology type",
+                  displayName     => "$o_dataset->{display_name} homology type",
                   field           => "description_4014",
-                  internalName    => "$dataset->{name}_homolog_orthology_type",
+                  internalName    => "$o_dataset->{name}_homolog_orthology_type",
                   key             => "gene_id_1020_key",
                   maxLength       => "25",
                   tableConstraint => $table }, {
-                  displayName     => "%id. target $dataset->{display_name} gene identical to query gene",
+                  displayName     => "%id. target $o_dataset->{display_name} gene identical to query gene",
                   field           => "perc_id_4015",
-                  internalName    => "$dataset->{name}_homolog_perc_id",
+                  internalName    => "$o_dataset->{name}_homolog_perc_id",
                   key             => "gene_id_1020_key",
                   maxLength       => "10",
                   tableConstraint => $table }, {
-                  displayName     => "%id. query gene identical to target $dataset->{display_name} gene",
+                  displayName     => "%id. query gene identical to target $o_dataset->{display_name} gene",
                   field           => "perc_id_4015_r1",
-                  internalName    => "$dataset->{name}_homolog_perc_id_r1",
+                  internalName    => "$o_dataset->{name}_homolog_perc_id_r1",
                   key             => "gene_id_1020_key",
                   maxLength       => "10",
                   tableConstraint => $table },{
-                  displayName     => "$dataset->{display_name} Gene-order conservation score",
+                  displayName     => "$o_dataset->{display_name} Gene-order conservation score",
                   field           => "goc_score_4014",
-                  internalName    => "$dataset->{name}_homolog_goc_score",
+                  internalName    => "$o_dataset->{name}_homolog_goc_score",
                   key             => "gene_id_1020_key",
                   maxLength       => "10",
                   tableConstraint => $table },{
-                  displayName     => "$dataset->{display_name} Whole-genome alignment coverage",
+                  displayName     => "$o_dataset->{display_name} Whole-genome alignment coverage",
                   field           => "wga_coverage_4014",
-                  internalName    => "$dataset->{name}_homolog_wga_coverage",
+                  internalName    => "$o_dataset->{name}_homolog_wga_coverage",
                   key             => "gene_id_1020_key",
                   maxLength       => "5",
                   tableConstraint => $table }, {
-                  displayName     => "dN with $dataset->{display_name}",
+                  displayName     => "dN with $o_dataset->{display_name}",
                   field           => "dn_4014",
-                  internalName    => "$dataset->{name}_homolog_dn",
+                  internalName    => "$o_dataset->{name}_homolog_dn",
                   key             => "gene_id_1020_key",
                   maxLength       => "10",
                   tableConstraint => $table }, {
-                  displayName     => "dS with $dataset->{display_name}",
+                  displayName     => "dS with $o_dataset->{display_name}",
                   field           => "ds_4014",
-                  internalName    => "$dataset->{name}_homolog_ds",
+                  internalName    => "$o_dataset->{name}_homolog_ds",
                   key             => "gene_id_1020_key",
                   maxLength       => "10",
                   tableConstraint => $table }, {
-                  displayName  => "$dataset->{display_name} orthology confidence [0 low, 1 high]",
+                  displayName  => "$o_dataset->{display_name} orthology confidence [0 low, 1 high]",
                   field        => "is_high_confidence_4014",
-                  internalName => "$dataset->{name}_homolog_orthology_confidence",
+                  internalName => "$o_dataset->{name}_homolog_orthology_confidence",
                   key          => "gene_id_1020_key",
                   maxLength    => "10",
                   tableConstraint => $table } ] };
             $nC++;
           } ## end if ( defined $self->{tables...})
-        } ## end for my $dataset (@$datasets)
+        } ## end for my $o_dataset (@$datasets)
       } ## end if ( $ago->{internalName...})
       elsif ( $ago->{internalName} eq 'paralogs' ) {
         my $table = "${ds_name}__paralog_$dataset->{name}__dm";
