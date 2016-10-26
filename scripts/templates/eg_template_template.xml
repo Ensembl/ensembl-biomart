@@ -4507,13 +4507,13 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Transmembrane domains" internalName="transmembrane">
-        <FilterDescription displayName="Transmembrane domains" displayType="list" field="protein_feature_Tmhmm_bool" internalName="with_transmembrane_domain" key="translation_id_1068_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+        <FilterDescription displayName="Transmembrane domains" displayType="list" field="protein_feature_tmhmm_bool" internalName="with_transmembrane_domain" key="translation_id_1068_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean">
           <Option displayName="Only" internalName="only" value="only"/>
           <Option displayName="Excluded" internalName="excluded" value="excluded"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Signal domains" internalName="signaldomain">
-        <FilterDescription displayName="Signal domains" displayType="list" field="protein_feature_Signalp_bool" internalName="with_signal_domain" key="translation_id_1068_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+        <FilterDescription displayName="Signal domains" displayType="list" field="protein_feature_signalp_bool" internalName="with_signal_domain" key="translation_id_1068_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean">
           <Option displayName="Only" internalName="only" value="only"/>
           <Option displayName="Excluded" internalName="excluded" value="excluded"/>
         </FilterDescription>
