@@ -490,7 +490,7 @@ sub write_filters {
                             ( $opt->{key} || 'undef' ) . ", Option " .
                             $opt->{internalName} );
               }
-              restore_main( $opt, $ds_name );
+              restore_main( $fdo, $ds_name );
             } ## end for my $option ( @{ $filterDescription...})
             if ( $nO > 0 ) {
               
@@ -501,12 +501,12 @@ sub write_filters {
           # Extra code to deal with Boolean filters
           elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'list' && $fdo->{type} eq 'boolean' && defined $filterDescription->{Option}){
             my $nO = 0;
-            if ( defined $self->{tables}->{ $filterDescription->{tableConstraint} } &&
-                   defined $self->{tables}->{ $filterDescription->{tableConstraint} }
-                   ->{ $filterDescription->{field} } &&
+            if ( defined $self->{tables}->{ $fdo->{tableConstraint} } &&
+                   defined $self->{tables}->{ $fdo->{tableConstraint} }
+                   ->{ $fdo->{field} } &&
                    ( !defined $filterDescription->{key} ||
-                     defined $self->{tables}->{ $filterDescription->{tableConstraint} }
-                     ->{ $filterDescription->{key} } ) )
+                     defined $self->{tables}->{ $fdo->{tableConstraint} }
+                     ->{ $fdo->{key} } ) )
               {
                 normalise( $filterDescription, "Option" );
                 for my $option ( @{ $filterDescription->{Option} } ) {
