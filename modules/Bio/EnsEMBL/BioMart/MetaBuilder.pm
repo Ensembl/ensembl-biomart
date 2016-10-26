@@ -663,8 +663,18 @@ sub write_filters {
       } ## end for my $filterCollection...
 
       if ( $nC > 0 ) {
-        push @{ $fpo->{FilterGroup} }, $fgo unless exists $self->{delete}{$fgo->{internalName}};
-        $nG++;
+        if(defined $fgo->{checkTable}) {
+          # check for special checkTable tag which allows us to remove unneeded ontology filters which only exist as closures
+          my $table = $ds_name.'__'.$fgo->{checkTable};
+          if(exists $self->{tables}->{$table}) {
+            delete $fgo->{checkTable};
+            push @{ $fpo->{FilterGroup} }, $fgo unless exists $self->{delete}{$fgo->{internalName}};
+            $nG++;
+          }
+        } else {
+          push @{ $fpo->{FilterGroup} }, $fgo unless exists $self->{delete}{$fgo->{internalName}};
+          $nG++;
+        }
       }
     } ## end for my $filterGroup ( @...)
     if ( $nG > 0 ) {

@@ -3664,7 +3664,7 @@
         <FilterDescription displayName="GO annotations with specified requires_localization" displayType="list" field="requires_localization_acc" internalName="go_requires_localization_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="go_extension__dm" type="text"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on PBO IDs, terms, and evidence codes" displayName="POMBASE ONTOLOGY:" internalName="pbo">
+    <FilterGroup description="Filter on PBO IDs, terms, and evidence codes" displayName="POMBASE ONTOLOGY:" internalName="pbo" checkTable="ontology_pbo__dm">
       <FilterCollection displayName="PBO term accession [e.g. PBO:0000001]" internalName="pbo_filters">
         <FilterDescription internalName="pbo_clos" multipleValues="1" pointerDataset="closure_PBO" pointerFilter="pbo_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -3806,7 +3806,7 @@
         <FilterDescription displayName="PBO annotations with specified in_presence_of" displayType="list" field="in_presence_of_acc" internalName="pbo_in_presence_of_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="pbo_extension__dm" type="text"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on FYPO IDs, terms, and evidence codes" displayName="FISSION YEAST PHENOTYPE ONTOLOGY:" internalName="fypo">
+    <FilterGroup description="Filter on FYPO IDs, terms, and evidence codes" displayName="FISSION YEAST PHENOTYPE ONTOLOGY:" internalName="fypo" checkTable="ontology_fypo__dm">
       <FilterCollection displayName="FYPO term accession [e.g. FYPO:0000001]" internalName="fypo_filters">
         <FilterDescription internalName="fypo_clos" multipleValues="1" pointerDataset="closure_FYPO" pointerFilter="fypo_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4004,7 +4004,7 @@
         <FilterDescription displayName="FYPO annotations with specified has_direct_input" displayType="list" field="has_direct_input_acc" internalName="fypo_has_direct_input_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="fypo_extension__dm" type="text"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on SO IDs, terms, and evidence codes" displayName="SEQUENCE ONTOLOGY:" internalName="so">
+    <FilterGroup description="Filter on SO IDs, terms, and evidence codes" displayName="SEQUENCE ONTOLOGY:" internalName="so"  checkTable="ontology_so__dm">
       <FilterCollection displayName="SO term accession [e.g. SO:0000001]" internalName="so_filters">
         <FilterDescription internalName="so_clos" multipleValues="1" pointerDataset="closure_SO" pointerFilter="so_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4059,7 +4059,7 @@
         <FilterDescription displayName="SO annotations with specified residue" displayType="list" field="residue_acc" internalName="so_residue_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="so_extension__dm" type="text"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on MOD IDs, terms, and evidence codes" displayName="MOD ONTOLOGY:" internalName="mod">
+    <FilterGroup description="Filter on MOD IDs, terms, and evidence codes" displayName="MOD ONTOLOGY:" internalName="mod"  checkTable="ontology_mod__dm">
       <FilterCollection displayName="MOD term accession [e.g. MOD:000001]" internalName="mod_filters">
         <FilterDescription internalName="mod_clos" multipleValues="1" pointerDataset="closure_MOD" pointerFilter="mod_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4240,7 +4240,7 @@
         <FilterDescription displayName="MOD annotations with specified not_during" displayType="list" field="not_during_acc" internalName="mod_not_during_acc" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" multipleValues="1" tableConstraint="mod_extension__dm" type="text"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on PO IDs, terms, and evidence codes" displayName="PLANT ONTOLOGY:" internalName="po">
+    <FilterGroup description="Filter on PO IDs, terms, and evidence codes" displayName="PLANT ONTOLOGY:" internalName="po"  checkTable="ontology_po__dm">
       <FilterCollection displayName="PO term accession [e.g. PO:0009066]" internalName="po_filters">
         <FilterDescription internalName="po_clos" multipleValues="1" pointerDataset="closure_PO" pointerFilter="po_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4256,7 +4256,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on EO IDs, terms, and evidence codes" displayName="ENVIRONMENT ONTOLOGY:" internalName="eo">
+    <FilterGroup description="Filter on EO IDs, terms, and evidence codes" displayName="ENVIRONMENT ONTOLOGY:" internalName="eo" checkTable="ontology_eo__dm">
       <FilterCollection displayName="EO term accession [e.g. EO:0007001]" internalName="eo_filters">
         <FilterDescription internalName="eo_clos" multipleValues="1" pointerDataset="closure_EO" pointerFilter="eo_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4269,7 +4269,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on GR TAX IDs, terms, and evidence codes" displayName="GRAMENE TAXONOMIC ONTOLOGY:" internalName="gr_tax">
+    <FilterGroup description="Filter on GR TAX IDs, terms, and evidence codes" displayName="GRAMENE TAXONOMIC ONTOLOGY:" internalName="gr_tax"  checkTable="ontology_gr_tax__dm">
       <FilterCollection displayName="GR TAX term accession [e.g. GR_tax:078858]" internalName="gr_tax_filters">
         <FilterDescription internalName="gr_tax_clos" multipleValues="1" pointerDataset="closure_GR_TAX" pointerFilter="gr_tax_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4282,7 +4282,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on GRO IDs, terms, and evidence codes" displayName="GROWTH STAGE ONTOLOGY:" internalName="gro">
+    <FilterGroup description="Filter on GRO IDs, terms, and evidence codes" displayName="GROWTH STAGE ONTOLOGY:" internalName="gro" checkTable="ontology_gro__dm">
       <FilterCollection displayName="GRO term accession [e.g. GRO:0007114]" internalName="gro_filters">
         <FilterDescription internalName="gro_clos" multipleValues="1" pointerDataset="closure_GRO" pointerFilter="gro_parent_term" pointerInterface="default"/>
       </FilterCollection>
@@ -4295,7 +4295,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on TO IDs, terms, and evidence codes" displayName="TRAIT ONTOLOGY:" internalName="to">
+    <FilterGroup description="Filter on TO IDs, terms, and evidence codes" displayName="TRAIT ONTOLOGY:" internalName="to"  checkTable="ontology_to__dm">
       <FilterCollection displayName="TO term accession [e.g. TO:0050789]" internalName="to_filters">
         <FilterDescription internalName="to_clos" multipleValues="1" pointerDataset="closure_TO" pointerFilter="to_parent_term" pointerInterface="default"/>
       </FilterCollection>
