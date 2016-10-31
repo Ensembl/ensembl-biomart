@@ -351,18 +351,21 @@ sub write_filters {
 
     ## FilterGroup
     for my $filterGroup ( @{ elem_as_array($filterPage->{FilterGroup}) } ) {
+      $logger->debug( "Processing filterGroup " . $filterGroup->{internalName} );
       my $nC = 0;
       normalise( $filterGroup, "FilterCollection" );
       my $fgo = copy_hash($filterGroup);
       ### Filtercollection
       for my $filterCollection ( @{ elem_as_array($filterGroup->{FilterCollection}) } ) {
+        $logger->debug( "Processing filterCollection " . $filterCollection->{internalName} );
         my $nD = 0;
         normalise( $filterCollection, "FilterDescription" );
         my $fco = copy_hash($filterCollection);
         ### FilterDescription
         for
           my $filterDescription ( @{ elem_as_array($filterCollection->{FilterDescription}) } )
-        {
+            {
+              $logger->debug( "Processing filterDescription " . $filterDescription->{internalName} );
           my $fdo = copy_hash($filterDescription);
           #### pointerDataSet *species3*
           $fdo->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/
@@ -372,6 +375,7 @@ sub write_filters {
           update_table_keys( $fdo, $dataset, $self->{keys} );
           #### if contains options, treat differently
           #### if its called homolog_filters, add the homologs here
+
           if ( $fdo->{internalName} eq 'homolog_filters' ) {
             # check for paralogues
             my $table = "${ds_name}__gene__main";
@@ -465,11 +469,13 @@ sub write_filters {
             $nD++;
           } ## end if ( $fdo->{internalName...})
           elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'container') {
+            $logger->debug( "Processing options for " . $filterDescription->{internalName} );
             my $nO = 0;
             normalise( $filterDescription, "Option" );
             for my $option ( @{ $filterDescription->{Option} } ) {
               my $opt = copy_hash($option);
               update_table_keys( $opt, $dataset, $self->{keys} );
+              $logger->debug( "Checking option " . $opt->{internalName});
               if ( defined $self->{tables}->{ $opt->{tableConstraint} } &&
                    defined $self->{tables}->{ $opt->{tableConstraint} }
                    ->{ $opt->{field} } &&
@@ -477,10 +483,12 @@ sub write_filters {
                      defined $self->{tables}->{ $opt->{tableConstraint} }
                      ->{ $opt->{key} } ) )
               {
+                $logger->debug( "Found option " . $opt->{internalName});
                 push @{ $fdo->{Option} }, $opt;
                 for my $o ( @{ $option->{Option} } ) {
                   push @{ $opt->{Option} }, $o;
                 }
+                $logger->debug(Dumper($opt));
                 $nO++;
               }
               else {
@@ -493,7 +501,7 @@ sub write_filters {
               restore_main( $fdo, $ds_name );
             } ## end for my $option ( @{ $filterDescription...})
             if ( $nO > 0 ) {
-              
+              $logger->debug("Options found for filter ".$fdo->{internalName});
               push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
               $nD++;
             }
