@@ -168,30 +168,30 @@ sub default_options {
       'structvar_som__phenotype__dm'                          => 'phenotype_name',
     },
     
-    tables_dir => $self->o('eg_biomart_root_dir').'/var_mart/tables',
+    tables_dir => $self->o('ensembl_biomart_root_dir').'/var_mart/tables',
     
     # The following are required for adding metadata.
-    scripts_lib => $self->o('eg_biomart_root_dir').'/scripts',
+    scripts_lib => $self->o('ensembl_biomart_root_dir').'/scripts',
     
-    generate_names_script => $self->o('eg_biomart_root_dir').
+    generate_names_script => $self->o('ensembl_biomart_root_dir').
       '/scripts/generate_names.pl',
     
-    generate_template_script => $self->o('eg_biomart_root_dir').
+    generate_template_script => $self->o('ensembl_biomart_root_dir').
       '/scripts/generate_template.pl',
     
-    template_template => $self->o('eg_biomart_root_dir').
+    template_template => $self->o('ensembl_biomart_root_dir').
       '/scripts/templates/variation_template_template.xml',
     
-    dataset_template => $self->o('eg_biomart_root_dir').
+    dataset_template => $self->o('ensembl_biomart_root_dir').
       '/scripts/templates/dataset_variation_template.xml',
     
-    generate_sv_template_script => $self->o('eg_biomart_root_dir').
+    generate_sv_template_script => $self->o('ensembl_biomart_root_dir').
       '/scripts/generate_structvar_template.pl',
     
-    template_sv_template => $self->o('eg_biomart_root_dir').
+    template_sv_template => $self->o('ensembl_biomart_root_dir').
       '/scripts/templates/structvar_template_template.xml',
     
-    dataset_sv_template => $self->o('eg_biomart_root_dir').
+    dataset_sv_template => $self->o('ensembl_biomart_root_dir').
       '/scripts/templates/dataset_structvar_template.xml',
     
   };
