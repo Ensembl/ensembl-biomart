@@ -62,6 +62,11 @@ my $template_properties = {
          variations_som => { type => 'TableSet',        visible => 1 },
          structural_variations => { type => 'TableSet',        visible => 1 },
          structural_variations_som => { type => 'TableSet',        visible => 1 },
+         annotated_features => { type => 'TableSet',        visible => 1 },
+         external_features => { type => 'TableSet',        visible => 1 },
+         mirna_target_features => { type => 'TableSet',        visible => 1 },
+         motif_features => { type => 'TableSet',        visible => 1 },
+         regulatory_features => { type => 'TableSet',        visible => 1 },
          sequences  => { type => 'GenomicSequence', visible => 0 } };
 
 =head1 CONSTRUCTOR
@@ -1178,6 +1183,21 @@ sub update_table_keys {
         }
         elsif ( $obj->{key} eq 'structural_variation_feature_id_20104_key' ) {
           $obj->{tableConstraint} = "${ds_name}__structural_variation_feature__main";
+        }
+        elsif ( $obj->{key} eq 'annotated_feature_id_103_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__annotated_feature__main";
+        }
+        elsif ( $obj->{key} eq 'external_feature_id_1021_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__external_feature__main";
+        }
+        elsif ( $obj->{key} eq 'mirna_target_feature_id_1079_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__mirna_target_feature__main";
+        }
+        elsif ( $obj->{key} eq 'motif_feature_id_1065_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__motif_feature__main";
+        }
+        elsif ( $obj->{key} eq 'regulatory_feature_id_1036_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__regulatory_feature__main";
         }
       }
     }
