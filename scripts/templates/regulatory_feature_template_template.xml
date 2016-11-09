@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE DatasetConfig>
+<DatasetConfig dataset="regulatory_feature_template" defaultDataset="*default*" description="regulatory features" displayName="*species1* Regulatory Features (*version*)" entryLabel="Count unavailable" interfaces="default" internalName="template" martUsers="default" modified="2014-10-28 17:04:15.332" noCount="1" softwareVersion="0.6" template="regulatory_feature" type="TableSet" useDefault="true" version="*version*" visible="1">
+  <MainTable>*base_name*__regulatory_feature__main</MainTable>
+  <Key>regulatory_feature_id_1036_key</Key>
+  <Replace id="datasets"/>
+  <Importable filters="chromosome_name,start,end" internalName="genomic_seq" linkName="genomic_seq" linkVersion="*link_version*" name="genomic_seq" type="link" useDefault="true"/>
+  <Importable filters="chromosome_name,start,end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>
+  <Importable filters="chromosome_name,end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
+  <Importable filters="chromosome_name,start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link" useDefault="true"/>
+  <Importable filters="chromosome_name,start,end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
+  <FilterPage displayName="FILTERS" internalName="filters" useDefault="true">
+    <FilterGroup displayName="REGULATORY FEATURES  (&lt;a href='http://www.ensembl.org/info/genome/funcgen/regulatory_build.html'&gt;Regulatory Build Information&lt;/a&gt;)" hidden="false" internalName="regulatory_features" useDefault="true">
+      <FilterCollection description="Limit to Genes on a specific Chromosome." displayName="Chromosome" hidden="false" internalName="chromosome" useDefault="true">
+        <FilterDescription displayName="Chromosome Name" displayType="list" field="seq_region_name_1051" internalName="chromosome_name" key="regulatory_feature_id_1036_key" otherFilters="*species4*_karyotype_start.name;*species4*_karyotype_end.name" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" type="text" useDefault="true">
+            <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection description="Limit to Genes within prescribed Chromosomal Coordinates." displayName="Base pair" hidden="false" internalName="chromosome_coordinates" useDefault="true">
+        <FilterDescription defaultValue="1" description="Determine which base pair on the specified chromosome to begin range" displayName="Start (bp)" displayType="text" field="seq_region_end_1051" hidden="false" internalName="start" key="regulatory_feature_id_1036_key" legal_qualifiers="&gt;=" qualifier="&gt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription defaultValue="10000000" description="Determine which base pair on the specified chromosome to end range" displayName="End (bp)" displayType="text" field="seq_region_start_1051" hidden="false" internalName="end" key="regulatory_feature_id_1036_key" legal_qualifiers="&lt;=" qualifier="&lt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1) [Max 500]" displayName="Multiple Chromosomal Regions (Chr:Start:End) (e.g 1:100:10000000) [Max 500 advised] " hidden="false" internalName="chromosome_regions" useDefault="true">
+        <FilterDescription defaultValue="1:100:10000000" description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1) [Max 500]" displayName="Chromosome Regions (e.g 1:100:10000000,1:100000:200000)" displayType="text" field="seq_region_start_1051" filterList="chromosome_name,start,end" hidden="false" internalName="chromosomal_region" key="regulatory_feature_id_1036_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="Band" hidden="false" internalName="band_collection" useDefault="true">
+        <FilterDescription hidden="false" internalName="band_start" pointerDataset="*species4*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
+        <FilterDescription hidden="false" internalName="band_end" pointerDataset="*species4*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true">
+        <FilterDescription hidden="false" internalName="marker_start" pointerDataset="*species4*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
+        <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species4*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="&lt;a href='http://www.genome.gov/26525202'&gt;ENCODE Pilot Regions&lt;/a&gt;" internalName="encode_region_col" useDefault="true">
+        <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species4*_encode" pointerFilter="encode_region" pointerInterface="default" useDefault="true">
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Regulatory Stable ID (e.g. ENSR00001516677) [Max 500 advised]" internalName="regulatory_stable_id" useDefault="true">
+        <FilterDescription displayName="Regulatory Stable ID (e.g. ENSR00000060894) [Max 500]" displayType="text" field="stable_id_1051" internalName="regulatory_stable_id" key="regulatory_feature_id_1036_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="Feature Type" hidden="false" internalName="regulatory_feature_type" useDefault="true">
+        <FilterDescription autoCompletion="menu" displayName="Feature Type Name" displayType="list" field="feature_type_name_1051" internalName="regulatory_feature_type_name" key="regulatory_feature_id_1036_key" legal_qualifiers="=" multipleValues="1" qualifier="=" type="list" style="menu" tableConstraint="main" useDefault="true">
+            <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Epigenome Name" hidden="false" internalName="epigenome_name" useDefault="true">
+        <FilterDescription autoCompletion="menu" displayName="Epigenome Name" displayType="list" field="epigenome_name_1081" internalName="epigenome_name" key="regulatory_feature_id_1036_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="regulatory_activity__dm" type="list" style="menu" useDefault="true">
+            <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <AttributePage displayName="Regulatory Features" internalName="regulatory_feature" outFormats="html,txt,csv,tsv,xls" useDefault="true">
+    <AttributeGroup displayName="REGULATORY FEATURES" internalName="regulatory_features" useDefault="true">
+      <AttributeCollection internalName="regulatory_feature" useDefault="true">
+        <AttributeDescription displayName="Activity" field="activity_1036" internalName="activity" key="regulatory_feature_id_1036_key" maxLength="9" tableConstraint="regulatory_activity__dm" useDefault="true"/>
+        <AttributeDescription displayName="Regulatory Stable ID" field="stable_id_1051" hidden="false" internalName="regulatory_stable_id" key="regulatory_feature_id_1036_key" linkoutURL="exturl|/*species2*/Regulation/Summary?fdb=funcgen;rf=%s" maxLength="8" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Bound Start (bp)" field="bound_seq_region_start" internalName="bound_seq_region_start" key="regulatory_feature_id_1036_key" linkoutURL="exturl|/*species2*/Location/View?r=%s:%s-%s|chromosome_name|bound_seq_region_start|bound_seq_region_end" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Bound End (bp)" field="bound_seq_region_end" internalName="bound_seq_region_end" key="regulatory_feature_id_1036_key" linkoutURL="exturl|/*species2*/Location/View?r=%s:%s-%s|chromosome_name|bound_seq_region_start|bound_seq_region_end" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="Chromosome Name" field="seq_region_name_1051" internalName="chromosome_name" key="regulatory_feature_id_1036_key" linkoutURL="exturl|/*species2*/contigview?chr=%s" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="Start (bp)" field="seq_region_start_1051" internalName="chromosome_start" key="regulatory_feature_id_1036_key" linkoutURL="exturl|/*species2*/Location/View?r=%s:%s-%s|chromosome_name|chromosome_start|chromosome_end" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="End (bp)" field="seq_region_end_1051" internalName="chromosome_end" key="regulatory_feature_id_1036_key" linkoutURL="exturl|/*species2*/Location/View?r=%s:%s-%s|chromosome_name|chromosome_start|chromosome_end" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="Feature Type" field="feature_type_name_1051" internalName="feature_type_name" key="regulatory_feature_id_1036_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Feature Type Description" field="feature_type_description_1051" internalName="feature_type_description" key="regulatory_feature_id_1036_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Epigenome Name" field="epigenome_name_1081" hidden="false" internalName="epigenome_name" key="regulatory_feature_id_1036_key" maxLength="120" tableConstraint="regulatory_activity__dm" useDefault="true"/>
+        <AttributeDescription displayName="Epigenome Description" field="epigenome_description_1081" hidden="false" internalName="epigenome_description" key="regulatory_feature_id_1036_key" maxLength="80" tableConstraint="regulatory_activity__dm" useDefault="true"/>
+        <AttributeDescription displayName="SO Term Accession" field="so_accession_1024" internalName="so_accession" key="regulatory_feature_id_1036_key" linkoutURL="exturl|http://www.sequenceontology.org/browser/current_release/term/%s" maxLength="64" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="SO Term Name" field="so_name_1024" internalName="so_name" key="regulatory_feature_id_1036_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="EFO Term Accession" field="ontology_accession_1081" internalName="efo_id" key="regulatory_feature_id_1036_key" maxLength="20" tableConstraint="regulatory_activity__dm" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+</DatasetConfig>
