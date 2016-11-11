@@ -5928,7 +5928,7 @@
     <AttributeGroup displayName="PARALOGS:" internalName="paralogs">
       <Replace id="paralogy_attributes"/>
     </AttributeGroup>
-    <AttributeGroup displayName="HOMOEOLOGS:" internalName="homoeologs" hideDisplay="true" hidden="true">
+    <AttributeGroup displayName="HOMOEOLOGS:" internalName="homoeologs">
       <Replace id="homoeology_attributes"/>
     </AttributeGroup>
   </AttributePage>
