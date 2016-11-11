@@ -408,15 +408,15 @@ sub write_filters {
               } ## end if ( defined $self->{tables...})
             }
             {
-              my $field = "homeolog_$dataset->{name}_bool";
+              my $field = "homoeolog_$dataset->{name}_bool";
               if ( defined $self->{tables}->{$table}->{$field} ) {
                 # add in if the column exists
                 push @{ $fdo->{Option} }, {
-                    displayName => "Homeologous $dataset->{display_name} Genes",
+                    displayName => "Homoeologous $dataset->{display_name} Genes",
                     displayType => "list",
                     field       => $field,
                     hidden      => "false",
-                    internalName     => "with_$dataset->{name}_homeolog",
+                    internalName     => "with_$dataset->{name}_homoeolog",
                     isSelectable     => "true",
                     key              => "gene_id_1020_key",
                     legal_qualifiers => "only,excluded",
@@ -937,8 +937,8 @@ sub write_attributes {
         } ## end if ( defined $self->{tables...})
 
       } ## end elsif ( $ago->{internalName... [ if ( $ago->{internalName...})]})
-      elsif ( $ago->{internalName} eq 'homeologs' ) {
-        my $table = "${ds_name}__homeolog_$dataset->{name}__dm";
+      elsif ( $ago->{internalName} eq 'homoeologs' ) {
+        my $table = "${ds_name}__homoeolog_$dataset->{name}__dm";
         if ( defined $self->{tables}->{$table} ) {
           push @{ $ago->{AttributeCollection} }, {
 
