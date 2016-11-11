@@ -78,7 +78,7 @@ sub pipeline_analyses {
   return [
     {
       -logic_name      => 'ScheduleSpeciesForDropMTMP',
-      -module          => 'Bio::EnsEMBL::EGPipeline::Common::RunnableDB::EGSpeciesFactory',
+      -module          => 'Bio::EnsEMBL::Production::Pipeline::BaseSpeciesFactory',
       -input_ids       => [ {} ],
       -parameters      => {
                             species     => $self->o('species'),
