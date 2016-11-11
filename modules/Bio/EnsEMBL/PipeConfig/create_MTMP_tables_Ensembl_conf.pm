@@ -87,7 +87,7 @@ sub pipeline_create_commands {
     my $analyses = [
         {
             -logic_name      => 'ScheduleSpecies',
-            -module          => 'Bio::EnsEMBL::EGPipeline::Common::RunnableDB::EGSpeciesFactory',
+            -module          => 'Bio::EnsEMBL::Production::Pipeline::BaseSpeciesFactory',
             -parameters      => {
                             species     => $self->o('species'),
                             antispecies => $self->o('antispecies'),
@@ -99,7 +99,7 @@ sub pipeline_create_commands {
             -rc_name         => 'normal',
             -flow_into       => {
                             '4' => 'MTMP_phenotype',
-                            '5' => 'MTMP_probes',
+                            '6' => 'MTMP_probes',
                           },
             -meadow_type     => 'LOCAL',
         },
