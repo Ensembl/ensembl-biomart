@@ -6,12 +6,12 @@
   <Key>variation_id_2025_key</Key>
   <Key>variation_feature_id_2026_key</Key>
   <Replace id="datasets"/>
-  <Importable filters="chr_name,chrom_start,chrom_end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>
+  <Importable filters="chr_name,start,end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>
   <Importable filters="link_so_closure" internalName="so_closure" linkName="so_closure" name="so_closure" type="link" useDefault="true"/>
   <Importable filters="ensembl_gene" internalName="variation_to_ensembl" linkName="variation_to_ensembl" linkVersion="*link_version*" name="variation_to_ensembl" type="link" useDefault="true"/>
-  <Importable filters="chr_name,chrom_start,chrom_end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
-  <Importable filters="chr_name,chrom_end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
-  <Importable filters="chr_name,chrom_start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link" useDefault="true"/>
+  <Importable filters="chr_name,start,end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
+  <Importable filters="chr_name,end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
+  <Importable filters="chr_name,start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link" useDefault="true"/>
   <Exportable attributes="chr_name,chrom_start,chrom_end" default="1" internalName="genomic_sequence" linkName="genomic_sequence" name="genomic_sequence" type="link" useDefault="true"/>
   <Exportable attributes="refsnp_id" internalName="refsnp_id" linkName="refsnp_id" name="refsnp_id" type="link" useDefault="true"/>
   <Exportable attributes="variation_feature_id_key,chr_name,chrom_start,chrom_strand,allele" default="1" internalName="snp" linkName="snp" linkVersion="*link_version*" name="snp" orderBy="variation_feature_id_key" type="link" useDefault="true"/>
@@ -42,9 +42,6 @@
       <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true">
         <FilterDescription internalName="marker_start" pointerDataset="*species4*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
         <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species4*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true"/>
-      </FilterCollection>
-      <FilterCollection displayName="QTL Phenotype" hidden="true" internalName="qtl_type_col" useDefault="true">
-        <FilterDescription hidden="true" internalName="rnorvegicus_qtl_feature.description_2022" pointerDataset="*species4*_qtl_feature" pointerFilter="description_2022" pointerInterface="default" type="text" useDefault="true"/>
       </FilterCollection>
       <FilterCollection displayName="QTL Chromosome name" hidden="false" internalName="qtl_chr_name" useDefault="true">
         <FilterDescription hidden="false" internalName="qtl_feature.name_2" pointerDataset="*species4*_qtl_feature" pointerFilter="name_2" pointerInterface="default" type="text" useDefault="true"/>
