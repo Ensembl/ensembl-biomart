@@ -92,19 +92,13 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Encode type" hidden="true" internalName="encode_type_col" useDefault="true">
-        <FilterDescription hidden="true" internalName="hsapiens_encode.type" pointerDataset="*species4*_encode" pointerFilter="type" pointerInterface="default" type="text" useDefault="true">
-          <SpecificFilterContent hidden="true" internalName="hsapiens_gene_ensembl" useDefault="true"/>
-        </FilterDescription>
-      </FilterCollection>
+        <FilterDescription hidden="true" internalName="hsapiens_encode.type" pointerDataset="*species4*_encode" pointerFilter="type" pointerInterface="default" type="text" useDefault="true"/>
+        </FilterCollection>
       <FilterCollection displayName="&lt;a href='http://www.genome.gov/26525202'&gt;ENCODE Pilot Regions&lt;/a&gt;" internalName="encode_region_col" useDefault="true">
-        <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species4*_encode" pointerFilter="encode_region" pointerInterface="default" useDefault="true">
-          <SpecificFilterContent internalName="hsapiens_gene_ensembl" useDefault="true"/>
-        </FilterDescription>
+        <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species4*_encode" pointerFilter="encode_region" pointerInterface="default" useDefault="true"/>
       </FilterCollection>
       <FilterCollection displayName="In encode region" hidden="false" internalName="encode_boolean" useDefault="true">
-        <FilterDescription description="Include/Exclude Entries in an Encode Region" displayName="In encode region" displayType="list" field="is_encode_bool" hidden="false" internalName="in_encode_region" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-          <SpecificFilterContent field="is_encode_bool" internalName="hsapiens_gene_ensembl" key="gene_id_1020_key" tableConstraint="main" useDefault="true"/>
-        </FilterDescription>
+        <FilterDescription description="Include/Exclude Entries in an Encode Region" displayName="In encode region" displayType="list" field="is_encode_bool" hidden="false" internalName="in_encode_region" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true"/>
       </FilterCollection>
       <FilterCollection displayName="QTL Chromosome name" hidden="false" internalName="qtl_chr_name" useDefault="true">
         <FilterDescription hidden="false" internalName="qtl_feature.name_2" pointerDataset="*species4*_qtl_feature" pointerFilter="name_2" pointerInterface="default" type="text" useDefault="true">
