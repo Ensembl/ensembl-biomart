@@ -1410,31 +1410,34 @@ my $chr_bands_kend;
 
 my $database_tables =$self->{dbc}->sql_helper()
                     ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${genomic_features_mart}'" );
-if ($database_tables->[0] > 0) {
-  my $empty_ks_table=$self->{dbc}->sql_helper()
+if (defined $database_tables->[0]) {
+  if ($database_tables->[0] > 0) {
+    my $empty_ks_table=$self->{dbc}->sql_helper()
                     ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${gfm_ds_name}_karyotype_start__karyotype__main'" );
-  my $empty_ke_table=$self->{dbc}->sql_helper()
+    my $empty_ke_table=$self->{dbc}->sql_helper()
                     ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${gfm_ds_name}_karyotype_start__karyotype__main'" );
-
-  if ($empty_ks_table->[0] > 0 and $empty_ke_table->[0] > 0) {
-    $chr_bands_kstart = $self->{dbc}->sql_helper()->execute_into_hash(
-      -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${gfm_ds_name}_karyotype_start__karyotype__main where band_1027 is not null order by band_1027",
-      -CALLBACK => sub {
-        my ( $row, $value ) = @_;
-        $value = [] if !defined $value;
-        push($value, $row->[1] );
-        return $value;
-        }
-    );
-    $chr_bands_kend = $self->{dbc}->sql_helper()->execute_into_hash(
-      -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${gfm_ds_name}_karyotype_end__karyotype__main where band_1027 is not null order by band_1027",
-      -CALLBACK => sub {
-        my ( $row, $value ) = @_;
-        $value = [] if !defined $value;
-        push($value, $row->[1] );
-        return $value;
-        }
-    );
+    if(defined $empty_ks_table->[0] and $empty_ke_table->[0]) {
+      if ($empty_ks_table->[0] > 0 and $empty_ke_table->[0] > 0) {
+        $chr_bands_kstart = $self->{dbc}->sql_helper()->execute_into_hash(
+          -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${gfm_ds_name}_karyotype_start__karyotype__main where band_1027 is not null order by band_1027",
+          -CALLBACK => sub {
+            my ( $row, $value ) = @_;
+            $value = [] if !defined $value;
+            push($value, $row->[1] );
+            return $value;
+            }
+        );
+        $chr_bands_kend = $self->{dbc}->sql_helper()->execute_into_hash(
+          -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${gfm_ds_name}_karyotype_end__karyotype__main where band_1027 is not null order by band_1027",
+          -CALLBACK => sub {
+            my ( $row, $value ) = @_;
+            $value = [] if !defined $value;
+            push($value, $row->[1] );
+            return $value;
+            }
+        );
+      }
+    }
   }
 }
 return ($chr_bands_kstart,$chr_bands_kend);
