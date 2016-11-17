@@ -345,6 +345,7 @@ sub write_filters {
   my ( $self, $dataset, $templ_in, $datasets, $genomic_features_mart ) = @_;
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
   my $templ_out = $dataset->{config};
+  my $gfm_ds_name=substr($dataset->{name},0,4);
   $logger->info( "Writing filters for " . $dataset->{name} );
   # FilterPage
   for my $filterPage ( @{ elem_as_array( $templ_in->{FilterPage}) } ) {
@@ -579,7 +580,7 @@ sub write_filters {
                       my $chr_bands_kstart;
                       my $chr_bands_kend;
                       if(defined $genomic_features_mart) {
-                        ($chr_bands_kstart,$chr_bands_kend)=generate_chromosome_bands_push_action($self,$dataset->{name},$genomic_features_mart);
+                        ($chr_bands_kstart,$chr_bands_kend)=generate_chromosome_bands_push_action($self,$dataset->{name},$genomic_features_mart,$gfm_ds_name);
                       }
                       for my $val (@$vals) {
                         # Creating band start and end configuration for a given chromosome
@@ -674,20 +675,32 @@ sub write_filters {
             }
             #### otherFilters *species4*
             if (defined $fdo->{otherFilters}){
-              my $gfm_ds_name=substr($dataset->{name},0,4);
               $fdo->{otherFilters} =~ s/\*species4\*/${gfm_ds_name}/g;
             }
             #### pointerDataSet *species4*
             if (defined $fdo->{pointerDataset}){
-              my $gfm_ds_name=substr($dataset->{name},0,4);
               $fdo->{pointerDataset} =~ s/\*species4\*/${gfm_ds_name}/g;
             }
             restore_main( $fdo, $ds_name );
           } ## end else [ if ( $fdo->{internalName...})]
         } ## end for my $filterDescription...
         if ( $nD > 0 ) {
-          push @{ $fgo->{FilterCollection} }, $fco unless exists $self->{delete}{$fco->{internalName}};
-          $nC++;
+          if(defined $fco->{checkPointerDataset}) {
+          # check for special checkPointerDataset tag which allows us to remove unneeded PointerDataset filters which only exist as when
+          # connecting to other marts using Importables/Exportables
+          $fco->{checkPointerDataset} =~ s/\*species4\*/${gfm_ds_name}/g;
+          my $pointer_dataset_table = check_pointer_dataset_table_exist($self,$dataset->{name},$genomic_features_mart,$fco->{checkPointerDataset});
+          if(defined $pointer_dataset_table->[0]) {
+            if ($pointer_dataset_table->[0] >= 0) {
+              delete $fco->{checkPointerDataset};
+              push @{ $fgo->{FilterCollection} }, $fco unless exists $self->{delete}{$fco->{internalName}};
+              $nC++;
+            }
+          }
+        } else {
+            push @{ $fgo->{FilterCollection} }, $fco unless exists $self->{delete}{$fco->{internalName}};
+            $nC++;
+          }
         }
       } ## end for my $filterCollection...
 
@@ -1402,9 +1415,9 @@ sub _load_info {
   return;
 }
 
+#Subroutine used to generate a list of chromosome band_start and band_end for a given dataset
 sub generate_chromosome_bands_push_action {
-my ($self,$dataset_name,$genomic_features_mart)= @_;
-my $gfm_ds_name=substr($dataset_name,0,4);
+my ($self,$dataset_name,$genomic_features_mart,$gfm_ds_name)= @_;
 my $chr_bands_kstart;
 my $chr_bands_kend;
 
@@ -1441,6 +1454,23 @@ if (defined $database_tables->[0]) {
   }
 }
 return ($chr_bands_kstart,$chr_bands_kend);
+}
+
+#Subroutine used to check if a given dataset has data in a pointer mart
+#eg: For band filter in the gene mart, does the genomic_features_mart has tables for the given databaset
+sub check_pointer_dataset_table_exist {
+my ($self,$dataset_name,$pointer_mart,$pointer_dataset)= @_;
+my $pointer_dataset_table;
+
+my $database_tables =$self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${pointer_mart}'" );
+if (defined $database_tables->[0]) {
+  if ($database_tables->[0] > 0) {
+    $pointer_dataset_table = $self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${pointer_mart}' and table_name like '${pointer_dataset}%'" );
+  }
+}
+return ($pointer_dataset_table);
 }
 
 1;
