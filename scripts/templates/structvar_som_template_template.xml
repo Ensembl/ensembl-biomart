@@ -18,15 +18,15 @@
           <SpecificFilterContent internalName="replaceMe"/>            
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Base pair" internalName="chromosome_coordinates" useDefault="true">
+      <FilterCollection displayName="Base pair" internalName="chromosome_coordinates" useDefault="true" >
         <FilterDescription displayName="Start" displayType="text" field="seq_region_end_20104" internalName="start" key="structural_variation_feature_id_20104_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="main" type="text" useDefault="true"/>
         <FilterDescription displayName="End" displayType="text" field="seq_region_start_20104" internalName="end" key="structural_variation_feature_id_20104_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="Band" internalName="band_collection" useDefault="true">
+      <FilterCollection displayName="Band" internalName="band_collection" useDefault="true" checkPointerDataset="*species4*_karyotype_start">
         <FilterDescription internalName="band_start" pointerDataset="*species4*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
         <FilterDescription internalName="band_end" pointerDataset="*species4*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true">
+      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true" checkPointerDataset="*species4*_marker_start">
         <FilterDescription internalName="marker_start" pointerDataset="*species4*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
         <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species4*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true"/>
       </FilterCollection>
