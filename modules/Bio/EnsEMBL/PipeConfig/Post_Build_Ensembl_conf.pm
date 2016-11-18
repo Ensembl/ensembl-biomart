@@ -51,7 +51,11 @@ sub default_options {
         'division'=>'ensembl',
         'output_directory'=>undef,
         'pipeline_name' => 'ensembl_gene_mart_post_build_'.$self->o('release'),
-        'registry'      => $self->o('registry')
+        'registry'      => $self->o('registry'),
+        'genomic_features_mart' => 'genomic_features_mart_'.$self->o('release'),
+        'max_dropdown' => '20000',
+        'template_name' => 'genes',
+        'base_name' => 'gene_ensembl'
     }
 }
 
@@ -85,7 +89,7 @@ sub pipeline_create_commands {
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
             -parameters    => {
-                'cmd'        => 'perl #base_dir#/ensembl-biomart/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -name gene_ensembl -release #release# -div #division# -registry #registry#',
+                'cmd'        => 'perl #base_dir#/ensembl-biomart/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -name gene_ensembl -div #division# -registry #registry#',
                 'mart' => $self->o('mart'),
                 'user' => $self->o('user'),
                 'pass' => $self->o('pass'),
@@ -93,7 +97,6 @@ sub pipeline_create_commands {
                 'port' => $self->o('port'),
                 'registry' => $self->o('registry'),
                 'base_dir' => $self->o('base_dir'),
-                'release' => $self->o('release'),
                 'eg_release' => $self->o('eg_release'),
                 'division'  => $self->o('division'),
             },                    
@@ -117,7 +120,7 @@ sub pipeline_create_commands {
             },
             -flow_into => {
                 1 => ['add_compara','calculate_sequence', 'add_slims'],
-                2 => ['tidy_tables','optimize']
+                2 => ['tidy_tables','optimize','generate_meta']
             },
             -meadow_type => 'LOCAL'
         },        
@@ -126,7 +129,7 @@ sub pipeline_create_commands {
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
             -parameters    => {
-                'cmd'        => 'perl #base_dir#/ensembl-biomart/scripts/add_compara.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -compara #compara# -dataset #dataset# -name gene_ensembl -template #base_dir#/ensembl-biomart/scripts',
+                'cmd'        => 'perl #base_dir#/ensembl-biomart/scripts/add_compara.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -compara #compara# -dataset #dataset# -name gene_ensembl -template #base_dir#/ensembl-biomart/scripts/templates',
                 'mart' => $self->o('mart'),
                 'user' => $self->o('user'),
                 'pass' => $self->o('pass'),
@@ -159,15 +162,15 @@ sub pipeline_create_commands {
             -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -meadow_type => 'LSF',
             -parameters    => {
-                'cmd'        => 'perl #base_dir#/ensembl-biomart/scripts/calculate_sequence_data.pl -host #host# -port #port# -user #user# -pass #pass# -mart #mart# -dataset #dataset# -release #release# -dataset_basename gene_ensembl -registry #registry#',
+                'cmd'        => 'perl #base_dir#/ensembl-biomart/scripts/calculate_sequence_data.pl -host #host# -port #port# -user #user# -pass #pass# -mart #mart# -dataset #dataset# -dataset_basename #base_name# -registry #registry#',
                 'mart' => $self->o('mart'),
                 'user' => $self->o('user'),
                 'pass' => $self->o('pass'),
                 'host' => $self->o('host'),
                 'port' => $self->o('port'),
                 'registry' => $self->o('registry'),
-                'release' => $self->o('release'),
                 'base_dir' => $self->o('base_dir'),
+                'base_name' => $self->o('base_name')
             },
             -rc_name          => 'mem',
             -analysis_capacity => 10
@@ -205,8 +208,28 @@ sub pipeline_create_commands {
                 'base_dir' => $self->o('base_dir')
             },
             -analysis_capacity => 1
-        },       
-         
+        },
+        {
+            -logic_name => 'generate_meta',
+            -module        => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+            -meadow_type => 'LSF',
+            -wait_for    => ['generate_names','optimize'],
+            -parameters    => {
+            'cmd' =>
+                       'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
+                       'mart'     => $self->o('mart'),
+                       'template'     => $self->o('template'),
+                       'user'     => $self->o('user'),
+                       'pass'     => $self->o('pass'),
+                       'host'     => $self->o('host'),
+                       'port'     => $self->o('port'),
+                       'base_dir' => $self->o('base_dir'),
+                       'genomic_features_mart' => $self->o('genomic_features_mart'),
+                       'max_dropdown' => $self->o('max_dropdown'),
+                       'template_name' => $self->o('template_name'),
+                       'base_name' => $self->('base_name') },
+            -analysis_capacity => 1,
+        },
         ];
     return $analyses;
 }
