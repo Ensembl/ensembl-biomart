@@ -44,8 +44,9 @@ sub default_options {
            'datasets'  => [],
            'compara'   => undef,
            'base_dir'  => getcwd,
-	   'template' => undef,
-           'base_name' => 'gene' };
+	         'template' => undef,
+           'base_name' => 'gene'
+           'template_name' => 'genes' };
 }
 
 =head2 pipeline_wide_parameters
@@ -184,14 +185,16 @@ sub pipeline_analyses {
       -wait_for    => ['generate_names','optimize'],
       -parameters  => {
         'cmd' =>
-                       'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #basename#',
+                       'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name#',
                        'mart'     => $self->o('mart'),
                        'template'     => $self->o('template'),
                        'user'     => $self->o('user'),
                        'pass'     => $self->o('pass'),
                        'host'     => $self->o('host'),
                        'port'     => $self->o('port'),
-                       'base_dir' => $self->o('base_dir') },
+                       'base_dir' => $self->o('base_dir'),
+                       'template_name' => $self->o('template_name'),
+                       'base_name' => $self->o('base_name') },
       -analysis_capacity => 1 }
 
   ];
