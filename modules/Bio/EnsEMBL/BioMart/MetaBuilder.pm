@@ -512,7 +512,7 @@ sub write_filters {
               $nD++;
             }
           } ## end elsif ( $fdo->{displayType... [ if ( $fdo->{internalName...})]})
-          # Extra code to deal with Boolean filters
+          # Extra code to deal with Boolean filters which are not xrefs or probes
           elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'list' && $fdo->{type} eq 'boolean' && defined $filterDescription->{Option}){
             my $nO = 0;
             if ( defined $self->{tables}->{ $fdo->{tableConstraint} } &&
@@ -571,7 +571,12 @@ sub write_filters {
                     ->execute_simple( -SQL =>
 "select distinct $fdo->{field} from $fdo->{tableConstraint} where $fdo->{field} is not null order by $fdo->{field} limit $max"
                     );
-                  if ( scalar(@$vals) <= $self->{max_dropdown} ) {
+                  # If the dropdown is empty, remove it from the interface.
+                  if ( scalar(@$vals) == 0)
+                  {
+                    $self->{delete}{$fco->{internalName}}=1;
+                  }
+                  elsif ( scalar(@$vals) <= $self->{max_dropdown} ) {
                     if ($fdo->{internalName} eq "chromosome_name" || $fdo->{internalName} eq "chromosome" || $fdo->{internalName} eq 'chr_name') {
                       # We need to sort the chromosome dropdown to make it more user friendly
                       @$vals = nsort(@$vals);
