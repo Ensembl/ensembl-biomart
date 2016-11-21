@@ -42,7 +42,7 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Limit to study accession from DGVa (Please select DGVa from source filter above)" internalName="structural_variation_study" useDefault="true">
-        <FilterDescription displayName="DGVa Study Accession" displayType="list" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true">
+        <FilterDescription displayName="DGVa Study Accession" displayType="list" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true" style="menu">
             <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>

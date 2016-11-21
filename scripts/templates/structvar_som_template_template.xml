@@ -37,14 +37,12 @@
     </FilterGroup>
     <FilterGroup displayName="GENERAL STRUCTURAL VARIANT FILTERS:" internalName="svfilters" useDefault="true">
       <FilterCollection displayName="Limit to variants from this source" internalName="structural_variation_source" useDefault="true">
-        <FilterDescription displayName="Source Name" displayType="list" field="name_2021" hidden="false" internalName="source_name" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
-          <SpecificFilterContent displayType="list" field="name_2021" internalName="hsapiens_structvar_som" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
-            <Option displayName="DGVa" internalName="DGVa" isSelectable="true" useDefault="true" value="DGVa"/>
-          </SpecificFilterContent>
+        <FilterDescription defaultOn="true" defaultValue="DGVa" displayName="Source Name" displayType="list" field="name_2021" hidden="false" internalName="source_name" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Limit to study accession from DGVa (Please select DGVa from source filter above)" internalName="structural_variation_study" useDefault="true">
-        <FilterDescription displayName="DGVa Study Accession" displayType="list" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="list" useDefault="true">
+        <FilterDescription displayName="DGVa Study Accession" displayType="list" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="list" style="menu" useDefault="true">
             <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
