@@ -504,7 +504,7 @@ sub write_filters {
                             ( $opt->{key} || 'undef' ) . ", Option " .
                             $opt->{internalName} );
               }
-              restore_main( $fdo, $ds_name );
+              restore_main( $opt, $ds_name );
             } ## end for my $option ( @{ $filterDescription...})
             if ( $nO > 0 ) {
               $logger->debug("Options found for filter ".$fdo->{internalName});
@@ -542,7 +542,7 @@ sub write_filters {
                                 ( $filterDescription->{key} || 'undef' ) . ", FilterDescription " .
                                 $filterDescription->{internalName} );
               }
-            restore_main( $filterDescription, $ds_name );
+            restore_main( $fdo, $ds_name );
           }
           ### end elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'list' && $fdo->{type} eq 'boolean' && defined $filterDescription->{Option})
           else {
