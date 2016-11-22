@@ -89,6 +89,7 @@ my $opts = $cli_helper->process_args( $optsd, \&pod2usage );
 $opts->{template_name} ||= 'genes';
 $opts->{ds_basename}   ||= 'gene';
 $opts->{max_dropdown}  ||= 256;
+$opts->{genomic_features_dbname} ||= '';
 if ( $opts->{verbose} ) {
   Log::Log4perl->easy_init($DEBUG);
 }

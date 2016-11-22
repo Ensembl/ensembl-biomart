@@ -584,7 +584,7 @@ sub write_filters {
                       $fdo->{Option} = [];
                       my $chr_bands_kstart;
                       my $chr_bands_kend;
-                      if(defined $genomic_features_mart) {
+                      if(defined $genomic_features_mart and $genomic_features_mart ne '') {
                         ($chr_bands_kstart,$chr_bands_kend)=generate_chromosome_bands_push_action($self,$dataset->{name},$genomic_features_mart,$gfm_ds_name);
                       }
                       for my $val (@$vals) {
