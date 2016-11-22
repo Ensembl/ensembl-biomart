@@ -27,31 +27,45 @@ use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 sub param_defaults {
   return { 'dataset_name'   => 'snp',
            'dataset_main'   => 'variation__main',
-           'species_suffix' => '_eg',
-           'description'    => 'variations',
-           'tmp_dir'        => '/tmp', };
+           'description'    => 'variations'
+         };
 }
 
 sub run {
   my ($self) = @_;
-
+  my $mart_dbc = $self->mart_dbc;
   if ( $self->param_required('dataset_name') eq 'structvar' ) {
-    my $mart_dbh = $self->mart_dbh();
     my $tables =
-      $mart_dbh->selectcol_arrayref('SHOW TABLES LIKE "%structvar%";')
-      or
-      $self->throw( $mart_dbh->errstr );
+      $mart_dbc->sql_helper->execute(-SQL=>'SHOW TABLES LIKE "%structvar%";');
     if (@$tables) {
       $self->run_names_script();
-      $self->run_template_script();
+      $self->run_meta_script();
     }
-    $mart_dbh->do('DROP TABLE IF EXISTS dataset_names;') or
-      $self->throw( $mart_dbh->errstr );
+    $mart_dbc->sql_helper->execute_update(-SQL=>'DROP TABLE IF EXISTS dataset_names;');
+  }
+  elsif ( $self->param_required('dataset_name') eq 'snp_som' ) {
+    my $tables =
+      $mart_dbc->sql_helper->execute(-SQL=>'SHOW TABLES LIKE "%snp_som%";');
+    if (@$tables) {
+      $self->run_names_script();
+      $self->run_meta_script();
+    }
+    $mart_dbc->sql_helper->execute_update(-SQL=>'DROP TABLE IF EXISTS dataset_names;');
+  }
+  elsif ( $self->param_required('dataset_name') eq 'structvar_som' ) {
+    my $tables =
+      $mart_dbc->sql_helper->execute(-SQL=>'SHOW TABLES LIKE "%structvar_som%";');
+    if (@$tables) {
+      $self->run_names_script();
+      $self->run_meta_script();
+    }
+    $mart_dbc->sql_helper->execute_update(-SQL=>'DROP TABLE IF EXISTS dataset_names;');
   }
   else {
     $self->run_names_script();
-    $self->run_template_script();
+    $self->run_meta_script();
   }
+  $mart_dbc->disconnect_if_idle();
 }
 
 sub run_names_script {
@@ -68,40 +82,38 @@ sub run_names_script {
     $self->param_required('mart_user') . " -pass " .
     $self->param_required('mart_pass') . " -mart " .
     $self->param_required('mart_db_name') . " -name " .
-    $self->param_required('dataset_name') . " -suffix " .
-    $self->param_required('species_suffix') . " -main " .
-    $self->param_required('dataset_main') . " -release " .
-    $self->param_required('ensembl_release');
+    $self->param_required('dataset_name') . " -main " .
+    $self->param_required('dataset_main') . " -div " .
+    lc($self->param_required('division_name'));
+  $cmd = $cmd . " -suffix " . $self->param_required('species_suffix') if $self->param_required('species_suffix') ne '';
 
   if ( system($cmd) ) {
     $self->throw("Loading failed when running $cmd");
   }
 }
 
-sub run_template_script {
+sub run_meta_script {
   my ($self) = @_;
 
   my $scripts_lib = $self->param_required('scripts_lib');
-  my $generate_template_script =
-    $self->param_required('generate_template_script');
+  my $generate_meta_script =
+    $self->param_required('generate_meta_script');
 
   my $cmd =
-    "perl -I$scripts_lib $generate_template_script " . " -host " .
+    "perl -I$scripts_lib $generate_meta_script " . " -host " .
     $self->param_required('mart_host') . " -port " .
     $self->param_required('mart_port') . " -user " .
     $self->param_required('mart_user') . " -pass " .
-    $self->param_required('mart_pass') . " -mart " .
-    $self->param_required('mart_db_name') . " -dataset " .
-    $self->param_required('dataset_name') . " -description " .
+    $self->param_required('mart_pass') . " -dbname " .
+    $self->param_required('mart_db_name') . " -ds_basename " .
+    $self->param_required('dataset_name') . " -template_name " .
     $self->param_required('description') . " -template " .
-    $self->param_required('template_template') . " -ds_template " .
-    $self->param_required('dataset_template') . " -output_dir " .
-    $self->param_required('output_dir') . " -release " .
-    $self->param_required('eg_release');
-
+    $self->param_required('template_template');
+  $cmd = $cmd . " -genomic_features_dbname " . $self->param_required('genomic_features_dbname') if $self->param_required('genomic_features_dbname') ne '';
+  $cmd = $cmd . " -max_dropdown " . $self->param_required('max_dropdown') if $self->param_required('max_dropdown') ne '';
   if ( system($cmd) ) {
     $self->throw("Loading failed when running $cmd");
   }
-} ## end sub run_template_script
+} ## end sub run_meta_script
 
 1;
