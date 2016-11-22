@@ -32,32 +32,33 @@ sub run {
   my ($self) = @_;
   
   my $table = $self->param_required('table');
-  my $mart_dbh = $self->mart_dbh;
   
-  $self->create_index($table, $mart_dbh);
+  $self->create_index($table);
 }
 
 sub create_index {
-  my ($self, $table, $mart_dbh) = @_;
+  my ($self, $table) = @_;
   
   my $mart_table_prefix = $self->param_required('mart_table_prefix');
   my $mart_table = "$mart_table_prefix$table";
   my $sql_file = catdir($self->param_required('tables_dir'), $table, 'index.sql');
   
-  my @index_sql = $self->read_array($sql_file);
-  foreach my $index_sql (@index_sql) {
-    $index_sql =~ s/SPECIES_ABBREV/$mart_table_prefix/gm;
-    $mart_dbh->do($index_sql) or $self->throw($mart_dbh->errstr);
-  }
+  my $index_sql = $self->read_string($sql_file);
+  $index_sql =~ s/SPECIES_ABBREV/$mart_table_prefix/gm;
+  my $mart_dbc = $self->mart_dbc;
+  $mart_dbc->sql_helper->execute_update(-SQL=>$index_sql);
+  $mart_dbc->disconnect_if_idle();
 }
 
-sub read_array {
+sub read_string {
   my ($self, $filename) = @_;
   
+  local $/ = undef;
   open my $fh, '<', $filename or $self->throw("Error opening $filename - $!\n");
-  my @contents = <$fh>;
+  my $contents = <$fh>;
   close $fh;
-  return @contents;
+  return $contents;
 }
+
 
 1;

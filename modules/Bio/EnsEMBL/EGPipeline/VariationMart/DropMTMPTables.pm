@@ -26,13 +26,15 @@ use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 sub run {
   my ($self) = @_;
   
-  my $dbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
+  my $dbc = $self->get_DBAdaptor('variation')->dbc();
   my $tables_sql = 'SHOW TABLES LIKE "MTMP%";'
-  my $tables = $dbh->selectcol_arrayref($tables_sql) or $self->throw($dbh->errstr);
+  my $tables = $dbc->sql_helper->execute(-SQL=>$tables_sql);
+
   foreach my $table (@$tables) {
     my $drop_sql = "DROP TABLE $table;";
-    $dbh->do($drop_sql) or $self->throw($dbh->errstr);
+    $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
   }
+  $dbc->disconnect_if_idle();
 }
 
 1;

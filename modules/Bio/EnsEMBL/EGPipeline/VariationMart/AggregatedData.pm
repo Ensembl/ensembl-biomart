@@ -34,11 +34,10 @@ sub run {
   my ($self) = @_;
   
   my $mart_table_prefix = $self->param_required('mart_table_prefix');
-  my $mart_dbh = $self->mart_dbh;
   my $variation_db = $self->get_DBAdaptor('variation')->dbc()->dbname;
   my $prefix = "";
 
-   foreach my $table ( @{$self->param_required('snp_tables')} ) {
+  foreach my $table ( @{$self->param_required('snp_tables')} ) {
     #if ($table eq 'snp__variation_annotation__dm') {
         # The annotation and citation boolean fields aren't used anywhere, and
         # aren't that useful (since there are phenotype and citation filter).
@@ -47,12 +46,12 @@ sub run {
      if ($table eq 'snp__variation_citation__dm') {
         # The annotation and citation boolean fields aren't used anywhere, and
         # aren't that useful (since there are phenotype and citation filter).
-        $self->variation_citation_bool($mart_table_prefix, $mart_dbh, $variation_db, $prefix);
+        $self->variation_citation_bool($mart_table_prefix, $variation_db, $prefix);
      } 
      elsif ($table eq 'snp__variation__main') {
         # Variation feature counts aren't currently used, but could be useful
         # in the future, so do them for now.
-        $self->variation_feature_count($mart_table_prefix, $mart_dbh, $variation_db, $prefix);
+        $self->variation_feature_count($mart_table_prefix, $variation_db, $prefix);
      }
    }
 
@@ -69,29 +68,29 @@ sub run {
      if ($table eq 'snp_som__variation_citation__dm') {
         # The annotation and citation boolean fields aren't used anywhere, and
         # aren't that useful (since there are phenotype and citation filter).
-        $self->variation_citation_bool($mart_table_prefix, $mart_dbh, $variation_db, $prefix);
+        $self->variation_citation_bool($mart_table_prefix, $variation_db, $prefix);
      }
      elsif ($table eq 'snp_som__variation__main') {
         # Variation feature counts aren't currently used, but could be useful
         # in the future, so do them for now.
-        $self->variation_feature_count($mart_table_prefix, $mart_dbh, $variation_db, $prefix);
+        $self->variation_feature_count($mart_table_prefix, $variation_db, $prefix);
      }
 
     }
     if ($self->param('sv_som_exists') and $self->param_required('species') eq 'homo_sapiens') {
-      $self->structural_variation_feature_count($mart_table_prefix, $mart_dbh, $variation_db, $prefix);
+      $self->structural_variation_feature_count($mart_table_prefix, $variation_db, $prefix);
     }
   }
 
   if ($self->param('sv_exists'))  {
       $prefix="";
-      $self->structural_variation_feature_count($mart_table_prefix, $mart_dbh, $variation_db, $prefix);
+      $self->structural_variation_feature_count($mart_table_prefix, $variation_db, $prefix);
   }
   
 }
 
 sub variation_annotation_bool {
-  my ($self, $mart_table_prefix, $mart_dbh, $variation_db, $prefix) = @_;
+  my ($self, $mart_table_prefix, $variation_db, $prefix) = @_;
   
   my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
@@ -108,13 +107,15 @@ sub variation_annotation_bool {
     $mart_table_prefix.'_snp'.$prefix.'__variation__main '.
     '(variation_annotation_bool);';
   
-  $mart_dbh->do($table_sql) or $self->throw($mart_dbh->errstr);
-  $mart_dbh->do($update_sql) or $self->throw($mart_dbh->errstr);
-  $mart_dbh->do($index_sql) or $self->throw($mart_dbh->errstr);
+  my $mart_dbc = $self->mart_dbc;
+  $mart_dbc->sql_helper->execute_update(-SQL=>$table_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->sql_helper->execute_update(-SQL=>$update_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->sql_helper->execute_update(-SQL=>$index_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->disconnect_if_idle();
 }
 
 sub variation_citation_bool {
-  my ($self, $mart_table_prefix, $mart_dbh, $variation_db, $prefix) = @_;
+  my ($self, $mart_table_prefix, $variation_db, $prefix) = @_;
   
   my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
@@ -131,13 +132,15 @@ sub variation_citation_bool {
     $mart_table_prefix.'_snp'.$prefix.'__variation__main '.
     '(variation_citation_bool);';
   
-  $mart_dbh->do($table_sql) or $self->throw($mart_dbh->errstr);
-  $mart_dbh->do($update_sql) or $self->throw($mart_dbh->errstr);
-  $mart_dbh->do($index_sql) or $self->throw($mart_dbh->errstr);
+  my $mart_dbc = $self->mart_dbc;
+  $mart_dbc->sql_helper->execute_update(-SQL=>$table_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->sql_helper->execute_update(-SQL=>$update_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->sql_helper->execute_update(-SQL=>$index_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->disconnect_if_idle();
 }
 
 sub variation_feature_count {
-  my ($self, $mart_table_prefix, $mart_dbh, $variation_db, $prefix) = @_;
+  my ($self, $mart_table_prefix, $variation_db, $prefix) = @_;
   
   my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
@@ -155,13 +158,15 @@ sub variation_feature_count {
     $mart_table_prefix.'_snp'.$prefix.'__variation__main '.
     '(variation_feature_count);';
   
-  $mart_dbh->do($table_sql) or $self->throw($mart_dbh->errstr);
-  $mart_dbh->do($update_sql) or $self->throw($mart_dbh->errstr);
-  $mart_dbh->do($index_sql) or $self->throw($mart_dbh->errstr);
+  my $mart_dbc = $self->mart_dbc;
+  $mart_dbc->sql_helper->execute_update(-SQL=>$table_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->sql_helper->execute_update(-SQL=>$update_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->sql_helper->execute_update(-SQL=>$index_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->disconnect_if_idle();
 }
 
 sub structural_variation_feature_count {
-  my ($self, $mart_table_prefix, $mart_dbh, $variation_db, $prefix) = @_;
+  my ($self, $mart_table_prefix, $variation_db, $prefix) = @_;
   
   my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_structvar'.$prefix.'__structural_variation__main '.
@@ -179,9 +184,11 @@ sub structural_variation_feature_count {
     $mart_table_prefix.'_structvar'.$prefix.'__structural_variation__main '.
     '(structural_variation_feature_count);';
 
-  $mart_dbh->do($table_sql) or $self->throw($mart_dbh->errstr);
-  $mart_dbh->do($update_sql) or $self->throw($mart_dbh->errstr);
-  $mart_dbh->do($index_sql) or $self->throw($mart_dbh->errstr);
+  my $mart_dbc = $self->mart_dbc;
+  $mart_dbc->sql_helper->execute_update(-SQL=>$table_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->sql_helper->execute_update(-SQL=>$update_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->sql_helper->execute_update(-SQL=>$index_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->disconnect_if_idle();
 }
 
 1;

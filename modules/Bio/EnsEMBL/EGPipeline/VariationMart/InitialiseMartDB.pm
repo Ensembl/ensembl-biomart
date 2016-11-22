@@ -49,25 +49,25 @@ sub run {
     }
   }
   
-  my $dbh = $dbc->db_handle();
   
   if ($drop_mart_db) {
     my $drop_sql = "DROP DATABASE IF EXISTS $mart_db_name;";
-    $dbh->do($drop_sql) or $self->throw($dbh->errstr);
+    $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
   }
   
   my $create_sql = "CREATE DATABASE IF NOT EXISTS $mart_db_name;";
-  $dbh->do($create_sql) or $self->throw($dbh->errstr);
+  $dbc->sql_helper->execute_update(-SQL=>$create_sql);
   
   $self->param('mart_host', $host);
   $self->param('mart_port', $dbc->port);
   $self->param('mart_user', $dbc->user);
   $self->param('mart_pass', $dbc->pass);
+  $dbc->disconnect_if_idle();
 }
 
 sub write_output {
   my ($self) = @_;
-  
+ 
   $self->dataflow_output_id({
     'mart_host'    => $self->param('mart_host'),
     'mart_port'    => $self->param('mart_port'),
