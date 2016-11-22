@@ -41,29 +41,28 @@ sub param_defaults {
 sub run {
   my ($self) = @_;
   
-  my $mart_dbh = $self->mart_dbh;
   my @tables=(); 
   $self->remove_unused_tables();
   
   foreach my $table ( @{$self->param_required('snp_tables')} ) {
-    $self->create_table($table, $mart_dbh);
+    $self->create_table($table);
   }
 
   if ($self->param_required('species') eq 'homo_sapiens')
   {
     foreach my $table ( @{$self->param_required('snp_som_tables')} ) {
-      $self->create_table($table, $mart_dbh);
+      $self->create_table($table);
     }
     if ($self->param('sv_som_exists') and $self->param_required('species') eq 'homo_sapiens') {
       foreach my $table ( @{$self->param_required('sv_som_tables')} ) {
-        $self->create_table($table, $mart_dbh);
+        $self->create_table($table);
       }
     }
   }
   
   if ($self->param('sv_exists')) {
     foreach my $table ( @{$self->param_required('sv_tables')} ) {
-      $self->create_table($table, $mart_dbh);
+      $self->create_table($table);
     }
   }
 }
@@ -115,13 +114,14 @@ sub remove_unused_tables {
 }
 
 sub create_table {
-  my ($self, $table, $mart_dbh) = @_;
+  my ($self, $table) = @_;
   
   my $mart_table_prefix = $self->param_required('mart_table_prefix');
   my $mart_table = "$mart_table_prefix\_$table";
   my $sql_file = catdir($self->param_required('tables_dir'), $table, 'select.sql');
-  
-  $self->existing_table_check($mart_dbh, $mart_table);
+  my $mart_dbc = $self->mart_dbc;
+
+  $self->existing_table_check($mart_table);
   
   my $core_db = $self->get_DBAdaptor('core')->dbc()->dbname;
   my $variation_db = $self->get_DBAdaptor('variation')->dbc()->dbname;
@@ -134,22 +134,25 @@ sub create_table {
   my $create_sql = "CREATE TABLE $mart_table AS $select_sql LIMIT 1;";
   my $truncate_sql = "TRUNCATE TABLE $mart_table;";
   
-  $mart_dbh->do($create_sql) or $self->throw($mart_dbh->errstr);
-  $mart_dbh->do($truncate_sql) or $self->throw($mart_dbh->errstr);
+  $mart_dbc->sql_helper->execute_update(-SQL=>$create_sql);
+  $mart_dbc->sql_helper->execute_update(-SQL=>$truncate_sql);
   
-  $self->order_consequences($mart_dbh, $mart_table);
+  $mart_dbc->disconnect_if_idle();
+  $self->order_consequences($mart_table);
 }
 
 sub existing_table_check {
-  my ($self, $mart_dbh, $mart_table) = @_;
+  my ($self, $mart_table) = @_;
   
+  my $mart_dbc = $self->mart_dbc;
   my $tables_sql = "SHOW TABLES LIKE '$mart_table';";
-  my $tables = $mart_dbh->selectcol_arrayref($tables_sql) or $self->throw($mart_dbh->errstr);
+  my $tables = $mart_dbc->sql_helper->execute(-SQL=>$tables_sql);
   if (@$tables) {
     my $err = "Existing '$mart_table' table cannot be overwritten ".
       "unless you set the init_pipeline.pl parameter: '-drop_mart_tables 1'";
     $self->throw($err);
   }
+  $mart_dbc->disconnect_if_idle();
 }
 
 sub read_string {
@@ -163,8 +166,9 @@ sub read_string {
 }
 
 sub order_consequences {
-  my ($self, $mart_dbh, $mart_table) = @_;
+  my ($self, $mart_table) = @_;
   
+  my $mart_dbh = $self->mart_dbh;
   my %consequences = %{$self->param('consequences')};
   foreach my $table (keys %consequences) {
     if ($mart_table =~ /$table/) {
@@ -306,7 +310,7 @@ sub write_output {
 sub max_key_id {
   my ($self, $table, $alias, $column, $conditions) = @_;
   
-  my $vdbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
+  my $vdbc = $self->get_DBAdaptor('variation')->dbc();
   
   # Don't bother getting the numbers exact, assume that the column has
   # roughly consecutive IDs; the partition size is thus an upper limit, really.
@@ -315,7 +319,8 @@ sub max_key_id {
     my $where = ' WHERE '.join(' AND ', @$conditions);
     $sql =~ s/;$/$where;/;
   }
-  my ($max_var_id) = $vdbh->selectrow_array($sql) or $self->throw($vdbh->errstr);
+  my ($max_var_id) = $vdbc->sql_helper->execute_simple(-SQL=>$sql)->[0];
+  $vdbc->disconnect_if_idle();
   return $max_var_id;
 }
 

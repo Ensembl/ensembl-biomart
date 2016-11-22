@@ -27,16 +27,15 @@ sub run {
   my ($self) = @_;
   
   my %snp_cull_tables = %{$self->param_required('snp_cull_tables')};
-  my $mart_dbh = $self->mart_dbh;
   
   foreach my $table (keys %snp_cull_tables) {
-    $self->cull_table($table, $snp_cull_tables{$table}, $mart_dbh);
+    $self->cull_table($table, $snp_cull_tables{$table});
   }
 
   if ($self->param_required('species') eq 'homo_sapiens'){
     my %snp_som_cull_tables = %{$self->param_required('snp_som_cull_tables')};
     foreach my $table (keys %snp_som_cull_tables) {
-      $self->cull_table($table, $snp_som_cull_tables{$table}, $mart_dbh);
+      $self->cull_table($table, $snp_som_cull_tables{$table});
     }
   }
 
@@ -44,36 +43,39 @@ sub run {
   if ($self->param('sv_exists')) {
     my %sv_cull_tables = %{$self->param_required('sv_cull_tables')};
     foreach my $table (keys %sv_cull_tables) {
-      $self->cull_table($table, $sv_cull_tables{$table}, $mart_dbh);
+      $self->cull_table($table, $sv_cull_tables{$table});
     }
   }
 
   if ($self->param('sv_som_exists') and $self->param_required('species') eq 'homo_sapiens') {
     my %sv_som_cull_tables = %{$self->param_required('sv_som_cull_tables')};
     foreach my $table (keys %sv_som_cull_tables) {
-      $self->cull_table($table, $sv_som_cull_tables{$table}, $mart_dbh);
+      $self->cull_table($table, $sv_som_cull_tables{$table});
     }
   }
 
 }
 
 sub cull_table {
-  my ($self, $table, $column, $mart_dbh) = @_;
+  my ($self, $table, $column) = @_;
   
+  my $mart_dbc = $self->mart_dbc;
   my $mart_table_prefix = $self->param_required('mart_table_prefix');
   my $mart_table = "$mart_table_prefix\_$table";
   
   my $tables_sql = "SHOW TABLES LIKE '$mart_table';";
-  my $tables = $mart_dbh->selectcol_arrayref($tables_sql) or $self->throw($mart_dbh->errstr);
+  my $tables = $mart_dbc->sql_helper->execute(-SQL=>$tables_sql);
+
   if (@$tables) {  
     my $count_sql = "SELECT COUNT(*) FROM $mart_table WHERE $column IS NOT NULL";
-    my ($rows) = $mart_dbh->selectrow_array($count_sql) or $self->throw($mart_dbh->errstr);
+    my ($rows) = $mart_dbc->sql_helper->execute_simple(-SQL=>$count_sql)->[0];
     
     if ($rows == 0) {
       my $drop_sql = "DROP TABLE $mart_table";
-      $mart_dbh->do($drop_sql) or $self->throw($mart_dbh->errstr);
+      $mart_dbc->sql_helper->execute_update(-SQL=>$drop_sql);
     }
   }
+  $mart_dbc->disconnect_if_idle();
 }
 
 1;

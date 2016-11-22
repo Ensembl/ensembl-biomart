@@ -27,26 +27,27 @@ sub run {
   my ($self) = @_;
   
   my $table = $self->param_required('table');
-  my $mart_dbh = $self->mart_dbh;
   my $columns;
   if ($table =~ 'structural_variation_feature'){
     $columns='name_2034, seq_region_start_20104, seq_region_end_20104';
-    $self->order_columns($table, $columns, $mart_dbh);
+    $self->order_columns($table, $columns);
   }
   elsif ($table =~ 'variation_feature'){
     $columns='name_1059, seq_region_start_2026, seq_region_end_2026';
-    $self->order_columns($table, $columns, $mart_dbh);
+    $self->order_columns($table, $columns);
   }
 }
 
 sub order_columns {
-  my ($self, $table, $columns, $mart_dbh) = @_;
+  my ($self, $table, $columns) = @_;
   
   my $mart_table_prefix = $self->param_required('mart_table_prefix');
   my $mart_table = "$mart_table_prefix\_$table";
   
   my $order_sql = "ALTER TABLE $mart_table ORDER by $columns;";
-  my $order_sql_run = $mart_dbh->do($order_sql) or $self->throw($mart_dbh->errstr);
+  my $mart_dbc = $self->mart_dbc;
+  $mart_dbc->sql_helper->execute_update(-SQL=>$order_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->disconnect_if_idle;
 }
 
 1;
