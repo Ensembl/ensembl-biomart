@@ -51,9 +51,9 @@ sub default_options {
     drop_mtmp             => 1,
     sample_threshold      => 100,
     population_threshold  => 100,
-    skip_meta_data        => 0,
     optimize_tables       => 0,
     populate_mart_rc_name => 'normal',
+    species_suffix        => '_eg',
     
     # Most mart table configuration is in VariationMart_conf, but e! and EG
     # differ in the absence/presence of the poly__dm table.

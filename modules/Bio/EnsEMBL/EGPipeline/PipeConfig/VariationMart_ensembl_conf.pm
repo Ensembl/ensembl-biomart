@@ -47,14 +47,15 @@ sub default_options {
   return {
     %{$self->SUPER::default_options},
     
-    division_name         => undef,
+    division_name         => 'Ensembl',
     mart_db_name          => 'snp_mart_'.$self->o('eg_release'),
     drop_mtmp             => 0,
     sample_threshold      => 0,
     population_threshold  => 500,
-    skip_meta_data        => 1,
     optimize_tables       => 1,
     populate_mart_rc_name => '8Gb_job',
+    genomic_features_dbname => 'genomic_features_mart_'.$self->o('ensembl_release'),
+    max_dropdown          => '20000',
     
     # Most mart table configuration is in VariationMart_conf, but e! and EG
     # differ in the absence/presence of the poly__dm table.
