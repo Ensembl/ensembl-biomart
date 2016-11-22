@@ -574,7 +574,7 @@ sub write_filters {
                   # If the dropdown is empty, remove it from the interface.
                   if ( scalar(@$vals) == 0)
                   {
-                    $self->{delete}{$fco->{internalName}}=1;
+                    $self->{delete}{$dataset->{name}."_".$fco->{internalName}}=1;
                   }
                   elsif ( scalar(@$vals) <= $self->{max_dropdown} ) {
                     if ($fdo->{internalName} eq "chromosome_name" || $fdo->{internalName} eq "chromosome" || $fdo->{internalName} eq 'chr_name') {
@@ -698,12 +698,12 @@ sub write_filters {
           if(defined $pointer_dataset_table->[0]) {
             if ($pointer_dataset_table->[0] >= 0) {
               delete $fco->{checkPointerDataset};
-              push @{ $fgo->{FilterCollection} }, $fco unless exists $self->{delete}{$fco->{internalName}};
+              push @{ $fgo->{FilterCollection} }, $fco unless (exists $self->{delete}{$fco->{internalName}} or exists $self->{delete}{$dataset->{name}."_".$fco->{internalName}});
               $nC++;
             }
           }
         } else {
-            push @{ $fgo->{FilterCollection} }, $fco unless exists $self->{delete}{$fco->{internalName}};
+            push @{ $fgo->{FilterCollection} }, $fco unless ( exists $self->{delete}{$fco->{internalName}} or exists $self->{delete}{$dataset->{name}."_".$fco->{internalName}});;
             $nC++;
           }
         }
