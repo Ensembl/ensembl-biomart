@@ -575,6 +575,8 @@ sub write_filters {
                   if ( scalar(@$vals) == 0)
                   {
                     $self->{delete}{$dataset->{name}."_".$fco->{internalName}}=1;
+                    $logger->info(
+                            "No data for $fdo->{internalName}, removing it from the template");
                   }
                   elsif ( scalar(@$vals) <= $self->{max_dropdown} ) {
                     if ($fdo->{internalName} eq "chromosome_name" || $fdo->{internalName} eq "chromosome" || $fdo->{internalName} eq 'chr_name') {
