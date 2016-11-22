@@ -61,8 +61,11 @@ sub default_options {
     populate_mart_rc_name => 'normal',
     snp_cull_tables       => [],
     optimize_tables       => 0,
-    skip_meta_data        => 0,
     population_threshold  => 100,
+    species_suffix        => '',
+    max_dropdown          => '',
+    genomic_features_dbname => '',
+
     
     previous_mart => {
       -driver => $self->o('hive_driver'),
@@ -176,24 +179,20 @@ sub default_options {
     generate_names_script => $self->o('ensembl_biomart_root_dir').
       '/scripts/generate_names.pl',
     
-    generate_template_script => $self->o('ensembl_biomart_root_dir').
-      '/scripts/generate_template.pl',
+    generate_meta_script => $self->o('ensembl_biomart_root_dir').
+      '/scripts/generate_meta.pl',
     
     template_template => $self->o('ensembl_biomart_root_dir').
       '/scripts/templates/variation_template_template.xml',
     
-    dataset_template => $self->o('ensembl_biomart_root_dir').
-      '/scripts/templates/dataset_variation_template.xml',
-    
-    generate_sv_template_script => $self->o('ensembl_biomart_root_dir').
-      '/scripts/generate_structvar_template.pl',
-    
     template_sv_template => $self->o('ensembl_biomart_root_dir').
       '/scripts/templates/structvar_template_template.xml',
+
+    template_som_template => $self->o('ensembl_biomart_root_dir').
+      '/scripts/templates/variation_som_template_template.xml',
     
-    dataset_sv_template => $self->o('ensembl_biomart_root_dir').
-      '/scripts/templates/dataset_structvar_template.xml',
-    
+    template_sv_som_template => $self->o('ensembl_biomart_root_dir').
+      '/scripts/templates/structvar_som_template_template.xml',
   };
 }
 
@@ -225,12 +224,6 @@ sub pipeline_create_commands {
 sub pipeline_analyses {
   my ($self) = @_;
   
-  my $final_flow;
-  if ($self->o('skip_meta_data')) {
-    $final_flow = 'AnalyzeTables';
-  } else {
-    $final_flow = 'AddMetaData';
-  }
   
   return [
     {
@@ -245,7 +238,7 @@ sub pipeline_analyses {
       -rc_name         => 'normal',
       -flow_into       => {
                             '1->A' => ['ScheduleSpecies'],
-                            'A->1' => [$final_flow],
+                            'A->1' => ['AddMetaData'],
                           },
       -meadow_type     => 'LOCAL',
     },
@@ -312,7 +305,6 @@ sub pipeline_analyses {
                               variation_mtmp_script    => $self->o('variation_mtmp_script'),
                               registry                 => $self->o('registry'),
                               tmp_dir                  => $self->o('tmp_dir'),
-                              division_name            => $self->o('division_name'),
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 5,
@@ -479,11 +471,39 @@ sub pipeline_analyses {
       -parameters        => {
                               scripts_lib              => $self->o('scripts_lib'),
                               generate_names_script    => $self->o('generate_names_script'),
-                              generate_template_script => $self->o('generate_template_script'),
+                              generate_meta_script => $self->o('generate_meta_script'),
                               template_template        => $self->o('template_template'),
-                              dataset_template         => $self->o('dataset_template'),
                               ensembl_release          => $self->o('ensembl_release'),
                               eg_release               => $self->o('eg_release'),
+                              species_suffix      => $self->o('species_suffix'),
+                              max_dropdown        =>  $self->o('max_dropdown'),
+                              genomic_features_dbname => $self->o('genomic_features_dbname'),
+                              division_name    => $self->o('division_name'),
+                            },
+      -max_retry_count   => 0,
+      -analysis_capacity => 10,
+      -wait_for          => ['CreateMartIndexes'],
+      -can_be_empty      => 1,
+      -flow_into         => ['AddSOMMetaData'],
+      -rc_name           => 'normal',
+    },
+
+    {
+      -logic_name        => 'AddSOMMetaData',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::AddMetaData',
+      -parameters        => {
+                              scripts_lib              => $self->o('scripts_lib'),
+                              generate_names_script    => $self->o('generate_names_script'),
+                              generate_meta_script => $self->o('generate_meta_script'),
+                              template_template        => $self->o('template_som_template'),
+                              ensembl_release          => $self->o('ensembl_release'),
+                              eg_release               => $self->o('eg_release'),
+                              dataset_name             => 'snp_som',
+                              description              => 'variations_som',
+                              species_suffix      => $self->o('species_suffix'),
+                              max_dropdown        =>  $self->o('max_dropdown'),
+                              genomic_features_dbname => $self->o('genomic_features_dbname'),
+                              division_name    => $self->o('division_name'),
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
@@ -498,13 +518,39 @@ sub pipeline_analyses {
       -parameters        => {
                               scripts_lib              => $self->o('scripts_lib'),
                               generate_names_script    => $self->o('generate_names_script'),
-                              generate_template_script => $self->o('generate_sv_template_script'),
+                              generate_meta_script => $self->o('generate_meta_script'),
                               template_template        => $self->o('template_sv_template'),
-                              dataset_template         => $self->o('dataset_sv_template'),
                               ensembl_release          => $self->o('ensembl_release'),
                               dataset_name             => 'structvar',
+                              description              => 'structural_variations',
                               dataset_main             => 'structural_variation__main',
-                              description              => 'structural variations',
+                              species_suffix      => $self->o('species_suffix'),
+                              max_dropdown        =>  $self->o('max_dropdown'),
+                              genomic_features_dbname => $self->o('genomic_features_dbname'),
+                              division_name    => $self->o('division_name'),
+                            },
+      -max_retry_count   => 0,
+      -analysis_capacity => 10,
+      -can_be_empty      => 1,
+      -flow_into         => ['AddSVSOMMetaData'],
+      -rc_name           => 'normal',
+    },
+    {
+      -logic_name        => 'AddSVSOMMetaData',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::AddMetaData',
+      -parameters        => {
+                              scripts_lib              => $self->o('scripts_lib'),
+                              generate_names_script    => $self->o('generate_names_script'),
+                              generate_meta_script => $self->o('generate_meta_script'),
+                              template_template        => $self->o('template_sv_som_template'),
+                              ensembl_release          => $self->o('ensembl_release'),
+                              dataset_name             => 'structvar_som',
+                              description              => 'structural_variations_som',
+                              dataset_main             => 'structural_variation__main',
+                              species_suffix      => $self->o('species_suffix'),
+                              max_dropdown        =>  $self->o('max_dropdown'),
+                              genomic_features_dbname => $self->o('genomic_features_dbname'),
+                              division_name    => $self->o('division_name'),
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
