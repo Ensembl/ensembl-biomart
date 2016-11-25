@@ -27,7 +27,7 @@ sub run {
   my ($self) = @_;
   
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
-  my $tables_sql = 'SHOW TABLES LIKE "MTMP%";'
+  my $tables_sql = 'SHOW TABLES LIKE "MTMP%"';
   my $tables = $dbc->sql_helper->execute(-SQL=>$tables_sql);
 
   foreach my $table (@$tables) {
