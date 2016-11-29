@@ -134,7 +134,7 @@ sub write_family {
     $mart_handle->do(
 	qq/ALTER TABLE ${dataset}_${basename}__translation__main
 ADD COLUMN stable_id_408      VARCHAR(40) DEFAULT NULL,
-ADD COLUMN description_408    VARCHAR(255) DEFAULT NULL
+ADD COLUMN description_408    TEXT
 /
 	);
     };
