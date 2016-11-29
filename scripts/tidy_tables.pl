@@ -93,7 +93,6 @@ elsif ($mart_db =~ /egontology_mart/) {
 }
 else {
   %tables_to_tidy = (
-			   '%\_transcript\_variation\_\_dm'     => 'seq_region_start_2026',
 			   '%\_transcript\_variation\_som\_\_dm' => 'seq_region_start_2026',
 			   '%\_\_go\_%\_\_dm'               => 'dbprimary_acc_1074',
 			   '%\_\_tra\_%\_\_dm'               => 'value_1065');
