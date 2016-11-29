@@ -30,7 +30,8 @@ use Cwd;
 
 sub resource_classes {
   my ($self) = @_;
-  return { 'default' => { 'LSF' => '-q production-rh6' } };
+  return { 'default' => { 'LSF' => '-q production-rh7' },
+           'mem'     => { 'LSF' => '-q production-rh7 -M 2500 -R "rusage[mem=2500]"'} };
 }
 
 sub default_options {
@@ -45,8 +46,12 @@ sub default_options {
            'compara'   => undef,
            'base_dir'  => getcwd,
 	         'template' => undef,
-           'base_name' => 'gene'
-           'template_name' => 'genes' };
+           'base_name' => 'gene',
+           'template_name' => 'genes',
+           'division' => '',
+           'registry'      => $self->o('registry'),
+           'genomic_features_mart' => '',
+           'max_dropdown' => '256',};
 }
 
 =head2 pipeline_wide_parameters
@@ -71,63 +76,80 @@ sub pipeline_analyses {
       -meadow_type => 'LSF',
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',
+'perl #base_dir#/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -name #base_name# -div #division# -registry #registry#',
         'mart'     => $self->o('mart'),
         'user'     => $self->o('user'),
         'pass'     => $self->o('pass'),
         'host'     => $self->o('host'),
         'port'     => $self->o('port'),
-        'base_dir' => $self->o('base_dir') },
+        'base_dir' => $self->o('base_dir'),
+        'division'  => $self->o('division'),
+        'registry'  => $self->o('registry'),
+        'base_name'  => $self->o('base_name') },
       -input_ids         => [ {} ],
       -analysis_capacity => 1,
-      -meadow_type       => 'LOCAL' },
-    { -logic_name => 'dataset_factory',
-      -module     => 'Bio::EnsEMBL::BioMart::DatasetFactory',
-      -wait_for   => 'generate_names',
-      -parameters => { 'mart'     => $self->o('mart'),
+      -meadow_type       => 'LOCAL',
+      -flow_into => {1 => 'dataset_factory'},
+      },
+      {
+        -logic_name => 'dataset_factory',
+        -module     => 'Bio::EnsEMBL::BioMart::DatasetFactory',
+        -wait_for   => 'generate_names',
+        -parameters => { 'mart'     => $self->o('mart'),
                        'user'     => $self->o('user'),
                        'pass'     => $self->o('pass'),
                        'host'     => $self->o('host'),
                        'port'     => $self->o('port'),
                        'datasets' => $self->o('datasets'),
-                       'base_dir' => $self->o('base_dir') },
-      -input_ids => [ {} ],
-      -flow_into => { 1 => [ 'calculate_sequence', 'add_compara',
+                       'base_dir' => $self->o('base_dir'),
+                       'registry' => $self->o('registry'), },
+        -input_ids => [ {} ],
+        -flow_into => { 1 => [ 'calculate_sequence', 'add_compara',
                              'add_xrefs',          'add_slims' ],
                       2 => ['tidy_tables','optimize','generate_meta'] },
-      -meadow_type => 'LOCAL' },
-    { -logic_name  => 'calculate_sequence',
+        -meadow_type => 'LOCAL'
+    },
+    {
+      -logic_name  => 'calculate_sequence',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
       -meadow_type => 'LSF',
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/calculate_sequence_data.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -dataset_basename #base_name#',
+'perl #base_dir#/scripts/calculate_sequence_data.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -dataset_basename #base_name# -registry #registry#',
         'mart'      => $self->o('mart'),
         'user'      => $self->o('user'),
         'pass'      => $self->o('pass'),
         'host'      => $self->o('host'),
         'port'      => $self->o('port'),
+        'registry' => $self->o('registry'),
         'base_dir'  => $self->o('base_dir'),
-        'base_name' => $self->o('base_name') },
-      -analysis_capacity => 10 },
-    { -logic_name  => 'add_compara',
+        'base_name' => $self->o('base_name')
+        },
+      -rc_name          => 'mem',
+      -analysis_capacity => 10
+    },
+    {
+      -logic_name  => 'add_compara',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
       -meadow_type => 'LSF',
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/add_compara.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -compara #compara# -dataset #dataset#',
+'perl #base_dir#/scripts/add_compara.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -compara #compara# -dataset #dataset# -name #base_name#',
         'mart'     => $self->o('mart'),
         'user'     => $self->o('user'),
         'pass'     => $self->o('pass'),
         'host'     => $self->o('host'),
         'port'     => $self->o('port'),
         'compara'  => $self->o('compara'),
-        'base_dir' => $self->o('base_dir') },
-      -analysis_capacity => 10 },
-    { -logic_name  => 'tidy_tables',
+        'base_dir' => $self->o('base_dir'),
+        'base_name' => $self->o('base_name') },
+      -analysis_capacity => 10
+    },
+    {
+      -logic_name  => 'tidy_tables',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
       -meadow_type => 'LSF',
-      -wait_for    => [ 'add_compara', 'calculate_sequence' ],
+      -wait_for    => [ 'add_compara', 'calculate_sequence'],
       -parameters  => {
         'cmd' =>
 'perl #base_dir#/scripts/tidy_tables.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',
@@ -137,8 +159,10 @@ sub pipeline_analyses {
         'host'     => $self->o('host'),
         'port'     => $self->o('port'),
         'base_dir' => $self->o('base_dir') },
-      -analysis_capacity => 1 },
-    { -logic_name  => 'add_xrefs',
+      -analysis_capacity => 1
+    },
+    {
+      -logic_name  => 'add_xrefs',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
       -meadow_type => 'LSF',
       -parameters  => {
@@ -151,25 +175,33 @@ sub pipeline_analyses {
         'port'     => $self->o('port'),
         'base_dir' => $self->o('base_dir') },
       -analysis_capacity => 10,
-      -wait_for          => ['tidy_tables'], },
-    { -logic_name  => 'add_slims',
+      -wait_for          => ['tidy_tables'],
+    },
+    {
+      -logic_name  => 'add_slims',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
       -meadow_type => 'LSF',
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/generate_slim.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset#',
+'perl #base_dir#/scripts/generate_slim.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -registry #registry# -name #base_name#',
         'mart'     => $self->o('mart'),
         'user'     => $self->o('user'),
         'pass'     => $self->o('pass'),
         'host'     => $self->o('host'),
         'port'     => $self->o('port'),
-        'base_dir' => $self->o('base_dir') },
+        'base_dir' => $self->o('base_dir'),
+        'registry' => $self->o('registry'),
+        'base_name' => $self->o('base_name'),
+         },
       -analysis_capacity => 10,
-      -wait_for          => ['tidy_tables'], },
-    { -logic_name  => 'optimize',
+      -wait_for          => ['tidy_tables'],
+      -rc_name          => 'mem',
+    },
+    {
+      -logic_name  => 'optimize',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
       -meadow_type => 'LSF',
-      -wait_for    => [ 'add_xrefs', 'add_slims' ],
+      -wait_for    => [ 'add_xrefs', 'add_slims'],
       -parameters  => {
         'cmd' =>
 'mysqlcheck -h#host# -u#user# -p#pass# -P#port# --optimize "#mart#"',
@@ -177,15 +209,18 @@ sub pipeline_analyses {
         'user' => $self->o('user'),
         'pass' => $self->o('pass'),
         'host' => $self->o('host'),
-        'port' => $self->o('port') },
-      -analysis_capacity => 1 },
-    { -logic_name  => 'generate_meta',
+        'port' => $self->o('port')
+        },
+      -analysis_capacity => 1
+    },
+    {
+      -logic_name  => 'generate_meta',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
       -meadow_type => 'LSF',
       -wait_for    => ['generate_names','optimize'],
       -parameters  => {
         'cmd' =>
-                       'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name#',
+        'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
                        'mart'     => $self->o('mart'),
                        'template'     => $self->o('template'),
                        'user'     => $self->o('user'),
@@ -194,9 +229,11 @@ sub pipeline_analyses {
                        'port'     => $self->o('port'),
                        'base_dir' => $self->o('base_dir'),
                        'template_name' => $self->o('template_name'),
+                       'genomic_features_mart' => $self->o('genomic_features_mart'),
+                       'max_dropdown' => $self->o('max_dropdown'),
                        'base_name' => $self->o('base_name') },
-      -analysis_capacity => 1 }
-
+      -analysis_capacity => 1
+    }
   ];
   return $analyses;
 } ## end sub pipeline_analyses
