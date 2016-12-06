@@ -67,7 +67,13 @@ my $template_properties = {
          mirna_target_features => { type => 'TableSet',        visible => 1 },
          motif_features => { type => 'TableSet',        visible => 1 },
          regulatory_features => { type => 'TableSet',        visible => 1 },
-         sequences  => { type => 'GenomicSequence', visible => 0 } };
+         sequences  => { type => 'GenomicSequence', visible => 0 },
+         encode => { type => 'TableSet',        visible => 0 },
+         qtl_feature => { type => 'TableSet',        visible => 0 },
+         karyotype_start => { type => 'TableSet',        visible => 0 },
+         karyotype_end => { type => 'TableSet',        visible => 0 },
+         marker_start => { type => 'TableSet',        visible => 0 },
+         marker_end => { type => 'TableSet',        visible => 0 }, };
 
 =head1 CONSTRUCTOR
 =head2 new
@@ -345,7 +351,6 @@ sub write_filters {
   my ( $self, $dataset, $templ_in, $datasets, $genomic_features_mart ) = @_;
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
   my $templ_out = $dataset->{config};
-  my $gfm_ds_name=substr($dataset->{name},0,4);
   $logger->info( "Writing filters for " . $dataset->{name} );
   # FilterPage
   for my $filterPage ( @{ elem_as_array( $templ_in->{FilterPage}) } ) {
@@ -566,6 +571,7 @@ sub write_filters {
                   my $max = $self->{max_dropdown} + 1;
                   my %kstart_config=();
                   my %kend_config=();
+                  my %qtl_config=();
                   my $vals =
                     $self->{dbc}->sql_helper()
                     ->execute_simple( -SQL =>
@@ -579,15 +585,21 @@ sub write_filters {
                             "No data for $fdo->{internalName}, removing it from the template");
                   }
                   elsif ( scalar(@$vals) <= $self->{max_dropdown} ) {
-                    if ($fdo->{internalName} eq "chromosome_name" || $fdo->{internalName} eq "chromosome" || $fdo->{internalName} eq 'chr_name') {
+                    if ($fdo->{internalName} eq "chromosome_name" || $fdo->{internalName} eq "chromosome" || $fdo->{internalName} eq 'chr_name' || $fdo->{internalName} eq 'name_2') {
                       # We need to sort the chromosome dropdown to make it more user friendly
                       @$vals = nsort(@$vals);
                       # Retrieving chr band informations
                       $fdo->{Option} = [];
                       my $chr_bands_kstart;
                       my $chr_bands_kend;
+                      my $qtl_features;
                       if(defined $genomic_features_mart and $genomic_features_mart ne '') {
-                        ($chr_bands_kstart,$chr_bands_kend)=generate_chromosome_bands_push_action($self,$dataset->{name},$genomic_features_mart,$gfm_ds_name);
+                        if ($fdo->{internalName} eq 'name_2') {
+                          $qtl_features=generate_chromosome_qtl_push_action($self,$dataset->{name},$genomic_features_mart);
+                        }
+                        else {
+                          ($chr_bands_kstart,$chr_bands_kend)=generate_chromosome_bands_push_action($self,$dataset->{name},$genomic_features_mart);
+                        }
                       }
                       for my $val (@$vals) {
                         # Creating band start and end configuration for a given chromosome
@@ -613,6 +625,19 @@ sub write_filters {
                                                           };
                           }
                         }
+                        if (defined $qtl_features->{$val}){
+                          my %hqtl_features=%$qtl_features;
+                          foreach my $qtl (@{$hqtl_features{$val}}){
+                            push @{ $qtl_config{$val} }, {
+                                                             internalName => $qtl,
+                                                             displayName  => $qtl,
+                                                             value        => $qtl,
+                                                             isSelectable => 'true',
+                                                             useDefault   => 'true'
+                                                            };
+                          }
+
+                        }
                       
                       # If the species has band information, creating chromosome option and associated band start and end push action dropdowns
                       if (defined $kstart_config{$val} and defined $kend_config{$val})
@@ -633,6 +658,21 @@ sub write_filters {
                                    useDefault   => 'true',
                                    ref => 'band_end',
                                    Option => $kend_config{$val} } ],
+                          };
+                        }
+                        elsif(defined $qtl_config{$val})
+                        {
+                          push @{ $fdo->{Option} }, {
+                            internalName => $val,
+                            displayName  => $val,
+                            value        => $val,
+                            isSelectable => 'true',
+                            useDefault   => 'true',
+                            PushAction => [ {
+                                   internalName => "qtl_region_push_$val",
+                                   useDefault   => 'true',
+                                   ref => 'qtl_region',
+                                   Option => $qtl_config{$val} } ],
                           };
                         }
                         else {
@@ -680,13 +720,13 @@ sub write_filters {
               push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
               $nD++;
             }
-            #### otherFilters *species4*
+            #### otherFilters *species3*
             if (defined $fdo->{otherFilters}){
-              $fdo->{otherFilters} =~ s/\*species4\*/${gfm_ds_name}/g;
+              $fdo->{otherFilters} =~ s/\*species3\*/$dataset->{name}/g;
             }
-            #### pointerDataSet *species4*
+            #### pointerDataSet *species3*
             if (defined $fdo->{pointerDataset}){
-              $fdo->{pointerDataset} =~ s/\*species4\*/${gfm_ds_name}/g;
+              $fdo->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/g;
             }
             restore_main( $fdo, $ds_name );
           } ## end else [ if ( $fdo->{internalName...})]
@@ -695,7 +735,7 @@ sub write_filters {
           if(defined $fco->{checkPointerDataset}) {
           # check for special checkPointerDataset tag which allows us to remove unneeded PointerDataset filters which only exist as when
           # connecting to other marts using Importables/Exportables
-          $fco->{checkPointerDataset} =~ s/\*species4\*/${gfm_ds_name}/g;
+          $fco->{checkPointerDataset} =~ s/\*species3\*/$dataset->{name}/g;
           my $pointer_dataset_table = check_pointer_dataset_table_exist($self,$dataset->{name},$genomic_features_mart,$fco->{checkPointerDataset});
           if(defined $pointer_dataset_table->[0]) {
             if ($pointer_dataset_table->[0] >= 0) {
@@ -1219,6 +1259,18 @@ sub update_table_keys {
         elsif ( $obj->{key} eq 'regulatory_feature_id_1036_key' ) {
           $obj->{tableConstraint} = "${ds_name}__regulatory_feature__main";
         }
+        elsif ( $obj->{key} eq 'misc_feature_id_1037_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__misc_feature__main";
+        }
+        elsif ( $obj->{key} eq 'phenotype_feature_id_2023_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__qtl_feature__main";
+        }
+        elsif ( $obj->{key} eq 'karyotype_id_1027_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__karyotype__main";
+        }
+        elsif ( $obj->{key} eq 'marker_feature_id_1031_key' ) {
+          $obj->{tableConstraint} = "${ds_name}__marker_feature__main";
+        }
       }
     }
     else {
@@ -1424,7 +1476,7 @@ sub _load_info {
 
 #Subroutine used to generate a list of chromosome band_start and band_end for a given dataset
 sub generate_chromosome_bands_push_action {
-my ($self,$dataset_name,$genomic_features_mart,$gfm_ds_name)= @_;
+my ($self,$dataset_name,$genomic_features_mart)= @_;
 my $chr_bands_kstart;
 my $chr_bands_kend;
 
@@ -1433,13 +1485,13 @@ my $database_tables =$self->{dbc}->sql_helper()
 if (defined $database_tables->[0]) {
   if ($database_tables->[0] > 0) {
     my $empty_ks_table=$self->{dbc}->sql_helper()
-                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${gfm_ds_name}_karyotype_start__karyotype__main'" );
+                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${dataset_name}_karyotype_start__karyotype__main'" );
     my $empty_ke_table=$self->{dbc}->sql_helper()
-                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${gfm_ds_name}_karyotype_start__karyotype__main'" );
+                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${dataset_name}_karyotype_start__karyotype__main'" );
     if(defined $empty_ks_table->[0] and $empty_ke_table->[0]) {
       if ($empty_ks_table->[0] > 0 and $empty_ke_table->[0] > 0) {
         $chr_bands_kstart = $self->{dbc}->sql_helper()->execute_into_hash(
-          -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${gfm_ds_name}_karyotype_start__karyotype__main where band_1027 is not null order by band_1027",
+          -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${dataset_name}_karyotype_start__karyotype__main where band_1027 is not null order by band_1027",
           -CALLBACK => sub {
             my ( $row, $value ) = @_;
             $value = [] if !defined $value;
@@ -1448,7 +1500,7 @@ if (defined $database_tables->[0]) {
             }
         );
         $chr_bands_kend = $self->{dbc}->sql_helper()->execute_into_hash(
-          -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${gfm_ds_name}_karyotype_end__karyotype__main where band_1027 is not null order by band_1027",
+          -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${dataset_name}_karyotype_end__karyotype__main where band_1027 is not null order by band_1027",
           -CALLBACK => sub {
             my ( $row, $value ) = @_;
             $value = [] if !defined $value;
@@ -1461,6 +1513,35 @@ if (defined $database_tables->[0]) {
   }
 }
 return ($chr_bands_kstart,$chr_bands_kend);
+}
+
+#Subroutine used to generate a list of chromosome QTLs for a given dataset
+sub generate_chromosome_qtl_push_action {
+my ($self,$dataset_name,$genomic_features_mart)= @_;
+my $qtl_features;
+
+my $database_tables =$self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${genomic_features_mart}'" );
+if (defined $database_tables->[0]) {
+  if ($database_tables->[0] > 0) {
+    my $empty_qtl_table=$self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${dataset_name}_qtl_feature__qtl_feature__main'" );
+    if(defined $empty_qtl_table->[0]) {
+      if ($empty_qtl_table->[0] > 0) {
+        $qtl_features = $self->{dbc}->sql_helper()->execute_into_hash(
+          -SQL => "select name_2033, qtl_region from ${genomic_features_mart}.${dataset_name}_qtl_feature__qtl_feature__main where qtl_region is not null order by qtl_region",
+          -CALLBACK => sub {
+            my ( $row, $value ) = @_;
+            $value = [] if !defined $value;
+            push($value, $row->[1] );
+            return $value;
+            }
+        );
+      }
+    }
+  }
+}
+return $qtl_features;
 }
 
 #Subroutine used to check if a given dataset has data in a pointer mart

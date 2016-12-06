@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE DatasetConfig>
+<DatasetConfig dataset="marker_feature_template" displayName="marker_feature" interfaces="default" internalName="template" martUsers="default" modified="2007-12-03 23:01:42.466" softwareVersion="0.6" template="marker_feature" type="TableSet" useDefault="true" visible="0">
+  <MainTable>*base_name*__marker_feature__main</MainTable>
+  <Key>marker_feature_id_1031_key</Key>
+  <Exportable attributes="name,seq_region_start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link" useDefault="true"/>
+  <FilterPage displayName="FILTERS" internalName="naive_filters" useDefault="true">
+    <FilterGroup displayName="FILTERS" internalName="filters" useDefault="true">
+      <FilterCollection displayName="marker feature" internalName="marker_feature" useDefault="true">
+        <FilterDescription displayName="Analysis id" displayType="text" field="analysis_id_1031" internalName="analysis_id" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Seq region id" displayType="text" field="seq_region_id_1031" internalName="seq_region_id" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Seq region start" displayType="text" field="seq_region_start_1031" internalName="seq_region_start" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Map weight" displayType="text" field="map_weight_1031" internalName="map_weight" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Marker Start" displayType="text" field="name_1033" internalName="marker_start" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Seq region end" displayType="text" field="seq_region_end_1031" internalName="seq_region_end" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Right primer" displayType="text" field="right_primer_1030" internalName="right_primer" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Max primer dist" displayType="text" field="max_primer_dist_1030" internalName="max_primer_dist" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Display marker synonym id" displayType="text" field="display_marker_synonym_id_1030" internalName="display_marker_synonym_id" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Type" displayType="text" field="type_1030" internalName="type" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Left primer" displayType="text" field="left_primer_1030" internalName="left_primer" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Priority" displayType="text" field="priority_1030" internalName="priority" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Min primer dist" displayType="text" field="min_primer_dist_1030" internalName="min_primer_dist" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Coord system id" displayType="text" field="coord_system_id_1059" internalName="coord_system_id" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Length" displayType="text" field="length_1059" internalName="length" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Name" displayType="text" field="name_1059" internalName="name" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Attrib" displayType="text" field="attrib_107" internalName="attrib" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Rank" displayType="text" field="rank_107" internalName="rank" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Name 1" displayType="text" field="name_107" internalName="name_1" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Version" displayType="text" field="version_107" internalName="version" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <FilterPage displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+    <FilterGroup displayName="NEW_FILTERS" hidden="true" internalName="new_filters" useDefault="true">
+      <FilterCollection displayName="marker feature" hidden="true" internalName="marker_feature" useDefault="true">
+        <FilterDescription displayName="Marker id 1031" displayType="text" field="marker_id_1031" hidden="true" internalName="marker_id_1031" key="marker_feature_id_1031_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <AttributePage displayName="ATTRIBUTES" internalName="naive_attributes" outFormats="html,txt,csv,tsv,xls" useDefault="true">
+    <AttributeGroup displayName="FEATURES" internalName="features" useDefault="true">
+      <AttributeCollection displayName="marker feature" internalName="marker_feature" useDefault="true">
+        <AttributeDescription displayName="Analysis id" field="analysis_id_1031" internalName="analysis_id" key="marker_feature_id_1031_key" maxLength="5" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Seq region id" field="seq_region_id_1031" internalName="seq_region_id" key="marker_feature_id_1031_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Seq Region Start" field="seq_region_start_1031" internalName="seq_region_start" key="marker_feature_id_1031_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Map weight" field="map_weight_1031" internalName="map_weight" key="marker_feature_id_1031_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Marker Start" field="name_1033" internalName="marker_start" key="marker_feature_id_1031_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Seq region end" field="seq_region_end_1031" internalName="seq_region_end" key="marker_feature_id_1031_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Right primer" field="right_primer_1030" internalName="right_primer" key="marker_feature_id_1031_key" maxLength="100" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Max primer dist" field="max_primer_dist_1030" internalName="max_primer_dist" key="marker_feature_id_1031_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Display marker synonym id" field="display_marker_synonym_id_1030" internalName="display_marker_synonym_id" key="marker_feature_id_1031_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Type" field="type_1030" internalName="type" key="marker_feature_id_1031_key" maxLength="14" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Left primer" field="left_primer_1030" internalName="left_primer" key="marker_feature_id_1031_key" maxLength="100" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Priority" field="priority_1030" internalName="priority" key="marker_feature_id_1031_key" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Min primer dist" field="min_primer_dist_1030" internalName="min_primer_dist" key="marker_feature_id_1031_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Coord system id" field="coord_system_id_1059" internalName="coord_system_id" key="marker_feature_id_1031_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Length" field="length_1059" internalName="length" key="marker_feature_id_1031_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Name" field="name_1059" internalName="name" key="marker_feature_id_1031_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Attrib" field="attrib_107" internalName="attrib" key="marker_feature_id_1031_key" maxLength="16" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Rank" field="rank_107" internalName="rank" key="marker_feature_id_1031_key" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Name 1" field="name_107" internalName="name_1" key="marker_feature_id_1031_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Version" field="version_107" internalName="version" key="marker_feature_id_1031_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+    <AttributeGroup displayName="NEW_ATTRIBUTES" hidden="true" internalName="new_attributes" useDefault="true">
+      <AttributeCollection displayName="marker feature" hidden="true" internalName="marker_feature" useDefault="true">
+        <AttributeDescription displayName="Marker id 1031" field="marker_id_1031" hidden="true" internalName="marker_id_1031" key="marker_feature_id_1031_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+</DatasetConfig>
