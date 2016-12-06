@@ -14,7 +14,7 @@
   <FilterPage displayName="FILTERS" internalName="filters" useDefault="true">
     <FilterGroup displayName="REGION" internalName="region" useDefault="true">
       <FilterCollection displayName="Chromosome/scaffold" internalName="chromosome" useDefault="true">
-        <FilterDescription displayName="Chromosome/scaffold name" displayType="list" field="name_2034" internalName="chr_name" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" multipleValues="1" otherFilters="*species4*_karyotype_start.name;*species4*_karyotype_end.name" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+        <FilterDescription displayName="Chromosome/scaffold name" displayType="list" field="name_2034" internalName="chr_name" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" multipleValues="1" otherFilters="*species3*_karyotype_start.name;*species3*_karyotype_end.name" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -22,13 +22,13 @@
         <FilterDescription displayName="Start" displayType="text" field="seq_region_end_20104" internalName="start" key="structural_variation_feature_id_20104_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="main" type="text" useDefault="true"/>
         <FilterDescription displayName="End" displayType="text" field="seq_region_start_20104" internalName="end" key="structural_variation_feature_id_20104_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="Band" internalName="band_collection" useDefault="true" checkPointerDataset="*species4*_karyotype_start">
-        <FilterDescription internalName="band_start" pointerDataset="*species4*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
-        <FilterDescription internalName="band_end" pointerDataset="*species4*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
+      <FilterCollection displayName="Band" internalName="band_collection" useDefault="true" checkPointerDataset="*species3*_karyotype_start">
+        <FilterDescription internalName="band_start" pointerDataset="*species3*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
+        <FilterDescription internalName="band_end" pointerDataset="*species3*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true" checkPointerDataset="*species4*_marker_start">
-        <FilterDescription internalName="marker_start" pointerDataset="*species4*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
-        <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species4*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true"/>
+      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true" checkPointerDataset="*species3*_marker_start">
+        <FilterDescription internalName="marker_start" pointerDataset="*species3*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
+        <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species3*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true"/>
       </FilterCollection>
       <FilterCollection description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Multiple Chromosomal Regions (Chr:Start:End:Strand) [Max 500 advised]" internalName="chromosome_regions" useDefault="true">
         <FilterDescription displayName="Strand" displayType="text" field="seq_region_strand_20104" hidden="false" hideDisplay="true" internalName="strand" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>

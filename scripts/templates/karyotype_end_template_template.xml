@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE DatasetConfig>
+<DatasetConfig dataset="karyotype_end_template" displayName="karyotype_end" interfaces="default" internalName="template" martUsers="default" modified="2007-12-18 15:02:09.637" softwareVersion="0.6" template="karyotype_end" type="TableSet" useDefault="true" visible="0">
+  <MainTable>*base_name*__karyotype__main</MainTable>
+  <Key>karyotype_id_1027_key</Key>
+  <Exportable attributes="name,seq_region_end" default="1" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
+  <FilterPage displayName="FILTERS" internalName="naive_filters" useDefault="true">
+    <FilterGroup displayName="FILTERS" internalName="filters" useDefault="true">
+      <FilterCollection displayName="karyotype" internalName="karyotype" useDefault="true">
+        <FilterDescription displayName="Seq region id" displayType="text" field="seq_region_id_1027" internalName="seq_region_id" key="karyotype_id_1027_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Seq region start" displayType="text" field="seq_region_start_1027" internalName="seq_region_start" key="karyotype_id_1027_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Band End" displayType="list" field="band_1027" internalName="band_end" key="karyotype_id_1027_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Seq region end" displayType="text" field="seq_region_end_1027" internalName="seq_region_end" key="karyotype_id_1027_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Stain" displayType="text" field="stain_1027" internalName="stain" key="karyotype_id_1027_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Coord system id" displayType="text" field="coord_system_id_1059" internalName="coord_system_id" key="karyotype_id_1027_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Length" displayType="text" field="length_1059" internalName="length" key="karyotype_id_1027_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Name" displayType="text" field="name_1059" internalName="name" key="karyotype_id_1027_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Attrib" displayType="text" field="attrib_107" internalName="attrib" key="karyotype_id_1027_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Rank" displayType="text" field="rank_107" internalName="rank" key="karyotype_id_1027_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Name 1" displayType="text" field="name_107" internalName="name_1" key="karyotype_id_1027_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Version" displayType="text" field="version_107" internalName="version" key="karyotype_id_1027_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <AttributePage displayName="ATTRIBUTES" internalName="naive_attributes" outFormats="html,txt,csv,tsv,xls" useDefault="true">
+    <AttributeGroup displayName="FEATURES" internalName="features" useDefault="true">
+      <AttributeCollection displayName="karyotype" internalName="karyotype" useDefault="true">
+        <AttributeDescription displayName="Seq region id" field="seq_region_id_1027" internalName="seq_region_id" key="karyotype_id_1027_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Seq Region Start" field="seq_region_start_1027" internalName="seq_region_start" key="karyotype_id_1027_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Band" field="band_1027" internalName="band" key="karyotype_id_1027_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Seq region end" field="seq_region_end_1027" internalName="seq_region_end" key="karyotype_id_1027_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Stain" field="stain_1027" internalName="stain" key="karyotype_id_1027_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Coord system id" field="coord_system_id_1059" internalName="coord_system_id" key="karyotype_id_1027_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Length" field="length_1059" internalName="length" key="karyotype_id_1027_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Name" field="name_1059" internalName="name" key="karyotype_id_1027_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Attrib" field="attrib_107" internalName="attrib" key="karyotype_id_1027_key" maxLength="16" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Rank" field="rank_107" internalName="rank" key="karyotype_id_1027_key" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Name 1" field="name_107" internalName="name_1" key="karyotype_id_1027_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Version" field="version_107" internalName="version" key="karyotype_id_1027_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+</DatasetConfig>

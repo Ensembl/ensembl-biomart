@@ -27,7 +27,7 @@
   <FilterPage displayName="FILTERS" internalName="filters" useDefault="true">
     <FilterGroup displayName="REGION:" internalName="region" useDefault="true">
       <FilterCollection displayName="Chromosome/scaffold" internalName="chromosome" useDefault="true">
-        <FilterDescription displayName="Chromosome/scaffold name" displayType="list" field="name_1059" internalName="chr_name" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" otherFilters="*species4*_karyotype_start.name;*species4*_karyotype_end.name" qualifier="=" style="menu" tableConstraint="main" type="text" useDefault="true">
+        <FilterDescription displayName="Chromosome/scaffold name" displayType="list" field="name_1059" internalName="chr_name" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" otherFilters="*species3*_karyotype_start.name;*species3*_karyotype_end.name" qualifier="=" style="menu" tableConstraint="main" type="text" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -35,19 +35,19 @@
         <FilterDescription defaultValue="1" displayName="Start" displayType="text" field="seq_region_end_2026" internalName="start" key="variation_feature_id_2026_key" legal_qualifiers="&gt;=" qualifier="&gt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
         <FilterDescription defaultValue="10000000" displayName="End" displayType="text" field="seq_region_start_2026" internalName="end" key="variation_feature_id_2026_key" legal_qualifiers="&lt;=" qualifier="&lt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="Band" internalName="band_collection" useDefault="true" checkPointerDataset="*species4*_karyotype_start">
-        <FilterDescription internalName="band_start" pointerDataset="*species4*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
-        <FilterDescription internalName="band_end" pointerDataset="*species4*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
+      <FilterCollection displayName="Band" internalName="band_collection" useDefault="true" checkPointerDataset="*species3*_karyotype_start">
+        <FilterDescription internalName="band_start" pointerDataset="*species3*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
+        <FilterDescription internalName="band_end" pointerDataset="*species3*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true" checkPointerDataset="*species4*_marker_start">
-        <FilterDescription internalName="marker_start" pointerDataset="*species4*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
-        <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species4*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true"/>
+      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true" checkPointerDataset="*species3*_marker_start">
+        <FilterDescription internalName="marker_start" pointerDataset="*species3*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
+        <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species3*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="QTL Chromosome name" hidden="false" internalName="qtl_chr_name" useDefault="true" checkPointerDataset="*species4*_qtl_feature">
-        <FilterDescription hidden="false" internalName="qtl_feature.name_2" pointerDataset="*species4*_qtl_feature" pointerFilter="name_2" pointerInterface="default" type="text" useDefault="true"/>
+      <FilterCollection displayName="QTL Chromosome name" hidden="false" internalName="qtl_chr_name" useDefault="true" checkPointerDataset="*species3*_qtl_feature">
+        <FilterDescription hidden="false" internalName="qtl_feature.name_2" pointerDataset="*species3*_qtl_feature" pointerFilter="name_2" pointerInterface="default" type="text" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="QTL region" internalName="qtl_region_col" useDefault="true" checkPointerDataset="*species4*_qtl_feature">
-        <FilterDescription hidden="false" internalName="qtl_feature.qtl_region" pointerDataset="*species4*_qtl_feature" pointerFilter="qtl_region" pointerInterface="default" useDefault="true"/>
+      <FilterCollection displayName="QTL region" internalName="qtl_region_col" useDefault="true" checkPointerDataset="*species3*_qtl_feature">
+        <FilterDescription hidden="false" internalName="qtl_feature.qtl_region" pointerDataset="*species3*_qtl_feature" pointerFilter="qtl_region" pointerInterface="default" useDefault="true"/>
       </FilterCollection>
       <FilterCollection description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Multiple Chromosomal Regions (Chr:Start:End:Strand) [Max 250 advised]" internalName="chromosome_regions" useDefault="true">
         <FilterDescription defaultValue="1:100:10000000:1" description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Chromosome Regions (e.g 1:100:10000:-1,1:100000:200000:1)" displayType="text" field="seq_region_start_2026" filterList="chr_name,start,end,strand" hidden="false" internalName="chromosomal_region" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>

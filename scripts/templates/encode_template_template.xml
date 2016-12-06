@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE DatasetConfig>
+<DatasetConfig dataset="encode_template" displayName="encode" interfaces="default" internalName="template" martUsers="default" modified="2008-03-06 11:39:13.813" softwareVersion="0.6" template="encode" type="TableSet" useDefault="true" visible="0">
+  <MainTable>*base_name*__misc_feature__main</MainTable>
+  <Key>misc_feature_id_1037_key</Key>
+  <Exportable attributes="name_2,seq_region_start,seq_region_end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>
+  <FilterPage displayName="FILTERS" internalName="naive_filters" useDefault="true">
+    <FilterGroup displayName="FILTERS" internalName="filters" useDefault="true">
+      <FilterCollection displayName="misc feature" internalName="misc_feature" useDefault="true">
+        <FilterDescription displayName="Value" displayType="text" field="value_1036" internalName="value" key="misc_feature_id_1037_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Seq region start" displayType="text" field="seq_region_start_1037" internalName="seq_region_start" key="misc_feature_id_1037_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Name 2" displayType="text" field="name_1059" internalName="name_2" key="misc_feature_id_1037_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Value 1" displayType="text" field="value_1036_r1" internalName="value_1" key="misc_feature_id_1037_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Seq region end" displayType="text" field="seq_region_end_1037" internalName="seq_region_end" key="misc_feature_id_1037_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Type" displayType="list" field="type" hidden="true" internalName="type" key="misc_feature_id_1037_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true"/>
+        <FilterDescription displayName="Encode region" displayType="list" field="encode_region" internalName="encode_region" key="misc_feature_id_1037_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <AttributePage displayName="ATTRIBUTES" internalName="naive_attributes" outFormats="html,txt,csv,tsv,xls" useDefault="true">
+    <AttributeGroup displayName="FEATURES" internalName="features" useDefault="true">
+      <AttributeCollection displayName="misc feature" internalName="misc_feature" useDefault="true">
+        <AttributeDescription displayName="Value" field="value_1036" internalName="value" key="misc_feature_id_1037_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Seq Region Start" field="seq_region_start_1037" internalName="seq_region_start" key="misc_feature_id_1037_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Name 2" field="name_1059" internalName="name_2" key="misc_feature_id_1037_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Value 1" field="value_1036_r1" internalName="value_1" key="misc_feature_id_1037_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Seq region end" field="seq_region_end_1037" internalName="seq_region_end" key="misc_feature_id_1037_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Type" field="type" internalName="type" key="misc_feature_id_1037_key" maxLength="12" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Encode region" field="encode_region" internalName="encode_region" key="misc_feature_id_1037_key" maxLength="93" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+</DatasetConfig>

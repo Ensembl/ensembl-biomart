@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE DatasetConfig>
+<DatasetConfig dataset="qtl_feature_template" displayName="qtl_feature" interfaces="default" internalName="template" martUsers="default" modified="2013-04-18 10:39:39.706" softwareVersion="0.6" template="qtl_feature" type="TableSet" useDefault="true" visible="0">
+  <MainTable>*base_name*__qtl_feature__main</MainTable>
+  <Key>phenotype_feature_id_2023_key</Key>
+  <Exportable attributes="name_2,seq_region_start,seq_region_end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>
+  <FilterPage displayName="FILTERS" internalName="naive_filters" useDefault="true">
+    <FilterGroup displayName="FILTERS" internalName="filters" useDefault="true">
+      <FilterCollection displayName="qtl feature" internalName="qtl_feature" useDefault="true">
+        <FilterDescription displayName="Description 2022" displayType="list" field="description_2022" internalName="description_2022" key="phenotype_feature_id_2023_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true"/>
+        <FilterDescription displayName="Seq region end 2023" displayType="text" field="seq_region_end_2023" internalName="seq_region_end" key="phenotype_feature_id_2023_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Object id 2023" displayType="text" field="object_id_2023" internalName="object_id_2023" key="phenotype_feature_id_2023_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Seq region id 2023" displayType="text" field="seq_region_id_2023" internalName="seq_region_id_2023" key="phenotype_feature_id_2023_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Seq region strand 2023" displayType="text" field="seq_region_strand_2023" internalName="seq_region_strand_2023" key="phenotype_feature_id_2023_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Seq region start 2023" displayType="text" field="seq_region_start_2023" internalName="seq_region_start" key="phenotype_feature_id_2023_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Name 2033" displayType="list" field="name_2033" internalName="name_2" key="phenotype_feature_id_2023_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+        <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+        <FilterDescription displayName="Qtl region" displayType="text" field="qtl_region" internalName="qtl_region" key="phenotype_feature_id_2023_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="drop_down_basic_filter" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <AttributePage displayName="ATTRIBUTES" internalName="naive_attributes" outFormats="html,txt,csv,tsv,xls" useDefault="true">
+    <AttributeGroup displayName="FEATURES" internalName="features" useDefault="true">
+      <AttributeCollection displayName="qtl feature" internalName="qtl_feature" useDefault="true">
+        <AttributeDescription displayName="Description 2022" field="description_2022" internalName="description_2022" key="phenotype_feature_id_2023_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Seq region end 2023" field="seq_region_end_2023" internalName="seq_region_end" key="phenotype_feature_id_2023_key" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Object id 2023" field="object_id_2023" internalName="object_id_2023" key="phenotype_feature_id_2023_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Seq region id 2023" field="seq_region_id_2023" internalName="seq_region_id_2023" key="phenotype_feature_id_2023_key" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Seq region strand 2023" field="seq_region_strand_2023" internalName="seq_region_strand_2023" key="phenotype_feature_id_2023_key" maxLength="4" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Seq region start 2023" field="seq_region_start_2023" internalName="seq_region_start" key="phenotype_feature_id_2023_key" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Name 2033" field="name_2033" internalName="name_2" key="phenotype_feature_id_2023_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Qtl region" field="qtl_region" internalName="qtl_region" key="phenotype_feature_id_2023_key" maxLength="64" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+</DatasetConfig>
