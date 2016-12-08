@@ -1,4 +1,4 @@
-#!/bin/env perl
+#!/usr/bin/env perl
 # Copyright [2009-2014] EMBL-European Bioinformatics Institute
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,6 +42,7 @@ my $compara_db;
 my $dataset_name;
 my $limit_species;
 my $basename='gene';
+my $template;
 
 my $template_dir = "$FindBin::Bin/templates";
 
@@ -133,7 +134,7 @@ sub write_family {
     $mart_handle->do(
 	qq/ALTER TABLE ${dataset}_${basename}__translation__main
 ADD COLUMN stable_id_408      VARCHAR(40) DEFAULT NULL,
-ADD COLUMN description_408    VARCHAR(255) DEFAULT NULL
+ADD COLUMN description_408    TEXT
 /
 	);
     };

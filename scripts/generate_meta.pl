@@ -44,6 +44,8 @@ generate_meta.pl [arguments]
 
   --ds_basename=name                 mart dataset base name
 
+  --max_dropdown=number              number of maximun allowed items in a filter dropdown
+
   --genomic_features_dbname          genomic_features_mart database name
 
   --verbose			     show debug info
@@ -79,12 +81,15 @@ push( @{$optsd}, "template_name:s" );
 push( @{$optsd}, "ds_basename:s" );
 push( @{$optsd}, "template:s" );
 push( @{$optsd}, "genomic_features_dbname:s" );
+push( @{$optsd}, "max_dropdown:i" );
 push( @{$optsd}, "verbose" );
 
 # process the command line with the supplied options plus a help subroutine
 my $opts = $cli_helper->process_args( $optsd, \&pod2usage );
 $opts->{template_name} ||= 'genes';
 $opts->{ds_basename}   ||= 'gene';
+$opts->{max_dropdown}  ||= 256;
+$opts->{genomic_features_dbname} ||= '';
 if ( $opts->{verbose} ) {
   Log::Log4perl->easy_init($DEBUG);
 }
@@ -101,7 +106,7 @@ my $templ = XMLin( $template, KeepRoot => 1, KeyAttr => [] );
 $logger->info("Opening connection to mart database");
 my ($dba) = @{ $cli_helper->get_dbas_for_opts($opts) };
 
-# for EG, there are specific sets of attributes/filters that we need to unhide in the interface
+# for EG, there are specific sets of attributes/filters that we need to delete from the interface
 my $delete = {};
 if ( $dba->dbc()->dbname() !~ 'fungi' ) {
   $delete->{pbo}           = 1;
@@ -134,7 +139,8 @@ if ( $dba->dbc()->dbname() !~ 'plants' ) {
 my $builder =
   Bio::EnsEMBL::BioMart::MetaBuilder->new( -DBC    => $dba->dbc(),
                                            -DELETE => $delete,
-                                           -BASENAME => $opts->{ds_basename} );
+                                           -BASENAME => $opts->{ds_basename},
+                                           -MAX_DROPDOWN =>  $opts->{max_dropdown} );
 
 $builder->build( $opts->{template_name}, $templ, $opts->{genomic_features_dbname} );
 

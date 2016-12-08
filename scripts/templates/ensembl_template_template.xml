@@ -63,13 +63,14 @@
         <FilterDescription displayType="text" field="stable_id_1066" hideDisplay="true" internalName="link_ensembl_transcript_stable_id" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
         <FilterDescription displayType="text" field="gene_id_1020_key" hideDisplay="true" internalName="gene_id" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
         <FilterDescription displayType="text" field="transcript_id_1064_key" hideDisplay="true" internalName="transcript_id" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
-        <FilterDescription description="Filter to include genes with supplied list of Ensembl Gene IDs" displayName="Ensembl Gene ID(s)" displayType="text" field="stable_id_1023" hideDisplay="true" internalName="link_ensembl_gene_id" key="gene_id_1020_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription description="Filter to include genes with supplied list of Gene IDs" displayName="
+         ID(s)" displayType="text" field="stable_id_1023" hideDisplay="true" internalName="link_ensembl_gene_id" key="gene_id_1020_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
     </FilterGroup>
   </FilterPage>
   <FilterPage displayName="FILTERS" internalName="filters" useDefault="true">
     <FilterGroup description="Filter for Genes in Specified Regions of the Golden Path" displayName="REGION:" internalName="region" useDefault="true">
-      <FilterCollection description="Limit to Genes on a specific Chromosome. " displayName="Chromosome" internalName="chromosome" useDefault="true">
+      <FilterCollection description="Limit to Genes on a specific Chromosome. " displayName="Chromosome/scaffold" internalName="chromosome" useDefault="true">
         <FilterDescription displayName="Chromosome name" displayType="list" field="name_1059" internalName="chromosome_name" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" otherFilters="*species4*_karyotype_start.name;*species4*_karyotype_end.name" qualifier="=" style="menu" tableConstraint="main" type="text" useDefault="true">
         <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
@@ -78,38 +79,32 @@
         <FilterDescription defaultValue="1" description="Determine which base pair on the specified chromosome to begin range" displayName="Gene Start (bp)" displayType="text" field="seq_region_end_1020" hidden="false" internalName="start" key="gene_id_1020_key" legal_qualifiers="&gt;=" qualifier="&gt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
         <FilterDescription defaultValue="10000000" description="Determine which base pair on the specified chromosome to end range" displayName="Gene End (bp)" displayType="text" field="seq_region_start_1020" hidden="false" internalName="end" key="gene_id_1020_key" legal_qualifiers="&lt;=" qualifier="&lt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="Band" internalName="band_collection" useDefault="true">
-        <FilterDescription internalName="band_start" pointerDataset="*species4*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true">
+      <FilterCollection displayName="Band" internalName="band_collection" useDefault="true" checkPointerDataset="*species4*_karyotype_start">
+        <FilterDescription internalName="band_start" pointerDataset="*species4*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true" >
         </FilterDescription>
         <FilterDescription internalName="band_end" pointerDataset="*species4*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter" useDefault="true">
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true">
+      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true" checkPointerDataset="*species4*_marker_start">
         <FilterDescription internalName="marker_start" pointerDataset="*species4*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true">
         </FilterDescription>
         <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species4*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true">
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Encode type" hidden="true" internalName="encode_type_col" useDefault="true">
-        <FilterDescription hidden="true" internalName="hsapiens_encode.type" pointerDataset="*species4*_encode" pointerFilter="type" pointerInterface="default" type="text" useDefault="true">
-          <SpecificFilterContent hidden="true" internalName="hsapiens_gene_ensembl" useDefault="true"/>
-        </FilterDescription>
+      <FilterCollection displayName="Encode type" hidden="true" internalName="encode_type_col" useDefault="true" checkPointerDataset="*species4*_encode">
+        <FilterDescription hidden="true" internalName="hsapiens_encode.type" pointerDataset="*species4*_encode" pointerFilter="type" pointerInterface="default" type="text" useDefault="true"/>
+        </FilterCollection>
+      <FilterCollection displayName="&lt;a href='http://www.genome.gov/26525202'&gt;ENCODE Pilot Regions&lt;/a&gt;" internalName="encode_region_col" useDefault="true" checkPointerDataset="*species4*_encode">
+        <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species4*_encode" pointerFilter="encode_region" pointerInterface="default" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="&lt;a href='http://www.genome.gov/26525202'&gt;ENCODE Pilot Regions&lt;/a&gt;" internalName="encode_region_col" useDefault="true">
-        <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species4*_encode" pointerFilter="encode_region" pointerInterface="default" useDefault="true">
-          <SpecificFilterContent internalName="hsapiens_gene_ensembl" useDefault="true"/>
-        </FilterDescription>
+      <FilterCollection displayName="In encode region" hidden="false" internalName="encode_boolean" useDefault="true" checkPointerDataset="*species4*_encode">
+        <FilterDescription description="Include/Exclude Entries in an Encode Region" displayName="In encode region" displayType="list" field="is_encode_bool" hidden="false" internalName="in_encode_region" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="In encode region" hidden="false" internalName="encode_boolean" useDefault="true">
-        <FilterDescription description="Include/Exclude Entries in an Encode Region" displayName="In encode region" displayType="list" field="is_encode_bool" hidden="false" internalName="in_encode_region" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-          <SpecificFilterContent field="is_encode_bool" internalName="hsapiens_gene_ensembl" key="gene_id_1020_key" tableConstraint="main" useDefault="true"/>
-        </FilterDescription>
-      </FilterCollection>
-      <FilterCollection displayName="QTL Chromosome name" hidden="false" internalName="qtl_chr_name" useDefault="true">
+      <FilterCollection displayName="QTL Chromosome name" hidden="false" internalName="qtl_chr_name" useDefault="true" checkPointerDataset="*species4*_qtl_feature">
         <FilterDescription hidden="false" internalName="qtl_feature.name_2" pointerDataset="*species4*_qtl_feature" pointerFilter="name_2" pointerInterface="default" type="text" useDefault="true">
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="QTL region" internalName="qtl_region_col" useDefault="true">
+      <FilterCollection displayName="QTL region" internalName="qtl_region_col" useDefault="true" checkPointerDataset="*species4*_qtl_feature">
         <FilterDescription hidden="false" internalName="qtl_feature.qtl_region" pointerDataset="*species4*_qtl_feature" pointerFilter="qtl_region" pointerInterface="default" useDefault="true">
         </FilterDescription>
       </FilterCollection>
@@ -673,10 +668,10 @@
       </FilterCollection>
       <FilterCollection displayName="Input external references ID list [Max 500 advised]" internalName="id_list_limit_xrefs" useDefault="true">
         <FilterDescription displayName="Entries with following IDs" displayType="container" internalName="id_list_limit_xrefs_filters" type="id_list" useDefault="true">
-          <Option description="Filter to include genes with supplied list of Ensembl Gene IDs" displayName="Ensembl Gene ID(s) [e.g. ENSG00000139618]" displayType="text" field="stable_id_1023" internalName="ensembl_gene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true"/>
-          <Option description="Filter for genes with supplied list of Ensembl Transcript Stable ID(s)" displayName="Ensembl Transcript ID(s) [e.g. ENST00000380152]" displayType="text" field="stable_id_1066" internalName="ensembl_transcript_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
-          <Option description="Filter to include genes with supplied list of Ensembl translation ID(s)" displayName="Ensembl protein ID(s) [e.g. ENSP00000369497]" displayType="text" field="stable_id_1070" internalName="ensembl_peptide_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
-          <Option description="Filter to include genes with supplied list of Ensembl exon ID(s)" displayName="Ensembl exon ID(s) [e.g. ENSE00001508081]" displayType="text" field="stable_id_1070" internalName="ensembl_exon_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+          <Option description="Filter to include genes with supplied list of Gene IDs" displayName="Gene ID(s) [e.g. ENSG00000139618]" displayType="text" field="stable_id_1023" internalName="ensembl_gene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true"/>
+          <Option description="Filter for genes with supplied list of Transcript Stable ID(s)" displayName="Transcript ID(s) [e.g. ENST00000380152]" displayType="text" field="stable_id_1066" internalName="ensembl_transcript_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+          <Option description="Filter to include genes with supplied list of translation ID(s)" displayName="Protein ID(s) [e.g. ENSP00000369497]" displayType="text" field="stable_id_1070" internalName="ensembl_peptide_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+          <Option description="Filter to include genes with supplied list of exon ID(s)" displayName="Exon ID(s) [e.g. ENSE00001508081]" displayType="text" field="stable_id_1070" internalName="ensembl_exon_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
           <Option checkForNulls="true" description="Filter to include genes with supplied list of HGNC ID(s)" displayName="HGNC ID(s) [e.g. HGNC:8030]" displayType="text" field="dbprimary_acc_1074" internalName="hgnc_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_hgnc__dm" type="list" useDefault="true">
           </Option>
           <Option checkForNulls="true" description="Filter to include genes with supplied list of HGNC symbols(s)" displayName="HGNC symbol(s) [e.g. NTN3]" displayType="text" field="display_label_1074" internalName="hgnc_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_hgnc__dm" type="list" useDefault="true">
@@ -1678,13 +1673,13 @@
   <AttributePage description="General Gene Features" displayName="Features" internalName="feature_page" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls" useDefault="true">
     <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene" useDefault="true">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes" useDefault="true">
-        <AttributeDescription default="true" description="Ensembl Stable ID of the Gene" displayName="Ensembl Gene ID" field="stable_id_1023" internalName="ensembl_gene_id" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription default="true" description="Ensembl Stable ID of the Transcript" displayName="Ensembl Transcript ID" field="stable_id_1066" internalName="ensembl_transcript_id" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="Ensembl Protein ID" field="stable_id_1070" internalName="ensembl_peptide_id" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/ProteinSummary?db=core;p=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="Ensembl Exon ID" field="stable_id_1016" hidden="false" internalName="ensembl_exon_id" key="transcript_id_1064_key" maxLength="128" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription default="true" description="Stable ID of the Gene" displayName="Gene ID" field="stable_id_1023" internalName="ensembl_gene_id" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" description="Stable ID of the Transcript" displayName="Transcript ID" field="stable_id_1066" internalName="ensembl_transcript_id" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Protein ID" field="stable_id_1070" internalName="ensembl_peptide_id" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/ProteinSummary?db=core;p=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Exon ID" field="stable_id_1016" hidden="false" internalName="ensembl_exon_id" key="transcript_id_1064_key" maxLength="128" tableConstraint="exon_transcript__dm" useDefault="true"/>
         <AttributeDescription displayName="Canonical transcript stable ID(s)" field="stable_id_1066_clash" internalName="canonical_transcript_stable_id" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s" maxLength="128" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Description" field="description_1020" internalName="description" key="gene_id_1020_key" maxLength="550" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription description="Chromosome Name" displayName="Chromosome Name" field="name_1059" internalName="chromosome_name" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/contigview?chr=%s" maxLength="12" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription description="Chromosome/scaffold name" displayName="Chromosome/scaffold name" field="name_1059" internalName="chromosome_name" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/contigview?chr=%s" maxLength="12" tableConstraint="main" useDefault="true"/>
         <AttributeDescription description="Start Coordinate of the gene in chromosomal coordinates." displayName="Gene Start (bp)" field="seq_region_start_1020" hidden="false" internalName="start_position" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chromosome_name|start_position|end_position" maxLength="10" tableConstraint="main" useDefault="true"/>
         <AttributeDescription description="End Coordinate of the gene in chromosomal coordinates." displayName="Gene End (bp)" field="seq_region_end_1020" hidden="false" internalName="end_position" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chromosome_name|start_position|end_position" maxLength="10" tableConstraint="main" useDefault="true"/>
         <AttributeDescription description="Orientation of genes on chromosome." displayName="Strand" field="seq_region_strand_1020" internalName="strand" key="gene_id_1020_key" maxLength="4" tableConstraint="main" useDefault="true"/>
@@ -2278,10 +2273,10 @@
       </AttributeCollection>
       <AttributeCollection description="Details of variants Location on Gene" displayName="Variants Location" internalName="snplocatts" useDefault="true">
         <AttributeDescription description="Start of Variant on Transcript in Chromosomal Coordinates" displayName="Transcript location (bp)" field="cdna_start_2076" internalName="transcript_location" key="transcript_id_1064_key" maxLength="10" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
-        <AttributeDescription description="Orientation of the SNP on the Transcript" displayName="Variant Chromosome Strand" field="seq_region_strand_2026" internalName="snp_chromosome_strand" key="transcript_id_1064_key" maxLength="4" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription description="Orientation of the SNP on the Transcript" displayName="Variant Chromosome/scaffold Strand" field="seq_region_strand_2026" internalName="snp_chromosome_strand" key="transcript_id_1064_key" maxLength="4" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription description="Location of the SNP in the peptide" displayName="Protein location (aa)" field="translation_start_2076" internalName="peptide_location" key="transcript_id_1064_key" maxLength="10" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
-        <AttributeDescription description="Start of the Variant on the Chromosome in Chromosomal Coordinates" displayName="Chromosome position start (bp)" field="seq_region_start_2026" internalName="chromosome_start" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|snp_chromosome_name|chromosome_start|chromosome_end" maxLength="20" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
-        <AttributeDescription description="End of the Variant on the Chromosome in Chromosomal Coordinates" displayName="Chromosome position end (bp)" field="seq_region_end_2026" internalName="chromosome_end" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|snp_chromosome_name|chromosome_start|chromosome_end" maxLength="20" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription description="Start of the Variant on the Chromosome in Chromosomal Coordinates" displayName="Chromosome/scaffold position start (bp)" field="seq_region_start_2026" internalName="chromosome_start" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|snp_chromosome_name|chromosome_start|chromosome_end" maxLength="20" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription description="End of the Variant on the Chromosome in Chromosomal Coordinates" displayName="Chromosome/scaffold position end (bp)" field="seq_region_end_2026" internalName="chromosome_end" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|snp_chromosome_name|chromosome_start|chromosome_end" maxLength="20" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
       </AttributeCollection>
       <AttributeCollection description="Location of Variants on Genes, and their Effects on Gene Function" displayName="Gene Location and Effect " internalName="gene_loc_eff_atts" useDefault="true">
         <AttributeDescription displayName="PolyPhen prediction" field="polyphen_prediction_2076" hidden="false" internalName="polyphen_prediction_2076" key="transcript_id_1064_key" maxLength="17" tableConstraint="mart_transcript_variation__dm" useDefault="true">

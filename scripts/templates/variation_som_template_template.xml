@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
-<DatasetConfig dataset="variation_template" defaultDataset="*default*" displayName="*species1* Short Variants (SNPs and indels excluding flagged variants) (*version*)" entryLabel="SNPs" interfaces="default" internalName="template" martUsers="default" modified="2007-10-29 10:40:34.292" softwareVersion="0.6" template="*basename*" type="TableSet" useDefault="true" version="*version*" visible="1">
+<DatasetConfig dataset="snp_som_template" defaultDataset="*default*" displayName="*species1* Somatic Short Variants (SNPs and indels excluding flagged variants) (*version*)" entryLabel="SNPs" interfaces="default" internalName="template" martUsers="default" modified="2010-07-12 09:41:21.875" softwareVersion="0.6" template="*basename*" type="TableSet" useDefault="true" version="*version*" visible="1">
   <MainTable>*base_name*__variation__main</MainTable>
   <MainTable>*base_name*__variation_feature__main</MainTable>
   <Key>variation_id_2025_key</Key>
   <Key>variation_feature_id_2026_key</Key>
   <Replace id="datasets"/>
-  <Importable filters="chr_name,start,end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>
   <Importable filters="link_so_closure" internalName="so_closure" linkName="so_closure" name="so_closure" type="link" useDefault="true"/>
-  <Importable filters="ensembl_gene" internalName="variation_to_ensembl" linkName="variation_to_ensembl" linkVersion="*link_version*" name="variation_to_ensembl" type="link" useDefault="true"/>
+  <Importable filters="ensembl_gene" internalName="somatic_to_ensembl" linkName="somatic_to_ensembl" linkVersion="*link_version*" name="somatic_to_ensembl" type="link" useDefault="true"/>
   <Importable filters="chr_name,start,end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
-  <Importable filters="chr_name,end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
   <Importable filters="chr_name,start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link" useDefault="true"/>
-  <Exportable attributes="chr_name,chrom_start,chrom_end" default="1" internalName="genomic_sequence" linkName="genomic_sequence" name="genomic_sequence" type="link" useDefault="true"/>
+  <Importable filters="chr_name,end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
+  <Exportable attributes="chr_name,chrom_start,chrom_end" default="1" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
   <Exportable attributes="refsnp_id" internalName="refsnp_id" linkName="refsnp_id" name="refsnp_id" type="link" useDefault="true"/>
   <Exportable attributes="variation_feature_id_key,chr_name,chrom_start,chrom_strand,allele" default="1" internalName="snp" linkName="snp" linkVersion="*link_version*" name="snp" orderBy="variation_feature_id_key" type="link" useDefault="true"/>
-  <Exportable attributes="ensembl_gene_stable_id" internalName="ensembl_gene_id" linkName="ensembl_gene_id" linkVersion="*link_version*" name="ensembl_gene_id" type="link"/>
   <Replace id="exportables"/>
   <FilterPage displayName="FILTERS FOR LINKS" hideDisplay="true" internalName="link_filters" useDefault="true">
     <FilterGroup description="Filters for Links" hideDisplay="true" internalName="link_filters" useDefault="true">
@@ -27,53 +25,46 @@
   <FilterPage displayName="FILTERS" internalName="filters" useDefault="true">
     <FilterGroup displayName="REGION:" internalName="region" useDefault="true">
       <FilterCollection displayName="Chromosome/scaffold" internalName="chromosome" useDefault="true">
-        <FilterDescription displayName="Chromosome/scaffold name" displayType="list" field="name_1059" internalName="chr_name" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" otherFilters="*species4*_karyotype_start.name;*species4*_karyotype_end.name" qualifier="=" style="menu" tableConstraint="main" type="text" useDefault="true">
+        <FilterDescription displayName="Chromosome/scaffold name" displayType="list" field="name_1059" internalName="chr_name" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" otherFilters="hsap_karyotype_start.name;hsap_karyotype_end.name" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Base pair" internalName="chromosome_coordinates" useDefault="true">
-        <FilterDescription defaultValue="1" displayName="Start" displayType="text" field="seq_region_end_2026" internalName="start" key="variation_feature_id_2026_key" legal_qualifiers="&gt;=" qualifier="&gt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
-        <FilterDescription defaultValue="10000000" displayName="End" displayType="text" field="seq_region_start_2026" internalName="end" key="variation_feature_id_2026_key" legal_qualifiers="&lt;=" qualifier="&lt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Start" displayType="text" field="seq_region_end_2026" internalName="start" key="variation_feature_id_2026_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="End" displayType="text" field="seq_region_start_2026" internalName="end" key="variation_feature_id_2026_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
       <FilterCollection displayName="Band" internalName="band_collection" useDefault="true" checkPointerDataset="*species4*_karyotype_start">
-        <FilterDescription internalName="band_start" pointerDataset="*species4*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
+        <FilterDescription hidden="false" internalName="band_start" pointerDataset="*species4*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
         <FilterDescription internalName="band_end" pointerDataset="*species4*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true" checkPointerDataset="*species4*_marker_start">
+      <FilterCollection displayName="Marker" hidden="false" internalName="maker_collection" useDefault="true" checkPointerDataset="*species4*_marker_start">
         <FilterDescription internalName="marker_start" pointerDataset="*species4*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
-        <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species4*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true"/>
+        <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species4*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true">
+          <SpecificFilterContent internalName="hsapiens_snp_som" useDefault="true"/>
+        </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="QTL Chromosome name" hidden="false" internalName="qtl_chr_name" useDefault="true" checkPointerDataset="*species4*_qtl_feature">
-        <FilterDescription hidden="false" internalName="qtl_feature.name_2" pointerDataset="*species4*_qtl_feature" pointerFilter="name_2" pointerInterface="default" type="text" useDefault="true"/>
-      </FilterCollection>
-      <FilterCollection displayName="QTL region" internalName="qtl_region_col" useDefault="true" checkPointerDataset="*species4*_qtl_feature">
-        <FilterDescription hidden="false" internalName="qtl_feature.qtl_region" pointerDataset="*species4*_qtl_feature" pointerFilter="qtl_region" pointerInterface="default" useDefault="true"/>
-      </FilterCollection>
-      <FilterCollection description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Multiple Chromosomal Regions (Chr:Start:End:Strand) [Max 250 advised]" internalName="chromosome_regions" useDefault="true">
+      <FilterCollection description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Multiple Chromosomal Regions (Chr:Start:End:Strand) [Max 500 advised]" internalName="chromosome_regions" useDefault="true">
         <FilterDescription defaultValue="1:100:10000000:1" description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Chromosome Regions (e.g 1:100:10000:-1,1:100000:200000:1)" displayType="text" field="seq_region_start_2026" filterList="chr_name,start,end,strand" hidden="false" internalName="chromosomal_region" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
         <FilterDescription displayName="Strand" displayType="text" field="seq_region_strand_2026" hidden="false" hideDisplay="true" internalName="strand" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup displayName="GENERAL VARIANT FILTERS:" internalName="snpfilters" useDefault="true">
+    <FilterGroup displayName="GENERAL VARIANT FILTERS" internalName="snpfilters" useDefault="true">
       <FilterCollection displayName="Variant source" internalName="variation_source" useDefault="true">
         <FilterDescription displayName="Variant source" displayType="list" field="name_2021" internalName="variation_source" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Filter by Variant Name (e.g. rs123, CM000001) [Max 500 advised]" internalName="snpfilter_collection" useDefault="true">
-        <FilterDescription displayName="Filter by Variant Name (e.g. rs123, CM000001)" displayType="text" field="name_2025" hidden="false" internalName="snp_filter" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true"/>
+      <FilterCollection displayName="Filter by Variant Name (e.g. COSM40879, rs28360480) [Max 500 advised]" internalName="snpfilter_collection" useDefault="true">
+        <FilterDescription displayName="Filter by Variant Name (e.g. COSM40879, rs28360480) [Max 500]" displayType="text" field="name_2025" hidden="false" internalName="snp_filter" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true"/>
       </FilterCollection>
       <FilterCollection displayName="Variant Synonym source" internalName="variation_synonym_source" useDefault="true">
         <FilterDescription displayName="Variant Synonym source" displayType="list" field="name_2021" internalName="variation_synonym_source" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_synonym__dm" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Variation synonym ID [Max 500 advised]" internalName="snp_synonym_filter_collection">
-        <FilterDescription displayName="Variation synonym ID" displayType="text" field="name_2030" internalName="snp_synonym_filter" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="variation_synonym__dm" type="list"/>
-      </FilterCollection>
       <FilterCollection displayName="Study type" internalName="study_type" useDefault="true">
         <FilterDescription displayName="Study type" displayType="list" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list" useDefault="true">
-          <SpecificFilterContent internalName="replaceMe"/>
+            <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Phenotype" internalName="phenotype_description" useDefault="true">
@@ -91,18 +82,8 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Variant Set Name" internalName="variation_set" useDefault="true">
-        <FilterDescription displayName="Variant Set Name" displayType="list" field="name_2077" internalName="variation_set_name" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_set_variation__dm" type="list" useDefault="true">
-          <SpecificFilterContent internalName="replaceMe"/>
-        </FilterDescription>
-      </FilterCollection>
-      <FilterCollection displayName="Population" internalName="population_name">
-        <FilterDescription displayName="Population" displayType="list" field="name_2019" internalName="population_name" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="population_genotype__dm" type="list" isDefault="true">
-          <SpecificFilterContent internalName="replaceMe"/>
-        </FilterDescription>
-      </FilterCollection>
-      <FilterCollection displayName="Strain" internalName="snp_strain_col">
-        <FilterDescription displayName="Strain" displayType="list" field="name_2019" internalName="reference_strain" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="poly__dm" type="list" isDefault="true">
+      <FilterCollection displayName="Variant Set Name" hidden="false" internalName="variation_set" useDefault="true">
+        <FilterDescription displayName="Variant Set Name" displayType="list" field="name_2077" hidden="false" internalName="variation_set_name" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_set_variation__dm" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -116,7 +97,7 @@
       </FilterCollection>
       <FilterCollection displayName="PolyPhen Prediction" hidden="false" internalName="polyphen" useDefault="true">
         <FilterDescription displayName="PolyPhen Prediction" displayType="list" field="polyphen_prediction_2090" hidden="false" internalName="polyphen_prediction" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list" useDefault="true">
-          <SpecificFilterContent internalName="replaceMe"/>
+            <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="&lt;a href='http://www.ensembl.org/info/docs/variation/index.html#nsSNP'&gt;PolyPhen score&lt;/a&gt; &gt;= [1 most damaging, 0 least damaging]" hidden="false" internalName="polyphen_score" useDefault="true">
@@ -133,10 +114,10 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Variant supporting evidence" internalName="validated_snp" useDefault="true">
-        <FilterDescription displayName="Variant supporting evidence" displayType="list" field="evidence_2025" internalName="with_validated" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-          <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-          <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+      <FilterCollection displayName="Variant supporting evidence" hidden="false" internalName="validated_snp" useDefault="true">
+        <FilterDescription autoCompletion="radio" displayName="Variants that have been validated" displayType="list" field="evidence_2025" hidden="false" internalName="with_validated" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" tableConstraint="main" type="boolean" useDefault="true">
+          <Option displayName="Only" hidden="false" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+          <Option displayName="excluded" hidden="false" internalName="excluded" isSelectable="true" useDefault="true"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Variants with citations" hidden="true" internalName="variation_citation" useDefault="true">
@@ -148,18 +129,63 @@
       <FilterCollection displayName="Distance to transcript &lt;=" hidden="false" internalName="distance_to_transcript" useDefault="true">
         <FilterDescription displayName="Distance to transcript &lt;=" displayType="text" field="distance_to_transcript_2090" hidden="false" internalName="distance_to_transcript" key="variation_feature_id_2026_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="mart_transcript_variation__dm" type="text" useDefault="true"/>
       </FilterCollection>
+      <FilterCollection displayName="Validation status" hidden="true" internalName="validation_status" useDefault="true">
+        <FilterDescription displayName="Validation status" displayType="list" field="validation_status_2025" hidden="true" internalName="validation_status" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Sequence Ontology Class ID" hidden="true" internalName="sequence_ontology" useDefault="true">
+        <FilterDescription displayName="Sequence Ontology Class ID" displayType="list" field="class_so_id_2026" hidden="true" internalName="seq_ontology" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+          <SpecificFilterContent displayType="list" field="class_so_id_2026" hidden="true" internalName="hsapiens_snp_som" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Variation Source" hidden="true" internalName="snp_naive" useDefault="true">
+        <FilterDescription displayName="Ancestral allele 2025" displayType="text" field="ancestral_allele_2025" hidden="true" internalName="ancestral_allele_2025" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Description 2021" displayType="text" field="description_2021" hidden="true" internalName="description_2021" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Somatic 2021" displayType="text" field="somatic_2021" hidden="true" internalName="somatic_2021" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Variation feature count" displayType="text" field="variation_feature_count" hidden="true" internalName="variation_feature_count" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="variation feature" hidden="true" internalName="variation_feature" useDefault="true">
+        <FilterDescription displayName="Seq region id 2026" displayType="text" field="seq_region_id_2026" hidden="true" internalName="seq_region_id_2026" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Validation status 2026" displayType="text" field="validation_status_2026" hidden="true" internalName="validation_status_2026" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Map weight 2026" displayType="text" field="map_weight_2026" hidden="true" internalName="map_weight_2026" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Allele string 2026" displayType="text" field="allele_string_2026" hidden="true" internalName="allele_string_2026" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Flags 2026" displayType="text" field="flags_2026" hidden="true" internalName="flags_2026" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Variation name 2026" displayType="text" field="variation_name_2026" hidden="true" internalName="variation_name_2026" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Name 2034" displayType="text" field="name_2034" hidden="true" internalName="name_2034" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Description 2021 r1" displayType="text" field="description_2021_r1" hidden="true" internalName="description_2021_r1" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Somatic 2021 r1" displayType="text" field="somatic_2021_r1" hidden="true" internalName="somatic_2021_r1" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Name 2021 r1" displayType="text" field="name_2021_r1" hidden="true" internalName="name_2021_r1" key="variation_feature_id_2026_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="ID LIST" hidden="true" internalName="id_list" useDefault="true">
+        <FilterDescription displayType="container" hidden="true" internalName="naive_id_list_filters" type="boolean_list" useDefault="true">
+          <Option displayName="with Variation annotation ID(s)" displayType="list" field="variation_annotation_bool" hidden="true" internalName="with_variation_annotation" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" hidden="true" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" hidden="true" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Population genotype ID(s)" displayType="list" field="population_genotype_bool" hidden="true" internalName="with_population_genotype" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" hidden="true" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" hidden="true" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Variation set variation ID(s)" displayType="list" field="variation_set_variation_bool" hidden="true" internalName="with_variation_set_variation" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" hidden="true" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" hidden="true" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+        </FilterDescription>
+      </FilterCollection>
     </FilterGroup>
     <FilterGroup displayName="GENE ASSOCIATED VARIANT FILTERS:" internalName="gene_filters" useDefault="true">
-      <FilterCollection displayName="Gene stable ID(s) [Max 500 advised]" internalName="ensembl_gene_ids" useDefault="true">
-        <FilterDescription displayName="Gene stable ID(s) [Max 500]" displayType="text" field="stable_id_1023" hidden="false" internalName="ensembl_gene" key="variation_feature_id_2026_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="mart_transcript_variation__dm" type="list" useDefault="true"/>
+      <FilterCollection displayName="Ensembl Gene ID(s) [Max 500 advised]" internalName="ensembl_gene_ids" useDefault="true">
+        <FilterDescription displayName="Ensembl Gene ID(s):" displayType="text" field="stable_id_1023" hidden="false" internalName="ensembl_gene" key="variation_feature_id_2026_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="mart_transcript_variation__dm" type="list" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="Variant consequence" internalName="consequence_type" useDefault="true">
+      <FilterCollection displayName="Variant Consequence" internalName="consequence_type" useDefault="true">
         <FilterDescription displayType="list" hidden="false" internalName="so_name" legal_qualifiers="=" multipleValues="1" pointerDataset="closure_SO" pointerFilter="so_parent_name" pointerInterface="default" qualifier="=" style="menu" type="list" useDefault="true"/>
       </FilterCollection>
     </FilterGroup>
     <FilterGroup displayName="REGULATORY REGION ASSOCIATED INFORMATION FILTERS:" internalName="regulatory_region_associated_info" useDefault="true">
-      <FilterCollection displayName="Filter by Regulatory Stable ID(s) (e.g. ENSR00001280467) [Max 500 advised]" internalName="feature_stable_id" useDefault="true">
-        <FilterDescription displayName="Filter by Regulatory Stable ID(s) (e.g. ENSR00001529861) [Max 500 ADVISED]" displayType="text" field="feature_stable_id_20126" hidden="false" internalName="feature_stable_id" key="variation_feature_id_2026_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="regulatory_feature_variation__dm" type="list" useDefault="true"/>
+      <FilterCollection displayName="Filter by Regulatory Stable ID(s) (e.g. ENSR00001245046) [Max 500 advised]" internalName="feature_stable_id" useDefault="true">
+        <FilterDescription displayName="Filter by Regulatory Stable ID(s) (e.g. ENSR00001529861) [Max 500 ADVISED]" displayType="text" field="feature_stable_id_20126" hidden="false" internalName="feature_stable_id" key="variation_feature_id_2026_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="regulatory_feature_variation__dm" type="list" useDefault="true">
+        </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Motif Name" internalName="motif_name" useDefault="true">
         <FilterDescription displayName="Motif Name" displayType="list" field="motif_name_20125" internalName="motif_name" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="motif_feature_variation__dm" type="list" useDefault="true">
@@ -176,7 +202,7 @@
         <AttributeDescription displayName="Variant source description" field="description_2021" hidden="false" internalName="refsnp_source_description" key="variation_id_2025_key" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription default="true" displayName="Chromosome name" field="name_1059" internalName="chr_name" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/contigview?chr=%s" maxLength="40" tableConstraint="main" useDefault="true"/>
         <AttributeDescription default="true" displayName="Chromosome position start (bp)" field="seq_region_start_2026" internalName="chrom_start" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chr_name|chrom_start|chrom_end" maxLength="11" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription default="true" displayName="Chromosome position end (bp)" field="seq_region_end_2026" hidden="false" internalName="chrom_end" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chr_name|chrom_start|chrom_end" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="Chromosome position end (bp)" field="seq_region_end_2026" internalName="chrom_end" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chr_name|chrom_start|chrom_end" maxLength="11" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Strand" field="seq_region_strand_2026" internalName="chrom_strand" key="variation_feature_id_2026_key" maxLength="4" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Variant Alleles" field="allele_string_2026" internalName="allele" key="variation_feature_id_2026_key" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Mapweight" field="map_weight_2026" internalName="mapweight" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="main" useDefault="true"/>
@@ -192,16 +218,15 @@
         <AttributeDescription displayName="Synonym source" field="name_2021" internalName="synonym_source" key="variation_id_2025_key" maxLength="24" tableConstraint="variation_synonym__dm" useDefault="true"/>
         <AttributeDescription displayName="Synonym source description" field="description_2021" internalName="synonym_source_description" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_synonym__dm" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Phenotype annotation" internalName="variation_annotation" useDefault="true">
+      <AttributeCollection displayName="Phenotype annotation" internalName="variation_annotation" maxSelect="0" useDefault="true">
         <AttributeDescription displayName="Associated variant names" field="variation_names_2035" internalName="variation_names" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Explore?source=dbSNP;v=%s" maxLength="255" tableConstraint="variation_annotation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Study type" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" maxLength="5" tableConstraint="variation_annotation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Study External Reference" field="external_reference_20100" internalName="study_external_ref" key="variation_id_2025_key" maxLength="30" tableConstraint="variation_annotation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Study Description" field="description_20100" internalName="study_description" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm" useDefault="true"/>
         <AttributeDescription displayName="Source name" field="name_2021" internalName="source_name" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Study External Reference" field="external_reference_20100" internalName="study_external_ref" key="variation_id_2025_key" maxLength="30" tableConstraint="variation_annotation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Study type" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" maxLength="5" tableConstraint="variation_annotation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Study Description" field="description_20100" internalName="study_description" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Phenotype description" field="description_2033" internalName="phenotype_description" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm" useDefault="true"/>
         <AttributeDescription displayName="Associated gene with phenotype" field="associated_gene_2035" internalName="associated_gene" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Mappings?source=dbSNP;v=%s|variation_names" maxLength="255" tableConstraint="variation_annotation__dm" useDefault="true"/>
         <AttributeDescription displayName="Source ID(s)" field="local_stable_id_2035" hidden="true" internalName="ega_stable_id" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Phenotype name" field="name_2033" internalName="phenotype_name" key="variation_id_2025_key" maxLength="50" tableConstraint="variation_annotation__dm"/>
-        <AttributeDescription displayName="Phenotype description" field="description_2033" internalName="phenotype_description" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm" useDefault="true"/>
         <AttributeDescription displayName="Associated variant risk allele" field="associated_variant_risk_allele_2035" hidden="false" internalName="associated_variant_risk_allele" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm" useDefault="true"/>
         <AttributeDescription displayName="Risk allele frequency in controls" field="risk_allele_freq_in_controls_2035" hidden="true" internalName="risk_allele_freq_in_controls" key="variation_id_2025_key" maxLength="30" tableConstraint="variation_annotation__dm" useDefault="true"/>
         <AttributeDescription displayName="P value" field="p_value_2035" internalName="p_value" key="variation_id_2025_key" maxLength="20" tableConstraint="variation_annotation__dm" useDefault="true"/>
@@ -219,35 +244,20 @@
         <AttributeDescription displayName="UCSC ID" field="ucsc_id_20137" internalName="ucsc_id" key="variation_id_2025_key" maxLength="50" tableConstraint="variation_citation__dm" useDefault="true"/>
         <AttributeDescription displayName="Digital Object Identifier" field="doi_20137" internalName="doi" key="variation_id_2025_key" maxLength="50" tableConstraint="variation_citation__dm" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Population Genetics" internalName="population_genetics" maxSelect="0">
-        <AttributeDescription displayName="Population name" field="name_2019" internalName="population_genotype__dm_name_2019" key="variation_id_2025_key" maxLength="255" tableConstraint="population_genotype__dm"/>
-        <AttributeDescription displayName="Population description" field="description_2019" internalName="population_genotype__dm_description_2019" key="variation_id_2025_key" maxLength="255" tableConstraint="population_genotype__dm"/>
-        <AttributeDescription displayName="Population size" field="size_2019" internalName="size_2019" key="variation_id_2025_key" maxLength="11" tableConstraint="population_genotype__dm"/>
-        <AttributeDescription displayName="Population genotype" field="allele" internalName="population_genotype__dm_allele" key="variation_id_2025_key" maxLength="255" tableConstraint="population_genotype__dm"/>
-        <AttributeDescription displayName="Genotype frequency" field="frequency_2016" internalName="frequency_2016" key="variation_id_2025_key" maxLength="12" tableConstraint="population_genotype__dm"/>
-      </AttributeCollection>
-      <AttributeCollection displayName="Strain" internalName="strain_single">
-        <AttributeDescription displayName="Strain name" field="name_2019" internalName="strain_name" key="variation_id_2025_key" maxLength="255" tableConstraint="poly__dm">
-          <SpecificAttributeContent internalName="replaceMe"/>
-        </AttributeDescription>
-        <AttributeDescription displayName="Strain genotype" field="allele" internalName="strain_allele" key="variation_id_2025_key" maxLength="255" tableConstraint="poly__dm">
-          <SpecificAttributeContent internalName="replaceMe"/>
-        </AttributeDescription>
-      </AttributeCollection>
     </AttributeGroup>
     <AttributeGroup displayName="GENE ASSOCIATED INFORMATION:" internalName="genesnpatts" useDefault="true">
-      <AttributeCollection displayName="Gene attribute" internalName="ensemblatts" maxSelect="0" useDefault="true">
-        <AttributeDescription displayName="Gene stable ID" field="stable_id_1023" internalName="ensembl_gene_stable_id" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Gene/Summary?g=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Transcript stable ID" field="stable_id_1066" internalName="ensembl_transcript_stable_id" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Gene/Summary?t=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+      <AttributeCollection displayName="For Ensembl Genes" internalName="ensemblatts" maxSelect="0" useDefault="true">
+        <AttributeDescription displayName="Ensembl Gene ID" field="stable_id_1023" internalName="ensembl_gene_stable_id" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Gene/Summary?g=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Ensembl Transcript ID" field="stable_id_1066" internalName="ensembl_transcript_stable_id" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Gene/Summary?t=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Transcript strand" field="seq_region_strand_1064" internalName="ensembl_transcript_chrom_strand" key="variation_feature_id_2026_key" maxLength="2" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Biotype" field="biotype_1064" internalName="ensembl_type" key="variation_feature_id_2026_key" maxLength="40" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Variant consequence" field="consequence_types_2090" internalName="consequence_type_tv" key="variation_feature_id_2026_key" maxLength="22" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Variant Consequence" field="consequence_types_2090" internalName="consequence_type_tv" key="variation_feature_id_2026_key" maxLength="22" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Consequence specific allele" field="allele_string_2090" internalName="consequence_allele_string" key="variation_feature_id_2026_key" maxLength="255" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Protein allele" field="pep_allele_string_2090" internalName="ensembl_peptide_allele" key="variation_feature_id_2026_key" maxLength="255" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Variant start in cDNA (bp)" field="cdna_start_2090" internalName="cdna_start" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Location/View?db=vega;r=%s:%s-%s|chr_name|cdna_start|cdna_end" maxLength="11" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Variant end in cDNA (bp)" field="cdna_end_2090" internalName="cdna_end" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Location/View?db=vega;r=%s:%s-%s|chr_name|cdna_start|cdna_end" maxLength="11" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Variant start in cDNA (bp)" field="cdna_start_2090" internalName="cdna_start" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Variant end in cDNA (bp)" field="cdna_end_2090" internalName="cdna_end" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Variant start in translation (aa)" field="translation_start_2090" hidden="false" internalName="translation_start" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Location/View?db=vega;r=%s:%s-%s|chr_name|cdna_start|cdna_end" maxLength="11" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Variant end in translation (aa)" field="translation_end_2090" hidden="false" internalName="translation_end" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Location/View?db=vega;r=%s:%s-%s|chr_name|cdna_start|cdna_end" maxLength="11" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Variant end in translation (aa)" field="translation_end_2090" hidden="false" internalName="translation_end" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Variant start in CDS (bp)" field="cds_start_2090" internalName="cds_start" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Variant end in CDS (bp)" field="cds_end_2090" internalName="cds_end" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Distance to transcript" field="distance_to_transcript_2090" internalName="distance_to_transcript" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
@@ -276,7 +286,7 @@
   </AttributePage>
   <AttributePage displayName="Flanking Sequences" internalName="sequences" outFormats="fasta" useDefault="true">
     <AttributeGroup displayName="FLANKING SEQUENCES:" internalName="sequence" useDefault="true">
-      <AttributeCollection displayName="Flanking sequences" internalName="snp_seq_scope" useDefault="true">
+      <AttributeCollection displayName="Flanking sequences" internalName="snp_seq_scope" maxSelect="0" useDefault="true">
         <AttributeDescription internalName="snp" pointerAttribute="snp" pointerDataset="*species3*_genomic_sequence" pointerInterface="default" useDefault="true"/>
       </AttributeCollection>
       <AttributeCollection displayName="Upstream" internalName="upstream" maxSelect="0" useDefault="true">
@@ -288,21 +298,21 @@
     </AttributeGroup>
     <AttributeGroup displayName="REGION:" internalName="region" useDefault="true">
       <AttributeCollection displayName="Chromosome attributes" internalName="chromosomeatts" maxSelect="0" useDefault="true">
-        <AttributeDescription internalName="snp_chr_name" pointerAttribute="chr_name" pointerDataset="*species3*_snp" pointerInterface="default" useDefault="true"/>
-        <AttributeDescription internalName="snp_chrom_start" pointerAttribute="chrom_start" pointerDataset="*species3*_snp" pointerInterface="default" useDefault="true"/>
-        <AttributeDescription internalName="snp_chrom_end" pointerAttribute="chrom_end" pointerDataset="*species3*_snp" pointerInterface="default" useDefault="true"/>
-        <AttributeDescription internalName="snp_chrom_strand" pointerAttribute="chrom_strand" pointerDataset="*species3*_snp" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_chr_name" pointerAttribute="chr_name" pointerDataset="*species3*_snp_som" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_chrom_start" pointerAttribute="chrom_start" pointerDataset="*species3*_snp_som" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_chrom_end" pointerAttribute="chrom_end" pointerDataset="*species3*_snp_som" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_chrom_strand" pointerAttribute="chrom_strand" pointerDataset="*species3*_snp_som" pointerInterface="default" useDefault="true"/>
       </AttributeCollection>
     </AttributeGroup>
     <AttributeGroup displayName="VARIANT INFORMATION:" internalName="snp" useDefault="true">
       <AttributeCollection displayName="Variant Information" internalName="snpatts" maxSelect="0" useDefault="true">
-        <AttributeDescription default="true" internalName="snp_refsnp_id" pointerAttribute="refsnp_id" pointerDataset="*species3*_snp" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription default="true" internalName="snp_refsnp_id" pointerAttribute="refsnp_id" pointerDataset="*species3*_snp_som" pointerInterface="default" useDefault="true"/>
         <AttributeDescription default="true" internalName="snp_refsnp_source" pointerAttribute="refsnp_source" pointerDataset="*species3*_snp" pointerInterface="default" useDefault="true"/>
-        <AttributeDescription internalName="snp_allele" pointerAttribute="allele" pointerDataset="*species3*_snp" pointerInterface="default" useDefault="true"/>
-        <AttributeDescription internalName="snp_validated" pointerAttribute="validated" pointerDataset="*species3*_snp" pointerInterface="default" useDefault="true"/>
-        <AttributeDescription internalName="snp_mapweight" pointerAttribute="mapweight" pointerDataset="*species3*_snp" pointerInterface="default" useDefault="true"/>
-        <AttributeDescription internalName="snp_ensembl_aa_position" pointerAttribute="ensembl_aa_position" pointerDataset="*species3*_snp" pointerInterface="default" useDefault="true"/>
-        <AttributeDescription internalName="snp_ensembl_peptide_allele" pointerAttribute="ensembl_peptide_allele" pointerDataset="*species3*_snp" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_allele" pointerAttribute="allele" pointerDataset="*species3*_snp_som" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_validated" pointerAttribute="validated" pointerDataset="*species3*_snp_som" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_mapweight" pointerAttribute="mapweight" pointerDataset="*species3*_snp_som" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_ensembl_aa_position" pointerAttribute="ensembl_aa_position" pointerDataset="*species3*_snp_som" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_ensembl_peptide_shift" pointerAttribute="ensembl_peptide_allele" pointerDataset="*species3*_snp_som" pointerInterface="default" useDefault="true"/>
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>

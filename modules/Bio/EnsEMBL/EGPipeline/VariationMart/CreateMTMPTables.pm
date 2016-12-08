@@ -41,9 +41,6 @@ sub run {
   my $variation_feature_script = $self->param_required('variation_feature_script');
   my $variation_mtmp_script    = $self->param_required('variation_mtmp_script');
 
-  my $dbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
-  my $division_name = $self->param('division_name');
-
   if ($self->param('sv_exists')) {
     # Apparently, the variation set structural variation MTMP table is
     # only required for human. If you run this script for any other
@@ -53,7 +50,7 @@ sub run {
       $self->run_script($variation_mtmp_script, 'mode', 'variation_set_structural_variation');
     }
     # Creating the Supporting structural variation view
-    $self->supporting_structural_variation($dbh);
+    $self->supporting_structural_variation;
   }
   
   # Always need transcript_variation table; currently don't have
@@ -70,15 +67,15 @@ sub run {
     $self->run_script($variation_feature_script, 'table', 'regulatory_feature_variation');
   }
 
-  $self->order_consequences($dbh);
+  $self->order_consequences;
   
   # The variation set variation MTMP table is only required for human
   # and EG species.
-  if ($self->param_required('species') eq 'homo_sapiens' or defined $division_name) {
+  if ($self->param_required('species') eq 'homo_sapiens') {
     $self->run_script($variation_mtmp_script, 'mode', 'variation_set_variation');
   }
   else {
-    $self->empty_variation_set_variation($dbh);
+    $self->empty_variation_set_variation;
   }
   
   # Create the MTMP_evidence view using the Variation script
@@ -86,7 +83,7 @@ sub run {
   
   # Reconstitute old tables and views that are still needed by biomart. 
   if ($self->param('show_sams')) {
-    $self->sample_genotype($dbh);
+    $self->sample_genotype;
   }
 
   if ($self->param('show_pops')) {
@@ -101,14 +98,13 @@ sub run_script {
   my $tmp_dir = $self->param_required('tmp_dir');
   
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
-  my $dbh = $dbc->db_handle();
   
   if ($drop_mtmp) {
     my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
-    $dbh->do($drop_sql) or $self->throw($dbh->errstr);
+    $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
   }
   
-  if ($self->does_table_exist($dbh, $table)) {
+  if ($self->does_table_exist($table)) {
     $self->warning("MTMP_$table already exists for this species");
   }
   else{
@@ -125,15 +121,17 @@ sub run_script {
 
     if (system($cmd)) {
       my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
-      $dbh->do($drop_sql) or $self->throw($dbh->errstr);
+      $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
       $self->throw("Loading failed when running $cmd");
     }
   }
+  $dbc->disconnect_if_idle();
 }
 
 sub sample_genotype {
-  my ($self, $dbh) = @_;
+  my ($self) = @_;
   
+  my $dbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
   my $tmp_dir = $self->param_required('tmp_dir');
   my $output_file = "$tmp_dir/mtmp_sg_".$self->param_required('species').".txt";
   
@@ -199,8 +197,9 @@ sub sample_genotype {
 }
 
 sub supporting_structural_variation {
- my ($self, $dbh) = @_;
+ my ($self) = @_;
 
+ my $dbc = $self->get_DBAdaptor('variation')->dbc();
  my $drop_sql = 'DROP VIEW IF EXISTS MTMP_supporting_structural_variation;';
 
  my $create_sql =
@@ -234,13 +233,16 @@ sub supporting_structural_variation {
  'AND sva.supporting_structural_variation_id=svf.structural_variation_id '.
  'AND a1.attrib_id=sv.class_attrib_id;';
 
- $dbh->do($drop_sql) or $self->throw($dbh->errstr);
- $dbh->do($create_sql) or $self->throw($dbh->errstr);
+ $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
+ $dbc->sql_helper->execute_update(-SQL=>$create_sql);
+  
+ $dbc->disconnect_if_idle();
 }
 
 sub order_consequences {
-  my ($self, $dbh) = @_;
+  my ($self) = @_;
   
+  my $dbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
   my $table = 'MTMP_transcript_variation';
   my $column = 'consequence_types';
   my $sth = $dbh->column_info(undef, undef, $table, $column);
@@ -254,8 +256,9 @@ sub order_consequences {
 }
 
 sub empty_variation_set_variation {
-  my ($self, $dbh) = @_;
+  my ($self) = @_;
 
+  my $dbc = $self->get_DBAdaptor('variation')->dbc();
   my $drop_sql = 'DROP TABLE IF EXISTS MTMP_variation_set_variation;';
 
   my $create_sql =
@@ -265,16 +268,19 @@ sub empty_variation_set_variation {
     'KEY variation_id (variation_id), '.
     'KEY variation_set_id (variation_set_id)) ';
 
-  $dbh->do($drop_sql) or $self->throw($dbh->errstr);
-  $dbh->do($create_sql) or $self->throw($dbh->errstr);
+  $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
+  $dbc->sql_helper->execute_update(-SQL=>$create_sql);
+  
+  $dbc->disconnect_if_idle();
 }
 
 # Check if a MTMP table already exists
 # MTMP_transcript_variation and MTMP_variation_set_variation are quite
 # big for some species so if the table is already there keep it
 sub does_table_exist {
-  my ($self, $dbh,$table_name) = @_;
+  my ($self,$table_name) = @_;
   
+  my $dbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
   my $sth = $dbh->table_info(undef, undef, "MTMP_$table_name", 'TABLE');
   
   $sth->execute or $self->throw($dbh->errstr);

@@ -83,7 +83,7 @@ if ($mart_db =~ /snp_mart/) {
 				 '%snp\_\_variation\_annotation\_\_dm'    => 'description_2033',
 				 '%snp\_\_variation\_annotation\_\_dm'    => 'name_2021' ,
 				 '%structural\_\_variation\_annotation\_\_dm'    => 'name_2019',
-				 '%structural\_\_variation\_annotation\_\_dm'    => 'description_2033',
+				 '%structural\_\_variation\_annotation\_\_dm'    => 'description_2019',
       );
 }
 elsif ($mart_db =~ /egontology_mart/) {
@@ -93,14 +93,9 @@ elsif ($mart_db =~ /egontology_mart/) {
 }
 else {
   %tables_to_tidy = (
-			   '%\_transcript\_variation\_\_dm'     => 'seq_region_id_2026',
-			   '%\_transcript\_variation\_som\_\_dm' => 'seq_region_id_2026',
-			   '%\_\_splicing\_event\_\_dm'          => 'name_1078',
-			   '%\_\_splicing\_event\_feature\_\_dm'  => 'name_1059',
-			   '%\_\_exp\_atlas\_%\_\_dm'             => 'stable_id_1066',
-			   '%\_\_exp\_est\_%\_\_dm'               => 'stable_id_1066',
-			   '%\_\_exp\_zfin\_%\_\_dm'              => 'stable_id_1066',
-			   '%\_\_go\_%\_\_dm'               => 'ontology_id_1006');
+			   '%\_transcript\_variation\_som\_\_dm' => 'seq_region_start_2026',
+			   '%\_\_go\_%\_\_dm'               => 'dbprimary_acc_1074',
+			   '%\_\_tra\_%\_\_dm'               => 'value_1065');
 }
 
 # 1. remove tables where we have no data beyond the key
