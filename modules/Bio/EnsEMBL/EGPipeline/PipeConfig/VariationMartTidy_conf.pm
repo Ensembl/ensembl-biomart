@@ -40,14 +40,14 @@ package Bio::EnsEMBL::EGPipeline::PipeConfig::VariationMartTidy_conf;
 use strict;
 use warnings;
 
-use base ('Bio::EnsEMBL::EGPipeline::PipeConfig::EGGeneric_conf');
+use base ('Bio::EnsEMBL::Hive::PipeConfig::EnsemblGeneric_conf');
 
 sub default_options {
   my ($self) = @_;
   return {
     %{$self->SUPER::default_options},
     
-    pipeline_name => 'variation_mart_'.$self->o('ensembl_release'),
+    pipeline_name => 'variation_mart_tidy_'.$self->o('ensembl_release'),
     
     species      => [],
     antispecies  => [],
@@ -78,7 +78,7 @@ sub pipeline_analyses {
   return [
     {
       -logic_name      => 'ScheduleSpeciesForDropMTMP',
-      -module          => 'Bio::EnsEMBL::EGPipeline::Common::RunnableDB::EGSpeciesFactory',
+      -module          => 'Bio::EnsEMBL::Production::Pipeline::BaseSpeciesFactory',
       -input_ids       => [ {} ],
       -parameters      => {
                             species     => $self->o('species'),
@@ -104,6 +104,16 @@ sub pipeline_analyses {
     },
     
   ];
+}
+
+sub resource_classes {
+  my ($self) = @_;
+  return {
+    'default'           => {'LSF' => '-q production-rh7 -M  4000 -R "rusage[mem=4000]"'},
+    'normal'            => {'LSF' => '-q production-rh7 -M  4000 -R "rusage[mem=4000]"'},
+    '8Gb_mem'           => {'LSF' => '-q production-rh7 -M  8000 -R "rusage[mem=8000]"'},
+    '16Gb_mem_16Gb_tmp' => {'LSF' => '-q production-rh7 -M 16000 -R "rusage[mem=16000,tmp=16000]"'},
+  }
 }
 
 1;

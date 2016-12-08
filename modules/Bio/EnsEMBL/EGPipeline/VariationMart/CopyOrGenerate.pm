@@ -46,12 +46,12 @@ sub write_output {
   my $division_name     = $self->param('division_name');
   my $mart_table_prefix;
   
-  if (defined $division_name) {
-    $species =~ /^(\w).+_(\w+)$/;
-    $mart_table_prefix = "$1$2_eg";
-  } else {
+  if ($division_name eq "Ensembl") {
     $species =~ /^(\w).+_(\w+)$/;
     $mart_table_prefix = "$1$2";
+  } else {
+    $species =~ /^(\w).+_(\w+)$/;
+    $mart_table_prefix = "$1$2_eg";
   }
   
   my $copy = 0;
@@ -104,21 +104,21 @@ sub data_display {
   my %always_skip = map {$_ => 1} @$always_skip;
   my %never_skip  = map {$_ => 1} @$never_skip;
   
-  my $vdbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
+  my $vdbc = $self->get_DBAdaptor('variation')->dbc();
   my $sv_sql = 'SELECT COUNT(*) FROM structural_variation where somatic=0;';
-  my ($svs) = $vdbh->selectrow_array($sv_sql) or $self->throw($vdbh->errstr);
+  my ($svs) = $vdbc->sql_helper->execute_simple(-SQL=>$sv_sql)->[0];
   my $sv_exists = $svs ? 1 : 0;
   
   my $sv_som_sql = 'SELECT COUNT(*) FROM structural_variation where somatic=1;';
-  my ($svs_som) = $vdbh->selectrow_array($sv_som_sql) or $self->throw($vdbh->errstr);
+  my ($svs_som) = $vdbc->sql_helper->execute_simple(-SQL=>$sv_som_sql)->[0];
   my $sv_som_exists = $svs_som ? 1 : 0;
 
   my $motif_sql = 'SELECT COUNT(*) FROM motif_feature_variation;';
-  my ($motifs) = $vdbh->selectrow_array($motif_sql) or $self->throw($vdbh->errstr);
+  my ($motifs) = $vdbc->sql_helper->execute_simple(-SQL=>$motif_sql)->[0];
   my $motif_exists = $motifs ? 1 : 0;
 
   my $regulatory_sql = 'SELECT COUNT(*) FROM regulatory_feature_variation;';
-  my ($regulatory) = $vdbh->selectrow_array($regulatory_sql) or $self->throw($vdbh->errstr);
+  my ($regulatory) = $vdbc->sql_helper->execute_simple(-SQL=>$regulatory_sql)->[0];
   my $regulatory_exists = $regulatory ? 1 : 0;
 
   my ($show_sams, $show_pops, $sams, $pops);
@@ -128,10 +128,10 @@ sub data_display {
     $self->warning("Genotypes always skipped for $species");
   } else {
     my $sam_sql = 'SELECT COUNT(*) FROM sample WHERE display NOT IN ("LD", "UNDISPLAYABLE");';
-    ($sams) = $vdbh->selectrow_array($sam_sql) or $self->throw($vdbh->errstr);
+    ($sams) = $vdbc->sql_helper->execute_simple(-SQL=>$sam_sql)->[0];
     
     my $pop_sql = 'SELECT COUNT(*) FROM population WHERE display NOT IN ("LD", "UNDISPLAYABLE");';
-    ($pops) = $vdbh->selectrow_array($pop_sql) or $self->throw($vdbh->errstr);
+    ($pops) = $vdbc->sql_helper->execute_simple(-SQL=>$pop_sql)->[0];
     
     if (exists $never_skip{$species}) {
       $show_sams = $sams ? 1 : 0;
@@ -157,7 +157,7 @@ sub data_display {
   }
   
   $self->data_display_report($svs, $svs_som, $sv_exists, $sv_som_exists, $sams, $show_sams, $pops, $show_pops, $motifs, $motif_exists, $regulatory, $regulatory_exists);
-  
+  $vdbc->disconnect_if_idle();
   return ($sv_exists, $sv_som_exists, $show_sams, $show_pops, $motif_exists, $regulatory_exists);
 }
 

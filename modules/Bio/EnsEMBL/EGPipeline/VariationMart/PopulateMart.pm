@@ -36,16 +36,15 @@ sub run {
   my $table = $self->param_required('table');
   my $job_id = $self->input_job->dbID();
   my $output_file = $self->param('tmp_dir')."/$table.$job_id.sql";
-  my $mart_dbh = $self->mart_dbh;
   
-  $self->dump_data($table, $mart_dbh, $output_file);
-  $self->load_data($table, $mart_dbh, $output_file);
+  $self->dump_data($table, $output_file);
+  $self->load_data($table, $output_file);
   unlink $output_file;
   
 }
 
 sub dump_data {
-  my ($self, $table, $mart_dbh, $output_file) = @_;
+  my ($self, $table, $output_file) = @_;
   
   my $mart_table_prefix = $self->param_required('mart_table_prefix');
   my $mart_table = "$mart_table_prefix\_$table";
@@ -78,17 +77,21 @@ sub dump_data {
   my $output = $self->read_string($output_file);
   $output =~ s/NULL/\\N/gm;
   $self->save_file($output, $output_file);
+  $self->get_DBAdaptor('core')->dbc()->disconnect_if_idle();
+  $self->get_DBAdaptor('variation')->dbc()->disconnect_if_idle();
 }
 
 sub load_data {
-  my ($self, $table, $mart_dbh, $output_file) = @_;
+  my ($self, $table, $output_file) = @_;
   
   my $mart_table_prefix = $self->param_required('mart_table_prefix');
   my $mart_table = "$mart_table_prefix\_$table";
   
   my $load_sql = "LOAD DATA LOCAL INFILE '$output_file' INTO TABLE $mart_table;";
   
-  $mart_dbh->do($load_sql) or $self->throw($mart_dbh->errstr);
+  my $mart_dbc = $self->mart_dbc;
+  $mart_dbc->sql_helper->execute_update(-SQL=>$load_sql);
+  $mart_dbc->disconnect_if_idle();
 }
 
 sub read_string {

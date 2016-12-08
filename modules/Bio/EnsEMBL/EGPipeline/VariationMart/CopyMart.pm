@@ -45,19 +45,20 @@ sub fetch_input {
   }
   
   my $previous_mart_dba = Bio::EnsEMBL::DBSQL::DBAdaptor->new(%previous_mart);
-  my $previous_mart_dbh = $previous_mart_dba->dbc()->db_handle();
+  my $previous_mart_dbc = $previous_mart_dba->dbc();
   
   my $tables_sql = "SHOW TABLES LIKE '$mart_table_prefix%';";
-  my $tables = $previous_mart_dbh->selectcol_arrayref($tables_sql) or $self->throw($previous_mart_dbh->errstr);
+  my $tables = $previous_mart_dbc->sql_helper->execute(-SQL=>$tables_sql);
   my %checksum_list;
   foreach my $table (@$tables) {
     my $checksum_sql = "CHECKSUM TABLE $table;";
-    my (undef, $checksum) = $previous_mart_dbh->selectrow_array($checksum_sql) or $self->throw($previous_mart_dbh->errstr);
+    my (undef, $checksum) = $previous_mart_dbc->sql_helper->execute_simple(-SQL=>$checksum_sql)->[0];
     $checksum_list{$table} = $checksum;
   }
   
   $self->param('tables', $tables);
   $self->param('checksum_list', \%checksum_list);
+  $previous_mart_dbc->disconnect_if_idle();
 }
 
 sub run {
@@ -67,30 +68,31 @@ sub run {
   # to decrease the risk of failure, and so that we don't need to
   # grab a large amount of memory and tmp space from the node.
   my @tables = @{$self->param('tables')};
-  my $mart_dbh = $self->mart_dbh();
   
-  $self->existing_table_check($mart_dbh);
+  $self->existing_table_check();
   
   foreach my $table (@tables) {
     my $output_file = $self->param('tmp_dir')."/$table.sql";
     $self->dump_mart_table($table, $output_file);
     $self->load_mart_table($output_file);
-    $self->check_mart_table($table, $mart_dbh);
+    $self->check_mart_table($table);
     unlink $output_file;
   }
 }
 
 sub existing_table_check {
-  my ($self, $mart_dbh) = @_;
+  my ($self) = @_;
   
+  my $mart_dbc = $self->mart_dbc;  
   my $mart_table_prefix = $self->param_required('mart_table_prefix');
   my $tables_sql = "SHOW TABLES LIKE '$mart_table_prefix%';";
-  my $tables = $mart_dbh->selectcol_arrayref($tables_sql) or $self->throw($mart_dbh->errstr);
+  my $tables = $mart_dbc->sql_helper->execute(-SQL=>$tables_sql);
   if (@$tables) {
     my $err = "Existing '$mart_table_prefix%' tables cannot be overwritten ".
       "unless you set the init_pipeline.pl parameter: '-drop_mart_tables 1'";
     $self->throw($err);
   }
+  $mart_dbc->disconnect_if_idle();
 }
 
 sub dump_mart_table {
@@ -131,15 +133,17 @@ sub load_mart_table {
 }
 
 sub check_mart_table {
-  my ($self, $table, $mart_dbh) = @_;
+  my ($self, $table) = @_;
   
+  my $mart_dbc = $self->mart_dbc; 
   my $checksum_list = $self->param('checksum_list');
   
   my $checksum_sql = "CHECKSUM TABLE $table;";
-  my (undef, $checksum) = $mart_dbh->selectrow_array($checksum_sql) or $self->throw($mart_dbh->errstr);
+  my (undef, $checksum) = $mart_dbc->sql_helper->execute_simple(-SQL=>$checksum_sql)->[0];
   if ($$checksum_list{$table} ne $checksum) {
     $self->throw("CHECKSUM failed for table '$table'");
   }
+  $mart_dbc->disconnect_if_idle();
 }
 
 1;
