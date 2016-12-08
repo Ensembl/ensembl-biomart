@@ -257,7 +257,7 @@ for my $dataset (sort @datasets) {
   
   # add family
   $logger->info("Adding family data");
-  write_family($dataset_name, $basename);
+  write_family($dataset, $basename);
 
   # work out species name from $dataset
   # get list of method_link_species_set_id/name pairs for homolog partners
