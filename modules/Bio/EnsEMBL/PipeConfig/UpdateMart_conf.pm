@@ -29,7 +29,7 @@ use Cwd;
 
 sub resource_classes {
     my ($self) = @_;
-    return { 'default' => { 'LSF' => '-q production-rh6' }
+    return { 'default' => { 'LSF' => '-q production-rh7' }
     };
 }
 
