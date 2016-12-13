@@ -23,7 +23,7 @@ limitations under the License.
 
   Questions may also be sent to the Ensembl help desk at
   <helpdesk@ensembl.org>.
-  
+
 =head1 SYNOPSIS
 
 generate_meta.pl [arguments]
@@ -47,6 +47,8 @@ generate_meta.pl [arguments]
   --max_dropdown=number              number of maximun allowed items in a filter dropdown
 
   --genomic_features_dbname          genomic_features_mart database name
+
+  --ini_file                         Github link of the ini file containing the xref URLs (DEFAULT.ini).
 
   --verbose			     show debug info
 
@@ -81,6 +83,7 @@ push( @{$optsd}, "template_name:s" );
 push( @{$optsd}, "ds_basename:s" );
 push( @{$optsd}, "template:s" );
 push( @{$optsd}, "genomic_features_dbname:s" );
+push( @{$optsd}, "xref_url_ini_file:s");
 push( @{$optsd}, "max_dropdown:i" );
 push( @{$optsd}, "verbose" );
 
@@ -105,6 +108,17 @@ my $templ = XMLin( $template, KeepRoot => 1, KeyAttr => [] );
 
 $logger->info("Opening connection to mart database");
 my ($dba) = @{ $cli_helper->get_dbas_for_opts($opts) };
+
+# Retrieving different ini files for e! and EG species.
+if ($dba->dbc()->dbname() =~ 'ensembl')
+{
+  $opts->{ini_file} ||= 'https://raw.githubusercontent.com/Ensembl/ensembl-webcode/master/conf/ini-files/DEFAULTS.ini';
+}
+else {
+  $dba->dbc()->dbname() =~ m/^([a-z0-9]+)_.+/;
+  my $division = $1;
+  $opts->{ini_file} ||= "https://raw.githubusercontent.com/EnsemblGenomes/eg-web-${division}/master/conf/ini-files/DEFAULTS.ini";
+}
 
 # for EG, there are specific sets of attributes/filters that we need to delete from the interface
 my $delete = {};
@@ -142,5 +156,5 @@ my $builder =
                                            -BASENAME => $opts->{ds_basename},
                                            -MAX_DROPDOWN =>  $opts->{max_dropdown} );
 
-$builder->build( $opts->{template_name}, $templ, $opts->{genomic_features_dbname} );
+$builder->build( $opts->{template_name}, $templ, $opts->{genomic_features_dbname}, $opts->{ini_file} );
 
