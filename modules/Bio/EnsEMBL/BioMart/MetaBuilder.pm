@@ -52,6 +52,8 @@ use Data::Dumper;
 use Sort::Naturally;
 use Clone qw/clone/;
 use Log::Log4perl qw/get_logger/;
+use LWP::UserAgent;
+use Config::IniFiles;
 
 my $logger = get_logger();
 
@@ -77,7 +79,7 @@ my $template_properties = {
 
 =head1 CONSTRUCTOR
 =head2 new
- Arg [-DBC] : 
+ Arg [-DBC] :
     Bio::EnsEMBL::DBSQL::DBConnection : instance for the target mart (required)
  Arg [-VERSION] :
     Integer : EG/E version (by default the last number in the mart name)
@@ -116,6 +118,8 @@ sub new {
   Description: Build metadata for the supplied  mart
   Arg        : name of template (e.g. gene)
   Arg        : template as hashref
+  Arg        : Genomic features mart database name
+  Arg        : ini file GitHub URL used to retrieve xrefs URLs
   Returntype : none
   Exceptions : none
   Caller     : general
@@ -123,7 +127,7 @@ sub new {
 =cut
 
 sub build {
-  my ( $self, $template_name, $template, $genomic_features_mart ) = @_;
+  my ( $self, $template_name, $template, $genomic_features_mart, $ini_file ) = @_;
   # create base metatables
   $self->create_metatables( $template_name, $template );
   # read datasets
@@ -135,7 +139,7 @@ sub build {
   my $n        = $offsets->[0] || 0;
   for my $dataset ( @{$datasets} ) {
     $dataset->{species_id} = ++$n;
-    $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart );
+    $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart, $ini_file );
   }
   return;
 }
@@ -154,7 +158,7 @@ sub get_datasets {
   my $datasets =
     $self->{dbc}->sql_helper()->execute(
     -SQL =>
-'select name, species_name as display_name, sql_name as production_name, assembly, genebuild from dataset_names order by name',
+'select name, species_name as display_name, sql_name as production_name, assembly, genebuild, src_db from dataset_names order by name',
     -USE_HASHREFS => 1 );
   $logger->debug( "Found " . scalar(@$datasets) . " datasets" );
   #Sorting orthologues, Paralogues and homeologues attribute by dataset display name
@@ -168,6 +172,8 @@ sub get_datasets {
   Arg        : name of template (e.g. gene)
   Arg        : template as hashref
   Arg        : all datasets (needed for compara) - arrayref of hashrefs (1 per dataset)
+  Arg        : Genomic features mart database name
+  Arg        : ini file GitHub URL used to retrieve xrefs URLs
   Returntype : none
   Exceptions : none
   Caller     : general
@@ -175,7 +181,7 @@ sub get_datasets {
 =cut
 
 sub process_dataset {
-  my ( $self, $dataset, $template_name, $template, $datasets, $genomic_features_mart ) = @_;
+  my ( $self, $dataset, $template_name, $template, $datasets, $genomic_features_mart, $ini_file ) = @_;
   $logger->info( "Processing " . $dataset->{name} );
   my $templ_in = $template->{DatasetConfig};
   $logger->debug("Building output");
@@ -185,10 +191,47 @@ sub process_dataset {
     $logger->warn("No main tables found for $template_name for ".$dataset->{name});
     return;
   }
+  my $xref_list = $self->generate_xrefs_list($dataset);
+  my $probe_list = $self->generate_probes_list($dataset);
+  my $xref_url_list;
+  # parsing extra ini file from eg-web-common for divisions that are not e!
+  # Merge both hashes
+  if ($self->{dbc}->dbname() !~ 'ensembl'){
+    my $xref_division = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
+    my $xref_eg_common_list = $self->parse_ini_file("https://raw.githubusercontent.com/EnsemblGenomes/eg-web-common/master/conf/ini-files/DEFAULTS.ini","ENSEMBL_EXTERNAL_URLS");
+    $xref_url_list = {%$xref_division,%$xref_eg_common_list}
+  }
+  # Else, parsing the Ensembl DEFAULT.ini file
+  else{
+    $xref_url_list = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
+  }
+
+  # Hardcoded list of Xrefs not using dbprimary_acc_1074 columns or using both dbprimary_acc_1074 and display_label_1074
+  # Each column as an associated name that will be use for filter/attribute name
+  my $exception_xrefs = {
+    dbass3 => { display_label_1074 => 'ID'},
+    dbass5 => { display_label_1074 => 'ID'},
+    hpa => { display_label_1074 => 'ID'},
+    uniprot_gn => { display_label_1074 => 'ID'},
+    wikigene => {display_label_1074 => 'ID' },
+    wormbase_gseqname => {display_label_1074 => 'ID'},
+    wormbase_locus => {display_label_1074 => 'ID'},
+    flybasename_gene => {display_label_1074 => 'ID'},
+    flybasename_translation => {display_label_1074 => 'ID'},
+    flybasename_transcript => {display_label_1074 => 'ID'},
+    flybasecgid_translation => {display_label_1074 => 'ID'},
+    uniprot_varsplice_id => {display_label_1074 => 'ID'},
+    uniprot_genename => {display_label_1074 => 'ID'},
+    hgnc => { dbprimary_acc_1074 => "ID",  display_label_1074 => "symbol"},
+    mirbase => {dbprimary_acc_1074 => "accession", display_label_1074 => "ID"},
+  };
+
+
+  ### Write xml data
   $self->write_importables( $dataset, $templ_in );
   $self->write_exportables( $dataset, $templ_in, $datasets, $template_name );
-  $self->write_filters( $dataset, $templ_in, $datasets, $genomic_features_mart );
-  $self->write_attributes( $dataset, $templ_in, $datasets );
+  $self->write_filters( $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs );
+  $self->write_attributes( $dataset, $templ_in, $datasets, $xref_list, $probe_list, $xref_url_list, $exception_xrefs );
   # write meta
   $self->write_dataset_metatables( $dataset, $template_name );
   return;
@@ -208,7 +251,8 @@ sub has_main_tables {
 sub write_toplevel {
   my ( $self, $dataset, $templ_in ) = @_;
   $logger->info( "Writing toplevel elements for " . $dataset->{name} );
-  $dataset->{production_name} =~ s/_/ /g;
+  # List of default species that should be displayed at the top of the species dropdown list
+  # on the the mart web interface
   my $is_default = { 'hsapiens'    => 1,
                      'drerio'      => 1,
                      'rnorvegicus' => 1,
@@ -307,6 +351,7 @@ sub write_importables {
 my %species_exportables = map { $_ => 1 }
   qw/genomic_region gene_exon_intron transcript_exon_intron gene_flank transcript_flank coding_gene_flank coding_transcript_flank 3utr 5utr cdna gene_exon peptide coding/;
 
+
 sub write_exportables {
   my ( $self, $dataset, $templ_in, $datasets, $template_name ) = @_;
   $logger->info( "Writing exportables for " . $dataset->{name} );
@@ -348,9 +393,16 @@ sub write_exportables {
 } ## end sub write_exportables
 
 sub write_filters {
-  my ( $self, $dataset, $templ_in, $datasets, $genomic_features_mart ) = @_;
+  my ( $self, $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs ) = @_;
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
   my $templ_out = $dataset->{config};
+  #Defining Annotation filters
+  my $annotations = {
+    gene => {display_name => 'Gene ID(s)', field =>'stable_id_1023', table => $ds_name.'__gene__main'},
+    transcript => {display_name => 'Transcript ID(s)', field => 'stable_id_1066', table => $ds_name.'__transcript__main' },
+    protein => {display_name => 'Protein ID(s)', field => 'stable_id_1070', table => $ds_name.'__translation__main' },
+    exon => {display_name => 'Exon ID(s)', field => 'stable_id_1070', table => $ds_name.'__translation__main'}
+  };
   $logger->info( "Writing filters for " . $dataset->{name} );
   # FilterPage
   for my $filterPage ( @{ elem_as_array( $templ_in->{FilterPage}) } ) {
@@ -479,6 +531,199 @@ sub write_filters {
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
           } ## end if ( $fdo->{internalName...})
+          elsif ( $fdo->{internalName} eq 'id_list_xrefs_filters' ) {
+            $logger->info(
+                            "Generating data for $fdo->{internalName}");
+              foreach my $xref (@{ $xref_list }) {
+                my $field = "ox_".$xref->[0]."_bool";
+                my $table = $ds_name."__ox_".$xref->[0]."__dm";
+                if ( defined $self->{tables}->{$table} ) {
+                  my $key = $self->get_table_key($table);
+                    if ( defined $self->{tables}->{$table}->{$key} ) {
+                      # add in if the column exists
+                      push @{ $fdo->{Option} }, {
+                        displayName  => "With $xref->[1]",
+                        displayType  => "list",
+                        field        => $field,
+                        hidden       => "false",
+                        internalName => "with_$xref->[0]",
+                        isSelectable => "true",
+                        key          => $key,
+                        legal_qualifiers => "only,excluded",
+                        qualifier        => "only",
+                        style            => "radio",
+                        tableConstraint  => "main",
+                        type             => "boolean",
+                        Option           => [ {
+                                  displayName  => "Only",
+                                  hidden       => "false",
+                                  internalName => "only",
+                                  value        => "only" }, {
+                                  displayName  => "Excluded",
+                                  hidden       => "false",
+                                  internalName => "excluded",
+                                  value        => "excluded" } ] };
+                    }
+                }
+              } ## end if ( defined $self->{tables...})
+            push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
+            $nD++;
+          } ## end elsif ( $fdo->{internalName...})
+          elsif ( $fdo->{internalName} eq 'id_list_limit_xrefs_filters' ) {
+            $logger->info(
+                            "Generating data for $fdo->{internalName}");
+            # Generating Filters for Gene, Transcript, Protein and exons
+            foreach my $annotation (keys %{$annotations}) {
+                my $field = $annotations->{$annotation}->{'field'};
+                my $table = $annotations->{$annotation}->{'table'};
+                if ( defined $self->{tables}->{$table} ) {
+                  my $key = $self->get_table_key($table);
+                  if ( defined $self->{tables}->{$table}->{$key} ) {
+                    my $example = $self->get_example($table,$field);
+                    # add in if the column exists
+                    push @{ $fdo->{Option} }, {
+                      displayName  => $annotations->{$annotation}->{'display_name'}." [e.g. $example]",
+                      displayType  => "Text",
+                      description  => "Filter to include genes with supplied list of $annotations->{$annotation}->{'display_name'}",
+                      field        => $field,
+                      hidden       => "false",
+                      internalName => "ensembl_".$annotation."_id",
+                      isSelectable => "true",
+                      key          => $key,
+                      legal_qualifiers => "=,in",
+                      multipleValues   => "1",
+                      qualifier        => "=",
+                      tableConstraint  => $table,
+                      type             => "List" };
+                  }
+                }
+              } ## end if ( defined $self->{tables...})
+              # Generation all the other xrefs
+              foreach my $xref (@{ $xref_list }) {
+                my $table = $ds_name."__ox_".$xref->[0]."__dm";
+                if ( defined $self->{tables}->{$table} ) {
+                  my $key = $self->get_table_key($table);
+                  if ( defined $self->{tables}->{$table}->{$key} ) {
+                    if (exists $exception_xrefs->{$xref->[0]}) {
+                      #Checking if the xrefs is part of the execption xrefs hash.
+                      #We need to display_label_1074 instead of dbprimary_acc_1074 or both
+                      foreach my $field (keys %{$exception_xrefs->{$xref->[0]}}) {
+                        my $example = $self->get_example($table,$field);
+                        push @{ $fdo->{Option} }, {
+                        displayName  => "$xref->[1] $exception_xrefs->{$xref->[0]}->{$field}"."(s) [e.g. $example]",
+                        displayType  => "Text",
+                        description  => "Filter to include genes with supplied list of $xref->[1] $exception_xrefs->{$xref->[0]}->{$field}"."(s)",
+                        field        => $field,
+                        hidden       => "false",
+                        internalName => $xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{$field}),
+                        isSelectable => "true",
+                        key          => $key,
+                        legal_qualifiers => "=,in",
+                        multipleValues   => "1",
+                        qualifier        => "=",
+                        tableConstraint  => $table,
+                        type             => "List" };
+                      }
+                    }
+                    else {
+                      #Use dbprimary_acc_1074 column for all the other xrefs
+                      my $field = "dbprimary_acc_1074";
+                      # add in if the column exists
+                      my $example = $self->get_example($table,$field);
+                      push @{ $fdo->{Option} }, {
+                        displayName  => "$xref->[1] ID(s) [e.g. $example]",
+                        displayType  => "Text",
+                        description  => "Filter to include genes with supplied list of $xref->[1] ID(s)",
+                        field        => $field,
+                        hidden       => "false",
+                        internalName => "$xref->[0]",
+                        isSelectable => "true",
+                        key          => $key,
+                        legal_qualifiers => "=,in",
+                        multipleValues   => "1",
+                        qualifier        => "=",
+                        tableConstraint  => $table,
+                        type             => "List" };
+                    }
+                  }
+                }
+              } ## end if ( defined $self->{tables...})
+            push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
+            $nD++;
+          } ## end elsif ( $fdo->{internalName...})
+          elsif ( $fdo->{internalName} eq 'id_list_microarray_filters' ) {
+            $logger->info(
+                            "Generating data for $fdo->{internalName}");
+              foreach my $probe (@{ $probe_list }) {
+                my $field = "efg_".lc($probe->[1])."_bool";
+                my $table = $ds_name."__efg_".lc($probe->[1])."__dm";
+                if ( defined $self->{tables}->{$table} ) {
+                  my $key = "transcript_id_1064_key";
+                  if ( defined $self->{tables}->{$table}->{$key} ) {
+                    my $display_name=$probe->[1];
+                    $display_name =~ s/_/ /g;
+                    # add in if the column exists
+                    push @{ $fdo->{Option} }, {
+                      displayName  => "With $display_name",
+                      displayType  => "list",
+                      field        => $field,
+                      hidden       => "false",
+                      internalName => "with_".lc($probe->[1]),
+                      isSelectable => "true",
+                      key          => $key,
+                      legal_qualifiers => "only,excluded",
+                      qualifier        => "only",
+                      style            => "radio",
+                      tableConstraint  => "main",
+                      type             => "boolean",
+                      Option           => [ {
+                                  displayName  => "Only",
+                                  hidden       => "false",
+                                  internalName => "only",
+                                  value        => "only" }, {
+                                  displayName  => "Excluded",
+                                  hidden       => "false",
+                                  internalName => "excluded",
+                                  value        => "excluded" } ] };
+                  }
+                }
+              } ## end if ( defined $self->{tables...})
+            push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
+            $nD++;
+          } ## end elsif ( $fdo->{internalName...})
+          elsif ( $fdo->{internalName} eq 'id_list_limit_microarray_filters' ) {
+            $logger->info(
+                            "Generating data for $fdo->{internalName}");
+              foreach my $probe (@{ $probe_list }) {
+                my $field = "display_label_11056";
+                my $table = $ds_name."__efg_".lc($probe->[1])."__dm";
+                if ( defined $self->{tables}->{$table} ) {
+                  my $key = "transcript_id_1064_key";
+                  if ( defined $self->{tables}->{$table}->{$key} ) {
+                    my $display_name=$probe->[1];
+                    $display_name =~ s/_/ /g;
+                    my $example = $self->get_example($table,$field);
+                    # add in if the column exists
+                    push @{ $fdo->{Option} }, {
+                      displayName  => "$display_name probe ID(s) [e.g. $example]",
+                      displayType  => "Text",
+                      description  => "Filter to include genes with supplied list of $display_name ID(s)",
+                      field        => $field,
+                      hidden       => "false",
+                      internalName => lc($probe->[1]),
+                      isSelectable => "true",
+                      key          => $key,
+                      legal_qualifiers => "=,in",
+                      multipleValues   => "1",
+                      qualifier        => "=",
+                      tableConstraint  => $table,
+                      type             => "List" };
+                  }
+                }
+              } ## end if ( defined $self->{tables...})
+            push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
+            $nD++;
+          } ## end elsif ( $fdo->{internalName...})
           elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'container') {
             $logger->debug( "Processing options for " . $filterDescription->{internalName} );
             my $nO = 0;
@@ -595,10 +840,10 @@ sub write_filters {
                       my $qtl_features;
                       if(defined $genomic_features_mart and $genomic_features_mart ne '') {
                         if ($fdo->{internalName} eq 'name_2') {
-                          $qtl_features=generate_chromosome_qtl_push_action($self,$dataset->{name},$genomic_features_mart);
+                          $qtl_features=$self->generate_chromosome_qtl_push_action($dataset->{name},$genomic_features_mart);
                         }
                         else {
-                          ($chr_bands_kstart,$chr_bands_kend)=generate_chromosome_bands_push_action($self,$dataset->{name},$genomic_features_mart);
+                          ($chr_bands_kstart,$chr_bands_kend)=$self->generate_chromosome_bands_push_action($dataset->{name},$genomic_features_mart);
                         }
                       }
                       for my $val (@$vals) {
@@ -638,7 +883,6 @@ sub write_filters {
                           }
 
                         }
-                      
                       # If the species has band information, creating chromosome option and associated band start and end push action dropdowns
                       if (defined $kstart_config{$val} and defined $kend_config{$val})
                         {
@@ -774,7 +1018,7 @@ sub write_filters {
 } ## end sub write_filters
 
 sub write_attributes {
-  my ( $self, $dataset, $templ_in, $datasets ) = @_;
+  my ( $self, $dataset, $templ_in, $datasets,$xref_list, $probe_list, $xref_url_list, $exception_xrefs ) = @_;
   $logger->info( "Writing attributes for " . $dataset->{name} );
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
   my $templ_out = $dataset->{config};
@@ -1102,6 +1346,80 @@ sub write_attributes {
           my $nD = 0;
           normalise( $attributeCollection, "AttributeDescription" );
           my $aco = copy_hash($attributeCollection);
+
+          if ( $aco->{internalName} eq 'xrefs' ) {
+            $logger->info(
+                            "Generating data for $aco->{internalName} attributes");
+            foreach my $xref (@{ $xref_list }) {
+              my $field = "dbprimary_acc_1074";
+              my $table = $ds_name."__ox_".$xref->[0]."__dm";
+              if ( defined $self->{tables}->{$table} ) {
+                my $key = $self->get_table_key($table);
+                if ( defined $self->{tables}->{$table}->{$key} ) {
+                  my $url = $xref_url_list->{$xref->[0]};
+                  # Replacing ###ID### with mart placeholder %s and ###SPECIES### with
+                  # species production name
+                  if (defined $url) {
+                    $url =~ s/###ID###/%s/;
+                    $url =~ s/###SPECIES###/$dataset->{production_name}/;
+                    $url = "exturl|".$url;
+                  }
+                  else{
+                    $url='';
+                  }
+                  if (exists $exception_xrefs->{$xref->[0]}) {
+                    foreach my $field (keys %{$exception_xrefs->{$xref->[0]}}) {
+                      push @{ $aco->{AttributeDescription} }, {
+                        key             => $key,
+                        displayName     => "$xref->[1] $exception_xrefs->{$xref->[0]}->{$field}"."(s)",
+                        field           => $field,
+                        internalName    => $xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{$field}),
+                        linkoutURL      => $url,
+                        maxLength       => "140",
+                        tableConstraint => $table };
+                      $nD++;
+                      }
+                    }
+                  else {
+                    my $field = "dbprimary_acc_1074";
+                    push @{ $aco->{AttributeDescription} }, {
+                      key             => $key,
+                      displayName     => "$xref->[1] ID(s)",
+                      field           => $field,
+                      internalName    => "$xref->[0]",
+                      linkoutURL      => $url,
+                      maxLength       => "140",
+                      tableConstraint => $table };
+                  $nD++;
+                  }
+                }
+              }
+            } ## end if ( defined $self->{tables...})
+          } ## end elsif ( $aco->{internalName... [ if ( $aco->{internalName...})]})
+          elsif ( $aco->{internalName} eq 'microarray' ) {
+            $logger->info(
+                            "Generating data for $aco->{internalName} attributes");
+            foreach my $probe (@{ $probe_list }) {
+              my $field = "display_label_11056";
+              my $table = $ds_name."__efg_".lc($probe->[1])."__dm";
+                if ( defined $self->{tables}->{$table} ) {
+                  my $key = "transcript_id_1064_key";
+                  if ( defined $self->{tables}->{$table}->{$key} ) {
+                    my $display_name=$probe->[1];
+                    $display_name =~ s/_/ /g;
+                    push @{ $aco->{AttributeDescription} }, {
+                      key             => $key,
+                      displayName     => "$display_name Probe",
+                      field           => $field,
+                      internalName    => lc($probe->[1]),
+                      linkoutURL      => "exturl|/*species2*/Location/Genome?ftype=ProbeFeature;fdb=funcgen;id=%s;ptype=probe;",
+                      maxLength       => "140",
+                      tableConstraint => $table };
+                  $nD++;
+                  }
+                }
+            } ## end if ( defined $self->{tables...})
+          } ## end elsif ( $aco->{internalName... [ if ( $aco->{internalName...})]})
           ### AttributeDescription
           for my $attributeDescription (
                              @{ $attributeCollection->{AttributeDescription} } )
@@ -1157,7 +1475,6 @@ sub write_attributes {
           } ## end for my $attributeDescription...
 
           if ( $nD > 0 ) {
-            
             push @{ $ago->{AttributeCollection} }, $aco;
             $nC++;
           }
@@ -1343,7 +1660,7 @@ sub create_metatables {
                       "DELETE FROM meta_template__xml__dm WHERE template=?",
                       -PARAMS=>[$template_name]
                     );
-  
+
   $self->{dbc}->sql_helper()->execute_update(
                       -SQL => 'INSERT INTO meta_template__xml__dm VALUES (?,?)',
                       -PARAMS => [ $template_name, $gzip_template ] );
@@ -1401,10 +1718,10 @@ sub write_dataset_metatables {
   $self->{dbc}->sql_helper()
     ->execute_update( -SQL =>
                       q/DELETE m,i,u,x,t FROM meta_conf__dataset__main m
-left join meta_conf__interface__dm i using (dataset_id_key) 
-left join meta_conf__user__dm u using (dataset_id_key) 
-left join meta_conf__xml__dm x using (dataset_id_key) 
-left join meta_template__template__main t using (dataset_id_key) 
+left join meta_conf__interface__dm i using (dataset_id_key)
+left join meta_conf__user__dm u using (dataset_id_key)
+left join meta_conf__xml__dm x using (dataset_id_key)
+left join meta_template__template__main t using (dataset_id_key)
  WHERE dataset=?/,
                       -PARAMS=>[$ds_name]
                     );
@@ -1474,91 +1791,265 @@ sub _load_info {
   return;
 }
 
-#Subroutine used to generate a list of chromosome band_start and band_end for a given dataset
+=head2 generate_chromosome_qtl_push_action
+  Description: Retrieve a list of chromosome band_start and band_end for a given dataset
+  Arg        : Mart dataset name
+  Arg        : Genomic features mart name
+  Returntype : 2 Hashrefs (keys are seq_region names, values are associated array of band). On hasref for band_start and one for band_end.
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
 sub generate_chromosome_bands_push_action {
-my ($self,$dataset_name,$genomic_features_mart)= @_;
-my $chr_bands_kstart;
-my $chr_bands_kend;
+  my ($self,$dataset_name,$genomic_features_mart)= @_;
+  my $chr_bands_kstart;
+  my $chr_bands_kend;
 
-my $database_tables =$self->{dbc}->sql_helper()
+  my $database_tables =$self->{dbc}->sql_helper()
                     ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${genomic_features_mart}'" );
-if (defined $database_tables->[0]) {
-  if ($database_tables->[0] > 0) {
-    my $empty_ks_table=$self->{dbc}->sql_helper()
+  if (defined $database_tables->[0]) {
+    if ($database_tables->[0] > 0) {
+      my $empty_ks_table=$self->{dbc}->sql_helper()
                     ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${dataset_name}_karyotype_start__karyotype__main'" );
-    my $empty_ke_table=$self->{dbc}->sql_helper()
+      my $empty_ke_table=$self->{dbc}->sql_helper()
                     ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${dataset_name}_karyotype_start__karyotype__main'" );
-    if(defined $empty_ks_table->[0] and $empty_ke_table->[0]) {
-      if ($empty_ks_table->[0] > 0 and $empty_ke_table->[0] > 0) {
-        $chr_bands_kstart = $self->{dbc}->sql_helper()->execute_into_hash(
-          -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${dataset_name}_karyotype_start__karyotype__main where band_1027 is not null order by band_1027",
-          -CALLBACK => sub {
-            my ( $row, $value ) = @_;
-            $value = [] if !defined $value;
-            push($value, $row->[1] );
-            return $value;
-            }
-        );
-        $chr_bands_kend = $self->{dbc}->sql_helper()->execute_into_hash(
-          -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${dataset_name}_karyotype_end__karyotype__main where band_1027 is not null order by band_1027",
-          -CALLBACK => sub {
-            my ( $row, $value ) = @_;
-            $value = [] if !defined $value;
-            push($value, $row->[1] );
-            return $value;
-            }
-        );
+      if(defined $empty_ks_table->[0] and defined $empty_ke_table->[0]) {
+        if ($empty_ks_table->[0] > 0 and $empty_ke_table->[0] > 0) {
+          $chr_bands_kstart = $self->{dbc}->sql_helper()->execute_into_hash(
+            -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${dataset_name}_karyotype_start__karyotype__main where band_1027 is not null order by band_1027",
+            -CALLBACK => sub {
+              my ( $row, $value ) = @_;
+              $value = [] if !defined $value;
+              push($value, $row->[1] );
+              return $value;
+              }
+          );
+          $chr_bands_kend = $self->{dbc}->sql_helper()->execute_into_hash(
+            -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${dataset_name}_karyotype_end__karyotype__main where band_1027 is not null order by band_1027",
+            -CALLBACK => sub {
+              my ( $row, $value ) = @_;
+              $value = [] if !defined $value;
+              push($value, $row->[1] );
+              return $value;
+              }
+          );
+        }
       }
     }
   }
-}
-return ($chr_bands_kstart,$chr_bands_kend);
+  return ($chr_bands_kstart,$chr_bands_kend);
 }
 
-#Subroutine used to generate a list of chromosome QTLs for a given dataset
+=head2 generate_chromosome_qtl_push_action
+  Description: Retrieve a list of chromosome QTLs for a given dataset
+  Arg        : Mart dataset name
+  Arg        : Genomic features mart name
+  Returntype : Hashref (keys are seq_region names, values are associated array of QTL regions)
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
 sub generate_chromosome_qtl_push_action {
-my ($self,$dataset_name,$genomic_features_mart)= @_;
-my $qtl_features;
+  my ($self,$dataset_name,$genomic_features_mart)= @_;
+  my $qtl_features;
 
-my $database_tables =$self->{dbc}->sql_helper()
+  my $database_tables =$self->{dbc}->sql_helper()
                     ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${genomic_features_mart}'" );
-if (defined $database_tables->[0]) {
-  if ($database_tables->[0] > 0) {
-    my $empty_qtl_table=$self->{dbc}->sql_helper()
+  if (defined $database_tables->[0]) {
+    if ($database_tables->[0] > 0) {
+      my $empty_qtl_table=$self->{dbc}->sql_helper()
                     ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${dataset_name}_qtl_feature__qtl_feature__main'" );
-    if(defined $empty_qtl_table->[0]) {
-      if ($empty_qtl_table->[0] > 0) {
-        $qtl_features = $self->{dbc}->sql_helper()->execute_into_hash(
-          -SQL => "select name_2033, qtl_region from ${genomic_features_mart}.${dataset_name}_qtl_feature__qtl_feature__main where qtl_region is not null order by qtl_region",
-          -CALLBACK => sub {
-            my ( $row, $value ) = @_;
-            $value = [] if !defined $value;
-            push($value, $row->[1] );
-            return $value;
-            }
-        );
+      if(defined $empty_qtl_table->[0]) {
+        if ($empty_qtl_table->[0] > 0) {
+          $qtl_features = $self->{dbc}->sql_helper()->execute_into_hash(
+            -SQL => "select name_2033, qtl_region from ${genomic_features_mart}.${dataset_name}_qtl_feature__qtl_feature__main where qtl_region is not null order by qtl_region",
+            -CALLBACK => sub {
+              my ( $row, $value ) = @_;
+              $value = [] if !defined $value;
+              push($value, $row->[1] );
+              return $value;
+              }
+          );
+        }
       }
     }
   }
-}
-return $qtl_features;
+  return $qtl_features;
 }
 
-#Subroutine used to check if a given dataset has data in a pointer mart
-#eg: For band filter in the gene mart, does the genomic_features_mart has tables for the given databaset
-sub check_pointer_dataset_table_exist {
-my ($self,$dataset_name,$pointer_mart,$pointer_dataset)= @_;
-my $pointer_dataset_table;
+=head2 generate_xrefs_list
+  Description: Retrieve a list of xrefs for a given dataset. Subroutine use the information_schema database and Core database external_db table.
+  Arg        : Mart dataset name
+  Returntype : Hashref (keys are xrefs names, values are associated xref display name)
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
 
-my $database_tables =$self->{dbc}->sql_helper()
-                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${pointer_mart}'" );
-if (defined $database_tables->[0]) {
-  if ($database_tables->[0] > 0) {
-    $pointer_dataset_table = $self->{dbc}->sql_helper()
-                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${pointer_mart}' and table_name like '${pointer_dataset}%'" );
+sub generate_xrefs_list {
+  my ($self,$dataset)= @_;
+  my $core_db = $dataset->{src_db};
+  my $xrefs_list;
+  my $database_tables = $self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${core_db}'" );
+    if (defined $database_tables->[0]) {
+      $xrefs_list = $self->{dbc}->sql_helper()->execute(
+        -SQL => "select distinct(LOWER(db_name)), db_display_name from ${core_db}.external_db order by db_display_name");
+    }
+    else {
+      die "$core_db database is missing from the server\n"
+    }
+  return ($xrefs_list);
+}
+
+=head2 generate_probes_list
+  Description: Retrieve a list of probes for a given dataset. Subroutine use the information_schema database and MTMP_probestuff_helper table.
+  Arg        : Mart dataset name
+  Returntype : Hashref (keys are mircroarray names, values are associated microarray vendor and name)
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_probes_list {
+  my ($self,$dataset)= @_;
+  my $core_db = $dataset->{src_db};
+  my $regulation_db = $core_db;
+  my $probes_list;
+  $regulation_db =~ s/core/funcgen/;
+  my $database_tables = $self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${regulation_db}'" );
+    if (defined $database_tables->[0]) {
+      if ($database_tables->[0] > 0) {
+        my $empty_probe_table=$self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${regulation_db}' and table_name='MTMP_probestuff_helper'" );
+        if(defined $empty_probe_table->[0]) {
+          if ($empty_probe_table->[0] > 0) {
+            $probes_list = $self->{dbc}->sql_helper()->execute(
+              -SQL => "select distinct(LOWER(array_name)), array_vendor_and_name from ${regulation_db}.MTMP_probestuff_helper order by array_vendor_and_name",
+            );
+          }
+        }
+      }
+    }
+  return ($probes_list);
+}
+
+=head2 get_table_key
+  Description: Subroutine to return mart main table key for a given mart dataset and table
+  Arg        : Mart database table name
+  Returntype : String corresponding of the mart table main key
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub get_table_key {
+my ($self,$table)= @_;
+my $key;
+my $mart=$self->{dbc}->dbname();
+my $database_table = $self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${mart}' and table_name='${table}'" );
+  if (defined $database_table->[0]) {
+    if ($database_table->[0] > 0) {
+          $key = $self->{dbc}->sql_helper()->execute_simple(
+            -SQL => "select COLUMN_NAME from information_schema.columns where table_schema='${mart}' and table_name='${table}' and COLUMN_NAME like '%key';",
+          )->[0];
+    }
   }
+return ($key);
 }
-return ($pointer_dataset_table);
+
+=head2 get_example
+  Description: Subroutine to retrieve the first item of a column for a given table
+  Arg        : Mart database table name
+  Arg        : Mart database column name
+  Returntype : String or interger depending of the data
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub get_example {
+  my ($self,$table,$field)= @_;
+  my $mart=$self->{dbc}->dbname();
+  my $example = $self->{dbc}->sql_helper()->execute_simple(
+            -SQL => "select $field from $mart.$table where $field is not null limit 1;",
+          )->[0];
+  return ($example);
+}
+
+=head2 parse_ini_file
+  Description: Subroutine parsing an ini file to extract parameters and values of a given section. I am reusing code from https://github.com/Ensembl/ensembl-metadata/blob/master/modules/Bio/EnsEMBL/MetaData/AnnotationAnalyzer.pm
+  Arg        : ini file GitHub URL
+  Arg        : Name of the section of interested parameters and values
+  Returntype : Hash ref (keys are method parameter, values are associated parameter value)
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub parse_ini_file {
+  my ($self, $ini_file, $section)= @_ ;
+  my $ua = LWP::UserAgent->new();
+  my $req = HTTP::Request->new( GET => $ini_file );
+  # Pass request to the user agent and get a response back
+  my $res = $ua->request($req);
+  my $ini;
+  # Check the outcome of the response
+  if ( $res->is_success ) {
+    $ini = $res->content;
+  }
+  else {
+    $logger
+      ->debug( "Could not retrieve $ini_file: " . $res->status_line );
+  }
+  # parse out and look at given section, e.g:
+  # [ENSEMBL_EXTERNAL_URLS]
+  ## Used by more than one group
+  #EPMC_MED                    = http://europepmc.org/abstract/MED/###ID###
+  #LRG                         = http://www.lrg-sequence.org/LRG/###ID###
+  # then store some or all of this in my output e.g. {xref_name}{xref_url}
+  my %parsed_data;
+  if ( defined $ini ) {
+    my $cfg = Config::IniFiles->new( -file => \$ini );
+    if ( defined $cfg ) {
+      for my $parameter ( $cfg->Parameters($section) ) {
+        my $value = $cfg->val($section,$parameter);
+        # Making sure that the parameter name is lowercase
+        $parsed_data{lc($parameter)}=$value;
+      }
+    }
+  }
+  return \%parsed_data;
+}
+
+=head2 check_pointer_dataset_table_exist
+  Description: Subroutine used to check if a given dataset has data in a pointer mart eg: For band filter in the gene mart, does the genomic_features_mart has tables for the given databaset
+  Arg        : hashref representing a dataset
+  Arg        : Name of the pointer mart
+  Arg        : Name of the dataset in the pointer mart
+  Returntype : integer
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub check_pointer_dataset_table_exist {
+  my ($self,$dataset_name,$pointer_mart,$pointer_dataset)= @_;
+  my $pointer_dataset_table;
+
+  my $database_tables =$self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${pointer_mart}'" );
+  if (defined $database_tables->[0]) {
+    if ($database_tables->[0] > 0) {
+      $pointer_dataset_table = $self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${pointer_mart}' and table_name like '${pointer_dataset}%'" );
+    }
+  }
+  return ($pointer_dataset_table);
 }
 
 1;
