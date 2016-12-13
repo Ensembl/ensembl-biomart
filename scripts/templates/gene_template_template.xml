@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE DatasetConfig>
+<DatasetConfig dataset="gene_ensembl_template" datasetID="87" defaultDataset="*default*" description="Ensembl Genes" displayName="*species1* genes (*version*)" entryLabel="Genes" interfaces="default" internalName="template" martUsers="default" modified="2006-10-02 16:13:46" softwareVersion="0.6" template="gene_ensembl" type="TableSet" useDefault="true" version="*version*" visible="1">
+  <MainTable>*base_name*__gene__main</MainTable>
+  <MainTable>*base_name*__transcript__main</MainTable>
+  <MainTable>*base_name*__translation__main</MainTable>
+  <Key>gene_id_1020_key</Key>
+  <Key>transcript_id_1064_key</Key>
+  <Key>translation_id_1068_key</Key>
+  <Replace id="datasets"/>
+  <Importable filters="link_go_closure" internalName="go_closure" linkName="go_closure" name="go_closure" type="link" useDefault="true"/>
+  <Importable filters="link_so_closure" internalName="so_closure" linkName="so_closure" name="so_closure" type="link" useDefault="true"/>
+  <Importable filters="mgi_symbol" internalName="mgi_symbol" linkName="mgi_symbol" name="mgi_symbol" type="link" useDefault="true"/>
+  <Importable filters="ensembl_gene_id" internalName="ensembl_gene_id" linkName="ensembl_gene_id" linkVersion="*link_version*" name="ensembl_gene_id" type="link" useDefault="true"/>
+  <Importable filters="rgd" internalName="rgd_id" linkName="rgd_id" name="rgd_id" type="link" useDefault="true"/>
+  <Importable filters="ensembl_gene_id" internalName="wormbase_gene_seq_id" linkName="wormbase_gene_seq_id" linkVersion="*link_version2*" name="wormbase_gene_seq_id" type="link" useDefault="true"/>
+  <Importable filters="chromosome_name,start,end" internalName="ensembl_das_chr" linkName="ensembl_das_chr" name="ensembl_das_chr" type="dasChr" useDefault="true"/>
+  <Importable filters="ensembl_gene_id" internalName="ensembl_das_gene" linkName="ensembl_das_gene" name="ensembl_das_gene" type="dasGene" useDefault="true"/>
+  <Importable filters="link_ensembl_gene_id" internalName="gene_stable_id" linkName="*species3*_gene_stable_id" name="*species3*_gene_stable_id" type="link" useDefault="true"/>
+  <Importable filters="chromosome_name,start,end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
+  <Importable filters="transcript_id" internalName="transcript_id" linkName="*species3*_transcript_id" name="*species3*_transcript_id" type="link" useDefault="true"/>
+  <Importable filters="chromosome_name,start,end" internalName="genomic_seq" linkName="genomic_seq" linkVersion="*link_version*" name="genomic_seq" type="link" useDefault="true"/>
+  <Importable filters="uniprot_swissprot_accession" internalName="uniprot_id" linkName="uniprot_id" name="uniprot_id" type="link" useDefault="true"/>
+  <Importable filters="pdb" internalName="pdb_id" linkName="pdb_id" name="pdb_id" type="link" useDefault="true"/>
+  <Importable filters="uniprot_swissprot_accession" internalName="uniprot_ac" linkName="uniprot_ac" name="uniprot_ac" type="link" useDefault="true"/>
+  <Importable filters="chromosome_name,start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link" useDefault="true"/>
+  <Importable filters="chromosome_name,end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
+  <Importable filters="chromosome_name,start,end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_gene_id" internalName="variation_to_ensembl" linkName="variation_to_ensembl" linkVersion="*link_version*" name="variation_to_ensembl" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_gene_id" internalName="somatic_to_ensembl" linkName="somatic_to_ensembl" linkVersion="*link_version*" name="somatic_to_ensembl" type="link" useDefault="true"/>
+  <Exportable attributes="chromosome_name,start_position,end_position" internalName="genomic_region" linkName="genomic_region" linkVersion="*link_version*" name="genomic_region" type="link" useDefault="true"/>
+  <Exportable attributes="rgd" internalName="rgd_id" linkName="rgd_id" name="rgd_id" type="link" useDefault="true"/>
+  <Exportable attributes="variation_name" internalName="refsnp_id" linkName="refsnp_id" name="refsnp_id" type="link" useDefault="true"/>
+  <Exportable attributes="mgi_symbol" internalName="mgi_symbol" linkName="mgi_symbol" name="mgi_symbol" type="link" useDefault="true"/>
+  <Exportable attributes="uniprot_swissprot" internalName="uniprot_swissprot" linkName="uniprot_swissprot" name="uniprot_swissprot" type="link" useDefault="true"/>
+  <Exportable attributes="entrezgene" internalName="entrezgene" linkName="entrezgene" name="entrezgene" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_gene_id" internalName="wormbase_gene_seq_id" linkName="wormbase_gene_seq_id" linkVersion="*link_version*" name="wormbase_gene_seq_id" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_gene_id,start_position,end_position,strand,ensembl_transcript_id,transcript_start,transcript_end,ensembl_exon_id,exon_chrom_start,exon_chrom_end" internalName="ensembl_das_chr" linkName="ensembl_das_chr" name="ensembl_das_chr" pointer="true" type="dasChr" useDefault="true"/>
+  <Exportable attributes="ensembl_gene_id,ensembl_transcript_id,description" internalName="ensembl_das_gene" linkName="ensembl_das_gene" name="ensembl_das_gene" type="dasGene" useDefault="true"/>
+  <Exportable attributes="transcript_id_key" internalName="internal_transcript_id" linkName="*species3*_internal_transcript_id" name="*species3*_internal_transcript_id" type="link" useDefault="true"/>
+  <Exportable attributes="pdb" default="0" internalName="partition_pdb_id" linkName="partition_pdb_id" name="partition_pdb_id" type="link" useDefault="true"/>
+  <Exportable attributes="uniprot_swissprot_accession" default="0" internalName="partition_uniprot_id" linkName="partition_uniprot_id" name="partition_uniprot_id" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_gene_id" internalName="ensembl_gene_id" linkName="ensembl_gene_id" name="ensembl_gene_id" type="link" useDefault="true"/>
+  <Replace id="exportables"/>
+  <Exportable attributes="ensembl_gene_id,ensembl_transcript_id,ensembl_exon_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,transcript_count" internalName="gtf" linkName="gtf" name="gtf" orderBy="ensembl_gene_id,ensembl_transcript_id,rank" pointer="true" type="formatter" useDefault="true"/>
+  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand" internalName="transcript_exon_intron" linkName="transcript_exon_intron" linkVersion="*link_version*" name="transcript_exon_intron" orderBy="ensembl_transcript_id" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_gene_id,ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand,transcript_count" internalName="gene_exon_intron" linkName="gene_exon_intron" linkVersion="*link_version*" name="gene_exon_intron" orderBy="ensembl_gene_id" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_gene_id,ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand,transcript_count" internalName="gene_flank" linkName="gene_flank" linkVersion="*link_version*" name="gene_flank" orderBy="ensembl_gene_id" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand" internalName="transcript_flank" linkName="transcript_flank" linkVersion="*link_version*" name="transcript_flank" orderBy="ensembl_transcript_id" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_gene_id,ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,transcript_count" internalName="coding_gene_flank" linkName="coding_gene_flank" linkVersion="*link_version*" name="coding_gene_flank" orderBy="ensembl_transcript_id,rank" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id" internalName="coding_transcript_flank" linkName="coding_transcript_flank" linkVersion="*link_version*" name="coding_transcript_flank" orderBy="ensembl_transcript_id,rank" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id" internalName="3utr" linkName="3utr" linkVersion="*link_version*" name="3utr" orderBy="ensembl_transcript_id,rank" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id" internalName="5utr" linkName="5utr" linkVersion="*link_version*" name="5utr" orderBy="ensembl_transcript_id,rank" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand,rank" internalName="cdna" linkName="cdna" linkVersion="*link_version*" name="cdna" orderBy="ensembl_transcript_id" type="link" useDefault="true"/>
+  <Exportable attributes="exon_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand" internalName="gene_exon" linkName="gene_exon" linkVersion="*link_version*" name="gene_exon" orderBy="exon_id" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,codon_table_id,seq_edits" internalName="peptide" linkName="peptide" linkVersion="*link_version*" name="peptide" orderBy="ensembl_transcript_id,rank" type="link" useDefault="true"/>
+  <Exportable attributes="ensembl_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase" internalName="coding" linkName="coding" linkVersion="*link_version*" name="coding" orderBy="ensembl_transcript_id,rank" type="link" useDefault="true"/>
+  <FilterPage displayName="FILTERS FOR LINKS" hideDisplay="true" internalName="link_filters" useDefault="true">
+    <FilterGroup description="Filters for Links" hideDisplay="true" internalName="link_filters" useDefault="true">
+      <FilterCollection hideDisplay="true" internalName="link_filters" useDefault="true">
+        <FilterDescription displayType="list" field="consequence_types_2076" internalName="link_so_closure" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list" useDefault="true"/>
+        <FilterDescription displayType="text" field="dbprimary_acc_1074" hideDisplay="true" internalName="link_go_closure" key="translation_id_1068_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="go_go__dm" type="text" useDefault="true"/>
+        <FilterDescription displayType="text" field="stable_id_1066" hideDisplay="true" internalName="link_ensembl_transcript_stable_id" key="transcript_id_1064_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayType="text" field="gene_id_1020_key" hideDisplay="true" internalName="gene_id" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayType="text" field="transcript_id_1064_key" hideDisplay="true" internalName="transcript_id" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription description="Filter to include genes with supplied list of Ensembl Gene IDs" displayName="Ensembl Gene ID(s)" displayType="text" field="stable_id_1023" hideDisplay="true" internalName="link_ensembl_gene_id" key="gene_id_1020_key" legal_qualifiers="=,in" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <FilterPage displayName="FILTERS" internalName="filters" useDefault="true">
+    <FilterGroup description="Filter for Genes in Specified Regions of the Golden Path" displayName="REGION:" internalName="region" useDefault="true">
+      <FilterCollection description="Limit to Genes on a specific Chromosome. " displayName="Chromosome" internalName="chromosome" useDefault="true">
+        <FilterDescription displayName="Chromosome name" displayType="list" field="name_1059" internalName="chromosome_name" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" otherFilters="*species3*_karyotype_start.name;*species3*_karyotype_end.name" qualifier="=" style="menu" tableConstraint="main" type="text" useDefault="true">
+        <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection description="Limit to Genes within prescribed Chromosomal Coordinates." displayName="Base pair" internalName="chromosome_coordinates" useDefault="true">
+        <FilterDescription defaultValue="1" description="Determine which base pair on the specified chromosome to begin range" displayName="Gene Start (bp)" displayType="text" field="seq_region_end_1020" hidden="false" internalName="start" key="gene_id_1020_key" legal_qualifiers="&gt;=" qualifier="&gt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription defaultValue="10000000" description="Determine which base pair on the specified chromosome to end range" displayName="Gene End (bp)" displayType="text" field="seq_region_start_1020" hidden="false" internalName="end" key="gene_id_1020_key" legal_qualifiers="&lt;=" qualifier="&lt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="Band" internalName="band_collection" useDefault="true">
+        <FilterDescription internalName="band_start" pointerDataset="*species3*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true">
+        </FilterDescription>
+        <FilterDescription internalName="band_end" pointerDataset="*species3*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter" useDefault="true">
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true">
+        <FilterDescription internalName="marker_start" pointerDataset="*species3*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true">
+        </FilterDescription>
+        <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species3*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true">
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Encode type" hidden="true" internalName="encode_type_col" useDefault="true">
+        <FilterDescription hidden="true" internalName="hsapiens_encode.type" pointerDataset="*species3*_encode" pointerFilter="type" pointerInterface="default" type="text" useDefault="true">
+          <SpecificFilterContent hidden="true" internalName="hsapiens_gene_ensembl" useDefault="true"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="&lt;a href='http://www.genome.gov/26525202'&gt;ENCODE Pilot Regions&lt;/a&gt;" internalName="encode_region_col" useDefault="true">
+        <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species3*_encode" pointerFilter="encode_region" pointerInterface="default" useDefault="true">
+          <SpecificFilterContent internalName="hsapiens_gene_ensembl" useDefault="true"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="In encode region" hidden="false" internalName="encode_boolean" useDefault="true">
+        <FilterDescription description="Include/Exclude Entries in an Encode Region" displayName="In encode region" displayType="list" field="is_encode_bool" hidden="false" internalName="in_encode_region" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+          <SpecificFilterContent field="is_encode_bool" internalName="hsapiens_gene_ensembl" key="gene_id_1020_key" tableConstraint="main" useDefault="true"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="QTL Chromosome name" hidden="false" internalName="qtl_chr_name" useDefault="true">
+        <FilterDescription hidden="false" internalName="qtl_feature.name_2" pointerDataset="*species3*_qtl_feature" pointerFilter="name_2" pointerInterface="default" type="text" useDefault="true">
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="QTL region" internalName="qtl_region_col" useDefault="true">
+        <FilterDescription hidden="false" internalName="qtl_feature.qtl_region" pointerDataset="*species3*_qtl_feature" pointerFilter="qtl_region" pointerInterface="default" useDefault="true">
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Multiple Chromosomal Regions (Chr:Start:End:Strand) [Max 500 advised]" internalName="chromosome_regions" useDefault="true">
+        <FilterDescription displayName="Strand" displayType="text" field="seq_region_strand_1020" hidden="false" hideDisplay="true" internalName="strand" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription defaultValue="1:100:10000000:1" description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Chromosome Regions (e.g 1:100:10000:-1,1:100000:200000:1)" displayType="text" field="seq_region_start_1020" filterList="chromosome_name,start,end,strand" hidden="false" internalName="chromosomal_region" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+    <FilterGroup description="Filter on Gene Related Accessions and Filters" displayName="GENE:" internalName="gene" useDefault="true">
+      <FilterCollection displayName="Limit to genes (external references)..." internalName="id_list_xrefs" useDefault="true">
+        <FilterDescription displayType="container" internalName="id_list_xrefs_filters" type="boolean_list" useDefault="true">
+          <Option internalName="id_list_xrefs_filters"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Input external references ID list [Max 500 advised]" internalName="id_list_limit_xrefs" useDefault="true">
+        <FilterDescription displayName="Entries with following IDs" displayType="container" internalName="id_list_limit_xrefs_filters" type="id_list" useDefault="true">
+          <Option internalName="id_list_limit_xrefs_filters"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Limit to genes (microarray probes/probesets)..." internalName="id_list_microarray" useDefault="true">
+        <FilterDescription displayType="container" internalName="id_list_microarray_filters" type="boolean_list" useDefault="true">
+          <Option internalName="id_list_microarray_filters"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Input microarray probes/probesets ID list [Max 500 advised]" internalName="id_list_limit_microarray" useDefault="true">
+        <FilterDescription displayName="Entries with following IDs" displayType="container" internalName="id_list_limit_microarray_filters" type="id_list" useDefault="true">
+          <SpecificFilterContent internalName="id_list_limit_microarray_filters"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Transcript count &gt;=" internalName="transcript_count_filter" useDefault="true">
+        <FilterDescription description="Limit to genes within given Transcript Count range" displayName="Transcript count &gt;=" displayType="text" field="transcript_count" internalName="transcript_count" key="gene_id_1020_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="Entries with a 5' UTR" internalName="5utr_collection" useDefault="true">
+        <FilterDescription description="Limit to entries with 5&amp;quot; UTR only, or excluded" displayName="Entries with a 5' UTR" displayType="list" field="has_5utr_bool" internalName="with_5utr" key="gene_id_1020_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+          <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Entries with a 3' UTR" internalName="3utr_collection" useDefault="true">
+        <FilterDescription description="Limit to entries with 3&amp;quot; UTR only, or excluded" displayName="Entries with a 3' UTR" displayType="list" field="has_3utr_bool" internalName="with_3utr" key="gene_id_1020_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+          <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Gene type" internalName="biotype_collection" useDefault="true">
+        <FilterDescription displayName="Type" displayType="list" field="biotype_1020" internalName="biotype" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Transcript type" internalName="transcript_biotype_collection" useDefault="true">
+        <FilterDescription displayName="Transcript Type" displayType="list" field="biotype_1064" internalName="transcript_biotype" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Source (gene)" internalName="source_coll" useDefault="true">
+        <FilterDescription displayName="Source (gene)" displayType="list" field="source_1020" internalName="source" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Source (transcript)" internalName="transcript_source_coll" useDefault="true">
+        <FilterDescription displayName="Source (transcript)" displayType="list" field="source_1064" internalName="transcript_source" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Status (gene)" internalName="status_coll" useDefault="true">
+        <FilterDescription displayName="Status (gene)" displayType="list" field="status_1020" internalName="status" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Status (transcript)" internalName="transcript_status_coll" useDefault="true">
+        <FilterDescription displayName="Status (transcript)" displayType="list" field="status_1064" hidden="false" internalName="transcript_status" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Transcript Support Level (TSL)" internalName="transcript_tsl" useDefault="true">
+        <FilterDescription displayName="Transcript Support Level (TSL)" displayType="list" field="value_1065" internalName="transcript_tsl" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_tsl__dm" type="boolean" useDefault="true">
+          <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="GENCODE basic annotation" internalName="transcript_gencode_basic" useDefault="true">
+        <FilterDescription displayName="GENCODE basic annotation" displayType="list" field="value_1065" internalName="transcript_gencode_basic" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_gencode_basic__dm" type="boolean" useDefault="true">
+          <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="APPRIS annotation" internalName="transcript_appris" useDefault="true">
+        <FilterDescription displayName="APPRIS annotation" displayType="list" field="value_1065" internalName="transcript_appris" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_appris__dm" type="boolean" useDefault="true">
+          <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
+        </FilterDescription>
+      </FilterCollection>
+    </FilterGroup>
+    <FilterGroup description="Filter on phenotype" displayName="PHENOTYPE:" internalName="phenotype" useDefault="true">
+      <FilterCollection displayName="Phenotype" internalName="phenotype_description" useDefault="true">
+        <FilterDescription displayName="Phenotype description" displayType="list" field="description_20125" internalName="phenotype_description" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="phenotype__dm" type="list" useDefault="true">
+        <SpecificFilterContent internalName="replaceMe"/>
+      </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Phenotype source" internalName="phenotype_source" useDefault="true">
+        <FilterDescription displayName="Phenotype source" displayType="list" field="source_20125" internalName="phenotype_source" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="phenotype__dm" type="list" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+    </FilterGroup>
+    <FilterGroup description="Filters matching GO IDS, Terms, and Evidence Codes" displayName="GENE ONTOLOGY:" hidden="false" internalName="go" useDefault="true">
+      <FilterCollection displayName="GO Evidence code" hidden="false" internalName="go_evidence_code" useDefault="true">
+        <FilterDescription displayName="GO Evidence code" displayType="list" field="linkage_type_1024" hidden="false" internalName="go_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="go_go__dm" type="list" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="GO Term Accession (e.g. GO:0050789) [Max 500 advised]" hidden="false" internalName="go_filters" useDefault="true">
+        <FilterDescription hidden="false" internalName="go_clos" multipleValues="1" pointerDataset="closure_GO" pointerFilter="go_parent_term" pointerInterface="default" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="GO Term Name [e.g. regulation of biological process]" hidden="false" internalName="go_filters_name" useDefault="true">
+        <FilterDescription hidden="false" internalName="go_name" pointerDataset="closure_GO" pointerFilter="go_parent_name" pointerInterface="default" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+    <FilterGroup description="Filter on multi species comparison relationships" displayName="MULTI SPECIES COMPARISONS:" hidden="false" internalName="multispecies" useDefault="true">
+      <FilterCollection displayName="Homologue filters" hidden="false" internalName="homolog_filter_collection" useDefault="true">
+        <FilterDescription displayType="container" hidden="false" internalName="homolog_filters" type="boolean_list" useDefault="true">
+          <Replace id="homology_filters"/>
+        </FilterDescription>
+      </FilterCollection>
+    </FilterGroup>
+    <FilterGroup description="Filter on Protein domains and families data" displayName="PROTEIN DOMAINS AND FAMILIES:" internalName="protein" useDefault="true">
+      <FilterCollection displayName="Limit to genes ..." internalName="family_domain_id" useDefault="true">
+        <FilterDescription displayType="container" internalName="protein_fam_id_bools" type="boolean_list" useDefault="true">
+          <Option displayName="with BrigpepP ID(s)" displayType="list" field="protein_feature_brigpepp_bool" internalName="with_brigpepp" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with coiled coil (ncoils)" displayType="list" field="protein_feature_ncoils_bool" internalName="with_coil" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Gene3D ID(s)" displayType="list" field="protein_feature_gene3d_bool" internalName="with_gene3d" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with HAMAP ID(s)" displayType="list" field="protein_feature_hamap_bool" internalName="with_hamap" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with HMMPanther ID(s)" displayType="list" field="protein_feature_hmmpanther_bool" internalName="with_hmmpanther" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with InterPro ID(s)" displayType="list" field="interpro_bool" internalName="with_interpro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with low complexity (SEG)" displayType="list" field="protein_feature_seg_bool" internalName="with_low_complexity" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Pfam ID(s)" displayType="list" field="protein_feature_pfam_bool" internalName="with_protein_feature_pfam" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Pfscan ID(s)" displayType="list" field="protein_feature_pfscan_bool" internalName="with_profile" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with PIRSF ID(s)" displayType="list" field="protein_feature_pirsf_bool" internalName="with_pirsf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with PRINTS ID(s)" displayType="list" field="protein_feature_prints_bool" internalName="with_protein_feature_prints" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with ScanProsite ID(s)" displayType="list" field="protein_feature_scanprosite_bool" internalName="with_prosite" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with SMART ID(s)" displayType="list" field="protein_feature_smart_bool" internalName="with_smart" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with SUPERFAMILY ID(s)" displayType="list" field="protein_feature_superfamily_bool" internalName="with_superfamily" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with TIGRFAM ID(s)" displayType="list" field="protein_feature_tigrfam_bool" internalName="with_tigrfam" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with signal peptide" displayType="list" field="protein_feature_signalp_bool" internalName="with_signalp" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Transmembrane domain (tmhmm)" displayType="list" field="protein_feature_tmhmm_bool" internalName="with_tmhmm" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+          <Option displayName="with Protein feature blastprodom ID(s)" displayType="list" field="protein_feature_blastprodom_bool" hidden="false" internalName="with_blastprodom" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
+            <Option displayName="Only" hidden="false" internalName="only" isSelectable="true" useDefault="true" value="only"/>
+            <Option displayName="Excluded" hidden="false" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
+          </Option>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection description="Limit to genes with these family or domain IDs:" displayName="Limit to genes with these family or domain IDs [Max 500 advised]" internalName="family_domain_id_list" useDefault="true">
+        <FilterDescription displayName="Entries with following ID(s)" displayType="container" internalName="family_domain_id_list_filters" type="id_list" useDefault="true">
+          <Option description="Filter for Genes mapped to a list of TIGRfam ID(s)" displayName="TIGRfam ID(s) [e.g. TIGR00172]" displayType="text" field="hit_name_1048" internalName="tigrfam" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_tigrfam__dm" type="list" useDefault="true"/>
+          <Option description="Filter for Genes mapped to a list of Gene3D ID(s)" displayName="Gene3D ID(s) [e.g. 1.20.210.10]" displayType="text" field="hit_name_1048" internalName="gene3d" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_gene3d__dm" type="list" useDefault="true"/>
+          <Option description="Filter for Genes mapped to a list of HAMAP ID(s)" displayName="HAMAP Accession ID(s) [e.g. MF_01209]" displayType="text" field="hit_name_1048" internalName="hamap" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_hamap__dm" type="list" useDefault="true"/>
+          <Option description="Filter for Genes mapped to a list of Superfamily ID(s)" displayName="Superfamily ID(s) [e.g. SSF47095]" displayType="text" field="hit_name_1048" internalName="superfamily" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_superfamily__dm" type="list" useDefault="true"/>
+          <Option description="Filter for Genes mapped to a list of Smart ID(s)" displayName="SMART ID(s) [e.g. SM00398]" displayType="text" field="hit_name_1048" internalName="smart" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_smart__dm" type="list" useDefault="true"/>
+          <Option description="Filter for Genes mapped to a list of Pirsf ID(s)" displayName="PIRSF ID(s) [e.g. PIRSF037653]" displayType="text" field="hit_name_1048" internalName="pirsf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_pirsf__dm" type="list" useDefault="true"/>
+          <Option displayName="Ensembl Protein Family ID(s) [e.g. PTHR10000_SF7]" displayType="text" field="stable_id_408" internalName="family" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+          <Option description="Filter for Genes mapped to a list of PFAM ID(s)" displayName="PFAM ID(s) [e.g. PF00046]" displayType="text" field="hit_name_1048" internalName="pfam" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_pfam__dm" type="list" useDefault="true"/>
+          <Option description="Filter for Genes mapped to a list of HMMPanther ID(s)" displayName="HMMPanther ID(s) [e.g. PTHR12369]" displayType="text" field="hit_name_1048" internalName="hmmpanther" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_hmmpanther__dm" type="list" useDefault="true"/>
+          <Option description="Filter for Genes mapped to a list of PRINTS ID(s)" displayName="PRINTS ID(s) [e.g. PR00194]" displayType="text" field="hit_name_1048" internalName="prints" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_prints__dm" type="list" useDefault="true"/>
+          <Option description="Filter for Genes mapped to a list of Profile ID(s)" displayName="PROFILE ID(s) [e.g. PS50855]" displayType="text" field="hit_name_1048" internalName="profile" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_pfscan__dm" type="list" useDefault="true"/>
+          <Option description="Filter for Genes mapped to a list of Prosite ID(s)" displayName="PROSITE ID(s) [e.g. PS00668]" displayType="text" field="hit_name_1048" internalName="prosite" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_scanprosite__dm" type="list" useDefault="true"/>
+          <Option description="Filter for Genes mapped to a list of Interpro ID(s)" displayName="Interpro ID(s) [e.g. IPR007087]" displayType="text" field="interpro_ac_1026" internalName="interpro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="interpro__dm" type="text" useDefault="true"/>
+        </FilterDescription>
+      </FilterCollection>
+    </FilterGroup>
+    <FilterGroup description="Filter for genes associated with Variants" displayName="VARIANT:" internalName="snp" useDefault="true">
+      <FilterCollection displayName="Germline variant source" internalName="variation_source" useDefault="true">
+        <FilterDescription displayName="limit to genes with germline variant data sources" displayType="list" field="name_2021" internalName="germ_line_variation_source" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Somatic variant source" internalName="somatic_source" useDefault="true">
+        <FilterDescription displayName="limit to genes with somatic variant sources" displayType="list" field="name_2021" internalName="somatic_variation_source" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation_som__dm" type="list" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Variant supporting evidence" internalName="validated_snp" useDefault="true">
+        <FilterDescription description="Entries associated with variants that have been validated" displayName="Variant supporting evidence" displayType="list" field="evidence_2025" internalName="with_validated_snp" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="mart_transcript_variation__dm" type="boolean" useDefault="true">
+          <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection description="Filter for Genes associated with specified types of Variants" displayName="Variant Consequence" internalName="snptype" useDefault="true">
+        <FilterDescription displayType="list" hidden="false" internalName="so_name" legal_qualifiers="=" multipleValues="1" pointerDataset="closure_SO" pointerFilter="so_parent_name" pointerInterface="default" qualifier="=" style="menu" type="list" useDefault="true">
+        </FilterDescription>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <AttributePage description="General Gene Features" displayName="Features" internalName="feature_page" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls" useDefault="true">
+    <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene" useDefault="true">
+      <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes" useDefault="true">
+        <AttributeDescription default="true" description="Ensembl Stable ID of the Gene" displayName="Ensembl Gene ID" field="stable_id_1023" internalName="ensembl_gene_id" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" description="Ensembl Stable ID of the Transcript" displayName="Ensembl Transcript ID" field="stable_id_1066" internalName="ensembl_transcript_id" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Ensembl Protein ID" field="stable_id_1070" internalName="ensembl_peptide_id" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/ProteinSummary?db=core;p=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Ensembl Exon ID" field="stable_id_1016" hidden="false" internalName="ensembl_exon_id" key="transcript_id_1064_key" maxLength="128" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="Canonical transcript stable ID(s)" field="stable_id_1066_clash" internalName="canonical_transcript_stable_id" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s" maxLength="128" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Description" field="description_1020" internalName="description" key="gene_id_1020_key" maxLength="550" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription description="Chromosome Name" displayName="Chromosome Name" field="name_1059" internalName="chromosome_name" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/contigview?chr=%s" maxLength="12" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription description="Start Coordinate of the gene in chromosomal coordinates." displayName="Gene Start (bp)" field="seq_region_start_1020" hidden="false" internalName="start_position" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chromosome_name|start_position|end_position" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription description="End Coordinate of the gene in chromosomal coordinates." displayName="Gene End (bp)" field="seq_region_end_1020" hidden="false" internalName="end_position" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chromosome_name|start_position|end_position" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription description="Orientation of genes on chromosome." displayName="Strand" field="seq_region_strand_1020" internalName="strand" key="gene_id_1020_key" maxLength="4" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription description="Band of chromosome where genes occur." displayName="Band" field="band_1027" internalName="band" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;band=%s|chromosome_name|band" maxLength="6" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription description="Start Coordinate of the transcript in chromosomal coordinates." displayName="Transcript Start (bp)" field="seq_region_start_1064" hidden="false" internalName="transcript_start" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chromosome_name|transcript_start|transcript_end" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription description="End Coordinate of the gene in chromosomal coordinates." displayName="Transcript End (bp)" field="seq_region_end_1064" hidden="false" internalName="transcript_end" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chromosome_name|transcript_start|transcript_end" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Transcription Start Site (TSS)" field="transcription_start_site" internalName="transcription_start_site" key="transcript_id_1064_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Transcript length (including UTRs and CDS)" field="transcript_length" internalName="transcript_length" key="transcript_id_1064_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Transcript Support Level (TSL)" field="value_1065" internalName="transcript_tsl" key="transcript_id_1064_key" linkoutURL="exturl|http://www.ensembl.org/Help/Glossary?id=492" maxLength="255" tableConstraint="tra_tsl__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="GENCODE basic annotation" field="value_1065" internalName="transcript_gencode_basic" key="transcript_id_1064_key" linkoutURL="exturl|http://www.ensembl.org/Help/Glossary?id=500" maxLength="255" tableConstraint="tra_gencode_basic__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="APPRIS annotation" field="value_1065" internalName="transcript_appris" key="transcript_id_1064_key" linkoutURL="exturl|http://www.ensembl.org/Help/Glossary?id=521" maxLength="255" tableConstraint="tra_appris__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Associated Gene Name" field="display_label_1074" internalName="external_gene_name" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s|ensembl_gene_id" maxLength="16" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Associated Gene Source" field="db_display_name_1018" internalName="external_gene_source" key="gene_id_1020_key" maxLength="17" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Associated Transcript Name" field="display_label_1074_r1" internalName="external_transcript_name" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s|ensembl_transcript_id" maxLength="16" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Associated Transcript Source" field="db_display_name_1018_r1" internalName="external_transcript_source_name" key="transcript_id_1064_key" maxLength="27" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Ensembl CDS length" field="cds_length" internalName="ensembl_CDS_length" key="transcript_id_1064_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Ensembl cDNA length" field="cdna_length" internalName="ensembl_cDNA_length" key="transcript_id_1064_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Ensembl Protein length" field="peptide_length" internalName="ensembl_peptide_length" key="transcript_id_1064_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Transcript count" field="transcript_count" internalName="transcript_count" key="gene_id_1020_key" maxLength="16" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Translation count" field="translation_count" internalName="translation_count" key="transcript_id_1064_key" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription description="Percentage GC content" displayName="% GC content" field="value_1022" internalName="percentage_gc_content" key="gene_id_1020_key" maxLength="3" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Gene type" field="biotype_1020" internalName="gene_biotype" key="gene_id_1020_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Transcript type" field="biotype_1064" internalName="transcript_biotype" key="transcript_id_1064_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Source (gene)" field="source_1020" internalName="source" key="gene_id_1020_key" maxLength="20" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Source (transcript)" field="source_1064" internalName="transcript_source" key="transcript_id_1064_key" maxLength="20" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Status (gene)" field="status_1020" internalName="status" key="gene_id_1020_key" maxLength="9" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Status (transcript)" field="status_1064" internalName="transcript_status" key="transcript_id_1064_key" maxLength="19" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Version (gene)" field="version_1020" internalName="version" key="gene_id_1020_key" maxLength="5" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Version (transcript)" field="version_1064" internalName="transcript_version" key="transcript_id_1064_key" maxLength="5" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection description="Phenotypes linked to genes" displayName="Phenotype" internalName="phenotype" useDefault="true">
+        <AttributeDescription displayName="Phenotype description" field="description_20125" internalName="phenotype_description" key="gene_id_1020_key" maxLength="255" tableConstraint="phenotype__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Source name" field="source_20125" internalName="Source_name" key="gene_id_1020_key" maxLength="24" tableConstraint="phenotype__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Study External Reference" field="external_id_20125" internalName="study_external_id" key="gene_id_1020_key" maxLength="255" tableConstraint="phenotype__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Strain name" field="strain_name_20125" internalName="strain_name" key="gene_id_1020_key" maxLength="255" tableConstraint="phenotype__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Strain gender" field="strain_gender_20125" internalName="strain_gender" key="gene_id_1020_key" maxLength="255" tableConstraint="phenotype__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="P value" field="p_value_20125" internalName="p_value" key="gene_id_1020_key" maxLength="22" tableConstraint="phenotype__dm" useDefault="true">
+        </AttributeDescription>
+      </AttributeCollection>
+    </AttributeGroup>
+    <AttributeGroup displayName="EXTERNAL:" internalName="external" useDefault="true">
+      <AttributeCollection displayName="GO" internalName="go_closure" useDefault="true">
+        <AttributeDescription displayName="GO Term Accession" field="dbprimary_acc_1074" internalName="go_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/amigo/term/%s" maxLength="40" tableConstraint="go_go__dm" useDefault="true"/>
+        <AttributeDescription displayName="GO Term Name" field="name_1006" internalName="name_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_go__dm" useDefault="true"/>
+        <AttributeDescription displayName="GO Term Definition" field="definition_1006" internalName="definition_1006" key="translation_id_1068_key" maxLength="255" tableConstraint="go_go__dm" useDefault="true"/>
+        <AttributeDescription displayName="GO Term Evidence Code" field="linkage_type_1024" internalName="go_linkage_type" key="translation_id_1068_key" maxLength="3" tableConstraint="go_go__dm" useDefault="true"/>
+        <AttributeDescription displayName="GO domain" field="namespace_1003" internalName="namespace_1003" key="translation_id_1068_key" maxLength="64" tableConstraint="go_go__dm" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="GOSlim GOA" internalName="goslim_goa" useDefault="true">
+        <AttributeDescription displayName="GOSlim GOA Accession(s)" field="dbprimary_acc_1074" internalName="goslim_goa_accession" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/amigo/term/%s" maxLength="40" tableConstraint="ox_goslim_goa__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="GOSlim GOA Description" field="description_1074" internalName="goslim_goa_description" key="translation_id_1068_key" maxLength="255" tableConstraint="ox_goslim_goa__dm" useDefault="true">
+        </AttributeDescription>
+      </AttributeCollection>
+      <AttributeCollection description="Information from external database sources." displayName="External References" internalName="xrefs" maxSelect="3" useDefault="true">
+        <AttributeDescription internalName="xrefs"/>
+      </AttributeCollection>
+      <AttributeCollection description="Microarray Attributes" displayName="Microarray probes/probesets" internalName="microarray" maxSelect="2" useDefault="true">
+        <AttributeDescription internalName="microarray"/>
+      </AttributeCollection>
+    </AttributeGroup>
+    <AttributeGroup description="Data for proteins and families associated with Genes." displayName="PROTEIN DOMAINS AND FAMILIES:" internalName="protein" useDefault="true">
+      <AttributeCollection description="Features of Protein Family Data" displayName="Family Information" internalName="prot_family" useDefault="true">
+        <AttributeDescription displayName="Ensembl Protein Family ID(s)" field="stable_id_408" internalName="family" key="translation_id_1068_key" linkoutURL="exturl|http://www.ensembl.org/Multi/Family/Details?fm=%s" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Ensembl Family Description" field="description_408" internalName="family_description" key="translation_id_1068_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="Domains" internalName="prot_domain" useDefault="true">
+        <AttributeDescription displayName="PIRSF ID" field="hit_name_1048" internalName="pirsf" key="translation_id_1068_key" linkoutURL="exturl|http://pir.georgetown.edu/cgi-bin/ipcSF?id=%s" maxLength="40" tableConstraint="protein_feature_pirsf__dm" useDefault="true"/>
+        <AttributeDescription displayName="PIRSF start" field="seq_start_1048" internalName="pirsf_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_pirsf__dm" useDefault="true"/>
+        <AttributeDescription displayName="PIRSF end" field="seq_end_1048" internalName="pirsf_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_pirsf__dm" useDefault="true"/>
+        <AttributeDescription displayName="SUPERFAMILY ID" field="hit_name_1048" internalName="superfamily" key="translation_id_1068_key" linkoutURL="exturl|http://supfam.cs.bris.ac.uk/SUPERFAMILY/cgi-bin/scop.cgi?ipid=%s" maxLength="40" tableConstraint="protein_feature_superfamily__dm" useDefault="true"/>
+        <AttributeDescription displayName="SUPERFAMILY start" field="seq_start_1048" internalName="superfamily_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_superfamily__dm" useDefault="true"/>
+        <AttributeDescription displayName="SUPERFAMILY end" field="seq_end_1048" internalName="superfamily_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_superfamily__dm" useDefault="true"/>
+        <AttributeDescription displayName="SMART ID" field="hit_name_1048" internalName="smart" key="translation_id_1068_key" linkoutURL="exturl|http://smart.embl.de/smart/do_annotation.pl?DOMAIN=%s" maxLength="40" tableConstraint="protein_feature_smart__dm" useDefault="true"/>
+        <AttributeDescription displayName="SMART start" field="seq_start_1048" internalName="smart_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_smart__dm" useDefault="true"/>
+        <AttributeDescription displayName="SMART end" field="seq_end_1048" internalName="smart_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_smart__dm" useDefault="true"/>
+        <AttributeDescription displayName="HAMAP Accession ID" field="hit_name_1048" internalName="hamap" key="translation_id_1068_key" linkoutURL="exturl|http://hamap.expasy.org/unirule/%s" maxLength="40" tableConstraint="protein_feature_hamap__dm" useDefault="true"/>
+        <AttributeDescription displayName="HAMAP start" field="seq_start_1048" internalName="hamap_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_hamap__dm" useDefault="true"/>
+        <AttributeDescription displayName="HAMAP end" field="seq_end_1048" internalName="hamap_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_hamap__dm" useDefault="true"/>
+        <AttributeDescription displayName="Pfscan ID" field="hit_name_1048" internalName="profile" key="translation_id_1068_key" linkoutURL="exturl|http://prosite.expasy.org/%s" maxLength="40" tableConstraint="protein_feature_pfscan__dm" useDefault="true"/>
+        <AttributeDescription displayName="Pfscan start" field="seq_start_1048" internalName="profile_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_pfscan__dm" useDefault="true"/>
+        <AttributeDescription displayName="Pfscan end" field="seq_end_1048" internalName="profile_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_pfscan__dm" useDefault="true"/>
+        <AttributeDescription displayName="ScanProsite ID" field="hit_name_1048" internalName="prosite" key="translation_id_1068_key" linkoutURL="exturl|http://prosite.expasy.org/%s" maxLength="40" tableConstraint="protein_feature_scanprosite__dm" useDefault="true"/>
+        <AttributeDescription displayName="ScanProsite start" field="seq_start_1048" internalName="prosite_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_scanprosite__dm" useDefault="true"/>
+        <AttributeDescription displayName="ScanProsite end" field="seq_end_1048" internalName="prosite_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_scanprosite__dm" useDefault="true"/>
+        <AttributeDescription displayName="PRINTS ID" field="hit_name_1048" internalName="prints" key="translation_id_1068_key" linkoutURL="exturl|http://www.bioinf.manchester.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?display_opts=Prints&amp;category=None&amp;queryform=false&amp;prints_accn=%s" maxLength="40" tableConstraint="protein_feature_prints__dm" useDefault="true"/>
+        <AttributeDescription displayName="PRINTS start" field="seq_start_1048" internalName="prints_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_prints__dm" useDefault="true"/>
+        <AttributeDescription displayName="PRINTS end" field="seq_end_1048" internalName="prints_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_prints__dm" useDefault="true"/>
+        <AttributeDescription displayName="Pfam ID" field="hit_name_1048" internalName="pfam" key="translation_id_1068_key" linkoutURL="exturl|http://pfam.xfam.org/family/%s" maxLength="40" tableConstraint="protein_feature_pfam__dm" useDefault="true"/>
+        <AttributeDescription displayName="Pfam start" field="seq_start_1048" internalName="pfam_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_pfam__dm" useDefault="true"/>
+        <AttributeDescription displayName="Pfam end" field="seq_end_1048" internalName="pfam_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_pfam__dm" useDefault="true"/>
+        <AttributeDescription displayName="TIGRFAM ID" field="hit_name_1048" internalName="tigrfam" key="translation_id_1068_key" linkoutURL="exturl|http://www.ebi.ac.uk/interpro/signature/%s" maxLength="40" tableConstraint="protein_feature_tigrfam__dm" useDefault="true"/>
+        <AttributeDescription displayName="TIGRFAM start" field="seq_start_1048" internalName="tigrfam_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_tigrfam__dm" useDefault="true"/>
+        <AttributeDescription displayName="TIGRFAM end" field="seq_end_1048" internalName="tigrfam_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_tigrfam__dm" useDefault="true"/>
+        <AttributeDescription displayName="Gene3D ID" field="hit_name_1048" internalName="gene3d" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_gene3d__dm" useDefault="true"/>
+        <AttributeDescription displayName="Gene3D start" field="seq_start_1048" internalName="gene3d_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_gene3d__dm" useDefault="true"/>
+        <AttributeDescription displayName="Gene3D end" field="seq_end_1048" internalName="gene3d_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_gene3d__dm" useDefault="true"/>
+        <AttributeDescription displayName="HMMPanther ID" field="hit_name_1048" internalName="hmmpanther" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_hmmpanther__dm" useDefault="true"/>
+        <AttributeDescription displayName="HMMPanther start" field="seq_start_1048" internalName="hmmpanther_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_hmmpanther__dm" useDefault="true"/>
+        <AttributeDescription displayName="HMMPanther end" field="seq_end_1048" internalName="hmmpanther_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_hmmpanther__dm" useDefault="true"/>
+        <AttributeDescription displayName="BrigpepP ID" field="hit_name_1048" internalName="brigpepP" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_brigpepp__dm" useDefault="true"/>
+        <AttributeDescription displayName="BlastProdom ID" field="hit_name_1048" hidden="false" internalName="blastprodom" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_blastprodom__dm" useDefault="true"/>
+        <AttributeDescription displayName="BlastProdom start" field="seq_start_1048" internalName="blastprodom_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_blastprodom__dm" useDefault="true"/>
+        <AttributeDescription displayName="BlastProdom end" field="seq_end_1048" internalName="blastprodom_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_blastprodom__dm" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection description="Interpro protein identifiers and data." displayName="Interpro" internalName="prot_interpro" useDefault="true">
+        <AttributeDescription description="InterPro Accession ID" displayName="Interpro ID" field="interpro_ac_1026" internalName="interpro" key="translation_id_1068_key" linkoutURL="exturl|http://www.ebi.ac.uk/interpro/entry/%s" maxLength="9" tableConstraint="interpro__dm" useDefault="true"/>
+        <AttributeDescription description="InterPro Short Description" displayName="Interpro Short Description" field="display_label_1074" internalName="interpro_short_description" key="translation_id_1068_key" maxLength="25" tableConstraint="interpro__dm" useDefault="true"/>
+        <AttributeDescription description="InterPro Description" displayName="Interpro Description" field="description_1074" internalName="interpro_description" key="translation_id_1068_key" maxLength="60" tableConstraint="interpro__dm" useDefault="true"/>
+        <AttributeDescription displayName="Interpro start" field="seq_start_1048" internalName="interpro_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="interpro__dm" useDefault="true"/>
+        <AttributeDescription displayName="Interpro end" field="seq_end_1048" internalName="interpro_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="interpro__dm" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="Transmembrane and Signal Domains" internalName="tm_and_signal" maxSelect="0" useDefault="true">
+        <AttributeDescription displayName="low complexity (SEG)" field="hit_name_1048" internalName="Low_complexity" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_seg__dm" useDefault="true"/>
+        <AttributeDescription displayName="low complexity (SEG) start" field="seq_start_1048" internalName="Low_complexity_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_seg__dm" useDefault="true"/>
+        <AttributeDescription displayName="low complexity (SEG) end" field="seq_end_1048" internalName="Low_complexity_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_seg__dm" useDefault="true"/>
+        <AttributeDescription displayName="Transmembrane domain (tmhmm)" field="hit_name_1048" internalName="transmembrane_domain" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_tmhmm__dm" useDefault="true"/>
+        <AttributeDescription displayName="Transmembrane domain (tmhmm) start" field="seq_start_1048" internalName="transmembrane_domain_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_tmhmm__dm" useDefault="true"/>
+        <AttributeDescription displayName="Transmembrane domain (tmhmm) end" field="seq_end_1048" internalName="transmembrane_domain_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_tmhmm__dm" useDefault="true"/>
+        <AttributeDescription displayName="signal peptide" field="hit_name_1048" internalName="signal_domain" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_signalp__dm" useDefault="true"/>
+        <AttributeDescription displayName="signal peptide start" field="seq_start_1048" internalName="signal_domain_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_signalp__dm" useDefault="true"/>
+        <AttributeDescription displayName="signal peptide end" field="seq_end_1048" internalName="signal_domain_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_signalp__dm" useDefault="true"/>
+        <AttributeDescription displayName="coiled coil (ncoils)" field="hit_name_1048" internalName="ncoils" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_ncoils__dm" useDefault="true"/>
+        <AttributeDescription displayName="coiled coil (ncoils) start" field="seq_start_1048" internalName="ncoils_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_ncoils__dm" useDefault="true"/>
+        <AttributeDescription displayName="coiled coil (ncoils) end" field="seq_end_1048" internalName="ncoils_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=core;t=%s|ensembl_transcript_id" maxLength="10" tableConstraint="protein_feature_ncoils__dm" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage description="Details on Genomic Structures" displayName="Structures" internalName="structure" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls" useDefault="true">
+    <AttributeGroup displayName="GENE:" internalName="gene" useDefault="true">
+      <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes_structure" useDefault="true">
+        <AttributeDescription internalName="structure_gene_stable_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_transcript_stable_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_translation_stable_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_canonical_transcript_id" pointerAttribute="canonical_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_chrom_name" pointerAttribute="chromosome_name" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_gene_chrom_start" pointerAttribute="start_position" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_gene_chrom_end" pointerAttribute="end_position" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_transcript_chrom_start" pointerAttribute="transcript_start" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_transcript_chrom_end" pointerAttribute="transcript_end" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_transcription_start_site" pointerAttribute="transcription_start_site" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_transcript_length" pointerAttribute="transcript_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_transcript_chrom_strand" pointerAttribute="strand" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_external_gene_name" pointerAttribute="external_gene_name" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_external_source_name" pointerAttribute="external_gene_source" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_5_utr_start" pointerAttribute="5_utr_start" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_5_utr_end" pointerAttribute="5_utr_end" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_3_utr_start" pointerAttribute="3_utr_start" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_3_utr_end" pointerAttribute="3_utr_end" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_cds_length" pointerAttribute="cds_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_cdna_length" pointerAttribute="cdna_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_peptide_length" pointerAttribute="peptide_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="struct_transcript_count" pointerAttribute="transcript_count" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_translation_count" pointerAttribute="translation_count" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_description" pointerAttribute="description" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_biotype" pointerAttribute="gene_biotype" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+    <AttributeGroup description="Details on Genomic Structures" displayName="EXON:" internalName="exon" useDefault="true">
+      <AttributeCollection displayName="Exon Information" hidden="false" internalName="exon_atts" useDefault="true">
+        <AttributeDescription internalName="structure_ensembl_exon_id" pointerAttribute="ensembl_exon_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription displayName="Exon Chr Start (bp)" field="seq_region_start_1015" hidden="false" internalName="exon_chrom_start" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="Exon Chr End (bp)" field="seq_region_end_1015" hidden="false" internalName="exon_chrom_end" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="Constitutive Exon" field="is_constitutive_1015" internalName="is_constitutive" key="transcript_id_1064_key" maxLength="1" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="Exon Rank in Transcript" field="rank_1017" hidden="false" internalName="rank" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="start phase" field="phase_1015" hidden="false" hideDisplay="true" internalName="phase" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="end phase" field="end_phase_1015" hidden="false" hideDisplay="true" internalName="end_phase" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="cDNA coding start" field="cdna_coding_start" internalName="cdna_coding_start" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="cDNA coding end" field="cdna_coding_end" internalName="cdna_coding_end" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="Genomic coding start" field="genomic_coding_start" internalName="genomic_coding_start" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="Genomic coding end" field="genomic_coding_end" internalName="genomic_coding_end" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription internalName="structure_cds_start" pointerAttribute="cds_start" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_cds_end" pointerAttribute="cds_end" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage displayName="Homologues" hidden="false" internalName="homologs" maxSelect="5" outFormats="html,txt,csv,tsv,xls" useDefault="true">
+    <AttributeGroup description="Features of Genes" displayName="GENE:" hidden="false" internalName="gene" useDefault="true">
+      <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" hidden="false" internalName="ensembl_attributes" useDefault="true">
+        <AttributeDescription hidden="false" internalName="homologs_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_ensembl_transcript_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_ensembl_peptide_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="homologs_canonical_transcript_id" pointerAttribute="canonical_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_chromosome_name" pointerAttribute="chromosome_name" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_start_position" pointerAttribute="start_position" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_end_position" pointerAttribute="end_position" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_strand" pointerAttribute="strand" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_band" pointerAttribute="band" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_external_gene_name" pointerAttribute="external_gene_name" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_external_gene_source" pointerAttribute="external_gene_source" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_ensembl_CDS_length" pointerAttribute="ensembl_CDS_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_ensembl_cDNA_length" pointerAttribute="ensembl_cDNA_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_ensembl_peptide_length" pointerAttribute="ensembl_peptide_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_transcript_count" pointerAttribute="transcript_count" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_percentage_gc_content" pointerAttribute="percentage_gc_content" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_description" pointerAttribute="description" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+    <AttributeGroup displayName="ORTHOLOGUES (Max select 6 orthologues):" internalName="orthologs" maxSelect="6" useDefault="true">
+      <Replace id="homology_attributes"/>
+    </AttributeGroup>
+    <AttributeGroup displayName="PARALOGUES:" hidden="false" internalName="paralogs" useDefault="true">
+      <Replace id="paralogy_attributes"/>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage description="Details on Gene - Variant Associations" displayName="Variant (Germline)" internalName="snp" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls" useDefault="true">
+    <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene" useDefault="true">
+      <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes" useDefault="true">
+        <AttributeDescription internalName="snp_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_ensembl_transcript_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_ensembl_peptide_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_canonical_transcript_id" pointerAttribute="canonical_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_chromosome_name" pointerAttribute="chromosome_name" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_start_position" pointerAttribute="start_position" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_end_position" pointerAttribute="end_position" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_strand" pointerAttribute="strand" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_band" pointerAttribute="band" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_external_gene_name" pointerAttribute="external_gene_name" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_external_gene_source" pointerAttribute="external_gene_source" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_ensembl_CDS_length" pointerAttribute="ensembl_CDS_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_ensembl_cDNA_length" pointerAttribute="ensembl_cDNA_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_ensembl_peptide_length" pointerAttribute="ensembl_peptide_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_transcript_count" pointerAttribute="transcript_count" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_percentage_gc_content" pointerAttribute="percentage_gc_content" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_description" pointerAttribute="description" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+    <AttributeGroup description="Data for variants associated with Genes" displayName="GERMLINE VARIANT INFORMATION:" internalName="gene_snp" useDefault="true">
+      <AttributeCollection description="Descriptive Data (ID, Descriptions,etc.) for variants" displayName="Variant" internalName="snpatts" useDefault="true">
+        <AttributeDescription default="true" displayName="Variant Name" field="name_2025" internalName="variation_name" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Variation/Explore?v=%s" maxLength="100" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Variant Source" field="name_2021" internalName="germ_line_variation_source" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Variant source description" field="description_2021" internalName="source_description" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription description="Snp Allele" displayName="Variant Alleles" field="allele_string_2026" internalName="allele" key="transcript_id_1064_key" maxLength="15" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Variant supporting evidence" field="evidence_2025" internalName="validated" key="transcript_id_1064_key" maxLength="40" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Mapweight" field="map_weight_2026" internalName="mapweight" key="transcript_id_1064_key" maxLength="5" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Minor allele" field="minor_allele_2025" internalName="minor_allele" key="transcript_id_1064_key" maxLength="1" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Minor allele frequency" field="minor_allele_freq_2025" internalName="minor_allele_freq" key="transcript_id_1064_key" maxLength="12" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Minor allele count" field="minor_allele_count_2025" internalName="minor_allele_count" key="transcript_id_1064_key" maxLength="10" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Clinical significance" field="clinical_significance_2025" internalName="clinical_significance" key="transcript_id_1064_key" maxLength="28" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection description="Details of variants Location on Gene" displayName="Variants Location" internalName="snplocatts" useDefault="true">
+        <AttributeDescription description="Start of Variant on Transcript in Chromosomal Coordinates" displayName="Transcript location (bp)" field="cdna_start_2076" internalName="transcript_location" key="transcript_id_1064_key" maxLength="10" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription description="Orientation of the SNP on the Transcript" displayName="Variant Chromosome Strand" field="seq_region_strand_2026" internalName="snp_chromosome_strand" key="transcript_id_1064_key" maxLength="4" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription description="Location of the SNP in the peptide" displayName="Protein location (aa)" field="translation_start_2076" internalName="peptide_location" key="transcript_id_1064_key" maxLength="10" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription description="Start of the Variant on the Chromosome in Chromosomal Coordinates" displayName="Chromosome position start (bp)" field="seq_region_start_2026" internalName="chromosome_start" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|snp_chromosome_name|chromosome_start|chromosome_end" maxLength="20" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription description="End of the Variant on the Chromosome in Chromosomal Coordinates" displayName="Chromosome position end (bp)" field="seq_region_end_2026" internalName="chromosome_end" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|snp_chromosome_name|chromosome_start|chromosome_end" maxLength="20" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection description="Location of Variants on Genes, and their Effects on Gene Function" displayName="Gene Location and Effect " internalName="gene_loc_eff_atts" useDefault="true">
+        <AttributeDescription displayName="PolyPhen prediction" field="polyphen_prediction_2076" hidden="false" internalName="polyphen_prediction_2076" key="transcript_id_1064_key" maxLength="17" tableConstraint="mart_transcript_variation__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="PolyPhen score" field="polyphen_score_2076" hidden="false" internalName="polyphen_score_2076" key="transcript_id_1064_key" maxLength="12" tableConstraint="mart_transcript_variation__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="SIFT prediction" field="sift_prediction_2076" internalName="sift_prediction_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="SIFT score" field="sift_score_2076" internalName="sift_score_2076" key="transcript_id_1064_key" maxLength="12" tableConstraint="mart_transcript_variation__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Distance to transcript" field="distance_to_transcript_2076" internalName="distance_to_transcript_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="CDS Start" field="cds_start_2076" internalName="cds_start_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="CDS End" field="cds_end_2076" internalName="cds_end_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Protein Allele" field="pep_allele_string_2076" internalName="peptide_shift" key="transcript_id_1064_key" maxLength="100" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Variant Consequence" field="consequence_types_2076" hidden="false" internalName="synonymous_status" key="transcript_id_1064_key" maxLength="8" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Consequence specific allele" field="allele_string_2076" internalName="allele_string_2076" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage description="Details on Gene - Variant Associations" displayName="Variant (Somatic)" internalName="snp_somatic" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls" useDefault="true">
+    <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene_som" useDefault="true">
+      <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes_som" useDefault="true">
+        <AttributeDescription internalName="snp_som_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_ensembl_transcript_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_ensembl_peptide_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_som_canonical_transcript_id" pointerAttribute="canonical_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_chromosome_name" pointerAttribute="chromosome_name" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_start_position" pointerAttribute="start_position" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_end_position" pointerAttribute="end_position" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_strand" pointerAttribute="strand" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_band" pointerAttribute="band" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_external_gene_name" pointerAttribute="external_gene_name" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_external_gene_source" pointerAttribute="external_gene_source" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_ensembl_CDS_length" pointerAttribute="ensembl_CDS_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_ensembl_cDNA_length" pointerAttribute="ensembl_cDNA_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_ensembl_peptide_length" pointerAttribute="ensembl_peptide_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_transcript_count" pointerAttribute="transcript_count" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_percentage_gc_content" pointerAttribute="percentage_gc_content" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_description" pointerAttribute="description" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+    <AttributeGroup displayName="SOMATIC VARIANT INFORMATION:" internalName="gene_somatic" useDefault="true">
+      <AttributeCollection displayName="Variant" internalName="somaticatts" useDefault="true">
+        <AttributeDescription default="true" displayName="Variant Name" field="name_2025" internalName="somatic_variation_name" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Variation/Explore?v=%s" maxLength="100" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Variant Source" field="name_2021" internalName="somatic_source_name" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Variant source description" field="description_2021" internalName="somatic_source_description" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription description="Snp Allele" displayName="Variant Alleles" field="allele_string_2026" internalName="somatic_allele" key="transcript_id_1064_key" maxLength="15" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Variant supporting evidence" field="evidence_2025" internalName="somatic_validated" key="transcript_id_1064_key" maxLength="40" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Mapweight" field="map_weight_2026" internalName="somatic_mapweight" key="transcript_id_1064_key" maxLength="5" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Minor allele" field="minor_allele_2025" internalName="somatic_minor_allele" key="transcript_id_1064_key" maxLength="1" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Minor allele frequency" field="minor_allele_freq_2025" internalName="somatic_minor_allele_freq" key="transcript_id_1064_key" maxLength="12" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Minor allele count" field="minor_allele_count_2025" internalName="somatic_minor_allele_count" key="transcript_id_1064_key" maxLength="10" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Clinical significance" field="clinical_significance_2025" internalName="somatic_clinical_significance" key="transcript_id_1064_key" maxLength="28" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+      </AttributeCollection>
+      <AttributeCollection displayName="Variant Location" internalName="somaticloacatts" useDefault="true">
+        <AttributeDescription description="Start of Variant on Transcript in Chromosomal Coordinates" displayName="Transcript location (bp)" field="cdna_start_2076" internalName="somatic_transcript_location" key="transcript_id_1064_key" maxLength="10" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription description="Orientation of the Variant on the Transcript" displayName="Variant Chromosome Strand" field="seq_region_strand_2026" internalName="somatic_snp_chromosome_strand" key="transcript_id_1064_key" maxLength="4" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription description="Location of the Variant in the peptide" displayName="Protein location (aa)" field="translation_start_2076" internalName="somatic_peptide_location" key="transcript_id_1064_key" maxLength="10" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription description="Start of the Variant on the Chromosome in Chromosomal Coordinates" displayName="Chromosome position start (bp)" field="seq_region_start_2026" internalName="somatic_chromosome_start" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|snp_som_chromosome_name|somatic_chromosome_start|somatic_chromosome_end" maxLength="20" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription description="End of the Variant on the Chromosome in Chromosomal Coordinates" displayName="Chromosome position end (bp)" field="seq_region_end_2026" internalName="somatic_chromosome_end" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?c=%s:%s;w=1000|snp_som_chromosome_name|somatic_chromosome_location" maxLength="20" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+      </AttributeCollection>
+      <AttributeCollection displayName="Gene Location and Effect " internalName="somaticgene_loc_eff_atts" useDefault="true">
+        <AttributeDescription displayName="PolyPhen prediction" field="polyphen_prediction_2076" hidden="false" internalName="mart_transcript_variation_som__dm_polyphen_prediction_2076" key="transcript_id_1064_key" maxLength="17" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="PolyPhen score" field="polyphen_score_2076" hidden="false" internalName="mart_transcript_variation_som__dm_polyphen_score_2076" key="transcript_id_1064_key" maxLength="12" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="SIFT prediction" field="sift_prediction_2076" hidden="false" internalName="mart_transcript_variation_som__dm_sift_prediction_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="SIFT score" field="sift_score_2076" hidden="false" internalName="mart_transcript_variation_som__dm_sift_score_2076" key="transcript_id_1064_key" maxLength="12" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Distance to transcript" field="distance_to_transcript_2076" internalName="mart_transcript_variation_som__dm_distance_to_transcript_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="CDS Start" field="cds_start_2076" internalName="somatic_cds_start_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="CDS End" field="cds_end_2076" internalName="somatic_cds_end_2076" key="transcript_id_1064_key" maxLength="11" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Protein Allele" field="pep_allele_string_2076" internalName="somatic_peptide_shift" key="transcript_id_1064_key" maxLength="100" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Variant Consequence" field="consequence_types_2076" hidden="false" internalName="somatic_synonymous_status" key="transcript_id_1064_key" maxLength="8" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+        <AttributeDescription displayName="Consequence specific allele" field="allele_string_2076" internalName="mart_transcript_variation_som__dm_allele_string_2076" key="transcript_id_1064_key" maxLength="255" tableConstraint="mart_transcript_variation_som__dm" useDefault="true">
+        </AttributeDescription>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage displayName="ATTRIBUTES FOR LINKS" hideDisplay="true" internalName="link_attributes" useDefault="true">
+    <AttributeGroup description="Attributes for Links" displayName="Link Attributes" hideDisplay="true" internalName="link_attributes" useDefault="true">
+      <AttributeCollection hideDisplay="true" internalName="link_attributes" useDefault="true">
+        <AttributeDescription displayName="seq_edits" field="value_1069" hidden="false" hideDisplay="true" internalName="seq_edits" key="translation_id_1068_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="codon_table_id" field="value_1060" hidden="false" hideDisplay="true" internalName="codon_table_id" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="End exon id" field="end_exon_id_1068" hidden="false" hideDisplay="true" internalName="end_exon_id" key="translation_id_1068_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Start exon id" field="start_exon_id_1068" hidden="false" hideDisplay="true" internalName="start_exon_id" key="translation_id_1068_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="exon_id" field="exon_id_1017" hidden="false" hideDisplay="true" internalName="exon_id" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="Coding End Offset" field="seq_end_1068" hideDisplay="true" internalName="coding_end_offset" key="translation_id_1068_key" maxLength="16" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Coding Start Offset" field="seq_start_1068" hideDisplay="true" internalName="coding_start_offset" key="translation_id_1068_key" maxLength="16" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Dbprimary acc" field="dbprimary_acc_1074" hidden="false" hideDisplay="false" internalName="go" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_go__dm" useDefault="true"/>
+        <AttributeDescription field="transcript_id_1064_key" hideDisplay="true" internalName="transcript_id_key" key="transcript_id_1064_key" maxLength="128" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription internalName="structure_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_transcript_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_rank" pointerAttribute="rank" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+  <AttributePage displayName="Sequences" internalName="sequences" outFormats="fasta" useDefault="true">
+    <AttributeGroup displayName="SEQUENCES:" internalName="sequence" useDefault="true">
+      <AttributeCollection displayName="Sequences" internalName="seq_scope_type" maxSelect="1" useDefault="true">
+        <AttributeDescription internalName="transcript_exon_intron" pointerAttribute="transcript_exon_intron" pointerDataset="*species3*_genomic_sequence" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="gene_exon_intron" pointerAttribute="gene_exon_intron" pointerDataset="*species3*_genomic_sequence" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="transcript_flank" pointerAttribute="transcript_flank" pointerDataset="*species3*_genomic_sequence" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="gene_flank" pointerAttribute="gene_flank" pointerDataset="*species3*_genomic_sequence" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="coding_transcript_flank" pointerAttribute="coding_transcript_flank" pointerDataset="*species3*_genomic_sequence" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="coding_gene_flank" pointerAttribute="coding_gene_flank" pointerDataset="*species3*_genomic_sequence" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="5utr" maxLength="10000" pointerAttribute="5utr" pointerDataset="*species3*_genomic_sequence" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription displayName="3 UTR only" internalName="3utr" maxLength="10000" pointerAttribute="3utr" pointerDataset="*species3*_genomic_sequence" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="gene_exon" pointerAttribute="gene_exon" pointerDataset="*species3*_genomic_sequence" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="cdna" pointerAttribute="cdna" pointerDataset="*species3*_genomic_sequence" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="coding" pointerAttribute="coding" pointerDataset="*species3*_genomic_sequence" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="peptide" pointerAttribute="peptide" pointerDataset="*species3*_genomic_sequence" pointerInterface="default" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="Upstream flank" internalName="upstream" maxSelect="0" useDefault="true">
+        <AttributeDescription internalName="upstream_flank" pointerDataset="*species3*_genomic_sequence" pointerFilter="upstream_flank" pointerInterface="default" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="Downstream flank" internalName="downstream" maxSelect="0" useDefault="true">
+        <AttributeDescription internalName="downstream_flank" pointerDataset="*species3*_genomic_sequence" pointerFilter="downstream_flank" pointerInterface="default" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+    <AttributeGroup displayName="Header Information" internalName="header_info" useDefault="true">
+      <AttributeCollection displayName="Gene Information" internalName="gene" maxSelect="0" useDefault="true">
+        <AttributeDescription internalName="sequence_gene_stable_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_description" pointerAttribute="description" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_external_gene_name" pointerAttribute="external_gene_name" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_external_source_name" pointerAttribute="external_gene_source" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_str_chrom_name" pointerAttribute="chromosome_name" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_gene_chrom_start" pointerAttribute="start_position" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_gene_chrom_end" pointerAttribute="end_position" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_gene_biotype" pointerAttribute="gene_biotype" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_family" pointerAttribute="family" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="Transcript Information" internalName="transcript" maxSelect="0" useDefault="true">
+        <AttributeDescription internalName="sequence_transcript_stable_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_translation_stable_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_canonical_transcript_id" pointerAttribute="canonical_transcript_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_biotype" pointerAttribute="biotype" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_transcript_biotype" pointerAttribute="transcript_biotype" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_transcript_chrom_strand" pointerAttribute="strand" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_transcript_chrom_start" pointerAttribute="transcript_start" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_transcript_chrom_end" pointerAttribute="transcript_end" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_transcription_start_site" pointerAttribute="transcription_start_site" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_peptide_length" pointerAttribute="peptide_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_transcript_length" pointerAttribute="transcript_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_cdna_length" pointerAttribute="cdna_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription displayName="CDS start (within cDNA)" field="cdna_coding_start" internalName="cdna_coding_start" key="transcript_id_1064_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="CDS end (within cDNA)" field="cdna_coding_end" internalName="cdna_coding_end" key="transcript_id_1064_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="5' UTR Start" field="five_prime_utr_start" internalName="5_utr_start" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="5' UTR End" field="five_prime_utr_end" internalName="5_utr_end" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="3' UTR Start" field="three_prime_utr_start" internalName="3_utr_start" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="3' UTR End" field="three_prime_utr_end" internalName="3_utr_end" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+      </AttributeCollection>
+      <AttributeCollection displayName="Exon Information" internalName="exon" maxSelect="0" useDefault="true">
+        <AttributeDescription internalName="sequence_exon_stable_id" pointerAttribute="ensembl_exon_id" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_type" pointerAttribute="type" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_exon_chrom_start" pointerAttribute="exon_chrom_start" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_exon_chrom_end" pointerAttribute="exon_chrom_end" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_exon_chrom_strand" pointerAttribute="strand" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_rank" pointerAttribute="rank" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription displayName="start phase" internalName="sequence_phase" pointerAttribute="phase" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription displayName="end phase" internalName="sequence_end_phase" pointerAttribute="end_phase" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription displayName="cDNA coding start" internalName="sequence_cdna_coding_start" pointerAttribute="cdna_coding_start" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription displayName="cDNA coding end" internalName="sequence_cdna_coding_end" pointerAttribute="cdna_coding_end" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription displayName="Genomic coding start" internalName="sequence_genomic_coding_start" pointerAttribute="genomic_coding_start" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription displayName="Genomic coding end" internalName="sequence_genomic_coding_end" pointerAttribute="genomic_coding_end" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_constitutive" pointerAttribute="is_constitutive" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription displayName="CDS Length" field="cds_length" internalName="cds_length" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="CDS Start" field="cds_start" internalName="cds_start" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+        <AttributeDescription displayName="CDS End" field="cds_end" internalName="cds_end" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+</DatasetConfig>
