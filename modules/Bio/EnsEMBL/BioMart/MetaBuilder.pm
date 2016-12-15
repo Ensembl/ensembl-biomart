@@ -137,9 +137,24 @@ sub build {
   my $offsets = $self->{dbc}->sql_helper()->execute_simple( -SQL =>"select max(dataset_id_key) from meta_conf__dataset__main where description != '${description}'");
   # avoid clashes for multiple template types
   my $n        = $offsets->[0] || 0;
+  my $xref_url_list;
+  # Getting list of URLs for genes marts only
+  # parsing extra ini file from eg-web-common for divisions that are not e!
+  # Merge both hashes
+  if ($template_properties->{$template_name} eq "genes"){
+    if ($self->{dbc}->dbname() !~ 'ensembl'){
+      my $xref_division = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
+      my $xref_eg_common_list = $self->parse_ini_file("https://raw.githubusercontent.com/EnsemblGenomes/eg-web-common/master/conf/ini-files/DEFAULTS.ini","ENSEMBL_EXTERNAL_URLS");
+      $xref_url_list = {%$xref_division,%$xref_eg_common_list}
+    }
+    # Else, parsing the Ensembl DEFAULT.ini file
+    else{
+      $xref_url_list = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
+    }
+  }
   for my $dataset ( @{$datasets} ) {
     $dataset->{species_id} = ++$n;
-    $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart, $ini_file );
+    $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list );
   }
   return;
 }
@@ -181,7 +196,7 @@ sub get_datasets {
 =cut
 
 sub process_dataset {
-  my ( $self, $dataset, $template_name, $template, $datasets, $genomic_features_mart, $ini_file ) = @_;
+  my ( $self, $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list ) = @_;
   $logger->info( "Processing " . $dataset->{name} );
   my $templ_in = $template->{DatasetConfig};
   $logger->debug("Building output");
@@ -193,35 +208,10 @@ sub process_dataset {
   }
   my $xref_list = $self->generate_xrefs_list($dataset);
   my $probe_list = $self->generate_probes_list($dataset);
-  my $xref_url_list;
-  # parsing extra ini file from eg-web-common for divisions that are not e!
-  # Merge both hashes
-  if ($self->{dbc}->dbname() !~ 'ensembl'){
-    my $xref_division = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
-    my $xref_eg_common_list = $self->parse_ini_file("https://raw.githubusercontent.com/EnsemblGenomes/eg-web-common/master/conf/ini-files/DEFAULTS.ini","ENSEMBL_EXTERNAL_URLS");
-    $xref_url_list = {%$xref_division,%$xref_eg_common_list}
-  }
-  # Else, parsing the Ensembl DEFAULT.ini file
-  else{
-    $xref_url_list = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
-  }
 
-  # Hardcoded list of Xrefs not using dbprimary_acc_1074 columns or using both dbprimary_acc_1074 and display_label_1074
+  # Hardcoded list of Xrefs using the dbprimary_acc_1074 columns or using both dbprimary_acc_1074 and display_label_1074
   # Each column as an associated name that will be use for filter/attribute name
   my $exception_xrefs = {
-    dbass3 => { display_label_1074 => 'ID'},
-    dbass5 => { display_label_1074 => 'ID'},
-    hpa => { display_label_1074 => 'ID'},
-    uniprot_gn => { display_label_1074 => 'ID'},
-    wikigene => {display_label_1074 => 'ID' },
-    wormbase_gseqname => {display_label_1074 => 'ID'},
-    wormbase_locus => {display_label_1074 => 'ID'},
-    flybasename_gene => {display_label_1074 => 'ID'},
-    flybasename_translation => {display_label_1074 => 'ID'},
-    flybasename_transcript => {display_label_1074 => 'ID'},
-    flybasecgid_translation => {display_label_1074 => 'ID'},
-    uniprot_varsplice_id => {display_label_1074 => 'ID'},
-    uniprot_genename => {display_label_1074 => 'ID'},
     hgnc => { dbprimary_acc_1074 => "ID",  display_label_1074 => "symbol"},
     mirbase => {dbprimary_acc_1074 => "accession", display_label_1074 => "ID"},
   };
@@ -606,7 +596,7 @@ sub write_filters {
                   if ( defined $self->{tables}->{$table}->{$key} ) {
                     if (exists $exception_xrefs->{$xref->[0]}) {
                       #Checking if the xrefs is part of the execption xrefs hash.
-                      #We need to display_label_1074 instead of dbprimary_acc_1074 or both
+                      #We need to use dbprimary_acc_1074 instead of display_label_1074 or both
                       foreach my $field (keys %{$exception_xrefs->{$xref->[0]}}) {
                         my $example = $self->get_example($table,$field);
                         push @{ $fdo->{Option} }, {
@@ -626,8 +616,8 @@ sub write_filters {
                       }
                     }
                     else {
-                      #Use dbprimary_acc_1074 column for all the other xrefs
-                      my $field = "dbprimary_acc_1074";
+                      #Use display_label_1074 column for all the other xrefs
+                      my $field = "display_label_1074";
                       # add in if the column exists
                       my $example = $self->get_example($table,$field);
                       push @{ $fdo->{Option} }, {
@@ -1351,7 +1341,6 @@ sub write_attributes {
             $logger->info(
                             "Generating data for $aco->{internalName} attributes");
             foreach my $xref (@{ $xref_list }) {
-              my $field = "dbprimary_acc_1074";
               my $table = $ds_name."__ox_".$xref->[0]."__dm";
               if ( defined $self->{tables}->{$table} ) {
                 my $key = $self->get_table_key($table);
@@ -1367,6 +1356,7 @@ sub write_attributes {
                   else{
                     $url='';
                   }
+                  # Getting exception where we should use dbprimary_acc_1074 instead of display_label_1074 or both
                   if (exists $exception_xrefs->{$xref->[0]}) {
                     foreach my $field (keys %{$exception_xrefs->{$xref->[0]}}) {
                       push @{ $aco->{AttributeDescription} }, {
@@ -1380,8 +1370,9 @@ sub write_attributes {
                       $nD++;
                       }
                     }
+                  # All the other xrefs
                   else {
-                    my $field = "dbprimary_acc_1074";
+                    my $field = "display_label_1074";
                     push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
                       displayName     => "$xref->[1] ID(s)",
