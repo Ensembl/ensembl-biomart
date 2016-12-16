@@ -138,12 +138,14 @@ sub build {
   # avoid clashes for multiple template types
   my $n        = $offsets->[0] || 0;
   my $xref_url_list;
+  $logger->info( "Parsing ini file containing xrefs URLs" . $ini_file );
   # Getting list of URLs for genes marts only
   # parsing extra ini file from eg-web-common for divisions that are not e!
   # Merge both hashes
   if ($template_properties->{$template_name} eq "genes"){
     if ($self->{dbc}->dbname() !~ 'ensembl'){
       my $xref_division = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
+      $logger->info( "Parsing ini file containing xrefs URLs for eg-web-common");
       my $xref_eg_common_list = $self->parse_ini_file("https://raw.githubusercontent.com/EnsemblGenomes/eg-web-common/master/conf/ini-files/DEFAULTS.ini","ENSEMBL_EXTERNAL_URLS");
       $xref_url_list = {%$xref_division,%$xref_eg_common_list}
     }
@@ -214,6 +216,8 @@ sub process_dataset {
   my $exception_xrefs = {
     hgnc => { dbprimary_acc_1074 => "ID",  display_label_1074 => "symbol"},
     mirbase => {dbprimary_acc_1074 => "accession", display_label_1074 => "ID"},
+    mim_gene => {dbprimary_acc_1074 => "accession", description_1074 => "description"},
+    mim_morbid => {dbprimary_acc_1074 => "accession", description_1074 => "description"},
   };
 
 
@@ -598,6 +602,10 @@ sub write_filters {
                       #Checking if the xrefs is part of the execption xrefs hash.
                       #We need to use dbprimary_acc_1074 instead of display_label_1074 or both
                       foreach my $field (keys %{$exception_xrefs->{$xref->[0]}}) {
+                        # We don't want filters for description field
+                        # E.g: MIM gene description(s) [e.g. RING1- AND YY1-BINDING PROTEIN; RYBP;;YY1- AND E4TF1/GABP-ASSOCIATED FACTOR 1; YEAF1]
+                        # or MIM morbid description(s) [e.g. MONOCARBOXYLATE TRANSPORTER 1 DEFICIENCY; MCT1D]
+                        next if ($field eq "description_1074");
                         my $example = $self->get_example($table,$field);
                         push @{ $fdo->{Option} }, {
                         displayName  => "$xref->[1] $exception_xrefs->{$xref->[0]}->{$field}"."(s) [e.g. $example]",
@@ -1365,7 +1373,7 @@ sub write_attributes {
                         field           => $field,
                         internalName    => $xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{$field}),
                         linkoutURL      => $url,
-                        maxLength       => "140",
+                        maxLength       => "512",
                         tableConstraint => $table };
                       $nD++;
                       }
@@ -1379,7 +1387,7 @@ sub write_attributes {
                       field           => $field,
                       internalName    => "$xref->[0]",
                       linkoutURL      => $url,
-                      maxLength       => "140",
+                      maxLength       => "512",
                       tableConstraint => $table };
                   $nD++;
                   }
