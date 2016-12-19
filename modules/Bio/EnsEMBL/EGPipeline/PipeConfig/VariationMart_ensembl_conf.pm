@@ -78,19 +78,4 @@ sub default_options {
   };
 }
 
-sub resource_classes {
-  my $self = shift;
-  return {
-    'normal'            => {'LSF' => '-q normal -M500 -R"select[mem>500] rusage[mem=500]"'},
-    'default'           => {'LSF' => '-q long -M500 -R"select[mem>500] rusage[mem=500]"'},
-    '16Gb_mem_16Gb_tmp' => {'LSF' => '-q long -M16000 -R"select[mem>16000] rusage[mem=16000]"' },
-    '1Gb_job'           => {'LSF' => '-q normal -M1000  -R"select[mem>1000]  rusage[mem=1000]"' },
-    '2Gb_job'           => {'LSF' => '-q normal -M2000  -R"select[mem>2000]  rusage[mem=2000]"' },
-    '8Gb_job'           => {'LSF' => '-q normal -M8000  -R"select[mem>8000]  rusage[mem=8000]"' },
-    '24Gb_job'          => {'LSF' => '-q normal -M24000 -R"select[mem>24000] rusage[mem=24000]"' },
-    '30Gb_job'          => {'LSF' => '-q normal -M30000 -R"select[mem>30000] rusage[mem=30000]"' },
-    'urgent_hcluster'   => {'LSF' => '-q yesterday' },
-  }
-}
-
 1;
