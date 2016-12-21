@@ -426,10 +426,10 @@
         </AttributeDescription>
       </AttributeCollection>
       <AttributeCollection description="Information from external database sources." displayName="External References" internalName="xrefs" maxSelect="3" useDefault="true">
-        <AttributeDescription internalName="xrefs"/>
+        <Option internalName="xrefs"/>
       </AttributeCollection>
       <AttributeCollection description="Microarray Attributes" displayName="Microarray probes/probesets" internalName="microarray" maxSelect="2" useDefault="true">
-        <AttributeDescription internalName="microarray"/>
+        <Option internalName="microarray"/>
       </AttributeCollection>
     </AttributeGroup>
     <AttributeGroup description="Data for proteins and families associated with Genes." displayName="PROTEIN DOMAINS AND FAMILIES:" internalName="protein" useDefault="true">
