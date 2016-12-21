@@ -142,7 +142,7 @@ sub build {
   # Getting list of URLs for genes marts only
   # parsing extra ini file from eg-web-common for divisions that are not e!
   # Merge both hashes
-  if ($template_properties->{$template_name} eq "genes"){
+  if ($template_name eq "genes"){
     if ($self->{dbc}->dbname() !~ 'ensembl'){
       my $xref_division = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
       $logger->info( "Parsing ini file containing xrefs URLs for eg-web-common");
@@ -218,6 +218,9 @@ sub process_dataset {
     mirbase => {dbprimary_acc_1074 => "accession", display_label_1074 => "ID"},
     mim_gene => {dbprimary_acc_1074 => "accession", description_1074 => "description"},
     mim_morbid => {dbprimary_acc_1074 => "accession", description_1074 => "description"},
+    dbass3 => {dbprimary_acc_1074 => "ID", display_label_1074 => "name"},
+    dbass5 => {dbprimary_acc_1074 => "ID", display_label_1074 => "name"},
+    wikigene => {dbprimary_acc_1074 => "ID", display_label_1074 => "name", description_1074 => "description"}
   };
 
 
@@ -577,7 +580,7 @@ sub write_filters {
                     # add in if the column exists
                     push @{ $fdo->{Option} }, {
                       displayName  => $annotations->{$annotation}->{'display_name'}." [e.g. $example]",
-                      displayType  => "Text",
+                      displayType  => "text",
                       description  => "Filter to include genes with supplied list of $annotations->{$annotation}->{'display_name'}",
                       field        => $field,
                       hidden       => "false",
@@ -609,7 +612,7 @@ sub write_filters {
                         my $example = $self->get_example($table,$field);
                         push @{ $fdo->{Option} }, {
                         displayName  => "$xref->[1] $exception_xrefs->{$xref->[0]}->{$field}"."(s) [e.g. $example]",
-                        displayType  => "Text",
+                        displayType  => "text",
                         description  => "Filter to include genes with supplied list of $xref->[1] $exception_xrefs->{$xref->[0]}->{$field}"."(s)",
                         field        => $field,
                         hidden       => "false",
@@ -630,7 +633,7 @@ sub write_filters {
                       my $example = $self->get_example($table,$field);
                       push @{ $fdo->{Option} }, {
                         displayName  => "$xref->[1] ID(s) [e.g. $example]",
-                        displayType  => "Text",
+                        displayType  => "text",
                         description  => "Filter to include genes with supplied list of $xref->[1] ID(s)",
                         field        => $field,
                         hidden       => "false",
@@ -704,7 +707,7 @@ sub write_filters {
                     # add in if the column exists
                     push @{ $fdo->{Option} }, {
                       displayName  => "$display_name probe ID(s) [e.g. $example]",
-                      displayType  => "Text",
+                      displayType  => "text",
                       description  => "Filter to include genes with supplied list of $display_name ID(s)",
                       field        => $field,
                       hidden       => "false",
@@ -1349,6 +1352,8 @@ sub write_attributes {
             $logger->info(
                             "Generating data for $aco->{internalName} attributes");
             foreach my $xref (@{ $xref_list }) {
+              #Skipping GO and GOA attributes since they have their own attribute section
+              next if ($xref->[0] eq "go" or $xref->[0] eq "goslim_goa");
               my $table = $ds_name."__ox_".$xref->[0]."__dm";
               if ( defined $self->{tables}->{$table} ) {
                 my $key = $self->get_table_key($table);
@@ -1367,6 +1372,11 @@ sub write_attributes {
                   # Getting exception where we should use dbprimary_acc_1074 instead of display_label_1074 or both
                   if (exists $exception_xrefs->{$xref->[0]}) {
                     foreach my $field (keys %{$exception_xrefs->{$xref->[0]}}) {
+                      #For extra attribute using URL of the main field dbprimary_acc_1074
+                      if ($field ne "dbprimary_acc_1074")
+                      {
+                        $url=$url."|".$xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{"dbprimary_acc_1074"})
+                      }
                       push @{ $aco->{AttributeDescription} }, {
                         key             => $key,
                         displayName     => "$xref->[1] $exception_xrefs->{$xref->[0]}->{$field}"."(s)",
@@ -1894,8 +1904,10 @@ sub generate_xrefs_list {
   my $database_tables = $self->{dbc}->sql_helper()
                     ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${core_db}'" );
     if (defined $database_tables->[0]) {
+      # Need to make sure all the db_name are lowercase and don't contain / to match mart table names.
+      # Removed "Symbol" from HGNC symbol as this is causing issues in the attribute section
       $xrefs_list = $self->{dbc}->sql_helper()->execute(
-        -SQL => "select distinct(LOWER(db_name)), db_display_name from ${core_db}.external_db order by db_display_name");
+        -SQL => "select distinct(REPLACE(LOWER(db_name),'/','')), REPLACE(db_display_name,'HGNC Symbol','HGNC') from ${core_db}.external_db order by db_display_name");
     }
     else {
       die "$core_db database is missing from the server\n"
@@ -2017,6 +2029,8 @@ sub parse_ini_file {
     if ( defined $cfg ) {
       for my $parameter ( $cfg->Parameters($section) ) {
         my $value = $cfg->val($section,$parameter);
+        # Remove any / from parameter name
+        $parameter  =~ s/\///g;
         # Making sure that the parameter name is lowercase
         $parsed_data{lc($parameter)}=$value;
       }
