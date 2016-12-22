@@ -1050,12 +1050,12 @@ sub write_attributes {
                   internalName => "$o_dataset->{name}_homolog_ensembl_gene",
                   key          => "gene_id_1020_key",
                   linkoutURL =>
-                    "exturl1|/$o_dataset->{production_name}/Gene/Summary?g=%s",
+                    "exturl|/$o_dataset->{production_name}/Gene/Summary?g=%s",
                   maxLength       => "128",
                   tableConstraint => $table }, {
                   displayName  => "$o_dataset->{display_name} associated gene name",
                   field        => "display_label_40273_r1",
-                  linkoutURL  => "exturl|/*species2*/Gene/Summary?g=%s|$o_dataset->{name}_homolog_ensembl_gene",
+                  linkoutURL  => "exturl|/$dataset->{production_name}/Gene/Summary?g=%s|$o_dataset->{name}_homolog_ensembl_gene",
                   internalName => "$o_dataset->{name}_homolog_associated_gene_name",
                   key          => "gene_id_1020_key",
                   maxLength    => "128",
@@ -1161,12 +1161,12 @@ sub write_attributes {
                 field           => "stable_id_4016_r2",
                 internalName    => "$dataset->{name}_paralog_ensembl_gene",
                 key             => "gene_id_1020_key",
-                linkoutURL      => "exturl1|/*species2*/Gene/Summary?g=%s",
+                linkoutURL      => "exturl|/$dataset->{production_name}/Gene/Summary?g=%s",
                 maxLength       => "140",
                 tableConstraint => $table }, {
                 displayName => "$dataset->{display_name} paralogue associated gene name",
                 field       => "display_label_40273_r1",
-                linkoutURL  => "exturl|/*species2*/Gene/Summary?g=%s|$dataset->{name}_paralog_ensembl_gene",
+                linkoutURL  => "exturl|/$dataset->{production_name}/Gene/Summary?g=%s|$dataset->{name}_paralog_ensembl_gene",
                 internalName => "$dataset->{name}_paralog_associated_gene_name",
                 key             => "gene_id_1020_key",
                 maxLength       => "128",
@@ -1259,7 +1259,7 @@ sub write_attributes {
                 field           => "stable_id_4016_r2",
                 internalName    => "$dataset->{name}_homoeolog_gene",
                 key             => "gene_id_1020_key",
-                linkoutURL      => "exturl1|/*species2*/Gene/Summary?g=%s",
+                linkoutURL      => "exturl|/$dataset->{production_name}/Gene/Summary?g=%s",
                 maxLength       => "140",
                 tableConstraint => $table }, {
                 displayName => "$dataset->{display_name} homoeologue protein or transcript stable ID",
@@ -1379,7 +1379,7 @@ sub write_attributes {
                       }
                       push @{ $aco->{AttributeDescription} }, {
                         key             => $key,
-                        displayName     => "$xref->[1] $exception_xrefs->{$xref->[0]}->{$field}"."(s)",
+                        displayName     => "$xref->[1] $exception_xrefs->{$xref->[0]}->{$field}",
                         field           => $field,
                         internalName    => $xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{$field}),
                         linkoutURL      => $url,
@@ -1393,7 +1393,7 @@ sub write_attributes {
                     my $field = "display_label_1074";
                     push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
-                      displayName     => "$xref->[1] ID(s)",
+                      displayName     => "$xref->[1] ID",
                       field           => $field,
                       internalName    => "$xref->[0]",
                       linkoutURL      => $url,
@@ -1418,10 +1418,10 @@ sub write_attributes {
                     $display_name =~ s/_/ /g;
                     push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
-                      displayName     => "$display_name Probe",
+                      displayName     => "$display_name probe",
                       field           => $field,
                       internalName    => lc($probe->[1]),
-                      linkoutURL      => "exturl|/*species2*/Location/Genome?ftype=ProbeFeature;fdb=funcgen;id=%s;ptype=probe;",
+                      linkoutURL      => "exturl|/$dataset->{production_name}/Location/Genome?ftype=ProbeFeature;fdb=funcgen;id=%s;ptype=pset;",
                       maxLength       => "140",
                       tableConstraint => $table };
                   $nD++;
