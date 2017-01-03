@@ -214,13 +214,13 @@ sub process_dataset {
   # Hardcoded list of Xrefs using the dbprimary_acc_1074 columns or using both dbprimary_acc_1074 and display_label_1074
   # Each column as an associated name that will be use for filter/attribute name
   my $exception_xrefs = {
-    hgnc => { dbprimary_acc_1074 => "ID",  display_label_1074 => "symbol"},
-    mirbase => {dbprimary_acc_1074 => "accession", display_label_1074 => "ID"},
-    mim_gene => {dbprimary_acc_1074 => "accession", description_1074 => "description"},
-    mim_morbid => {dbprimary_acc_1074 => "accession", description_1074 => "description"},
-    dbass3 => {dbprimary_acc_1074 => "ID", display_label_1074 => "name"},
-    dbass5 => {dbprimary_acc_1074 => "ID", display_label_1074 => "name"},
-    wikigene => {dbprimary_acc_1074 => "ID", display_label_1074 => "name", description_1074 => "description"}
+    hgnc => { columns => { dbprimary_acc_1074 => "ID",  display_label_1074 => "symbol"}, remove => " Symbol"},
+    mirbase => { columns => { dbprimary_acc_1074 => "accession", display_label_1074 => "ID"}},
+    mim_gene => {columns => { dbprimary_acc_1074 => "accession", description_1074 => "description"}},
+    mim_morbid => {columns => { dbprimary_acc_1074 => "accession", description_1074 => "description"}},
+    dbass3 => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "name"}},
+    dbass5 => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "name"}},
+    wikigene => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "name", description_1074 => "description"}}
   };
 
 
@@ -604,19 +604,26 @@ sub write_filters {
                     if (exists $exception_xrefs->{$xref->[0]}) {
                       #Checking if the xrefs is part of the execption xrefs hash.
                       #We need to use dbprimary_acc_1074 instead of display_label_1074 or both
-                      foreach my $field (keys %{$exception_xrefs->{$xref->[0]}}) {
+                      foreach my $field (keys %{$exception_xrefs->{$xref->[0]}->{columns}}) {
                         # We don't want filters for description field
                         # E.g: MIM gene description(s) [e.g. RING1- AND YY1-BINDING PROTEIN; RYBP;;YY1- AND E4TF1/GABP-ASSOCIATED FACTOR 1; YEAF1]
                         # or MIM morbid description(s) [e.g. MONOCARBOXYLATE TRANSPORTER 1 DEFICIENCY; MCT1D]
+
+                        #Remove from display name string whatever has been defined in exception_xrefs hash remove key
+                        my $xref_display_name = $xref->[1];
+                        if (exists $exception_xrefs->{$xref->[0]}->{remove})
+                        {
+                          $xref_display_name =~ s/$exception_xrefs->{$xref->[0]}->{remove}//;
+                        }
                         next if ($field eq "description_1074");
                         my $example = $self->get_example($table,$field);
                         push @{ $fdo->{Option} }, {
-                        displayName  => "$xref->[1] $exception_xrefs->{$xref->[0]}->{$field}"."(s) [e.g. $example]",
+                        displayName  => "$xref_display_name $exception_xrefs->{$xref->[0]}->{columns}->{$field}"."(s) [e.g. $example]",
                         displayType  => "text",
-                        description  => "Filter to include genes with supplied list of $xref->[1] $exception_xrefs->{$xref->[0]}->{$field}"."(s)",
+                        description  => "Filter to include genes with supplied list of $xref_display_name $exception_xrefs->{$xref->[0]}->{columns}->{$field}"."(s)",
                         field        => $field,
                         hidden       => "false",
-                        internalName => $xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{$field}),
+                        internalName => $xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{columns}->{$field}),
                         isSelectable => "true",
                         key          => $key,
                         legal_qualifiers => "=,in",
@@ -1371,17 +1378,23 @@ sub write_attributes {
                   }
                   # Getting exception where we should use dbprimary_acc_1074 instead of display_label_1074 or both
                   if (exists $exception_xrefs->{$xref->[0]}) {
-                    foreach my $field (keys %{$exception_xrefs->{$xref->[0]}}) {
+                    foreach my $field (keys %{$exception_xrefs->{$xref->[0]}->{columns}}) {
                       #For extra attribute using URL of the main field dbprimary_acc_1074
                       if ($field ne "dbprimary_acc_1074")
                       {
-                        $url=$url."|".$xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{"dbprimary_acc_1074"})
+                        $url=$url."|".$xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{columns}->{"dbprimary_acc_1074"})
+                      }
+                      #Remove from display name string whatever has been defined in exception_xrefs hash remove key
+                      my $xref_display_name = $xref->[1];
+                      if (exists $exception_xrefs->{$xref->[0]}->{remove})
+                      {
+                        $xref_display_name =~ s/$exception_xrefs->{$xref->[0]}->{remove}//;
                       }
                       push @{ $aco->{AttributeDescription} }, {
                         key             => $key,
-                        displayName     => "$xref->[1] $exception_xrefs->{$xref->[0]}->{$field}",
+                        displayName     => "$xref_display_name $exception_xrefs->{$xref->[0]}->{columns}->{$field}",
                         field           => $field,
-                        internalName    => $xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{$field}),
+                        internalName    => $xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{columns}->{$field}),
                         linkoutURL      => $url,
                         maxLength       => "512",
                         tableConstraint => $table };
@@ -1907,7 +1920,7 @@ sub generate_xrefs_list {
       # Need to make sure all the db_name are lowercase and don't contain / to match mart table names.
       # Removed "Symbol" from HGNC symbol as this is causing issues in the attribute section
       $xrefs_list = $self->{dbc}->sql_helper()->execute(
-        -SQL => "select distinct(REPLACE(LOWER(db_name),'/','')), REPLACE(db_display_name,'HGNC Symbol','HGNC') from ${core_db}.external_db order by db_display_name");
+        -SQL => "select distinct(REPLACE(LOWER(db_name),'/','')), db_display_name from ${core_db}.external_db order by db_display_name");
     }
     else {
       die "$core_db database is missing from the server\n"
