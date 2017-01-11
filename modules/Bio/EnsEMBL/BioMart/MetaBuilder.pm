@@ -210,6 +210,7 @@ sub process_dataset {
   }
   my $xref_list = $self->generate_xrefs_list($dataset);
   my $probe_list = $self->generate_probes_list($dataset);
+  my $protein_domain_and_feature_list = $self->generate_protein_domain_and_feature_list($dataset);
 
   # Hardcoded list of Xrefs using the dbprimary_acc_1074 columns or using both dbprimary_acc_1074 and display_label_1074
   # Each column as an associated name that will be use for filter/attribute name
@@ -227,8 +228,8 @@ sub process_dataset {
   ### Write xml data
   $self->write_importables( $dataset, $templ_in );
   $self->write_exportables( $dataset, $templ_in, $datasets, $template_name );
-  $self->write_filters( $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs );
-  $self->write_attributes( $dataset, $templ_in, $datasets, $xref_list, $probe_list, $xref_url_list, $exception_xrefs );
+  $self->write_filters( $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs, $protein_domain_and_feature_list );
+  $self->write_attributes( $dataset, $templ_in, $datasets, $xref_list, $probe_list, $xref_url_list, $exception_xrefs, $protein_domain_and_feature_list );
   # write meta
   $self->write_dataset_metatables( $dataset, $template_name );
   return;
@@ -390,7 +391,7 @@ sub write_exportables {
 } ## end sub write_exportables
 
 sub write_filters {
-  my ( $self, $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs ) = @_;
+  my ( $self, $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs, $protein_domain_and_feature_list ) = @_;
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
   my $templ_out = $dataset->{config};
   #Defining Annotation filters
@@ -399,6 +400,11 @@ sub write_filters {
     transcript => {display_name => 'Transcript ID(s)', field => 'stable_id_1066', table => $ds_name.'__transcript__main' },
     protein => {display_name => 'Protein ID(s)', field => 'stable_id_1070', table => $ds_name.'__translation__main' },
     exon => {display_name => 'Exon ID(s)', field => 'stable_id_1070', table => $ds_name.'__translation__main'}
+  };
+  # Defining Extrain protein domains
+  my $extra_protein_domains = {
+    family => {display_name => 'Ensembl Protein Family', field =>'stable_id_408', table => $ds_name.'__translation__main'},
+    interpro => {display_name => 'Interpro', field =>'interpro_ac_1026', table => $ds_name.'__interpro__dm'},
   };
   $logger->info( "Writing filters for " . $dataset->{name} );
   # FilterPage
@@ -732,6 +738,147 @@ sub write_filters {
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
           } ## end elsif ( $fdo->{internalName...})
+          elsif ( $fdo->{internalName} eq 'id_list_protein_domain_and_feature_filters' ) {
+            $logger->info(
+                            "Generating data for $fdo->{internalName}");
+            # Generating Filters for Extra Protein domains
+            foreach my $extra_protein_domain (keys %{$extra_protein_domains}) {
+                #We don't have a boolean filter for Ensembl Protein family
+                next if $extra_protein_domain eq "family";
+                my $field = $extra_protein_domain."_bool";
+                my $table = $extra_protein_domains->{$extra_protein_domain}->{'table'};
+                 if ( defined $self->{tables}->{$table} ) {
+                  my $key = $self->get_table_key($table);
+                    if ( defined $self->{tables}->{$table}->{$key} ) {
+                      # add in if the column exists
+                      push @{ $fdo->{Option} }, {
+                        displayName  => "With $extra_protein_domains->{$extra_protein_domain}->{'display_name'} ID(s)",
+                        displayType  => "list",
+                        field        => $field,
+                        hidden       => "false",
+                        internalName => "with_".$extra_protein_domain,
+                        isSelectable => "true",
+                        key          => $key,
+                        legal_qualifiers => "only,excluded",
+                        qualifier        => "only",
+                        style            => "radio",
+                        tableConstraint  => "main",
+                        type             => "boolean",
+                        Option           => [ {
+                                  displayName  => "Only",
+                                  hidden       => "false",
+                                  internalName => "only",
+                                  value        => "only" }, {
+                                  displayName  => "Excluded",
+                                  hidden       => "false",
+                                  internalName => "excluded",
+                                  value        => "excluded" } ] };
+                    }
+                  }
+              } ## end foreach my $extra_protein_domain
+              foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
+                my $field = "protein_feature_".$protein_domain_and_feature->[0]."_bool";
+                my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->[0]."__dm";
+                my $display_name;
+                # We only want to display "ID(s)" for Protein domains
+                if (defined $protein_domain_and_feature->[2]){
+                  $display_name="With $protein_domain_and_feature->[3] ID(s)";
+                }
+                else {
+                  $display_name="With $protein_domain_and_feature->[3]";
+                }
+                if ( defined $self->{tables}->{$table} ) {
+                  my $key = $self->get_table_key($table);
+                    if ( defined $self->{tables}->{$table}->{$key} ) {
+                      # add in if the column exists
+                      push @{ $fdo->{Option} }, {
+                        displayName  => $display_name,
+                        displayType  => "list",
+                        field        => $field,
+                        hidden       => "false",
+                        internalName => "with_".$protein_domain_and_feature->[0],
+                        isSelectable => "true",
+                        key          => $key,
+                        legal_qualifiers => "only,excluded",
+                        qualifier        => "only",
+                        style            => "radio",
+                        tableConstraint  => "main",
+                        type             => "boolean",
+                        Option           => [ {
+                                  displayName  => "Only",
+                                  hidden       => "false",
+                                  internalName => "only",
+                                  value        => "only" }, {
+                                  displayName  => "Excluded",
+                                  hidden       => "false",
+                                  internalName => "excluded",
+                                  value        => "excluded" } ] };
+                    }
+                }
+              } ## end if ( defined $self->{tables...})
+            push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
+            $nD++;
+          } ## end elsif ( $fdo->{internalName...})
+          elsif ( $fdo->{internalName} eq 'id_list_limit_protein_domain_filters' ) {
+            $logger->info(
+                            "Generating data for $fdo->{internalName}");
+            # Generating Filters for Gene, Transcript, Protein and exons
+            foreach my $extra_protein_domain (keys %{$extra_protein_domains}) {
+                my $field = $extra_protein_domains->{$extra_protein_domain}->{'field'};
+                my $table = $extra_protein_domains->{$extra_protein_domain}->{'table'};
+                if ( defined $self->{tables}->{$table} ) {
+                  my $key = $self->get_table_key($table);
+                  if ( defined $self->{tables}->{$table}->{$key} ) {
+                    my $example = $self->get_example($table,$field);
+                    # add in if the column exists
+                    push @{ $fdo->{Option} }, {
+                      displayName  => $extra_protein_domains->{$extra_protein_domain}->{'display_name'}." ID(s) [e.g. $example]",
+                      displayType  => "text",
+                      description  => "Filter to include genes with supplied list of $extra_protein_domains->{$extra_protein_domain}->{'display_name'}",
+                      field        => $field,
+                      hidden       => "false",
+                      internalName => $extra_protein_domain,
+                      isSelectable => "true",
+                      key          => $key,
+                      legal_qualifiers => "=,in",
+                      multipleValues   => "1",
+                      qualifier        => "=",
+                      tableConstraint  => $table,
+                      type             => "List" };
+                  }
+                }
+              } ## end foreach  my $extra_protein_domain
+              # Generation all the other protein domains
+              foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
+                # Excluding protein features
+                next if !defined $protein_domain_and_feature->[2];
+                my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->[0]."__dm";
+                if ( defined $self->{tables}->{$table} ) {
+                  my $key = $self->get_table_key($table);
+                  if ( defined $self->{tables}->{$table}->{$key} ) {
+                      my $field = "hit_name_1048";
+                      # add in if the column exists
+                      my $example = $self->get_example($table,$field);
+                      push @{ $fdo->{Option} }, {
+                        displayName  => "$protein_domain_and_feature->[3] ID(s) [e.g. $example]",
+                        displayType  => "text",
+                        description  => "Filter to include genes with supplied list of $protein_domain_and_feature->[3] ID(s)",
+                        field        => $field,
+                        hidden       => "false",
+                        internalName => "$protein_domain_and_feature->[0]",
+                        isSelectable => "true",
+                        key          => $key,
+                        legal_qualifiers => "=,in",
+                        multipleValues   => "1",
+                        qualifier        => "=",
+                        tableConstraint  => $table,
+                        type             => "List" };
+                    }
+                  }
+              } ## end foreach  my $protein_domain_and_feature
+            push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
+            $nD++;
+          } ## end elsif ( $fdo->{internalName...})
           elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'container') {
             $logger->debug( "Processing options for " . $filterDescription->{internalName} );
             my $nO = 0;
@@ -1026,7 +1173,7 @@ sub write_filters {
 } ## end sub write_filters
 
 sub write_attributes {
-  my ( $self, $dataset, $templ_in, $datasets,$xref_list, $probe_list, $xref_url_list, $exception_xrefs ) = @_;
+  my ( $self, $dataset, $templ_in, $datasets,$xref_list, $probe_list, $xref_url_list, $exception_xrefs, $protein_domain_and_feature_list ) = @_;
   $logger->info( "Writing attributes for " . $dataset->{name} );
   my $ds_name   = $dataset->{name} . '_' . $self->{basename};
   my $templ_out = $dataset->{config};
@@ -1441,6 +1588,107 @@ sub write_attributes {
                   }
                 }
             } ## end if ( defined $self->{tables...})
+          } ## end elsif ( $aco->{internalName... [ if ( $aco->{internalName...})]})
+          elsif ( $aco->{internalName} eq 'protein_domain' ) {
+            $logger->info(
+                            "Generating data for $aco->{internalName} attributes");
+            foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
+              # Excluding protein features
+              next if !defined $protein_domain_and_feature->[2];
+              my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->[0]."__dm";
+                if ( defined $self->{tables}->{$table} ) {
+                  my $key = "translation_id_1068_key";
+                  if ( defined $self->{tables}->{$table}->{$key} ) {
+                    # Getting URLs from the parsed Web ini file
+                    my $url = $xref_url_list->{lc($protein_domain_and_feature->[1])};
+                    # Replacing ###ID### with mart placeholder %s and ###SPECIES### with
+                    # species production name
+                    if (defined $url) {
+                      $url =~ s/###ID###/%s/;
+                      $url =~ s/###SPECIES###/$dataset->{production_name}/;
+                      $url = "exturl|".$url;
+                    }
+                    else{
+                      $url='';
+                    }
+                    push @{ $aco->{AttributeDescription} }, {
+                      key             => $key,
+                      displayName     => "$protein_domain_and_feature->[3] ID",
+                      field           => "hit_name_1048",
+                      internalName    => $protein_domain_and_feature->[0],
+                      linkoutURL      => $url,
+                      maxLength       => "40",
+                      tableConstraint => $table };
+                      push @{ $aco->{AttributeDescription} }, {
+                      key             => $key,
+                      displayName     => "$protein_domain_and_feature->[3] start",
+                      field           => "seq_start_1048",
+                      internalName    => $protein_domain_and_feature->[0]."_start",
+                      linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
+                      maxLength       => "10",
+                      tableConstraint => $table };
+                      push @{ $aco->{AttributeDescription} }, {
+                      key             => $key,
+                      displayName     => "$protein_domain_and_feature->[3] end",
+                      field           => "seq_end_1048",
+                      internalName    => $protein_domain_and_feature->[0]."_end",
+                      linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
+                      maxLength       => "10",
+                      tableConstraint => $table };
+                  $nD++;
+                  }
+                }
+            } ## end if ( defined $self->{tables...})
+          } ## end elsif ( $aco->{internalName... [ if ( $aco->{internalName...})]})
+          elsif ( $aco->{internalName} eq 'protein_feature' ) {
+            $logger->info(
+                            "Generating data for $aco->{internalName} attributes");
+            foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
+              #Excluding protein domains
+              next if defined $protein_domain_and_feature->[2];
+              my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->[0]."__dm";
+                if ( defined $self->{tables}->{$table} ) {
+                  my $key = "translation_id_1068_key";
+                  if ( defined $self->{tables}->{$table}->{$key} ) {
+                    my $url = $xref_url_list->{lc($protein_domain_and_feature->[1])};
+                    # Replacing ###ID### with mart placeholder %s and ###SPECIES### with
+                    # species production name
+                    if (defined $url) {
+                      $url =~ s/###ID###/%s/;
+                      $url =~ s/###SPECIES###/$dataset->{production_name}/;
+                      $url = "exturl|".$url;
+                    }
+                    else{
+                      $url='';
+                    }
+                    push @{ $aco->{AttributeDescription} }, {
+                      key             => $key,
+                      displayName     => "$protein_domain_and_feature->[3]",
+                      field           => "hit_name_1048",
+                      internalName    => $protein_domain_and_feature->[0],
+                      linkoutURL      => $url,
+                      maxLength       => "40",
+                      tableConstraint => $table };
+                      push @{ $aco->{AttributeDescription} }, {
+                      key             => $key,
+                      displayName     => "$protein_domain_and_feature->[3] start",
+                      field           => "seq_start_1048",
+                      internalName    => $protein_domain_and_feature->[0]."_start",
+                      linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
+                      maxLength       => "10",
+                      tableConstraint => $table };
+                      push @{ $aco->{AttributeDescription} }, {
+                      key             => $key,
+                      displayName     => "$protein_domain_and_feature->[3] end",
+                      field           => "seq_end_1048",
+                      internalName    => $protein_domain_and_feature->[0]."_end",
+                      linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
+                      maxLength       => "10",
+                      tableConstraint => $table };
+                  $nD++;
+                  }
+                }
+            } ## foreach my $protein_domain_and_feature
           } ## end elsif ( $aco->{internalName... [ if ( $aco->{internalName...})]})
           ### AttributeDescription
           for my $attributeDescription (
@@ -1959,6 +2207,31 @@ sub generate_probes_list {
       }
     }
   return ($probes_list);
+}
+
+=head2 generate_protein_domain_and_feature_list
+  Description: Retrieve a list of protein domains for a given dataset. Subroutine use the information_schema database, protein_feature, web_data and analysis  table.
+  Arg        : Mart dataset name
+  Returntype : Hashref (keys are logic names, values are associated db, web_data and display_label)
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_protein_domain_and_feature_list {
+  my ($self,$dataset)= @_;
+  my $core_db = $dataset->{src_db};
+  my $protein_domain_and_feature_list;
+  my $database_tables = $self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${core_db}'" );
+  if (defined $database_tables->[0]) {
+    if ($database_tables->[0] > 0) {
+      $protein_domain_and_feature_list = $self->{dbc}->sql_helper()->execute(
+              -SQL => "select distinct(LOWER(logic_name)), db, web_data, display_label from ${core_db}.protein_feature JOIN ${core_db}.analysis USING(analysis_id) JOIN ${core_db}.analysis_description USING (analysis_id) order by db",
+            );
+    }
+  }
+  return ($protein_domain_and_feature_list);
 }
 
 =head2 get_table_key
