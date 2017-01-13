@@ -1459,7 +1459,7 @@
         <AttributeDescription displayName="Ensembl Protein length" field="peptide_length" internalName="ensembl_peptide_length" key="transcript_id_1064_key" maxLength="10" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Transcript count" field="transcript_count" internalName="transcript_count" key="gene_id_1020_key" maxLength="16" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Translation count" field="translation_count" internalName="translation_count" key="transcript_id_1064_key" maxLength="11" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription description="Percentage GC content" displayName="% GC content" field="value_1022" internalName="percentage_gc_content" key="gene_id_1020_key" maxLength="3" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription description="Percentage gene GC content" displayName="% GC content" field="value_1022" internalName="percentage_gene_gc_content" key="gene_id_1020_key" maxLength="3" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Gene type" field="biotype_1020" internalName="gene_biotype" key="gene_id_1020_key" maxLength="40" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Transcript type" field="biotype_1064" internalName="transcript_biotype" key="transcript_id_1064_key" maxLength="40" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Source (gene)" field="source_1020" internalName="source" key="gene_id_1020_key" maxLength="20" tableConstraint="main" useDefault="true"/>
@@ -1836,7 +1836,7 @@
         <AttributeDescription hidden="false" internalName="homologs_ensembl_cDNA_length" pointerAttribute="ensembl_cDNA_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
         <AttributeDescription hidden="false" internalName="homologs_ensembl_peptide_length" pointerAttribute="ensembl_peptide_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
         <AttributeDescription hidden="false" internalName="homologs_transcript_count" pointerAttribute="transcript_count" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
-        <AttributeDescription hidden="false" internalName="homologs_percentage_gc_content" pointerAttribute="percentage_gc_content" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription hidden="false" internalName="homologs_percentage_gc_content" pointerAttribute="percentage_gene_gc_content" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
         <AttributeDescription hidden="false" internalName="homologs_description" pointerAttribute="description" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
       </AttributeCollection>
     </AttributeGroup>
@@ -1868,7 +1868,7 @@
         <AttributeDescription internalName="snp_ensembl_cDNA_length" pointerAttribute="ensembl_cDNA_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="snp_ensembl_peptide_length" pointerAttribute="ensembl_peptide_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="snp_transcript_count" pointerAttribute="transcript_count" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
-        <AttributeDescription internalName="snp_percentage_gc_content" pointerAttribute="percentage_gc_content" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_percentage_gc_content" pointerAttribute="percentage_gene_gc_content" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="snp_description" pointerAttribute="description" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
       </AttributeCollection>
     </AttributeGroup>
@@ -1928,7 +1928,7 @@
         <AttributeDescription internalName="snp_som_ensembl_cDNA_length" pointerAttribute="ensembl_cDNA_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="snp_som_ensembl_peptide_length" pointerAttribute="ensembl_peptide_length" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="snp_som_transcript_count" pointerAttribute="transcript_count" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
-        <AttributeDescription internalName="snp_som_percentage_gc_content" pointerAttribute="percentage_gc_content" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_percentage_gc_content" pointerAttribute="percentage_gene_gc_content" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="snp_som_description" pointerAttribute="description" pointerDataset="*species3*_gene_ensembl" pointerInterface="default" useDefault="true"/>
       </AttributeCollection>
     </AttributeGroup>
