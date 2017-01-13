@@ -113,6 +113,19 @@ for my $dataset (@datasets) {
 	my $dba =
 	  Bio::EnsEMBL::Registry->get_DBAdaptor( $species_name, 'Core', 'transcript' );
 
+	my $db_dbc = $dba->dbc();
+	# Getting rna seq edits data from the transcript_attrib table
+	my $rna_seq_edits= $db_dbc->sql_helper()->execute_into_hash(
+              -SQL => "select transcript_id,value from transcript JOIN transcript_attrib USING (transcript_id) JOIN attrib_type USING (attrib_type_id) where code='_rna_edit'",
+              -CALLBACK => sub {
+              my ( $row, $value ) = @_;
+              $value = [] if !defined $value;
+              push($value, $row->[1] );
+              return $value;
+              }
+            );
+	$db_dbc->disconnect_if_idle();
+
 	my @sql;
 
 	my $transcript_adaptor = $dba->get_TranscriptAdaptor();
@@ -160,7 +173,8 @@ for my $dataset (@datasets) {
   cdna_coding_start         INT(10),
   cdna_coding_end           INT(10),
   transcription_start_site    INT(10),
-  transcript_length           INT(10)
+  transcript_length           INT(10),
+  value_1065                  TEXT
 )} );
 
 	my $t0               = time();
@@ -187,7 +201,7 @@ for my $dataset (@datasets) {
 			  "INSERT INTO MTMP_${dataset}_exon VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
 	my $insert_sth2 = $mart_handle->prepare(
-                          "INSERT INTO MTMP_${dataset}_tr VALUES (?,?,?,?,?)");
+                          "INSERT INTO MTMP_${dataset}_tr VALUES (?,?,?,?,?,?)");
 
 	while ( my $transcript = shift( @{$transcripts} ) ) {
 
@@ -219,7 +233,8 @@ for my $dataset (@datasets) {
                        $transcript->cdna_coding_start(),
                        $transcript->cdna_coding_end(),
                        $transcript->start(),
-                       $transcript->length());
+                       $transcript->length(),
+                       $rna_seq_edits->{$transcript->dbID()}->[0]);
                }
                # If the transcript is coding and strand is reverse add the cdna information and TSS=end
                elsif ($is_coding and $transcript->strand()==-1) {
@@ -228,25 +243,28 @@ for my $dataset (@datasets) {
                        $transcript->cdna_coding_start(),
                        $transcript->cdna_coding_end(),
                        $transcript->end(),
-                       $transcript->length());
+                       $transcript->length(),
+                       $rna_seq_edits->{$transcript->dbID()}->[0]);
                }
                # if Transcript is not coding and strand is forward, add TSS=start
                elsif ($transcript->strand()==1) {
                     $insert_sth2->execute(
                         $transcript->dbID(),
-                        'NULL',
-                        'NULL',
+                        undef,
+                        undef,
                         $transcript->start(),
-                        $transcript->length());
+                        $transcript->length(),
+                        $rna_seq_edits->{$transcript->dbID()}->[0]);
                }
                # if Transcript is not coding and strand is reverse, add TSS=end
                elsif ($transcript->strand()==-1) {
                    $insert_sth2->execute(
                        $transcript->dbID(),
-                       'NULL',
-                       'NULL',
+                       undef,
+                       undef,
                        $transcript->end(),
-                       $transcript->length());
+                       $transcript->length(),
+                       $rna_seq_edits->{$transcript->dbID()}->[0]);
                 }
 
 		foreach my $exon ( @{ $transcript->get_all_Exons() } ) {
@@ -419,7 +437,8 @@ WHERE   dm.transcript_id_1064_key   = t.transcript_id_1064_key
   ADD COLUMN cdna_coding_start      INT(10),
   ADD COLUMN cdna_coding_end        INT(10),
   ADD COLUMN transcription_start_site INT(10),
-  ADD COLUMN transcript_length           INT(10)} );
+  ADD COLUMN transcript_length           INT(10),
+  ADD COLUMN value_1065                  TEXT} );
     };
 	if($@) {
       print STDERR "Problems modifying the table".$@;
@@ -433,7 +452,8 @@ WHERE   dm.transcript_id_1064_key   = t.transcript_id_1064_key
 SET main.cdna_coding_start = t.cdna_coding_start,
     main.cdna_coding_end   = t.cdna_coding_end,
     main.transcription_start_site = t.transcription_start_site,
-    main.transcript_length = t.transcript_length
+    main.transcript_length = t.transcript_length,
+    main.value_1065        = t.value_1065
 
 WHERE   main.transcript_id_1064_key = t.transcript_id_1064_key} );
 
@@ -448,7 +468,8 @@ eval {
   ADD COLUMN cdna_coding_start      INT(10),
   ADD COLUMN cdna_coding_end        INT(10),
   ADD COLUMN transcription_start_site INT(10),
-  ADD COLUMN transcript_length           INT(10)} );
+  ADD COLUMN transcript_length           INT(10),
+  ADD COLUMN value_1065                  TEXT} );
     };
 	if($@) {
       print STDERR "Problems modifying the table".$@;
@@ -462,7 +483,8 @@ print "Updating ${ds_base}__translation__main...\n";
 SET main.cdna_coding_start = t.cdna_coding_start,
     main.cdna_coding_end   = t.cdna_coding_end,
     main.transcription_start_site = t.transcription_start_site,
-    main.transcript_length = t.transcript_length
+    main.transcript_length = t.transcript_length,
+    main.value_1065        = t.value_1065
 
 WHERE   main.transcript_id_1064_key = t.transcript_id_1064_key} );
 
