@@ -72,12 +72,12 @@
         <FilterDescription displayName="Variation synonym ID" displayType="text" field="name_2030" internalName="snp_synonym_filter" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="variation_synonym__dm" type="list"/>
       </FilterCollection>
       <FilterCollection displayName="Study type" internalName="study_type" useDefault="true">
-        <FilterDescription displayName="Study type" displayType="list" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list" useDefault="true">
+        <FilterDescription displayName="Study type" displayType="list" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Phenotype" internalName="phenotype_description" useDefault="true">
-        <FilterDescription displayName="Phenotype description" displayType="list" field="description_2033" internalName="phenotype_description" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list" useDefault="true">
+        <FilterDescription displayName="Phenotype description" displayType="list" field="description_2033" internalName="phenotype_description" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -92,7 +92,7 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Variant Set Name" internalName="variation_set" useDefault="true">
-        <FilterDescription displayName="Variant Set Name" displayType="list" field="name_2077" internalName="variation_set_name" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_set_variation__dm" type="list" useDefault="true">
+        <FilterDescription displayName="Variant Set Name" displayType="list" field="name_2077" internalName="variation_set_name" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_set_variation__dm" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
