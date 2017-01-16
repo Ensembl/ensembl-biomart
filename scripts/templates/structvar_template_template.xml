@@ -42,7 +42,7 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Limit to study accession from DGVa (Please select DGVa from source filter above)" internalName="structural_variation_study" useDefault="true">
-        <FilterDescription displayName="DGVa Study Accession" displayType="list" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true" style="menu">
+        <FilterDescription displayName="DGVa Study Accession" displayType="list" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true" style="menu">
             <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -55,12 +55,12 @@
         <FilterDescription displayName="Filter by Structural Variant Name (e.g. nsv916030) " displayType="text" field="variation_name_2072" internalName="svfilter" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true"/>
       </FilterCollection>
       <FilterCollection displayName="Structural Variant Set Name" internalName="structural_variation_set_name" useDefault="true">
-        <FilterDescription displayName="Structural Variant Set Name" displayType="list" field="name_2077" internalName="structural_variation_set_name" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_set_structural_variation__dm" type="list" useDefault="true">
+        <FilterDescription displayName="Structural Variant Set Name" displayType="list" field="name_2077" internalName="structural_variation_set_name" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_set_structural_variation__dm" type="list" useDefault="true">
             <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Phenotype" internalName="structural_variation_phenotype" useDefault="true">
-        <FilterDescription displayName="Phenotype" displayType="list" field="phenotype_name" internalName="phenotype_name" key="structural_variation_id_2072_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="phenotype__dm" type="list" useDefault="true">
+        <FilterDescription displayName="Phenotype" displayType="list" field="phenotype_name" internalName="phenotype_name" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" style="menu" tableConstraint="phenotype__dm" type="list" useDefault="true">
             <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
