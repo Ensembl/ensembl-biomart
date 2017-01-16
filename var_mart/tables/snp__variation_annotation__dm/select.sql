@@ -11,8 +11,10 @@ SELECT
   st.description as description_20100,
   REPLACE(so.name, ",", "") as name_2021
 FROM
-  VAR_DB.variation v JOIN
-  VAR_DB.phenotype_feature pf ON v.name = pf.object_id AND pf.type = "Variation"
+  VAR_DB.variation v
+  LEFT JOIN (
+    VAR_DB.phenotype_feature pf
+  ) ON v.name = pf.object_id AND pf.type = "Variation"
   LEFT JOIN (
         VAR_DB.phenotype_feature_attrib a1
         JOIN VAR_DB.attrib_type at1 ON a1.attrib_type_id = at1.attrib_type_id
@@ -28,7 +30,7 @@ FROM
   LEFT JOIN (
         VAR_DB.phenotype_feature_attrib a4
         JOIN VAR_DB.attrib_type at4 ON a4.attrib_type_id = at4.attrib_type_id
-  ) ON (a4.phenotype_feature_id = pf.phenotype_feature_id AND at4.code = "variation_names") INNER JOIN
-  VAR_DB.phenotype p ON pf.phenotype_id = p.phenotype_id JOIN
+  ) ON (a4.phenotype_feature_id = pf.phenotype_feature_id AND at4.code = "variation_names") LEFT JOIN
+  VAR_DB.phenotype p ON pf.phenotype_id = p.phenotype_id LEFT JOIN
   VAR_DB.source so ON pf.source_id = so.source_id LEFT JOIN
-  VAR_DB.study st ON st.study_id = pf.study_id
+  VAR_DB.study st ON st.study_id = pf.study_id;
