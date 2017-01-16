@@ -2134,7 +2134,7 @@ sub generate_chromosome_qtl_push_action {
       if(defined $empty_qtl_table->[0]) {
         if ($empty_qtl_table->[0] > 0) {
           $qtl_features = $self->{dbc}->sql_helper()->execute_into_hash(
-            -SQL => "select name_2033, qtl_region from ${genomic_features_mart}.${dataset_name}_qtl_feature__qtl_feature__main where qtl_region is not null order by qtl_region",
+            -SQL => "select distinct name_2033, qtl_region from ${genomic_features_mart}.${dataset_name}_qtl_feature__qtl_feature__main where qtl_region is not null order by qtl_region",
             -CALLBACK => sub {
               my ( $row, $value ) = @_;
               $value = [] if !defined $value;
