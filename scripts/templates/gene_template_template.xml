@@ -158,8 +158,11 @@
           <SpecificFilterContent internalName="id_list_limit_microarray_filters"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Transcript count &gt;=" internalName="transcript_count_filter" useDefault="true">
-        <FilterDescription description="Limit to genes within given Transcript Count range" displayName="Transcript count &gt;=" displayType="text" field="transcript_count" internalName="transcript_count" key="gene_id_1020_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="main" type="text" useDefault="true"/>
+      <FilterCollection displayName="Transcript count &gt;=" internalName="transcript_count_greater_than_filter" useDefault="true">
+        <FilterDescription description="Limit to genes within given Transcript Count range" displayName="Transcript count &gt;=" displayType="text" field="transcript_count" internalName="transcript_count_greater_than" key="gene_id_1020_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="Transcript count &lt;=" internalName="transcript_count_less_than_filter" useDefault="true">
+        <FilterDescription description="Limit to genes within given Transcript Count range" displayName="Transcript count &lt;=" displayType="text" field="transcript_count" internalName="transcript_count_less_than" key="gene_id_1020_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
       <FilterCollection displayName="Entries with a 5' UTR" internalName="5utr_collection" useDefault="true">
         <FilterDescription description="Limit to entries with 5&amp;quot; UTR only, or excluded" displayName="Entries with a 5' UTR" displayType="list" field="has_5utr_bool" internalName="with_5utr" key="gene_id_1020_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
