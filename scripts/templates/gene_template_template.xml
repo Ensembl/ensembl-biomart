@@ -110,19 +110,13 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="fe type" hidden="true" internalName="encode_type_col" useDefault="true" checkPointerDataset="*species3*_encode">
-        <FilterDescription hidden="true" internalName="hsapiens_encode.type" pointerDataset="*species3*_encode" pointerFilter="type" pointerInterface="default" type="text" useDefault="true">
-          <SpecificFilterContent hidden="true" internalName="hsapiens_gene_ensembl" useDefault="true"/>
-        </FilterDescription>
+        <FilterDescription hidden="true" internalName="hsapiens_encode.type" pointerDataset="*species3*_encode" pointerFilter="type" pointerInterface="default" type="text" useDefault="true"/>
       </FilterCollection>
       <FilterCollection displayName="&lt;a href='http://www.genome.gov/26525202'&gt;ENCODE Pilot Regions&lt;/a&gt;" internalName="encode_region_col" useDefault="true" checkPointerDataset="*species3*_encode">
-        <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species3*_encode" pointerFilter="encode_region" pointerInterface="default" useDefault="true">
-          <SpecificFilterContent internalName="hsapiens_gene_ensembl" useDefault="true"/>
-        </FilterDescription>
+        <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species3*_encode" pointerFilter="encode_region" pointerInterface="default" useDefault="true"/>
       </FilterCollection>
       <FilterCollection displayName="In encode region" hidden="false" internalName="encode_boolean" useDefault="true" checkPointerDataset="*species3*_encode">
-        <FilterDescription description="Include/Exclude Entries in an Encode Region" displayName="In encode region" displayType="list" field="is_encode_bool" hidden="false" internalName="in_encode_region" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-          <SpecificFilterContent field="is_encode_bool" internalName="hsapiens_gene_ensembl" key="gene_id_1020_key" tableConstraint="main" useDefault="true"/>
-        </FilterDescription>
+        <FilterDescription description="Include/Exclude Entries in an Encode Region" displayName="In encode region" displayType="list" field="is_encode_bool" hidden="false" internalName="in_encode_region" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true"/>
       </FilterCollection>
       <FilterCollection displayName="QTL Chromosome name" hidden="false" internalName="qtl_chr_name" useDefault="true" checkPointerDataset="*species3*_qtl_feature">
         <FilterDescription hidden="false" internalName="qtl_feature.name_2" pointerDataset="*species3*_qtl_feature" pointerFilter="name_2" pointerInterface="default" type="text" useDefault="true">
@@ -155,7 +149,7 @@
       </FilterCollection>
       <FilterCollection displayName="Input microarray probes/probesets ID list [Max 500 advised]" internalName="id_list_limit_microarray" useDefault="true">
         <FilterDescription displayName="Entries with following IDs" displayType="container" internalName="id_list_limit_microarray_filters" type="id_list" useDefault="true">
-          <SpecificFilterContent internalName="id_list_limit_microarray_filters"/>
+          <Option internalName="id_list_limit_microarray_filters"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Transcript count &gt;=" internalName="transcript_count_greater_than_filter" useDefault="true">
@@ -1328,9 +1322,6 @@
       </FilterCollection>
       <FilterCollection displayName="PO evidence code" internalName="po_evidence_code">
         <FilterDescription displayName="PO evidence code" displayType="list" field="linkage_type_1024" internalName="po_evidence_code" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" otherFilters="MULTI" qualifier="=" style="menu" tableConstraint="ontology_po__dm" type="list">
-          <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="bdistachyon_eg_gene"/>
-          <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="sbicolor_eg_gene"/>
-          <SpecificFilterContent key="transcript_id_1064_key" field="linkage_type_1024" internalName="ptrichocarpa_eg_gene"/>
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
