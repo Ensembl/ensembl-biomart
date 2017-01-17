@@ -97,38 +97,38 @@
         <FilterDescription defaultValue="1" description="Determine which base pair on the specified chromosome/scaffold to begin range" displayName="Gene Start (bp)" displayType="text" field="seq_region_end_1020" hidden="false" internalName="start" key="gene_id_1020_key" legal_qualifiers="&gt;=" qualifier="&gt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
         <FilterDescription defaultValue="10000000" description="Determine which base pair on the specified chromosome/scaffold to end range" displayName="Gene End (bp)" displayType="text" field="seq_region_start_1020" hidden="false" internalName="end" key="gene_id_1020_key" legal_qualifiers="&lt;=" qualifier="&lt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="Band" internalName="band_collection" useDefault="true">
+      <FilterCollection displayName="Band" internalName="band_collection" useDefault="true" checkPointerDataset="*species3*_karyotype_start">
         <FilterDescription internalName="band_start" pointerDataset="*species3*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true">
         </FilterDescription>
         <FilterDescription internalName="band_end" pointerDataset="*species3*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter" useDefault="true">
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true">
+      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true" checkPointerDataset="*species3*_marker_start">
         <FilterDescription internalName="marker_start" pointerDataset="*species3*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true">
         </FilterDescription>
         <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species3*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true">
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Encode type" hidden="true" internalName="encode_type_col" useDefault="true">
+      <FilterCollection displayName="fe type" hidden="true" internalName="encode_type_col" useDefault="true" checkPointerDataset="*species3*_encode">
         <FilterDescription hidden="true" internalName="hsapiens_encode.type" pointerDataset="*species3*_encode" pointerFilter="type" pointerInterface="default" type="text" useDefault="true">
           <SpecificFilterContent hidden="true" internalName="hsapiens_gene_ensembl" useDefault="true"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="&lt;a href='http://www.genome.gov/26525202'&gt;ENCODE Pilot Regions&lt;/a&gt;" internalName="encode_region_col" useDefault="true">
+      <FilterCollection displayName="&lt;a href='http://www.genome.gov/26525202'&gt;ENCODE Pilot Regions&lt;/a&gt;" internalName="encode_region_col" useDefault="true" checkPointerDataset="*species3*_encode">
         <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species3*_encode" pointerFilter="encode_region" pointerInterface="default" useDefault="true">
           <SpecificFilterContent internalName="hsapiens_gene_ensembl" useDefault="true"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="In encode region" hidden="false" internalName="encode_boolean" useDefault="true">
+      <FilterCollection displayName="In encode region" hidden="false" internalName="encode_boolean" useDefault="true" checkPointerDataset="*species3*_encode">
         <FilterDescription description="Include/Exclude Entries in an Encode Region" displayName="In encode region" displayType="list" field="is_encode_bool" hidden="false" internalName="in_encode_region" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
           <SpecificFilterContent field="is_encode_bool" internalName="hsapiens_gene_ensembl" key="gene_id_1020_key" tableConstraint="main" useDefault="true"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="QTL Chromosome name" hidden="false" internalName="qtl_chr_name" useDefault="true">
+      <FilterCollection displayName="QTL Chromosome name" hidden="false" internalName="qtl_chr_name" useDefault="true" checkPointerDataset="*species3*_qtl_feature">
         <FilterDescription hidden="false" internalName="qtl_feature.name_2" pointerDataset="*species3*_qtl_feature" pointerFilter="name_2" pointerInterface="default" type="text" useDefault="true">
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="QTL region" internalName="qtl_region_col" useDefault="true">
+      <FilterCollection displayName="QTL region" internalName="qtl_region_col" useDefault="true" checkPointerDataset="*species3*_qtl_feature">
         <FilterDescription hidden="false" internalName="qtl_feature.qtl_region" pointerDataset="*species3*_qtl_feature" pointerFilter="qtl_region" pointerInterface="default" useDefault="true">
         </FilterDescription>
       </FilterCollection>
