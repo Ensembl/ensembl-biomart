@@ -138,20 +138,23 @@ sub build {
   # avoid clashes for multiple template types
   my $n        = $offsets->[0] || 0;
   my $xref_url_list;
-  $logger->info( "Parsing ini file containing xrefs URLs" . $ini_file );
   # Getting list of URLs for genes marts only
   # parsing extra ini file from eg-web-common for divisions that are not e!
   # Merge both hashes
+  # For do this only for genes marts
   if ($template_name eq "genes"){
-    if ($self->{dbc}->dbname() !~ 'ensembl'){
+     #For ensembl_gene, vega and mouse gene mart use ensembl-webcode defaults.ini
+    if ($self->{dbc}->dbname() =~ 'ensembl' or $self->{dbc}->dbname() =~ 'vega' or $self->{dbc}->dbname() =~ 'mouse'){
+      $logger->info( "Parsing ini file containing xrefs URLs: " . $ini_file );
+      $xref_url_list = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
+    }
+    # Else, parsing the Ensembl genomes division DEFAULT.ini file and extra eg-web-common ini file.
+    else{
+      $logger->info( "Parsing ini file containing xrefs URLs: " . $ini_file );
       my $xref_division = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
       $logger->info( "Parsing ini file containing xrefs URLs for eg-web-common");
       my $xref_eg_common_list = $self->parse_ini_file("https://raw.githubusercontent.com/EnsemblGenomes/eg-web-common/master/conf/ini-files/DEFAULTS.ini","ENSEMBL_EXTERNAL_URLS");
-      $xref_url_list = {%$xref_division,%$xref_eg_common_list}
-    }
-    # Else, parsing the Ensembl DEFAULT.ini file
-    else{
-      $xref_url_list = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
+      $xref_url_list = {%$xref_division,%$xref_eg_common_list};
     }
   }
   for my $dataset ( @{$datasets} ) {
@@ -398,8 +401,8 @@ sub write_filters {
   my $annotations = {
     gene => {display_name => 'Gene ID(s)', field =>'stable_id_1023', table => $ds_name.'__gene__main'},
     transcript => {display_name => 'Transcript ID(s)', field => 'stable_id_1066', table => $ds_name.'__transcript__main' },
-    protein => {display_name => 'Protein ID(s)', field => 'stable_id_1070', table => $ds_name.'__translation__main' },
-    exon => {display_name => 'Exon ID(s)', field => 'stable_id_1070', table => $ds_name.'__translation__main'}
+    protein => {display_name => 'Protein ID(s)', field => 'stable_id_1070', table => $ds_name.'__translation__main', internal_name => 'peptide_id' },
+    exon => {display_name => 'Exon ID(s)', field => 'stable_id_1016', table => $ds_name.'__exon_transcript__dm'}
   };
   # Defining Extrain protein domains
   my $extra_protein_domains = {
@@ -583,6 +586,24 @@ sub write_filters {
                   my $key = $self->get_table_key($table);
                   if ( defined $self->{tables}->{$table}->{$key} ) {
                     my $example = $self->get_example($table,$field);
+                    # We need to keep historical internal name. This would make many people in BiomaRt community if the naming change
+                    my $internal_name;
+                    my $internal_name_prefix;
+                    #For vega we need to use historical prefix.
+                    if ($self->{dbc}->dbname() =~ 'vega') {
+                      $internal_name_prefix="vega";
+                    }
+                    else{
+                      $internal_name_prefix = "ensembl";
+                    }
+                    if (defined $annotations->{$annotation}->{'internal_name'})
+                    {
+                      $internal_name = $internal_name_prefix."_".$annotations->{$annotation}->{'internal_name'};
+                    }
+                    else 
+                    {
+                      $internal_name = $internal_name_prefix."_".$annotation."_id";
+                    }
                     # add in if the column exists
                     push @{ $fdo->{Option} }, {
                       displayName  => $annotations->{$annotation}->{'display_name'}." [e.g. $example]",
@@ -590,7 +611,7 @@ sub write_filters {
                       description  => "Filter to include genes with supplied list of $annotations->{$annotation}->{'display_name'}",
                       field        => $field,
                       hidden       => "false",
-                      internalName => "ensembl_".$annotation."_id",
+                      internalName => $internal_name,
                       isSelectable => "true",
                       key          => $key,
                       legal_qualifiers => "=,in",
@@ -829,22 +850,24 @@ sub write_filters {
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = $self->get_table_key($table);
                   if ( defined $self->{tables}->{$table}->{$key} ) {
-                    my $example = $self->get_example($table,$field);
-                    # add in if the column exists
-                    push @{ $fdo->{Option} }, {
-                      displayName  => $extra_protein_domains->{$extra_protein_domain}->{'display_name'}." ID(s) [e.g. $example]",
-                      displayType  => "text",
-                      description  => "Filter to include genes with supplied list of $extra_protein_domains->{$extra_protein_domain}->{'display_name'}",
-                      field        => $field,
-                      hidden       => "false",
-                      internalName => $extra_protein_domain,
-                      isSelectable => "true",
-                      key          => $key,
-                      legal_qualifiers => "=,in",
-                      multipleValues   => "1",
-                      qualifier        => "=",
-                      tableConstraint  => $table,
-                      type             => "List" };
+                    if (defined $self->{tables}->{$table}->{$field} ) {
+                      my $example = $self->get_example($table,$field);
+                      # add in if the column exists
+                      push @{ $fdo->{Option} }, {
+                        displayName  => $extra_protein_domains->{$extra_protein_domain}->{'display_name'}." ID(s) [e.g. $example]",
+                        displayType  => "text",
+                        description  => "Filter to include genes with supplied list of $extra_protein_domains->{$extra_protein_domain}->{'display_name'}",
+                        field        => $field,
+                        hidden       => "false",
+                        internalName => $extra_protein_domain,
+                        isSelectable => "true",
+                        key          => $key,
+                        legal_qualifiers => "=,in",
+                        multipleValues   => "1",
+                        qualifier        => "=",
+                        tableConstraint  => $table,
+                        type             => "List" };
+                    }
                   }
                 }
               } ## end foreach  my $extra_protein_domain
@@ -1507,7 +1530,8 @@ sub write_attributes {
                             "Generating data for $aco->{internalName} attributes");
             foreach my $xref (@{ $xref_list }) {
               #Skipping GO and GOA attributes since they have their own attribute section
-              next if ($xref->[0] eq "go" or $xref->[0] eq "goslim_goa");
+              # We need to keep the GO attribute for the vega mart.
+              next if (($xref->[0] eq "go" and $self->{dbc}->dbname() !~ "vega" ) or ($xref->[0] eq "goslim_goa" and $self->{dbc}->dbname() !~ "vega"));
               my $table = $ds_name."__ox_".$xref->[0]."__dm";
               if ( defined $self->{tables}->{$table} ) {
                 my $key = $self->get_table_key($table);
@@ -2160,18 +2184,26 @@ sub generate_chromosome_qtl_push_action {
 
 sub generate_xrefs_list {
   my ($self,$dataset)= @_;
-  my $core_db = $dataset->{src_db};
+  my $database;
+  # If we are working on the vega mart, connect to the vega database
+  if ($self->{dbc}->dbname() =~ "vega") {
+    $database = $dataset->{src_db};
+    $database =~ s/core/vega/;
+  }
+  else {
+    $database = $dataset->{src_db};
+  }
   my $xrefs_list;
   my $database_tables = $self->{dbc}->sql_helper()
-                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${core_db}'" );
+                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${database}'" );
     if (defined $database_tables->[0]) {
       # Need to make sure all the db_name are lowercase and don't contain / to match mart table names.
       # Removed "Symbol" from HGNC symbol as this is causing issues in the attribute section
       $xrefs_list = $self->{dbc}->sql_helper()->execute(
-        -SQL => "select distinct(REPLACE(LOWER(db_name),'/','')), db_display_name from ${core_db}.external_db order by db_display_name");
+        -SQL => "select distinct(REPLACE(LOWER(db_name),'/','')), db_display_name from ${database}.external_db order by db_display_name");
     }
     else {
-      die "$core_db database is missing from the server\n"
+      die "$database database is missing from the server\n"
     }
   return ($xrefs_list);
 }

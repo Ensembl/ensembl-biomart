@@ -110,14 +110,21 @@ $logger->info("Opening connection to mart database");
 my ($dba) = @{ $cli_helper->get_dbas_for_opts($opts) };
 
 # Retrieving different ini files for e! and EG species.
-if ($dba->dbc()->dbname() =~ 'ensembl')
-{
-  $opts->{ini_file} ||= 'https://raw.githubusercontent.com/Ensembl/ensembl-webcode/master/conf/ini-files/DEFAULTS.ini';
+# This is only for the genes marts
+if ($opts->{template_name} eq 'genes'){
+  if ($dba->dbc()->dbname() =~ 'ensembl' or $dba->dbc()->dbname() =~ 'vega' or $dba->dbc()->dbname() =~ 'mouse')
+  {
+    $opts->{ini_file} ||= 'https://raw.githubusercontent.com/Ensembl/ensembl-webcode/master/conf/ini-files/DEFAULTS.ini';
+  }
+  else {
+    $dba->dbc()->dbname() =~ m/^([a-z0-9]+)_.+/;
+    my $division = $1;
+    $opts->{ini_file} ||= "https://raw.githubusercontent.com/EnsemblGenomes/eg-web-${division}/master/conf/ini-files/DEFAULTS.ini";
+  }
 }
-else {
-  $dba->dbc()->dbname() =~ m/^([a-z0-9]+)_.+/;
-  my $division = $1;
-  $opts->{ini_file} ||= "https://raw.githubusercontent.com/EnsemblGenomes/eg-web-${division}/master/conf/ini-files/DEFAULTS.ini";
+else
+{
+  $opts->{ini_file} ||= '';
 }
 
 # for EG, there are specific sets of attributes/filters that we need to delete from the interface
