@@ -55,10 +55,10 @@
   <Exportable attributes="vega_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id" internalName="coding_transcript_flank" linkName="coding_transcript_flank" linkVersion="*link_version*" name="coding_transcript_flank" orderBy="vega_transcript_id,rank" type="link" useDefault="true"/>
   <Exportable attributes="vega_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id" internalName="3utr" linkName="3utr" linkVersion="*link_version*" name="3utr" orderBy="vega_transcript_id" type="link" useDefault="true"/>
   <Exportable attributes="vega_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id" internalName="5utr" linkName="5utr" linkVersion="*link_version*" name="5utr" orderBy="vega_transcript_id" type="link" useDefault="true"/>
-  <Exportable attributes="vega_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand,rank" internalName="cdna" linkName="cdna" linkVersion="*link_version*" name="cdna" orderBy="vega_transcript_id" type="link" useDefault="true"/>
+  <Exportable attributes="vega_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand,rank,rna_seq_edits" internalName="cdna" linkName="cdna" linkVersion="*link_version*" name="cdna" orderBy="vega_transcript_id" type="link" useDefault="true"/>
   <Exportable attributes="exon_id,chromosome_name,exon_chrom_start,exon_chrom_end,strand" internalName="gene_exon" linkName="gene_exon" linkVersion="*link_version*" name="gene_exon" orderBy="exon_id" type="link" useDefault="true"/>
-  <Exportable attributes="vega_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase" internalName="coding" linkName="coding" linkVersion="*link_version*" name="coding" orderBy="vega_transcript_id,rank" type="link" useDefault="true"/>
-  <Exportable attributes="vega_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,codon_table_id,seq_edits" default="1" internalName="peptide" linkName="peptide" linkVersion="*link_version*" name="peptide" orderBy="vega_transcript_id,rank" type="link" useDefault="true"/>
+  <Exportable attributes="vega_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,rna_seq_edits" internalName="coding" linkName="coding" linkVersion="*link_version*" name="coding" orderBy="vega_transcript_id,rank" type="link" useDefault="true"/>
+  <Exportable attributes="vega_transcript_id,chromosome_name,exon_chrom_start,exon_chrom_end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,phase,codon_table_id,seq_edits,rna_seq_edits" default="1" internalName="peptide" linkName="peptide" linkVersion="*link_version*" name="peptide" orderBy="vega_transcript_id,rank" type="link" useDefault="true"/>
   <FilterPage displayName="FILTERS FOR LINKS" hideDisplay="true" internalName="link_filters" useDefault="true">
     <FilterGroup description="Filters for Links" hideDisplay="true" internalName="link_filters" useDefault="true">
       <FilterCollection hideDisplay="true" internalName="link_filters" useDefault="true">
@@ -119,193 +119,20 @@
     <FilterGroup description="Filter on Gene Related Accessions and Filters" displayName="GENE:" internalName="gene" useDefault="true">
       <FilterCollection displayName="Limit to genes ..." internalName="id_list_xrefs" useDefault="true">
         <FilterDescription displayType="container" internalName="id_list_xrefs_filters" type="boolean_list" useDefault="true">
-          <Option displayName="with VEGA gene ID(s)" displayType="list" field="ox_vega_gene_bool" internalName="with_vega_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with VEGA transcript ID(s)" displayType="list" field="ox_vega_transcript_bool" internalName="with_vega_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with VEGA protein ID(s)" displayType="list" field="ox_vega_translation_bool" internalName="with_vega_translation" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with CCDS ID(s)" displayType="list" field="ox_ccds_bool" internalName="with_ccds" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with corresponding Ensembl gene ID(s)" displayType="list" field="ox_ensg_bool" internalName="with_ens_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with corresponding Ensembl Transcript ID(s) (CDS same)" displayType="list" field="ox_enst_cds_bool" internalName="with_enst_cds" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with corresponding Ensembl Transcript ID(s) (Identical)" displayType="list" field="ox_enst_ident_bool" internalName="with_enst_ident" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with corresponding Ensembl Protein ID(s) (Identical)" displayType="list" field="ox_ensp_ident_bool" internalName="with_ensp_ident" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with EntrezGene ID(s)" displayType="list" field="ox_entrezgene_bool" internalName="with_entrezgene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with ENA transcript ID(s)" displayType="list" field="ox_ena_transcript_bool" internalName="with_ena_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Exon transcript ID(s)" displayType="list" field="exon_transcript_bool" internalName="with_exon_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with GO ID(s)" displayType="list" field="ox_go_bool" internalName="with_go_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Quick GO ID(s)" displayType="list" field="ox_quick_go_bool" internalName="with_quick_go" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with HGNC ID(s)" displayType="list" field="ox_hgnc_bool" internalName="with_HGNC" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with HAVANA gene ID(s)" displayType="list" field="ox_Havana_gene_bool" internalName="with_havana_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with IMGT gene db ID(s)" displayType="list" field="ox_imgtgene_db_bool" internalName="with_imgtgene_db" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with IMGT hla ID(s)" displayType="list" field="ox_imgt_hla_bool" internalName="with_imgt_hla" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with MIM gene ID(s)" displayType="list" field="ox_mim_gene_bool" internalName="with_mim_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with MGI ID(s)" displayType="list" field="ox_mgi_bool" internalName="with_mgi" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with IMGT ID(s)" displayType="list" field="ox_IMGT_bool" internalName="with_imgt" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Pubmed ID(s)" displayType="list" field="ox_pubmed_bool" internalName="with_pubmed" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with RefSeq DNA ID(s)" displayType="list" field="ox_refseq_dna_bool" internalName="with_refseq_dna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with RefSeq DNA predicted ID(s)" displayType="list" field="ox_refseq_dna_predicted_bool" internalName="with_refseq_dna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with RefSeq ncRNA ID(s)" displayType="list" field="ox_refseq_rna_bool" internalName="with_refseq_ncrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with RefSeq ncRNA predicted ID(s)" displayType="list" field="ox_refseq_rna_predicted_bool" internalName="with_refseq_ncrna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with RefSeq protein ID(s)" displayType="list" field="ox_refseq_peptide_bool" internalName="with_refseq_peptide" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with RefSeq protein predicted ID(s)" displayType="list" field="ox_refseq_peptide_predicted_bool" internalName="with_refseq_peptide_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with RefSeq Genomic ID(s)" displayType="list" field="ox_refseq_genomic_bool" internalName="with_refseq_genomic" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with RGD ID(s)" displayType="list" field="ox_rgd_bool" internalName="with_rgd" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with UniProt/Swissprot Accession(s)" displayType="list" field="ox_uniprotswissprot_bool" internalName="with_uniprotswissprot" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with ZFIN ID(s)" displayType="list" field="ox_zfin_id_bool" internalName="with_zfin_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with ZFIN xpat ID(s)" displayType="list" field="ox_zfin_xpat_bool" internalName="with_zfin_xpat" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
+         <Option internalName="id_list_xrefs_filters"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Input external references ID list [Max 500 advised]" internalName="id_list_limit_xrefs" useDefault="true">
         <FilterDescription displayName="Entries with following IDs" displayType="container" internalName="id_list_limit_xrefs_filters" type="id_list" useDefault="true">
-          <Option checkForNulls="true" displayName="VEGA gene ID(s) [e.g. OTTHUMG00000000960]" displayType="text" field="dbprimary_acc_1074" internalName="vega_gene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vega_gene__dm" type="list" useDefault="true">
-          </Option>
-          <Option checkForNulls="true" displayName="VEGA transcript ID(s) [e.g. OTTHUMT00000002842]" displayType="text" field="dbprimary_acc_1074" internalName="vega_transcript_id" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vega_transcript__dm" type="list" useDefault="true">
-          </Option>
-          <Option checkForNulls="true" displayName="VEGA protein ID(s) [e.g. OTTHUMP00000000449]" displayType="text" field="dbprimary_acc_1074" internalName="vega_translation_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_vega_translation__dm" type="list" useDefault="true">
-          </Option>
-          <Option checkForNulls="true" displayName="HGNC ID [e.g. HGNC:32334]" displayType="text" field="dbprimary_acc_1074" internalName="hgnc_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_hgnc__dm" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="HGNC symbol [e.g. FAM138A]" displayType="text" field="display_label_1074" internalName="hgnc_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_hgnc__dm" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="CCDS ID(s) [e.g. CCDS30547]" displayType="text" field="dbprimary_acc_1074" internalName="ccds" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ccds__dm" type="text" useDefault="true">
-          </Option>
-          <Option checkForNulls="true" description="filter to include genes with supplied list of GO ID(s)" displayName="GO ID(s) [e.g. GO:0005515]" displayType="text" field="dbprimary_acc_1074" internalName="go_id" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_go__dm" type="list" useDefault="true">
-          </Option>
-          <Option checkForNulls="true" description="filter to include genes with supplied list of Quick GO ID(s)" displayName="Quick GO ID(s) [e.g. Q8NH21]" displayType="text" field="dbprimary_acc_1074" internalName="quick_go" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_quick_go__dm" type="list" useDefault="true">
-          </Option>
-          <Option checkForNulls="true" displayName="EntrezGene ID(s) [e.g. 79501]" displayType="text" field="dbprimary_acc_1074" internalName="entrezgene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_entrezgene__dm" type="text" useDefault="true">
-          </Option>
-          <Option checkForNulls="true" displayName="Corresponding Ensembl Gene ID(s) [e.g. ENSG00000223972]" displayType="text" field="dbprimary_acc_1074" internalName="ens_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ensg__dm" type="list" useDefault="true">
-          </Option>
-          <Option checkForNulls="true" displayName="Corresponding Ensembl Transcript ID(s) (CDS same) [e.g. ENST00000426406]" displayType="text" field="dbprimary_acc_1074" internalName="enst_cds" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_enst_cds__dm" type="text" useDefault="true">
-          </Option>
-          <Option checkForNulls="true" displayName="Corresponding Ensembl Transcript ID(s) (Identical) [e.g. ENST00000492842]" displayType="text" field="dbprimary_acc_1074" internalName="enst_ident" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_enst_ident__dm" type="text" useDefault="true">
-          </Option>
-          <Option checkForNulls="true" displayName="Corresponding Ensembl Protein ID(s) (Identical) [e.g. ENSDARP00000114683]" displayType="text" field="dbprimary_acc_1074" internalName="ensp_ident" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ensp_ident__dm" type="text" useDefault="true">
-          </Option>
-          <Option checkForNulls="true" displayName="HAVANA ID(s)" displayType="text" field="dbprimary_acc_1074" hidden="true" internalName="havana" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="ox_havana_gene__dm" type="text" useDefault="true"/>
-          <Option checkForNulls="true" displayName="ENA transcript ID [e.g. HG503394]" displayType="text" field="dbprimary_acc_1074" internalName="ena_transcript" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_ena_transcript__dm" type="list" useDefault="true">
-          </Option>
-          <Option checkForNulls="true" displayName="Associated Gene Name [e.g. KRT31]" displayType="text" field="display_label_1074" internalName="external_gene_name" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="MGI ID(s) [e.g. MGI:3528744]" displayType="text" field="dbprimary_acc_1074" internalName="mgi_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mgi__dm" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="MIM gene ID [e.g. 610770]" displayType="text" field="dbprimary_acc_1074" internalName="mim_gene_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mim_gene__dm" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="MGI symbol [e.g. Xkr4]" displayType="text" field="display_label_1074" internalName="mgi_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_mgi__dm" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="IMGT HLA ID(s) [e.g. DRB5_01:01:01]" displayType="text" field="dbprimary_acc_1074" internalName="imgt_hla" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_imgt_hla__dm" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="IMGT Gene ID(s) [e.g. IGKC]" displayType="text" field="dbprimary_acc_1074" internalName="imgt_gene" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_imgtgene_db__dm" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="Pubmed ID(s) [e.g. 11779631]" displayType="text" field="dbprimary_acc_1074" internalName="pubmed" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_pubmed__dm" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="RefSeq DNA ID(s) [e.g. NM_001005484]" displayType="text" field="dbprimary_acc_1074" internalName="refseq_dna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_dna__dm" type="text" useDefault="true">
-          </Option>
-          <Option checkForNulls="true" displayName="RefSeq predicted DNA ID(s) [e.g. XM_212581]" displayType="text" field="dbprimary_acc_1074" internalName="refseq_dna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_dna_predicted__dm" type="text" useDefault="true"/>
-          <Option checkForNulls="true" displayName="RefSeq ncRNA ID(s) [e.g. NR_026818]" displayType="text" field="dbprimary_acc_1074" internalName="refseq_ncrna" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_rna__dm" type="text" useDefault="true"/>
-          <Option checkForNulls="true" displayName="RefSeq predicted ncRNA ID(s) [e.g. XR_041690]" displayType="text" field="dbprimary_acc_1074" internalName="refseq_ncrna_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_rna_predicted__dm" type="text" useDefault="true"/>
-          <Option checkForNulls="true" displayName="RefSeq protein ID(s) [e.g. NP_510870]" displayType="text" field="dbprimary_acc_1074" internalName="refseq_peptide" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_peptide__dm" type="text" useDefault="true"/>
-          <Option checkForNulls="true" displayName="RefSeq predicted protein ID(s) [e.g. XP_006531662]" displayType="text" field="dbprimary_acc_1074" internalName="refseq_peptide_predicted" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_peptide_predicted__dm" type="text" useDefault="true"/>
-          <Option checkForNulls="true" displayName="Refseq Genomic ID(s) [e.g. NG_004423]" displayType="text" field="dbprimary_acc_1074" internalName="refseq_genomic" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_refseq_genomic__dm" type="text" useDefault="true"/>
-          <Option checkForNulls="true" displayName="RGD ID(s) [e.g. 1584979]" displayType="text" field="dbprimary_acc_1074" internalName="rgd_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_rgd__dm" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="RGD symbol [e.g. Arl13b]" displayType="text" field="display_label_1074" internalName="rgd_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_rgd__dm" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="UniProt/Swissprot Accession(s) [e.g. A7WPU8]" displayType="text" field="display_label_1074" internalName="uniprot_swissprot" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_uniprotswissprot__dm" type="list" useDefault="true">
-          </Option>
-          <Option checkForNulls="true" displayName="ZFIN ID(s) [e.g. ZDB-GENE-121214-212]" displayType="text" field="dbprimary_acc_1074" internalName="zfin_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_zfin_id__dm" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="ZFIN symbol(s) [e.g. si:ch1073-411k23.1]" displayType="text" field="display_label_1074" internalName="zfin_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_zfin_id__dm" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="ZFIN xpat ID(s) [e.g. ZDB-GENE-010814-1]" displayType="text" field="dbprimary_acc_1074" internalName="zfin_xpat_id" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_zfin_xpat__dm" type="list" useDefault="true"/>
-          <Option checkForNulls="true" displayName="ZFIN xpat symbol(s) [e.g. f7]" displayType="text" field="display_label_1074" internalName="zfin_xpat_symbol" isSelectable="true" key="gene_id_1020_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="ox_zfin_xpat__dm" type="list" useDefault="true"/>
+          <Option internalName="id_list_limit_xrefs_filters"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Transcript count &gt;=" internalName="transcript_count_filter" useDefault="true">
-        <FilterDescription description="Limit to genes within given Transcript Count range" displayName="Transcript count &gt;=" displayType="text" field="transcript_count" internalName="transcript_count" key="gene_id_1020_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="main" type="text" useDefault="true"/>
+      <FilterCollection displayName="Transcript count &gt;=" internalName="transcript_count_greater_than_filter" useDefault="true">
+        <FilterDescription description="Limit to genes within given Transcript Count range" displayName="Transcript count &gt;=" displayType="text" field="transcript_count" internalName="transcript_count_greater_than" key="gene_id_1020_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
+      <FilterCollection displayName="Transcript count &lt;=" internalName="transcript_count_less_than_filter" useDefault="true">
+        <FilterDescription description="Limit to genes within given Transcript Count range" displayName="Transcript count &lt;=" displayType="text" field="transcript_count" internalName="transcript_count_less_than" key="gene_id_1020_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="main" type="text" useDefault="true"/>
+        </FilterCollection>
       <FilterCollection displayName="Entries with a 5' UTR" internalName="5utr_collection" useDefault="true">
         <FilterDescription description="Limit to entries with 5&amp;quot; UTR only, or excluded" displayName="Entries with a 5' UTR" displayType="list" field="has_5utr_bool" internalName="with_5utr" key="gene_id_1020_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
           <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
@@ -351,69 +178,13 @@
     </FilterGroup>
     <FilterGroup description="Filter on Protein data" displayName="PROTEIN DOMAINS:" internalName="protein" useDefault="true">
       <FilterCollection displayName="Limit to genes ..." internalName="family_domain_id" useDefault="true">
-        <FilterDescription displayType="container" internalName="protein_fam_id_bools" type="boolean_list" useDefault="true">
-          <Option displayName="with InterPro ID(s)" displayType="list" field="interpro_bool" internalName="with_interpro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Pfam ID(s)" displayType="list" field="protein_feature_pfam_bool" internalName="with_pfam" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with pfscan ID(s)" displayType="list" field="protein_feature_pfscan_bool" internalName="with_profile" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with PIRSF ID(s)" displayType="list" field="protein_feature_pirsf_bool" internalName="with_pirsf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with PRINTS ID(s)" displayType="list" field="protein_feature_prints_bool" internalName="with_prints" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with SMART ID(s)" displayType="list" field="protein_feature_smart_bool" internalName="with_smart" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with SUPERFAMILY ID(s)" displayType="list" field="protein_feature_superfamily_bool" internalName="with_superfamily" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with TIGRFAM ID(s)" displayType="list" field="protein_feature_tigrfam_bool" internalName="with_tigrfam" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with coiled coil (ncoils)" displayType="list" field="protein_feature_ncoils_bool" internalName="with_coil" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with low complexity (SEG)" displayType="list" field="protein_feature_seg_bool" internalName="with_low_complexity" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with signal peptide" displayType="list" field="protein_feature_signalp_bool" internalName="with_signalp" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
-          <Option displayName="with Transmembrane domain (tmhmm)" displayType="list" field="protein_feature_tmhmm_bool" internalName="with_tmhmm" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
+        <FilterDescription displayType="container" internalName="id_list_protein_domain_and_feature_filters" type="boolean_list" useDefault="true">
+          <SpecificFilterContent internalName="id_list_protein_domain_and_feature_filters"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection description="Limit to genes with these family or domain IDs:" displayName="Limit to genes with these family or domain IDs [Max 500 advised]" internalName="family_domain_id_list" useDefault="true">
-        <FilterDescription displayName="Entries with following ID(s)" displayType="container" internalName="family_domain_id_list_filters" type="id_list" useDefault="true">
-          <Option description="Filter for Genes mapped to a list of Interpro ID(s)" displayName="InterPro ID(s) [e.g. IPR000276]" displayType="text" field="interpro_ac_1026" internalName="interpro" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="interpro__dm" type="text" useDefault="true"/>
-          <Option description="Filter for Genes mapped to a list of pfscan ID(s)" displayName="pfscan ID(s) [e.g. PS50262]" displayType="text" field="hit_name_1048" internalName="profile" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_pfscan__dm" type="list" useDefault="true"/>
-          <Option description="Filter for Genes mapped to a list of PRINTS ID(s)" displayName="PRINTS ID(s) [e.g. PR00245]" displayType="text" field="hit_name_1048" internalName="prints" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_prints__dm" type="list" useDefault="true"/>
-          <Option description="Filter for Genes mapped to a list of Pfam ID(s)" displayName="Pfam ID(s) [e.g. PF00001]" displayType="text" field="hit_name_1048" internalName="pfam" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_pfam__dm" type="list" useDefault="true"/>
-          <Option description="Filter for Genes mapped to a list of Prosite ID(s)" displayName="PROSITE ID(s) [e.g. PS00237]" displayType="text" field="hit_name_1048" hidden="true" internalName="prosite" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_scanprosite__dm" type="list" useDefault="true"/>
-          <Option description="Filter for Genes mapped to a list of PIRSF ID(s)" displayName="PIRSF ID(s) [e.g. PIRSF037653]" displayType="text" field="hit_name_1048" internalName="pirsf" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_pirsf__dm" type="list" useDefault="true"/>
-          <Option description="Filter for Genes mapped to a list of SMART ID(s)" displayName="SMART ID(s) [e.g. SM00398]" displayType="text" field="hit_name_1048" internalName="smart" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_smart__dm" type="list" useDefault="true"/>
-          <Option description="Filter for Genes mapped to a list of SUPERFAMILY ID(s)" displayName="SUPERFAMILY ID(s) [e.g. SSF47095]" displayType="text" field="hit_name_1048" internalName="superfamily" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_superfamily__dm" type="list" useDefault="true"/>
-          <Option description="Filter for Genes mapped to a list of TIGRFAM ID(s)" displayName="TIGRFAM ID(s) [e.g. TIGR00172]" displayType="text" field="hit_name_1048" internalName="tigrfam" isSelectable="true" key="translation_id_1068_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="protein_feature_tigrfam__dm" type="list" useDefault="true"/>
-          <Option description="Filter for Genes having mapped to a list of Vega family ID(s)" displayName="Vega Family ID(s)" displayType="text" field="family" hidden="true" internalName="vega_family" isSelectable="true" key="transcript_id_1064_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true"/>
+        <FilterDescription displayName="Entries with following ID(s)" displayType="container" internalName="id_list_limit_protein_domain_filters" type="id_list" useDefault="true">
+         <SpecificFilterContent internalName="id_list_limit_protein_domain_filters"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
@@ -421,10 +192,11 @@
   <AttributePage description="General Gene Features" displayName="Features" internalName="feature_page" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls" useDefault="true">
     <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene" useDefault="true">
       <AttributeCollection description="Vega Annotated Attributes and Features" displayName="Vega" internalName="vega_attributes" useDefault="true">
-        <AttributeDescription default="true" description="Vega Stable ID of the Gene" displayName="VEGA gene ID" field="stable_id_1023" hidden="false" internalName="vega_gene_id" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=vega;g=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription default="true" description="Vega Stable ID of the Transcript" displayName="VEGA transcript ID" field="stable_id_1066" internalName="vega_transcript_id" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=vega;t=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="VEGA protein ID" field="stable_id_1070" internalName="vega_translation_id" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/ProteinSummary?db=vega;peptide=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" description="Stable ID of the Gene" displayName="Gene ID" field="stable_id_1023" hidden="false" internalName="vega_gene_id" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=vega;g=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" description="Stable ID of the Transcript" displayName="Transcript ID" field="stable_id_1066" internalName="vega_transcript_id" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=vega;t=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Protein ID" field="stable_id_1070" internalName="vega_peptide_id" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/ProteinSummary?db=vega;peptide=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Canonical transcript stable ID" field="stable_id_1066_clash" hidden="false" internalName="canonical_transcript_stable_id" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=vega;t=%s" maxLength="128" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Exon ID" field="stable_id_1016" hidden="false" internalName="vega_exon_id" key="transcript_id_1064_key" maxLength="128" tableConstraint="exon_transcript__dm" useDefault="true"/>
         <AttributeDescription displayName="Description" field="description_1020" internalName="description" key="gene_id_1020_key" maxLength="550" tableConstraint="main" useDefault="true"/>
         <AttributeDescription description="Chromosome Name" displayName="Chromosome Name" field="name_1059" internalName="chromosome_name" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/contigview?chr=%s" maxLength="12" tableConstraint="main" useDefault="true"/>
         <AttributeDescription description="Start Coordinate of the gene in chromosomal coordinates." displayName="Gene Start (bp)" field="seq_region_start_1020" hidden="false" internalName="start_position" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Location/View?db=vega;r=%s:%s-%s|chromosome_name|start_position|end_position" maxLength="10" tableConstraint="main" useDefault="true"/>
@@ -450,40 +222,8 @@
       </AttributeCollection>
     </AttributeGroup>
     <AttributeGroup displayName="EXTERNAL:" internalName="external" useDefault="true">
-      <AttributeCollection description="Information from external database sources." displayName="External References" internalName="xref" maxSelect="3" useDefault="true">
-        <AttributeDescription displayName="GO ID" field="dbprimary_acc_1074" hidden="false" internalName="go_id" key="translation_id_1068_key" linkoutURL="exturl|http://amigo.geneontology.org/amigo/term/%s" maxLength="40" tableConstraint="ox_go__dm" useDefault="true"/>
-        <AttributeDescription displayName="Quick GO ID" field="dbprimary_acc_1074" internalName="quick_go" key="translation_id_1068_key" linkoutURL="exturl|http://www.ebi.ac.uk/QuickGO/GProtein?ac=%s" maxLength="40" tableConstraint="ox_quick_go__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="CCDS ID" field="dbprimary_acc_1074" internalName="ccds" key="translation_id_1068_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/CCDS/CcdsBrowse.cgi?REQUEST=CCDS&amp;DATA=%s" maxLength="40" tableConstraint="ox_ccds__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="Corresponding Ensembl Gene ID(s)" field="dbprimary_acc_1074" internalName="ens_gene" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?g=%s" maxLength="40" tableConstraint="ox_ensg__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="Corresponding Ensembl Transcript ID(s) (CDS same)" field="dbprimary_acc_1074" internalName="enst_cds" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Gene/Summary?t=%s" maxLength="40" tableConstraint="ox_enst_cds__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="Corresponding Ensembl Transcript ID(s) (Identical)" field="dbprimary_acc_1074" internalName="enst_ident" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Gene/Summary?t=%s" maxLength="40" tableConstraint="ox_enst_ident__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="Corresponding Ensembl Protein ID(s) (Identical)" field="dbprimary_acc_1074" internalName="ensp_ident" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/ProteinSummary?p=%s" maxLength="40" tableConstraint="ox_ensp_ident__dm" useDefault="true"/>
-        <AttributeDescription displayName="ENA transcript ID" field="dbprimary_acc_1074" internalName="ena_transcript" key="transcript_id_1064_key" linkoutURL="exturl|http://www.ebi.ac.uk/ena/data/view/%s" maxLength="40" tableConstraint="ox_ena_transcript__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="EntrezGene ID" field="dbprimary_acc_1074" internalName="entrezgene" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/gene?cmd=Retrieve&amp;dopt=Graphics&amp;list_uids=%s" maxLength="40" tableConstraint="ox_entrezgene__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="HGNC ID" field="dbprimary_acc_1074" internalName="hgnc_id" key="gene_id_1020_key" linkoutURL="exturl|http://www.genenames.org/cgi-bin/gene_symbol_report?hgnc_id=%s" maxLength="40" tableConstraint="ox_hgnc__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="HGNC symbol" field="display_label_1074" internalName="hgnc_symbol" key="gene_id_1020_key" linkoutURL="exturl|http://www.genenames.org/cgi-bin/gene_symbol_report?match=%s" maxLength="40" tableConstraint="ox_hgnc__dm" useDefault="true"/>
-        <AttributeDescription displayName="IMGT" field="dbprimary_acc_1074" hidden="true" internalName="imgt" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_imgt__dm" useDefault="true"/>
-        <AttributeDescription displayName="IMGT HLA" field="dbprimary_acc_1074" internalName="imgt_hla" key="gene_id_1020_key" linkoutURL="exturl|http://www.ebi.ac.uk/cgi-bin/ipd/imgt/hla/get_allele.cgi?%s" maxLength="40" tableConstraint="ox_imgt_hla__dm" useDefault="true"/>
-        <AttributeDescription displayName="IMGT Gene" field="dbprimary_acc_1074" internalName="imgt_gene" key="gene_id_1020_key" maxLength="40" tableConstraint="ox_imgtgene_db__dm" useDefault="true"/>
-        <AttributeDescription displayName="Pubmed ID" field="dbprimary_acc_1074" internalName="pubmed" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/pubmed/%s" maxLength="40" tableConstraint="ox_pubmed__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="MGI ID" field="dbprimary_acc_1074" internalName="mgi_id" key="gene_id_1020_key" linkoutURL="exturl|http://www.informatics.jax.org/javawi2/servlet/WIFetch?page=markerDetail&amp;id=%s" maxLength="40" tableConstraint="ox_mgi__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="MGI symbol" field="display_label_1074" internalName="mgi_symbol" key="gene_id_1020_key" linkoutURL="exturl|http://www.informatics.jax.org/javawi2/servlet/WIFetch?page=markerDetail&amp;id=%s|mgi_id" maxLength="40" tableConstraint="ox_mgi__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="RefSeq DNA [e.g. NM_001005484]" field="dbprimary_acc_1074" internalName="refseq_dna" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="40" tableConstraint="ox_refseq_dna__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="RefSeq predicted DNA [e.g. XM_003119800]" field="dbprimary_acc_1074" internalName="refseq_dna_predicted" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="40" tableConstraint="ox_refseq_dna_predicted__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="RefSeq ncRNA [e.g. NR_026818]" field="dbprimary_acc_1074" internalName="refseq_ncrna" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="40" tableConstraint="ox_refseq_rna__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="RefSeq predicted ncRNA [e.g. XR_110512]" field="dbprimary_acc_1074" internalName="refseq_ncrna_predicted" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="40" tableConstraint="ox_refseq_rna_predicted__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="RefSeq protein [e.g. NP_510870]" field="dbprimary_acc_1074" internalName="refseq_peptide" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/protein/%s" maxLength="40" tableConstraint="ox_refseq_peptide__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="RefSeq predicted protein  [e.g. XP_001471800]" field="dbprimary_acc_1074" internalName="refseq_peptide_predicted" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/protein/%s" maxLength="40" tableConstraint="ox_refseq_peptide_predicted__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="RefSeq Genomic ID" field="dbprimary_acc_1074" internalName="refseq_genomic" key="gene_id_1020_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="40" tableConstraint="ox_refseq_genomic__dm" useDefault="true"/>
-        <AttributeDescription displayName="RGD ID(s)" field="dbprimary_acc_1074" internalName="rgd_id" key="gene_id_1020_key" linkoutURL="exturl|http://rgd.mcw.edu/rgdweb/report/gene/main.html?id=%s" maxLength="40" tableConstraint="ox_rgd__dm" useDefault="true"/>
-        <AttributeDescription displayName="RGD symbol" field="display_label_1074" internalName="rgd_symbol" key="gene_id_1020_key" linkoutURL="exturl|http://rgd.mcw.edu/rgdweb/search/genes.html?term=%s" maxLength="128" tableConstraint="ox_rgd__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="MIM Gene ID" field="dbprimary_acc_1074" internalName="mim_gene_id" key="gene_id_1020_key" linkoutURL="exturl|http://omim.org/entry/%s" maxLength="40" tableConstraint="ox_mim_gene__dm" useDefault="true"/>
-        <AttributeDescription checkForNulls="true" displayName="UniProt/SwissProt Accession" field="dbprimary_acc_1074" internalName="uniprot_swissprot" key="translation_id_1068_key" linkoutURL="exturl|http://www.uniprot.org/uniprot/%s" maxLength="40" tableConstraint="ox_uniprotswissprot__dm" useDefault="true">
-        </AttributeDescription>
-        <AttributeDescription displayName="ZFIN ID(s)" field="dbprimary_acc_1074" internalName="zfin_id" key="gene_id_1020_key" linkoutURL="exturl|http://zfin.org/action/marker/view/%s" maxLength="40" tableConstraint="ox_zfin_id__dm" useDefault="true"/>
-        <AttributeDescription displayName="ZFIN symbol(s)" field="display_label_1074" internalName="zfin_symbol" key="gene_id_1020_key" linkoutURL="exturl|http://zfin.org/action/marker/view/%s|zfin_id" maxLength="40" tableConstraint="ox_zfin_id__dm" useDefault="true"/>
-        <AttributeDescription displayName="ZFIN xpat ID(s)" field="dbprimary_acc_1074" internalName="zfin_xpat_id" key="gene_id_1020_key" linkoutURL="exturl|http://zfin.org/action/marker/view/%s" maxLength="40" tableConstraint="ox_zfin_xpat__dm" useDefault="true"/>
-        <AttributeDescription displayName="ZFIN xpat symbol" field="display_label_1074" internalName="zfin_xpat_symbol" key="gene_id_1020_key" linkoutURL="exturl|http://zfin.org/cgi-bin/webdriver?MIval=aa-xpatselect.apg&amp;query_results=true&amp;xpatsel_geneZdbId=%s|zfin_xpat_id" maxLength="128" tableConstraint="ox_zfin_xpat__dm" useDefault="true"/>
+      <AttributeCollection description="Information from external database sources." displayName="External References" internalName="xrefs" maxSelect="3" useDefault="true">
+        <Option internalName="xrefs"/>
       </AttributeCollection>
     </AttributeGroup>
     <AttributeGroup description="Data for proteins associated with Genes." displayName="PROTEIN DOMAINS:" internalName="protein" useDefault="true">
@@ -498,42 +238,11 @@
         <AttributeDescription displayName="Family Description" field="family_description" hidden="true" internalName="family_description" key="transcript_id_1064_key" maxLength="230" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Ensembl Family ID" field="family" hidden="true" internalName="family" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/familyview?family=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Domains" internalName="prot_domain" useDefault="true">
-        <AttributeDescription displayName="pfscan ID" field="hit_name_1048" hidden="false" internalName="profile" key="translation_id_1068_key" linkoutURL="exturl|http://prosite.expasy.org/%s" maxLength="40" tableConstraint="protein_feature_pfscan__dm" useDefault="true"/>
-        <AttributeDescription displayName="Pfscan start" field="seq_start_1048" internalName="profile_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_pfscan__dm" useDefault="true"/>
-        <AttributeDescription displayName="Pfscan end" field="seq_end_1048" internalName="profile_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_pfscan__dm" useDefault="true"/>
-        <AttributeDescription displayName="PRINTS ID" field="hit_name_1048" hidden="false" internalName="prints" key="translation_id_1068_key" linkoutURL="exturl|http://www.bioinf.manchester.ac.uk/cgi-bin/dbbrowser/sprint/searchprintss.cgi?display_opts=Prints&amp;category=None&amp;queryform=false&amp;prints_accn=%s" maxLength="40" tableConstraint="protein_feature_prints__dm" useDefault="true"/>
-        <AttributeDescription displayName="PRINTS start" field="seq_start_1048" internalName="prints_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_prints__dm" useDefault="true"/>
-        <AttributeDescription displayName="PRINTS end" field="seq_end_1048" internalName="prints_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_prints__dm" useDefault="true"/>
-        <AttributeDescription displayName="Pfam ID" field="hit_name_1048" hidden="false" internalName="pfam" key="translation_id_1068_key" linkoutURL="exturl|http://pfam.xfam.org/family/%s" maxLength="40" tableConstraint="protein_feature_pfam__dm" useDefault="true"/>
-        <AttributeDescription displayName="Pfam start" field="seq_start_1048" internalName="pfam_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_pfam__dm" useDefault="true"/>
-        <AttributeDescription displayName="Pfam end" field="seq_end_1048" internalName="pfam_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_pfam__dm" useDefault="true"/>
-        <AttributeDescription displayName="PIRSF ID" field="hit_name_1048" hidden="false" internalName="pirsf" key="translation_id_1068_key" linkoutURL="exturl|http://pir.georgetown.edu/cgi-bin/ipcSF?id=%s" maxLength="40" tableConstraint="protein_feature_pirsf__dm" useDefault="true"/>
-        <AttributeDescription displayName="PIRSF start" field="seq_start_1048" internalName="pirsf_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_pirsf__dm" useDefault="true"/>
-        <AttributeDescription displayName="PIRSF end" field="seq_end_1048" internalName="pirsf_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_pirsf__dm" useDefault="true"/>
-        <AttributeDescription displayName="SMART ID" field="hit_name_1048" hidden="false" internalName="smart" key="translation_id_1068_key" linkoutURL="exturl|http://smart.embl.de/smart/do_annotation.pl?DOMAIN=%s" maxLength="40" tableConstraint="protein_feature_smart__dm" useDefault="true"/>
-        <AttributeDescription displayName="SMART start" field="seq_start_1048" internalName="smart_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_smart__dm" useDefault="true"/>
-        <AttributeDescription displayName="SMART end" field="seq_end_1048" internalName="smart_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_smart__dm" useDefault="true"/>
-        <AttributeDescription displayName="SUPERFAMILY ID" field="hit_name_1048" hidden="false" internalName="superfamily" key="translation_id_1068_key" linkoutURL="exturl|http://supfam.cs.bris.ac.uk/SUPERFAMILY/cgi-bin/scop.cgi?ipid=%s" maxLength="40" tableConstraint="protein_feature_superfamily__dm" useDefault="true"/>
-        <AttributeDescription displayName="SUPERFAMILY start" field="seq_start_1048" internalName="superfamily_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_superfamily__dm" useDefault="true"/>
-        <AttributeDescription displayName="SUPERFAMILY end" field="seq_end_1048" internalName="superfamily_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_superfamily__dm" useDefault="true"/>
-        <AttributeDescription displayName="TIGRFAM ID" field="hit_name_1048" hidden="false" internalName="tigrfam" key="translation_id_1068_key" linkoutURL="exturl|http://www.ebi.ac.uk/interpro/signature/%s" maxLength="40" tableConstraint="protein_feature_tigrfam__dm" useDefault="true"/>
-        <AttributeDescription displayName="TIGRFAM start" field="seq_start_1048" internalName="tigrfam_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_tigrfam__dm" useDefault="true"/>
-        <AttributeDescription displayName="TIGRFAM end" field="seq_end_1048" internalName="tigrfam_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_tigrfam__dm" useDefault="true"/>
+      <AttributeCollection displayName="Domains" internalName="protein_domain" useDefault="true">
+        <Option internalName="protein_domain"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Transmembrane and Domain Attributes" hidden="false" internalName="tm_and_signal" useDefault="true">
-        <AttributeDescription displayName="Transmembrane domain (tmhmm)" field="hit_name_1048" hidden="false" internalName="transmembrane_domain" key="translation_id_1068_key" tableConstraint="protein_feature_tmhmm__dm" useDefault="true"/>
-        <AttributeDescription displayName="Transmembrane domain (tmhmm) start" field="seq_start_1048" internalName="transmembrane_domain_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_tmhmm__dm" useDefault="true"/>
-        <AttributeDescription displayName="Transmembrane domain (tmhmm) end" field="seq_end_1048" internalName="transmembrane_domain_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_tmhmm__dm" useDefault="true"/>
-        <AttributeDescription displayName="signal peptide domain" field="hit_name_1048" hidden="false" internalName="signal_domain" key="translation_id_1068_key" tableConstraint="protein_feature_signalp__dm" useDefault="true"/>
-        <AttributeDescription displayName="signal peptide start" field="seq_start_1048" internalName="signal_domain_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_signalp__dm" useDefault="true"/>
-        <AttributeDescription displayName="signal peptide end" field="seq_end_1048" internalName="signal_domain_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_signalp__dm" useDefault="true"/>
-        <AttributeDescription displayName="coiled coil (ncoils)" field="hit_name_1048" hidden="false" internalName="ncoils" key="translation_id_1068_key" tableConstraint="protein_feature_ncoils__dm" useDefault="true"/>
-        <AttributeDescription displayName="coiled coil (ncoils) start" field="seq_start_1048" internalName="ncoils_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_ncoils__dm" useDefault="true"/>
-        <AttributeDescription displayName="coiled coil (ncoils) end" field="seq_end_1048" internalName="ncoils_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_ncoils__dm" useDefault="true"/>
-        <AttributeDescription displayName="low complexity (SEG)" field="hit_name_1048" hidden="false" internalName="Low_complexity" key="translation_id_1068_key" maxLength="40" tableConstraint="protein_feature_seg__dm" useDefault="true"/>
-        <AttributeDescription displayName="low complexity (SEG) start" field="seq_start_1048" internalName="Low_complexity_start" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_seg__dm" useDefault="true"/>
-        <AttributeDescription displayName="low complexity (SEG) end" field="seq_end_1048" internalName="Low_complexity_end" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/Domains?db=vega;t=%s|vega_transcript_id" maxLength="10" tableConstraint="protein_feature_seg__dm" useDefault="true"/>
+      <AttributeCollection displayName="Transmembrane and Domain Attributes" hidden="false" internalName="protein_feature" useDefault="true">
+       <Option internalName="protein_feature"/>
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
@@ -625,6 +334,7 @@
       <AttributeCollection hideDisplay="true" internalName="link_attributes" useDefault="true">
         <AttributeDescription displayName="Dbprimary acc" field="dbprimary_acc_1074_dup" hidden="true" hideDisplay="true" internalName="go" key="translation_id_1068_key" maxLength="40" tableConstraint="ox_go__dm" useDefault="true"/>
         <AttributeDescription displayName="seq_edits" field="value_1069" hidden="false" hideDisplay="true" internalName="seq_edits" key="translation_id_1068_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="rna_seq_edits" field="value_1065" hideDisplay="true" internalName="rna_seq_edits" key="transcript_id_1064_key" maxLength="255" tableConstraint="main"/>
         <AttributeDescription displayName="codon_table_id" field="value_1060" hidden="false" hideDisplay="true" internalName="codon_table_id" key="transcript_id_1064_key" maxLength="10" tableConstraint="exon_transcript__dm" useDefault="true"/>
         <AttributeDescription displayName="End exon id" field="end_exon_id_1068" hidden="false" hideDisplay="true" internalName="end_exon_id" key="translation_id_1068_key" maxLength="10" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Start exon id" field="start_exon_id_1068" hidden="false" hideDisplay="true" internalName="start_exon_id" key="translation_id_1068_key" maxLength="10" tableConstraint="main" useDefault="true"/>
