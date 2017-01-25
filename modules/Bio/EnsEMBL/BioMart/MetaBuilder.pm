@@ -218,7 +218,7 @@ sub process_dataset {
   # Hardcoded list of Xrefs using the dbprimary_acc_1074 columns or using both dbprimary_acc_1074 and display_label_1074
   # Each column as an associated name that will be use for filter/attribute name
   my $exception_xrefs = {
-    hgnc => { columns => { dbprimary_acc_1074 => "ID",  display_label_1074 => "symbol"}, remove => " Symbol"},
+    hgnc => { columns => { dbprimary_acc_1074 => "ID",  display_label_1074 => "symbol"}},
     mirbase => { columns => { dbprimary_acc_1074 => "accession", display_label_1074 => "ID"}},
     mim_gene => {columns => { dbprimary_acc_1074 => "accession", description_1074 => "description"}},
     mim_morbid => {columns => { dbprimary_acc_1074 => "accession", description_1074 => "description"}},
@@ -636,12 +636,10 @@ sub write_filters {
                         # E.g: MIM gene description(s) [e.g. RING1- AND YY1-BINDING PROTEIN; RYBP;;YY1- AND E4TF1/GABP-ASSOCIATED FACTOR 1; YEAF1]
                         # or MIM morbid description(s) [e.g. MONOCARBOXYLATE TRANSPORTER 1 DEFICIENCY; MCT1D]
 
-                        #Remove from display name string whatever has been defined in exception_xrefs hash remove key
+                        #Remove from display name string whatever has been defined in the regex below.
+                        # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
                         my $xref_display_name = $xref->[1];
-                        if (exists $exception_xrefs->{$xref->[0]}->{remove})
-                        {
-                          $xref_display_name =~ s/$exception_xrefs->{$xref->[0]}->{remove}//;
-                        }
+                        $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
                         next if ($field eq "description_1074");
                         my $example = $self->get_example($table,$field);
                         push @{ $fdo->{Option} }, {
@@ -661,12 +659,16 @@ sub write_filters {
                       }
                     }
                     else {
+                      #Remove from display name string whatever has been defined in the regex below.
+                      # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
+                      my $xref_display_name = $xref->[1];
+                      $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
                       #Use display_label_1074 column for all the other xrefs
                       my $field = "display_label_1074";
                       # add in if the column exists
                       my $example = $self->get_example($table,$field);
                       push @{ $fdo->{Option} }, {
-                        displayName  => "$xref->[1] ID(s) [e.g. $example]",
+                        displayName  => "$xref_display_name ID(s) [e.g. $example]",
                         displayType  => "text",
                         description  => "Filter to include genes with supplied list of $xref->[1] ID(s)",
                         field        => $field,
@@ -687,31 +689,37 @@ sub write_filters {
             $nD++;
           } ## end elsif ( $fdo->{internalName...})
           elsif ( $fdo->{internalName} eq 'id_list_microarray_filters' ) {
-            $logger->info(
+            if ( !defined $probe_list) {
+              $self->{delete}{$dataset->{name}."_".$fco->{internalName}}=1;
+              $logger->info(
+                            "No data for $fdo->{internalName}, removing it from the template");
+            }
+            else {
+              $logger->info(
                             "Generating data for $fdo->{internalName}");
-              foreach my $probe (@{ $probe_list }) {
-                my $field = "efg_".lc($probe->[1])."_bool";
-                my $table = $ds_name."__efg_".lc($probe->[1])."__dm";
-                if ( defined $self->{tables}->{$table} ) {
-                  my $key = "transcript_id_1064_key";
-                  if ( defined $self->{tables}->{$table}->{$key} ) {
-                    my $display_name=$probe->[1];
-                    $display_name =~ s/_/ /g;
-                    # add in if the column exists
-                    push @{ $fdo->{Option} }, {
-                      displayName  => "With $display_name",
-                      displayType  => "list",
-                      field        => $field,
-                      hidden       => "false",
-                      internalName => "with_".lc($probe->[1]),
-                      isSelectable => "true",
-                      key          => $key,
-                      legal_qualifiers => "only,excluded",
-                      qualifier        => "only",
-                      style            => "radio",
-                      tableConstraint  => "main",
-                      type             => "boolean",
-                      Option           => [ {
+                foreach my $probe (@{ $probe_list }) {
+                  my $field = "efg_".lc($probe->[1])."_bool";
+                  my $table = $ds_name."__efg_".lc($probe->[1])."__dm";
+                  if ( defined $self->{tables}->{$table} ) {
+                    my $key = "transcript_id_1064_key";
+                    if ( defined $self->{tables}->{$table}->{$key} ) {
+                      my $display_name=$probe->[1];
+                      $display_name =~ s/_/ /g;
+                      # add in if the column exists
+                      push @{ $fdo->{Option} }, {
+                        displayName  => "With $display_name",
+                        displayType  => "list",
+                        field        => $field,
+                        hidden       => "false",
+                        internalName => "with_".lc($probe->[1]),
+                        isSelectable => "true",
+                        key          => $key,
+                        legal_qualifiers => "only,excluded",
+                        qualifier        => "only",
+                        style            => "radio",
+                        tableConstraint  => "main",
+                        type             => "boolean",
+                        Option           => [ {
                                   displayName  => "Only",
                                   hidden       => "false",
                                   internalName => "only",
@@ -723,39 +731,48 @@ sub write_filters {
                   }
                 }
               } ## end if ( defined $self->{tables...})
+            }
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
           } ## end elsif ( $fdo->{internalName...})
           elsif ( $fdo->{internalName} eq 'id_list_limit_microarray_filters' ) {
-            $logger->info(
+            #Checking if we have any probes for this species
+            if ( !defined $probe_list) {
+              $self->{delete}{$dataset->{name}."_".$fco->{internalName}}=1;
+              $logger->info(
+                            "No data for $fdo->{internalName}, removing it from the template");
+              }
+            else {
+              $logger->info(
                             "Generating data for $fdo->{internalName}");
-              foreach my $probe (@{ $probe_list }) {
-                my $field = "display_label_11056";
-                my $table = $ds_name."__efg_".lc($probe->[1])."__dm";
-                if ( defined $self->{tables}->{$table} ) {
-                  my $key = "transcript_id_1064_key";
-                  if ( defined $self->{tables}->{$table}->{$key} ) {
-                    my $display_name=$probe->[1];
-                    $display_name =~ s/_/ /g;
-                    my $example = $self->get_example($table,$field);
-                    # add in if the column exists
-                    push @{ $fdo->{Option} }, {
-                      displayName  => "$display_name probe ID(s) [e.g. $example]",
-                      displayType  => "text",
-                      description  => "Filter to include genes with supplied list of $display_name ID(s)",
-                      field        => $field,
-                      hidden       => "false",
-                      internalName => lc($probe->[1]),
-                      isSelectable => "true",
-                      key          => $key,
-                      legal_qualifiers => "=,in",
-                      multipleValues   => "1",
-                      qualifier        => "=",
-                      tableConstraint  => $table,
-                      type             => "List" };
+                foreach my $probe (@{ $probe_list }) {
+                  my $field = "display_label_11056";
+                  my $table = $ds_name."__efg_".lc($probe->[1])."__dm";
+                  if ( defined $self->{tables}->{$table} ) {
+                    my $key = "transcript_id_1064_key";
+                    if ( defined $self->{tables}->{$table}->{$key} ) {
+                      my $display_name=$probe->[1];
+                      $display_name =~ s/_/ /g;
+                      my $example = $self->get_example($table,$field);
+                      # add in if the column exists
+                      push @{ $fdo->{Option} }, {
+                        displayName  => "$display_name probe ID(s) [e.g. $example]",
+                        displayType  => "text",
+                        description  => "Filter to include genes with supplied list of $display_name ID(s)",
+                        field        => $field,
+                        hidden       => "false",
+                        internalName => lc($probe->[1]),
+                        isSelectable => "true",
+                        key          => $key,
+                        legal_qualifiers => "=,in",
+                        multipleValues   => "1",
+                        qualifier        => "=",
+                        tableConstraint  => $table,
+                        type             => "List" };
                   }
                 }
               } ## end if ( defined $self->{tables...})
+            }
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
           } ## end elsif ( $fdo->{internalName...})
@@ -1555,12 +1572,10 @@ sub write_attributes {
                       {
                         $url=$url."|".$xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{columns}->{"dbprimary_acc_1074"})
                       }
-                      #Remove from display name string whatever has been defined in exception_xrefs hash remove key
+                      #Remove from display name string whatever has been defined in the regex below.
+                      # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
                       my $xref_display_name = $xref->[1];
-                      if (exists $exception_xrefs->{$xref->[0]}->{remove})
-                      {
-                        $xref_display_name =~ s/$exception_xrefs->{$xref->[0]}->{remove}//;
-                      }
+                      $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
                       push @{ $aco->{AttributeDescription} }, {
                         key             => $key,
                         displayName     => "$xref_display_name $exception_xrefs->{$xref->[0]}->{columns}->{$field}",
@@ -1574,10 +1589,14 @@ sub write_attributes {
                     }
                   # All the other xrefs
                   else {
+                    #Remove from display name string whatever has been defined in the regex below.
+                    # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
+                    my $xref_display_name = $xref->[1];
+                    $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
                     my $field = "display_label_1074";
                     push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
-                      displayName     => "$xref->[1] ID",
+                      displayName     => "$xref_display_name ID",
                       field           => $field,
                       internalName    => "$xref->[0]",
                       linkoutURL      => $url,
