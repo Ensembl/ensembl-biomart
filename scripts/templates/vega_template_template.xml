@@ -219,6 +219,8 @@
         <AttributeDescription displayName="Source" field="source_1020" internalName="source" key="gene_id_1020_key" maxLength="20" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Status (gene)" field="status_1020" internalName="status" key="gene_id_1020_key" maxLength="9" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Status (transcript)" field="status_1064" internalName="transcript_status" key="transcript_id_1064_key" maxLength="19" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Version (gene)" field="version_1020" internalName="version" key="gene_id_1020_key" maxLength="5" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Version (transcript)" field="version_1064" internalName="transcript_version" key="transcript_id_1064_key" maxLength="5" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
     </AttributeGroup>
     <AttributeGroup displayName="EXTERNAL:" internalName="external" useDefault="true">
