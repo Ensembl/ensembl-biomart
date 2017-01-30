@@ -51,7 +51,8 @@ sub default_options {
            'division' => '',
            'registry'      => $self->o('registry'),
            'genomic_features_mart' => '',
-           'max_dropdown' => '256',};
+           'max_dropdown' => '256',
+           'tables_dir' => $self->o('base_dir').'/gene_mart/tables'};
 }
 
 =head2 pipeline_wide_parameters
@@ -105,7 +106,7 @@ sub pipeline_analyses {
                        'registry' => $self->o('registry'), },
         -input_ids => [ {} ],
         -flow_into => { 1 => [ 'calculate_sequence', 'add_compara',
-                             'add_xrefs',          'add_slims' ],
+                             'add_xrefs', 'add_slims', 'AddExtraMartIndexesGene', 'AddExtraMartIndexesTranscript', 'AddExtraMartIndexesTranslation' ],
                       2 => ['tidy_tables','optimize','generate_meta'] },
         -meadow_type => 'LOCAL'
     },
@@ -196,6 +197,57 @@ sub pipeline_analyses {
       -analysis_capacity => 10,
       -wait_for          => ['tidy_tables'],
       -rc_name          => 'mem',
+    },
+    {
+      -logic_name        => 'AddExtraMartIndexesGene',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
+      -parameters        => {
+                              tables_dir => $self->o('tables_dir'),
+                              table => 'gene__main',
+                              mart_table_prefix => '#dataset#'."_".$self->o('base_name'),
+                              mart_host => $self->o('host'),
+                              mart_port => $self->o('port'),
+                              mart_user => $self->o('user'),
+                              mart_pass => $self->o('pass'),
+                              mart_db_name =>  $self->o('mart'),
+                            },
+      -max_retry_count   => 0,
+      -analysis_capacity => 10,
+      -rc_name           => 'default',
+    },
+    {
+      -logic_name        => 'AddExtraMartIndexesTranscript',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
+      -parameters        => {
+                              tables_dir => $self->o('tables_dir'),
+                              table => 'transcript__main',
+                              mart_table_prefix => '#dataset#'."_".$self->o('base_name'),
+                              mart_host => $self->o('host'),
+                              mart_port => $self->o('port'),
+                              mart_user => $self->o('user'),
+                              mart_pass => $self->o('pass'),
+                              mart_db_name =>  $self->o('mart'),
+                            },
+      -max_retry_count   => 0,
+      -analysis_capacity => 10,
+      -rc_name           => 'default',
+    },
+    {
+      -logic_name        => 'AddExtraMartIndexesTranslation',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
+      -parameters        => {
+                              tables_dir => $self->o('tables_dir'),
+                              table => 'translation__main',
+                              mart_table_prefix => '#dataset#'."_".$self->o('base_name'),
+                              mart_host => $self->o('host'),
+                              mart_port => $self->o('port'),
+                              mart_user => $self->o('user'),
+                              mart_pass => $self->o('pass'),
+                              mart_db_name =>  $self->o('mart'),
+                            },
+      -max_retry_count   => 0,
+      -analysis_capacity => 10,
+      -rc_name           => 'default',
     },
     {
       -logic_name  => 'optimize',
