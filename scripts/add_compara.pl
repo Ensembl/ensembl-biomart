@@ -255,11 +255,12 @@ for my $dataset (sort @datasets) {
         }
     }
   }
-  
-  # add family
-  $logger->info("Adding family data");
-  write_family($dataset, $basename);
-
+  # Check if the division has family data
+  if (query_to_strings($mart_handle,"select count(*) from $compara_db.family") > 0){
+    # add family
+    $logger->info("Adding family data");
+    write_family($dataset, $basename);
+  }
   # work out species name from $dataset
   # get list of method_link_species_set_id/name pairs for homolog partners
   for my $species_set (sort {$a->{name} cmp $b->{name}} get_species_sets($species_homolog_sth,$ds_name_sql,$ds_name_full)) {
