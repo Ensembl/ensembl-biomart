@@ -96,7 +96,6 @@ sub pipeline_create_commands {
                           },
             -max_retry_count => 0,
             -input_ids=>[{}],
-            -rc_name         => 'normal',
             -flow_into       => {
                             '4' => 'MTMP_phenotype',
                             '6' => 'MTMP_probes',
