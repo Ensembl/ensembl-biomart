@@ -160,9 +160,9 @@ ADD INDEX stable_id_408_idx(stable_id_408)/);
     eval {
   # ignore failure
     $mart_handle->do(qq/ALTER TABLE ${dataset}_${basename}__translation__main
-ADD COLUMN (family_bool integer default 0)/);
+ADD COLUMN (family_bool integer default NULL)/);
     $mart_handle->do(qq/UPDATE ${dataset}_${basename}__translation__main
-SET family_bool=(select case count(1) when 0 then null else 1 end and not stable_id_408 is NULL)/);
+SET family_bool=1 WHERE stable_id_408 IS NOT NULL)/);
     $mart_handle->do(qq/ALTER TABLE ${dataset}_${basename}__translation__main
 ADD INDEX family_bool_idx(family_bool)/);
     };
