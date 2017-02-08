@@ -156,8 +156,20 @@ m.description_408   = f.description
 ADD INDEX stable_id_408_idx(stable_id_408)/);
     };
 
+    # Add boolean column
+    eval {
+  # ignore failure
+    $mart_handle->do(qq/ALTER TABLE ${dataset}_${basename}__translation__main
+ADD COLUMN (family_bool integer default 0)/);
+    $mart_handle->do(qq/UPDATE ${dataset}_${basename}__translation__main
+SET family_bool=(select case count(1) when 0 then null else 1 end and not stable_id_408 is NULL)/);
+    $mart_handle->do(qq/ALTER TABLE ${dataset}_${basename}__translation__main
+ADD INDEX family_bool_idx(family_bool)/);
+    };
+
     return;
 }
+
 
 my $species_homolog_sql = qq/select ms.method_link_species_set_id, g.name, CONCAT(CONCAT(n.src_dataset,'_'),n.species_id), n.name
 from $compara_db.species_set s
