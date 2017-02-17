@@ -230,6 +230,17 @@ foreach my $dataset (@datasets) {
       get_ensembl_db_single( [ keys(%src_dbs) ],
                              $base_datasetname, $release );
   }
+  elsif ($mart_db =~ "ontology"){
+    $names_insert = $mart_handle->prepare(
+    "INSERT IGNORE INTO $names_table VALUES(?,?,NULL,?,NULL,?,NULL,NULL,NULL,NULL,NULL)");
+    $names_insert->execute( $dataset,
+                            $dataset,
+                            $pId,
+                            $dataset,
+                            );
+    $pId++;
+    next;
+  }
   else {
     $ens_db = get_ensembl_db_single( [ keys(%src_dbs) ],
                                      $base_datasetname, $release );
