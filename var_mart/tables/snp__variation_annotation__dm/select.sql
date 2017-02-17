@@ -5,6 +5,7 @@ SELECT
   a2.value AS associated_variant_risk_allele_2035,
   a3.value AS p_value_2035,
   REPLACE(REPLACE(p.description, ",", ""), "&", "") as description_2033,
+  p.name as name_2033,
   st.external_reference as external_reference_20100,
   st.study_type as study_type_20100,
   REPLACE(st.name, ",", "") as name_20100,
