@@ -573,21 +573,22 @@ sub write_filters {
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = $self->get_table_key($table);
                     if ( defined $self->{tables}->{$table}->{$key} ) {
-                      # add in if the column exists
-                      push @{ $fdo->{Option} }, {
-                        displayName  => "With $xref->[1]",
-                        displayType  => "list",
-                        field        => $field,
-                        hidden       => "false",
-                        internalName => "with_$xref->[0]",
-                        isSelectable => "true",
-                        key          => $key,
-                        legal_qualifiers => "only,excluded",
-                        qualifier        => "only",
-                        style            => "radio",
-                        tableConstraint  => "main",
-                        type             => "boolean",
-                        Option           => [ {
+                      if (defined $self->{tables}->{$table}->{$field} ) {
+                        # add in if the column exists
+                        push @{ $fdo->{Option} }, {
+                          displayName  => "With $xref->[1]",
+                          displayType  => "list",
+                          field        => $field,
+                          hidden       => "false",
+                          internalName => "with_$xref->[0]",
+                          isSelectable => "true",
+                          key          => $key,
+                          legal_qualifiers => "only,excluded",
+                          qualifier        => "only",
+                          style            => "radio",
+                          tableConstraint  => "main",
+                          type             => "boolean",
+                          Option           => [ {
                                   displayName  => "Only",
                                   hidden       => "false",
                                   internalName => "only",
@@ -596,6 +597,7 @@ sub write_filters {
                                   hidden       => "false",
                                   internalName => "excluded",
                                   value        => "excluded" } ] };
+                      }
                     }
                 }
               } ## end if ( defined $self->{tables...})
@@ -725,23 +727,24 @@ sub write_filters {
                   if ( defined $self->{tables}->{$table} ) {
                     my $key = "transcript_id_1064_key";
                     if ( defined $self->{tables}->{$table}->{$key} ) {
-                      my $display_name=$probe->[1];
-                      $display_name =~ s/_/ /g;
-                      # add in if the column exists
-                      push @{ $fdo->{Option} }, {
-                        displayName  => "With $display_name",
-                        displayType  => "list",
-                        field        => $field,
-                        hidden       => "false",
-                        internalName => "with_".lc($probe->[1]),
-                        isSelectable => "true",
-                        key          => $key,
-                        legal_qualifiers => "only,excluded",
-                        qualifier        => "only",
-                        style            => "radio",
-                        tableConstraint  => "main",
-                        type             => "boolean",
-                        Option           => [ {
+                      if (defined $self->{tables}->{$table}->{$field} ) {
+                        my $display_name=$probe->[1];
+                        $display_name =~ s/_/ /g;
+                        # add in if the column exists
+                        push @{ $fdo->{Option} }, {
+                          displayName  => "With $display_name",
+                          displayType  => "list",
+                          field        => $field,
+                          hidden       => "false",
+                          internalName => "with_".lc($probe->[1]),
+                          isSelectable => "true",
+                          key          => $key,
+                          legal_qualifiers => "only,excluded",
+                          qualifier        => "only",
+                          style            => "radio",
+                          tableConstraint  => "main",
+                          type             => "boolean",
+                          Option           => [ {
                                   displayName  => "Only",
                                   hidden       => "false",
                                   internalName => "only",
@@ -750,6 +753,7 @@ sub write_filters {
                                   hidden       => "false",
                                   internalName => "excluded",
                                   value        => "excluded" } ] };
+                      }
                   }
                 }
               } ## end if ( defined $self->{tables...})
@@ -852,21 +856,22 @@ sub write_filters {
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = $self->get_table_key($table);
                     if ( defined $self->{tables}->{$table}->{$key} ) {
-                      # add in if the column exists
-                      push @{ $fdo->{Option} }, {
-                        displayName  => $display_name,
-                        displayType  => "list",
-                        field        => $field,
-                        hidden       => "false",
-                        internalName => "with_".$protein_domain_and_feature->[0],
-                        isSelectable => "true",
-                        key          => $key,
-                        legal_qualifiers => "only,excluded",
-                        qualifier        => "only",
-                        style            => "radio",
-                        tableConstraint  => "main",
-                        type             => "boolean",
-                        Option           => [ {
+                      if (defined $self->{tables}->{$table}->{$field} ) {
+                        # add in if the column exists
+                        push @{ $fdo->{Option} }, {
+                          displayName  => $display_name,
+                          displayType  => "list",
+                          field        => $field,
+                          hidden       => "false",
+                          internalName => "with_".$protein_domain_and_feature->[0],
+                          isSelectable => "true",
+                          key          => $key,
+                          legal_qualifiers => "only,excluded",
+                          qualifier        => "only",
+                          style            => "radio",
+                          tableConstraint  => "main",
+                          type             => "boolean",
+                          Option           => [ {
                                   displayName  => "Only",
                                   hidden       => "false",
                                   internalName => "only",
@@ -875,6 +880,7 @@ sub write_filters {
                                   hidden       => "false",
                                   internalName => "excluded",
                                   value        => "excluded" } ] };
+                      }
                     }
                 }
               } ## end if ( defined $self->{tables...})
