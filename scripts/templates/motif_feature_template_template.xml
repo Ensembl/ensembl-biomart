@@ -16,15 +16,15 @@
             <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection description="Limit to Genes within prescribed Chromosomal Coordinates." displayName="Base pair" hidden="false" internalName="chromosome_coordinates" useDefault="true">
+      <FilterCollection description="Limit to Genes within prescribed Chromosomal Coordinates." displayName="Coordinates" hidden="false" internalName="chromosome_coordinates" useDefault="true">
         <FilterDescription defaultValue="1" description="Determine which base pair on the specified chromosome to begin range" displayName="Start (bp)" displayType="text" field="seq_region_end_1075" hidden="false" internalName="start" key="motif_feature_id_1065_key" legal_qualifiers="&gt;=" qualifier="&gt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
         <FilterDescription defaultValue="10000000" description="Determine which base pair on the specified chromosome to end range" displayName="End (bp)" displayType="text" field="seq_region_start_1075" hidden="false" internalName="end" key="motif_feature_id_1065_key" legal_qualifiers="&lt;=" qualifier="&lt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1) [Max 500]" displayName="Multiple Chromosomal Regions (Chr:Start:End) (e.g 1:100:10000000) [Max 500 advised] " hidden="false" internalName="chromosome_regions" useDefault="true">
+      <FilterCollection description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1) [Max 500]" displayName="Multiple regions (Chr:Start:End) [Max 500 advised] " hidden="false" internalName="chromosome_regions" useDefault="true">
         <FilterDescription displayName="Strand" displayType="text" field="seq_region_strand_1075" hideDisplay="true" internalName="strand" key="motif_feature_id_1065_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
-        <FilterDescription defaultValue="1:100:10000000:1" description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1) [Max 500]" displayName="Chromosome Regions (e.g 1:100:10000000:-1,1:100000:200000:1)" displayType="text" field="seq_region_start_1075" filterList="chromosome_name,start,end,strand" hidden="false" internalName="chromosomal_region" key="motif_feature_id_1065_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription defaultValue="1:100:10000000:1" description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1) [Max 500]" displayName="e.g 1:100:10000000:-1, 1:100000:200000:1" displayType="text" field="seq_region_start_1075" filterList="chromosome_name,start,end,strand" hidden="false" internalName="chromosomal_region" key="motif_feature_id_1065_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="Band" hidden="false" internalName="band_collection" useDefault="true" checkPointerDataset="*species3*_karyotype_start">
+      <FilterCollection displayName="Karyotype band" hidden="false" internalName="band_collection" useDefault="true" checkPointerDataset="*species3*_karyotype_start">
         <FilterDescription hidden="false" internalName="band_start" pointerDataset="*species3*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
         <FilterDescription hidden="false" internalName="band_end" pointerDataset="*species3*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
       </FilterCollection>
@@ -36,31 +36,31 @@
         <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species3*_encode" pointerFilter="encode_region" pointerInterface="default" useDefault="true">
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Binding Matrix ID (e.g. MA0003.1)" hidden="false" internalName="motif_binding_matrix_id" useDefault="true">
-        <FilterDescription displayName="Binding Matrix ID" displayType="list" field="binding_matrix_id_1075" internalName="motif_binding_matrix_id" key="motif_feature_id_1065_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+      <FilterCollection displayName="Binding matrix ID (e.g. MA0003.1)" hidden="false" internalName="motif_binding_matrix_id" useDefault="true">
+        <FilterDescription displayName="Binding matrix ID" displayType="list" field="binding_matrix_id_1075" internalName="motif_binding_matrix_id" key="motif_feature_id_1065_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
             <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Feature Type" hidden="false" internalName="motif_feature_type" useDefault="true">
+      <FilterCollection displayName="Feature type" hidden="false" internalName="motif_feature_type" useDefault="true">
         <FilterDescription autoCompletion="menu" displayName="Feature Type Name" displayType="list" field="feature_type_name_1075" internalName="motif_feature_type_name" key="motif_feature_id_1065_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" style="menu" useDefault="true">
             <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
   </FilterPage>
-  <AttributePage displayName="Binding Motifs" internalName="binding_motifs" outFormats="html,txt,csv,tsv,xls" useDefault="true">
+  <AttributePage displayName="Binding motifs" internalName="binding_motifs" outFormats="html,txt,csv,tsv,xls" useDefault="true">
     <AttributeGroup displayName="BINDING MOTIFS" internalName="binding_motifs" useDefault="true">
       <AttributeCollection internalName="binding_motifs" useDefault="true">
         <AttributeDescription default="true" displayName="Binding matrix" field="binding_matrix_id_1075" internalName="binding_matrix_id" key="motif_feature_id_1065_key" linkoutURL="exturl|http://jaspar.genereg.net/cgi-bin/jaspar_db.pl?ID=%s&amp;rm=present&amp;collection=CORE" maxLength="45" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription default="true" displayName="Chromosome Name" field="seq_region_name_1075" internalName="chromosome_name" key="motif_feature_id_1065_key" linkoutURL="exturl|/*species2*/contigview?chr=%s" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="Chromosome/scaffold name" field="seq_region_name_1075" internalName="chromosome_name" key="motif_feature_id_1065_key" linkoutURL="exturl|/*species2*/contigview?chr=%s" maxLength="40" tableConstraint="main" useDefault="true"/>
         <AttributeDescription default="true" displayName="Start (bp)" field="seq_region_start_1075" internalName="chromosome_start" key="motif_feature_id_1065_key" linkoutURL="exturl|/*species2*/Location/View?r=%s:%s-%s|chromosome_name|chromosome_start|chromosome_end" maxLength="10" tableConstraint="main" useDefault="true"/>
         <AttributeDescription default="true" displayName="End (bp)" field="seq_region_end_1075" internalName="chromosome_end" key="motif_feature_id_1065_key" linkoutURL="exturl|/*species2*/Location/View?r=%s:%s-%s|chromosome_name|chromosome_start|chromosome_end" maxLength="10" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Strand" field="seq_region_strand_1075" hidden="false" internalName="chromosome_strand" key="motif_feature_id_1065_key" maxLength="1" tableConstraint="main" useDefault="true"/>
         <AttributeDescription default="true" displayName="Score" field="score_1075" internalName="score" key="motif_feature_id_1065_key" maxLength="22" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Display label" field="display_label_1075" internalName="display_label" key="motif_feature_id_1065_key" maxLength="14" tableConstraint="main" useDefault="true"/>
         <AttributeDescription default="true" displayName="Feature Type" field="feature_type_name_1075" internalName="feature_type_name" key="motif_feature_id_1065_key" maxLength="40" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="SO Term Accession" field="so_accession_1024" internalName="so_accession" key="motif_feature_id_1065_key" linkoutURL="exturl|http://www.sequenceontology.org/browser/current_release/term/%s" maxLength="64" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="SO Term Name" field="so_name_1024" internalName="so_name" key="motif_feature_id_1065_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="SO term accession" field="so_accession_1024" internalName="so_accession" key="motif_feature_id_1065_key" linkoutURL="exturl|http://www.sequenceontology.org/browser/current_release/term/%s" maxLength="64" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="SO term name" field="so_name_1024" internalName="so_name" key="motif_feature_id_1065_key" maxLength="255" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
