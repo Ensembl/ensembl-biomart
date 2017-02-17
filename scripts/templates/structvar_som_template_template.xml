@@ -18,11 +18,11 @@
           <SpecificFilterContent internalName="replaceMe"/>            
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Base pair" internalName="chromosome_coordinates" useDefault="true" >
+      <FilterCollection displayName="Coordinates" internalName="chromosome_coordinates" useDefault="true" >
         <FilterDescription displayName="Start" displayType="text" field="seq_region_end_20104" internalName="start" key="structural_variation_feature_id_20104_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="main" type="text" useDefault="true"/>
         <FilterDescription displayName="End" displayType="text" field="seq_region_start_20104" internalName="end" key="structural_variation_feature_id_20104_key" legal_qualifiers="&lt;=" qualifier="&lt;=" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="Band" internalName="band_collection" useDefault="true" checkPointerDataset="*species3*_karyotype_start">
+      <FilterCollection displayName="Karytope band" internalName="band_collection" useDefault="true" checkPointerDataset="*species3*_karyotype_start">
         <FilterDescription internalName="band_start" pointerDataset="*species3*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
         <FilterDescription internalName="band_end" pointerDataset="*species3*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
       </FilterCollection>
@@ -30,9 +30,9 @@
         <FilterDescription internalName="marker_start" pointerDataset="*species3*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
         <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species3*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Multiple Chromosomal Regions (Chr:Start:End:Strand) [Max 500 advised]" internalName="chromosome_regions" useDefault="true">
+      <FilterCollection description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Multiple regions (Chr:Start:End:Strand) [Max 500 advised]" internalName="chromosome_regions" useDefault="true">
         <FilterDescription displayName="Strand" displayType="text" field="seq_region_strand_20104" hidden="false" hideDisplay="true" internalName="strand" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
-        <FilterDescription defaultValue="1:100:10000000:1" description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Chromosome Regions (e.g 1:100:10000:-1,1:100000:200000:1)" displayType="text" field="seq_region_start_20104" filterList="chr_name,start,end,strand" hidden="false" internalName="chromosomal_region" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription defaultValue="1:100:10000000:1" description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="e.g 1:100:10000:-1, 1:100000:200000:1" displayType="text" field="seq_region_start_20104" filterList="chr_name,start,end,strand" hidden="false" internalName="chromosomal_region" key="structural_variation_feature_id_20104_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
       </FilterCollection>
     </FilterGroup>
     <FilterGroup displayName="GENERAL STRUCTURAL VARIANT FILTERS:" internalName="svfilters" useDefault="true">
@@ -42,12 +42,12 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Limit to study accession from DGVa (Please select DGVa from source filter above)" internalName="structural_variation_study" useDefault="true">
-        <FilterDescription displayName="DGVa Study Accession" displayType="list" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" style="menu" useDefault="true">
+        <FilterDescription displayName="DGVa study accession" displayType="list" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" style="menu" useDefault="true">
             <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Filter by Structural Variant Name (e.g. nsv429581)" internalName="structural_variation_filter" useDefault="true">
-        <FilterDescription displayName="Filter by Structural Variant Name (e.g. nsv429581) " displayType="text" field="variation_name_2072" internalName="svfilter" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true"/>
+      <FilterCollection displayName="Filter by structural variant name (e.g. nsv429581)" internalName="structural_variation_filter" useDefault="true">
+        <FilterDescription displayName="Filter by structural variant name (e.g. nsv429581) " displayType="text" field="variation_name_2072" internalName="svfilter" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true"/>
       </FilterCollection>
       <FilterCollection displayName="Phenotype" internalName="structural_variation_phenotype" useDefault="true">
         <FilterDescription displayName="Phenotype" displayType="list" field="phenotype_name" internalName="phenotype_name" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" style="menu" tableConstraint="phenotype__dm" type="list" useDefault="true">
@@ -59,51 +59,51 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Structural Variation Set Name" hidden="true" internalName="structural_variation_set_name" useDefault="true">
-        <FilterDescription displayName="Structural Variation Set Name" displayType="list" field="name_2077" hidden="true" internalName="structural_variation_set_name" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_set_structural_variation__dm" type="list" useDefault="true"/>
+      <FilterCollection displayName="Structural variation set name" hidden="true" internalName="structural_variation_set_name" useDefault="true">
+        <FilterDescription displayName="Structural variation set name" displayType="list" field="name_2077" hidden="true" internalName="structural_variation_set_name" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_set_structural_variation__dm" type="list" useDefault="true"/>
       </FilterCollection>
     </FilterGroup>
   </FilterPage>
-  <AttributePage displayName="Structural Variant informations" internalName="structural_variation" outFormats="html,txt,csv,tsv,xls" useDefault="true">
+  <AttributePage displayName="Structural variant informations" internalName="structural_variation" outFormats="html,txt,csv,tsv,xls" useDefault="true">
     <AttributeGroup displayName="STRUCTURAL VARIANT INFORMATIONS:" internalName="structural_variation" useDefault="true">
-      <AttributeCollection displayName="Structural Variant (SV) Informations" internalName="structural_variation" useDefault="true">
-        <AttributeDescription default="true" displayName="DGVa Study Accession" field="name_20100" internalName="dgva_study_accession" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription default="true" displayName="Structural Variant Name" field="variation_name_2072" internalName="sv_accession" key="structural_variation_id_2072_key" linkoutURL="exturl|/*species2*/StructuralVariation/Explore?sv=%s" maxLength="255" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="Structural Variant Type" field="value_2092" internalName="sv_variant_type" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="Structural Variant Description" field="description_2021" internalName="description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+      <AttributeCollection displayName="Structural variant (SV) informations" internalName="structural_variation" useDefault="true">
+        <AttributeDescription default="true" displayName="DGVa study accession" field="name_20100" internalName="dgva_study_accession" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="Structural variant name" field="variation_name_2072" internalName="sv_accession" key="structural_variation_id_2072_key" linkoutURL="exturl|/*species2*/StructuralVariation/Explore?sv=%s" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Structural variant type" field="value_2092" internalName="sv_variant_type" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Structural variant description" field="description_2021" internalName="description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Pubmed ID" field="external_reference_20100" internalName="external_reference" key="structural_variation_id_2072_key" linkoutURL="exturl|http://www.ncbi.nlm.nih.gov/%s" maxLength="255" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="Study Description" field="description_20100" internalName="study_description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="Source Name" field="name_2021" internalName="source_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Study description" field="description_20100" internalName="study_description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Source name" field="name_2021" internalName="source_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Phenotype" field="phenotype_name" internalName="phenotype_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="phenotype__dm" useDefault="true"/>
         <AttributeDescription displayName="Phenotype source" field="phenotype_source" internalName="phenotype_source" key="structural_variation_id_2072_key" maxLength="24" tableConstraint="phenotype__dm" useDefault="true"/>
         <AttributeDescription displayName="Evidence status" field="validation_status_2072" hidden="true" internalName="validation_status" key="structural_variation_id_2072_key" maxLength="13" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Structural Variant (SV) Location" internalName="structural_variation_placement" useDefault="true">
-        <AttributeDescription default="true" displayName="Chromosome Name" field="name_2034" internalName="chr_name" key="structural_variation_feature_id_20104_key" linkoutURL="exturl|/*species2*/contigview?chr=%s" maxLength="40" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription default="true" displayName="Chromosome position start (bp)" field="seq_region_start_20104" internalName="chrom_start" key="structural_variation_feature_id_20104_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chr_name|chrom_start|chrom_end" maxLength="11" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription default="true" displayName="Chromosome position end (bp)" field="seq_region_end_20104" internalName="chrom_end" key="structural_variation_feature_id_20104_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chr_name|chrom_start|chrom_end" maxLength="11" tableConstraint="main" useDefault="true"/>
+      <AttributeCollection displayName="Structural variant (SV) location" internalName="structural_variation_placement" useDefault="true">
+        <AttributeDescription default="true" displayName="Chromosome/scaffold name" field="name_2034" internalName="chr_name" key="structural_variation_feature_id_20104_key" linkoutURL="exturl|/*species2*/contigview?chr=%s" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="Chromosome/scaffold position start (bp)" field="seq_region_start_20104" internalName="chrom_start" key="structural_variation_feature_id_20104_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chr_name|chrom_start|chrom_end" maxLength="11" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="Chromosome/scaffold position end (bp)" field="seq_region_end_20104" internalName="chrom_end" key="structural_variation_feature_id_20104_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chr_name|chrom_start|chrom_end" maxLength="11" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Strand" field="seq_region_strand_20104" internalName="seq_region_strand" key="structural_variation_feature_id_20104_key" maxLength="4" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Inner start" field="inner_start_20104" internalName="inner_start" key="structural_variation_feature_id_20104_key" maxLength="11" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Inner end" field="inner_end_20104" internalName="inner_end" key="structural_variation_feature_id_20104_key" maxLength="11" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Outer start" field="outer_start_20104" internalName="outer_start" key="structural_variation_feature_id_20104_key" maxLength="11" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Outer end" field="outer_end_20104" internalName="outer_end" key="structural_variation_feature_id_20104_key" maxLength="11" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Structural Variation (SV) Set" hidden="true" internalName="variation_set_structural_variation" useDefault="true">
-        <AttributeDescription displayName="Structural Variation Set Name" field="name_2077" hidden="true" internalName="set_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="variation_set_structural_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Structural Variation Set Description" field="description_2077" hidden="true" internalName="set_description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="variation_set_structural_variation__dm" useDefault="true"/>
+      <AttributeCollection displayName="Structural variation (SV) set" hidden="true" internalName="variation_set_structural_variation" useDefault="true">
+        <AttributeDescription displayName="Structural variation set name" field="name_2077" hidden="true" internalName="set_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="variation_set_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Structural variation set description" field="description_2077" hidden="true" internalName="set_description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="variation_set_structural_variation__dm" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Supporting Structural Variant (SSV) informations" internalName="supporting_structural_variation" useDefault="true">
-        <AttributeDescription displayName="Supporting Structural Variant Accession" field="variation_name_20116" internalName="variation_name_20116" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Supporting Structural Variant Type" field="class_name_20116" internalName="class_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="SSV Strain name " field="strain_name_20116" hidden="true" internalName="ssv_strain_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="SSV Sample name" field="sample_name_20116" hidden="true" internalName="sample_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+      <AttributeCollection displayName="Supporting structural variant (SSV) informations" internalName="supporting_structural_variation" useDefault="true">
+        <AttributeDescription displayName="Supporting Structural Variant accession" field="variation_name_20116" internalName="variation_name_20116" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Supporting Structural Variant type" field="class_name_20116" internalName="class_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="SSV strain name " field="strain_name_20116" hidden="true" internalName="ssv_strain_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="SSV sample name" field="sample_name_20116" hidden="true" internalName="sample_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Clinical significance" field="clinical_significance_20116" hidden="true" internalName="clinical_significance" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Allele Type" field="value_2092" hidden="true" internalName="ssv_allele_type" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Supporting Structural Variant Accession" field="name_20101" hidden="true" internalName="ssv_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Supporting structural variation id 20116" field="supporting_structural_variation_id_20116" hidden="true" internalName="supporting_structural_variation_id_20116" key="structural_variation_id_2072_key" maxLength="10" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Supporting structural variant accession" field="name_20101" hidden="true" internalName="ssv_name" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Supporting structural variation id" field="supporting_structural_variation_id_20116" hidden="true" internalName="supporting_structural_variation_id_20116" key="structural_variation_id_2072_key" maxLength="10" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Supporting Structural Variant (SSV) Location" internalName="supporting_structural_variation_placement" useDefault="true">
-        <AttributeDescription displayName="Chromosome Name" field="seq_region_name_20116" internalName="seq_region_name_20116" key="structural_variation_id_2072_key" maxLength="40" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
+      <AttributeCollection displayName="Supporting structural variant (SSV) location" internalName="supporting_structural_variation_placement" useDefault="true">
+        <AttributeDescription displayName="Chromosome/scaffold name" field="seq_region_name_20116" internalName="seq_region_name_20116" key="structural_variation_id_2072_key" maxLength="40" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Strand" field="seq_region_strand_20116" internalName="seq_region_strand_20116" key="structural_variation_id_2072_key" maxLength="4" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Sequence region start (bp)" field="seq_region_start_20116" internalName="seq_region_start_20116" key="structural_variation_id_2072_key" maxLength="11" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Sequence region end (bp)" field="seq_region_end_20116" internalName="seq_region_end_20116" key="structural_variation_id_2072_key" maxLength="11" tableConstraint="supporting_structural_variation__dm" useDefault="true"/>
