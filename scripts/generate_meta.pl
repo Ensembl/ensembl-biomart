@@ -90,7 +90,7 @@ push( @{$optsd}, "verbose" );
 # process the command line with the supplied options plus a help subroutine
 my $opts = $cli_helper->process_args( $optsd, \&pod2usage );
 $opts->{template_name} ||= 'genes';
-$opts->{ds_basename}   ||= 'gene';
+$opts->{ds_basename}   ||= '';
 $opts->{max_dropdown}  ||= 256;
 $opts->{genomic_features_dbname} ||= '';
 if ( $opts->{verbose} ) {
