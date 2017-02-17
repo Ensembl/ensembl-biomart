@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE DatasetConfig>
+<DatasetConfig dataset="ontology_mini_template" datasetID="22" displayName="ontology_mini" interfaces="default" internalName="default" martUsers="default" modified="2016-02-25 15:53:03" softwareVersion="0.6" template="ontology_mini" type="TableSet" useDefault="true" visible="0">
+  <MainTable>*base_name*__closure_mini__main</MainTable>
+  <Key>closure_mini_id_301_key</Key>
+  <Exportable attributes="name_305" internalName="*ontology*" linkName="*ontology*" name="*ontology*" type="link" useDefault="true"/>
+  <FilterPage displayName="Transitive closure filters" internalName="closure_filters" useDefault="true">
+    <FilterGroup displayName="FILTERS" internalName="filters" useDefault="true">
+      <FilterCollection displayName="closure" internalName="closure" useDefault="true">
+        <FilterDescription displayName="Parent term name" displayType="list" field="name_305_r1" internalName="so_mini_parent_name" key="closure_mini_id_301_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
+          <Option displayName="3_prime_UTR_variant" hidden="false" internalName="3_prime_UTR_variant" isSelectable="true" useDefault="true" value="3_prime_UTR_variant"/>
+          <Option displayName="5_prime_UTR_variant" hidden="false" internalName="5_prime_UTR_variant" isSelectable="true" useDefault="true" value="5_prime_UTR_variant"/>
+          <Option displayName="coding_sequence_variant" hidden="false" internalName="coding_sequence_variant" isSelectable="true" useDefault="true" value="coding_sequence_variant"/>
+          <Option displayName="coding_transcript_variant" hidden="false" internalName="coding_transcript_variant" isSelectable="true" useDefault="true" value="coding_transcript_variant"/>
+          <Option displayName="downstream_gene_variant" hidden="false" internalName="downstream_gene_variant" isSelectable="true" useDefault="true" value="downstream_gene_variant"/>
+          <Option displayName="exon_variant" hidden="false" internalName="exon_variant" isSelectable="true" useDefault="true" value="exon_variant"/>
+          <Option displayName="feature_ablation" hidden="false" internalName="feature_ablation" isSelectable="true" useDefault="true" value="feature_ablation"/>
+          <Option displayName="feature_amplification" hidden="false" internalName="feature_amplification" isSelectable="true" useDefault="true" value="feature_amplification"/>
+          <Option displayName="feature_elongation" hidden="false" internalName="feature_elongation" isSelectable="true" useDefault="true" value="feature_elongation"/>
+          <Option displayName="feature_truncation" hidden="false" internalName="feature_truncation" isSelectable="true" useDefault="true" value="feature_truncation"/>
+          <Option displayName="feature_variant" hidden="false" internalName="feature_variant" isSelectable="true" useDefault="true" value="feature_variant"/>
+          <Option displayName="frameshift_variant" hidden="false" internalName="frameshift_variant" isSelectable="true" useDefault="true" value="frameshift_variant"/>
+          <Option displayName="gene_variant" hidden="false" internalName="gene_variant" isSelectable="true" useDefault="true" value="gene_variant"/>
+          <Option displayName="incomplete_terminal_codon_variant" hidden="false" internalName="incomplete_terminal_codon_variant" isSelectable="true" useDefault="true" value="incomplete_terminal_codon_variant"/>
+          <Option displayName="inframe_deletion" hidden="false" internalName="inframe_deletion" isSelectable="true" useDefault="true" value="inframe_deletion"/>
+          <Option displayName="inframe_indel" hidden="false" internalName="inframe_indel" isSelectable="true" useDefault="true" value="inframe_indel"/>
+          <Option displayName="inframe_insertion" hidden="false" internalName="inframe_insertion" isSelectable="true" useDefault="true" value="inframe_insertion"/>
+          <Option displayName="inframe_variant" hidden="false" internalName="inframe_variant" isSelectable="true" useDefault="true" value="inframe_variant"/>
+          <Option displayName="intergenic_variant" hidden="false" internalName="intergenic_variant" isSelectable="true" useDefault="true" value="intergenic_variant"/>
+          <Option displayName="internal_feature_elongation" hidden="false" internalName="internal_feature_elongation" isSelectable="true" useDefault="true" value="internal_feature_elongation"/>
+          <Option displayName="intron_variant" hidden="false" internalName="intron_variant" isSelectable="true" useDefault="true" value="intron_variant"/>
+          <Option displayName="mature_miRNA_variant" hidden="false" internalName="mature_miRNA_variant" isSelectable="true" useDefault="true" value="mature_miRNA_variant"/>
+          <Option displayName="missense_variant" hidden="false" internalName="missense_variant" isSelectable="true" useDefault="true" value="missense_variant"/>
+          <Option displayName="NMD_transcript_variant" hidden="false" internalName="NMD_transcript_variant" isSelectable="true" useDefault="true" value="NMD_transcript_variant"/>
+          <Option displayName="nonsynonymous_variant" hidden="false" internalName="nonsynonymous_variant" isSelectable="true" useDefault="true" value="nonsynonymous_variant"/>
+          <Option displayName="non_coding_transcript_exon_variant" hidden="false" internalName="non_coding_transcript_exon_variant" isSelectable="true" useDefault="true" value="non_coding_transcript_exon_variant"/>
+          <Option displayName="non_coding_transcript_variant" hidden="false" internalName="non_coding_transcript_variant" isSelectable="true" useDefault="true" value="non_coding_transcript_variant"/>
+          <Option displayName="protein_altering_variant" hidden="false" internalName="protein_altering_variant" isSelectable="true" useDefault="true" value="protein_altering_variant"/>
+          <Option displayName="regulatory_region_ablation" hidden="false" internalName="regulatory_region_ablation" isSelectable="true" useDefault="true" value="regulatory_region_ablation"/>
+          <Option displayName="regulatory_region_amplification" hidden="false" internalName="regulatory_region_amplification" isSelectable="true" useDefault="true" value="regulatory_region_amplification"/>
+          <Option displayName="regulatory_region_variant" hidden="false" internalName="regulatory_region_variant" isSelectable="true" useDefault="true" value="regulatory_region_variant"/>
+          <Option displayName="sequence_comparison" hidden="false" internalName="sequence_comparison" isSelectable="true" useDefault="true" value="sequence_comparison"/>
+          <Option displayName="sequence_variant" hidden="false" internalName="sequence_variant" isSelectable="true" useDefault="true" value="sequence_variant"/>
+          <Option displayName="splice_acceptor_variant" hidden="false" internalName="splice_acceptor_variant" isSelectable="true" useDefault="true" value="splice_acceptor_variant"/>
+          <Option displayName="splice_donor_variant" hidden="false" internalName="splice_donor_variant" isSelectable="true" useDefault="true" value="splice_donor_variant"/>
+          <Option displayName="splice_region_variant" hidden="false" internalName="splice_region_variant" isSelectable="true" useDefault="true" value="splice_region_variant"/>
+          <Option displayName="splice_site_variant" hidden="false" internalName="splice_site_variant" isSelectable="true" useDefault="true" value="splice_site_variant"/>
+          <Option displayName="splicing_variant" hidden="false" internalName="splicing_variant" isSelectable="true" useDefault="true" value="splicing_variant"/>
+          <Option displayName="start_lost" hidden="false" internalName="start_lost" isSelectable="true" useDefault="true" value="start_lost"/>
+          <Option displayName="stop_gained" hidden="false" internalName="stop_gained" isSelectable="true" useDefault="true" value="stop_gained"/>
+          <Option displayName="stop_lost" hidden="false" internalName="stop_lost" isSelectable="true" useDefault="true" value="stop_lost"/>
+          <Option displayName="stop_retained_variant" hidden="false" internalName="stop_retained_variant" isSelectable="true" useDefault="true" value="stop_retained_variant"/>
+          <Option displayName="structural_variant" hidden="false" internalName="structural_variant" isSelectable="true" useDefault="true" value="structural_variant"/>
+          <Option displayName="synonymous_variant" hidden="false" internalName="synonymous_variant" isSelectable="true" useDefault="true" value="synonymous_variant"/>
+          <Option displayName="terminator_codon_variant" hidden="false" internalName="terminator_codon_variant" isSelectable="true" useDefault="true" value="terminator_codon_variant"/>
+          <Option displayName="TFBS_ablation" hidden="false" internalName="TFBS_ablation" isSelectable="true" useDefault="true" value="TFBS_ablation"/>
+          <Option displayName="TFBS_amplification" hidden="false" internalName="TFBS_amplification" isSelectable="true" useDefault="true" value="TFBS_amplification"/>
+          <Option displayName="TF_binding_site_variant" hidden="false" internalName="TF_binding_site_variant" isSelectable="true" useDefault="true" value="TF_binding_site_variant"/>
+          <Option displayName="transcript_ablation" hidden="false" internalName="transcript_ablation" isSelectable="true" useDefault="true" value="transcript_ablation"/>
+          <Option displayName="transcript_amplification" hidden="false" internalName="transcript_amplification" isSelectable="true" useDefault="true" value="transcript_amplification"/>
+          <Option displayName="transcript_variant" hidden="false" internalName="transcript_variant" isSelectable="true" useDefault="true" value="transcript_variant"/>
+          <Option displayName="upstream_gene_variant" hidden="false" internalName="upstream_gene_variant" isSelectable="true" useDefault="true" value="upstream_gene_variant"/>
+          <Option displayName="UTR_variant" hidden="false" internalName="UTR_variant" isSelectable="true" useDefault="true" value="UTR_variant"/>
+        </FilterDescription>
+        <FilterDescription displayName="Child term accession" displayType="text" field="accession_305" internalName="accession_305" key="closure_mini_id_301_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Child term name" displayType="list" field="name_305" hidden="false" internalName="name_305" key="closure_mini_id_301_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true"/>
+        <FilterDescription displayName="Parent term accession" displayType="text" field="accession_305_r1" internalName="so_mini_parent_term" key="closure_mini_id_301_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Sub-parent term accession" displayType="text" field="accession_305_r2" internalName="accession_305_r2" key="closure_mini_id_301_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription displayName="Child-parent distance through sub-parent" displayType="text" field="distance_301" internalName="distance_301" key="closure_mini_id_301_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <AttributePage displayName="Transitive closure attributes" internalName="closure_attributes" outFormats="html,txt,csv,tsv,xls" useDefault="true">
+    <AttributeGroup displayName="FEATURES" internalName="features" useDefault="true">
+      <AttributeCollection displayName="closure" internalName="closure" useDefault="true">
+        <AttributeDescription displayName="Child Definition" field="definition_305" internalName="definition_305" key="closure_mini_id_301_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Child Subsets" field="subsets_305" internalName="subsets_305" key="closure_mini_id_301_key" maxLength="14" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Child term accession" field="accession_305" internalName="accession_305" key="closure_mini_id_301_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Child term name" field="name_305" internalName="name_305" key="closure_mini_id_301_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Parent term accession" field="accession_305_r1" internalName="accession_305_r1" key="closure_mini_id_301_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Parent term name" field="name_305_r1" internalName="name_305_r1" key="closure_mini_id_301_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Sub-parent term accession" field="accession_305_r2" internalName="accession_305_r2" key="closure_mini_id_301_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Child-parent distance through sub-parent" field="distance_301" internalName="distance_301" key="closure_mini_id_301_key" maxLength="3" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+</DatasetConfig>
