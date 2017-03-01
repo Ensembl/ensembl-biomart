@@ -34,4 +34,4 @@ FROM
   ) ON (a4.phenotype_feature_id = pf.phenotype_feature_id AND at4.code = "variation_names") LEFT JOIN
   VAR_DB.phenotype p ON pf.phenotype_id = p.phenotype_id LEFT JOIN
   VAR_DB.source so ON pf.source_id = so.source_id LEFT JOIN
-  VAR_DB.study st ON st.study_id = pf.study_id;
+  VAR_DB.study st ON st.study_id = pf.study_id
