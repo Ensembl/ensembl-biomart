@@ -188,7 +188,7 @@
         <AttributeDescription displayName="Clinical significance" field="clinical_significance_2025" internalName="clinical_significance" key="variation_id_2025_key" maxLength="255" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
       <AttributeCollection displayName="Variant synonyms" internalName="variation_synonym" useDefault="true">
-        <AttributeDescription displayName="Synonym name" field="name_2030" internalName="synonym_name" key="variation_id_2025_key" linkoutURL="exturl|http://www.ensembl.org/*species2*/Variation/Explore?v=%s" maxLength="255" tableConstraint="variation_synonym__dm" useDefault="true"/>
+        <AttributeDescription displayName="Synonym name" field="name_2030" internalName="synonym_name" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Explore?v=%s" maxLength="255" tableConstraint="variation_synonym__dm" useDefault="true"/>
         <AttributeDescription displayName="Synonym source" field="name_2021" internalName="synonym_source" key="variation_id_2025_key" maxLength="24" tableConstraint="variation_synonym__dm" useDefault="true"/>
         <AttributeDescription displayName="Synonym source description" field="description_2021" internalName="synonym_source_description" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_synonym__dm" useDefault="true"/>
       </AttributeCollection>
