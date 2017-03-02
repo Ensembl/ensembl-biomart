@@ -1747,7 +1747,7 @@
     </AttributeGroup>
     <AttributeGroup description="Data for proteins and families associated with Genes." displayName="PROTEIN DOMAINS AND FAMILIES:" internalName="protein" useDefault="true">
       <AttributeCollection description="Features of Protein Family Data" displayName="Family Information" internalName="prot_family" useDefault="true">
-        <AttributeDescription displayName="Ensembl Protein Family ID(s)" field="stable_id_408" internalName="family" key="translation_id_1068_key" linkoutURL="exturl|http://www.ensembl.org/Multi/Family/Details?fm=%s" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Ensembl Protein Family ID(s)" field="stable_id_408" internalName="family" key="translation_id_1068_key" linkoutURL="exturl|/Multi/Family/Details?fm=%s" maxLength="40" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Ensembl Family Description" field="description_408" internalName="family_description" key="translation_id_1068_key" maxLength="255" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
       <AttributeCollection displayName="Domains" internalName="protein_domain" useDefault="true">
