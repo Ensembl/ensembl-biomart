@@ -162,9 +162,9 @@ ADD INDEX stable_id_408_idx(stable_id_408)/);
     $mart_handle->do(qq/ALTER TABLE ${dataset}_${basename}__translation__main
 ADD COLUMN (family_bool integer default NULL)/);
     $mart_handle->do(qq/UPDATE ${dataset}_${basename}__translation__main
-SET family_bool=1 WHERE stable_id_408 IS NOT NULL)/);
+SET family_bool=1 WHERE stable_id_408 IS NOT NULL/);
     $mart_handle->do(qq/ALTER TABLE ${dataset}_${basename}__translation__main
-ADD INDEX family_bool_idx(family_bool)/);
+ADD INDEX family_bool_idx(family_bool/);
     };
 
     return;
