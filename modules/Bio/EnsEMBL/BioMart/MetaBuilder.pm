@@ -573,7 +573,8 @@ sub write_filters {
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = $self->get_table_key($table);
                     if ( defined $self->{tables}->{$table}->{$key} ) {
-                      if (defined $self->{tables}->{$table}->{$field} ) {
+                      my $main_table=${ds_name}."__translation__main";
+                      if (defined $self->{tables}->{$main_table}->{$field} ) {
                         # add in if the column exists
                         push @{ $fdo->{Option} }, {
                           displayName  => "With $xref->[1]",
@@ -727,7 +728,8 @@ sub write_filters {
                   if ( defined $self->{tables}->{$table} ) {
                     my $key = "transcript_id_1064_key";
                     if ( defined $self->{tables}->{$table}->{$key} ) {
-                      if (defined $self->{tables}->{$table}->{$field} ) {
+                      my $main_table=${ds_name}."__translation__main";
+                      if (defined $self->{tables}->{$main_table}->{$field} ) {
                         my $display_name=$probe->[1];
                         $display_name =~ s/_/ /g;
                         # add in if the column exists
@@ -814,7 +816,8 @@ sub write_filters {
                  if ( defined $self->{tables}->{$table} ) {
                   my $key = $self->get_table_key($table);
                     if ( defined $self->{tables}->{$table}->{$key} ) {
-                      if (defined $self->{tables}->{$table}->{$field} ) {
+                      my $main_table=${ds_name}."__translation__main";
+                      if (defined $self->{tables}->{$main_table}->{$field} ) {
                         # add in if the column exists
                         push @{ $fdo->{Option} }, {
                           displayName  => "With $extra_protein_domains->{$extra_protein_domain}->{'display_name'} ID(s)",
@@ -856,7 +859,8 @@ sub write_filters {
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = $self->get_table_key($table);
                     if ( defined $self->{tables}->{$table}->{$key} ) {
-                      if (defined $self->{tables}->{$table}->{$field} ) {
+                      my $main_table=${ds_name}."__translation__main";
+                      if (defined $self->{tables}->{$main_table}->{$field} ) {
                         # add in if the column exists
                         push @{ $fdo->{Option} }, {
                           displayName  => $display_name,
