@@ -138,10 +138,6 @@ if ( $dba->dbc()->dbname() !~ 'fungi' ) {
   $delete->{so_closure}    = 1;
   $delete->{mod_closure}   = 1;
   $delete->{fypo_closure}  = 1;
-  $delete->{phi_extension} = 1;
-}
-if ( $dba->dbc()->dbname() !~ 'protists' ) {
-  $delete->{phi_extension} = 1;
 }
 if ( $dba->dbc()->dbname() !~ 'plants' ) {
   $delete->{po}             = 1;
