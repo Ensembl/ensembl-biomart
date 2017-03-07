@@ -77,8 +77,8 @@ sub get_datasets_regexp {
     my $regexp = shift;
     my @datasets = ();
     foreach my $src_table (@$src_tables_aref) {
-	if( $src_table =~ m/(.*)$regexp/ ) {
-	    push @datasets,$1;
+	if( $src_table =~ m/^(?!meta)([A-Za-z1-9]*)_.*$regexp/ ) {
+	    push @datasets,$1 unless grep{$_ eq $1} @datasets;
 	}
     }
     return @datasets;

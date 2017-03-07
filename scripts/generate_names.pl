@@ -44,8 +44,6 @@ my $db_user;
 my $db_pwd;
 my $mart_db;
 my $release          = software_version();
-my $dataset_basename = 'gene';
-my $main             = 'gene__main';
 my $div              = undef;
 my $species_id_start = undef;
 my $registry         = undef;
@@ -93,8 +91,6 @@ my $options_okay = GetOptions(
                              "pass=s"             => \$db_pwd,
                              "mart=s"             => \$mart_db,
                              "registry=s"         => \$registry,
-                             "name=s"             => \$dataset_basename,
-                             "main=s"             => \$main,
                              "div=s"              => \$div,
                              "species_id_start=s" => \$species_id_start,
                              "help"               => sub { usage() } );
@@ -125,7 +121,7 @@ drop_and_create_table( $mart_handle,
                          'assembly varchar(100)',
                          'genebuild varchar(100)',
                          'collection varchar(100)',
-                         'has_chromosomes tinyint' ],
+                         'has_chromosomes tinyint'],
                        'ENGINE=MyISAM DEFAULT CHARSET=latin1' );
 
 my $names_insert = $mart_handle->prepare(
@@ -169,7 +165,7 @@ for my $dba (
 
 $logger->info("Listing datasets from $mart_db");
 # 1. identify datasets based on main tables
-my $re = '_' . $dataset_basename . '__' . $main;
+my $re = '__main';
 
 my @datasets = get_datasets( \@src_tables, $re );
 
@@ -300,7 +296,7 @@ foreach my $dataset (@datasets) {
 
     # Add a meta key on the core database
     # Do that only when templating gene mart - not SNP mart nor e! marts
-    if ( ($dataset_basename !~ /snp/i) and ($div ne 'ensembl') ) {
+    if ( ($mart_db !~ /snp/i) and ($div ne 'ensembl') ) {
       $meta_insert->execute( $species_id, $dataset );
     }
 
