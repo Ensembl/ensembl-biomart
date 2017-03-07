@@ -75,7 +75,7 @@ sub pipeline_analyses {
       -meadow_type => 'LSF',
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -name #base_name# -div #division# -registry #registry# -main #main#',
+'perl #base_dir#/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -div #division# -registry #registry#',
         'mart'     => $self->o('mart'),
         'user'     => $self->o('user'),
         'pass'     => $self->o('pass'),
@@ -83,9 +83,7 @@ sub pipeline_analyses {
         'port'     => $self->o('port'),
         'base_dir' => $self->o('base_dir'),
         'division'  => $self->o('division'),
-        'registry'  => $self->o('registry'),
-        'base_name'  => $self->o('base_name'),
-        'main'       => 'external_feature__main' },
+        'registry'  => $self->o('registry') },
       -input_ids         => [ {} ],
       -analysis_capacity => 1,
       -meadow_type       => 'LOCAL',
