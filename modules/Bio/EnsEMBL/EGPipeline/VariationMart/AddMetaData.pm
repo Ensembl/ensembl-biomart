@@ -81,9 +81,7 @@ sub run_names_script {
     $self->param_required('mart_port') . " -user " .
     $self->param_required('mart_user') . " -pass " .
     $self->param_required('mart_pass') . " -mart " .
-    $self->param_required('mart_db_name') . " -name " .
-    $self->param_required('dataset_name') . " -main " .
-    $self->param_required('dataset_main') . " -div " .
+    $self->param_required('mart_db_name') . " -div " .
     lc($self->param_required('division_name'));
   $cmd = $cmd . " -suffix " . $self->param_required('species_suffix') if $self->param_required('species_suffix') ne '';
 
