@@ -232,7 +232,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-        <FilterGroup displayName="PATHOGEN PHENOTYPES (PHI-BASE):" description="Filter on pathogen phenotypes (PHI-base)" internalName="phi_extension" hidden="true">
+        <FilterGroup displayName="PATHOGEN PHENOTYPES (PHI-BASE):" description="Filter on pathogen phenotypes (PHI-base)" internalName="phi_extension">
       <FilterCollection displayName="Entries with plant pathogen annotation (source: PHI-base)" internalName="phi_extension_bool">
         <FilterDescription description="Limit to entries with pathogen phenotype annotation (source: PHI-base)" displayName="Entries with pathogen phenotype annotation" displayType="list" field="phi_extension_bool" internalName="with_phi_extension" key="translation_id_1068_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
       </FilterCollection>
