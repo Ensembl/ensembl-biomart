@@ -241,6 +241,7 @@ sub process_dataset {
       wikigene => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "name", description_1074 => "description"}},
       zfin_id => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "symbol"}},
       mgi => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "symbol", description_1074 => "description"}},
+      rgd => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "symbol"}},
     };
   }
 
