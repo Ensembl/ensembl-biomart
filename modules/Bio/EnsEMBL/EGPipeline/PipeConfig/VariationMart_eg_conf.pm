@@ -48,6 +48,7 @@ sub default_options {
     %{$self->SUPER::default_options},
     
     mart_db_name          => $self->o('division_name').'_snp_mart_'.$self->o('eg_release'),
+    pipeline_name         => 'variation_mart_'.$self->o('division_name').'_'.$self->o('eg_release'),
     drop_mtmp             => 1,
     sample_threshold      => 100,
     population_threshold  => 100,
