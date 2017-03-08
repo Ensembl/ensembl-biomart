@@ -240,6 +240,7 @@ sub process_dataset {
       dbass5 => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "name"}},
       wikigene => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "name", description_1074 => "description"}},
       zfin_id => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "symbol"}},
+      mgi => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "symbol", description_1074 => "description"}},
     };
   }
 
@@ -854,8 +855,13 @@ sub write_filters {
                 if (defined $protein_domain_and_feature->[2] and $protein_domain_and_feature->[2] ne "{'type' => 'feature'}"){
                   $display_name="With $protein_domain_and_feature->[3] ID(s)";
                 }
-                else {
+                elsif (defined $protein_domain_and_feature->[3])
+                {
                   $display_name="With $protein_domain_and_feature->[3]";
+                } 
+                # BlastProdom don't have an analysis_description.
+                else {
+                  $display_name="With $protein_domain_and_feature->[1]";
                 }
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = $self->get_table_key($table);
@@ -932,12 +938,19 @@ sub write_filters {
                   my $key = $self->get_table_key($table);
                   if ( defined $self->{tables}->{$table}->{$key} ) {
                       my $field = "hit_name_1048";
+                      my $display_name;
+                      if (defined $protein_domain_and_feature->[3]) {
+                        $display_name=$protein_domain_and_feature->[3];
+                      }
+                      else{
+                        $display_name=$protein_domain_and_feature->[1];
+                      }
                       # add in if the column exists
                       my $example = $self->get_example($table,$field);
                       push @{ $fdo->{Option} }, {
-                        displayName  => "$protein_domain_and_feature->[3] ID(s) [e.g. $example]",
+                        displayName  => "$display_name ID(s) [e.g. $example]",
                         displayType  => "text",
-                        description  => "Filter to include genes with supplied list of $protein_domain_and_feature->[3] ID(s)",
+                        description  => "Filter to include genes with supplied list of $display_name ID(s)",
                         field        => $field,
                         hidden       => "false",
                         internalName => "$protein_domain_and_feature->[0]",
@@ -1692,9 +1705,16 @@ sub write_attributes {
                     else{
                       $url='';
                     }
+                    my $display_name;
+                    if (defined $protein_domain_and_feature->[3]) {
+                      $display_name=$protein_domain_and_feature->[3];
+                    }
+                    else{
+                      $display_name=$protein_domain_and_feature->[1];
+                    }
                     push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
-                      displayName     => "$protein_domain_and_feature->[3] ID",
+                      displayName     => "$display_name ID",
                       field           => "hit_name_1048",
                       internalName    => $protein_domain_and_feature->[0],
                       linkoutURL      => $url,
@@ -1702,7 +1722,7 @@ sub write_attributes {
                       tableConstraint => $table };
                       push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
-                      displayName     => "$protein_domain_and_feature->[3] start",
+                      displayName     => "$display_name start",
                       field           => "seq_start_1048",
                       internalName    => $protein_domain_and_feature->[0]."_start",
                       linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
@@ -1710,7 +1730,7 @@ sub write_attributes {
                       tableConstraint => $table };
                       push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
-                      displayName     => "$protein_domain_and_feature->[3] end",
+                      displayName     => "$display_name end",
                       field           => "seq_end_1048",
                       internalName    => $protein_domain_and_feature->[0]."_end",
                       linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
@@ -1742,9 +1762,16 @@ sub write_attributes {
                     else{
                       $url='';
                     }
+                    my $display_name;
+                    if (defined $protein_domain_and_feature->[3]) {
+                      $display_name=$protein_domain_and_feature->[3];
+                    }
+                    else{
+                      $display_name=$protein_domain_and_feature->[1];
+                    }
                     push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
-                      displayName     => "$protein_domain_and_feature->[3]",
+                      displayName     => "$display_name",
                       field           => "hit_name_1048",
                       internalName    => $protein_domain_and_feature->[0],
                       linkoutURL      => $url,
@@ -1752,7 +1779,7 @@ sub write_attributes {
                       tableConstraint => $table };
                       push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
-                      displayName     => "$protein_domain_and_feature->[3] start",
+                      displayName     => "$display_name start",
                       field           => "seq_start_1048",
                       internalName    => $protein_domain_and_feature->[0]."_start",
                       linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
@@ -1760,7 +1787,7 @@ sub write_attributes {
                       tableConstraint => $table };
                       push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
-                      displayName     => "$protein_domain_and_feature->[3] end",
+                      displayName     => "$display_name end",
                       field           => "seq_end_1048",
                       internalName    => $protein_domain_and_feature->[0]."_end",
                       linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
@@ -2323,7 +2350,7 @@ sub generate_protein_domain_and_feature_list {
   if (defined $database_tables->[0]) {
     if ($database_tables->[0] > 0) {
       $protein_domain_and_feature_list = $self->{dbc}->sql_helper()->execute(
-              -SQL => "select distinct(LOWER(logic_name)), db, web_data, display_label from ${core_db}.protein_feature JOIN ${core_db}.analysis USING(analysis_id) JOIN ${core_db}.analysis_description USING (analysis_id) order by db",
+              -SQL => "select distinct(LOWER(logic_name)), db, web_data, display_label from ${core_db}.protein_feature JOIN ${core_db}.analysis USING(analysis_id) LEFT JOIN ${core_db}.analysis_description USING (analysis_id) order by db",
             );
     }
   }
