@@ -242,6 +242,7 @@ sub process_dataset {
       zfin_id => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "symbol"}},
       mgi => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "symbol", description_1074 => "description"}},
       rgd => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "symbol"}},
+      zfin_xpat => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "symbol"}},
     };
   }
 
