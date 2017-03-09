@@ -1234,13 +1234,24 @@ sub write_filters {
             }
           }
         } else {
-            push @{ $fgo->{FilterCollection} }, $fco unless ( exists $self->{delete}{$fco->{internalName}} or exists $self->{delete}{$dataset->{name}."_".$fco->{internalName}});;
+            push @{ $fgo->{FilterCollection} }, $fco unless ( exists $self->{delete}{$fco->{internalName}} or exists $self->{delete}{$dataset->{name}."_".$fco->{internalName}});
             $nC++;
           }
         }
       } ## end for my $filterCollection...
 
       if ( $nC > 0 ) {
+        #Check if species has variation data
+        if($fgo->{internalName} eq "snp") {
+          my ($has_variation_data,$has_variation_somatic_data) = $self->check_variation_data($dataset);
+          if ($has_variation_data){
+            1;
+          }
+          else {
+            $logger->info( "No Variation data for this dataset, removing filter");
+            $self->{delete}{$dataset->{name}."_".$fgo->{internalName}}=1;
+          }
+        } 
         if(defined $fgo->{checkTable}) {
           # check for special checkTable tag which allows us to remove unneeded ontology filters which only exist as closures
           my $table = $ds_name.'__'.$fgo->{checkTable};
@@ -1250,7 +1261,7 @@ sub write_filters {
             $nG++;
           }
         } else {
-          push @{ $fpo->{FilterGroup} }, $fgo unless exists $self->{delete}{$fgo->{internalName}};
+          push @{ $fpo->{FilterGroup} }, $fgo unless (exists $self->{delete}{$fgo->{internalName}} or exists $self->{delete}{$dataset->{name}."_".$fgo->{internalName}});
           $nG++;
         }
       }
@@ -1269,9 +1280,28 @@ sub write_attributes {
   # AttributePage
   for my $attributePage ( @{ elem_as_array($templ_in->{AttributePage}) } ) {
     $logger->debug( "Processing filterPage " . $attributePage->{internalName} );
-    # Drop the Somatic page if the species is not human
-    if ($attributePage->{internalName} eq "snp_somatic" and $dataset->{name} ne "hsapiens"){
-      next;
+    # Check if the species has variation data, else skip this page.
+    if($attributePage->{internalName} eq "snp" or $attributePage->{internalName} eq "snp_somatic") {
+      my ($has_variation_data,$has_variation_somatic_data) = $self->check_variation_data($dataset);
+      if ($attributePage->{internalName} eq "snp")
+      {
+        if ($has_variation_data){
+          1;
+        }
+        else {
+          $logger->info( "No Variation data for this dataset, removing attributes");
+          next;
+        }
+      }
+      elsif ($attributePage->{internalName} eq "snp_somatic"){
+        if ($has_variation_somatic_data){
+          1;
+        }
+        else {
+          $logger->info( "No Variation somatic data for this dataset, removing attributes");
+          next;
+        }
+      }
     }
     # count the number of groups we add
     my $nG = 0;
@@ -2485,5 +2515,39 @@ sub check_pointer_dataset_table_exist {
   }
   return ($pointer_dataset_table);
 }
+
+=head2 check_variation_data
+  Description: Check if a species has variation data
+  Arg        : Mart dataset name
+  Returntype : Boolean, 1 for has variation data or 0 if not
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub check_variation_data {
+  my ($self,$dataset)= @_;
+  my $core_db = $dataset->{src_db};
+  my $variation_db = $core_db;
+  my $has_variation=0;
+  my $has_somatic=0;
+  $variation_db =~ s/core/variation/;
+  my $database_tables = $self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${variation_db}'" );
+    if (defined $database_tables->[0]) {
+      if ($database_tables->[0] > 0) {
+        $has_variation=1;
+        my $somatic_check=$self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>"select count(*) from ${variation_db}.source where somatic_status='somatic'" );
+        if(defined $somatic_check->[0]) {
+          if ($somatic_check->[0] > 0) {
+            $has_somatic=1;
+          }
+        }
+      }
+    }
+  return ($has_variation,$has_somatic);
+}
+
 
 1;
