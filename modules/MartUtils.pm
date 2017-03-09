@@ -68,16 +68,18 @@ sub get_dataset_names {
 sub get_datasets {
     my $src_tables = shift;
     my $regexp = shift;
+    my $suffix = shift;
     print $regexp."\n";
-    return get_datasets_regexp ($src_tables, $regexp);
+    return get_datasets_regexp ($src_tables, $regexp, $suffix);
 }
 
 sub get_datasets_regexp {
     my $src_tables_aref = shift;
     my $regexp = shift;
+    my $suffix = shift;
     my @datasets = ();
     foreach my $src_table (@$src_tables_aref) {
-	if( $src_table =~ m/^(?!meta)([A-Za-z1-9]*)_.*$regexp/ ) {
+	if( $src_table =~ m/^(?!meta)([A-Za-z1-9]*$suffix+)_.*$regexp/ ) {
 	    push @datasets,$1 unless grep{$_ eq $1} @datasets;
 	}
     }
