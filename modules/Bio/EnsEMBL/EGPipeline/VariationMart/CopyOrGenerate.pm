@@ -44,14 +44,16 @@ sub write_output {
   my $copy_species      = $self->param('copy_species');
   my $copy_all          = $self->param('copy_all');
   my $division_name     = $self->param('division_name');
+  my $species_suffix    = $self->param('species_suffix');
   my $mart_table_prefix;
   
-  if ($division_name eq "Ensembl") {
+  if ($species_suffix ne '') {
+    $species =~ /^(\w).+_(\w+)$/;
+    $mart_table_prefix = "$1$2$species_suffix";
+  }
+  else {
     $species =~ /^(\w).+_(\w+)$/;
     $mart_table_prefix = "$1$2";
-  } else {
-    $species =~ /^(\w).+_(\w+)$/;
-    $mart_table_prefix = "$1$2_eg";
   }
   
   my $copy = 0;
