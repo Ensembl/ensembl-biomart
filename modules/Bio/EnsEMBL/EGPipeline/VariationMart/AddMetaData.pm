@@ -83,7 +83,6 @@ sub run_names_script {
     $self->param_required('mart_pass') . " -mart " .
     $self->param_required('mart_db_name') . " -div " .
     lc($self->param_required('division_name'));
-  $cmd = $cmd . " -suffix " . $self->param_required('species_suffix') if $self->param_required('species_suffix') ne '';
 
   if ( system($cmd) ) {
     $self->throw("Loading failed when running $cmd");
