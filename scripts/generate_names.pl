@@ -167,17 +167,16 @@ $logger->info("Listing datasets from $mart_db");
 # 1. identify datasets based on main tables
 my $re = '__main';
 
-my @datasets = get_datasets( \@src_tables, $re );
 
 # 2. for each dataset
 
 my $pId;
 
 unless ($div) {
-  if    ( $mart_db =~ m/protist/ )  { $div = 'protist' }
-  elsif ( $mart_db =~ m/plant/ )    { $div = 'plant' }
+  if    ( $mart_db =~ m/protists/ )  { $div = 'protists' }
+  elsif ( $mart_db =~ m/plants/ )    { $div = 'plants' }
   elsif ( $mart_db =~ m/metazoa/ )  { $div = 'metazoa' }
-  elsif ( $mart_db =~ m/fung/ )     { $div = 'fung' }
+  elsif ( $mart_db =~ m/fungi/ )     { $div = 'fungi' }
   elsif ( $mart_db =~ m/vb/ )       { $div = 'vectorbase' }
   elsif ( $mart_db =~ m/parasite/ ) { $div = 'parasite' }
   elsif ( $mart_db =~ m/ensembl/ )  { $div = 'ensembl' }
@@ -188,10 +187,10 @@ unless ($div) {
 }
 
 my $suffix = '';
-if    ( $div eq 'protist' ) { $pId = 10000; $suffix = '_eg'; }
-elsif ( $div eq 'plant' )   { $pId = 20000; $suffix = '_eg'; }
+if    ( $div eq 'protists' ) { $pId = 10000; $suffix = '_eg'; }
+elsif ( $div eq 'plants' )   { $pId = 20000; $suffix = '_eg'; }
 elsif ( $div eq 'metazoa' ) { $pId = 30000; $suffix = '_eg'; }
-elsif ( $div eq 'fung' )    { $pId = 40000; $suffix = '_eg'; }
+elsif ( $div eq 'fungi' )    { $pId = 40000; $suffix = '_eg'; }
 elsif ( $div eq 'vectorbase' ) { $pId = 50000 }
 elsif ( $div eq 'parasite' )   { $pId = 60000 }
 elsif ( $div eq 'ensembl' ) {
@@ -206,6 +205,8 @@ else {
   croak
 "Don't know how to deal with mart $mart_db - doesn't match known divisions\n";
 }
+
+my @datasets = get_datasets( \@src_tables, $re, $suffix );
 
 unless ( scalar @datasets > 0 ) {
   croak "No datasets found - bailing out!\n";
