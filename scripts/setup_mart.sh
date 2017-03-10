@@ -51,15 +51,28 @@ done
 $srv -e "show databases" | grep variation | while read db; do
     cnt=$($srv --column-names=false $db -e "show tables like \"MTMP_transcript_variation\"" | wc -l)
     if [ $cnt -eq 0 ]; then 
-	echo "Creating variation helper for $db"
+    echo "Creating variation transcript_variation MTMP table for $db"
+    cd ${ENSEMBL_CVS_ROOT_DIR}/ensembl-variation
+    perl -I modules -I scripts/import \
+        scripts/misc/mart_variation_effect.pl \
+        $($srv details script) \
+        -db $db \
+        -tmpdir /tmp -tmpfile mtmp_${db}.txt \
+        -table transcript_variation
+    fi
+done
+
+$srv -e "show databases" | grep variation | while read db; do
+    cnt=$($srv --column-names=false $db -e "show tables like \"MTMP_phenotype\"" | wc -l)
+    if [ $cnt -eq 0 ]; then
+	echo "Creating variation phenotype MTMP table for $db"
 	cd ${ENSEMBL_CVS_ROOT_DIR}/ensembl-variation
 	perl -I modules -I scripts/import \
-	    scripts/misc/mart_variation_effect.pl \
+	    scripts/misc/mart_phenotypes.pl \
 	    $($srv details script) \
 	    -db $db \
-	    -tmpdir /tmp -tmpfile mtmp.txt \
-	    -table transcript_variation
-	cd -
+	    -tmpdir /tmp -tmpfile phenotype_${db}.txt
+        cd -
     fi
 done
 	
