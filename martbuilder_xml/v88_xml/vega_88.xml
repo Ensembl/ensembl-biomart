@@ -1,0 +1,1861 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mart PUBLIC "-//EBI//DTD MartBuilder 0.7-//EBI//DTD MartBuilder " "http://www.biomart.org/DTD/MartBuilder-0.7.dtd">
+<mart outputDatabase="vega_mart_85" outputSchema="vega_mart_85" outputHost="localhost" outputPort="18002" overrideHost="ens-staging2" overridePort="3306" nameCase="0" hideMaskedDataSets="true" hideMaskedSchemas="false">
+	<jdbcSchema uniqueId="1" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:24519/master_schema_88" databaseName="master_schema_88" schemaName="master_schema_88" username="ensadmin" password="ensembl" name="vega_gene" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]+_([^_]+)_vega_88_[0-9]*$" partitionExpression="$1$2">
+		<table uniqueId="81" id="1" name="seq_region_synonym" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="2" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="3" name="synonym" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="4" name="seq_region_synonym_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="5" name="external_db_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="6" columnIds="4" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="7" columnIds="5" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="8" columnIds="2" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="38" id="9" name="misc_feature_misc_set" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="10" name="misc_feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="11" name="misc_set_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="12" columnIds="10,11" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="13" columnIds="11" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="14" columnIds="10" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="33" id="15" name="marker_synonym" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="16" name="marker_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="17" name="name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="18" name="source" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="19" name="marker_synonym_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="20" columnIds="19" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="21" columnIds="16" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="60" id="22" name="seq_region_attrib" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="23" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="24" name="attrib_type_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="25" name="value" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="26" columnIds="24" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="27" columnIds="23" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="92" id="28" name="transcript_intron_supporting_evidence" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="29" name="transcript_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="30" name="intron_supporting_evidence_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="31" name="next_exon_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="32" name="previous_exon_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="33" columnIds="30,29" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="34" columnIds="29" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="35" columnIds="30" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="13" id="36" name="dna_align_feature" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="37" name="cigar_line" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="38" name="external_data" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="39" name="hcoverage" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="40" name="hit_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="41" name="evalue" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="42" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="43" name="hit_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="44" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="45" name="score" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="46" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="47" name="perc_ident" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="48" name="hit_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="49" name="external_db_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="50" name="seq_region_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="51" name="dna_align_feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="52" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="53" name="hit_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="54" columnIds="51" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="55" columnIds="44" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="56" columnIds="49" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="57" columnIds="46" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="72" id="58" name="unmapped_object" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="59" name="query_score" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="60" name="parent" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="61" name="identifier" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="62" name="external_db_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="63" name="target_score" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="64" name="unmapped_reason_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="65" name="ensembl_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="66" name="type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="67" name="ensembl_object_type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="68" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="69" name="unmapped_object_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="70" columnIds="69" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="71" columnIds="68" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="72" columnIds="64" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="73" columnIds="62" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="44" id="74" name="peptide_archive" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="75" name="peptide_archive_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="76" name="md5_checksum" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="77" name="peptide_seq" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="78" columnIds="75" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="27" id="79" name="karyotype" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="80" name="karyotype_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="81" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="82" name="band" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="83" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="84" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="85" name="stain" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="86" columnIds="80" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="87" columnIds="81" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="98" id="88" name="dna_align_feature_attrib" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="89" name="dna_align_feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="90" name="attrib_type_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="91" name="value" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="92" columnIds="89" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="93" columnIds="90" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="12" id="94" name="dna" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="95" name="sequence" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="96" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="97" columnIds="96" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="98" columnIds="96" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="7" id="99" name="coord_system" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="100" name="species_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="101" name="coord_system_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="102" name="attrib" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="103" name="name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="104" name="rank" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="105" name="version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="106" columnIds="101" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="11" id="107" name="ditag_feature" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="108" name="cigar_line" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="109" name="ditag_pair_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="110" name="hit_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="111" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="112" name="hit_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="113" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="114" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="115" name="hit_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="116" name="ditag_feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="117" name="ditag_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="118" name="seq_region_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="119" name="ditag_side" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="120" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="121" columnIds="116" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="122" columnIds="117" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="123" columnIds="113" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="124" columnIds="114" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="65" id="125" name="transcript_attrib" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="126" name="transcript_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="127" name="attrib_type_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="128" name="value" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="129" columnIds="127" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="130" columnIds="126" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="32" id="131" name="marker_map_location" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="132" name="lod_score" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="133" name="map_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="134" name="marker_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="135" name="chromosome_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="136" name="position" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="137" name="marker_synonym_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="138" columnIds="134,133" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="139" columnIds="137" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="140" columnIds="133" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="141" columnIds="134" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="97" id="142" name="genome_statistics" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="143" name="species_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="144" name="statistic" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="145" name="attrib_type_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="146" name="value" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="147" name="genome_statistics_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="148" name="timestamp" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="149" columnIds="147" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="150" columnIds="145" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="31" id="151" name="marker_feature" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="152" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="153" name="map_weight" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="154" name="marker_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="155" name="marker_feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="156" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="157" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="158" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="159" columnIds="155" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="160" columnIds="157" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="161" columnIds="154" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="162" columnIds="152" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="36" id="163" name="misc_attrib" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="164" name="misc_feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="165" name="attrib_type_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="166" name="value" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="167" columnIds="165" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="168" columnIds="164" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="87" id="169" name="data_file" ignore="true" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="170" name="data_file_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="171" name="coord_system_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="172" name="version_lock" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="173" name="absolute" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="174" name="file_type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="175" name="name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="176" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="177" name="url" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="178" columnIds="170" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="179" columnIds="176" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="180" columnIds="171" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="21" id="181" name="gene_archive" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="182" name="mapping_session_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="183" name="transcript_stable_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="184" name="peptide_archive_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="185" name="translation_stable_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="186" name="transcript_version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="187" name="translation_version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="188" name="gene_stable_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="189" name="gene_version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="190" columnIds="182" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="191" columnIds="184" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="58" id="192" name="repeat_feature" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="193" name="score" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="194" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="195" name="repeat_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="196" name="repeat_consensus_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="197" name="seq_region_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="198" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="199" name="repeat_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="200" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="201" name="repeat_feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="202" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="203" columnIds="201" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="204" columnIds="196" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="205" columnIds="200" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="206" columnIds="194" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="74" id="207" name="xref" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="208" name="display_label" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="209" name="info_type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="210" name="info_text" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="211" name="external_db_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="212" name="dbprimary_acc" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="213" name="description" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="214" name="xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="215" name="version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="216" columnIds="214" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="217" columnIds="211" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="218" columnIds="212" status="HANDMADE" visibleModified="false"/>
+		</table>
+		<table uniqueId="39" id="219" name="misc_set" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="220" name="code" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="221" name="name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="222" name="description" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="223" name="max_length" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="224" name="misc_set_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="225" columnIds="224" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="20" id="226" name="gene" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="227" name="biotype" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="228" name="stable_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="229" name="description" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="230" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="231" name="source" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="232" name="modified_date" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="233" name="version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="234" name="display_xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="235" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="236" name="canonical_transcript_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="237" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="238" name="seq_region_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="239" name="created_date" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="240" name="is_current" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="241" name="gene_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="242" name="status" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="243" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="244" columnIds="241" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="245" columnIds="235" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="246" columnIds="237" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="247" columnIds="234" status="HANDMADE" visibleModified="false"/>
+			<foreignKey id="248" columnIds="236" status="HANDMADE" visibleModified="false"/>
+		</table>
+		<table uniqueId="24" id="249" name="ontology_xref" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="250" name="linkage_type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="251" name="source_xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="252" name="object_xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="253" columnIds="252" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="95" id="254" name="alt_allele_attrib" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="255" name="attrib" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="256" name="alt_allele_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="257" columnIds="256" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="57" id="258" name="repeat_consensus" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="259" name="repeat_type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="260" name="repeat_consensus_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="261" name="repeat_class" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="262" name="repeat_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="263" name="repeat_consensus" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="264" columnIds="260" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="2" id="265" name="analysis" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="266" name="logic_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="267" name="program_version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="268" name="gff_feature" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="269" name="created" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="270" name="module" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="271" name="db_file" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="272" name="program_file" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="273" name="program" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="274" name="module_version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="275" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="276" name="db_version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="277" name="gff_source" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="278" name="parameters" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="279" name="db" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="280" columnIds="275" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="26" id="281" name="interpro" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="282" name="interpro_ac" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="283" name="id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="284" columnIds="283" status="HANDMADE" visibleModified="false"/>
+			<foreignKey id="285" columnIds="282" status="HANDMADE" visibleModified="false"/>
+		</table>
+		<table uniqueId="94" id="286" name="associated_xref" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="287" name="source_xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="288" name="condition_type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="289" name="object_xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="290" name="rank" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="291" name="xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="292" name="associated_xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="293" name="associated_group_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="294" columnIds="292" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="295" columnIds="293" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="296" columnIds="289" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="297" columnIds="291" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="17" id="298" name="exon_transcript" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="299" name="transcript_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="300" name="exon_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="301" name="rank" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="302" columnIds="300,299,301" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="303" columnIds="300" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="304" columnIds="299" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="9" id="305" name="density_type" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="306" name="value_type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="307" name="density_type_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="308" name="region_features" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="309" name="block_size" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="310" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="311" columnIds="307" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="312" columnIds="310" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="37" id="313" name="misc_feature" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="314" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="315" name="misc_feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="316" name="seq_region_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="317" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="318" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="319" columnIds="315" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="320" columnIds="314" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="30" id="321" name="marker" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="322" name="left_primer" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="323" name="marker_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="324" name="right_primer" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="325" name="priority" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="326" name="type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="327" name="min_primer_dist" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="328" name="display_marker_synonym_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="329" name="max_primer_dist" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="330" columnIds="323" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="34" id="331" name="meta" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="332" name="species_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="333" name="meta_value" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="334" name="meta_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="335" name="meta_key" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="336" columnIds="334" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="76" id="337" name="seq_region_mapping" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="338" name="mapping_set_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="339" name="internal_seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="340" name="external_seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="341" columnIds="338" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="18" id="342" name="external_db" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="343" name="secondary_db_table" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="344" name="db_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="345" name="db_release" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="346" name="external_db_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="347" name="db_display_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="348" name="description" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="349" name="secondary_db_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="350" name="priority" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="351" name="type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="352" name="status" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="353" columnIds="346" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="48" id="354" name="protein_feature" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="355" name="translation_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="356" name="external_data" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="357" name="evalue" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="358" name="hit_description" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="359" name="hit_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="360" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="361" name="seq_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="362" name="score" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="363" name="perc_ident" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="364" name="hit_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="365" name="seq_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="366" name="protein_feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="367" name="hit_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="368" columnIds="366" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="369" columnIds="360" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="370" columnIds="355" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="371" columnIds="367" status="HANDMADE" visibleModified="false"/>
+		</table>
+		<table uniqueId="84" id="372" name="operon_transcript" ignore="true" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="373" name="display_label" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="374" name="operon_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="375" name="stable_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="376" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="377" name="operon_transcript_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="378" name="seq_region_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="379" name="created_date" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="380" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="381" name="modified_date" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="382" name="version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="383" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="384" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="385" columnIds="377" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="386" columnIds="374" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="387" columnIds="383" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="388" columnIds="376" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="67" id="389" name="transcript_supporting_feature" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="390" name="feature_type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="391" name="feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="392" name="transcript_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="393" columnIds="392" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="62" id="394" name="stable_id_event" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="395" name="old_stable_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="396" name="new_stable_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="397" name="mapping_session_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="398" name="score" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="399" name="old_version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="400" name="new_version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="401" name="type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="402" columnIds="397" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="10" id="403" name="ditag" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="404" name="sequence" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="405" name="tag_count" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="406" name="ditag_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="407" name="name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="408" name="type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="409" columnIds="406" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="59" id="410" name="seq_region" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="411" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="412" name="coord_system_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="413" name="name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="414" name="length" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="415" columnIds="411" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="416" columnIds="412" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="75" id="417" name="mapping_set" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="418" name="external_schema_build" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="419" name="mapping_set_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="420" name="internal_schema_build" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="421" columnIds="419" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="64" id="422" name="transcript" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="423" name="biotype" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="424" name="stable_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="425" name="description" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="426" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="427" name="source" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="428" name="modified_date" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="429" name="version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="430" name="display_xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="431" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="432" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="433" name="transcript_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="434" name="canonical_translation_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="435" name="seq_region_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="436" name="created_date" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="437" name="is_current" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="438" name="gene_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="439" name="status" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="440" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="441" columnIds="433" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="442" columnIds="438" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="443" columnIds="431" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="444" columnIds="432" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="445" columnIds="430" status="HANDMADE" visibleModified="false"/>
+		</table>
+		<table uniqueId="85" id="446" name="operon_transcript_gene" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="447" name="operon_transcript_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="448" name="gene_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="449" columnIds="448" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="450" columnIds="447" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="61" id="451" name="simple_feature" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="452" name="display_label" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="453" name="score" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="454" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="455" name="simple_feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="456" name="seq_region_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="457" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="458" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="459" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="460" columnIds="455" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="461" columnIds="458" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="462" columnIds="454" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="4" id="463" name="assembly" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="464" name="cmp_seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="465" name="asm_seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="466" name="cmp_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="467" name="asm_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="468" name="cmp_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="469" name="ori" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="470" name="asm_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+		</table>
+		<table uniqueId="69" id="471" name="translation_attrib" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="472" name="translation_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="473" name="attrib_type_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="474" name="value" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="475" columnIds="473" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="476" columnIds="472" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="28" id="477" name="map" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="478" name="map_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="479" name="map_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="480" columnIds="478" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="6" id="481" name="attrib_type" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="482" name="code" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="483" name="name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="484" name="description" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="485" name="attrib_type_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="486" columnIds="485" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="91" id="487" name="intron_supporting_evidence" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="488" name="is_splice_canonical" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="489" name="score" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="490" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="491" name="intron_supporting_evidence_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="492" name="seq_region_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="493" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="494" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="495" name="score_type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="496" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="497" name="hit_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="498" columnIds="491" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="499" columnIds="490" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="500" columnIds="494" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="73" id="501" name="unmapped_reason" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="502" name="full_description" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="503" name="unmapped_reason_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="504" name="summary_description" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="505" columnIds="503" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="45" id="506" name="prediction_exon" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="507" name="p_value" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="508" name="score" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="509" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="510" name="seq_region_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="511" name="prediction_transcript_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="512" name="prediction_exon_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="513" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="514" name="exon_rank" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="515" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="516" name="start_phase" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="517" columnIds="512" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="518" columnIds="511" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="519" columnIds="509" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="29" id="520" name="mapping_session" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="521" name="mapping_session_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="522" name="new_assembly" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="523" name="new_release" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="524" name="created" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="525" name="new_db_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="526" name="old_assembly" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="527" name="old_db_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="528" name="old_release" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="529" columnIds="521" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="77" id="530" name="dependent_xref" ignore="true" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="531" name="object_xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="532" name="dependent_xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="533" name="master_xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="534" columnIds="531" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="535" columnIds="531" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="19" id="536" name="external_synonym" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="537" name="synonym" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="538" name="xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="539" columnIds="538,537" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="540" columnIds="538" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="93" id="541" name="associated_group" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="542" name="description" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="543" name="associated_group_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="544" columnIds="543" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="1" id="545" name="alt_allele" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="546" name="alt_allele_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="547" name="alt_allele_group_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="548" name="gene_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="549" columnIds="546" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="550" columnIds="548" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="551" columnIds="547" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="5" id="552" name="assembly_exception" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="553" name="exc_seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="554" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="555" name="exc_seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="556" name="exc_seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="557" name="assembly_exception_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="558" name="ori" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="559" name="exc_type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="560" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="561" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="562" columnIds="557" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="563" columnIds="554" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="3" id="564" name="analysis_description" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="565" name="display_label" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="566" name="web_data" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="567" name="displayable" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="568" name="description" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="569" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="570" columnIds="569" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="82" id="571" name="operon" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="572" name="display_label" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="573" name="operon_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="574" name="stable_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="575" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="576" name="seq_region_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="577" name="created_date" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="578" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="579" name="modified_date" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="580" name="version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="581" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="582" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="583" columnIds="573" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="584" columnIds="581" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="585" columnIds="575" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="8" id="586" name="density_feature" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="587" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="588" name="density_feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="589" name="density_value" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="590" name="density_type_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="591" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="592" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="593" columnIds="588" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="594" columnIds="590" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="595" columnIds="587" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="47" id="596" name="protein_align_feature" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="597" name="cigar_line" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="598" name="hcoverage" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="599" name="evalue" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="600" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="601" name="hit_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="602" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="603" name="score" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="604" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="605" name="perc_ident" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="606" name="hit_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="607" name="external_db_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="608" name="seq_region_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="609" name="protein_align_feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="610" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="611" name="hit_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="612" columnIds="609" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="613" columnIds="602" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="614" columnIds="607" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="615" columnIds="604" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="25" id="616" name="identity_xref" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="617" name="xref_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="618" name="ensembl_identity" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="619" name="score" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="620" name="xref_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="621" name="cigar_line" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="622" name="xref_identity" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="623" name="ensembl_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="624" name="ensembl_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="625" name="object_xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="626" name="evalue" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="627" columnIds="625" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="628" columnIds="625" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="46" id="629" name="prediction_transcript" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="630" name="display_label" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="631" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="632" name="seq_region_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="633" name="prediction_transcript_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="634" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="635" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="636" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="637" columnIds="633" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="638" columnIds="635" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="639" columnIds="631" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="35" id="640" name="meta_coord" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="641" name="coord_system_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="642" name="table_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="643" name="max_length" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="644" columnIds="641" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="68" id="645" name="translation" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="646" name="seq_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="647" name="stable_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="648" name="transcript_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="649" name="translation_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="650" name="start_exon_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="651" name="seq_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="652" name="end_exon_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="653" name="created_date" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="654" name="modified_date" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="655" name="version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="656" columnIds="649" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="657" columnIds="648" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="63" id="658" name="supporting_feature" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="659" name="feature_type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="660" name="feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="661" name="exon_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="662" columnIds="661" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="40" id="663" name="object_xref" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="664" name="linkage_annotation" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="665" name="object_xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="666" name="ensembl_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="667" name="xref_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="668" name="ensembl_object_type" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="669" name="analysis_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="670" columnIds="665" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="671" columnIds="667" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="672" columnIds="666" status="HANDMADE" visibleModified="false"/>
+			<foreignKey id="673" columnIds="669" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="15" id="674" name="exon" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="675" name="phase" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="676" name="stable_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="677" name="exon_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="678" name="seq_region_end" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="679" name="modified_date" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="680" name="version" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="681" name="end_phase" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="682" name="seq_region_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="683" name="is_constitutive" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="684" name="seq_region_strand" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="685" name="created_date" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="686" name="is_current" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="687" name="seq_region_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="688" columnIds="677" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="689" columnIds="682" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="96" id="690" name="alt_allele_group" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="691" name="alt_allele_group_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<primaryKey id="692" columnIds="691" status="INFERRED" visibleModified="false"/>
+		</table>
+		<table uniqueId="22" id="693" name="gene_attrib" ignore="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus">
+			<column id="694" name="attrib_type_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="695" name="value" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<column id="696" name="gene_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus,sscrofa,drerio,rnorvegicus"/>
+			<foreignKey id="697" columnIds="696" status="INFERRED" visibleModified="false"/>
+			<foreignKey id="698" columnIds="694" status="INFERRED" visibleModified="false"/>
+		</table>
+		<relation id="699" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="54" secondKeyId="92" status="INFERRED" visibleModified="false"/>
+		<relation id="700" cardinality="1" originalCardinality="M(a)" firstKeyId="415" secondKeyId="27" status="MODIFIED" visibleModified="false"/>
+		<relation id="701" cardinality="1" originalCardinality="M(a)" firstKeyId="441" secondKeyId="130" status="MODIFIED" visibleModified="false"/>
+		<relation id="702" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="500" status="INFERRED" visibleModified="false"/>
+		<relation id="703" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="388" status="INFERRED" visibleModified="false"/>
+		<relation id="704" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="637" secondKeyId="518" status="INFERRED" visibleModified="false"/>
+		<relation id="705" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="673" status="INFERRED_INCORRECT" visibleModified="false"/>
+		<relation id="706" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="639" status="INFERRED" visibleModified="false"/>
+		<relation id="707" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="179" status="INFERRED" visibleModified="false"/>
+		<relation id="708" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="216" secondKeyId="297" status="INFERRED" visibleModified="false"/>
+		<relation id="709" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="312" status="INFERRED" visibleModified="false"/>
+		<relation id="710" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="421" secondKeyId="341" status="INFERRED" visibleModified="false"/>
+		<relation id="711" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="98" status="INFERRED" visibleModified="false"/>
+		<relation id="712" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="162" status="INFERRED" visibleModified="false"/>
+		<relation id="713" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="353" secondKeyId="217" status="INFERRED" visibleModified="false"/>
+		<relation id="714" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="613" status="INFERRED" visibleModified="false"/>
+		<relation id="715" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="244" secondKeyId="442" status="INFERRED" visibleModified="false"/>
+		<relation id="716" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="519" status="INFERRED" visibleModified="false"/>
+		<relation id="717" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="480" secondKeyId="140" status="INFERRED" visibleModified="false"/>
+		<relation id="718" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="216" secondKeyId="540" status="INFERRED" visibleModified="false"/>
+		<relation id="719" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="670" secondKeyId="535" status="INFERRED" visibleModified="false"/>
+		<relation id="720" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="462" status="INFERRED" visibleModified="false"/>
+		<relation id="721" cardinality="1" originalCardinality="M(a)" firstKeyId="319" secondKeyId="168" status="MODIFIED" visibleModified="false"/>
+		<relation id="722" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="486" secondKeyId="150" status="INFERRED" visibleModified="false"/>
+		<relation id="723" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="387" status="INFERRED" visibleModified="false"/>
+		<relation id="724" cardinality="1" originalCardinality="M(a)" firstKeyId="656" secondKeyId="476" status="MODIFIED" visibleModified="false"/>
+		<relation id="725" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="353" secondKeyId="73" status="INFERRED" visibleModified="false"/>
+		<relation id="726" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="441" secondKeyId="34" status="INFERRED" visibleModified="false"/>
+		<relation id="727" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="486" secondKeyId="698" status="INFERRED" visibleModified="false"/>
+		<relation id="728" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="441" secondKeyId="304" status="INFERRED" visibleModified="false"/>
+		<relation id="729" cardinality="M(b)" originalCardinality="M(a)" firstKeyId="371" secondKeyId="284" status="HANDMADE" visibleModified="false"/>
+		<relation id="730" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="87" secondKeyId="246" status="HANDMADE" visibleModified="false"/>
+		<relation id="731" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="688" secondKeyId="662" status="INFERRED" visibleModified="false"/>
+		<relation id="732" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="656" secondKeyId="370" status="INFERRED" visibleModified="false"/>
+		<relation id="733" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="106" secondKeyId="180" status="INFERRED" visibleModified="false"/>
+		<relation id="734" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="549" secondKeyId="257" status="INFERRED" visibleModified="false"/>
+		<relation id="735" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="615" status="INFERRED" visibleModified="false"/>
+		<relation id="736" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="87" status="INFERRED_INCORRECT" visibleModified="false"/>
+		<relation id="737" cardinality="M(b)" originalCardinality="M(a)" firstKeyId="320" secondKeyId="246" status="HANDMADE" visibleModified="false"/>
+		<relation id="738" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="441" secondKeyId="657" status="INFERRED" visibleModified="false"/>
+		<relation id="739" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="353" secondKeyId="7" status="INFERRED" visibleModified="false"/>
+		<relation id="740" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="216" secondKeyId="671" status="INFERRED" visibleModified="false"/>
+		<relation id="741" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="505" secondKeyId="72" status="INFERRED" visibleModified="false"/>
+		<relation id="742" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="444" status="INFERRED" visibleModified="false"/>
+		<relation id="743" cardinality="M(b)" originalCardinality="M(b)" firstKeyId="445" secondKeyId="216" status="HANDMADE" visibleModified="false"/>
+		<relation id="744" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="486" secondKeyId="26" status="INFERRED" visibleModified="false"/>
+		<relation id="745" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="583" secondKeyId="386" status="INFERRED" visibleModified="false"/>
+		<relation id="746" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="320" status="INFERRED_INCORRECT" visibleModified="false"/>
+		<relation id="747" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="245" status="INFERRED" visibleModified="false"/>
+		<relation id="748" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="486" secondKeyId="475" status="INFERRED" visibleModified="false"/>
+		<relation id="749" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="486" secondKeyId="167" status="INFERRED" visibleModified="false"/>
+		<relation id="750" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="8" status="INFERRED" visibleModified="false"/>
+		<relation id="751" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="441" secondKeyId="393" status="INFERRED" visibleModified="false"/>
+		<relation id="752" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="20" secondKeyId="139" status="INFERRED" visibleModified="false"/>
+		<relation id="753" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="106" secondKeyId="416" status="INFERRED" visibleModified="false"/>
+		<relation id="754" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="244" secondKeyId="550" status="INFERRED" visibleModified="false"/>
+		<relation id="755" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="311" secondKeyId="594" status="INFERRED" visibleModified="false"/>
+		<relation id="756" cardinality="1" originalCardinality="M(a)" firstKeyId="244" secondKeyId="697" status="MODIFIED" visibleModified="false"/>
+		<relation id="757" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="244" secondKeyId="449" status="INFERRED" visibleModified="false"/>
+		<relation id="758" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="670" secondKeyId="628" status="INFERRED" visibleModified="false"/>
+		<relation id="759" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="689" status="INFERRED" visibleModified="false"/>
+		<relation id="760" cardinality="M(b)" originalCardinality="M(b)" firstKeyId="672" secondKeyId="244" status="HANDMADE" visibleModified="false"/>
+		<relation id="761" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="595" status="INFERRED" visibleModified="false"/>
+		<relation id="762" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="585" status="INFERRED" visibleModified="false"/>
+		<relation id="763" cardinality="M(b)" originalCardinality="M(b)" firstKeyId="672" secondKeyId="441" status="HANDMADE" visibleModified="false"/>
+		<relation id="764" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="319" secondKeyId="14" status="INFERRED" visibleModified="false"/>
+		<relation id="765" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="385" secondKeyId="450" status="INFERRED" visibleModified="false"/>
+		<relation id="766" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="246" status="INFERRED" visibleModified="false"/>
+		<relation id="767" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="443" status="INFERRED" visibleModified="false"/>
+		<relation id="768" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="563" status="INFERRED" visibleModified="false"/>
+		<relation id="769" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="461" status="INFERRED" visibleModified="false"/>
+		<relation id="770" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="486" secondKeyId="129" status="INFERRED" visibleModified="false"/>
+		<relation id="771" cardinality="1" originalCardinality="M(a)" firstKeyId="670" secondKeyId="253" status="MODIFIED" visibleModified="false"/>
+		<relation id="772" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="225" secondKeyId="13" status="INFERRED" visibleModified="false"/>
+		<relation id="773" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="529" secondKeyId="402" status="INFERRED" visibleModified="false"/>
+		<relation id="774" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="71" status="INFERRED" visibleModified="false"/>
+		<relation id="775" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="78" secondKeyId="191" status="INFERRED" visibleModified="false"/>
+		<relation id="776" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="106" secondKeyId="644" status="INFERRED" visibleModified="false"/>
+		<relation id="777" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="124" status="INFERRED" visibleModified="false"/>
+		<relation id="778" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="330" secondKeyId="161" status="INFERRED" visibleModified="false"/>
+		<relation id="779" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="486" secondKeyId="93" status="INFERRED" visibleModified="false"/>
+		<relation id="780" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="570" status="INFERRED" visibleModified="false"/>
+		<relation id="781" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="330" secondKeyId="21" status="INFERRED" visibleModified="false"/>
+		<relation id="782" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="409" secondKeyId="122" status="INFERRED" visibleModified="false"/>
+		<relation id="783" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="205" status="INFERRED" visibleModified="false"/>
+		<relation id="784" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="529" secondKeyId="190" status="INFERRED" visibleModified="false"/>
+		<relation id="785" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="55" status="INFERRED" visibleModified="false"/>
+		<relation id="786" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="264" secondKeyId="204" status="INFERRED" visibleModified="false"/>
+		<relation id="787" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="670" secondKeyId="296" status="INFERRED" visibleModified="false"/>
+		<relation id="788" cardinality="M(b)" originalCardinality="M(b)" firstKeyId="247" secondKeyId="216" status="HANDMADE" visibleModified="false"/>
+		<relation id="789" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="330" secondKeyId="141" status="INFERRED" visibleModified="false"/>
+		<relation id="790" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="499" status="INFERRED" visibleModified="false"/>
+		<relation id="791" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="498" secondKeyId="35" status="INFERRED" visibleModified="false"/>
+		<relation id="792" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="123" status="INFERRED" visibleModified="false"/>
+		<relation id="793" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="353" secondKeyId="56" status="INFERRED" visibleModified="false"/>
+		<relation id="794" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="57" status="INFERRED" visibleModified="false"/>
+		<relation id="795" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="415" secondKeyId="206" status="INFERRED" visibleModified="false"/>
+		<relation id="796" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="544" secondKeyId="295" status="INFERRED" visibleModified="false"/>
+		<relation id="797" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="638" status="INFERRED" visibleModified="false"/>
+		<relation id="798" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="692" secondKeyId="551" status="INFERRED" visibleModified="false"/>
+		<relation id="799" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="656" secondKeyId="672" status="HANDMADE" visibleModified="false"/>
+		<relation id="800" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="584" status="INFERRED" visibleModified="false"/>
+		<relation id="801" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="160" status="INFERRED" visibleModified="false"/>
+		<relation id="802" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="280" secondKeyId="369" status="INFERRED" visibleModified="false"/>
+		<relation id="803" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="218" secondKeyId="285" status="HANDMADE" visibleModified="false"/>
+		<relation id="804" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="353" secondKeyId="614" status="INFERRED" visibleModified="false"/>
+		<relation id="805" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="688" secondKeyId="303" status="INFERRED" visibleModified="false"/>
+	</jdbcSchema>
+	<dataset name="gene_vega" centralTableId="226" optimiser="COLUMN_BOOL_NULL_INHERIT" invisible="false" masked="false" hideMasked="true" indexOptimiser="false">
+		<subclassRelation relationId="715"/>
+		<compoundRelation relationId="732" n="2" parallel="true"/>
+		<subclassRelation relationId="738"/>
+		<maskedTable tableKey="gene__misc_feature"/>
+		<renamedTable tableKey="gene__misc_feature" newName="misc_feature"/>
+		<renamedColumn tableKey="gene__misc_feature" colKey="1.36.0.attrib_type_id" newName="attrib_type_id_1036"/>
+		<renamedColumn tableKey="gene__misc_feature" colKey="1.36.0.value" newName="value_1036"/>
+		<renamedColumn tableKey="gene__misc_feature" colKey="1.6.0.name" newName="name_106"/>
+		<renamedColumn tableKey="gene__misc_feature" colKey="1.37.0.misc_feature_id" newName="misc_feature_id_1037"/>
+		<renamedColumn tableKey="gene__misc_feature" colKey="1.37.0.seq_region_end" newName="seq_region_end_1037"/>
+		<renamedColumn tableKey="gene__misc_feature" colKey="1.6.0.description" newName="description_106"/>
+		<renamedColumn tableKey="gene__misc_feature" colKey="1.6.0.code" newName="code_106"/>
+		<maskedColumn tableKey="gene__misc_feature" colKey="seq_region_id_1020"/>
+		<renamedColumn tableKey="gene__misc_feature" colKey="1.37.0.seq_region_strand" newName="seq_region_strand_1037"/>
+		<renamedColumn tableKey="gene__misc_feature" colKey="1.37.0.seq_region_start" newName="seq_region_start_1037"/>
+		<renamedTable tableKey="gene" newName="gene"/>
+		<indexedColumn tableKey="gene" colKey="1.20.0.biotype"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.biotype" newName="biotype_1020"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.version" newName="version_1020"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.status" newName="status_1020"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.seq_region_strand" newName="seq_region_strand_1020"/>
+		<renamedColumn tableKey="gene" colKey="1.74.0.display_label" newName="display_label_1074"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.description" newName="description_1020"/>
+		<renamedColumn tableKey="gene" colKey="1.27.0.band" newName="band_1027"/>
+		<maskedColumn tableKey="gene" colKey="1.18.0.db_release"/>
+		<renamedColumn tableKey="gene" colKey="1.18.0.db_release" newName="db_release_1018"/>
+		<maskedColumn tableKey="gene" colKey="1.20.0.created_date"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.created_date" newName="created_date_1020"/>
+		<maskedColumn tableKey="gene" colKey="1.59.0.length"/>
+		<renamedColumn tableKey="gene" colKey="1.59.0.length" newName="length_1059"/>
+		<maskedColumn tableKey="gene" colKey="1.18.0.secondary_db_name"/>
+		<renamedColumn tableKey="gene" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
+		<indexedColumn tableKey="gene" colKey="1.20.0.stable_id"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.stable_id" newName="stable_id_1023"/>
+		<maskedColumn tableKey="gene" colKey="1.20.0.analysis_id"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.analysis_id" newName="analysis_id_1020"/>
+		<maskedColumn tableKey="gene" colKey="1.18.0.status"/>
+		<renamedColumn tableKey="gene" colKey="1.18.0.status" newName="status_1018"/>
+		<maskedColumn tableKey="gene" colKey="1.74.0.external_db_id"/>
+		<renamedColumn tableKey="gene" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
+		<maskedColumn tableKey="gene" colKey="1.18.0.db_name"/>
+		<renamedColumn tableKey="gene" colKey="1.18.0.db_name" newName="db_name_1018"/>
+		<indexedColumn tableKey="gene" colKey="1.59.0.name"/>
+		<renamedColumn tableKey="gene" colKey="1.59.0.name" newName="name_1059"/>
+		<maskedColumn tableKey="gene" colKey="1.20.0.canonical_transcript_id"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.canonical_transcript_id" newName="canonical_transcript_id_1020"/>
+		<maskedColumn tableKey="gene" colKey="1.20.0.is_current"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.is_current" newName="is_current_1020"/>
+		<maskedColumn tableKey="gene" colKey="1.20.0.seq_region_id"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.seq_region_id" newName="seq_region_id_1020"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.seq_region_end" newName="seq_region_end_1020"/>
+		<maskedColumn tableKey="gene" colKey="1.20.0.display_xref_id"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.display_xref_id" newName="display_xref_id_1020"/>
+		<maskedColumn tableKey="gene" colKey="1.74.0.info_text"/>
+		<renamedColumn tableKey="gene" colKey="1.74.0.info_text" newName="info_text_1074"/>
+		<maskedColumn tableKey="gene" colKey="1.74.0.version"/>
+		<renamedColumn tableKey="gene" colKey="1.74.0.version" newName="version_1074"/>
+		<maskedColumn tableKey="gene" colKey="1.59.0.coord_system_id"/>
+		<renamedColumn tableKey="gene" colKey="1.59.0.coord_system_id" newName="coord_system_id_1059"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.seq_region_start" newName="seq_region_start_1020"/>
+		<maskedColumn tableKey="gene" colKey="1.74.0.description"/>
+		<renamedColumn tableKey="gene" colKey="1.74.0.description" newName="description_1074"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.source" newName="source_1020"/>
+		<maskedColumn tableKey="gene" colKey="1.27.0.seq_region_start"/>
+		<renamedColumn tableKey="gene" colKey="1.27.0.seq_region_start" newName="seq_region_start_1027"/>
+		<maskedColumn tableKey="gene" colKey="1.18.0.secondary_db_table"/>
+		<renamedColumn tableKey="gene" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
+		<maskedColumn tableKey="gene" colKey="1.27.0.stain"/>
+		<renamedColumn tableKey="gene" colKey="1.27.0.stain" newName="stain_1027"/>
+		<maskedColumn tableKey="gene" colKey="1.74.0.dbprimary_acc"/>
+		<renamedColumn tableKey="gene" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
+		<maskedColumn tableKey="gene" colKey="1.18.0.priority"/>
+		<renamedColumn tableKey="gene" colKey="1.18.0.priority" newName="priority_1018"/>
+		<maskedColumn tableKey="gene" colKey="1.27.0.seq_region_end"/>
+		<renamedColumn tableKey="gene" colKey="1.27.0.seq_region_end" newName="seq_region_end_1027"/>
+		<renamedColumn tableKey="gene" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
+		<maskedColumn tableKey="gene" colKey="1.18.0.type"/>
+		<renamedColumn tableKey="gene" colKey="1.18.0.type" newName="type_1018"/>
+		<maskedColumn tableKey="gene" colKey="1.27.0.karyotype_id"/>
+		<renamedColumn tableKey="gene" colKey="1.27.0.karyotype_id" newName="karyotype_id_1027"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.gene_id" newName="gene_id_1020_key"/>
+		<maskedColumn tableKey="gene" colKey="1.74.0.info_type"/>
+		<renamedColumn tableKey="gene" colKey="1.74.0.info_type" newName="info_type_1074"/>
+		<maskedColumn tableKey="gene" colKey="1.18.0.description"/>
+		<renamedColumn tableKey="gene" colKey="1.18.0.description" newName="description_1018"/>
+		<maskedColumn tableKey="gene" colKey="1.20.0.modified_date"/>
+		<renamedColumn tableKey="gene" colKey="1.20.0.modified_date" newName="modified_date_1020"/>
+		<maskedRelation tableKey="gene" relationId="700"/>
+		<maskedRelation tableKey="gene" relationId="709"/>
+		<maskedRelation tableKey="gene" relationId="714"/>
+		<alternativeJoin tableKey="gene" relationId="727"/>
+		<maskedRelation tableKey="gene" relationId="727"/>
+		<restrictedRelation tableKey="gene" relationId="730" index="0" leftAliasColumnIds="83,84" leftAliasNames="firstCol2,firstCol1" rightAliasColumnIds="238,230,243" rightAliasNames="secondCol3,secondCol2,secondCol1" expression="((:secondCol1&gt;=:firstCol1 and :secondCol1&lt;=:firstCol2 and :secondCol3=1) or (:secondCol2&gt;=:firstCol1 and :secondCol2&lt;=:firstCol2 and :secondCol3=-1))"/>
+		<maskedRelation tableKey="gene" relationId="744"/>
+		<maskedRelation tableKey="gene" relationId="747"/>
+		<maskedRelation tableKey="gene" relationId="748"/>
+		<maskedRelation tableKey="gene" relationId="749"/>
+		<maskedRelation tableKey="gene" relationId="753"/>
+		<maskedRelation tableKey="gene" relationId="756"/>
+		<maskedRelation tableKey="gene" relationId="767"/>
+		<maskedRelation tableKey="gene" relationId="769"/>
+		<maskedRelation tableKey="gene" relationId="770"/>
+		<maskedRelation tableKey="gene" relationId="774"/>
+		<maskedRelation tableKey="gene" relationId="776"/>
+		<maskedRelation tableKey="gene" relationId="780"/>
+		<maskedRelation tableKey="gene" relationId="783"/>
+		<maskedRelation tableKey="gene" relationId="785"/>
+		<maskedRelation tableKey="gene" relationId="792"/>
+		<maskedRelation tableKey="gene" relationId="797"/>
+		<maskedRelation tableKey="gene" relationId="801"/>
+		<maskedRelation tableKey="gene" relationId="802"/>
+		<restrictedTable tableKey="gene" tableId="481" aliasColumnIds="482" aliasNames="col1" expression=":col1=&quot;GeneGC&quot;"/>
+		<restrictedTable tableKey="gene" tableId="693" aliasColumnIds="694" aliasNames="col1" expression=":col1 = 142"/>
+		<renamedTable tableKey="translation__protein_feature" newName="protein_feature"/>
+		<explainHideMasked tableKey="translation__protein_feature"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.48.0.perc_ident"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.48.0.perc_ident" newName="perc_ident_1048"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.48.0.external_data"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.48.0.external_data" newName="external_data_1048"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.2.0.created"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.2.0.created" newName="created_102"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.48.0.analysis_id"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.48.0.analysis_id" newName="analysis_id_1048"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.2.0.logic_name"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.2.0.logic_name" newName="logic_name_102"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.48.0.protein_feature_id"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.48.0.protein_feature_id" newName="protein_feature_id_1048"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.2.0.gff_feature"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.2.0.gff_feature" newName="gff_feature_102"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.2.0.module_version"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.2.0.module_version" newName="module_version_102"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.48.0.score"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.48.0.score" newName="score_1048"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.2.0.db_file"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.2.0.db_file" newName="db_file_102"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.48.0.hit_start"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.48.0.hit_start" newName="hit_start_1048"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.2.0.module"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.2.0.module" newName="module_102"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.48.0.seq_start" newName="seq_start_1048"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.48.0.hit_description"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.48.0.hit_description" newName="hit_description_1048"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.2.0.program_version"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.2.0.program_version" newName="program_version_102"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.48.0.hit_name" newName="hit_name_1048"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.2.0.db_version"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.2.0.db_version" newName="db_version_102"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.2.0.gff_source"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.2.0.gff_source" newName="gff_source_102"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.2.0.parameters"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.2.0.parameters" newName="parameters_102"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.48.0.seq_end" newName="seq_end_1048"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.2.0.program_file"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.2.0.program_file" newName="program_file_102"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.48.0.hit_end"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.48.0.hit_end" newName="hit_end_1048"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.48.0.evalue"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.48.0.evalue" newName="evalue_1048"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.2.0.program"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.2.0.program" newName="program_102"/>
+		<maskedColumn tableKey="translation__protein_feature" colKey="1.2.0.db"/>
+		<renamedColumn tableKey="translation__protein_feature" colKey="1.2.0.db" newName="db_102"/>
+		<maskedRelation tableKey="translation__protein_feature" relationId="729"/>
+		<maskedRelation tableKey="translation__protein_feature" relationId="803"/>
+		<renamedTable tableKey="translation__protein_feature_1" newName="interpro"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.74.0.xref_id"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.74.0.xref_id" newName="xref_id_1074"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.perc_ident"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.perc_ident" newName="perc_ident_1048"/>
+		<indexedColumn tableKey="translation__protein_feature_1" colKey="1.26.0.interpro_ac"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.26.0.interpro_ac" newName="interpro_ac_1026"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.external_data"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.external_data" newName="external_data_1048"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.hit_name"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.hit_name" newName="hit_name_1048"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.74.0.display_label" newName="display_label_1074"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.74.0.info_text"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.74.0.info_text" newName="info_text_1074"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.74.0.version"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.74.0.version" newName="version_1074"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.analysis_id"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.analysis_id" newName="analysis_id_1048"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.74.0.description" newName="description_1074"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.protein_feature_id"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.protein_feature_id" newName="protein_feature_id_1048"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.seq_end" newName="seq_end_1048"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.hit_end"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.hit_end" newName="hit_end_1048"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.score"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.score" newName="score_1048"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.evalue"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.evalue" newName="evalue_1048"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.hit_start"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.hit_start" newName="hit_start_1048"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.74.0.info_type"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.74.0.info_type" newName="info_type_1074"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.seq_start" newName="seq_start_1048"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.hit_description"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.48.0.hit_description" newName="hit_description_1048"/>
+		<maskedColumn tableKey="translation__protein_feature_1" colKey="1.74.0.external_db_id"/>
+		<renamedColumn tableKey="translation__protein_feature_1" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="709"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="713"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="714"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="725"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="747"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="767"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="769"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="774"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="780"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="783"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="785"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="792"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="793"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="797"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="801"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="802"/>
+		<maskedRelation tableKey="translation__protein_feature_1" relationId="804"/>
+		<renamedTable tableKey="transcript__exon_transcript" newName="exon_transcript"/>
+		<skipOptimiser tableKey="transcript__exon_transcript"/>
+		<maskedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.is_current"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.is_current" newName="is_current_1015"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.17.0.rank" newName="rank_1017"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.60.0.value" newName="value_1060"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.is_constitutive" newName="is_constitutive_1015"/>
+		<maskedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.created_date"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.created_date" newName="created_date_1015"/>
+		<maskedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.version"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.version" newName="version_1015"/>
+		<maskedColumn tableKey="transcript__exon_transcript" colKey="1.59.0.coord_system_id"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.59.0.coord_system_id" newName="coord_system_id_1059"/>
+		<maskedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.seq_region_id"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.seq_region_id" newName="seq_region_id_1015"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.seq_region_end" newName="seq_region_end_1015"/>
+		<maskedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.modified_date"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.modified_date" newName="modified_date_1015"/>
+		<maskedColumn tableKey="transcript__exon_transcript" colKey="1.59.0.length"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.59.0.length" newName="length_1059"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.17.0.exon_id" newName="exon_id_1017"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.seq_region_start" newName="seq_region_start_1015"/>
+		<maskedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.seq_region_strand"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.seq_region_strand" newName="seq_region_strand_1015"/>
+		<maskedColumn tableKey="transcript__exon_transcript" colKey="1.60.0.attrib_type_id"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.60.0.attrib_type_id" newName="attrib_type_id_1060"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.phase" newName="phase_1015"/>
+		<indexedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.stable_id"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.stable_id" newName="stable_id_1016"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.15.0.end_phase" newName="end_phase_1015"/>
+		<maskedColumn tableKey="transcript__exon_transcript" colKey="1.59.0.name"/>
+		<renamedColumn tableKey="transcript__exon_transcript" colKey="1.59.0.name" newName="name_1059"/>
+		<alternativeJoin tableKey="transcript__exon_transcript" relationId="700"/>
+		<alternativeJoin tableKey="transcript__exon_transcript" relationId="728"/>
+		<alternativeJoin tableKey="transcript__exon_transcript" relationId="744"/>
+		<maskedRelation tableKey="transcript__exon_transcript" relationId="744"/>
+		<maskedRelation tableKey="transcript__exon_transcript" relationId="753"/>
+		<alternativeJoin tableKey="transcript__exon_transcript" relationId="759"/>
+		<maskedRelation tableKey="transcript__exon_transcript" relationId="776"/>
+		<alternativeJoin tableKey="transcript__exon_transcript" relationId="805"/>
+		<restrictedTable tableKey="transcript__exon_transcript" tableId="22" aliasColumnIds="24" aliasNames="col1" expression=":col1=11 or :col1 is null"/>
+		<maskedTable tableKey="transcript__transcript_intron_supporting_evidence"/>
+		<renamedTable tableKey="transcript__transcript_intron_supporting_evidence" newName="transcript_intron_supporting_evidence"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.7.0.species_id" newName="species_id_107"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.7.0.name" newName="name_107"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.6.0.name" newName="name_106"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.2.0.created" newName="created_102"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.6.0.description" newName="description_106"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.2.0.logic_name" newName="logic_name_102"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.2.0.gff_feature" newName="gff_feature_102"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.91.0.is_splice_canonical" newName="is_splice_canonical_1091"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.91.0.seq_region_strand" newName="seq_region_strand_1091"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.91.0.analysis_id" newName="analysis_id_1091"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.59.0.length" newName="length_1059"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.2.0.module_version" newName="module_version_102"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.6.0.code" newName="code_106"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.91.0.seq_region_start" newName="seq_region_start_1091"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.2.0.db_file" newName="db_file_102"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.2.0.module" newName="module_102"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.92.0.intron_supporting_evidence_id" newName="intron_supporting_evidence_id_1092"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.7.0.attrib" newName="attrib_107"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.7.0.rank" newName="rank_107"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.59.0.name" newName="name_1059"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.2.0.program_version" newName="program_version_102"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.60.0.value" newName="value_1060"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.59.0.coord_system_id" newName="coord_system_id_1059"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.2.0.db_version" newName="db_version_102"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.2.0.gff_source" newName="gff_source_102"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.91.0.seq_region_id" newName="seq_region_id_1091"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.2.0.parameters" newName="parameters_102"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.7.0.version" newName="version_107"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.91.0.score" newName="score_1091"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.2.0.program_file" newName="program_file_102"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.91.0.hit_name" newName="hit_name_1091"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.92.0.next_exon_id" newName="next_exon_id_1092"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.91.0.seq_region_end" newName="seq_region_end_1091"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.2.0.program" newName="program_102"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.60.0.attrib_type_id" newName="attrib_type_id_1060"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.91.0.score_type" newName="score_type_1091"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.2.0.db" newName="db_102"/>
+		<renamedColumn tableKey="transcript__transcript_intron_supporting_evidence" colKey="1.92.0.previous_exon_id" newName="previous_exon_id_1092"/>
+		<maskedTable tableKey="transcript__transcript_supporting_feature"/>
+		<renamedTable tableKey="transcript__transcript_supporting_feature" newName="transcript_supporting_feature"/>
+		<renamedColumn tableKey="transcript__transcript_supporting_feature" colKey="1.67.0.feature_type" newName="feature_type_1067"/>
+		<renamedColumn tableKey="transcript__transcript_supporting_feature" colKey="1.67.0.feature_id" newName="feature_id_1067"/>
+		<maskedTable tableKey="gene__alt_allele"/>
+		<renamedTable tableKey="gene__alt_allele" newName="alt_allele"/>
+		<renamedColumn tableKey="gene__alt_allele" colKey="1.1.0.alt_allele_group_id" newName="alt_allele_group_id_101"/>
+		<renamedColumn tableKey="gene__alt_allele" colKey="1.1.0.alt_allele_id" newName="alt_allele_id_101"/>
+		<maskedTable tableKey="gene__operon_transcript_gene"/>
+		<renamedTable tableKey="gene__operon_transcript_gene" newName="operon_transcript_gene"/>
+		<renamedColumn tableKey="gene__operon_transcript_gene" colKey="1.85.0.operon_transcript_id" newName="operon_transcript_id_1085"/>
+		<renamedTable tableKey="gene__transcript" newName="transcript"/>
+		<maskedColumn tableKey="gene__transcript" colKey="description_1074"/>
+		<indexedColumn tableKey="gene__transcript" colKey="biotype_1020"/>
+		<maskedColumn tableKey="gene__transcript" colKey="version_1074"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.seq_region_start" newName="seq_region_start_1064"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.64.0.modified_date"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.modified_date" newName="modified_date_1064"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.74.0.display_label" newName="display_label_1074_r1"/>
+		<maskedColumn tableKey="gene__transcript" colKey="secondary_db_table_1018"/>
+		<maskedColumn tableKey="gene__transcript" colKey="modified_date_1020"/>
+		<indexedColumn tableKey="gene__transcript" colKey="stable_id_1023"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.source" newName="source_1064"/>
+		<indexedColumn tableKey="gene__transcript" colKey="1.64.0.stable_id"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.stable_id" newName="stable_id_1066"/>
+		<maskedColumn tableKey="gene__transcript" colKey="display_xref_id_1020"/>
+		<maskedColumn tableKey="gene__transcript" colKey="stain_1027"/>
+		<maskedColumn tableKey="gene__transcript" colKey="seq_region_id_1020"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.transcript_id" newName="transcript_id_1064_key"/>
+		<maskedColumn tableKey="gene__transcript" colKey="info_type_1074"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.18.0.status"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.18.0.status" newName="status_1018_r1"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.18.0.db_name"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.18.0.db_name" newName="db_name_1018_r1"/>
+		<maskedColumn tableKey="gene__transcript" colKey="created_date_1020"/>
+		<maskedColumn tableKey="gene__transcript" colKey="db_name_1018"/>
+		<maskedColumn tableKey="gene__transcript" colKey="db_release_1018"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.74.0.info_text"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.74.0.info_text" newName="info_text_1074_r1"/>
+		<maskedColumn tableKey="gene__transcript" colKey="length_1059"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.18.0.secondary_db_table"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018_r1"/>
+		<maskedColumn tableKey="gene__transcript" colKey="is_current_1020"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.64.0.display_xref_id"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.display_xref_id" newName="display_xref_id_1064"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.74.0.dbprimary_acc"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074_r1"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.18.0.priority"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.18.0.priority" newName="priority_1018_r1"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.status" newName="status_1064"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.18.0.type"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.18.0.type" newName="type_1018_r1"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.74.0.info_type"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.74.0.info_type" newName="info_type_1074_r1"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.18.0.description"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.18.0.description" newName="description_1018_r1"/>
+		<maskedColumn tableKey="gene__transcript" colKey="type_1018"/>
+		<maskedColumn tableKey="gene__transcript" colKey="analysis_id_1020"/>
+		<maskedColumn tableKey="gene__transcript" colKey="info_text_1074"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.64.0.analysis_id"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.analysis_id" newName="analysis_id_1064"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.64.0.seq_region_strand"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.seq_region_strand" newName="seq_region_strand_1064"/>
+		<maskedColumn tableKey="gene__transcript" colKey="seq_region_end_1027"/>
+		<maskedColumn tableKey="gene__transcript" colKey="priority_1018"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.65.0.attrib_type_id"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.65.0.attrib_type_id" newName="attrib_type_id_1065"/>
+		<maskedColumn tableKey="gene__transcript" colKey="canonical_transcript_id_1020"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.64.0.is_current"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.is_current" newName="is_current_1064"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.18.0.db_release"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.18.0.db_release" newName="db_release_1018_r1"/>
+		<maskedColumn tableKey="gene__transcript" colKey="seq_region_start_1027"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.18.0.secondary_db_name"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018_r1"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.seq_region_end" newName="seq_region_end_1064"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.version" newName="version_1064"/>
+		<indexedColumn tableKey="gene__transcript" colKey="name_1059"/>
+		<maskedColumn tableKey="gene__transcript" colKey="secondary_db_name_1018"/>
+		<indexedColumn tableKey="gene__transcript" colKey="seq_region_start_1020"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.74.0.external_db_id"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.74.0.external_db_id" newName="external_db_id_1074_r1"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.64.0.canonical_translation_id"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.canonical_translation_id" newName="canonical_translation_id_1064"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.64.0.created_date"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.created_date" newName="created_date_1064"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.74.0.version"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.74.0.version" newName="version_1074_r1"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.74.0.description"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.74.0.description" newName="description_1074_r1"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.65.0.value" newName="value_1065"/>
+		<maskedColumn tableKey="gene__transcript" colKey="status_1018"/>
+		<maskedColumn tableKey="gene__transcript" colKey="description_1018"/>
+		<maskedColumn tableKey="gene__transcript" colKey="coord_system_id_1059"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.64.0.seq_region_id"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.seq_region_id" newName="seq_region_id_1064"/>
+		<indexedColumn tableKey="gene__transcript" colKey="1.64.0.biotype"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.biotype" newName="biotype_1064"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.18.0.db_display_name" newName="db_display_name_1018_r1"/>
+		<maskedColumn tableKey="gene__transcript" colKey="external_db_id_1074"/>
+		<maskedColumn tableKey="gene__transcript" colKey="karyotype_id_1027"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.64.0.description"/>
+		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.description" newName="description_1064"/>
+		<maskedColumn tableKey="gene__transcript" colKey="dbprimary_acc_1074"/>
+		<maskedRelation tableKey="gene__transcript" relationId="700"/>
+		<maskedRelation tableKey="gene__transcript" relationId="706"/>
+		<maskedRelation tableKey="gene__transcript" relationId="709"/>
+		<maskedRelation tableKey="gene__transcript" relationId="711"/>
+		<maskedRelation tableKey="gene__transcript" relationId="712"/>
+		<maskedRelation tableKey="gene__transcript" relationId="714"/>
+		<maskedRelation tableKey="gene__transcript" relationId="716"/>
+		<maskedRelation tableKey="gene__transcript" relationId="720"/>
+		<maskedRelation tableKey="gene__transcript" relationId="722"/>
+		<maskedRelation tableKey="gene__transcript" relationId="727"/>
+		<maskedRelation tableKey="gene__transcript" relationId="735"/>
+		<maskedRelation tableKey="gene__transcript" relationId="736"/>
+		<maskedRelation tableKey="gene__transcript" relationId="742"/>
+		<maskedRelation tableKey="gene__transcript" relationId="744"/>
+		<maskedRelation tableKey="gene__transcript" relationId="746"/>
+		<maskedRelation tableKey="gene__transcript" relationId="747"/>
+		<maskedRelation tableKey="gene__transcript" relationId="748"/>
+		<maskedRelation tableKey="gene__transcript" relationId="749"/>
+		<maskedRelation tableKey="gene__transcript" relationId="753"/>
+		<maskedRelation tableKey="gene__transcript" relationId="759"/>
+		<maskedRelation tableKey="gene__transcript" relationId="761"/>
+		<maskedRelation tableKey="gene__transcript" relationId="766"/>
+		<maskedRelation tableKey="gene__transcript" relationId="767"/>
+		<maskedRelation tableKey="gene__transcript" relationId="768"/>
+		<maskedRelation tableKey="gene__transcript" relationId="769"/>
+		<maskedRelation tableKey="gene__transcript" relationId="770"/>
+		<maskedRelation tableKey="gene__transcript" relationId="774"/>
+		<maskedRelation tableKey="gene__transcript" relationId="776"/>
+		<maskedRelation tableKey="gene__transcript" relationId="777"/>
+		<maskedRelation tableKey="gene__transcript" relationId="779"/>
+		<maskedRelation tableKey="gene__transcript" relationId="780"/>
+		<maskedRelation tableKey="gene__transcript" relationId="783"/>
+		<maskedRelation tableKey="gene__transcript" relationId="785"/>
+		<maskedRelation tableKey="gene__transcript" relationId="792"/>
+		<maskedRelation tableKey="gene__transcript" relationId="794"/>
+		<maskedRelation tableKey="gene__transcript" relationId="795"/>
+		<maskedRelation tableKey="gene__transcript" relationId="797"/>
+		<maskedRelation tableKey="gene__transcript" relationId="801"/>
+		<maskedRelation tableKey="gene__transcript" relationId="802"/>
+		<restrictedTable tableKey="gene__transcript" tableId="125" aliasColumnIds="127" aliasNames="col1" expression=":col1=145"/>
+		<renamedTable tableKey="transcript__object_xref" newName="ox"/>
+		<explainHideMasked tableKey="transcript__object_xref"/>
+		<tableHideMasked tableKey="transcript__object_xref"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.40.0.linkage_annotation"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.40.0.linkage_annotation" newName="linkage_annotation_1040"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.74.0.xref_id"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.74.0.xref_id" newName="xref_id_1074"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.74.0.display_label" newName="display_label_1074"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.74.0.info_text"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.74.0.info_text" newName="info_text_1074"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.74.0.version"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.74.0.version" newName="version_1074"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.18.0.db_release"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.74.0.description" newName="description_1074"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.18.0.secondary_db_table"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.40.0.ensembl_object_type"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.40.0.object_xref_id"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.40.0.analysis_id"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.40.0.analysis_id" newName="analysis_id_1040"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.18.0.secondary_db_name"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.18.0.priority"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.18.0.priority" newName="priority_1018"/>
+		<indexedColumn tableKey="transcript__object_xref" colKey="1.74.0.dbprimary_acc"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.40.0.ensembl_id" newName="transcript_id_1064_key"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.18.0.db_display_name"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.18.0.type"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.18.0.type" newName="type_1018"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.74.0.info_type"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.74.0.info_type" newName="info_type_1074"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.18.0.external_db_id"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.18.0.external_db_id" newName="external_db_id_1018"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.18.0.description" newName="description_1018"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.18.0.status"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.18.0.status" newName="status_1018"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.18.0.db_name"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
+		<maskedRelation tableKey="transcript__object_xref" relationId="771"/>
+		<transformStart tableKey="transcript__object_xref" tableId="342"/>
+		<renamedTable tableKey="gene__object_xref" newName="ox"/>
+		<explainHideMasked tableKey="gene__object_xref"/>
+		<tableHideMasked tableKey="gene__object_xref"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.40.0.linkage_annotation"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.40.0.linkage_annotation" newName="linkage_annotation_1040"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.74.0.xref_id"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.74.0.xref_id" newName="xref_id_1074"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.74.0.display_label" newName="display_label_1074"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.74.0.info_text"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.74.0.info_text" newName="info_text_1074"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.74.0.version"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.74.0.version" newName="version_1074"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.18.0.db_release"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.74.0.description" newName="description_1074"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.18.0.secondary_db_table"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.40.0.ensembl_object_type"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.40.0.object_xref_id"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.40.0.analysis_id"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.40.0.analysis_id" newName="analysis_id_1040"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.18.0.secondary_db_name"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.18.0.priority"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.18.0.priority" newName="priority_1018"/>
+		<indexedColumn tableKey="gene__object_xref" colKey="1.74.0.dbprimary_acc"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.40.0.ensembl_id" newName="gene_id_1020_key"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.18.0.db_display_name"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.18.0.type"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.18.0.type" newName="type_1018"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.74.0.info_type"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.74.0.info_type" newName="info_type_1074"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.18.0.external_db_id"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.18.0.external_db_id" newName="external_db_id_1018"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.18.0.description"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.18.0.description" newName="description_1018"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.18.0.status"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.18.0.status" newName="status_1018"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.18.0.db_name"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
+		<maskedRelation tableKey="gene__object_xref" relationId="771"/>
+		<transformStart tableKey="gene__object_xref" tableId="342"/>
+		<renamedTable tableKey="transcript__translation" newName="translation"/>
+		<skipOptimiser tableKey="transcript__translation"/>
+		<maskedColumn tableKey="transcript__translation" colKey="description_1074"/>
+		<indexedColumn tableKey="transcript__translation" colKey="biotype_1020"/>
+		<maskedColumn tableKey="transcript__translation" colKey="external_db_id_1074_r1"/>
+		<indexedColumn tableKey="transcript__translation" colKey="biotype_1064"/>
+		<maskedColumn tableKey="transcript__translation" colKey="version_1074"/>
+		<renamedColumn tableKey="transcript__translation" colKey="1.68.0.seq_end" newName="seq_end_1068"/>
+		<maskedColumn tableKey="transcript__translation" colKey="modified_date_1064"/>
+		<maskedColumn tableKey="transcript__translation" colKey="secondary_db_table_1018"/>
+		<maskedColumn tableKey="transcript__translation" colKey="modified_date_1020"/>
+		<indexedColumn tableKey="transcript__translation" colKey="stable_id_1023"/>
+		<maskedColumn tableKey="transcript__translation" colKey="1.69.0.attrib_type_id"/>
+		<renamedColumn tableKey="transcript__translation" colKey="1.69.0.attrib_type_id" newName="attrib_type_id_1069"/>
+		<maskedColumn tableKey="transcript__translation" colKey="priority_1018_r1"/>
+		<maskedColumn tableKey="transcript__translation" colKey="db_name_1018_r1"/>
+		<maskedColumn tableKey="transcript__translation" colKey="canonical_translation_id_1064"/>
+		<maskedColumn tableKey="transcript__translation" colKey="description_1074_r1"/>
+		<maskedColumn tableKey="transcript__translation" colKey="display_xref_id_1020"/>
+		<maskedColumn tableKey="transcript__translation" colKey="stain_1027"/>
+		<maskedColumn tableKey="transcript__translation" colKey="display_xref_id_1064"/>
+		<maskedColumn tableKey="transcript__translation" colKey="seq_region_id_1020"/>
+		<maskedColumn tableKey="transcript__translation" colKey="seq_region_id_1064"/>
+		<maskedColumn tableKey="transcript__translation" colKey="description_1064"/>
+		<maskedColumn tableKey="transcript__translation" colKey="info_type_1074"/>
+		<maskedColumn tableKey="transcript__translation" colKey="status_1018_r1"/>
+		<maskedColumn tableKey="transcript__translation" colKey="seq_region_strand_1064"/>
+		<maskedColumn tableKey="transcript__translation" colKey="created_date_1020"/>
+		<maskedColumn tableKey="transcript__translation" colKey="created_date_1064"/>
+		<maskedColumn tableKey="transcript__translation" colKey="info_text_1074_r1"/>
+		<maskedColumn tableKey="transcript__translation" colKey="description_1018_r1"/>
+		<maskedColumn tableKey="transcript__translation" colKey="db_name_1018"/>
+		<maskedColumn tableKey="transcript__translation" colKey="db_release_1018"/>
+		<maskedColumn tableKey="transcript__translation" colKey="length_1059"/>
+		<maskedColumn tableKey="transcript__translation" colKey="1.68.0.created_date"/>
+		<renamedColumn tableKey="transcript__translation" colKey="1.68.0.created_date" newName="created_date_1068"/>
+		<maskedColumn tableKey="transcript__translation" colKey="is_current_1020"/>
+		<maskedColumn tableKey="transcript__translation" colKey="is_current_1064"/>
+		<indexedColumn tableKey="transcript__translation" colKey="1.68.0.stable_id"/>
+		<renamedColumn tableKey="transcript__translation" colKey="1.68.0.stable_id" newName="stable_id_1070"/>
+		<renamedColumn tableKey="transcript__translation" colKey="1.68.0.translation_id" newName="translation_id_1068_key"/>
+		<maskedColumn tableKey="transcript__translation" colKey="info_type_1074_r1"/>
+		<maskedColumn tableKey="transcript__translation" colKey="type_1018"/>
+		<maskedColumn tableKey="transcript__translation" colKey="analysis_id_1020"/>
+		<maskedColumn tableKey="transcript__translation" colKey="analysis_id_1064"/>
+		<maskedColumn tableKey="transcript__translation" colKey="info_text_1074"/>
+		<maskedColumn tableKey="transcript__translation" colKey="dbprimary_acc_1074_r1"/>
+		<maskedColumn tableKey="transcript__translation" colKey="seq_region_end_1027"/>
+		<renamedColumn tableKey="transcript__translation" colKey="1.69.0.value" newName="value_1069"/>
+		<maskedColumn tableKey="transcript__translation" colKey="priority_1018"/>
+		<maskedColumn tableKey="transcript__translation" colKey="canonical_transcript_id_1020"/>
+		<maskedColumn tableKey="transcript__translation" colKey="secondary_db_name_1018_r1"/>
+		<renamedColumn tableKey="transcript__translation" colKey="1.68.0.seq_start" newName="seq_start_1068"/>
+		<renamedColumn tableKey="transcript__translation" colKey="1.68.0.start_exon_id" newName="start_exon_id_1068"/>
+		<maskedColumn tableKey="transcript__translation" colKey="seq_region_start_1027"/>
+		<maskedColumn tableKey="transcript__translation" colKey="secondary_db_table_1018_r1"/>
+		<maskedColumn tableKey="transcript__translation" colKey="1.68.0.modified_date"/>
+		<renamedColumn tableKey="transcript__translation" colKey="1.68.0.modified_date" newName="modified_date_1068"/>
+		<maskedColumn tableKey="transcript__translation" colKey="attrib_type_id_1065"/>
+		<indexedColumn tableKey="transcript__translation" colKey="name_1059"/>
+		<maskedColumn tableKey="transcript__translation" colKey="type_1018_r1"/>
+		<maskedColumn tableKey="transcript__translation" colKey="secondary_db_name_1018"/>
+		<indexedColumn tableKey="transcript__translation" colKey="seq_region_start_1020"/>
+		<maskedColumn tableKey="transcript__translation" colKey="db_release_1018_r1"/>
+		<maskedColumn tableKey="transcript__translation" colKey="status_1018"/>
+		<maskedColumn tableKey="transcript__translation" colKey="description_1018"/>
+		<indexedColumn tableKey="transcript__translation" colKey="stable_id_1066"/>
+		<maskedColumn tableKey="transcript__translation" colKey="coord_system_id_1059"/>
+		<maskedColumn tableKey="transcript__translation" colKey="1.68.0.version"/>
+		<renamedColumn tableKey="transcript__translation" colKey="1.68.0.version" newName="version_1068"/>
+		<maskedColumn tableKey="transcript__translation" colKey="version_1074_r1"/>
+		<renamedColumn tableKey="transcript__translation" colKey="1.68.0.end_exon_id" newName="end_exon_id_1068"/>
+		<maskedColumn tableKey="transcript__translation" colKey="external_db_id_1074"/>
+		<maskedColumn tableKey="transcript__translation" colKey="karyotype_id_1027"/>
+		<maskedColumn tableKey="transcript__translation" colKey="dbprimary_acc_1074"/>
+		<maskedRelation tableKey="transcript__translation" relationId="727"/>
+		<maskedRelation tableKey="transcript__translation" relationId="744"/>
+		<maskedRelation tableKey="transcript__translation" relationId="748"/>
+		<maskedRelation tableKey="transcript__translation" relationId="749"/>
+		<maskedRelation tableKey="transcript__translation" relationId="770"/>
+		<restrictedTable tableKey="transcript__translation" tableId="471" aliasColumnIds="473" aliasNames="col1" expression=":col1 IN (12, 170)"/>
+		<renamedTable tableKey="translation__object_xref" newName="ox"/>
+		<explainHideMasked tableKey="translation__object_xref"/>
+		<tableHideMasked tableKey="translation__object_xref"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.40.0.linkage_annotation"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.40.0.linkage_annotation" newName="linkage_annotation_1040"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.74.0.xref_id"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.74.0.xref_id" newName="xref_id_1074"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.74.0.display_label" newName="display_label_1074"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.74.0.info_text"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.74.0.info_text" newName="info_text_1074"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.74.0.version"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.74.0.version" newName="version_1074"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.18.0.db_release"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.74.0.description" newName="description_1074"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.18.0.secondary_db_table"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.40.0.ensembl_object_type"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.40.0.object_xref_id"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.40.0.analysis_id"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.40.0.analysis_id" newName="analysis_id_1040"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.18.0.secondary_db_name"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.18.0.priority"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.18.0.priority" newName="priority_1018"/>
+		<indexedColumn tableKey="translation__object_xref" colKey="1.74.0.dbprimary_acc"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.40.0.ensembl_id" newName="translation_id_1068_key"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.18.0.db_display_name"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.18.0.type"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.18.0.type" newName="type_1018"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.74.0.info_type"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.74.0.info_type" newName="info_type_1074"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.18.0.external_db_id"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.18.0.external_db_id" newName="external_db_id_1018"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.18.0.description" newName="description_1018"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.18.0.status"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.18.0.status" newName="status_1018"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.18.0.db_name"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
+		<maskedRelation tableKey="translation__object_xref" relationId="771"/>
+		<transformStart tableKey="translation__object_xref" tableId="342"/>
+	</dataset>
+	<dataset name="object_xref" centralTableId="663" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
+		<renamedTable tableKey="object_xref" newName="object_xref"/>
+		<tableHideMasked tableKey="object_xref"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.biotype" newName="biotype_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.version" newName="version_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.status" newName="status_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.seq_region_strand" newName="seq_region_strand_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.display_label" newName="display_label_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.xref_id" newName="xref_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.description" newName="description_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.created_date" newName="created_date_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040_key"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.stable_id" newName="stable_id_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.analysis_id" newName="analysis_id_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="ensembl_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
+		<maskedColumn tableKey="object_xref" colKey="1.20.0.canonical_transcript_id"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.canonical_transcript_id" newName="canonical_transcript_id_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.is_current" newName="is_current_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.linkage_annotation" newName="linkage_annotation_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.seq_region_id" newName="seq_region_id_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.seq_region_end" newName="seq_region_end_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.display_xref_id" newName="display_xref_id_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.info_text" newName="info_text_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.version" newName="version_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.seq_region_start" newName="seq_region_start_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.description" newName="description_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.source" newName="source_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.analysis_id" newName="analysis_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.priority" newName="priority_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.type" newName="type_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.info_type" newName="info_type_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.description" newName="description_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.modified_date" newName="modified_date_1020"/>
+		<maskedRelation tableKey="object_xref" relationId="700"/>
+		<maskedRelation tableKey="object_xref" relationId="701"/>
+		<maskedRelation tableKey="object_xref" relationId="706"/>
+		<maskedRelation tableKey="object_xref" relationId="709"/>
+		<maskedRelation tableKey="object_xref" relationId="711"/>
+		<maskedRelation tableKey="object_xref" relationId="712"/>
+		<maskedRelation tableKey="object_xref" relationId="714"/>
+		<maskedRelation tableKey="object_xref" relationId="715"/>
+		<maskedRelation tableKey="object_xref" relationId="716"/>
+		<maskedRelation tableKey="object_xref" relationId="720"/>
+		<maskedRelation tableKey="object_xref" relationId="724"/>
+		<maskedRelation tableKey="object_xref" relationId="727"/>
+		<maskedRelation tableKey="object_xref" relationId="728"/>
+		<maskedRelation tableKey="object_xref" relationId="730"/>
+		<maskedRelation tableKey="object_xref" relationId="732"/>
+		<maskedRelation tableKey="object_xref" relationId="735"/>
+		<maskedRelation tableKey="object_xref" relationId="736"/>
+		<maskedRelation tableKey="object_xref" relationId="738"/>
+		<maskedRelation tableKey="object_xref" relationId="742"/>
+		<maskedRelation tableKey="object_xref" relationId="746"/>
+		<maskedRelation tableKey="object_xref" relationId="747"/>
+		<maskedRelation tableKey="object_xref" relationId="751"/>
+		<maskedRelation tableKey="object_xref" relationId="753"/>
+		<maskedRelation tableKey="object_xref" relationId="756"/>
+		<maskedRelation tableKey="object_xref" relationId="759"/>
+		<maskedRelation tableKey="object_xref" relationId="761"/>
+		<maskedRelation tableKey="object_xref" relationId="763"/>
+		<maskedRelation tableKey="object_xref" relationId="766"/>
+		<maskedRelation tableKey="object_xref" relationId="767"/>
+		<maskedRelation tableKey="object_xref" relationId="768"/>
+		<maskedRelation tableKey="object_xref" relationId="769"/>
+		<maskedRelation tableKey="object_xref" relationId="771"/>
+		<maskedRelation tableKey="object_xref" relationId="774"/>
+		<maskedRelation tableKey="object_xref" relationId="777"/>
+		<maskedRelation tableKey="object_xref" relationId="780"/>
+		<maskedRelation tableKey="object_xref" relationId="783"/>
+		<maskedRelation tableKey="object_xref" relationId="785"/>
+		<maskedRelation tableKey="object_xref" relationId="788"/>
+		<maskedRelation tableKey="object_xref" relationId="792"/>
+		<maskedRelation tableKey="object_xref" relationId="794"/>
+		<maskedRelation tableKey="object_xref" relationId="795"/>
+		<maskedRelation tableKey="object_xref" relationId="797"/>
+		<maskedRelation tableKey="object_xref" relationId="799"/>
+		<maskedRelation tableKey="object_xref" relationId="801"/>
+		<maskedRelation tableKey="object_xref" relationId="802"/>
+		<restrictedTable tableKey="object_xref" tableId="663" aliasColumnIds="668" aliasNames="col1" expression=":col1=&quot;Gene&quot;"/>
+	</dataset>
+	<dataset name="object_xref_copy" centralTableId="663" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
+		<renamedTable tableKey="object_xref" newName="object_xref"/>
+		<explainHideMasked tableKey="object_xref"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.analysis_id" newName="analysis_id_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.seq_region_strand" newName="seq_region_strand_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.6.0.name" newName="name_106"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.seq_region_start" newName="seq_region_start_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.6.0.description" newName="description_106"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.modified_date" newName="modified_date_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.65.0.attrib_type_id" newName="attrib_type_id_1065"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.display_label" newName="display_label_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.xref_id" newName="xref_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.is_current" newName="is_current_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.source" newName="source_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.stable_id" newName="stable_id_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040_key"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.gene_id" newName="gene_id_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.seq_region_end" newName="seq_region_end_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.6.0.code" newName="code_106"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="ensembl_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.version" newName="version_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.canonical_translation_id" newName="canonical_translation_id_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.linkage_annotation" newName="linkage_annotation_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.created_date" newName="created_date_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.info_text" newName="info_text_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.version" newName="version_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.description" newName="description_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.65.0.value" newName="value_1065"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.seq_region_id" newName="seq_region_id_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.analysis_id" newName="analysis_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.display_xref_id" newName="display_xref_id_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.priority" newName="priority_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.biotype" newName="biotype_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.status" newName="status_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.type" newName="type_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.info_type" newName="info_type_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.description" newName="description_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.description" newName="description_1064"/>
+		<maskedRelation tableKey="object_xref" relationId="700"/>
+		<maskedRelation tableKey="object_xref" relationId="706"/>
+		<maskedRelation tableKey="object_xref" relationId="709"/>
+		<maskedRelation tableKey="object_xref" relationId="711"/>
+		<maskedRelation tableKey="object_xref" relationId="712"/>
+		<maskedRelation tableKey="object_xref" relationId="714"/>
+		<maskedRelation tableKey="object_xref" relationId="715"/>
+		<maskedRelation tableKey="object_xref" relationId="716"/>
+		<maskedRelation tableKey="object_xref" relationId="720"/>
+		<maskedRelation tableKey="object_xref" relationId="724"/>
+		<maskedRelation tableKey="object_xref" relationId="727"/>
+		<maskedRelation tableKey="object_xref" relationId="730"/>
+		<maskedRelation tableKey="object_xref" relationId="732"/>
+		<maskedRelation tableKey="object_xref" relationId="735"/>
+		<maskedRelation tableKey="object_xref" relationId="736"/>
+		<maskedRelation tableKey="object_xref" relationId="737"/>
+		<maskedRelation tableKey="object_xref" relationId="742"/>
+		<maskedRelation tableKey="object_xref" relationId="743"/>
+		<maskedRelation tableKey="object_xref" relationId="746"/>
+		<maskedRelation tableKey="object_xref" relationId="747"/>
+		<maskedRelation tableKey="object_xref" relationId="753"/>
+		<maskedRelation tableKey="object_xref" relationId="754"/>
+		<maskedRelation tableKey="object_xref" relationId="756"/>
+		<maskedRelation tableKey="object_xref" relationId="759"/>
+		<maskedRelation tableKey="object_xref" relationId="760"/>
+		<maskedRelation tableKey="object_xref" relationId="761"/>
+		<maskedRelation tableKey="object_xref" relationId="766"/>
+		<maskedRelation tableKey="object_xref" relationId="767"/>
+		<maskedRelation tableKey="object_xref" relationId="768"/>
+		<maskedRelation tableKey="object_xref" relationId="769"/>
+		<maskedRelation tableKey="object_xref" relationId="771"/>
+		<maskedRelation tableKey="object_xref" relationId="774"/>
+		<maskedRelation tableKey="object_xref" relationId="777"/>
+		<maskedRelation tableKey="object_xref" relationId="780"/>
+		<maskedRelation tableKey="object_xref" relationId="783"/>
+		<maskedRelation tableKey="object_xref" relationId="785"/>
+		<maskedRelation tableKey="object_xref" relationId="788"/>
+		<maskedRelation tableKey="object_xref" relationId="792"/>
+		<maskedRelation tableKey="object_xref" relationId="794"/>
+		<maskedRelation tableKey="object_xref" relationId="795"/>
+		<maskedRelation tableKey="object_xref" relationId="797"/>
+		<maskedRelation tableKey="object_xref" relationId="799"/>
+		<maskedRelation tableKey="object_xref" relationId="801"/>
+		<maskedRelation tableKey="object_xref" relationId="802"/>
+		<restrictedTable tableKey="object_xref" tableId="663" aliasColumnIds="668" aliasNames="col1" expression=":col1=&quot;Transcript&quot;"/>
+	</dataset>
+	<dataset name="object_xref_copy_1" centralTableId="663" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
+		<renamedTable tableKey="object_xref" newName="object_xref"/>
+		<explainHideMasked tableKey="object_xref"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.seq_end" newName="seq_end_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.display_label" newName="display_label_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.xref_id" newName="xref_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.seq_start" newName="seq_start_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.start_exon_id" newName="start_exon_id_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040_key"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.modified_date" newName="modified_date_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="ensembl_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.linkage_annotation" newName="linkage_annotation_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.transcript_id" newName="transcript_id_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.info_text" newName="info_text_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.version" newName="version_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.description" newName="description_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.created_date" newName="created_date_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.analysis_id" newName="analysis_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.priority" newName="priority_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.stable_id" newName="stable_id_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.version" newName="version_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.end_exon_id" newName="end_exon_id_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.type" newName="type_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.info_type" newName="info_type_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.description" newName="description_1018"/>
+		<maskedRelation tableKey="object_xref" relationId="700"/>
+		<maskedRelation tableKey="object_xref" relationId="701"/>
+		<maskedRelation tableKey="object_xref" relationId="706"/>
+		<maskedRelation tableKey="object_xref" relationId="709"/>
+		<maskedRelation tableKey="object_xref" relationId="711"/>
+		<maskedRelation tableKey="object_xref" relationId="712"/>
+		<maskedRelation tableKey="object_xref" relationId="714"/>
+		<maskedRelation tableKey="object_xref" relationId="715"/>
+		<maskedRelation tableKey="object_xref" relationId="716"/>
+		<maskedRelation tableKey="object_xref" relationId="720"/>
+		<maskedRelation tableKey="object_xref" relationId="724"/>
+		<maskedRelation tableKey="object_xref" relationId="727"/>
+		<maskedRelation tableKey="object_xref" relationId="728"/>
+		<maskedRelation tableKey="object_xref" relationId="730"/>
+		<maskedRelation tableKey="object_xref" relationId="735"/>
+		<maskedRelation tableKey="object_xref" relationId="736"/>
+		<maskedRelation tableKey="object_xref" relationId="737"/>
+		<maskedRelation tableKey="object_xref" relationId="738"/>
+		<maskedRelation tableKey="object_xref" relationId="742"/>
+		<maskedRelation tableKey="object_xref" relationId="746"/>
+		<maskedRelation tableKey="object_xref" relationId="747"/>
+		<maskedRelation tableKey="object_xref" relationId="748"/>
+		<maskedRelation tableKey="object_xref" relationId="751"/>
+		<maskedRelation tableKey="object_xref" relationId="753"/>
+		<maskedRelation tableKey="object_xref" relationId="754"/>
+		<maskedRelation tableKey="object_xref" relationId="756"/>
+		<maskedRelation tableKey="object_xref" relationId="759"/>
+		<maskedRelation tableKey="object_xref" relationId="760"/>
+		<maskedRelation tableKey="object_xref" relationId="761"/>
+		<maskedRelation tableKey="object_xref" relationId="763"/>
+		<maskedRelation tableKey="object_xref" relationId="766"/>
+		<maskedRelation tableKey="object_xref" relationId="767"/>
+		<maskedRelation tableKey="object_xref" relationId="768"/>
+		<maskedRelation tableKey="object_xref" relationId="769"/>
+		<maskedRelation tableKey="object_xref" relationId="771"/>
+		<maskedRelation tableKey="object_xref" relationId="774"/>
+		<maskedRelation tableKey="object_xref" relationId="777"/>
+		<maskedRelation tableKey="object_xref" relationId="780"/>
+		<maskedRelation tableKey="object_xref" relationId="783"/>
+		<maskedRelation tableKey="object_xref" relationId="785"/>
+		<maskedRelation tableKey="object_xref" relationId="792"/>
+		<maskedRelation tableKey="object_xref" relationId="794"/>
+		<maskedRelation tableKey="object_xref" relationId="795"/>
+		<maskedRelation tableKey="object_xref" relationId="797"/>
+		<maskedRelation tableKey="object_xref" relationId="801"/>
+		<maskedRelation tableKey="object_xref" relationId="802"/>
+		<restrictedTable tableKey="object_xref" tableId="663" aliasColumnIds="668" aliasNames="col1" expression=":col1=&quot;Translation&quot;"/>
+	</dataset>
+	<dataset name="protein_feature" centralTableId="354" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
+		<renamedTable tableKey="protein_feature" newName="protein_feature"/>
+		<explainHideMasked tableKey="protein_feature"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.48.0.perc_ident" newName="perc_ident_1048"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.48.0.external_data" newName="external_data_1048"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.2.0.created" newName="created_102"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.48.0.analysis_id" newName="analysis_id_1048"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.2.0.logic_name" newName="logic_name_102"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.48.0.translation_id" newName="translation_id_1048"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.48.0.protein_feature_id" newName="protein_feature_id_1048_key"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.2.0.gff_feature" newName="gff_feature_102"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.2.0.module_version" newName="module_version_102"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.48.0.score" newName="score_1048"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.2.0.db_file" newName="db_file_102"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.48.0.hit_start" newName="hit_start_1048"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.2.0.module" newName="module_102"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.48.0.seq_start" newName="seq_start_1048"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.48.0.hit_description" newName="hit_description_1048"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.2.0.program_version" newName="program_version_102"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.48.0.hit_name" newName="hit_name_1048"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.2.0.db_version" newName="db_version_102"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.2.0.gff_source" newName="gff_source_102"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.2.0.parameters" newName="parameters_102"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.48.0.seq_end" newName="seq_end_1048"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.2.0.program_file" newName="program_file_102"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.48.0.hit_end" newName="hit_end_1048"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.48.0.evalue" newName="evalue_1048"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.2.0.program" newName="program_102"/>
+		<renamedColumn tableKey="protein_feature" colKey="1.2.0.db" newName="db_102"/>
+		<maskedRelation tableKey="protein_feature" relationId="724"/>
+		<maskedRelation tableKey="protein_feature" relationId="729"/>
+		<maskedRelation tableKey="protein_feature" relationId="732"/>
+		<maskedRelation tableKey="protein_feature" relationId="738"/>
+		<maskedRelation tableKey="protein_feature" relationId="799"/>
+		<maskedRelation tableKey="protein_feature" relationId="803"/>
+	</dataset>
+	<datasetPartitionTable name="object_xref_copy" selectedColumns="db_name_1018">
+		<partitionRegex name="db_name_1018" match="-" replace="_"/>
+		<partitionApplication name="gene_vega" dimension="transcript__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="30"/>
+	</datasetPartitionTable>
+	<datasetPartitionTable name="protein_feature" selectedColumns="logic_name_102">
+		<partitionApplication name="gene_vega" dimension="translation__protein_feature" pCols="logic_name_102" dsCols="1.2.0.logic_name" relationIds="802" nameCols="logic_name_102" compounds="12"/>
+	</datasetPartitionTable>
+	<datasetPartitionTable name="object_xref_copy_1" selectedColumns="db_name_1018">
+		<partitionRegex name="db_name_1018" match="-" replace="_"/>
+		<partitionApplication name="gene_vega" dimension="translation__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="15"/>
+	</datasetPartitionTable>
+	<datasetPartitionTable name="object_xref" selectedColumns="db_name_1018">
+		<partitionRegex name="db_name_1018" match="-" replace="_"/>
+		<partitionApplication name="gene_vega" dimension="gene__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="0"/>
+	</datasetPartitionTable>
+</mart>
