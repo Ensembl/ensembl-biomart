@@ -16,6 +16,7 @@ use strict;
 use Getopt::Long;
 use Carp;
 use DBI;
+use POSIX;
 
 
 my ( $old_dbname, $olduser,    $oldpass, $oldhost,
@@ -404,11 +405,11 @@ foreach my $rel ( "new", "old" ) {
         my $diff = abs( $old_count{$sp}{$tab} - $new_count{$sp}{$tab} )/
           $old_count{$sp}{$tab};
         if ( $diff > $percent and $new_count{$sp}{$tab} > $old_count{$sp}{$tab}  ) {    #10% change
-          print OUT $sp . "<->" . $tab . "\t" . $old_count{$sp}{$tab} . "\t" . $new_count{$sp}{$tab} . "\t" . ( $diff*100 ) . "\n";
+          print OUT $sp . "<->" . $tab . "\t" . $old_count{$sp}{$tab} . "\t" . $new_count{$sp}{$tab} . "\t" . ceil( $diff*100 ) . "\n";
         }
         elsif($diff > $percent and $new_count{$sp}{$tab} < $old_count{$sp}{$tab} )
         {
-          print OUT $sp . "<->" . $tab . "\t" . $old_count{$sp}{$tab} . "\t" . $new_count{$sp}{$tab} . "\t" . ( "-" . $diff*100 ) . "\n";
+          print OUT $sp . "<->" . $tab . "\t" . $old_count{$sp}{$tab} . "\t" . $new_count{$sp}{$tab} . "\t" . ( "-" . ceil($diff*100) ) . "\n";
         }
         next;
       }
