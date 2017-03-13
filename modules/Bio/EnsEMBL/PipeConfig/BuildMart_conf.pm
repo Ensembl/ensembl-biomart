@@ -77,7 +77,7 @@ sub pipeline_analyses {
       -meadow_type => 'LSF',
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -div #division# -registry #registry#',
+'perl #base_dir#/ensembl-biomart/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -div #division# -registry #registry#',
         'mart'     => $self->o('mart'),
         'user'     => $self->o('user'),
         'pass'     => $self->o('pass'),
@@ -115,7 +115,7 @@ sub pipeline_analyses {
       -meadow_type => 'LSF',
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/calculate_sequence_data.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -dataset_basename #base_name# -registry #registry#',
+'perl #base_dir#/ensembl-biomart/scripts/calculate_sequence_data.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -dataset_basename #base_name# -registry #registry#',
         'mart'      => $self->o('mart'),
         'user'      => $self->o('user'),
         'pass'      => $self->o('pass'),
@@ -134,7 +134,7 @@ sub pipeline_analyses {
       -meadow_type => 'LSF',
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/add_compara.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -compara #compara# -dataset #dataset# -name #base_name#',
+'perl #base_dir#/ensembl-biomart/scripts/add_compara.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -compara #compara# -dataset #dataset# -name #base_name#',
         'mart'     => $self->o('mart'),
         'user'     => $self->o('user'),
         'pass'     => $self->o('pass'),
@@ -152,7 +152,7 @@ sub pipeline_analyses {
       -wait_for    => [ 'add_compara', 'calculate_sequence'],
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/tidy_tables.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',
+'perl #base_dir#/ensembl-biomart/scripts/tidy_tables.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',
         'mart'     => $self->o('mart'),
         'user'     => $self->o('user'),
         'pass'     => $self->o('pass'),
@@ -167,7 +167,7 @@ sub pipeline_analyses {
       -meadow_type => 'LSF',
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/generate_ontology_extension.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset#',
+'perl #base_dir#/ensembl-biomart/scripts/generate_ontology_extension.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset#',
         'mart'     => $self->o('mart'),
         'user'     => $self->o('user'),
         'pass'     => $self->o('pass'),
@@ -183,7 +183,7 @@ sub pipeline_analyses {
       -meadow_type => 'LSF',
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/generate_slim.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -registry #registry# -name #base_name#',
+'perl #base_dir#/ensembl-biomart/scripts/generate_slim.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -registry #registry# -name #base_name#',
         'mart'     => $self->o('mart'),
         'user'     => $self->o('user'),
         'pass'     => $self->o('pass'),
@@ -271,7 +271,7 @@ sub pipeline_analyses {
       -wait_for    => ['generate_names','optimize'],
       -parameters  => {
         'cmd' =>
-        'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
+        'perl #base_dir#/ensembl-biomart/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
                        'mart'     => $self->o('mart'),
                        'template'     => $self->o('template'),
                        'user'     => $self->o('user'),
