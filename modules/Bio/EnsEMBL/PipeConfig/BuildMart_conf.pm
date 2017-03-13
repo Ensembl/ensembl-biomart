@@ -52,7 +52,7 @@ sub default_options {
            'registry'      => $self->o('registry'),
            'genomic_features_mart' => '',
            'max_dropdown' => '256',
-           'tables_dir' => $self->o('base_dir').'/gene_mart/tables'};
+           'tables_dir' => $self->o('base_dir').'ensembl-biomart/gene_mart/tables'};
 }
 
 =head2 pipeline_wide_parameters
