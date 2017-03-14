@@ -42,13 +42,7 @@ sub run {
   my $variation_mtmp_script    = $self->param_required('variation_mtmp_script');
 
   if ($self->param('sv_exists')) {
-    # Apparently, the variation set structural variation MTMP table is
-    # only required for human. If you run this script for any other
-    # species, the table doesn't get created. So don't bother for now,
-    # but I'll leave it here in case we need it back...
-    if ($self->param_required('species') eq 'homo_sapiens') {
-      $self->run_script($variation_mtmp_script, 'mode', 'variation_set_structural_variation');
-    }
+    $self->run_script($variation_mtmp_script, 'mode', 'variation_set_structural_variation');
     # Creating the Supporting structural variation view
     $self->supporting_structural_variation;
   }
@@ -69,14 +63,8 @@ sub run {
 
   $self->order_consequences;
   
-  # The variation set variation MTMP table is only required for human
-  # and EG species.
-  if ($self->param_required('species') eq 'homo_sapiens') {
-    $self->run_script($variation_mtmp_script, 'mode', 'variation_set_variation');
-  }
-  else {
-    $self->empty_variation_set_variation;
-  }
+  $self->run_script($variation_mtmp_script, 'mode', 'variation_set_variation');
+
   
   # Create the MTMP_evidence view using the Variation script
   $self->run_script($variation_mtmp_script, 'mode', 'evidence');
@@ -253,25 +241,6 @@ sub order_consequences {
   $consequences = join(',', @consequences);
   my $sql = "ALTER TABLE $table MODIFY COLUMN $column SET($consequences);";
   $dbh->do($sql) or $self->throw($dbh->errstr);
-}
-
-sub empty_variation_set_variation {
-  my ($self) = @_;
-
-  my $dbc = $self->get_DBAdaptor('variation')->dbc();
-  my $drop_sql = 'DROP TABLE IF EXISTS MTMP_variation_set_variation;';
-
-  my $create_sql =
-  'CREATE TABLE MTMP_variation_set_variation ('.
-    'variation_id int(11) unsigned NOT NULL, '.
-    'variation_set_id int(11) unsigned NOT NULL, '.
-    'KEY variation_id (variation_id), '.
-    'KEY variation_set_id (variation_set_id)) ';
-
-  $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
-  $dbc->sql_helper->execute_update(-SQL=>$create_sql);
-  
-  $dbc->disconnect_if_idle();
 }
 
 # Check if a MTMP table already exists
