@@ -62,6 +62,11 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
+      <FilterCollection displayName="Study name" internalName="study_name">
+        <FilterDescription displayName="Study name" displayType="list" field="name_20100" internalName="study_name" key="variation_id_2025_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
       <FilterCollection displayName="Study type" internalName="study_type" useDefault="true">
         <FilterDescription displayName="Study type" displayType="list" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" style="menu" tableConstraint="variation_annotation__dm" type="list" useDefault="true">
             <SpecificFilterContent internalName="replaceMe"/>
@@ -221,6 +226,7 @@
       <AttributeCollection displayName="Phenotype annotation" internalName="variation_annotation" maxSelect="0" useDefault="true">
         <AttributeDescription displayName="Associated variant names" field="variation_names_2035" internalName="variation_names" key="variation_id_2025_key" linkoutURL="exturl|/*species2*/Variation/Explore?source=dbSNP;v=%s" maxLength="255" tableConstraint="variation_annotation__dm" useDefault="true"/>
         <AttributeDescription displayName="Source name" field="name_2021" internalName="source_name" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Study name" field="name_20100" internalName="study_name" key="variation_id_2025_key" maxLength="5" tableConstraint="variation_annotation__dm"/>
         <AttributeDescription displayName="Study external reference" field="external_reference_20100" internalName="study_external_ref" key="variation_id_2025_key" maxLength="30" tableConstraint="variation_annotation__dm" useDefault="true"/>
         <AttributeDescription displayName="Study type" field="study_type_20100" internalName="study_type" key="variation_id_2025_key" maxLength="5" tableConstraint="variation_annotation__dm" useDefault="true"/>
         <AttributeDescription displayName="Study description" field="description_20100" internalName="study_description" key="variation_id_2025_key" maxLength="255" tableConstraint="variation_annotation__dm" useDefault="true"/>
