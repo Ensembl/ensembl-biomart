@@ -4,5 +4,5 @@ SELECT
   vs.description as description_2077
 FROM
   VAR_DB.structural_variation sv LEFT OUTER JOIN
-  VAR_DB.variation_set_structural_variation vssv ON sv.structural_variation_id = vssv.structural_variation_id LEFT OUTER JOIN
+  VAR_DB.MTMP_variation_set_structural_variation vssv ON sv.structural_variation_id = vssv.structural_variation_id LEFT OUTER JOIN
   VAR_DB.variation_set vs ON vssv.variation_set_id = vs.variation_set_id
