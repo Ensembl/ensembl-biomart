@@ -60,6 +60,7 @@ sub default_options {
     sample_threshold      => 0,
     populate_mart_rc_name => 'normal',
     snp_cull_tables       => [],
+    snp_cull_columns      => [],
     optimize_tables       => 0,
     population_threshold  => 100,
     species_suffix        => '',
@@ -148,6 +149,11 @@ sub default_options {
     ],
 
     # snp_cull_tables should be defined in an inheriting module
+
+    snp_cull_columns => {
+      'snp__mart_transcript_variation__dm'     => 'polyphen_score_2090',
+      'snp__mart_transcript_variation__dm'    => 'sift_score_2090',
+    },
 
     snp_som_cull_tables => {
       'snp_som__population_genotype__dm'     => 'name_2019',
@@ -457,6 +463,7 @@ sub pipeline_analyses {
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CullMartTables',
       -parameters        => {
                               snp_cull_tables => $self->o('snp_cull_tables'),
+                              snp_cull_columns => $self->o('snp_cull_columns'),
                               snp_som_cull_tables => $self->o('snp_som_cull_tables'), 
                               sv_cull_tables  => $self->o('sv_cull_tables'),
                               sv_som_cull_tables => $self->o('sv_som_cull_tables'),
