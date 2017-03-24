@@ -41,7 +41,6 @@ sub run {
       $self->run_names_script();
       $self->run_meta_script();
     }
-    $mart_dbc->sql_helper->execute_update(-SQL=>'DROP TABLE IF EXISTS dataset_names;');
   }
   elsif ( $self->param_required('dataset_name') eq 'snp_som' ) {
     my $tables =
@@ -50,7 +49,6 @@ sub run {
       $self->run_names_script();
       $self->run_meta_script();
     }
-    $mart_dbc->sql_helper->execute_update(-SQL=>'DROP TABLE IF EXISTS dataset_names;');
   }
   elsif ( $self->param_required('dataset_name') eq 'structvar_som' ) {
     my $tables =
@@ -59,7 +57,6 @@ sub run {
       $self->run_names_script();
       $self->run_meta_script();
     }
-    $mart_dbc->sql_helper->execute_update(-SQL=>'DROP TABLE IF EXISTS dataset_names;');
   }
   else {
     $self->run_names_script();
