@@ -27,9 +27,14 @@ sub run {
   my ($self) = @_;
   
   my %snp_cull_tables = %{$self->param_required('snp_cull_tables')};
+  my %snp_cull_columns = %{$self->param_required('snp_cull_columns')};
   
   foreach my $table (keys %snp_cull_tables) {
     $self->cull_table($table, $snp_cull_tables{$table});
+  }
+
+  foreach my $table (keys %snp_cull_columns) {
+    $self->cull_column($table, $snp_cull_columns{$table});
   }
 
   if ($self->param_required('species') eq 'homo_sapiens'){
@@ -72,6 +77,28 @@ sub cull_table {
     
     if ($rows == 0) {
       my $drop_sql = "DROP TABLE $mart_table";
+      $mart_dbc->sql_helper->execute_update(-SQL=>$drop_sql);
+    }
+  }
+  $mart_dbc->disconnect_if_idle();
+}
+
+sub cull_column {
+  my ($self, $table, $column) = @_;
+
+  my $mart_dbc = $self->mart_dbc;
+  my $mart_table_prefix = $self->param_required('mart_table_prefix');
+  my $mart_table = "$mart_table_prefix\_$table";
+
+  my $tables_sql = "SHOW TABLES LIKE '$mart_table';";
+  my $tables = $mart_dbc->sql_helper->execute(-SQL=>$tables_sql);
+
+  if (@$tables) {
+    my $count_sql = "SELECT COUNT(*) FROM $mart_table WHERE $column IS NOT NULL";
+    my ($rows) = $mart_dbc->sql_helper->execute_simple(-SQL=>$count_sql)->[0];
+    
+    if ($rows == 0) {
+      my $drop_sql = "ALTER TABLE $mart_table DROP COLUMN $column";
       $mart_dbc->sql_helper->execute_update(-SQL=>$drop_sql);
     }
   }
