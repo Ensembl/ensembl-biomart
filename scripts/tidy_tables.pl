@@ -75,52 +75,55 @@ my $mart_handle =
 $mart_handle->do("use $mart_db");
 
 my %tables_to_tidy;
+my %columns_to_tidy;
 
 if ($mart_db =~ /snp_mart/) {
   %tables_to_tidy = (
-				 '%\_\_mpoly\_\_dm'                   => 'name_2019',
-				 '%\_\_variation\_set\_variation\_\_dm' => 'description_2077',
-				 '%snp\_\_variation\_annotation\_\_dm'    => 'description_2033',
-				 '%snp\_\_variation\_annotation\_\_dm'    => 'name_2021' ,
-				 '%structural\_\_variation\_annotation\_\_dm'    => 'name_2019',
-				 '%structural\_\_variation\_annotation\_\_dm'    => 'description_2019',
+				 '%\_\_mpoly\_\_dm'                   =>  ['name_2019'],
+				 '%\_\_variation\_set\_variation\_\_dm' => ['description_2077'],
+				 '%snp\_\_variation\_annotation\_\_dm'    => ['description_2033','name_2021'],
+				 '%structural\_\_variation\_annotation\_\_dm'    => ['name_2019','description_2019'],
       );
+  %columns_to_tidy = (
+  	             '%snp\_\_mart\_transcript\_variation\_\_dm'    => ['sift_score_2090','polyphen_score_2090'],
+  	);
 }
 elsif ($mart_db =~ /egontology_mart/) {
   %tables_to_tidy = (
-				 'closure\_%\_\_closure__main' => 'name_302'
+				 'closure\_%\_\_closure__main' => ['name_302']
   );
 }
 else {
   %tables_to_tidy = (
-			   '%\_transcript\_variation\_som\_\_dm' => 'seq_region_start_2026',
-			   '%\_\_go\_%\_\_dm'               => 'dbprimary_acc_1074',
-			   '%\_\_tra\_%\_\_dm'               => 'value_1065');
+			   '%\_transcript\_variation\_som\_\_dm' => ['seq_region_start_2026'],
+			   '%\_\_go\_%\_\_dm'               => ['dbprimary_acc_1074'],
+			   '%\_\_tra\_%\_\_dm'               => ['value_1065']);
 }
 
 # 1. remove tables where we have no data beyond the key
 for my $table_pattern (keys %tables_to_tidy) {
   $logger->info("Finding tables like $table_pattern");
-  my $col = $tables_to_tidy{$table_pattern};
-  for my $table (
-	query_to_strings($mart_handle, "show tables like '$table_pattern'"))
-  {
-	$logger->info(
+  foreach my $col  (@{$tables_to_tidy{$table_pattern}}) {
+    for my $table (
+	  query_to_strings($mart_handle, "show tables like '$table_pattern'"))
+    {
+	  $logger->info(
 				"Checking for rows from $table where $col is not null");
-	eval {
-	  my $cnt = get_string(
+	  eval {
+	    my $cnt = get_string(
 				 $mart_handle->prepare(
 				   "SELECT COUNT(*) FROM $table WHERE $col IS NOT NULL")
-	  );
-	  $logger->info("$table contains $cnt valid rows");
-	  if ($cnt == 0) {
-		$logger->info("Dropping 'empty' table $table");
-		$mart_handle->do("DROP TABLE $table");
+	    );
+	    $logger->info("$table contains $cnt valid rows");
+	    if ($cnt == 0) {
+		  $logger->info("Dropping 'empty' table $table");
+		  $mart_handle->do("DROP TABLE $table");
+	    }
+	  };
+	  if ($@) {
+	    warn "Could not delete from $table:" . $@;
 	  }
-	};
-	if ($@) {
-	  warn "Could not delete from $table:" . $@;
-	}
+    }
   }
 }
 
@@ -148,6 +151,33 @@ foreach my $table (get_tables($mart_handle)) {
 	$sql = "RENAME TABLE $table TO " . lc($table);
 	print $sql. "\n";
 	$mart_handle->do($sql);
+  }
+}
+
+# 4. Drop columns that are empty
+for my $table_pattern (keys %columns_to_tidy) {
+  $logger->info("Finding tables like $table_pattern");
+  foreach my $col (@{$columns_to_tidy{$table_pattern}}) {
+    for my $table (
+	  query_to_strings($mart_handle, "show tables like '$table_pattern'"))
+    {
+	  $logger->info(
+				"Checking for rows from $table where $col is not null");
+	  eval {
+	    my $cnt = get_string(
+				 $mart_handle->prepare(
+				   "SELECT COUNT(*) FROM $table WHERE $col IS NOT NULL")
+	    );
+	    $logger->info("$table contains $cnt valid rows");
+	    if ($cnt == 0) {
+		  $logger->info("Dropping 'empty' column $col from $table");
+		  $mart_handle->do("ALTER TABLE $table DROP COLUMN $col");
+	    }
+	  };
+	  if ($@) {
+	    warn "Could not delete column $col from $table:" . $@;
+	  }
+    }
   }
 }
 
