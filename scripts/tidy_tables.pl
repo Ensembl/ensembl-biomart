@@ -84,6 +84,8 @@ if ($mart_db =~ /snp_mart/) {
 				 '%snp\_\_variation\_annotation\_\_dm'    => 'name_2021' ,
 				 '%structural\_\_variation\_annotation\_\_dm'    => 'name_2019',
 				 '%structural\_\_variation\_annotation\_\_dm'    => 'description_2019',
+				 '%snp\_\_mart\_transcript\_variation\_\_dm'    => 'polyphen_score_2090',
+				 '%snp\_\_mart\_transcript\_variation\_\_dm'    => 'sift_score_2090',
       );
 }
 elsif ($mart_db =~ /egontology_mart/) {
