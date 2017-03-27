@@ -1071,6 +1071,7 @@ sub write_filters {
                   if ( scalar(@$vals) == 0)
                   {
                     $self->{delete}{$dataset->{name}."_".$fco->{internalName}}=1;
+                    $self->{delete}{$dataset->{name}."_".$fdo->{internalName}}=1;
                     $logger->info(
                             "No data for $fdo->{internalName}, removing it from the template");
                   }
@@ -1858,7 +1859,7 @@ sub write_attributes {
                    defined $self->{tables}->{ $ado->{tableConstraint} }
                    ->{ $ado->{key} } ) )
               {
-                push @{ $aco->{AttributeDescription} }, $ado;
+                push @{ $aco->{AttributeDescription} }, $ado unless (exists $self->{delete}{$ado->{internalName}} or exists $self->{delete}{$dataset->{name}."_".$ado->{internalName}});
                 $nD++;
               }
               else {
@@ -1874,7 +1875,7 @@ sub write_attributes {
                 $ado->{pointerDataset} =~ s/\*species4\*/$ds_name/g;
                 $ado->{pointerDataset} =~ s/\*species3\*/$dataset->{name}/g;
               }
-              push @{ $aco->{AttributeDescription} }, $ado;
+              push @{ $aco->{AttributeDescription} }, $ado unless (exists $self->{delete}{$ado->{internalName}} or exists $self->{delete}{$dataset->{name}."_".$ado->{internalName}});
               $nD++;
             }
             if ( defined $ado->{linkoutURL} ) {
@@ -1888,14 +1889,14 @@ sub write_attributes {
           } ## end for my $attributeDescription...
 
           if ( $nD > 0 ) {
-            push @{ $ago->{AttributeCollection} }, $aco;
+            push @{ $ago->{AttributeCollection} }, $aco unless (exists $self->{delete}{$aco->{internalName}} or exists $self->{delete}{$dataset->{name}."_".$aco->{internalName}});
             $nC++;
           }
         } ## end for my $attributeCollection...
       } ## end else [ if ( $ago->{internalName...})]
 
       if ( $nC > 0 ) {
-        push @{ $apo->{AttributeGroup} }, $ago;
+        push @{ $apo->{AttributeGroup} }, $ago unless (exists $self->{delete}{$ago->{internalName}} or exists $self->{delete}{$dataset->{name}."_".$ago->{internalName}});
         $nG++;
       }
     } ## end for my $attributeGroup ...
