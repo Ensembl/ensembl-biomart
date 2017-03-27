@@ -76,7 +76,6 @@ function get_species
 
 
 scriptdir=$( dirname $0 )
-OLD_MART=http://ens-prod-1.ebi.ac.uk:10301/biomart/martservice
 NEW_MART=http://ens-prod-1.ebi.ac.uk:10301/biomart/martservice
 
 for division in "ensembl" "plants" "metazoa" "protists" "fungi" 
@@ -86,9 +85,11 @@ if [ ${division} == "ensembl" ]
 then
   prefix=
   suffix=
+  OLD_MART=http://www.ensembl.org/biomart/martservice
 else
   prefix="${division}_"
   suffix="_eg"
+  OLD_MART=http://www.${division}.ensembl.org/biomart/martservice
 fi
 
 release=$RELEASE
