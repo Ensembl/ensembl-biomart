@@ -16,6 +16,7 @@
 
 SERVER=$1
 RELEASE=$2
+EG_RELEASE=$3
 
 function get_species
 {
@@ -86,13 +87,14 @@ then
   prefix=
   suffix=
   OLD_MART=http://www.ensembl.org/biomart/martservice
+  release=$RELEASE
 else
   prefix="${division}_"
   suffix="_eg"
   OLD_MART=http://www.${division}.ensembl.org/biomart/martservice
+  release=$EG_RELEASE
 fi
 
-release=$RELEASE
 oldvs="${division}_mart_$(( release - 1 ))"
 newvs="${division}_mart_${release}"
 mart_type="default"
