@@ -692,8 +692,8 @@ sub write_filters {
                       # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
                       my $xref_display_name = $xref->[1];
                       $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
-                      #Use display_label_1074 column for all the other xrefs
-                      my $field = "display_label_1074";
+                      #Use dbprimary_acc_1074 column for all the other xrefs
+                      my $field = "dbprimary_acc_1074";
                       # add in if the column exists
                       my $example = $self->get_example($table,$field);
                       push @{ $fdo->{Option} }, {
@@ -1677,7 +1677,7 @@ sub write_attributes {
                     # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
                     my $xref_display_name = $xref->[1];
                     $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
-                    my $field = "display_label_1074";
+                    my $field = "dbprimary_acc_1074";
                     push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
                       displayName     => "$xref_display_name ID",
