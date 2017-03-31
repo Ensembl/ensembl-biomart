@@ -883,7 +883,7 @@
 		<relation id="806" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="354" secondKeyId="616" status="INFERRED" visibleModified="false"/>
 		<relation id="807" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="690" secondKeyId="304" status="INFERRED" visibleModified="false"/>
 	</jdbcSchema>
-	<jdbcSchema uniqueId="11" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_funcgen_%ENS%" databaseName="homo_sapiens_funcgen_88_38" schemaName="homo_sapiens_funcgen_88_38" username="%USER%" password="%PASS%" name="functional_genomics" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]*_([^_]*)_funcgen_%EG%_%ENS%_[1-9]?[0-9]*$" partitionExpression="$1$2_eg">
+	<jdbcSchema uniqueId="11" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_funcgen_%ENS%" databaseName="master_schema_funcgen_88" schemaName="master_schema_funcgen_88" username="%USER%" password="%PASS%" name="functional_genomics" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]*_([^_]*)_funcgen_%EG%_%ENS%_[1-9]?[0-9]*$" partitionExpression="$1$2_eg">
 		<table uniqueId="33" id="808" name="probe_feature" ignore="true" inSchemaPartition="funcgen_species_list">
 			<column id="809" name="mismatches" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="810" name="probe_feature_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
