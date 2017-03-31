@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mart PUBLIC "-//EBI//DTD MartBuilder 0.7-//EBI//DTD MartBuilder " "http://www.biomart.org/DTD/MartBuilder-0.7.dtd">
-<mart outputDatabase="ensembl_mart_88" outputSchema="ensembl_mart_88" outputHost="localhost" outputPort="18002" overrideHost="mysql-ensembl-mirror" overridePort="4240" nameCase="0" hideMaskedDataSets="false" hideMaskedSchemas="true">
+<mart outputDatabase="ensembl_mart_88" outputSchema="ensembl_mart_88" outputHost="localhost" outputPort="18002" overrideHost="mysql-ens-sta-1" overridePort="4519" nameCase="0" hideMaskedDataSets="false" hideMaskedSchemas="true">
 	<jdbcSchema uniqueId="1" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:2970/master_schema_88" databaseName="master_schema_88" schemaName="master_schema_88" username="ensadmin" password="ensembl" name="ensembl" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)_core_88_[0-9]*$" partitionExpression="$1$2">
 		<table uniqueId="82" id="1" name="seq_region_synonym" ignore="false" inSchemaPartition="oaries,mbalbcj,mnodshiltj,meugenii,gaculeatus,tguttata,ggorilla,mfuro,eeuropaeus,celegans,xmaculatus,panubis,hsapiens,ogarnettii,oanatinus,mcbaj,cjacchus,etelfairi,falbicollis,m129s1svimj,cporcellus,mdba2j,scerevisiae,tbelangeri,cfamiliaris,choffmanni,lchalumnae,aplatyrhynchos,nleucogenys,dordii,mgallopavo,pvampyrus,csavignyi,ecaballus,mwsbeij,loculatus,mdomestica,olatipes,mmulatta,drerio,mpwkphj,ocuniculus,dmelanogaster,sharrisii,tnigroviridis,amexicanus,mmurinus,dnovemcinctus,csabaeus,pabelii,pcapensis,psinensis,ptroglodytes,mfvbnj,maj,ttruncatus,xtropicalis,tsyrichta,acarolinensis,mspreteij,fcatus,cintestinalis,makrj,mc57bl6nj,mcasteij,oprinceps,saraneus,oniloticus,btaurus,trubripes,sscrofa,mlpj,pformosa,mlucifugus,itridecemlineatus,ggallus,lafricana,vpacos,mc3hhej,amelanoleuca,gmorhua,mmusculus,pmarinus,mnzohlltj,rnorvegicus">
 			<column id="2" name="seq_region_id" visibleModified="false" inSchemaPartition="oaries,mbalbcj,mnodshiltj,meugenii,gaculeatus,tguttata,ggorilla,mfuro,eeuropaeus,celegans,xmaculatus,panubis,hsapiens,ogarnettii,oanatinus,mcbaj,cjacchus,etelfairi,falbicollis,m129s1svimj,cporcellus,mdba2j,scerevisiae,tbelangeri,cfamiliaris,choffmanni,lchalumnae,aplatyrhynchos,nleucogenys,dordii,mgallopavo,pvampyrus,csavignyi,ecaballus,mwsbeij,loculatus,mdomestica,olatipes,mmulatta,drerio,mpwkphj,ocuniculus,dmelanogaster,sharrisii,tnigroviridis,amexicanus,mmurinus,dnovemcinctus,csabaeus,pabelii,pcapensis,psinensis,ptroglodytes,mfvbnj,maj,ttruncatus,xtropicalis,tsyrichta,acarolinensis,mspreteij,fcatus,cintestinalis,makrj,mc57bl6nj,mcasteij,oprinceps,saraneus,oniloticus,btaurus,trubripes,sscrofa,mlpj,pformosa,mlucifugus,itridecemlineatus,ggallus,lafricana,vpacos,mc3hhej,amelanoleuca,gmorhua,mmusculus,pmarinus,mnzohlltj,rnorvegicus"/>
@@ -3632,12 +3632,17 @@
 		<renamedColumn tableKey="translation__object_xref_1" colKey="1.24.0.source_xref_id" newName="source_xref_id_1024"/>
 		<maskedColumn tableKey="translation__object_xref_1" colKey="1.18.0.description"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="1.18.0.description" newName="description_1018"/>
+		<alternativeJoin tableKey="translation__object_xref_1" relationId="715"/>
 		<maskedRelation tableKey="translation__object_xref_1" relationId="720"/>
+		<alternativeJoin tableKey="translation__object_xref_1" relationId="742"/>
+		<alternativeJoin tableKey="translation__object_xref_1" relationId="773"/>
 		<restrictedTable tableKey="translation__object_xref_1" tableId="207" aliasColumnIds="211" aliasNames="col1" expression=":col1=&quot;1000&quot;"/>
 		<transformStart tableKey="translation__object_xref_1" tableId="343"/>
 		<restrictedTable tableKey="translation__object_xref_1" tableId="665" aliasColumnIds="670" aliasNames="col1" expression=":col1=&quot;Translation&quot;"/>
+		<alternativeJoin tableKey="translation__object_xref_1" relationId="2148"/>
 		<renamedTable tableKey="transcript__object_xref_1" newName="ontology"/>
 		<tableHideMasked tableKey="transcript__object_xref_1"/>
+		<distinctRows tableKey="transcript__object_xref_1"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.19.0.synonym"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.19.0.synonym" newName="synonym_1019"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.display_label"/>
@@ -4290,6 +4295,7 @@
 		<maskedRelation tableKey="translation__object_xref" relationId="2148"/>
 		<renamedTable tableKey="gene__object_xref_1" newName="ontology"/>
 		<tableHideMasked tableKey="gene__object_xref_1"/>
+		<distinctRows tableKey="gene__object_xref_1"/>
 		<maskedColumn tableKey="gene__object_xref_1" colKey="1.74.0.xref_id"/>
 		<renamedColumn tableKey="gene__object_xref_1" colKey="1.74.0.xref_id" newName="xref_id_1074"/>
 		<maskedColumn tableKey="gene__object_xref_1" colKey="1.74.0.display_label"/>
@@ -4351,8 +4357,12 @@
 		<renamedColumn tableKey="gene__object_xref_1" colKey="1.24.0.source_xref_id" newName="source_xref_id_1024"/>
 		<maskedColumn tableKey="gene__object_xref_1" colKey="1.18.0.description"/>
 		<renamedColumn tableKey="gene__object_xref_1" colKey="1.18.0.description" newName="description_1018"/>
+		<alternativeJoin tableKey="gene__object_xref_1" relationId="715"/>
 		<maskedRelation tableKey="gene__object_xref_1" relationId="720"/>
+		<alternativeJoin tableKey="gene__object_xref_1" relationId="742"/>
+		<alternativeJoin tableKey="gene__object_xref_1" relationId="773"/>
 		<transformStart tableKey="gene__object_xref_1" tableId="343"/>
+		<alternativeJoin tableKey="gene__object_xref_1" relationId="2148"/>
 	</dataset>
 	<dataset name="object_xref" centralTableId="665" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
 		<renamedTable tableKey="object_xref" newName="object_xref"/>
