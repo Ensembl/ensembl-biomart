@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mart PUBLIC "-//EBI//DTD MartBuilder 0.7-//EBI//DTD MartBuilder " "http://www.biomart.org/DTD/MartBuilder-0.7.dtd">
-<mart outputDatabase="division_mart_%EG%" outputSchema="division_mart_%EG%" outputHost="localhost" outputPort="18002" overrideHost="mysql-eg-staging-1.ebi.ac.uk" overridePort="%PORT%" nameCase="0" hideMaskedDataSets="false" hideMaskedSchemas="true">
-	<jdbcSchema uniqueId="1" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_%ENS%" databaseName="master_schema_%ENS%" schemaName="master_schema_%ENS%" username="%USER%" password="%PASS%" name="ensembl" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]+_([^_]+)_core_%EG%_%ENS%_[0-9]*$" partitionExpression="$1$2_eg">
+<mart outputDatabase="division_mart_%EG%" outputSchema="division_mart_%EG%" outputHost="localhost" outputPort="18002" overrideHost="%HOST%" overridePort="%PORT%" nameCase="0" hideMaskedDataSets="false" hideMaskedSchemas="true">
+	<jdbcSchema uniqueId="1" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_%ENS%" databaseName="master_schema_%ENS%" schemaName="master_schema_%ENS%" username="%USER%" password="%PASS%" name="%PASS%" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]+_([^_]+)_core_%EG%_%ENS%_[0-9]*$" partitionExpression="$1$2_eg">
 		<table uniqueId="82" id="1" name="seq_region_synonym" ignore="false" inSchemaPartition="core_species_list">
 			<column id="2" name="seq_region_id" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="3" name="synonym" visibleModified="false" inSchemaPartition="core_species_list"/>
@@ -72,9 +72,9 @@
 			<column id="62" name="external_db_id" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="63" name="target_score" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="64" name="unmapped_reason_id" visibleModified="false" inSchemaPartition="core_species_list"/>
-			<column id="65" name="ensembl_id" visibleModified="false" inSchemaPartition="core_species_list"/>
+			<column id="65" name="%PASS%_id" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="66" name="type" visibleModified="false" inSchemaPartition="core_species_list"/>
-			<column id="67" name="ensembl_object_type" visibleModified="false" inSchemaPartition="core_species_list"/>
+			<column id="67" name="%PASS%_object_type" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="68" name="analysis_id" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="69" name="unmapped_object_id" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<primaryKey id="70" columnIds="69" status="INFERRED" visibleModified="false"/>
@@ -685,13 +685,13 @@
 		</table>
 		<table uniqueId="25" id="618" name="identity_xref" ignore="false" inSchemaPartition="core_species_list">
 			<column id="619" name="xref_end" visibleModified="false" inSchemaPartition="core_species_list"/>
-			<column id="620" name="ensembl_identity" visibleModified="false" inSchemaPartition="core_species_list"/>
+			<column id="620" name="%PASS%_identity" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="621" name="score" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="622" name="xref_start" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="623" name="cigar_line" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="624" name="xref_identity" visibleModified="false" inSchemaPartition="core_species_list"/>
-			<column id="625" name="ensembl_start" visibleModified="false" inSchemaPartition="core_species_list"/>
-			<column id="626" name="ensembl_end" visibleModified="false" inSchemaPartition="core_species_list"/>
+			<column id="625" name="%PASS%_start" visibleModified="false" inSchemaPartition="core_species_list"/>
+			<column id="626" name="%PASS%_end" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="627" name="object_xref_id" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="628" name="evalue" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<primaryKey id="629" columnIds="627" status="INFERRED" visibleModified="false"/>
@@ -738,9 +738,9 @@
 		<table uniqueId="40" id="665" name="object_xref" ignore="false" inSchemaPartition="core_species_list">
 			<column id="666" name="linkage_annotation" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="667" name="object_xref_id" visibleModified="false" inSchemaPartition="core_species_list"/>
-			<column id="668" name="ensembl_id" visibleModified="false" inSchemaPartition="core_species_list"/>
+			<column id="668" name="%PASS%_id" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="669" name="xref_id" visibleModified="false" inSchemaPartition="core_species_list"/>
-			<column id="670" name="ensembl_object_type" visibleModified="false" inSchemaPartition="core_species_list"/>
+			<column id="670" name="%PASS%_object_type" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="671" name="analysis_id" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<primaryKey id="672" columnIds="667" status="INFERRED" visibleModified="false"/>
 			<foreignKey id="673" columnIds="669" status="INFERRED" visibleModified="false"/>
@@ -883,7 +883,7 @@
 		<relation id="806" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="354" secondKeyId="616" status="INFERRED" visibleModified="false"/>
 		<relation id="807" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="690" secondKeyId="304" status="INFERRED" visibleModified="false"/>
 	</jdbcSchema>
-	<jdbcSchema uniqueId="11" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_funcgen_%ENS%" databaseName="master_schema_funcgen_%ENS%" schemaName="master_schema_funcgen_%ENS%" username="%USER%" password="%PASS%" name="functional_genomics" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]*_([^_]*)_funcgen_%EG%_%ENS%_[1-9]?[0-9]*$" partitionExpression="$1$2_eg">
+	<jdbcSchema uniqueId="11" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_funcgen_%ENS%" databaseName="homo_sapiens_funcgen_88_38" schemaName="homo_sapiens_funcgen_88_38" username="%USER%" password="%PASS%" name="functional_genomics" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]*_([^_]*)_funcgen_%EG%_%ENS%_[1-9]?[0-9]*$" partitionExpression="$1$2_eg">
 		<table uniqueId="33" id="808" name="probe_feature" ignore="true" inSchemaPartition="funcgen_species_list">
 			<column id="809" name="mismatches" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="810" name="probe_feature_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
@@ -939,9 +939,9 @@
 			<column id="856" name="external_db_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="857" name="target_score" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="858" name="unmapped_reason_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
-			<column id="859" name="ensembl_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
+			<column id="859" name="%PASS%_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="860" name="type" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
-			<column id="861" name="ensembl_object_type" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
+			<column id="861" name="%PASS%_object_type" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="862" name="analysis_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="863" name="unmapped_object_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<primaryKey id="864" columnIds="863" status="INFERRED" visibleModified="false"/>
@@ -1433,13 +1433,13 @@
 		</table>
 		<table uniqueId="26" id="1307" name="identity_xref" ignore="true" inSchemaPartition="funcgen_species_list">
 			<column id="1308" name="xref_end" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
-			<column id="1309" name="ensembl_identity" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
+			<column id="1309" name="%PASS%_identity" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="1310" name="score" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="1311" name="xref_start" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="1312" name="cigar_line" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="1313" name="xref_identity" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
-			<column id="1314" name="ensembl_start" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
-			<column id="1315" name="ensembl_end" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
+			<column id="1314" name="%PASS%_start" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
+			<column id="1315" name="%PASS%_end" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="1316" name="object_xref_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="1317" name="evalue" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<primaryKey id="1318" columnIds="1316" status="INFERRED" visibleModified="false"/>
@@ -1462,9 +1462,9 @@
 		<table uniqueId="30" id="1332" name="object_xref" ignore="false" inSchemaPartition="funcgen_species_list">
 			<column id="1333" name="linkage_annotation" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="1334" name="object_xref_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
-			<column id="1335" name="ensembl_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
+			<column id="1335" name="%PASS%_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="1336" name="xref_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
-			<column id="1337" name="ensembl_object_type" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
+			<column id="1337" name="%PASS%_object_type" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="1338" name="analysis_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<primaryKey id="1339" columnIds="1334" status="INFERRED" visibleModified="false"/>
 			<foreignKey id="1340" columnIds="1338" status="INFERRED" visibleModified="false"/>
@@ -1566,7 +1566,7 @@
 		<relation id="1433" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="1195" secondKeyId="1360" status="INFERRED" visibleModified="false"/>
 		<relation id="1434" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="1207" secondKeyId="1330" status="INFERRED" visibleModified="false"/>
 	</jdbcSchema>
-	<jdbcSchema uniqueId="10" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/ensembl_ontology_88" databaseName="ensembl_ontology_88" schemaName="ensembl_ontology_88" username="%USER%" password="%PASS%" name="ontology" keyguessing="true" masked="false" hideMasked="true">
+	<jdbcSchema uniqueId="10" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/%PASS%_ontology_88" databaseName="%PASS%_ontology_88" schemaName="%PASS%_ontology_88" username="%USER%" password="%PASS%" name="ontology" keyguessing="true" masked="false" hideMasked="true">
 		<table uniqueId="83" id="1435" name="aux_GR_TAX_monocot_map" ignore="false">
 			<column id="1436" name="subset_term_id" visibleModified="false"/>
 			<column id="1437" name="distance" visibleModified="false"/>
@@ -2425,15 +2425,15 @@
 			<primaryKey id="2170" columnIds="2165" status="INFERRED" visibleModified="false"/>
 			<foreignKey id="2171" columnIds="2169" status="INFERRED" visibleModified="false"/>
 		</table>
-		<table uniqueId="150" id="2172" name="MTMP_motif_feature_variation" ignore="false" inSchemaPartition="hsapiens,mmusculus">
-			<column id="2173" name="consequence_types" visibleModified="false" inSchemaPartition="hsapiens,mmusculus"/>
-			<column id="2174" name="feature_stable_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus"/>
-			<column id="2175" name="allele_string" visibleModified="false" inSchemaPartition="hsapiens,mmusculus"/>
-			<column id="2176" name="motif_score_delta" visibleModified="false" inSchemaPartition="hsapiens,mmusculus"/>
-			<column id="2177" name="in_informative_position" visibleModified="false" inSchemaPartition="hsapiens,mmusculus"/>
-			<column id="2178" name="motif_start" visibleModified="false" inSchemaPartition="hsapiens,mmusculus"/>
-			<column id="2179" name="variation_feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus"/>
-			<column id="2180" name="motif_name" visibleModified="false" inSchemaPartition="hsapiens,mmusculus"/>
+		<table uniqueId="150" id="2172" name="MTMP_motif_feature_variation" ignore="false" inSchemaPartition="variation_species_list">
+			<column id="2173" name="consequence_types" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2174" name="feature_stable_id" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2175" name="allele_string" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2176" name="motif_score_delta" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2177" name="in_informative_position" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2178" name="motif_start" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2179" name="variation_feature_id" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2180" name="motif_name" visibleModified="false" inSchemaPartition="variation_species_list"/>
 			<foreignKey id="2181" columnIds="2179" status="INFERRED" visibleModified="false"/>
 		</table>
 		<table uniqueId="72" id="2182" name="variation_set" ignore="false" inSchemaPartition="variation_species_list">
@@ -2599,12 +2599,12 @@
 			<foreignKey id="2324" columnIds="2323" status="INFERRED" visibleModified="false"/>
 			<foreignKey id="2325" columnIds="2322" status="INFERRED" visibleModified="false"/>
 		</table>
-		<table uniqueId="145" id="2326" name="tmp_sample_genotype_single_bp" ignore="false" inSchemaPartition="variation_species_list">
-			<column id="2327" name="allele_2" visibleModified="false" inSchemaPartition="variation_species_list"/>
-			<column id="2328" name="variation_id" visibleModified="false" inSchemaPartition="variation_species_list"/>
-			<column id="2329" name="sample_id" visibleModified="false" inSchemaPartition="variation_species_list"/>
-			<column id="2330" name="subsnp_id" visibleModified="false" inSchemaPartition="variation_species_list"/>
-			<column id="2331" name="allele_1" visibleModified="false" inSchemaPartition="variation_species_list"/>
+		<table uniqueId="145" id="2326" name="tmp_sample_genotype_single_bp" ignore="false" inSchemaPartition="dmelanogaster,fcatus,oaries,scerevisiae,tnigroviridis,cfamiliaris,tguttata,nleucogenys,btaurus,sscrofa,pabelii,mgallopavo,ggallus,ptroglodytes,ecaballus,oanatinus,mdomestica,mmulatta,mmusculus,drerio,rnorvegicus">
+			<column id="2327" name="allele_2" visibleModified="false" inSchemaPartition="dmelanogaster,fcatus,oaries,scerevisiae,tnigroviridis,cfamiliaris,tguttata,nleucogenys,btaurus,sscrofa,pabelii,mgallopavo,ggallus,ptroglodytes,ecaballus,oanatinus,mdomestica,mmulatta,mmusculus,drerio,rnorvegicus"/>
+			<column id="2328" name="variation_id" visibleModified="false" inSchemaPartition="dmelanogaster,fcatus,oaries,scerevisiae,tnigroviridis,cfamiliaris,tguttata,nleucogenys,btaurus,sscrofa,pabelii,mgallopavo,ggallus,ptroglodytes,ecaballus,oanatinus,mdomestica,mmulatta,mmusculus,drerio,rnorvegicus"/>
+			<column id="2329" name="sample_id" visibleModified="false" inSchemaPartition="dmelanogaster,fcatus,oaries,scerevisiae,tnigroviridis,cfamiliaris,tguttata,nleucogenys,btaurus,sscrofa,pabelii,mgallopavo,ggallus,ptroglodytes,ecaballus,oanatinus,mdomestica,mmulatta,mmusculus,drerio,rnorvegicus"/>
+			<column id="2330" name="subsnp_id" visibleModified="false" inSchemaPartition="dmelanogaster,fcatus,oaries,scerevisiae,tnigroviridis,cfamiliaris,tguttata,nleucogenys,btaurus,sscrofa,pabelii,mgallopavo,ggallus,ptroglodytes,ecaballus,oanatinus,mdomestica,mmulatta,mmusculus,drerio,rnorvegicus"/>
+			<column id="2331" name="allele_1" visibleModified="false" inSchemaPartition="dmelanogaster,fcatus,oaries,scerevisiae,tnigroviridis,cfamiliaris,tguttata,nleucogenys,btaurus,sscrofa,pabelii,mgallopavo,ggallus,ptroglodytes,ecaballus,oanatinus,mdomestica,mmulatta,mmusculus,drerio,rnorvegicus"/>
 			<foreignKey id="2332" columnIds="2328" status="INFERRED" visibleModified="false"/>
 			<foreignKey id="2333" columnIds="2329" status="INFERRED" visibleModified="false"/>
 		</table>
@@ -2752,11 +2752,11 @@
 			<column id="2461" name="study1_id" visibleModified="false" inSchemaPartition="variation_species_list"/>
 			<primaryKey id="2462" columnIds="2461,2460" status="INFERRED" visibleModified="false"/>
 		</table>
-		<table uniqueId="132" id="2463" name="MTMP_regulatory_feature_variation" ignore="false" inSchemaPartition="hsapiens,mmusculus">
-			<column id="2464" name="consequence_types" visibleModified="false" inSchemaPartition="hsapiens,mmusculus"/>
-			<column id="2465" name="feature_stable_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus"/>
-			<column id="2466" name="allele_string" visibleModified="false" inSchemaPartition="hsapiens,mmusculus"/>
-			<column id="2467" name="variation_feature_id" visibleModified="false" inSchemaPartition="hsapiens,mmusculus"/>
+		<table uniqueId="132" id="2463" name="MTMP_regulatory_feature_variation" ignore="false" inSchemaPartition="variation_species_list">
+			<column id="2464" name="consequence_types" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2465" name="feature_stable_id" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2466" name="allele_string" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2467" name="variation_feature_id" visibleModified="false" inSchemaPartition="variation_species_list"/>
 			<foreignKey id="2468" columnIds="2467" status="INFERRED" visibleModified="false"/>
 		</table>
 		<table uniqueId="140" id="2469" name="protein_function_predictions_attrib" ignore="false" inSchemaPartition="variation_species_list">
@@ -3083,9 +3083,9 @@
 			<column id="2759" name="seq_region_start" visibleModified="false" inSchemaPartition="variation_species_list"/>
 			<foreignKey id="2760" columnIds="2747" status="INFERRED" visibleModified="false"/>
 		</table>
-		<table uniqueId="153" id="2761" name="MTMP_variation_set_structural_variation" ignore="false" inSchemaPartition="hsapiens">
-			<column id="2762" name="variation_set_id" visibleModified="false" inSchemaPartition="hsapiens"/>
-			<column id="2763" name="structural_variation_id" visibleModified="false" inSchemaPartition="hsapiens"/>
+		<table uniqueId="153" id="2761" name="MTMP_variation_set_structural_variation" ignore="false" inSchemaPartition="variation_species_list">
+			<column id="2762" name="variation_set_id" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2763" name="structural_variation_id" visibleModified="false" inSchemaPartition="variation_species_list"/>
 			<primaryKey id="2764" columnIds="2763,2762" status="INFERRED" visibleModified="false"/>
 			<foreignKey id="2765" columnIds="2762" status="INFERRED" visibleModified="false"/>
 			<foreignKey id="2766" columnIds="2763" status="INFERRED" visibleModified="false"/>
@@ -3217,11 +3217,13 @@
 		<renamedColumn tableKey="attrib_type" colKey="1.6.0.attrib_type_id" newName="attrib_type_id_106_key"/>
 		<restrictedTable tableKey="attrib_type" tableId="483" aliasColumnIds="484" aliasNames="col1" expression=":col1 IN (&quot;appris&quot;,&quot;TSL&quot;,&quot;gencode_basic&quot;)"/>
 	</dataset>
-	<dataset name="gene" centralTableId="226" optimiser="COLUMN_BOOL_NULL_INHERIT" invisible="false" masked="false" hideMasked="true" indexOptimiser="false">
+	<dataset name="gene_%PASS%" centralTableId="226" optimiser="COLUMN_BOOL_NULL_INHERIT" invisible="false" masked="false" hideMasked="true" indexOptimiser="false">
 		<subclassRelation relationId="717"/>
 		<compoundRelation relationId="734" n="2" parallel="true"/>
 		<compoundRelation relationId="2859" n="2" parallel="true"/>
 		<subclassRelation relationId="740"/>
+		<compoundRelation relationId="762" n="2" parallel="true"/>
+		<compoundRelation relationId="765" n="2" parallel="true"/>
 		<compoundRelation relationId="801" n="2" parallel="true"/>
 		<compoundRelation relationId="2859" n="2" parallel="true"/>
 		<maskedTable tableKey="gene__misc_feature"/>
@@ -3564,14 +3566,17 @@
 		<maskedColumn tableKey="gene__MTMP_phenotype" colKey="2.133.0.mtmp_phenotype_id"/>
 		<renamedColumn tableKey="gene__MTMP_phenotype" colKey="2.133.0.mtmp_phenotype_id" newName="mtmp_phenotype_id_20125"/>
 		<renamedColumn tableKey="gene__MTMP_phenotype" colKey="2.133.0.strain_gender" newName="strain_gender_20125"/>
-		<renamedTable tableKey="translation__object_xref_1" newName="ontology_go"/>
+		<renamedTable tableKey="translation__object_xref_1" newName="ontology"/>
+		<tableHideMasked tableKey="translation__object_xref_1"/>
 		<distinctRows tableKey="translation__object_xref_1"/>
+		<maskedColumn tableKey="translation__object_xref_1" colKey="1.74.0.xref_id"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.74.0.xref_id" newName="xref_id_1074"/>
 		<maskedColumn tableKey="translation__object_xref_1" colKey="1.74.0.display_label"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="1.74.0.display_label" newName="display_label_1074"/>
-		<maskedColumn tableKey="translation__object_xref_1" colKey="1.40.0.xref_id"/>
-		<renamedColumn tableKey="translation__object_xref_1" colKey="1.40.0.xref_id" newName="xref_id_1040"/>
-		<maskedColumn tableKey="translation__object_xref_1" colKey="1.40.0.ensembl_object_type"/>
-		<renamedColumn tableKey="translation__object_xref_1" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
+		<maskedColumn tableKey="translation__object_xref_1" colKey="1.18.0.db_release"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.18.0.db_release" newName="db_release_1018"/>
+		<maskedColumn tableKey="translation__object_xref_1" colKey="1.40.0.%PASS%_object_type"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.40.0.%PASS%_object_type" newName="%PASS%_object_type_1040"/>
 		<maskedColumn tableKey="translation__object_xref_1" colKey="1.40.0.object_xref_id"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="10.6.0.is_root" newName="is_root_1006"/>
@@ -3579,10 +3584,17 @@
 		<renamedColumn tableKey="translation__object_xref_1" colKey="10.6.0.subsets" newName="subsets_1006"/>
 		<maskedColumn tableKey="translation__object_xref_1" colKey="10.6.0.is_obsolete"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="10.6.0.is_obsolete" newName="is_obsolete_1006"/>
+		<maskedColumn tableKey="translation__object_xref_1" colKey="1.18.0.secondary_db_name"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
 		<maskedColumn tableKey="translation__object_xref_1" colKey="10.6.0.term_id"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="10.6.0.term_id" newName="term_id_1006"/>
-		<maskedColumn tableKey="translation__object_xref_1" colKey="1.74.0.external_db_id"/>
-		<renamedColumn tableKey="translation__object_xref_1" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.40.0.%PASS%_id" newName="translation_id_1068_key"/>
+		<maskedColumn tableKey="translation__object_xref_1" colKey="1.18.0.external_db_id"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.18.0.external_db_id" newName="external_db_id_1018"/>
+		<maskedColumn tableKey="translation__object_xref_1" colKey="1.18.0.status"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.18.0.status" newName="status_1018"/>
+		<maskedColumn tableKey="translation__object_xref_1" colKey="1.18.0.db_name"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.18.0.db_name" newName="db_name_1018"/>
 		<maskedColumn tableKey="translation__object_xref_1" colKey="10.6.0.ontology_id"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="10.6.0.ontology_id" newName="ontology_id_1006"/>
 		<maskedColumn tableKey="translation__object_xref_1" colKey="1.40.0.linkage_annotation"/>
@@ -3598,28 +3610,101 @@
 		<renamedColumn tableKey="translation__object_xref_1" colKey="10.3.0.data_version" newName="data_version_1003"/>
 		<maskedColumn tableKey="translation__object_xref_1" colKey="1.74.0.description"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="1.74.0.description" newName="description_1074"/>
+		<maskedColumn tableKey="translation__object_xref_1" colKey="1.18.0.secondary_db_table"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
 		<maskedColumn tableKey="translation__object_xref_1" colKey="1.40.0.analysis_id"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="1.40.0.analysis_id" newName="analysis_id_1040"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="10.3.0.namespace" newName="namespace_1003"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="10.6.0.definition" newName="definition_1006"/>
-		<indexedColumn tableKey="translation__object_xref_1" colKey="1.24.0.linkage_type"/>
-		<renamedColumn tableKey="translation__object_xref_1" colKey="1.24.0.linkage_type" newName="linkage_type_1024"/>
+		<maskedColumn tableKey="translation__object_xref_1" colKey="1.18.0.priority"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.18.0.priority" newName="priority_1018"/>
 		<indexedColumn tableKey="translation__object_xref_1" colKey="1.74.0.dbprimary_acc"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
-		<maskedColumn tableKey="translation__object_xref_1" colKey="1.24.0.source_xref_id"/>
-		<renamedColumn tableKey="translation__object_xref_1" colKey="1.24.0.source_xref_id" newName="source_xref_id_1024"/>
+		<indexedColumn tableKey="translation__object_xref_1" colKey="1.24.0.linkage_type"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.24.0.linkage_type" newName="linkage_type_1024"/>
+		<maskedColumn tableKey="translation__object_xref_1" colKey="1.18.0.db_display_name"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
+		<maskedColumn tableKey="translation__object_xref_1" colKey="1.18.0.type"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.18.0.type" newName="type_1018"/>
 		<maskedColumn tableKey="translation__object_xref_1" colKey="1.74.0.info_type"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="1.74.0.info_type" newName="info_type_1074"/>
-		<maskedRelation tableKey="translation__object_xref_1" relationId="715"/>
+		<maskedColumn tableKey="translation__object_xref_1" colKey="1.24.0.source_xref_id"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.24.0.source_xref_id" newName="source_xref_id_1024"/>
+		<maskedColumn tableKey="translation__object_xref_1" colKey="1.18.0.description"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.18.0.description" newName="description_1018"/>
+		<alternativeJoin tableKey="translation__object_xref_1" relationId="715"/>
 		<maskedRelation tableKey="translation__object_xref_1" relationId="720"/>
-		<alternativeJoin tableKey="translation__object_xref_1" relationId="2862"/>
+		<alternativeJoin tableKey="translation__object_xref_1" relationId="742"/>
 		<alternativeJoin tableKey="translation__object_xref_1" relationId="773"/>
-		<alternativeJoin tableKey="translation__object_xref_1" relationId="801"/>
 		<restrictedTable tableKey="translation__object_xref_1" tableId="207" aliasColumnIds="211" aliasNames="col1" expression=":col1=&quot;1000&quot;"/>
+		<transformStart tableKey="translation__object_xref_1" tableId="343"/>
 		<restrictedTable tableKey="translation__object_xref_1" tableId="665" aliasColumnIds="670" aliasNames="col1" expression=":col1=&quot;Translation&quot;"/>
-		<alternativeJoin tableKey="translation__object_xref_1" relationId="2862"/>
 		<alternativeJoin tableKey="translation__object_xref_1" relationId="2148"/>
-		<restrictedTable tableKey="translation__object_xref_1" tableId="1782" aliasColumnIds="1785" aliasNames="col1" expression=":col1=&quot;GO&quot;"/>
+		<renamedTable tableKey="transcript__object_xref_1" newName="ontology"/>
+		<tableHideMasked tableKey="transcript__object_xref_1"/>
+		<distinctRows tableKey="transcript__object_xref_1"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.19.0.synonym"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.19.0.synonym" newName="synonym_1019"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.display_label"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.display_label" newName="display_label_1074"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.xref_id"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.xref_id" newName="xref_id_1040"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_release"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_release" newName="db_release_1018"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.%PASS%_object_type"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.%PASS%_object_type" newName="%PASS%_object_type_1040"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.object_xref_id"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.is_root" newName="is_root_1006"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.subsets"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.subsets" newName="subsets_1006"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.is_obsolete"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.is_obsolete" newName="is_obsolete_1006"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.secondary_db_name"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.term_id"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.term_id" newName="term_id_1006"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.status"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.status" newName="status_1018"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.external_db_id"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_name"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_name" newName="db_name_1018"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.ontology_id"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.ontology_id" newName="ontology_id_1006"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.linkage_annotation"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.linkage_annotation" newName="linkage_annotation_1040"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="10.3.0.name"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.3.0.name" newName="name_1003"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.info_text"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.info_text" newName="info_text_1074"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.version"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.version" newName="version_1074"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.name" newName="name_1006"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="10.3.0.data_version"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.3.0.data_version" newName="data_version_1003"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.description"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.description" newName="description_1074"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.secondary_db_table"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.analysis_id"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.analysis_id" newName="analysis_id_1040"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.3.0.namespace" newName="namespace_1003"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.definition" newName="definition_1006"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.24.0.linkage_type" newName="linkage_type_1024"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.priority"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.priority" newName="priority_1018"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_display_name"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.type"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.type" newName="type_1018"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.24.0.source_xref_id"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.24.0.source_xref_id" newName="source_xref_id_1024"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.info_type"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.info_type" newName="info_type_1074"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.description"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.description" newName="description_1018"/>
 		<renamedTable tableKey="transcript__exon_transcript" newName="exon_transcript"/>
 		<distinctRows tableKey="transcript__exon_transcript"/>
 		<skipOptimiser tableKey="transcript__exon_transcript"/>
@@ -3987,8 +4072,8 @@
 		<renamedColumn tableKey="transcript__object_xref" colKey="1.74.0.description" newName="description_1074"/>
 		<maskedColumn tableKey="transcript__object_xref" colKey="1.18.0.secondary_db_table"/>
 		<renamedColumn tableKey="transcript__object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
-		<maskedColumn tableKey="transcript__object_xref" colKey="1.40.0.ensembl_object_type"/>
-		<renamedColumn tableKey="transcript__object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
+		<maskedColumn tableKey="transcript__object_xref" colKey="1.40.0.%PASS%_object_type"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.40.0.%PASS%_object_type" newName="%PASS%_object_type_1040"/>
 		<maskedColumn tableKey="transcript__object_xref" colKey="1.40.0.object_xref_id"/>
 		<renamedColumn tableKey="transcript__object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
 		<maskedColumn tableKey="transcript__object_xref" colKey="1.40.0.analysis_id"/>
@@ -3999,7 +4084,7 @@
 		<renamedColumn tableKey="transcript__object_xref" colKey="1.18.0.priority" newName="priority_1018"/>
 		<indexedColumn tableKey="transcript__object_xref" colKey="1.74.0.dbprimary_acc"/>
 		<renamedColumn tableKey="transcript__object_xref" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
-		<renamedColumn tableKey="transcript__object_xref" colKey="1.40.0.ensembl_id" newName="transcript_id_1064_key"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.40.0.%PASS%_id" newName="transcript_id_1064_key"/>
 		<maskedColumn tableKey="transcript__object_xref" colKey="1.18.0.db_display_name"/>
 		<renamedColumn tableKey="transcript__object_xref" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
 		<maskedColumn tableKey="transcript__object_xref" colKey="1.18.0.type"/>
@@ -4040,8 +4125,8 @@
 		<renamedColumn tableKey="gene__object_xref" colKey="1.74.0.description" newName="description_1074"/>
 		<maskedColumn tableKey="gene__object_xref" colKey="1.18.0.secondary_db_table"/>
 		<renamedColumn tableKey="gene__object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
-		<maskedColumn tableKey="gene__object_xref" colKey="1.40.0.ensembl_object_type"/>
-		<renamedColumn tableKey="gene__object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
+		<maskedColumn tableKey="gene__object_xref" colKey="1.40.0.%PASS%_object_type"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.40.0.%PASS%_object_type" newName="%PASS%_object_type_1040"/>
 		<maskedColumn tableKey="gene__object_xref" colKey="1.40.0.object_xref_id"/>
 		<renamedColumn tableKey="gene__object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
 		<maskedColumn tableKey="gene__object_xref" colKey="1.40.0.analysis_id"/>
@@ -4052,7 +4137,7 @@
 		<renamedColumn tableKey="gene__object_xref" colKey="1.18.0.priority" newName="priority_1018"/>
 		<indexedColumn tableKey="gene__object_xref" colKey="1.74.0.dbprimary_acc"/>
 		<renamedColumn tableKey="gene__object_xref" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
-		<renamedColumn tableKey="gene__object_xref" colKey="1.40.0.ensembl_id" newName="gene_id_1020_key"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.40.0.%PASS%_id" newName="gene_id_1020_key"/>
 		<maskedColumn tableKey="gene__object_xref" colKey="1.18.0.db_display_name"/>
 		<renamedColumn tableKey="gene__object_xref" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
 		<maskedColumn tableKey="gene__object_xref" colKey="1.18.0.type"/>
@@ -4173,8 +4258,8 @@
 		<renamedColumn tableKey="translation__object_xref" colKey="1.74.0.description" newName="description_1074"/>
 		<maskedColumn tableKey="translation__object_xref" colKey="1.18.0.secondary_db_table"/>
 		<renamedColumn tableKey="translation__object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
-		<maskedColumn tableKey="translation__object_xref" colKey="1.40.0.ensembl_object_type"/>
-		<renamedColumn tableKey="translation__object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
+		<maskedColumn tableKey="translation__object_xref" colKey="1.40.0.%PASS%_object_type"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.40.0.%PASS%_object_type" newName="%PASS%_object_type_1040"/>
 		<maskedColumn tableKey="translation__object_xref" colKey="1.40.0.object_xref_id"/>
 		<renamedColumn tableKey="translation__object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
 		<maskedColumn tableKey="translation__object_xref" colKey="1.40.0.analysis_id"/>
@@ -4185,7 +4270,7 @@
 		<renamedColumn tableKey="translation__object_xref" colKey="1.18.0.priority" newName="priority_1018"/>
 		<indexedColumn tableKey="translation__object_xref" colKey="1.74.0.dbprimary_acc"/>
 		<renamedColumn tableKey="translation__object_xref" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
-		<renamedColumn tableKey="translation__object_xref" colKey="1.40.0.ensembl_id" newName="translation_id_1068_key"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.40.0.%PASS%_id" newName="translation_id_1068_key"/>
 		<maskedColumn tableKey="translation__object_xref" colKey="1.18.0.db_display_name"/>
 		<renamedColumn tableKey="translation__object_xref" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
 		<maskedColumn tableKey="translation__object_xref" colKey="1.18.0.type"/>
@@ -4208,6 +4293,76 @@
 		<restrictedTable tableKey="translation__object_xref" tableId="665" aliasColumnIds="670" aliasNames="col1" expression=":col1=&quot;Translation&quot;"/>
 		<maskedRelation tableKey="translation__object_xref" relationId="2862"/>
 		<maskedRelation tableKey="translation__object_xref" relationId="2148"/>
+		<renamedTable tableKey="gene__object_xref_1" newName="ontology"/>
+		<tableHideMasked tableKey="gene__object_xref_1"/>
+		<distinctRows tableKey="gene__object_xref_1"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.74.0.xref_id"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.74.0.xref_id" newName="xref_id_1074"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.74.0.display_label"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.74.0.display_label" newName="display_label_1074"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.18.0.db_release"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.18.0.db_release" newName="db_release_1018"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.40.0.%PASS%_object_type"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.40.0.%PASS%_object_type" newName="%PASS%_object_type_1040"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.40.0.object_xref_id"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="10.6.0.is_root" newName="is_root_1006"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="10.6.0.subsets"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="10.6.0.subsets" newName="subsets_1006"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="10.6.0.is_obsolete"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="10.6.0.is_obsolete" newName="is_obsolete_1006"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.18.0.secondary_db_name"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="10.6.0.term_id"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="10.6.0.term_id" newName="term_id_1006"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.40.0.%PASS%_id" newName="gene_id_1020_key"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.18.0.external_db_id"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.18.0.external_db_id" newName="external_db_id_1018"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.18.0.status"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.18.0.status" newName="status_1018"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.18.0.db_name"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.18.0.db_name" newName="db_name_1018"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="10.6.0.ontology_id"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="10.6.0.ontology_id" newName="ontology_id_1006"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.40.0.linkage_annotation"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.40.0.linkage_annotation" newName="linkage_annotation_1040"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="10.3.0.name"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="10.3.0.name" newName="name_1003"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.74.0.info_text"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.74.0.info_text" newName="info_text_1074"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.74.0.version"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.74.0.version" newName="version_1074"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="10.6.0.name" newName="name_1006"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="10.3.0.data_version"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="10.3.0.data_version" newName="data_version_1003"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.74.0.description"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.74.0.description" newName="description_1074"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.18.0.secondary_db_table"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.40.0.analysis_id"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.40.0.analysis_id" newName="analysis_id_1040"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="10.3.0.namespace" newName="namespace_1003"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="10.6.0.definition" newName="definition_1006"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.18.0.priority"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.18.0.priority" newName="priority_1018"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.24.0.linkage_type" newName="linkage_type_1024"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.18.0.db_display_name"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.18.0.type"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.18.0.type" newName="type_1018"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.74.0.info_type"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.74.0.info_type" newName="info_type_1074"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.24.0.source_xref_id"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.24.0.source_xref_id" newName="source_xref_id_1024"/>
+		<maskedColumn tableKey="gene__object_xref_1" colKey="1.18.0.description"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.18.0.description" newName="description_1018"/>
+		<alternativeJoin tableKey="gene__object_xref_1" relationId="715"/>
+		<maskedRelation tableKey="gene__object_xref_1" relationId="720"/>
+		<alternativeJoin tableKey="gene__object_xref_1" relationId="742"/>
+		<alternativeJoin tableKey="gene__object_xref_1" relationId="773"/>
+		<transformStart tableKey="gene__object_xref_1" tableId="343"/>
+		<alternativeJoin tableKey="gene__object_xref_1" relationId="2148"/>
 	</dataset>
 	<dataset name="object_xref" centralTableId="665" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
 		<renamedTable tableKey="object_xref" newName="object_xref"/>
@@ -4221,12 +4376,12 @@
 		<renamedColumn tableKey="object_xref" colKey="1.20.0.description" newName="description_1020"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.20.0.created_date" newName="created_date_1020"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.%PASS%_object_type" newName="%PASS%_object_type_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040_key"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.20.0.stable_id" newName="stable_id_1020"/>
 		<renamedColumn tableKey="object_xref" colKey="1.20.0.analysis_id" newName="analysis_id_1020"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="ensembl_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.%PASS%_id" newName="%PASS%_id_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
@@ -4314,12 +4469,12 @@
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.64.0.source" newName="source_1064"/>
 		<renamedColumn tableKey="object_xref" colKey="1.64.0.stable_id" newName="stable_id_1064"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.%PASS%_object_type" newName="%PASS%_object_type_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040_key"/>
 		<renamedColumn tableKey="object_xref" colKey="1.64.0.gene_id" newName="gene_id_1064"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.64.0.seq_region_end" newName="seq_region_end_1064"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="ensembl_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.%PASS%_id" newName="%PASS%_id_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.64.0.version" newName="version_1064"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
@@ -4401,12 +4556,12 @@
 		<renamedColumn tableKey="object_xref" colKey="1.40.0.xref_id" newName="xref_id_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.68.0.seq_start" newName="seq_start_1068"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.%PASS%_object_type" newName="%PASS%_object_type_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.68.0.start_exon_id" newName="start_exon_id_1068"/>
 		<renamedColumn tableKey="object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040_key"/>
 		<renamedColumn tableKey="object_xref" colKey="1.68.0.modified_date" newName="modified_date_1068"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="ensembl_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.%PASS%_id" newName="%PASS%_id_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
@@ -4479,6 +4634,294 @@
 		<maskedRelation tableKey="object_xref" relationId="2862"/>
 		<maskedRelation tableKey="object_xref" relationId="2148"/>
 	</dataset>
+	<dataset name="ontology_xref_gene" centralTableId="665" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
+		<renamedTable tableKey="object_xref" newName="object_xref"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.biotype" newName="biotype_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.version" newName="version_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.status" newName="status_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.seq_region_strand" newName="seq_region_strand_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.display_label" newName="display_label_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.xref_id" newName="xref_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.description" newName="description_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.created_date" newName="created_date_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.%PASS%_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040_key"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.is_root" newName="is_root_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.subsets" newName="subsets_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.is_obsolete" newName="is_obsolete_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.stable_id" newName="stable_id_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.analysis_id" newName="analysis_id_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.term_id" newName="term_id_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.%PASS%_id" newName="%PASS%_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.canonical_transcript_id" newName="canonical_transcript_id_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.is_current" newName="is_current_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.ontology_id" newName="ontology_id_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.linkage_annotation" newName="linkage_annotation_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.seq_region_id" newName="seq_region_id_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.seq_region_end" newName="seq_region_end_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.display_xref_id" newName="display_xref_id_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="10.3.0.name" newName="name_1003"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.info_text" newName="info_text_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.version" newName="version_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.name" newName="name_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="10.3.0.data_version" newName="data_version_1003"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.seq_region_start" newName="seq_region_start_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.description" newName="description_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.source" newName="source_1020"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.analysis_id" newName="analysis_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="10.3.0.namespace" newName="namespace_1003"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.definition" newName="definition_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.priority" newName="priority_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.type" newName="type_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.info_type" newName="info_type_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.description" newName="description_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.20.0.modified_date" newName="modified_date_1020"/>
+		<maskedRelation tableKey="object_xref" relationId="702"/>
+		<maskedRelation tableKey="object_xref" relationId="703"/>
+		<maskedRelation tableKey="object_xref" relationId="708"/>
+		<maskedRelation tableKey="object_xref" relationId="711"/>
+		<maskedRelation tableKey="object_xref" relationId="713"/>
+		<maskedRelation tableKey="object_xref" relationId="714"/>
+		<maskedRelation tableKey="object_xref" relationId="716"/>
+		<maskedRelation tableKey="object_xref" relationId="717"/>
+		<maskedRelation tableKey="object_xref" relationId="718"/>
+		<maskedRelation tableKey="object_xref" relationId="720"/>
+		<maskedRelation tableKey="object_xref" relationId="722"/>
+		<maskedRelation tableKey="object_xref" relationId="726"/>
+		<maskedRelation tableKey="object_xref" relationId="729"/>
+		<maskedRelation tableKey="object_xref" relationId="730"/>
+		<maskedRelation tableKey="object_xref" relationId="732"/>
+		<maskedRelation tableKey="object_xref" relationId="734"/>
+		<maskedRelation tableKey="object_xref" relationId="737"/>
+		<maskedRelation tableKey="object_xref" relationId="738"/>
+		<maskedRelation tableKey="object_xref" relationId="740"/>
+		<maskedRelation tableKey="object_xref" relationId="744"/>
+		<maskedRelation tableKey="object_xref" relationId="748"/>
+		<maskedRelation tableKey="object_xref" relationId="749"/>
+		<maskedRelation tableKey="object_xref" relationId="753"/>
+		<maskedRelation tableKey="object_xref" relationId="755"/>
+		<maskedRelation tableKey="object_xref" relationId="758"/>
+		<maskedRelation tableKey="object_xref" relationId="761"/>
+		<maskedRelation tableKey="object_xref" relationId="763"/>
+		<maskedRelation tableKey="object_xref" relationId="765"/>
+		<maskedRelation tableKey="object_xref" relationId="768"/>
+		<maskedRelation tableKey="object_xref" relationId="769"/>
+		<maskedRelation tableKey="object_xref" relationId="770"/>
+		<maskedRelation tableKey="object_xref" relationId="771"/>
+		<maskedRelation tableKey="object_xref" relationId="773"/>
+		<maskedRelation tableKey="object_xref" relationId="776"/>
+		<maskedRelation tableKey="object_xref" relationId="779"/>
+		<maskedRelation tableKey="object_xref" relationId="782"/>
+		<maskedRelation tableKey="object_xref" relationId="785"/>
+		<maskedRelation tableKey="object_xref" relationId="787"/>
+		<maskedRelation tableKey="object_xref" relationId="790"/>
+		<maskedRelation tableKey="object_xref" relationId="794"/>
+		<maskedRelation tableKey="object_xref" relationId="796"/>
+		<maskedRelation tableKey="object_xref" relationId="797"/>
+		<maskedRelation tableKey="object_xref" relationId="799"/>
+		<maskedRelation tableKey="object_xref" relationId="801"/>
+		<maskedRelation tableKey="object_xref" relationId="803"/>
+		<maskedRelation tableKey="object_xref" relationId="804"/>
+		<restrictedTable tableKey="object_xref" tableId="665" aliasColumnIds="670" aliasNames="col1" expression=":col1=&quot;Gene&quot;"/>
+	</dataset>
+	<dataset name="ontology_xref_transcript" centralTableId="665" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
+		<renamedTable tableKey="object_xref" newName="object_xref"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.seq_region_start" newName="seq_region_start_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.modified_date" newName="modified_date_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.display_label" newName="display_label_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.xref_id" newName="xref_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.source" newName="source_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.stable_id" newName="stable_id_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.%PASS%_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.gene_id" newName="gene_id_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.subsets" newName="subsets_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.%PASS%_id" newName="%PASS%_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.ontology_id" newName="ontology_id_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="10.3.0.name" newName="name_1003"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.info_text" newName="info_text_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="10.3.0.data_version" newName="data_version_1003"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.definition" newName="definition_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.display_xref_id" newName="display_xref_id_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.priority" newName="priority_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.status" newName="status_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.type" newName="type_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.info_type" newName="info_type_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.description" newName="description_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.analysis_id" newName="analysis_id_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.seq_region_strand" newName="seq_region_strand_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.is_current" newName="is_current_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040_key"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.is_root" newName="is_root_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.is_obsolete" newName="is_obsolete_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.seq_region_end" newName="seq_region_end_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.term_id" newName="term_id_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.version" newName="version_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.canonical_translation_id" newName="canonical_translation_id_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.linkage_annotation" newName="linkage_annotation_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.created_date" newName="created_date_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.version" newName="version_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.name" newName="name_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.description" newName="description_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.seq_region_id" newName="seq_region_id_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.analysis_id" newName="analysis_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="10.3.0.namespace" newName="namespace_1003"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.biotype" newName="biotype_1064"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.64.0.description" newName="description_1064"/>
+		<maskedRelation tableKey="object_xref" relationId="702"/>
+		<maskedRelation tableKey="object_xref" relationId="708"/>
+		<maskedRelation tableKey="object_xref" relationId="711"/>
+		<maskedRelation tableKey="object_xref" relationId="713"/>
+		<maskedRelation tableKey="object_xref" relationId="714"/>
+		<maskedRelation tableKey="object_xref" relationId="716"/>
+		<maskedRelation tableKey="object_xref" relationId="717"/>
+		<maskedRelation tableKey="object_xref" relationId="718"/>
+		<maskedRelation tableKey="object_xref" relationId="720"/>
+		<maskedRelation tableKey="object_xref" relationId="722"/>
+		<maskedRelation tableKey="object_xref" relationId="726"/>
+		<maskedRelation tableKey="object_xref" relationId="729"/>
+		<maskedRelation tableKey="object_xref" relationId="732"/>
+		<maskedRelation tableKey="object_xref" relationId="734"/>
+		<maskedRelation tableKey="object_xref" relationId="737"/>
+		<maskedRelation tableKey="object_xref" relationId="738"/>
+		<maskedRelation tableKey="object_xref" relationId="739"/>
+		<maskedRelation tableKey="object_xref" relationId="744"/>
+		<maskedRelation tableKey="object_xref" relationId="745"/>
+		<maskedRelation tableKey="object_xref" relationId="748"/>
+		<maskedRelation tableKey="object_xref" relationId="749"/>
+		<maskedRelation tableKey="object_xref" relationId="755"/>
+		<maskedRelation tableKey="object_xref" relationId="756"/>
+		<maskedRelation tableKey="object_xref" relationId="758"/>
+		<maskedRelation tableKey="object_xref" relationId="761"/>
+		<maskedRelation tableKey="object_xref" relationId="762"/>
+		<maskedRelation tableKey="object_xref" relationId="763"/>
+		<maskedRelation tableKey="object_xref" relationId="768"/>
+		<maskedRelation tableKey="object_xref" relationId="769"/>
+		<maskedRelation tableKey="object_xref" relationId="770"/>
+		<maskedRelation tableKey="object_xref" relationId="771"/>
+		<maskedRelation tableKey="object_xref" relationId="773"/>
+		<maskedRelation tableKey="object_xref" relationId="776"/>
+		<maskedRelation tableKey="object_xref" relationId="779"/>
+		<maskedRelation tableKey="object_xref" relationId="782"/>
+		<maskedRelation tableKey="object_xref" relationId="785"/>
+		<maskedRelation tableKey="object_xref" relationId="787"/>
+		<maskedRelation tableKey="object_xref" relationId="790"/>
+		<maskedRelation tableKey="object_xref" relationId="794"/>
+		<maskedRelation tableKey="object_xref" relationId="796"/>
+		<maskedRelation tableKey="object_xref" relationId="797"/>
+		<maskedRelation tableKey="object_xref" relationId="799"/>
+		<maskedRelation tableKey="object_xref" relationId="801"/>
+		<maskedRelation tableKey="object_xref" relationId="803"/>
+		<maskedRelation tableKey="object_xref" relationId="804"/>
+		<restrictedTable tableKey="object_xref" tableId="665" aliasColumnIds="670" aliasNames="col1" expression=":col1=&quot;Transcript&quot;"/>
+	</dataset>
+	<dataset name="ontology_xref_translation" centralTableId="665" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
+		<renamedTable tableKey="object_xref" newName="object_xref"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.seq_end" newName="seq_end_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.display_label" newName="display_label_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.xref_id" newName="xref_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.seq_start" newName="seq_start_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.%PASS%_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.start_exon_id" newName="start_exon_id_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040_key"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.modified_date" newName="modified_date_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.is_root" newName="is_root_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.subsets" newName="subsets_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.is_obsolete" newName="is_obsolete_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.term_id" newName="term_id_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.%PASS%_id" newName="%PASS%_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.ontology_id" newName="ontology_id_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.linkage_annotation" newName="linkage_annotation_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="10.3.0.name" newName="name_1003"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.transcript_id" newName="transcript_id_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.info_text" newName="info_text_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.version" newName="version_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.name" newName="name_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="10.3.0.data_version" newName="data_version_1003"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.description" newName="description_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.created_date" newName="created_date_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.analysis_id" newName="analysis_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="10.3.0.namespace" newName="namespace_1003"/>
+		<renamedColumn tableKey="object_xref" colKey="10.6.0.definition" newName="definition_1006"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.priority" newName="priority_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.stable_id" newName="stable_id_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.version" newName="version_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.68.0.end_exon_id" newName="end_exon_id_1068"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.type" newName="type_1018"/>
+		<renamedColumn tableKey="object_xref" colKey="1.74.0.info_type" newName="info_type_1074"/>
+		<renamedColumn tableKey="object_xref" colKey="1.18.0.description" newName="description_1018"/>
+		<maskedRelation tableKey="object_xref" relationId="702"/>
+		<maskedRelation tableKey="object_xref" relationId="703"/>
+		<maskedRelation tableKey="object_xref" relationId="708"/>
+		<maskedRelation tableKey="object_xref" relationId="711"/>
+		<maskedRelation tableKey="object_xref" relationId="713"/>
+		<maskedRelation tableKey="object_xref" relationId="714"/>
+		<maskedRelation tableKey="object_xref" relationId="716"/>
+		<maskedRelation tableKey="object_xref" relationId="717"/>
+		<maskedRelation tableKey="object_xref" relationId="718"/>
+		<maskedRelation tableKey="object_xref" relationId="720"/>
+		<maskedRelation tableKey="object_xref" relationId="722"/>
+		<maskedRelation tableKey="object_xref" relationId="726"/>
+		<maskedRelation tableKey="object_xref" relationId="729"/>
+		<maskedRelation tableKey="object_xref" relationId="730"/>
+		<maskedRelation tableKey="object_xref" relationId="732"/>
+		<maskedRelation tableKey="object_xref" relationId="737"/>
+		<maskedRelation tableKey="object_xref" relationId="738"/>
+		<maskedRelation tableKey="object_xref" relationId="739"/>
+		<maskedRelation tableKey="object_xref" relationId="740"/>
+		<maskedRelation tableKey="object_xref" relationId="744"/>
+		<maskedRelation tableKey="object_xref" relationId="748"/>
+		<maskedRelation tableKey="object_xref" relationId="749"/>
+		<maskedRelation tableKey="object_xref" relationId="750"/>
+		<maskedRelation tableKey="object_xref" relationId="753"/>
+		<maskedRelation tableKey="object_xref" relationId="755"/>
+		<maskedRelation tableKey="object_xref" relationId="756"/>
+		<maskedRelation tableKey="object_xref" relationId="758"/>
+		<maskedRelation tableKey="object_xref" relationId="761"/>
+		<maskedRelation tableKey="object_xref" relationId="762"/>
+		<maskedRelation tableKey="object_xref" relationId="763"/>
+		<maskedRelation tableKey="object_xref" relationId="765"/>
+		<maskedRelation tableKey="object_xref" relationId="768"/>
+		<maskedRelation tableKey="object_xref" relationId="769"/>
+		<maskedRelation tableKey="object_xref" relationId="770"/>
+		<maskedRelation tableKey="object_xref" relationId="771"/>
+		<maskedRelation tableKey="object_xref" relationId="773"/>
+		<maskedRelation tableKey="object_xref" relationId="776"/>
+		<maskedRelation tableKey="object_xref" relationId="779"/>
+		<maskedRelation tableKey="object_xref" relationId="782"/>
+		<maskedRelation tableKey="object_xref" relationId="785"/>
+		<maskedRelation tableKey="object_xref" relationId="787"/>
+		<maskedRelation tableKey="object_xref" relationId="794"/>
+		<maskedRelation tableKey="object_xref" relationId="796"/>
+		<maskedRelation tableKey="object_xref" relationId="797"/>
+		<maskedRelation tableKey="object_xref" relationId="799"/>
+		<maskedRelation tableKey="object_xref" relationId="803"/>
+		<maskedRelation tableKey="object_xref" relationId="804"/>
+		<restrictedTable tableKey="object_xref" tableId="665" aliasColumnIds="670" aliasNames="col1" expression=":col1=&quot;Translation&quot;"/>
+	</dataset>
 	<dataset name="protein_feature" centralTableId="355" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
 		<renamedTable tableKey="protein_feature" newName="protein_feature"/>
 		<renamedColumn tableKey="protein_feature" colKey="1.48.0.perc_ident" newName="perc_ident_1048"/>
@@ -4515,24 +4958,33 @@
 		<maskedRelation tableKey="protein_feature" relationId="805"/>
 	</dataset>
 	<datasetPartitionTable name="MTMP_probestuff_helper" selectedColumns="array_vendor_and_name_11056">
-		<partitionApplication name="gene" dimension="transcript__MTMP_probestuff_helper" pCols="array_vendor_and_name_11056" dsCols="11.56.0.array_vendor_and_name" relationIds="2860" nameCols="array_vendor_and_name_11056" compounds="0"/>
+		<partitionApplication name="gene_%PASS%" dimension="transcript__MTMP_probestuff_helper" pCols="array_vendor_and_name_11056" dsCols="11.56.0.array_vendor_and_name" relationIds="2860" nameCols="array_vendor_and_name_11056" compounds="0"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="object_xref" selectedColumns="db_name_1018">
 		<partitionRegex name="db_name_1018" match="-" replace="_"/>
-		<partitionApplication name="gene" dimension="gene__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="0"/>
+		<partitionApplication name="gene_%PASS%" dimension="gene__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="0"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="object_xref_copy" selectedColumns="db_name_1018">
 		<partitionRegex name="db_name_1018" match="-" replace="_"/>
-		<partitionApplication name="gene" dimension="transcript__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="0"/>
+		<partitionApplication name="gene_%PASS%" dimension="transcript__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="0"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="attrib_type" selectedColumns="code_106">
-		<partitionApplication name="gene" dimension="transcript__transcript_attrib" pCols="code_106" dsCols="1.6.0.code" relationIds="772" nameCols="code_106" compounds="292"/>
+		<partitionApplication name="gene_%PASS%" dimension="transcript__transcript_attrib" pCols="code_106" dsCols="1.6.0.code" relationIds="772" nameCols="code_106" compounds="292"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="protein_feature" selectedColumns="logic_name_102">
-		<partitionApplication name="gene" dimension="translation__protein_feature" pCols="logic_name_102" dsCols="1.2.0.logic_name" relationIds="804" nameCols="logic_name_102" compounds="12"/>
+		<partitionApplication name="gene_%PASS%" dimension="translation__protein_feature" pCols="logic_name_102" dsCols="1.2.0.logic_name" relationIds="804" nameCols="logic_name_102" compounds="12"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="object_xref_copy_1" selectedColumns="db_name_1018">
 		<partitionRegex name="db_name_1018" match="-" replace="_"/>
-		<partitionApplication name="gene" dimension="translation__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="15"/>
+		<partitionApplication name="gene_%PASS%" dimension="translation__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="15"/>
+	</datasetPartitionTable>
+	<datasetPartitionTable name="ontology_xref_gene" selectedColumns="db_name_1018">
+		<partitionApplication name="gene_%PASS%" dimension="gene__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="1"/>
+	</datasetPartitionTable>
+	<datasetPartitionTable name="ontology_xref_transcript" selectedColumns="db_name_1018">
+		<partitionApplication name="gene_%PASS%" dimension="transcript__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" relationIds="715" nameCols="db_name_1018" compounds="1"/>
+	</datasetPartitionTable>
+	<datasetPartitionTable name="ontology_xref_translation" selectedColumns="db_name_1018">
+		<partitionApplication name="gene_%PASS%" dimension="translation__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="1"/>
 	</datasetPartitionTable>
 </mart>
