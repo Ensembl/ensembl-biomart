@@ -87,15 +87,16 @@ then
   prefix=
   suffix=
   OLD_MART=http://www.ensembl.org/biomart/martservice
+  oldvs="default"
   release=$RELEASE
 else
   prefix="${division}_"
   suffix="_eg"
   OLD_MART=http://www.${division}.ensembl.org/biomart/martservice
   release=$EG_RELEASE
+  oldvs="${division}_mart_$(( release - 1 ))"
 fi
 
-oldvs="${division}_mart_$(( release - 1 ))"
 newvs="${division}_mart_${release}"
 mart_type="default"
 
