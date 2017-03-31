@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mart PUBLIC "-//EBI//DTD MartBuilder 0.7-//EBI//DTD MartBuilder " "http://www.biomart.org/DTD/MartBuilder-0.7.dtd">
 <mart outputDatabase="division_mart_%EG%" outputSchema="division_mart_%EG%" outputHost="localhost" outputPort="18002" overrideHost="%HOST%" overridePort="%PORT%" nameCase="0" hideMaskedDataSets="false" hideMaskedSchemas="true">
-	<jdbcSchema uniqueId="1" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_%ENS%" databaseName="master_schema_%ENS%" schemaName="master_schema_%ENS%" username="%USER%" password="%PASS%" name="%PASS%" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]+_([^_]+)_core_%EG%_%ENS%_[0-9]*$" partitionExpression="$1$2_eg">
+	<jdbcSchema uniqueId="1" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_%ENS%" databaseName="master_schema_%ENS%" schemaName="master_schema_%ENS%" username="%USER%" password="%PASS%" name="ensembl" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]+_([^_]+)_core_%EG%_%ENS%_[0-9]*$" partitionExpression="$1$2_eg">
 		<table uniqueId="82" id="1" name="seq_region_synonym" ignore="false" inSchemaPartition="core_species_list">
 			<column id="2" name="seq_region_id" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="3" name="synonym" visibleModified="false" inSchemaPartition="core_species_list"/>
