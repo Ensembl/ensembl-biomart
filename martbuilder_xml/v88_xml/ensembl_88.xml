@@ -3634,21 +3634,21 @@
 		<renamedColumn tableKey="translation__object_xref_1" colKey="1.18.0.description" newName="description_1018"/>
 		<alternativeJoin tableKey="translation__object_xref_1" relationId="715"/>
 		<maskedRelation tableKey="translation__object_xref_1" relationId="720"/>
+		<alternativeJoin tableKey="translation__object_xref_1" relationId="2862"/>
 		<alternativeJoin tableKey="translation__object_xref_1" relationId="742"/>
 		<alternativeJoin tableKey="translation__object_xref_1" relationId="773"/>
-		<restrictedTable tableKey="translation__object_xref_1" tableId="207" aliasColumnIds="211" aliasNames="col1" expression=":col1=&quot;1000&quot;"/>
 		<transformStart tableKey="translation__object_xref_1" tableId="343"/>
-		<restrictedTable tableKey="translation__object_xref_1" tableId="665" aliasColumnIds="670" aliasNames="col1" expression=":col1=&quot;Translation&quot;"/>
+		<restrictedTable tableKey="translation__object_xref_1" tableId="665" aliasColumnIds="666,670" aliasNames="col2,col1" expression=":col1='Translation' AND (:col2!='NOT' OR :col2 IS NULL)"/>
+		<alternativeJoin tableKey="translation__object_xref_1" relationId="2862"/>
 		<alternativeJoin tableKey="translation__object_xref_1" relationId="2148"/>
 		<renamedTable tableKey="transcript__object_xref_1" newName="ontology"/>
 		<tableHideMasked tableKey="transcript__object_xref_1"/>
 		<distinctRows tableKey="transcript__object_xref_1"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.xref_id" newName="xref_id_1074"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.19.0.synonym"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.19.0.synonym" newName="synonym_1019"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.display_label"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.display_label" newName="display_label_1074"/>
-		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.xref_id"/>
-		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.xref_id" newName="xref_id_1040"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_release"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_release" newName="db_release_1018"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.ensembl_object_type"/>
@@ -3664,10 +3664,10 @@
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.term_id"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.term_id" newName="term_id_1006"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.ensembl_id" newName="transcript_id_1064_key"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.status"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.status" newName="status_1018"/>
-		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.external_db_id"/>
-		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.external_db_id" newName="external_db_id_1018"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_name"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_name" newName="db_name_1018"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.ontology_id"/>
@@ -3705,6 +3705,15 @@
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.info_type" newName="info_type_1074"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.description"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.description" newName="description_1018"/>
+		<alternativeJoin tableKey="transcript__object_xref_1" relationId="715"/>
+		<alternativeJoin tableKey="transcript__object_xref_1" relationId="720"/>
+		<alternativeJoin tableKey="transcript__object_xref_1" relationId="2862"/>
+		<alternativeJoin tableKey="transcript__object_xref_1" relationId="742"/>
+		<alternativeJoin tableKey="transcript__object_xref_1" relationId="773"/>
+		<transformStart tableKey="transcript__object_xref_1" tableId="343"/>
+		<restrictedTable tableKey="transcript__object_xref_1" tableId="665" aliasColumnIds="666,670" aliasNames="col2,col1" expression=":col1='Transcript' AND (:col2!='NOT' OR :col2 IS NULL)"/>
+		<alternativeJoin tableKey="transcript__object_xref_1" relationId="2862"/>
+		<alternativeJoin tableKey="transcript__object_xref_1" relationId="2148"/>
 		<renamedTable tableKey="transcript__exon_transcript" newName="exon_transcript"/>
 		<distinctRows tableKey="transcript__exon_transcript"/>
 		<skipOptimiser tableKey="transcript__exon_transcript"/>
@@ -4359,9 +4368,12 @@
 		<renamedColumn tableKey="gene__object_xref_1" colKey="1.18.0.description" newName="description_1018"/>
 		<alternativeJoin tableKey="gene__object_xref_1" relationId="715"/>
 		<maskedRelation tableKey="gene__object_xref_1" relationId="720"/>
+		<alternativeJoin tableKey="gene__object_xref_1" relationId="2862"/>
 		<alternativeJoin tableKey="gene__object_xref_1" relationId="742"/>
 		<alternativeJoin tableKey="gene__object_xref_1" relationId="773"/>
 		<transformStart tableKey="gene__object_xref_1" tableId="343"/>
+		<restrictedTable tableKey="gene__object_xref_1" tableId="665" aliasColumnIds="666,670" aliasNames="col2,col1" expression=":col1='Gene' AND (:col2!='NOT' OR :col2 IS NULL)"/>
+		<alternativeJoin tableKey="gene__object_xref_1" relationId="2862"/>
 		<alternativeJoin tableKey="gene__object_xref_1" relationId="2148"/>
 	</dataset>
 	<dataset name="object_xref" centralTableId="665" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
@@ -4957,9 +4969,6 @@
 		<maskedRelation tableKey="protein_feature" relationId="801"/>
 		<maskedRelation tableKey="protein_feature" relationId="805"/>
 	</dataset>
-	<datasetPartitionTable name="MTMP_probestuff_helper" selectedColumns="array_vendor_and_name_11056">
-		<partitionApplication name="gene_ensembl" dimension="transcript__MTMP_probestuff_helper" pCols="array_vendor_and_name_11056" dsCols="11.56.0.array_vendor_and_name" relationIds="2860" nameCols="array_vendor_and_name_11056" compounds="0"/>
-	</datasetPartitionTable>
 	<datasetPartitionTable name="object_xref" selectedColumns="db_name_1018">
 		<partitionRegex name="db_name_1018" match="-" replace="_"/>
 		<partitionApplication name="gene_ensembl" dimension="gene__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="0"/>
@@ -4986,5 +4995,8 @@
 	</datasetPartitionTable>
 	<datasetPartitionTable name="ontology_xref_translation" selectedColumns="db_name_1018">
 		<partitionApplication name="gene_ensembl" dimension="translation__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="1"/>
+	</datasetPartitionTable>
+	<datasetPartitionTable name="MTMP_probestuff_helper" selectedColumns="array_vendor_and_name_11056">
+		<partitionApplication name="gene_ensembl" dimension="transcript__MTMP_probestuff_helper" pCols="array_vendor_and_name_11056" dsCols="11.56.0.array_vendor_and_name" relationIds="2860" nameCols="array_vendor_and_name_11056" compounds="0"/>
 	</datasetPartitionTable>
 </mart>
