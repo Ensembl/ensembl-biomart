@@ -2599,12 +2599,12 @@
 			<foreignKey id="2324" columnIds="2323" status="INFERRED" visibleModified="false"/>
 			<foreignKey id="2325" columnIds="2322" status="INFERRED" visibleModified="false"/>
 		</table>
-		<table uniqueId="145" id="2326" name="tmp_sample_genotype_single_bp" ignore="false" inSchemaPartition="dmelanogaster,fcatus,oaries,scerevisiae,tnigroviridis,cfamiliaris,tguttata,nleucogenys,btaurus,sscrofa,pabelii,mgallopavo,ggallus,ptroglodytes,ecaballus,oanatinus,mdomestica,mmulatta,mmusculus,drerio,rnorvegicus">
-			<column id="2327" name="allele_2" visibleModified="false" inSchemaPartition="dmelanogaster,fcatus,oaries,scerevisiae,tnigroviridis,cfamiliaris,tguttata,nleucogenys,btaurus,sscrofa,pabelii,mgallopavo,ggallus,ptroglodytes,ecaballus,oanatinus,mdomestica,mmulatta,mmusculus,drerio,rnorvegicus"/>
-			<column id="2328" name="variation_id" visibleModified="false" inSchemaPartition="dmelanogaster,fcatus,oaries,scerevisiae,tnigroviridis,cfamiliaris,tguttata,nleucogenys,btaurus,sscrofa,pabelii,mgallopavo,ggallus,ptroglodytes,ecaballus,oanatinus,mdomestica,mmulatta,mmusculus,drerio,rnorvegicus"/>
-			<column id="2329" name="sample_id" visibleModified="false" inSchemaPartition="dmelanogaster,fcatus,oaries,scerevisiae,tnigroviridis,cfamiliaris,tguttata,nleucogenys,btaurus,sscrofa,pabelii,mgallopavo,ggallus,ptroglodytes,ecaballus,oanatinus,mdomestica,mmulatta,mmusculus,drerio,rnorvegicus"/>
-			<column id="2330" name="subsnp_id" visibleModified="false" inSchemaPartition="dmelanogaster,fcatus,oaries,scerevisiae,tnigroviridis,cfamiliaris,tguttata,nleucogenys,btaurus,sscrofa,pabelii,mgallopavo,ggallus,ptroglodytes,ecaballus,oanatinus,mdomestica,mmulatta,mmusculus,drerio,rnorvegicus"/>
-			<column id="2331" name="allele_1" visibleModified="false" inSchemaPartition="dmelanogaster,fcatus,oaries,scerevisiae,tnigroviridis,cfamiliaris,tguttata,nleucogenys,btaurus,sscrofa,pabelii,mgallopavo,ggallus,ptroglodytes,ecaballus,oanatinus,mdomestica,mmulatta,mmusculus,drerio,rnorvegicus"/>
+		<table uniqueId="145" id="2326" name="tmp_sample_genotype_single_bp" ignore="false" inSchemaPartition="variation_species_list">
+			<column id="2327" name="allele_2" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2328" name="variation_id" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2329" name="sample_id" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2330" name="subsnp_id" visibleModified="false" inSchemaPartition="variation_species_list"/>
+			<column id="2331" name="allele_1" visibleModified="false" inSchemaPartition="variation_species_list"/>
 			<foreignKey id="2332" columnIds="2328" status="INFERRED" visibleModified="false"/>
 			<foreignKey id="2333" columnIds="2329" status="INFERRED" visibleModified="false"/>
 		</table>
