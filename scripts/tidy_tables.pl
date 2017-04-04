@@ -88,7 +88,7 @@ if ($mart_db =~ /snp_mart/) {
   	             '%snp\_\_mart\_transcript\_variation\_\_dm'    => ['sift_score_2090','polyphen_score_2090'],
   	);
 }
-elsif ($mart_db =~ /egontology_mart/) {
+elsif ($mart_db =~ /ontology_mart/) {
   %tables_to_tidy = (
 				 'closure\_%\_\_closure__main' => ['name_302']
   );
@@ -97,7 +97,8 @@ else {
   %tables_to_tidy = (
 			   '%\_transcript\_variation\_som\_\_dm' => ['seq_region_start_2026'],
 			   '%\_\_go\_%\_\_dm'               => ['dbprimary_acc_1074'],
-			   '%\_\_tra\_%\_\_dm'               => ['value_1065']);
+			   '%\_\_tra\_%\_\_dm'               => ['value_1065'],
+			   '%\_\ox\_%\_\_dm'               => ['dbprimary_acc_1074']);
 }
 
 # 1. remove tables where we have no data beyond the key
