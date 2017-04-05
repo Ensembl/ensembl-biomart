@@ -92,9 +92,9 @@ then
 else
   prefix="${division}_"
   suffix="_eg"
-  OLD_MART=http://www.${division}.ensembl.org/biomart/martservice
+  OLD_MART=http://${division}.ensembl.org/biomart/martservice
   release=$EG_RELEASE
-  oldvs="${division}_mart_$(( release - 1 ))"
+  oldvs="${division}_mart"
 fi
 
 newvs="${division}_mart_${release}"
