@@ -73,8 +73,6 @@ sub usage {
   print "-user <host> Default is $db_user\n";
   print "-pass <password> Default is top secret unless you know cat\n";
   print "-mart <target mart> Default is $mart_db\n";
-  print "-name base name of the dataset\n";
-  print "-main name of the main table in mart, e.g. variation__main\n";
   print
 "-species_id_start <species id number start> (optional, start number for species_id, avoid duplicated numbers if the core databases are located on two servers. Default is 0)\n";
   print
@@ -204,6 +202,9 @@ elsif ( $div eq 'ensembl' ) {
 else {
   croak
 "Don't know how to deal with mart $mart_db - doesn't match known divisions\n";
+}
+if ($mart_db =~ "ontology"){
+  $suffix='_[A-Za-z1-9]*';
 }
 
 my @datasets = get_datasets( \@src_tables, $re, $suffix );
