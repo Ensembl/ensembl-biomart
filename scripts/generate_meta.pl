@@ -50,6 +50,8 @@ generate_meta.pl [arguments]
 
   --ini_file                         Github link of the ini file containing the xref URLs (DEFAULT.ini).
 
+  --registry                         Give a registry file to load core, vega, variation and regulation databases
+
   --verbose			     show debug info
 
   --help                              print help (this message)
@@ -74,6 +76,7 @@ use Log::Log4perl qw(:easy);
 
 use Bio::EnsEMBL::Utils::CliHelper;
 use Bio::EnsEMBL::BioMart::MetaBuilder;
+use Bio::EnsEMBL::Registry;
 
 my $cli_helper = Bio::EnsEMBL::Utils::CliHelper->new();
 
@@ -83,6 +86,7 @@ push( @{$optsd}, "template_name:s" );
 push( @{$optsd}, "ds_basename:s" );
 push( @{$optsd}, "template:s" );
 push( @{$optsd}, "genomic_features_dbname:s" );
+push( @{$optsd}, "registry:s" );
 push( @{$optsd}, "xref_url_ini_file:s");
 push( @{$optsd}, "max_dropdown:i" );
 push( @{$optsd}, "verbose" );
@@ -109,6 +113,17 @@ my $templ = XMLin( $template, KeepRoot => 1, KeyAttr => [] );
 $logger->info("Opening connection to mart database");
 my ($dba) = @{ $cli_helper->get_dbas_for_opts($opts) };
 
+# load registry
+my $registry_loaded='Bio::EnsEMBL::Registry';
+if(defined $opts->{registry}) {
+  $registry_loaded->load_all($opts->{registry});
+} else {
+  $registry_loaded->load_registry_from_db(
+                                               -host       => $opts->{host},
+                                                -user       => $opts->{user},
+                                                -pass       => $opts->{pass},
+                                                -port       => $opts->{port});
+}
 # Retrieving different ini files for e! and EG species.
 # This is only for the genes marts
 if ($opts->{template_name} eq 'genes'){
@@ -159,5 +174,5 @@ my $builder =
                                            -BASENAME => $opts->{ds_basename},
                                            -MAX_DROPDOWN =>  $opts->{max_dropdown} );
 
-$builder->build( $opts->{template_name}, $templ, $opts->{genomic_features_dbname}, $opts->{ini_file} );
+$builder->build( $opts->{template_name}, $templ, $opts->{genomic_features_dbname}, $opts->{ini_file}, $registry_loaded );
 

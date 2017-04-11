@@ -103,7 +103,7 @@ my $template_properties = {
 sub new {
   my ( $proto, @args ) = @_;
   my $self = bless {}, $proto;
-  ( $self->{dbc},    $self->{version}, $self->{max_dropdown},
+  ( $self->{dbc}, $self->{version}, $self->{max_dropdown},
     $self->{delete}, $self->{basename} )
     = rearrange( [ 'DBC', 'VERSION', 'MAX_DROPDOWN', 'DELETE', 'BASENAME' ],
                  @args );
@@ -129,7 +129,7 @@ sub new {
 =cut
 
 sub build {
-  my ( $self, $template_name, $template, $genomic_features_mart, $ini_file ) = @_;
+  my ( $self, $template_name, $template, $genomic_features_mart, $ini_file, $registry_loaded ) = @_;
   # create base metatables
   $self->create_metatables( $template_name, $template );
   # read datasets
@@ -159,9 +159,20 @@ sub build {
       $xref_url_list = {%$xref_division,%$xref_eg_common_list};
     }
   }
+
   for my $dataset ( @{$datasets} ) {
+    my $core_dba;
+    my $regulation_dba;
+    my $vega_dba;
+    my $variation_dba;
+    if ($self->{dbc}->dbname() !~ 'ontology') {
+      $core_dba = $registry_loaded->get_DBAdaptor( $dataset->{production_name}, 'Core');
+      $regulation_dba = $registry_loaded->get_DBAdaptor( $dataset->{production_name}, 'funcgen');
+      $vega_dba = $registry_loaded->get_DBAdaptor( $dataset->{production_name}, 'vega');
+      $variation_dba = $registry_loaded->get_DBAdaptor( $dataset->{production_name}, 'variation');
+    }
     $dataset->{species_id} = ++$n;
-    $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list );
+    $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list, $core_dba, $regulation_dba, $vega_dba, $variation_dba );
   }
   return;
 }
@@ -203,7 +214,7 @@ sub get_datasets {
 =cut
 
 sub process_dataset {
-  my ( $self, $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list ) = @_;
+  my ( $self, $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list, $core_dba, $regulation_dba, $vega_dba, $variation_dba ) = @_;
   $logger->info( "Processing " . $dataset->{name} );
   my $templ_in = $template->{DatasetConfig};
   my $xref_list;
@@ -225,9 +236,9 @@ sub process_dataset {
     return;
   }
   if ($template_name eq "genes"){
-    $xref_list = $self->generate_xrefs_list($dataset);
-    $probe_list = $self->generate_probes_list($dataset);
-    $protein_domain_and_feature_list = $self->generate_protein_domain_and_feature_list($dataset);
+    $xref_list = $self->generate_xrefs_list($dataset, $core_dba, $vega_dba);
+    $probe_list = $self->generate_probes_list($dataset, $regulation_dba);
+    $protein_domain_and_feature_list = $self->generate_protein_domain_and_feature_list($dataset, $core_dba);
 
     # Hardcoded list of Xrefs using the dbprimary_acc_1074 columns or using both dbprimary_acc_1074 and display_label_1074
     # Each column as an associated name that will be use for filter/attribute name
@@ -249,8 +260,8 @@ sub process_dataset {
   ### Write xml data
   $self->write_importables( $dataset, $templ_in, $ds_name );
   $self->write_exportables( $dataset, $templ_in, $datasets, $template_name, $ds_name );
-  $self->write_filters( $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name );
-  $self->write_attributes( $dataset, $templ_in, $datasets, $xref_list, $probe_list, $xref_url_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name );
+  $self->write_filters( $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $vega_dba, $variation_dba );
+  $self->write_attributes( $dataset, $templ_in, $datasets, $xref_list, $probe_list, $xref_url_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $vega_dba, $variation_dba );
   # write meta
   $self->write_dataset_metatables( $dataset, $template_name, $ds_name );
   return;
@@ -418,7 +429,7 @@ sub write_exportables {
 } ## end sub write_exportables
 
 sub write_filters {
-  my ( $self, $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name ) = @_;
+  my ( $self, $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $vega_dba, $variation_dba ) = @_;
   my $templ_out = $dataset->{config};
   #Defining Annotation filters
   my $annotations = {
@@ -581,7 +592,7 @@ sub write_filters {
                       if (defined $self->{tables}->{$main_table}->{$field} ) {
                         # add in if the column exists
                         push @{ $fdo->{Option} }, {
-                          displayName  => "With $xref->[1]",
+                          displayName  => "With $xref->[1] ID(s)",
                           displayType  => "list",
                           field        => $field,
                           hidden       => "false",
@@ -619,35 +630,37 @@ sub write_filters {
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = $self->get_table_key($table);
                   if ( defined $self->{tables}->{$table}->{$key} ) {
-                    my $example = $self->get_example($table,$field);
-                    # We need to keep historical internal name. This would make many people in BiomaRt community if the naming change
-                    my $internal_name;
-                    #For vega we need to use historical prefix.
-                    if ($annotations->{$annotation}->{'internal_name'} =~ "external")
-                    {
-                      $internal_name = $annotations->{$annotation}->{'internal_name'};
+                    if (defined $self->{tables}->{$table}->{$field} ) {
+                      my $example = $self->get_example($table,$field);
+                      # We need to keep historical internal name. This would make many people in BiomaRt community if the naming change
+                      my $internal_name;
+                      #For vega we need to use historical prefix.
+                      if ($annotations->{$annotation}->{'internal_name'} =~ "external")
+                      {
+                        $internal_name = $annotations->{$annotation}->{'internal_name'};
+                      }
+                      elsif ($self->{dbc}->dbname() =~ 'vega') {
+                        $internal_name = "vega_".$annotations->{$annotation}->{'internal_name'};
+                      }
+                      else{
+                        $internal_name = "ensembl_".$annotations->{$annotation}->{'internal_name'};
+                      }
+                      # add in if the column exists
+                      push @{ $fdo->{Option} }, {
+                        displayName  => $annotations->{$annotation}->{'display_name'}." [e.g. $example]",
+                        displayType  => "text",
+                        description  => "Filter to include genes with supplied list of $annotations->{$annotation}->{'display_name'}",
+                        field        => $field,
+                        hidden       => "false",
+                        internalName => $internal_name,
+                        isSelectable => "true",
+                        key          => $key,
+                        legal_qualifiers => "=,in",
+                        multipleValues   => "1",
+                        qualifier        => "=",
+                        tableConstraint  => $table,
+                        type             => "List" };
                     }
-                    elsif ($self->{dbc}->dbname() =~ 'vega') {
-                      $internal_name = "vega_".$annotations->{$annotation}->{'internal_name'};
-                    }
-                    else{
-                      $internal_name = "ensembl_".$annotations->{$annotation}->{'internal_name'};
-                    }
-                    # add in if the column exists
-                    push @{ $fdo->{Option} }, {
-                      displayName  => $annotations->{$annotation}->{'display_name'}." [e.g. $example]",
-                      displayType  => "text",
-                      description  => "Filter to include genes with supplied list of $annotations->{$annotation}->{'display_name'}",
-                      field        => $field,
-                      hidden       => "false",
-                      internalName => $internal_name,
-                      isSelectable => "true",
-                      key          => $key,
-                      legal_qualifiers => "=,in",
-                      multipleValues   => "1",
-                      qualifier        => "=",
-                      tableConstraint  => $table,
-                      type             => "List" };
                   }
                 }
               } ## end if ( defined $self->{tables...})
@@ -738,7 +751,7 @@ sub write_filters {
                         $display_name =~ s/_/ /g;
                         # add in if the column exists
                         push @{ $fdo->{Option} }, {
-                          displayName  => "With $display_name",
+                          displayName  => "With $display_name probe ID(s)",
                           displayType  => "list",
                           field        => $field,
                           hidden       => "false",
@@ -1244,7 +1257,7 @@ sub write_filters {
       if ( $nC > 0 ) {
         #Check if species has variation data
         if($fgo->{internalName} eq "snp") {
-          my ($has_variation_data,$has_variation_somatic_data) = $self->check_variation_data($dataset);
+          my ($has_variation_data,$has_variation_somatic_data) = $self->check_variation_data($dataset, $variation_dba);
           if ($has_variation_data){
             1;
           }
@@ -1275,7 +1288,7 @@ sub write_filters {
 } ## end sub write_filters
 
 sub write_attributes {
-  my ( $self, $dataset, $templ_in, $datasets,$xref_list, $probe_list, $xref_url_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name ) = @_;
+  my ( $self, $dataset, $templ_in, $datasets,$xref_list, $probe_list, $xref_url_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $vega_dba, $variation_dba ) = @_;
   $logger->info( "Writing attributes for " . $dataset->{name} );
   my $templ_out = $dataset->{config};
   # AttributePage
@@ -1283,7 +1296,7 @@ sub write_attributes {
     $logger->debug( "Processing filterPage " . $attributePage->{internalName} );
     # Check if the species has variation data, else skip this page.
     if($attributePage->{internalName} eq "snp" or $attributePage->{internalName} eq "snp_somatic") {
-      my ($has_variation_data,$has_variation_somatic_data) = $self->check_variation_data($dataset);
+      my ($has_variation_data,$has_variation_somatic_data) = $self->check_variation_data($dataset, $variation_dba);
       if ($attributePage->{internalName} eq "snp")
       {
         if ($has_variation_data){
@@ -2299,7 +2312,9 @@ sub generate_chromosome_qtl_push_action {
 
 =head2 generate_xrefs_list
   Description: Retrieve a list of xrefs for a given dataset. Subroutine use the information_schema database and Core database external_db table.
-  Arg        : Mart dataset name
+  Arg        : Mart dataset name,
+  Arg        : Core database adaptor
+  Arg        : Vega database adaptor
   Returntype : Hashref (keys are xrefs names, values are associated xref display name)
   Exceptions : none
   Caller     : general
@@ -2307,34 +2322,36 @@ sub generate_chromosome_qtl_push_action {
 =cut
 
 sub generate_xrefs_list {
-  my ($self,$dataset)= @_;
-  my $database;
+  my ($self,$dataset,$core_dba, $vega_dba)= @_;
+  my $db_dbc;
   # If we are working on the vega mart, connect to the vega database
   if ($self->{dbc}->dbname() =~ "vega") {
-    $database = $dataset->{src_db};
-    $database =~ s/core/vega/;
+    $db_dbc = $vega_dba->dbc();
   }
-  else {
-    $database = $dataset->{src_db};
+  else{
+    $db_dbc = $core_dba->dbc();
   }
+  my $database = $db_dbc->dbname;
   my $xrefs_list;
-  my $database_tables = $self->{dbc}->sql_helper()
+  my $database_tables = $db_dbc->sql_helper()
                     ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${database}'" );
     if (defined $database_tables->[0]) {
       # Need to make sure all the db_name are lowercase and don't contain / to match mart table names.
       # Removed "Symbol" from HGNC symbol as this is causing issues in the attribute section
-      $xrefs_list = $self->{dbc}->sql_helper()->execute(
+      $xrefs_list = $db_dbc->sql_helper()->execute(
         -SQL => "select distinct(REPLACE(LOWER(db_name),'/','')), db_display_name from ${database}.external_db order by db_display_name");
     }
     else {
       die "$database database is missing from the server\n"
     }
+  $db_dbc->disconnect_if_idle();
   return ($xrefs_list);
 }
 
 =head2 generate_probes_list
   Description: Retrieve a list of probes for a given dataset. Subroutine use the information_schema database and MTMP_probestuff_helper table.
   Arg        : Mart dataset name
+  Arg        : Regulation database adaptor
   Returntype : Hashref (keys are mircroarray names, values are associated microarray vendor and name)
   Exceptions : none
   Caller     : general
@@ -2342,32 +2359,35 @@ sub generate_xrefs_list {
 =cut
 
 sub generate_probes_list {
-  my ($self,$dataset)= @_;
-  my $core_db = $dataset->{src_db};
-  my $regulation_db = $core_db;
+  my ($self,$dataset,$regulation_dba)= @_;
   my $probes_list;
-  $regulation_db =~ s/core/funcgen/;
-  my $database_tables = $self->{dbc}->sql_helper()
+  if (defined $regulation_dba){
+    my $db_dbc = $regulation_dba->dbc();
+    my $regulation_db =$db_dbc->dbname;
+    my $database_tables = $db_dbc->sql_helper()
                     ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${regulation_db}'" );
-    if (defined $database_tables->[0]) {
-      if ($database_tables->[0] > 0) {
-        my $empty_probe_table=$self->{dbc}->sql_helper()
+      if (defined $database_tables->[0]) {
+        if ($database_tables->[0] > 0) {
+          my $empty_probe_table=$db_dbc->sql_helper()
                     ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${regulation_db}' and table_name='MTMP_probestuff_helper'" );
-        if(defined $empty_probe_table->[0]) {
-          if ($empty_probe_table->[0] > 0) {
-            $probes_list = $self->{dbc}->sql_helper()->execute(
-              -SQL => "select distinct(LOWER(array_name)), array_vendor_and_name from ${regulation_db}.MTMP_probestuff_helper order by array_vendor_and_name",
-            );
+          if(defined $empty_probe_table->[0]) {
+            if ($empty_probe_table->[0] > 0) {
+              $probes_list = $db_dbc->sql_helper()->execute(
+                -SQL => "select distinct(LOWER(array_name)), array_vendor_and_name from ${regulation_db}.MTMP_probestuff_helper order by array_vendor_and_name",
+              );
+            }
           }
         }
       }
-    }
+    $db_dbc->disconnect_if_idle();
+  }
   return ($probes_list);
 }
 
 =head2 generate_protein_domain_and_feature_list
   Description: Retrieve a list of protein domains for a given dataset. Subroutine use the information_schema database, protein_feature, web_data and analysis  table.
   Arg        : Mart dataset name
+  Arg        : Core database adaptor
   Returntype : Hashref (keys are logic names, values are associated db, web_data and display_label)
   Exceptions : none
   Caller     : general
@@ -2375,18 +2395,20 @@ sub generate_probes_list {
 =cut
 
 sub generate_protein_domain_and_feature_list {
-  my ($self,$dataset)= @_;
-  my $core_db = $dataset->{src_db};
+  my ($self,$dataset, $core_dba)= @_;
+  my $db_dbc = $core_dba->dbc();
+  my $core_db =$db_dbc->dbname;
   my $protein_domain_and_feature_list;
-  my $database_tables = $self->{dbc}->sql_helper()
+  my $database_tables = $db_dbc->sql_helper()
                     ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${core_db}'" );
   if (defined $database_tables->[0]) {
     if ($database_tables->[0] > 0) {
-      $protein_domain_and_feature_list = $self->{dbc}->sql_helper()->execute(
+      $protein_domain_and_feature_list = $db_dbc->sql_helper()->execute(
               -SQL => "select distinct(LOWER(logic_name)), db, web_data, display_label from ${core_db}.protein_feature JOIN ${core_db}.analysis USING(analysis_id) LEFT JOIN ${core_db}.analysis_description USING (analysis_id) order by db",
             );
     }
   }
+  $db_dbc->disconnect_if_idle();
   return ($protein_domain_and_feature_list);
 }
 
@@ -2520,6 +2542,7 @@ sub check_pointer_dataset_table_exist {
 =head2 check_variation_data
   Description: Check if a species has variation data
   Arg        : Mart dataset name
+  Arg        : Variation database adaptor
   Returntype : Boolean, 1 for has variation data or 0 if not
   Exceptions : none
   Caller     : general
@@ -2527,26 +2550,28 @@ sub check_pointer_dataset_table_exist {
 =cut
 
 sub check_variation_data {
-  my ($self,$dataset)= @_;
-  my $core_db = $dataset->{src_db};
-  my $variation_db = $core_db;
+  my ($self,$dataset, $variation_dba)= @_;
   my $has_variation=0;
   my $has_somatic=0;
-  $variation_db =~ s/core/variation/;
-  my $database_tables = $self->{dbc}->sql_helper()
+  if (defined $variation_dba){
+    my $db_dbc = $variation_dba->dbc();
+    my $variation_db = $db_dbc->dbname; 
+    my $database_tables = $db_dbc->sql_helper()
                     ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${variation_db}'" );
     if (defined $database_tables->[0]) {
       if ($database_tables->[0] > 0) {
         $has_variation=1;
-        my $somatic_check=$self->{dbc}->sql_helper()
+        my $somatic_check= $db_dbc->sql_helper()
                     ->execute_simple( -SQL =>"select count(*) from ${variation_db}.source where somatic_status='somatic'" );
         if(defined $somatic_check->[0]) {
           if ($somatic_check->[0] > 0) {
-            $has_somatic=1;
+              $has_somatic=1;
           }
         }
       }
     }
+    $db_dbc->disconnect_if_idle();
+  }
   return ($has_variation,$has_somatic);
 }
 
