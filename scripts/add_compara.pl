@@ -268,7 +268,7 @@ for my $dataset (sort @datasets) {
     }
   }
   # Check if the division has family data
-  if (query_to_strings($mart_handle,"select count(*) from $compara_db.family") > 0){
+  if (row_count($mart_handle,"$compara_db.family") > 0){
     # add family
     $logger->info("Adding family data");
     write_family($dataset, $basename);
