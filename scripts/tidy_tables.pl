@@ -99,6 +99,11 @@ else {
 			   '%\_\_go\_%\_\_dm'               => ['dbprimary_acc_1074'],
 			   '%\_\_tra\_%\_\_dm'               => ['value_1065'],
 			   '%\_\ox\_%\_\_dm'               => ['dbprimary_acc_1074']);
+  %columns_to_tidy = (
+  	           '%\_\_gene\_\_main'    => ['display_label_1074','db_display_name_1018'],
+  	           '%\_\_transcript\_\_main'    => ['display_label_1074_r1','db_display_name_1018_r1'],
+  	           '%\_\_translation\_\_main'    => ['stable_id_408','description_408','family_bool']
+  );
 }
 
 # 1. remove tables where we have no data beyond the key
