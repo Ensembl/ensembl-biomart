@@ -673,7 +673,7 @@ sub write_filters {
                     if (exists $exception_xrefs->{$xref->[0]}) {
                       #Checking if the xrefs is part of the execption xrefs hash.
                       #We need to use dbprimary_acc_1074 instead of display_label_1074 or both
-                      foreach my $field (keys %{$exception_xrefs->{$xref->[0]}->{columns}}) {
+                      while ( my ($field, $suffix) = each %{$exception_xrefs->{$xref->[0]}->{columns}}) {
                         # We don't want filters for description field
                         # E.g: MIM gene description(s) [e.g. RING1- AND YY1-BINDING PROTEIN; RYBP;;YY1- AND E4TF1/GABP-ASSOCIATED FACTOR 1; YEAF1]
                         # or MIM morbid description(s) [e.g. MONOCARBOXYLATE TRANSPORTER 1 DEFICIENCY; MCT1D]
@@ -685,12 +685,12 @@ sub write_filters {
                         next if ($field eq "description_1074");
                         my $example = $self->get_example($table,$field);
                         push @{ $fdo->{Option} }, {
-                        displayName  => "$xref_display_name $exception_xrefs->{$xref->[0]}->{columns}->{$field}"."(s) [e.g. $example]",
+                        displayName  => "$xref_display_name $suffix"."(s) [e.g. $example]",
                         displayType  => "text",
-                        description  => "Filter to include genes with supplied list of $xref_display_name $exception_xrefs->{$xref->[0]}->{columns}->{$field}"."(s)",
+                        description  => "Filter to include genes with supplied list of $xref_display_name $suffix"."(s)",
                         field        => $field,
                         hidden       => "false",
-                        internalName => $xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{columns}->{$field}),
+                        internalName => $xref->[0]."_".lc($suffix),
                         isSelectable => "true",
                         key          => $key,
                         legal_qualifiers => "=,in",
@@ -1663,7 +1663,7 @@ sub write_attributes {
                   }
                   # Getting exception where we should use dbprimary_acc_1074 instead of display_label_1074 or both
                   if (exists $exception_xrefs->{$xref->[0]}) {
-                    foreach my $field (keys %{$exception_xrefs->{$xref->[0]}->{columns}}) {
+                    while (my ($field,$suffix) = each %{$exception_xrefs->{$xref->[0]}->{columns}}) {
                       #For extra attribute using URL of the main field dbprimary_acc_1074
                       if ($field ne "dbprimary_acc_1074")
                       {
@@ -1675,9 +1675,9 @@ sub write_attributes {
                       $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
                       push @{ $aco->{AttributeDescription} }, {
                         key             => $key,
-                        displayName     => "$xref_display_name $exception_xrefs->{$xref->[0]}->{columns}->{$field}",
+                        displayName     => "$xref_display_name $suffix",
                         field           => $field,
-                        internalName    => $xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{columns}->{$field}),
+                        internalName    => $xref->[0]."_".lc($suffix),
                         linkoutURL      => $url,
                         maxLength       => "512",
                         tableConstraint => $table };
