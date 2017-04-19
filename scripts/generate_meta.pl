@@ -50,7 +50,7 @@ generate_meta.pl [arguments]
 
   --ini_file                         Github link of the ini file containing the xref URLs (DEFAULT.ini).
 
-  --registry                         Give a registry file to load core, vega, variation and regulation databases
+  --registry                         Give a registry file to load core, variation and regulation databases
 
   --verbose			     show debug info
 
@@ -127,7 +127,7 @@ if(defined $opts->{registry}) {
 # Retrieving different ini files for e! and EG species.
 # This is only for the genes marts
 if ($opts->{template_name} eq 'genes'){
-  if ($dba->dbc()->dbname() =~ 'ensembl' or $dba->dbc()->dbname() =~ 'vega' or $dba->dbc()->dbname() =~ 'mouse')
+  if ($dba->dbc()->dbname() =~ 'ensembl' or $dba->dbc()->dbname() =~ 'mouse')
   {
     $opts->{ini_file} ||= 'https://raw.githubusercontent.com/Ensembl/ensembl-webcode/master/conf/ini-files/DEFAULTS.ini';
   }
