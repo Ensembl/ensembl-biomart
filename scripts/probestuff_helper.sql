@@ -13,106 +13,90 @@ CREATE TABLE MTMP_probestuff_helper (
 
 -- The PROBESET insert is split into three 10 million chunks
 INSERT INTO MTMP_probestuff_helper
-SELECT DISTINCT
-    a.name          AS array_name,
-    a.format        AS array_format,
-    a.vendor        AS array_vendor,
-    a.description   AS array_descr,
-    a.type          AS array_type,
-    a.class         AS array_class,
-    x.dbprimary_acc AS transcript_stable_id,
-    ps.name         AS display_label,
-    CONCAT(a.vendor, '_', REPLACE(REPLACE(a.name, '-', '_'), '.', '_'))
-                    AS array_vendor_and_name
-FROM    array a,
-        probe_set ps,
-        probe p,
-        array_chip ac,
-        xref x,
-        object_xref ox
-WHERE   a.array_id          = ac.array_id
-  AND   ac.array_chip_id    = p.array_chip_id
-  AND   p.probe_set_id      = ps.probe_set_id
-  AND   p.probe_set_id      = ox.ensembl_id
-  AND   ox.xref_id          = x.xref_id
-  AND   ox.ensembl_object_type  = 'ProbeSet'
+select distinct
+    array.name                     AS array_name,
+    array.format                   AS array_format,
+    array.vendor                   AS array_vendor,
+    array.description              AS array_descr,
+    array.type                     AS array_type,
+    array.class                    AS array_class,
+    probe_set_transcript.stable_id AS transcript_stable_id,
+    probe_set.name                 AS display_label,
+    CONCAT(array.vendor, '_', REPLACE(REPLACE(array.name, '-', '_'), '.', '_'))
+                                   AS array_vendor_and_name
+from
+  array
+  join array_chip using (array_id)
+  join probe using (array_chip_id)
+  join probe_set using (probe_set_id)
+  join probe_set_transcript using (probe_set_id)
+where
+  array.is_probeset_array=true
 LIMIT 0,10000000;
 
 INSERT INTO MTMP_probestuff_helper
-SELECT DISTINCT
-    a.name          AS array_name,
-    a.format        AS array_format,
-    a.vendor        AS array_vendor,
-    a.description   AS array_descr,
-    a.type          AS array_type,
-    a.class         AS array_class,
-    x.dbprimary_acc AS transcript_stable_id,
-    ps.name         AS display_label,
-    CONCAT(a.vendor, '_', REPLACE(REPLACE(a.name, '-', '_'), '.', '_'))
-                    AS array_vendor_and_name
-FROM    array a,
-        probe_set ps,
-        probe p,
-        array_chip ac,
-        xref x,
-        object_xref ox
-WHERE   a.array_id          = ac.array_id
-  AND   ac.array_chip_id    = p.array_chip_id
-  AND   p.probe_set_id      = ps.probe_set_id
-  AND   p.probe_set_id      = ox.ensembl_id
-  AND   ox.xref_id          = x.xref_id
-  AND   ox.ensembl_object_type  = 'ProbeSet'
+select distinct
+    array.name                     AS array_name,
+    array.format                   AS array_format,
+    array.vendor                   AS array_vendor,
+    array.description              AS array_descr,
+    array.type                     AS array_type,
+    array.class                    AS array_class,
+    probe_set_transcript.stable_id AS transcript_stable_id,
+    probe_set.name                 AS display_label,
+    CONCAT(array.vendor, '_', REPLACE(REPLACE(array.name, '-', '_'), '.', '_'))
+                                   AS array_vendor_and_name
+from
+  array
+  join array_chip using (array_id)
+  join probe using (array_chip_id)
+  join probe_set using (probe_set_id)
+  join probe_set_transcript using (probe_set_id)
+where
+  array.is_probeset_array=true
 LIMIT 10000000,10000000;
 
 INSERT INTO MTMP_probestuff_helper
-SELECT DISTINCT
-    a.name          AS array_name,
-    a.format        AS array_format,
-    a.vendor        AS array_vendor,
-    a.description   AS array_descr,
-    a.type          AS array_type,
-    a.class         AS array_class,
-    x.dbprimary_acc AS transcript_stable_id,
-    ps.name         AS display_label,
-    CONCAT(a.vendor, '_', REPLACE(REPLACE(a.name, '-', '_'), '.', '_'))
-                    AS array_vendor_and_name
-FROM    array a,
-        probe_set ps,
-        probe p,
-        array_chip ac,
-        xref x,
-        object_xref ox
-WHERE   a.array_id          = ac.array_id
-  AND   ac.array_chip_id    = p.array_chip_id
-  AND   p.probe_set_id      = ps.probe_set_id
-  AND   p.probe_set_id      = ox.ensembl_id
-  AND   ox.xref_id          = x.xref_id
-  AND   ox.ensembl_object_type  = 'ProbeSet'
+select distinct
+    array.name                     AS array_name,
+    array.format                   AS array_format,
+    array.vendor                   AS array_vendor,
+    array.description              AS array_descr,
+    array.type                     AS array_type,
+    array.class                    AS array_class,
+    probe_set_transcript.stable_id AS transcript_stable_id,
+    probe_set.name                 AS display_label,
+    CONCAT(array.vendor, '_', REPLACE(REPLACE(array.name, '-', '_'), '.', '_'))
+                                   AS array_vendor_and_name
+from
+  array
+  join array_chip using (array_id)
+  join probe using (array_chip_id)
+  join probe_set using (probe_set_id)
+  join probe_set_transcript using (probe_set_id)
+where
+  array.is_probeset_array=true
 LIMIT 20000000,10000000;
 
 INSERT INTO MTMP_probestuff_helper
-SELECT DISTINCT
-    a.name          AS array_name,
-    a.format        AS array_format,
-    a.vendor        AS array_vendor,
-    a.description   AS array_descr,
-    a.type          AS array_type,
-    a.class         AS array_class,
-    x.dbprimary_acc AS transcript_stable_id,
-    p.name          AS display_label,
-    CONCAT(a.vendor, '_', REPLACE(REPLACE(a.name, '-', '_'), '.', '_'))
-                    AS array_vendor_and_name
-FROM    array a,
-        probe p,
-        array_chip ac,
-        xref x,
-        object_xref ox
-WHERE   a.array_id          = ac.array_id
-  AND   ac.array_chip_id    = p.array_chip_id
-  AND   p.probe_set_id      IS NULL
-  AND   p.probe_id          = ox.ensembl_id
-  AND   ox.xref_id          = x.xref_id
-  AND   ox.ensembl_object_type  = 'Probe';
+select distinct
+    array.name                     AS array_name,
+    array.format                   AS array_format,
+    array.vendor                   AS array_vendor,
+    array.description              AS array_descr,
+    array.type                     AS array_type,
+    array.class                    AS array_class,
+    probe_transcript.stable_id     AS transcript_stable_id,
+    probe.name                     AS display_label,
+    CONCAT(array.vendor, '_', REPLACE(REPLACE(array.name, '-', '_'), '.', '_'))
+                                   AS array_vendor_and_name
+from
+  array
+  join array_chip using (array_id)
+  join probe using (array_chip_id)
+  join probe_transcript using (probe_id)
+where
+  array.is_probeset_array=false;
 
 ALTER TABLE MTMP_probestuff_helper
   ADD INDEX transcript_idx (transcript_stable_id),
