@@ -145,8 +145,8 @@ sub build {
   # Merge both hashes
   # For do this only for genes marts
   if ($template_name eq "genes"){
-     #For ensembl_gene, vega and mouse gene mart use ensembl-webcode defaults.ini
-    if ($self->{dbc}->dbname() =~ 'ensembl' or $self->{dbc}->dbname() =~ 'vega' or $self->{dbc}->dbname() =~ 'mouse'){
+     #For ensembl_gene and mouse gene mart use ensembl-webcode defaults.ini
+    if ($self->{dbc}->dbname() =~ 'ensembl' or $self->{dbc}->dbname() =~ 'mouse'){
       $logger->info( "Parsing ini file containing xrefs URLs: " . $ini_file );
       $xref_url_list = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
     }
@@ -163,16 +163,14 @@ sub build {
   for my $dataset ( @{$datasets} ) {
     my $core_dba;
     my $regulation_dba;
-    my $vega_dba;
     my $variation_dba;
     if ($self->{dbc}->dbname() !~ 'ontology') {
       $core_dba = $registry_loaded->get_DBAdaptor( $dataset->{production_name}, 'Core');
       $regulation_dba = $registry_loaded->get_DBAdaptor( $dataset->{production_name}, 'funcgen');
-      $vega_dba = $registry_loaded->get_DBAdaptor( $dataset->{production_name}, 'vega');
       $variation_dba = $registry_loaded->get_DBAdaptor( $dataset->{production_name}, 'variation');
     }
     $dataset->{species_id} = ++$n;
-    $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list, $core_dba, $regulation_dba, $vega_dba, $variation_dba );
+    $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list, $core_dba, $regulation_dba, $variation_dba );
   }
   return;
 }
@@ -214,7 +212,7 @@ sub get_datasets {
 =cut
 
 sub process_dataset {
-  my ( $self, $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list, $core_dba, $regulation_dba, $vega_dba, $variation_dba ) = @_;
+  my ( $self, $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list, $core_dba, $regulation_dba, $variation_dba ) = @_;
   $logger->info( "Processing " . $dataset->{name} );
   my $templ_in = $template->{DatasetConfig};
   my $xref_list;
@@ -236,7 +234,7 @@ sub process_dataset {
     return;
   }
   if ($template_name eq "genes"){
-    $xref_list = $self->generate_xrefs_list($dataset, $core_dba, $vega_dba);
+    $xref_list = $self->generate_xrefs_list($dataset, $core_dba);
     $probe_list = $self->generate_probes_list($dataset, $regulation_dba);
     $protein_domain_and_feature_list = $self->generate_protein_domain_and_feature_list($dataset, $core_dba);
 
@@ -260,8 +258,8 @@ sub process_dataset {
   ### Write xml data
   $self->write_importables( $dataset, $templ_in, $ds_name );
   $self->write_exportables( $dataset, $templ_in, $datasets, $template_name, $ds_name );
-  $self->write_filters( $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $vega_dba, $variation_dba );
-  $self->write_attributes( $dataset, $templ_in, $datasets, $xref_list, $probe_list, $xref_url_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $vega_dba, $variation_dba );
+  $self->write_filters( $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $variation_dba );
+  $self->write_attributes( $dataset, $templ_in, $datasets, $xref_list, $probe_list, $xref_url_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $variation_dba );
   # write meta
   $self->write_dataset_metatables( $dataset, $template_name, $ds_name );
   return;
@@ -429,7 +427,7 @@ sub write_exportables {
 } ## end sub write_exportables
 
 sub write_filters {
-  my ( $self, $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $vega_dba, $variation_dba ) = @_;
+  my ( $self, $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $variation_dba ) = @_;
   my $templ_out = $dataset->{config};
   #Defining Annotation filters
   my $annotations = {
@@ -634,13 +632,10 @@ sub write_filters {
                       my $example = $self->get_example($table,$field);
                       # We need to keep historical internal name. This would make many people in BiomaRt community if the naming change
                       my $internal_name;
-                      #For vega we need to use historical prefix.
+                      #For ensembl gene mart we need to use historical prefix.
                       if ($annotations->{$annotation}->{'internal_name'} =~ "external")
                       {
                         $internal_name = $annotations->{$annotation}->{'internal_name'};
-                      }
-                      elsif ($self->{dbc}->dbname() =~ 'vega') {
-                        $internal_name = "vega_".$annotations->{$annotation}->{'internal_name'};
                       }
                       else{
                         $internal_name = "ensembl_".$annotations->{$annotation}->{'internal_name'};
@@ -1288,7 +1283,7 @@ sub write_filters {
 } ## end sub write_filters
 
 sub write_attributes {
-  my ( $self, $dataset, $templ_in, $datasets,$xref_list, $probe_list, $xref_url_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $vega_dba, $variation_dba ) = @_;
+  my ( $self, $dataset, $templ_in, $datasets,$xref_list, $probe_list, $xref_url_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $variation_dba ) = @_;
   $logger->info( "Writing attributes for " . $dataset->{name} );
   my $templ_out = $dataset->{config};
   # AttributePage
@@ -1643,9 +1638,6 @@ sub write_attributes {
             $logger->info(
                             "Generating data for $aco->{internalName} attributes");
             foreach my $xref (@{ $xref_list }) {
-              #Skipping GO and GOA attributes since they have their own attribute section
-              # We need to keep the GO attribute for the vega mart.
-              next if (($xref->[0] eq "go" and $self->{dbc}->dbname() !~ "vega" ) or ($xref->[0] eq "goslim_goa" and $self->{dbc}->dbname() !~ "vega"));
               my $table = $ds_name."__ox_".$xref->[0]."__dm";
               if ( defined $self->{tables}->{$table} ) {
                 my $key = $self->get_table_key($table);
@@ -2314,7 +2306,6 @@ sub generate_chromosome_qtl_push_action {
   Description: Retrieve a list of xrefs for a given dataset. Subroutine use the information_schema database and Core database external_db table.
   Arg        : Mart dataset name,
   Arg        : Core database adaptor
-  Arg        : Vega database adaptor
   Returntype : Hashref (keys are xrefs names, values are associated xref display name)
   Exceptions : none
   Caller     : general
@@ -2322,15 +2313,8 @@ sub generate_chromosome_qtl_push_action {
 =cut
 
 sub generate_xrefs_list {
-  my ($self,$dataset,$core_dba, $vega_dba)= @_;
-  my $db_dbc;
-  # If we are working on the vega mart, connect to the vega database
-  if ($self->{dbc}->dbname() =~ "vega") {
-    $db_dbc = $vega_dba->dbc();
-  }
-  else{
-    $db_dbc = $core_dba->dbc();
-  }
+  my ($self,$dataset,$core_dba)= @_;
+  my $db_dbc = $core_dba->dbc();
   my $database = $db_dbc->dbname;
   my $xrefs_list;
   my $database_tables = $db_dbc->sql_helper()
