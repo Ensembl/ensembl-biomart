@@ -24,7 +24,7 @@ use strict;
 use warnings;
 use Data::Dumper;
 use Bio::EnsEMBL::Hive::PipeConfig::HiveGeneric_conf;
-  ; # All Hive databases configuration files should inherit from HiveGeneric, directly or indirectly
+ # All Hive databases configuration files should inherit from HiveGeneric, directly or indirectly
 use base ('Bio::EnsEMBL::Hive::PipeConfig::EnsemblGeneric_conf');
 use Bio::EnsEMBL::ApiVersion;
 use Cwd;
