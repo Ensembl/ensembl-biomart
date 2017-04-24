@@ -39,11 +39,8 @@ if [ $(count_database $VARIATION) -eq 0 ]; then
 fi
 
 $srv -e "show databases" | grep funcgen | while read db; do
-    cnt=$($srv --column-names=false $db -e "show tables like \"MTMP_probestuff_helper\"" | wc -l)
-    if [ $cnt -eq 0 ]; then 
 	echo "Creating funcgen helper for $db"
         $srv $db < $HELPER_SQL
-    fi
 done
 
 $srv -e "show databases" | grep variation | while read db; do
@@ -61,8 +58,6 @@ $srv -e "show databases" | grep variation | while read db; do
 done
 
 $srv -e "show databases" | grep variation | while read db; do
-    cnt=$($srv --column-names=false $db -e "show tables like \"MTMP_phenotype\"" | wc -l)
-    if [ $cnt -eq 0 ]; then
 	echo "Creating variation phenotype MTMP table for $db"
 	cd ${BASE_DIR}/ensembl-variation
 	perl -I modules -I scripts/import \
@@ -71,7 +66,6 @@ $srv -e "show databases" | grep variation | while read db; do
 	    -db $db \
 	    -tmpdir /tmp -tmpfile phenotype_${db}.txt
         cd -
-    fi
 done
 	
 echo "Completed setup of $mart on $srv"
