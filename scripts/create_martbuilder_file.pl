@@ -82,6 +82,19 @@ print "Variation found: $var_str\n";
 my $func_str = join ',',@funcgen;
 print "Funcgen found: $func_str\n";
 
+
+my ($partitionRegex,$partitionExpression,$name);
+if ($opts->{division} eq "Ensembl") {
+  $partitionRegex=$opts->{ens};
+  $partitionExpression='$1$2';
+  $name="gene_ensembl";
+}
+else {
+  $partitionRegex=$opts->{eg}."_".$opts->{ens};
+  $partitionExpression='$1$2_eg';
+  $name='gene';
+}
+
 my $inname = $opts->{template};
 print "Reading $inname\n";
 open(my $in_file, "<", $inname) or croak "Could not open $inname";
@@ -97,6 +110,9 @@ while (<$in_file>) {
     s/variation_species_list/$var_str/g;
     s/%EG%/$opts->{eg}/g;
     s/%ENS%/$opts->{ens}/g;
+    s/%PARTITION_REGEX%/$partitionRegex/g;
+    s/%PARTITION_EXPRESSION%/$partitionExpression/g;
+    s/%NAME%/$name/g;
     s/%HOST%/$opts->{host}/g;
     s/%USER%/$opts->{user}/g;
     s/%PORT%/$opts->{port}/g;
@@ -119,6 +135,8 @@ sub get_list {
 	} else {
             if(defined $opts->{collection}) {
                 $db =~ s/^[^_]+_([^_]+_collection)/$1_eg/;
+            } elsif ($opts->{division} eq "Ensembl") {
+                $db =~ s/^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)/$1$2/;
             } else {
                 $db =~ s/([a-z])[^_]+_([^_]+)/$1$2_eg/;
             }
