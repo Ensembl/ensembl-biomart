@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mart PUBLIC "-//EBI//DTD MartBuilder 0.7-//EBI//DTD MartBuilder " "http://www.biomart.org/DTD/MartBuilder-0.7.dtd">
 <mart outputDatabase="division_mart_%EG%" outputSchema="division_mart_%EG%" outputHost="localhost" outputPort="18002" overrideHost="%HOST%" overridePort="%PORT%" nameCase="0" hideMaskedDataSets="false" hideMaskedSchemas="true">
-	<jdbcSchema uniqueId="1" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_%ENS%" databaseName="master_schema_%ENS%" schemaName="master_schema_%ENS%" username="%USER%" password="%PASS%" name="ensembl" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]+_([^_]+)_core_%EG%_%ENS%_[0-9]*$" partitionExpression="$1$2_eg">
+	<jdbcSchema uniqueId="1" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_%ENS%" databaseName="master_schema_%ENS%" schemaName="master_schema_%ENS%" username="%USER%" password="%PASS%" name="ensembl" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)_core_%PARTITION_REGEX%_[0-9]*$" partitionExpression="%PARTITION_EXPRESSION%">
 		<table uniqueId="82" id="1" name="seq_region_synonym" ignore="false" inSchemaPartition="core_species_list">
 			<column id="2" name="seq_region_id" visibleModified="false" inSchemaPartition="core_species_list"/>
 			<column id="3" name="synonym" visibleModified="false" inSchemaPartition="core_species_list"/>
@@ -883,7 +883,7 @@
 		<relation id="806" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="354" secondKeyId="616" status="INFERRED" visibleModified="false"/>
 		<relation id="807" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="690" secondKeyId="304" status="INFERRED" visibleModified="false"/>
 	</jdbcSchema>
-	<jdbcSchema uniqueId="11" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_funcgen_%ENS%" databaseName="master_schema_funcgen_88" schemaName="master_schema_funcgen_88" username="%USER%" password="%PASS%" name="functional_genomics" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]*_([^_]*)_funcgen_%EG%_%ENS%_[1-9]?[0-9]*$" partitionExpression="$1$2_eg">
+	<jdbcSchema uniqueId="11" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_funcgen_%ENS%" databaseName="master_schema_funcgen_%ENS%" schemaName="master_schema_funcgen_%ENS%" username="%USER%" password="%PASS%" name="functional_genomics" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]*_([^_]*)_funcgen_%PARTITION_REGEX%_[1-9]?[0-9]*$" partitionExpression="%PARTITION_EXPRESSION%">
 		<table uniqueId="33" id="808" name="probe_feature" ignore="true" inSchemaPartition="funcgen_species_list">
 			<column id="809" name="mismatches" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="810" name="probe_feature_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
@@ -1566,7 +1566,7 @@
 		<relation id="1433" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="1195" secondKeyId="1360" status="INFERRED" visibleModified="false"/>
 		<relation id="1434" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="1207" secondKeyId="1330" status="INFERRED" visibleModified="false"/>
 	</jdbcSchema>
-	<jdbcSchema uniqueId="10" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/ensembl_ontology_88" databaseName="ensembl_ontology_88" schemaName="ensembl_ontology_88" username="%USER%" password="%PASS%" name="ontology" keyguessing="true" masked="false" hideMasked="true">
+	<jdbcSchema uniqueId="10" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/ensembl_ontology_%ENS%" databaseName="ensembl_ontology_%ENS%" schemaName="ensembl_ontology_%ENS%" username="%USER%" password="%PASS%" name="ontology" keyguessing="true" masked="false" hideMasked="true">
 		<table uniqueId="83" id="1435" name="aux_GR_TAX_monocot_map" ignore="false">
 			<column id="1436" name="subset_term_id" visibleModified="false"/>
 			<column id="1437" name="distance" visibleModified="false"/>
@@ -2413,7 +2413,7 @@
 		<relation id="2160" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="1625" secondKeyId="1469" status="INFERRED" visibleModified="false"/>
 		<relation id="2161" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="1625" secondKeyId="1837" status="INFERRED" visibleModified="false"/>
 	</jdbcSchema>
-	<jdbcSchema uniqueId="2" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_variation_%ENS%" databaseName="master_schema_variation_%ENS%" schemaName="master_schema_variation_%ENS%" username="%USER%" password="%PASS%" name="variation" keyguessing="true" masked="false" hideMasked="false" partitionRegex="^(.)[^_]+_([^_]+)_variation_%EG%_%ENS%_[0-9]*$" partitionExpression="$1$2_eg">
+	<jdbcSchema uniqueId="2" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_variation_%ENS%" databaseName="master_schema_variation_%ENS%" schemaName="master_schema_variation_%ENS%" username="%USER%" password="%PASS%" name="variation" keyguessing="true" masked="false" hideMasked="false" partitionRegex="^(.)[^_]+_([^_]+)_variation_%PARTITION_REGEX%_[0-9]*$" partitionExpression="%PARTITION_EXPRESSION%">
 		<table uniqueId="108" id="2162" name="regulatory_feature_variation" ignore="false" inSchemaPartition="variation_species_list">
 			<column id="2163" name="feature_type" visibleModified="false" inSchemaPartition="variation_species_list"/>
 			<column id="2164" name="consequence_types" visibleModified="false" inSchemaPartition="variation_species_list"/>
@@ -3217,7 +3217,7 @@
 		<renamedColumn tableKey="attrib_type" colKey="1.6.0.attrib_type_id" newName="attrib_type_id_106_key"/>
 		<restrictedTable tableKey="attrib_type" tableId="483" aliasColumnIds="484" aliasNames="col1" expression=":col1 IN (&quot;appris&quot;,&quot;TSL&quot;,&quot;gencode_basic&quot;)"/>
 	</dataset>
-	<dataset name="gene" centralTableId="226" optimiser="COLUMN_BOOL_NULL_INHERIT" invisible="false" masked="false" hideMasked="true" indexOptimiser="false">
+	<dataset name="%NAME%" centralTableId="226" optimiser="COLUMN_BOOL_NULL_INHERIT" invisible="false" masked="false" hideMasked="true" indexOptimiser="false">
 		<subclassRelation relationId="717"/>
 		<compoundRelation relationId="734" n="2" parallel="true"/>
 		<compoundRelation relationId="2859" n="2" parallel="true"/>
@@ -4971,32 +4971,32 @@
 	</dataset>
 	<datasetPartitionTable name="object_xref" selectedColumns="db_name_1018">
 		<partitionRegex name="db_name_1018" match="-" replace="_"/>
-		<partitionApplication name="gene" dimension="gene__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="0"/>
+		<partitionApplication name="%NAME%" dimension="gene__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="0"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="object_xref_copy" selectedColumns="db_name_1018">
 		<partitionRegex name="db_name_1018" match="-" replace="_"/>
-		<partitionApplication name="gene" dimension="transcript__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="0"/>
+		<partitionApplication name="%NAME%" dimension="transcript__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="0"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="attrib_type" selectedColumns="code_106">
-		<partitionApplication name="gene" dimension="transcript__transcript_attrib" pCols="code_106" dsCols="1.6.0.code" relationIds="772" nameCols="code_106" compounds="292"/>
+		<partitionApplication name="%NAME%" dimension="transcript__transcript_attrib" pCols="code_106" dsCols="1.6.0.code" relationIds="772" nameCols="code_106" compounds="292"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="protein_feature" selectedColumns="logic_name_102">
-		<partitionApplication name="gene" dimension="translation__protein_feature" pCols="logic_name_102" dsCols="1.2.0.logic_name" relationIds="804" nameCols="logic_name_102" compounds="12"/>
+		<partitionApplication name="%NAME%" dimension="translation__protein_feature" pCols="logic_name_102" dsCols="1.2.0.logic_name" relationIds="804" nameCols="logic_name_102" compounds="12"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="object_xref_copy_1" selectedColumns="db_name_1018">
 		<partitionRegex name="db_name_1018" match="-" replace="_"/>
-		<partitionApplication name="gene" dimension="translation__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="15"/>
+		<partitionApplication name="%NAME%" dimension="translation__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="15"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="ontology_xref_gene" selectedColumns="db_name_1018">
-		<partitionApplication name="gene" dimension="gene__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="1"/>
+		<partitionApplication name="%NAME%" dimension="gene__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="1"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="ontology_xref_transcript" selectedColumns="db_name_1018">
-		<partitionApplication name="gene" dimension="transcript__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" relationIds="715" nameCols="db_name_1018" compounds="1"/>
+		<partitionApplication name="%NAME%" dimension="transcript__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" relationIds="715" nameCols="db_name_1018" compounds="1"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="ontology_xref_translation" selectedColumns="db_name_1018">
-		<partitionApplication name="gene" dimension="translation__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="1"/>
+		<partitionApplication name="%NAME%" dimension="translation__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="1"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="MTMP_probestuff_helper" selectedColumns="array_vendor_and_name_11056">
-		<partitionApplication name="gene" dimension="transcript__MTMP_probestuff_helper" pCols="array_vendor_and_name_11056" dsCols="11.56.0.array_vendor_and_name" relationIds="2860" nameCols="array_vendor_and_name_11056" compounds="0"/>
+		<partitionApplication name="%NAME%" dimension="transcript__MTMP_probestuff_helper" pCols="array_vendor_and_name_11056" dsCols="11.56.0.array_vendor_and_name" relationIds="2860" nameCols="array_vendor_and_name_11056" compounds="0"/>
 	</datasetPartitionTable>
 </mart>
