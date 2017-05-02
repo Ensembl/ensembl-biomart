@@ -168,10 +168,6 @@
             <Option displayName="Only" hidden="true" internalName="only" isSelectable="true" useDefault="true" value="only"/>
             <Option displayName="Excluded" hidden="true" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
           </Option>
-          <Option displayName="with Population genotype ID(s)" displayType="list" field="population_genotype_bool" hidden="true" internalName="with_population_genotype" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
-            <Option displayName="Only" hidden="true" internalName="only" isSelectable="true" useDefault="true" value="only"/>
-            <Option displayName="Excluded" hidden="true" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
-          </Option>
           <Option displayName="with Variation set variation ID(s)" displayType="list" field="variation_set_variation_bool" hidden="true" internalName="with_variation_set_variation" isSelectable="true" key="variation_id_2025_key" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean" useDefault="true">
             <Option displayName="Only" hidden="true" internalName="only" isSelectable="true" useDefault="true" value="only"/>
             <Option displayName="Excluded" hidden="true" internalName="excluded" isSelectable="true" useDefault="true" value="excluded"/>
