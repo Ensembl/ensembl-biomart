@@ -102,12 +102,12 @@
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Population" internalName="population_name">
-        <FilterDescription displayName="Population" displayType="list" field="name_2019" internalName="population_name" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="population_genotype__dm" type="list" isDefault="true">
+        <FilterDescription displayName="Population name" displayType="list" field="name_2019" internalName="population_name" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="population_genotype__dm" type="list" isDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Strain" internalName="snp_strain_col">
-        <FilterDescription displayName="Strain" displayType="list" field="name_2019" internalName="reference_strain" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="poly__dm" type="list" isDefault="true">
+      <FilterCollection displayName="Sample" internalName="snp_strain_col">
+        <FilterDescription displayName="Sample name" displayType="list" field="name_2019" internalName="reference_strain" key="variation_id_2025_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="poly__dm" type="list" isDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -232,11 +232,11 @@
         <AttributeDescription displayName="Population genotype" field="allele" internalName="population_genotype__dm_allele" key="variation_id_2025_key" maxLength="255" tableConstraint="population_genotype__dm"/>
         <AttributeDescription displayName="Genotype frequency" field="frequency_2016" internalName="frequency_2016" key="variation_id_2025_key" maxLength="12" tableConstraint="population_genotype__dm"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Strain" internalName="strain_single">
-        <AttributeDescription displayName="Strain name" field="name_2019" internalName="strain_name" key="variation_id_2025_key" maxLength="255" tableConstraint="poly__dm">
+      <AttributeCollection displayName="Sample" internalName="strain_single">
+        <AttributeDescription displayName="Sample name" field="name_2019" internalName="strain_name" key="variation_id_2025_key" maxLength="255" tableConstraint="poly__dm">
           <SpecificAttributeContent internalName="replaceMe"/>
         </AttributeDescription>
-        <AttributeDescription displayName="Strain genotype" field="allele" internalName="strain_allele" key="variation_id_2025_key" maxLength="255" tableConstraint="poly__dm">
+        <AttributeDescription displayName="Sample genotype" field="allele" internalName="strain_allele" key="variation_id_2025_key" maxLength="255" tableConstraint="poly__dm">
           <SpecificAttributeContent internalName="replaceMe"/>
         </AttributeDescription>
       </AttributeCollection>
