@@ -87,7 +87,10 @@ sub run_script {
   
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
   
-  if ($drop_mtmp) {
+  # Drop table if exist and drop_mtmp parameter set to 1
+  # We don't want to drop the MTMP_transcript_variation table as it
+  # gets automatically renerated by the Transcript variation pipeline
+  if ($drop_mtmp and $table ne "transcript_variation") {
     my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
     $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
   }
@@ -119,12 +122,16 @@ sub run_script {
 sub sample_genotype {
   my ($self) = @_;
   
+  my $drop_mtmp = $self->param_required('drop_mtmp');
   my $dbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
   my $tmp_dir = $self->param_required('tmp_dir');
   my $output_file = "$tmp_dir/mtmp_sg_".$self->param_required('species').".txt";
   
-  my $drop_sql = 'DROP TABLE IF EXISTS MTMP_sample_genotype;';
-  
+  if ($drop_mtmp) {
+    my $drop_sql = 'DROP TABLE IF EXISTS MTMP_sample_genotype;';
+    $dbh->do($drop_sql) or $self->throw($dbh->errstr);
+  }
+
   my $create_sql =
   'CREATE TABLE MTMP_sample_genotype ( '.
     '`variation_id` int(10) unsigned NOT NULL, '.
@@ -177,7 +184,6 @@ sub sample_genotype {
   
   close $fh;
   
-  $dbh->do($drop_sql) or $self->throw($dbh->errstr);
   $dbh->do($create_sql) or $self->throw($dbh->errstr);
   $dbh->do($load_sql) or $self->throw($dbh->errstr);
 
@@ -187,9 +193,12 @@ sub sample_genotype {
 sub supporting_structural_variation {
  my ($self) = @_;
 
+ my $drop_mtmp = $self->param_required('drop_mtmp');
  my $dbc = $self->get_DBAdaptor('variation')->dbc();
- my $drop_sql = 'DROP VIEW IF EXISTS MTMP_supporting_structural_variation;';
-
+ if ($drop_mtmp) {
+   my $drop_sql = 'DROP VIEW IF EXISTS MTMP_supporting_structural_variation;';
+   $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
+ }
  my $create_sql =
  'CREATE VIEW MTMP_supporting_structural_variation AS '.
  'SELECT '.
@@ -221,7 +230,6 @@ sub supporting_structural_variation {
  'AND sva.supporting_structural_variation_id=svf.structural_variation_id '.
  'AND a1.attrib_id=sv.class_attrib_id;';
 
- $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
  $dbc->sql_helper->execute_update(-SQL=>$create_sql);
   
  $dbc->disconnect_if_idle();
