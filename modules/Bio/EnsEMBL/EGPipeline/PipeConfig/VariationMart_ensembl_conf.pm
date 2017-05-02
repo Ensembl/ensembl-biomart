@@ -49,7 +49,7 @@ sub default_options {
     
     division_name         => 'Ensembl',
     mart_db_name          => 'snp_mart_'.$self->o('eg_release'),
-    drop_mtmp             => 0,
+    drop_mtmp             => 1,
     sample_threshold      => 0,
     population_threshold  => 500,
     optimize_tables       => 1,
