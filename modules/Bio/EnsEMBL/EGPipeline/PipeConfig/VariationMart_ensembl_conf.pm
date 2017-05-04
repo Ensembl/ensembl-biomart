@@ -53,7 +53,7 @@ sub default_options {
     sample_threshold      => 0,
     population_threshold  => 500,
     optimize_tables       => 1,
-    populate_mart_rc_name => '8Gb_job',
+    populate_mart_rc_name => '8Gb_mem',
     genomic_features_dbname => 'genomic_features_mart_'.$self->o('ensembl_release'),
     max_dropdown          => '20000',
     
