@@ -3,7 +3,8 @@ CREATE TABLE MTMP_probestuff_helper (
   array_name            VARCHAR(40),
   transcript_stable_id  VARCHAR(128),
   display_label         VARCHAR(100),
-  array_vendor_and_name VARCHAR(80)
+  array_vendor_and_name VARCHAR(80),
+  is_probeset_array     tinyint(1)
 );
 
 INSERT INTO MTMP_probestuff_helper
@@ -12,7 +13,8 @@ select distinct
     probe_set_transcript.stable_id AS transcript_stable_id,
     probe_set.name                 AS display_label,
     CONCAT(array.vendor, '_', REPLACE(REPLACE(array.name, '-', '_'), '.', '_'))
-                                   AS array_vendor_and_name
+                                   AS array_vendor_and_name,
+    array.is_probeset_array        AS is_probeset_array
 from
   array
   join array_chip using (array_id)
@@ -28,7 +30,8 @@ select distinct
     probe_transcript.stable_id     AS transcript_stable_id,
     probe.name                     AS display_label,
     CONCAT(array.vendor, '_', REPLACE(REPLACE(array.name, '-', '_'), '.', '_'))
-                                   AS array_vendor_and_name
+                                   AS array_vendor_and_name,
+    array.is_probeset_array        AS is_probeset_array
 from
   array
   join array_chip using (array_id)
