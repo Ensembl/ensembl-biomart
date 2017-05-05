@@ -313,7 +313,7 @@ sub pipeline_analyses {
                               registry                 => $self->o('registry'),
                               tmp_dir                  => $self->o('tmp_dir'),
                             },
-      -max_retry_count   => 0,
+      -max_retry_count   => 3,
       -analysis_capacity => 5,
       -can_be_empty      => 1,
       -rc_name           => '16Gb_mem_16Gb_tmp',
