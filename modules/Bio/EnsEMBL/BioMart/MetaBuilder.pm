@@ -1702,6 +1702,16 @@ sub write_attributes {
                             "Generating data for $aco->{internalName} attributes");
             foreach my $probe (@{ $probe_list }) {
               my $field = "display_label_11056";
+              my $url;
+              # Using is_probeset_array to generate the linkout URL
+              # This link is mainly for affy probes
+              if ($probe->[2]){
+                $url="exturl|/$dataset->{production_name}/Location/Genome?ftype=ProbeFeature;fdb=funcgen;id=%s;ptype=pset;";
+              }
+              # This link is for other probes like codelink, agilent, illumina...
+              else {
+                $url="exturl|/$dataset->{production_name}/Location/Genome?ftype=ProbeFeature;fdb=funcgen;id=%s";
+              }
               my $table = $ds_name."__efg_".lc($probe->[1])."__dm";
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = "transcript_id_1064_key";
@@ -1713,7 +1723,7 @@ sub write_attributes {
                       displayName     => "$display_name probe",
                       field           => $field,
                       internalName    => lc($probe->[1]),
-                      linkoutURL      => "exturl|/$dataset->{production_name}/Location/Genome?ftype=ProbeFeature;fdb=funcgen;id=%s;ptype=pset;",
+                      linkoutURL      => $url,
                       maxLength       => "140",
                       tableConstraint => $table };
                   $nD++;
@@ -2357,7 +2367,7 @@ sub generate_probes_list {
           if(defined $empty_probe_table->[0]) {
             if ($empty_probe_table->[0] > 0) {
               $probes_list = $db_dbc->sql_helper()->execute(
-                -SQL => "select distinct(LOWER(array_name)), array_vendor_and_name from ${regulation_db}.MTMP_probestuff_helper order by array_vendor_and_name",
+                -SQL => "select distinct(LOWER(array_name)), array_vendor_and_name, is_probeset_array from ${regulation_db}.MTMP_probestuff_helper order by array_vendor_and_name",
               );
             }
           }
