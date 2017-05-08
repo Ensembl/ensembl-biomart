@@ -66,7 +66,7 @@
         <AttributeDescription displayName="Epigenome description" field="epigenome_description_1081" hidden="false" internalName="epigenome_description" key="regulatory_feature_id_1036_key" maxLength="80" tableConstraint="regulatory_activity__dm" useDefault="true"/>
         <AttributeDescription displayName="SO term accession" field="so_accession_1024" internalName="so_accession" key="regulatory_feature_id_1036_key" linkoutURL="exturl|http://www.sequenceontology.org/browser/current_release/term/%s" maxLength="64" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="SO term name" field="so_name_1024" internalName="so_name" key="regulatory_feature_id_1036_key" maxLength="255" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="EFO term accession" field="ontology_accession_1081" internalName="efo_id" key="regulatory_feature_id_1036_key" maxLength="20" tableConstraint="regulatory_activity__dm" useDefault="true"/>
+        <AttributeDescription displayName="EFO term accession" field="dbprimary_acc_1046" internalName="efo_id" key="regulatory_feature_id_1036_key" maxLength="512" tableConstraint="regulatory_activity__dm" useDefault="true"/>
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
