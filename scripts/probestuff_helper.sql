@@ -48,4 +48,9 @@ ALTER TABLE MTMP_probestuff_helper
 
 UPDATE MTMP_probestuff_helper SET array_vendor_and_name ='AGILENT_SurePrnt_GPL16709_4x44k' WHERE array_vendor_and_name='AGILENT_SurePrint_GPL16709_4x44k';
 
+-- Same for chicken ggallus_gene_ensembl__eFG_AGILENT_AGILENT_059389_Custom_Chicken_GE_8X60k__dm
+
+UPDATE MTMP_probestuff_helper SET array_vendor_and_name ='AGILENT_059389_Chicken_GE_8X60k' WHERE array_vendor_and_name='AGILENT_AGILENT_059389_Custom_Chicken_GE_8X60k';
+
+
 OPTIMIZE TABLE MTMP_probestuff_helper;
