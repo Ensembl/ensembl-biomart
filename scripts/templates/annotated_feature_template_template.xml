@@ -64,7 +64,7 @@
   <AttributePage displayName="Regulatory evidence" internalName="annotated_feature" outFormats="html,txt,csv,tsv,xls" useDefault="true">
     <AttributeGroup displayName="REGULATORY EVIDENCE" internalName="annotated_features" useDefault="true">
       <AttributeCollection internalName="annotated_feature" useDefault="true">
-        <AttributeDescription displayName="EFO term accession" field="ontology_accession_1081" internalName="efo_id" key="annotated_feature_id_103_key" maxLength="20" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="EFO term accession" field="dbprimary_acc_1046" internalName="efo_id" key="annotated_feature_id_103_key" maxLength="512" tableConstraint="main" useDefault="true"/>
         <AttributeDescription default="true" displayName="Feature set" field="display_label_1048" hidden="true" internalName="display_label" key="annotated_feature_id_103_key" maxLength="80" tableConstraint="main" useDefault="true"/>
         <AttributeDescription default="true" displayName="Chromosome/scaffold name" field="seq_region_name_1048" internalName="chromosome_name" key="annotated_feature_id_103_key" linkoutURL="exturl|/*species2*/contigview?chr=%s" maxLength="40" tableConstraint="main" useDefault="true"/>
         <AttributeDescription default="true" displayName="Start (bp)" field="seq_region_start_1048" internalName="chromosome_start" key="annotated_feature_id_103_key" linkoutURL="exturl|/*species2*/Location/View?r=%s:%s-%s|chromosome_name|chromosome_start|chromosome_end" maxLength="10" tableConstraint="main" useDefault="true"/>
