@@ -883,7 +883,7 @@
 		<relation id="806" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="354" secondKeyId="616" status="INFERRED" visibleModified="false"/>
 		<relation id="807" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="690" secondKeyId="304" status="INFERRED" visibleModified="false"/>
 	</jdbcSchema>
-	<jdbcSchema uniqueId="11" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_funcgen_%ENS%" databaseName="master_schema_funcgen_%ENS%" schemaName="master_schema_funcgen_%ENS%" username="%USER%" password="%PASS%" name="functional_genomics" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]*_([^_]*)_funcgen_%PARTITION_REGEX%_[1-9]?[0-9]*$" partitionExpression="%PARTITION_EXPRESSION%">
+	<jdbcSchema uniqueId="11" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_funcgen_%ENS%" databaseName="master_schema_funcgen_%ENS%" schemaName="master_schema_funcgen_%ENS%" username="%USER%" password="%PASS%" name="functional_genomics" keyguessing="true" masked="false" hideMasked="true" partitionRegex="^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)_funcgen_%PARTITION_REGEX%_[1-9]?[0-9]*$" partitionExpression="%PARTITION_EXPRESSION%">
 		<table uniqueId="33" id="808" name="probe_feature" ignore="true" inSchemaPartition="funcgen_species_list">
 			<column id="809" name="mismatches" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
 			<column id="810" name="probe_feature_id" visibleModified="false" inSchemaPartition="funcgen_species_list"/>
@@ -2413,7 +2413,7 @@
 		<relation id="2160" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="1625" secondKeyId="1469" status="INFERRED" visibleModified="false"/>
 		<relation id="2161" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="1625" secondKeyId="1837" status="INFERRED" visibleModified="false"/>
 	</jdbcSchema>
-	<jdbcSchema uniqueId="2" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_variation_%ENS%" databaseName="master_schema_variation_%ENS%" schemaName="master_schema_variation_%ENS%" username="%USER%" password="%PASS%" name="variation" keyguessing="true" masked="false" hideMasked="false" partitionRegex="^(.)[^_]+_([^_]+)_variation_%PARTITION_REGEX%_[0-9]*$" partitionExpression="%PARTITION_EXPRESSION%">
+	<jdbcSchema uniqueId="2" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://%HOST%:%PORT%/master_schema_variation_%ENS%" databaseName="master_schema_variation_%ENS%" schemaName="master_schema_variation_%ENS%" username="%USER%" password="%PASS%" name="variation" keyguessing="true" masked="false" hideMasked="false" partitionRegex="^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)_variation_%PARTITION_REGEX%_[0-9]*$" partitionExpression="%PARTITION_EXPRESSION%">
 		<table uniqueId="108" id="2162" name="regulatory_feature_variation" ignore="false" inSchemaPartition="variation_species_list">
 			<column id="2163" name="feature_type" visibleModified="false" inSchemaPartition="variation_species_list"/>
 			<column id="2164" name="consequence_types" visibleModified="false" inSchemaPartition="variation_species_list"/>
