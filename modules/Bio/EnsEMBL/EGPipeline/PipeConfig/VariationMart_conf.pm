@@ -418,7 +418,7 @@ sub pipeline_analyses {
                               tables_dir => $self->o('tables_dir'),
                             },
       -max_retry_count   => 3,
-      -analysis_capacity => 100,
+      -analysis_capacity => 20,
       -rc_name           => $self->o('populate_mart_rc_name'),
     },
 
@@ -443,7 +443,7 @@ sub pipeline_analyses {
       -parameters        => {
                             },
       -flow_into         => ['CreateMartIndexes'],
-      -max_retry_count   => 0,
+      -max_retry_count   => 3,
       -rc_name           => 'default',
     },
 
