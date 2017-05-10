@@ -36,9 +36,6 @@
           <Option displayName="non_coding_transcript_exon_variant" hidden="false" internalName="non_coding_transcript_exon_variant" isSelectable="true" useDefault="true" value="non_coding_transcript_exon_variant"/>
           <Option displayName="non_coding_transcript_variant" hidden="false" internalName="non_coding_transcript_variant" isSelectable="true" useDefault="true" value="non_coding_transcript_variant"/>
           <Option displayName="protein_altering_variant" hidden="false" internalName="protein_altering_variant" isSelectable="true" useDefault="true" value="protein_altering_variant"/>
-          <Option displayName="regulatory_region_ablation" hidden="false" internalName="regulatory_region_ablation" isSelectable="true" useDefault="true" value="regulatory_region_ablation"/>
-          <Option displayName="regulatory_region_amplification" hidden="false" internalName="regulatory_region_amplification" isSelectable="true" useDefault="true" value="regulatory_region_amplification"/>
-          <Option displayName="regulatory_region_variant" hidden="false" internalName="regulatory_region_variant" isSelectable="true" useDefault="true" value="regulatory_region_variant"/>
           <Option displayName="sequence_comparison" hidden="false" internalName="sequence_comparison" isSelectable="true" useDefault="true" value="sequence_comparison"/>
           <Option displayName="sequence_variant" hidden="false" internalName="sequence_variant" isSelectable="true" useDefault="true" value="sequence_variant"/>
           <Option displayName="splice_acceptor_variant" hidden="false" internalName="splice_acceptor_variant" isSelectable="true" useDefault="true" value="splice_acceptor_variant"/>
@@ -53,9 +50,6 @@
           <Option displayName="structural_variant" hidden="false" internalName="structural_variant" isSelectable="true" useDefault="true" value="structural_variant"/>
           <Option displayName="synonymous_variant" hidden="false" internalName="synonymous_variant" isSelectable="true" useDefault="true" value="synonymous_variant"/>
           <Option displayName="terminator_codon_variant" hidden="false" internalName="terminator_codon_variant" isSelectable="true" useDefault="true" value="terminator_codon_variant"/>
-          <Option displayName="TFBS_ablation" hidden="false" internalName="TFBS_ablation" isSelectable="true" useDefault="true" value="TFBS_ablation"/>
-          <Option displayName="TFBS_amplification" hidden="false" internalName="TFBS_amplification" isSelectable="true" useDefault="true" value="TFBS_amplification"/>
-          <Option displayName="TF_binding_site_variant" hidden="false" internalName="TF_binding_site_variant" isSelectable="true" useDefault="true" value="TF_binding_site_variant"/>
           <Option displayName="transcript_ablation" hidden="false" internalName="transcript_ablation" isSelectable="true" useDefault="true" value="transcript_ablation"/>
           <Option displayName="transcript_amplification" hidden="false" internalName="transcript_amplification" isSelectable="true" useDefault="true" value="transcript_amplification"/>
           <Option displayName="transcript_variant" hidden="false" internalName="transcript_variant" isSelectable="true" useDefault="true" value="transcript_variant"/>
