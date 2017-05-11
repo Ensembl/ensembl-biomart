@@ -3187,36 +3187,6 @@
 	<relation id="2860" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="447" secondKeyId="851" status="HANDMADE" visibleModified="false"/>
 	<relation id="2861" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="249" secondKeyId="2255" status="HANDMADE" visibleModified="false"/>
 	<relation id="2862" cardinality="M(a)" originalCardinality="M(a)" firstKeyId="1627" secondKeyId="218" status="HANDMADE" visibleModified="false"/>
-	<dataset name="MTMP_probestuff_helper" centralTableId="841" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
-		<renamedTable tableKey="MTMP_probestuff_helper" newName="MTMP_probestuff_helper"/>
-		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_type"/>
-		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_type" newName="array_type_11056"/>
-		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_descr"/>
-		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_descr" newName="array_descr_11056"/>
-		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.transcript_stable_id"/>
-		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.transcript_stable_id" newName="transcript_stable_id_11056"/>
-		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.display_label"/>
-		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.display_label" newName="display_label_11056"/>
-		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_class"/>
-		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_class" newName="array_class_11056"/>
-		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_format"/>
-		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_format" newName="array_format_11056"/>
-		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_vendor"/>
-		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_vendor" newName="array_vendor_11056"/>
-		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_name"/>
-		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_name" newName="array_name_11056"/>
-		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_vendor_and_name" newName="array_vendor_and_name_11056"/>
-		<maskedRelation tableKey="MTMP_probestuff_helper" relationId="2860"/>
-		<maskedRelation tableKey="MTMP_probestuff_helper" relationId="2860"/>
-	</dataset>
-	<dataset name="attrib_type" centralTableId="483" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
-		<renamedTable tableKey="attrib_type" newName="attrib_type"/>
-		<renamedColumn tableKey="attrib_type" colKey="1.6.0.name" newName="name_106"/>
-		<renamedColumn tableKey="attrib_type" colKey="1.6.0.description" newName="description_106"/>
-		<renamedColumn tableKey="attrib_type" colKey="1.6.0.code" newName="code_106"/>
-		<renamedColumn tableKey="attrib_type" colKey="1.6.0.attrib_type_id" newName="attrib_type_id_106_key"/>
-		<restrictedTable tableKey="attrib_type" tableId="483" aliasColumnIds="484" aliasNames="col1" expression=":col1 IN (&quot;appris&quot;,&quot;TSL&quot;,&quot;gencode_basic&quot;)"/>
-	</dataset>
 	<dataset name="%NAME%" centralTableId="226" optimiser="COLUMN_BOOL_NULL_INHERIT" invisible="false" masked="false" hideMasked="true" indexOptimiser="false">
 		<subclassRelation relationId="717"/>
 		<compoundRelation relationId="734" n="2" parallel="true"/>
@@ -3644,6 +3614,7 @@
 		<renamedTable tableKey="transcript__object_xref_1" newName="ontology"/>
 		<tableHideMasked tableKey="transcript__object_xref_1"/>
 		<distinctRows tableKey="transcript__object_xref_1"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.xref_id"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.xref_id" newName="xref_id_1074"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.19.0.synonym"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.19.0.synonym" newName="synonym_1019"/>
@@ -3665,9 +3636,10 @@
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.term_id"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.term_id" newName="term_id_1006"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.ensembl_id" newName="transcript_id_1064_key"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.external_db_id"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.external_db_id" newName="external_db_id_1018"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.status"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.status" newName="status_1018"/>
-		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.external_db_id" newName="external_db_id_1018"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_name"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_name" newName="db_name_1018"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.ontology_id"/>
@@ -3691,18 +3663,18 @@
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.analysis_id" newName="analysis_id_1040"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.3.0.namespace" newName="namespace_1003"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.definition" newName="definition_1006"/>
-		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.24.0.linkage_type" newName="linkage_type_1024"/>
-		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.priority"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.priority" newName="priority_1018"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.24.0.linkage_type" newName="linkage_type_1024"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_display_name"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_display_name" newName="db_display_name_1018"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.type"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.type" newName="type_1018"/>
-		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.24.0.source_xref_id"/>
-		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.24.0.source_xref_id" newName="source_xref_id_1024"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.info_type"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.74.0.info_type" newName="info_type_1074"/>
+		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.24.0.source_xref_id"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.24.0.source_xref_id" newName="source_xref_id_1024"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.description"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.description" newName="description_1018"/>
 		<alternativeJoin tableKey="transcript__object_xref_1" relationId="715"/>
@@ -4375,6 +4347,36 @@
 		<restrictedTable tableKey="gene__object_xref_1" tableId="665" aliasColumnIds="666,670" aliasNames="col2,col1" expression=":col1='Gene' AND (:col2!='NOT' OR :col2 IS NULL)"/>
 		<alternativeJoin tableKey="gene__object_xref_1" relationId="2862"/>
 		<alternativeJoin tableKey="gene__object_xref_1" relationId="2148"/>
+	</dataset>
+	<dataset name="MTMP_probestuff_helper" centralTableId="841" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
+		<renamedTable tableKey="MTMP_probestuff_helper" newName="MTMP_probestuff_helper"/>
+		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_type"/>
+		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_type" newName="array_type_11056"/>
+		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_descr"/>
+		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_descr" newName="array_descr_11056"/>
+		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.transcript_stable_id"/>
+		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.transcript_stable_id" newName="transcript_stable_id_11056"/>
+		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.display_label"/>
+		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.display_label" newName="display_label_11056"/>
+		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_class"/>
+		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_class" newName="array_class_11056"/>
+		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_format"/>
+		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_format" newName="array_format_11056"/>
+		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_vendor"/>
+		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_vendor" newName="array_vendor_11056"/>
+		<maskedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_name"/>
+		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_name" newName="array_name_11056"/>
+		<renamedColumn tableKey="MTMP_probestuff_helper" colKey="11.56.0.array_vendor_and_name" newName="array_vendor_and_name_11056"/>
+		<maskedRelation tableKey="MTMP_probestuff_helper" relationId="2860"/>
+		<maskedRelation tableKey="MTMP_probestuff_helper" relationId="2860"/>
+	</dataset>
+	<dataset name="attrib_type" centralTableId="483" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
+		<renamedTable tableKey="attrib_type" newName="attrib_type"/>
+		<renamedColumn tableKey="attrib_type" colKey="1.6.0.name" newName="name_106"/>
+		<renamedColumn tableKey="attrib_type" colKey="1.6.0.description" newName="description_106"/>
+		<renamedColumn tableKey="attrib_type" colKey="1.6.0.code" newName="code_106"/>
+		<renamedColumn tableKey="attrib_type" colKey="1.6.0.attrib_type_id" newName="attrib_type_id_106_key"/>
+		<restrictedTable tableKey="attrib_type" tableId="483" aliasColumnIds="484" aliasNames="col1" expression=":col1 IN (&quot;appris&quot;,&quot;TSL&quot;,&quot;gencode_basic&quot;)"/>
 	</dataset>
 	<dataset name="object_xref" centralTableId="665" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
 		<renamedTable tableKey="object_xref" newName="object_xref"/>
