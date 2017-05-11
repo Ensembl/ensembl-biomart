@@ -13,9 +13,6 @@
           <Option displayName="regulatory_region_variant" hidden="false" internalName="regulatory_region_variant" isSelectable="true" useDefault="true" value="regulatory_region_variant"/>
           <Option displayName="regulatory_region_fusion" hidden="false" internalName="regulatory_region_fusion" isSelectable="true" useDefault="true" value="regulatory_region_fusion"/>
           <Option displayName="regulatory_region_translocation" hidden="false" internalName="regulatory_region_translocation" isSelectable="true" useDefault="true" value="regulatory_region_translocation"/>
-          <Option displayName="TFBS_ablation" hidden="false" internalName="TFBS_ablation" isSelectable="true" useDefault="true" value="TFBS_ablation"/>
-          <Option displayName="TFBS_amplification" hidden="false" internalName="TFBS_amplification" isSelectable="true" useDefault="true" value="TFBS_amplification"/>
-          <Option displayName="TF_binding_site_variant" hidden="false" internalName="TF_binding_site_variant" isSelectable="true" useDefault="true" value="TF_binding_site_variant"/>
         </FilterDescription>
         <FilterDescription displayName="Child term accession" displayType="text" field="accession_305" internalName="accession_305" key="closure_regulation_id_301_key" legal_qualifiers="=" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
         <FilterDescription displayName="Child term name" displayType="list" field="name_305" hidden="false" internalName="name_305" key="closure_regulation_id_301_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true"/>

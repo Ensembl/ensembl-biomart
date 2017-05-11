@@ -78,7 +78,8 @@ my $template_properties = {
          marker_end => { type => 'TableSet',        visible => 0 },
          ontology => { type => 'TableSet',        visible => 0 },
          ontology_mini => { type => 'TableSet',        visible => 0 },
-         ontology_regulation => { type => 'TableSet',        visible => 0 }, };
+         ontology_regulation => { type => 'TableSet',        visible => 0 },
+         ontology_motif => { type => 'TableSet',        visible => 0 }, };
 
 =head1 CONSTRUCTOR
 =head2 new
@@ -2026,6 +2027,9 @@ sub update_table_keys {
         }
         elsif ( $obj->{key} eq 'closure_regulation_id_301_key') {
          $obj->{tableConstraint} = "${ds_name}__closure_regulation__main";
+        }
+        elsif ( $obj->{key} eq 'closure_motif_id_301_key') {
+         $obj->{tableConstraint} = "${ds_name}__closure_motif__main";
         }
       }
     }

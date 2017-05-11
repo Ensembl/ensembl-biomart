@@ -9,6 +9,7 @@
   <Importable filters="chr_name,start,end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>
   <Importable filters="link_so_mini_closure" internalName="so_mini_closure" linkName="so_mini_closure" name="so_mini_closure" type="link" useDefault="true"/>
   <Importable filters="link_so_regulation_closure" internalName="so_regulation_closure" linkName="so_regulation_closure" name="so_regulation_closure" type="link" useDefault="true"/>
+  <Importable filters="link_so_motif_closure" internalName="so_motif_closure" linkName="so_motif_closure" name="so_motif_closure" type="link" useDefault="true"/>
   <Importable filters="ensembl_gene" internalName="variation_to_ensembl" linkName="variation_to_ensembl" linkVersion="*link_version*" name="variation_to_ensembl" type="link" useDefault="true"/>
   <Importable filters="chr_name,start,end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
   <Importable filters="chr_name,end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
@@ -23,6 +24,7 @@
       <FilterCollection hideDisplay="true" internalName="link_filters" useDefault="true">
         <FilterDescription displayType="list" field="consequence_types_2090" internalName="link_so_mini_closure" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list" useDefault="true"/>
         <FilterDescription displayType="list" field="consequence_types_20126" internalName="link_so_regulation_closure" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="regulatory_feature_variation__dm" type="list" useDefault="true"/>
+         <FilterDescription displayType="list" field="consequence_types_20125" internalName="link_so_motif_closure" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="motif_feature_variation__dm" type="list" useDefault="true"/>
       </FilterCollection>
     </FilterGroup>
   </FilterPage>
@@ -168,13 +170,16 @@
       <FilterCollection displayName="Filter by Regulatory stable ID(s) (e.g. ENSR00001280467) [Max 500 advised]" internalName="feature_stable_id" useDefault="true">
         <FilterDescription displayName="Filter by Regulatory stable ID(s) (e.g. ENSR00001529861) [Max 500 ADVISED]" displayType="text" field="feature_stable_id_20126" hidden="false" internalName="feature_stable_id" key="variation_feature_id_2026_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="regulatory_feature_variation__dm" type="list" useDefault="true"/>
       </FilterCollection>
+      <FilterCollection displayName="Regulatory consequence" internalName="consequence_type_regulation" useDefault="true">
+        <FilterDescription displayType="list" hidden="false" internalName="regulatory_so_consequence_name" legal_qualifiers="=" multipleValues="1" pointerDataset="closure_SO_regulation" pointerFilter="so_regulation_parent_name" pointerInterface="default" qualifier="=" style="menu" type="list" useDefault="true"/>
+      </FilterCollection>
       <FilterCollection displayName="Motif Name" internalName="motif_name" useDefault="true">
         <FilterDescription displayName="Motif name" displayType="list" field="motif_name_20125" internalName="motif_name" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="motif_feature_variation__dm" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Regulatory consequence" internalName="consequence_type_regulation" useDefault="true">
-        <FilterDescription displayType="list" hidden="false" internalName="reg_consequence_types" legal_qualifiers="=" multipleValues="1" pointerDataset="closure_SO_regulation" pointerFilter="so_regulation_parent_name" pointerInterface="default" qualifier="=" style="menu" type="list" useDefault="true"/>
+      <FilterCollection displayName="Motif consequence" internalName="consequence_type_motif" useDefault="true">
+        <FilterDescription displayType="list" hidden="false" internalName="motif_so_consequence_name" legal_qualifiers="=" multipleValues="1" pointerDataset="closure_SO_motif" pointerFilter="so_motif_parent_name" pointerInterface="default" qualifier="=" style="menu" type="list" useDefault="true"/>
       </FilterCollection>
     </FilterGroup>
   </FilterPage>
