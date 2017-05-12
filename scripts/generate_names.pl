@@ -211,6 +211,13 @@ if ($mart_db =~ "ontology"){
 
 my @datasets = get_datasets( \@src_tables, $re, $suffix );
 
+# For the mouse gene mart, we need mouse and rat in the dataset_name table..
+if ($mart_db =~ "mouse_mart"){
+  push @datasets,"mmusculus";
+  push @datasets,"rnorvegicus";
+}
+
+
 unless ( scalar @datasets > 0 ) {
   croak "No datasets found - bailing out!\n";
 }
