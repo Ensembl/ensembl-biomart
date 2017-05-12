@@ -166,13 +166,25 @@ sub build {
     my $core_dba;
     my $regulation_dba;
     my $variation_dba;
+    my $ds_name;
+    if ($self->{basename} ne '') {
+      $ds_name  = $dataset->{name} . '_' . $self->{basename};
+    }
+    else {
+      $ds_name  = $dataset->{name};
+    }
+    # Check if dataset has a main table
+    if($self->has_main_tables($dataset,$template->{DatasetConfig},$ds_name)==0) {
+      $logger->warn("No main tables found for $template_name for ".$dataset->{name});
+      next;
+    }
     if ($self->{dbc}->dbname() !~ 'ontology') {
       $core_dba = $registry_loaded->get_DBAdaptor( $dataset->{production_name}, 'Core');
       $regulation_dba = $registry_loaded->get_DBAdaptor( $dataset->{production_name}, 'funcgen');
       $variation_dba = $registry_loaded->get_DBAdaptor( $dataset->{production_name}, 'variation');
     }
     $dataset->{species_id} = ++$n;
-    $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list, $core_dba, $regulation_dba, $variation_dba );
+    $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list, $core_dba, $regulation_dba, $variation_dba, $ds_name );
   }
   return;
 }
@@ -214,27 +226,16 @@ sub get_datasets {
 =cut
 
 sub process_dataset {
-  my ( $self, $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list, $core_dba, $regulation_dba, $variation_dba ) = @_;
+  my ( $self, $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list, $core_dba, $regulation_dba, $variation_dba, $ds_name ) = @_;
   $logger->info( "Processing " . $dataset->{name} );
   my $templ_in = $template->{DatasetConfig};
   my $xref_list;
   my $probe_list;
   my $protein_domain_and_feature_list;
   my $exception_xrefs;
-  my $ds_name;
-  if ($self->{basename} ne '') {
-    $ds_name  = $dataset->{name} . '_' . $self->{basename};
-  }
-  else {
-    $ds_name  = $dataset->{name};
-  }
   $logger->debug("Building output");
   $dataset->{config} = {};
   $self->write_toplevel( $dataset, $templ_in, $ds_name );
-  if($self->has_main_tables($dataset)==0) {
-    $logger->warn("No main tables found for $template_name for ".$dataset->{name});
-    return;
-  }
   if ($template_name eq "genes"){
     $xref_list = $self->generate_xrefs_list($dataset, $core_dba);
     $probe_list = $self->generate_probes_list($dataset, $regulation_dba);
@@ -268,8 +269,9 @@ sub process_dataset {
 }
 
 sub has_main_tables {
-  my ($self, $dataset) = @_;
-  for my $mainTable (@{$dataset->{config}->{MainTable}}) {
+  my ($self, $dataset, $templ_in, $ds_name) = @_;
+  for my $mainTable (@{elem_as_array(clone($templ_in->{MainTable}))}) {
+    $mainTable =~ s/\*base_name\*/$ds_name/;
     if(!defined $self->{tables}->{$mainTable}) {
       $logger->warn("Main table $mainTable not found");
       return 0;
