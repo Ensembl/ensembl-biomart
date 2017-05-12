@@ -744,7 +744,7 @@ sub write_filters {
                   if ( defined $self->{tables}->{$table} ) {
                     my $key = "transcript_id_1064_key";
                     if ( defined $self->{tables}->{$table}->{$key} ) {
-                      my $main_table=${ds_name}."__translation__main";
+                      my $main_table=${ds_name}."__transcript__main";
                       if (defined $self->{tables}->{$main_table}->{$field} ) {
                         my $display_name=$probe->[1];
                         $display_name =~ s/_/ /g;
