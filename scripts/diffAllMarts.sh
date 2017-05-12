@@ -17,6 +17,7 @@
 SERVER=$1
 RELEASE=$2
 EG_RELEASE=$3
+GRCH37=$4
 
 function get_species
 {
@@ -78,11 +79,21 @@ function get_species
 
 scriptdir=$( dirname $0 )
 NEW_MART=http://ens-prod-1.ebi.ac.uk:10301/biomart/martservice
+newvs="${division}_mart_${release}"
+mart_type="default"
 
 for division in "ensembl" "plants" "metazoa" "protists" "fungi" 
 do 
 
-if [ ${division} == "ensembl" ]
+if [ ${GRCH37} == "1" ]
+then
+  prefix=
+  suffix=
+  OLD_MART=http://grch37.ensembl.org/biomart/martservice
+  oldvs="default"
+  release=$RELEASE
+  newvs="${division}_mart_${release}_GRCh37"
+elif [ ${division} == "ensembl" ]
 then
   prefix=
   suffix=
@@ -96,9 +107,6 @@ else
   release=$EG_RELEASE
   oldvs="${division}_mart"
 fi
-
-newvs="${division}_mart_${release}"
-mart_type="default"
 
 cat >diffAllMarts_${division}.log <<EOT
 ========================================================================
