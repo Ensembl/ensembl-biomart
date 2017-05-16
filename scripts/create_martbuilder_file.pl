@@ -129,7 +129,17 @@ close $out_file;
 sub get_list {
     my ($dba,$division,$type) = @_;
     my @list = ();
-    for my $db (@{$dba->sql_helper()->execute_simple(-SQL=>'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1',-PARAMS=>[$division,$type])}) {
+    my $sql;
+    if ($opts->{mart} =~ "mouse_mart" and $opts->{division} eq "Ensembl") {
+      $sql = 'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1 and species.species_prefix like "%MGP_%"'
+    }
+    elsif ($opts->{mart} =~ "ensembl_mart" and $opts->{division} eq "Ensembl") {
+      $sql = 'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1 and species.species_prefix not like "%MGP_%"'
+    }
+    else {
+      $sql = 'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1'
+    }
+    for my $db (@{$dba->sql_helper()->execute_simple(-SQL=>$sql,-PARAMS=>[$division,$type])}) {
 	if($division eq 'EnsemblParasite') {
           $db =~ s/([a-z])[^_]+_(.{1,5})[^_]*_([^_]+)/$2$3_eg/; # Need to use the BioProject to differentiate between the duplicate genome projects; name becomes too long if we use the species+BioProject
 	} else {
