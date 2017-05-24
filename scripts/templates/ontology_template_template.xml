@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
-<DatasetConfig dataset="ontology_template" datasetID="21" description="NULL" displayName="ontology" interfaces="default" internalName="default" martUsers="default" modified="2012-05-03 11:42:26" softwareVersion="0.6" template="ontology" type="TableSet" useDefault="true" version="NULL" visible="1">
+<DatasetConfig dataset="ontology_template" datasetID="21" description="NULL" displayName="ontology" interfaces="default" internalName="default" martUsers="default" modified="2012-05-03 11:42:26" softwareVersion="0.6" template="ontology" type="TableSet" useDefault="true" version="NULL" visible="0">
   <MainTable>*base_name*__closure__main</MainTable>
   <Key>closure_id_301_key</Key>
   <Exportable attributes="accession_305" internalName="*ontology*" linkName="*ontology*" name="*ontology*" type="link" useDefault="true"/>

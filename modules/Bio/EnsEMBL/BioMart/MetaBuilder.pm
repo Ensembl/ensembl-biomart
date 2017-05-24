@@ -57,30 +57,6 @@ use Config::IniFiles;
 
 my $logger = get_logger();
 
-# properties of
-my $template_properties = {
-         genes      => { type => 'TableSet',        visible => 1 },
-         variations => { type => 'TableSet',        visible => 1 },
-         variations_som => { type => 'TableSet',        visible => 1 },
-         structural_variations => { type => 'TableSet',        visible => 1 },
-         structural_variations_som => { type => 'TableSet',        visible => 1 },
-         annotated_features => { type => 'TableSet',        visible => 1 },
-         external_features => { type => 'TableSet',        visible => 1 },
-         mirna_target_features => { type => 'TableSet',        visible => 1 },
-         motif_features => { type => 'TableSet',        visible => 1 },
-         regulatory_features => { type => 'TableSet',        visible => 1 },
-         sequences  => { type => 'GenomicSequence', visible => 0 },
-         encode => { type => 'TableSet',        visible => 0 },
-         qtl_feature => { type => 'TableSet',        visible => 0 },
-         karyotype_start => { type => 'TableSet',        visible => 0 },
-         karyotype_end => { type => 'TableSet',        visible => 0 },
-         marker_start => { type => 'TableSet',        visible => 0 },
-         marker_end => { type => 'TableSet',        visible => 0 },
-         ontology => { type => 'TableSet',        visible => 0 },
-         ontology_mini => { type => 'TableSet',        visible => 0 },
-         ontology_regulation => { type => 'TableSet',        visible => 0 },
-         ontology_motif => { type => 'TableSet',        visible => 0 }, };
-
 =head1 CONSTRUCTOR
 =head2 new
  Arg [-DBC] :
@@ -262,7 +238,7 @@ sub process_dataset {
   $self->write_filters( $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $variation_dba );
   $self->write_attributes( $dataset, $templ_in, $datasets, $xref_list, $probe_list, $xref_url_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $variation_dba );
   # write meta
-  $self->write_dataset_metatables( $dataset, $template_name, $ds_name );
+  $self->write_dataset_metatables( $dataset, $templ_in, $template_name, $ds_name );
   return;
 }
 
@@ -2142,7 +2118,7 @@ sub create_metatables {
 } ## end sub create_metatables
 
 sub write_dataset_metatables {
-  my ( $self, $dataset, $template_name, $ds_name ) = @_;
+  my ( $self, $dataset, $templ_in, $template_name, $ds_name ) = @_;
   my $speciesId = $dataset->{species_id};
 
   $logger->info("Populating metatables for $ds_name ($speciesId)");
@@ -2179,8 +2155,8 @@ left join meta_template__template__main t using (dataset_id_key)
                  $ds_name,
                  $dataset->{dataset_display_name},
                  "Ensembl $template_name",
-                 $template_properties->{$template_name}->{type},
-                 $template_properties->{$template_name}->{visible},
+                 $templ_in->{type},
+                 $templ_in->{visible},
                  $dataset->{assembly} ] );
 
   $self->{dbc}->sql_helper()->execute_update(
