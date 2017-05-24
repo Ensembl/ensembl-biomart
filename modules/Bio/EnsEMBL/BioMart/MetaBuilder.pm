@@ -120,18 +120,14 @@ sub build {
   # Merge both hashes
   # For do this only for genes marts
   if ($template_name eq "genes"){
-     #For ensembl_gene and mouse gene mart use ensembl-webcode defaults.ini
-    if ($self->{dbc}->dbname() =~ 'ensembl' or $self->{dbc}->dbname() =~ 'mouse'){
-      $logger->info( "Parsing ini file containing xrefs URLs: " . $ini_file );
-      $xref_url_list = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
-    }
-    # Else, parsing the Ensembl genomes division DEFAULT.ini file and extra eg-web-common ini file.
-    else{
-      $logger->info( "Parsing ini file containing xrefs URLs: " . $ini_file );
-      my $xref_division = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
+    # Parsing DEFAULT.ini for all the gene mart
+    $logger->info( "Parsing ini file containing xrefs URLs: " . $ini_file );
+    $xref_url_list = $self->parse_ini_file($ini_file,"ENSEMBL_EXTERNAL_URLS");
+    # Parse extra eg-web-common ini file for EG gene marts
+    if ($self->{dbc}->dbname() !~ m/(ensembl|mouse)/){
       $logger->info( "Parsing ini file containing xrefs URLs for eg-web-common");
       my $xref_eg_common_list = $self->parse_ini_file("https://raw.githubusercontent.com/EnsemblGenomes/eg-web-common/master/conf/ini-files/DEFAULTS.ini","ENSEMBL_EXTERNAL_URLS");
-      $xref_url_list = {%$xref_division,%$xref_eg_common_list};
+      $xref_url_list = {%$xref_url_list,%$xref_eg_common_list};
     }
   }
 
