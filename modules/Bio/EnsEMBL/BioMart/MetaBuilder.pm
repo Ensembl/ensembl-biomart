@@ -89,8 +89,6 @@ my $template_properties = {
     Integer : EG/E version (by default the last number in the mart name)
  Arg [-MAX_DROPDOWN] :
     Integer : Maximum number of items to show in a dropdown menu (default 256)
- Arg [-DELETE] :
-    Hashref : attributes/filters to delete for this mart (mainly domain specific ontologies)
  Arg [-BASENAME] :
     String : Base name of dataset - default is "gene"
   Example    : $b = Bio::EnsEMBL::BioMart::MetaBuilder->new(...);
@@ -105,14 +103,14 @@ my $template_properties = {
 sub new {
   my ( $proto, @args ) = @_;
   my $self = bless {}, $proto;
-  ( $self->{dbc}, $self->{version}, $self->{max_dropdown},
-    $self->{delete}, $self->{basename} )
-    = rearrange( [ 'DBC', 'VERSION', 'MAX_DROPDOWN', 'DELETE', 'BASENAME' ],
+  ( $self->{dbc}, $self->{version}, $self->{max_dropdown}, $self->{basename} )
+    = rearrange( [ 'DBC', 'VERSION', 'MAX_DROPDOWN', 'BASENAME' ],
                  @args );
 
   if ( !defined $self->{version} ) {
     ( $self->{version} = $self->{dbc}->dbname() ) =~ s/.*_([0-9]+)$/$1/;
   }
+  $self->{delete} = {};
   $self->_load_info();
   return $self;
 }
@@ -1798,7 +1796,7 @@ sub write_attributes {
                             "Generating data for $aco->{internalName} attributes");
             foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
               #Excluding protein domains
-              next if $protein_domain_and_feature->[2] eq "{'type' => 'domain'}";
+              next if defined $protein_domain_and_feature->[2] and $protein_domain_and_feature->[2] eq "{'type' => 'domain'}";
               my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->[0]."__dm";
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = "translation_id_1068_key";
