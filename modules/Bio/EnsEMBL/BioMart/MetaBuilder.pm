@@ -110,7 +110,6 @@ sub new {
   if ( !defined $self->{version} ) {
     ( $self->{version} = $self->{dbc}->dbname() ) =~ s/.*_([0-9]+)$/$1/;
   }
-  $self->{delete} = {};
   $self->_load_info();
   return $self;
 }
@@ -165,6 +164,7 @@ sub build {
     my $regulation_dba;
     my $variation_dba;
     my $ds_name;
+    $self->{delete} = {};
     if ($self->{basename} ne '') {
       $ds_name  = $dataset->{name} . '_' . $self->{basename};
     }
