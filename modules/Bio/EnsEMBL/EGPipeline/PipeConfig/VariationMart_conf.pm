@@ -453,7 +453,7 @@ sub pipeline_analyses {
       -parameters        => {
                               tables_dir => $self->o('tables_dir'),
                             },
-      -max_retry_count   => 0,
+      -max_retry_count   => 2,
       -analysis_capacity => 10,
       -rc_name           => 'normal',
     },
