@@ -108,6 +108,15 @@ then
   newvs="${division}_mart_${release}_GRCh37"
 fi
 
+if [ ${division} == "protists" ]
+then
+  oldvs="protist_mart"
+fi
+elif [ ${division} == "fungi" ]
+then
+  oldvs="fungal_mart"
+fi
+
 cat >diffAllMarts_${division}.log <<EOT
 ========================================================================
 ${division} GENE MART
