@@ -1642,6 +1642,8 @@ sub write_attributes {
             $logger->info(
                             "Generating data for $aco->{internalName} attributes");
             foreach my $xref (@{ $xref_list }) {
+              #Skipping GO and GOA attributes since they have their own attribute section
+              next if ($xref->[0] eq "go" or $xref->[0] eq "goslim_goa");
               my $table = $ds_name."__ox_".$xref->[0]."__dm";
               if ( defined $self->{tables}->{$table} ) {
                 my $key = $self->get_table_key($table);
