@@ -111,7 +111,6 @@ fi
 if [ ${division} == "protists" ]
 then
   oldvs="protist_mart"
-fi
 elif [ ${division} == "fungi" ]
 then
   oldvs="fungal_mart"
