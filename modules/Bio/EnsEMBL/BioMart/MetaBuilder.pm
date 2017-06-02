@@ -2508,11 +2508,19 @@ sub parse_ini_file {
     my $cfg = Config::IniFiles->new( -file => \$ini );
     if ( defined $cfg ) {
       for my $parameter ( $cfg->Parameters($section) ) {
-        my $value = $cfg->val($section,$parameter);
+        my @values = $cfg->val($section,$parameter);
         # Remove any / from parameter name
         $parameter  =~ s/\///g;
-        # Making sure that the parameter name is lowercase
-        $parsed_data{lc($parameter)}=$value;
+        #Because we are lowercasing xrefs, we can end up replacing hash key
+        if (exists $parsed_data{lc($parameter)})
+        {
+          1;
+        }
+        else{
+          # Making sure that the parameter name is lowercase
+          # When the file contains multiple URL, the last one seems to be the one displayed on the website
+          $parsed_data{lc($parameter)}=$values[-1];
+        }
       }
     }
   }
