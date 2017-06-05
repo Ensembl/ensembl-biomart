@@ -488,7 +488,6 @@ sub pipeline_analyses {
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
-      -wait_for          => ['CreateMartIndexes'],
       -can_be_empty      => 1,
       -flow_into         => ['AddSOMMetaData'],
       -rc_name           => 'normal',
