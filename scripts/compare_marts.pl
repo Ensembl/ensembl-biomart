@@ -57,21 +57,19 @@ diag "Creating connection to old service " . $opts->{old_uri};
 my $old_srv =
   Bio::EnsEMBL::BioMart::MartService->new( -URL => $opts->{old_uri} );
 ok( defined $old_srv, "Checking old service " . $opts->{old_uri} . " exists" );
-diag "Creating connection to old service " . $opts->{new_uri};
+diag "Creating connection to new service " . $opts->{new_uri};
 my $new_srv =
   Bio::EnsEMBL::BioMart::MartService->new( -URL => $opts->{new_uri} );
-ok( defined $new_srv, "Checking old service " . $opts->{new_uri} . " exists" );
+ok( defined $new_srv, "Checking new service " . $opts->{new_uri} . " exists" );
 
 diag "Retrieving marts";
 my $old_mart = $old_srv->get_mart_by_name( $opts->{old_mart} );
 ok( defined $old_mart, "Checking old mart " . $opts->{old_mart} . " exists" );
-my $new_mart = $old_srv->get_mart_by_name( $opts->{new_mart} );
-ok( defined $new_mart, "Checking new mart " . $opts->{old_mart} . " exists" );
+my $new_mart = $new_srv->get_mart_by_name( $opts->{new_mart} );
+ok( defined $new_mart, "Checking new mart " . $opts->{new_mart} . " exists" );
 
 diag "Hashing marts";
 my $old_mart_hash = hash_mart($old_mart);
-ok( defined $old_mart_hash,
-	"Checking old mart " . $old_mart->name() . " can be hashed" );
 ok( defined $old_mart_hash,
 	"Checking old mart " . $old_mart->name() . " can be hashed" );
 my $new_mart_hash = hash_mart($new_mart);
@@ -143,9 +141,9 @@ for my $dataset (@new_datasets) {
 		# new vs old
 		for my $new_attribute ( values %$new_attributes ) {
 			my $old_attribute = $old_attributes->{ $new_attribute->name() };
-			ok( defined $new_attribute,
+			ok( defined $old_attribute,
 				"Checking for new attribute "
-				  . $old_attribute->name()
+				  . $new_attribute->name()
 				  . " in old dataset "
 				  . $dataset->name() );
 		}
