@@ -153,6 +153,8 @@ sub default_options {
     snp_cull_columns => {
       'snp__mart_transcript_variation__dm'     => 'polyphen_score_2090',
       'snp__mart_transcript_variation__dm'    => 'sift_score_2090',
+      'snp__mart_transcript_variation__dm'    => 'polyphen_prediction_2090',
+      'snp__mart_transcript_variation__dm'    => 'sift_prediction_2090',
     },
 
     snp_som_cull_tables => {
