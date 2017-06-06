@@ -55,6 +55,7 @@ sub default_options {
     optimize_tables       => 0,
     populate_mart_rc_name => 'normal',
     species_suffix        => '_eg',
+    drop_mart_db          => 1,
     
     # Most mart table configuration is in VariationMart_conf, but e! and EG
     # differ in the absence/presence of the poly__dm table.
