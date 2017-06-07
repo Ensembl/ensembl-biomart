@@ -1254,19 +1254,8 @@ sub write_filters {
       } ## end for my $filterCollection...
 
       if ( $nC > 0 ) {
-        #Check if species has variation data
-        if($fgo->{internalName} eq "snp") {
-          my ($has_variation_data,$has_variation_somatic_data) = $self->check_variation_data($dataset, $variation_dba);
-          if ($has_variation_data){
-            1;
-          }
-          else {
-            $logger->info( "No Variation data for this dataset, removing filter");
-            $self->{delete}{$dataset->{name}."_".$fgo->{internalName}}=1;
-          }
-        } 
         if(defined $fgo->{checkTable}) {
-          # check for special checkTable tag which allows us to remove unneeded ontology filters which only exist as closures
+          # check for special checkTable tag which allows us to remove unneeded filters (e.g: ontology, variation filters in gene mart)
           my $table = $ds_name.'__'.$fgo->{checkTable};
           if(exists $self->{tables}->{$table}) {
             delete $fgo->{checkTable};
@@ -1294,11 +1283,11 @@ sub write_attributes {
   for my $attributePage ( @{ elem_as_array($templ_in->{AttributePage}) } ) {
     $logger->debug( "Processing filterPage " . $attributePage->{internalName} );
     # Check if the species has variation data, else skip this page.
-    if($attributePage->{internalName} eq "snp" or $attributePage->{internalName} eq "snp_somatic") {
-      my ($has_variation_data,$has_variation_somatic_data) = $self->check_variation_data($dataset, $variation_dba);
-      if ($attributePage->{internalName} eq "snp")
-      {
-        if ($has_variation_data){
+    if ($attributePage->{internalName} eq "snp") {
+      if(defined $attributePage->{checkTable}) {
+        # check for special checkTable tag which allows us to remove unneeded sections
+        my $table = $ds_name.'__'.$attributePage->{checkTable};
+        if(exists $self->{tables}->{$table}) {
           1;
         }
         else {
@@ -1306,8 +1295,12 @@ sub write_attributes {
           next;
         }
       }
-      elsif ($attributePage->{internalName} eq "snp_somatic"){
-        if ($has_variation_somatic_data){
+    }
+    elsif ($attributePage->{internalName} eq "snp_somatic"){
+      if(defined $attributePage->{checkTable}) {
+        # check for special checkTable tag which allows us to remove unneeded sections
+        my $table = $ds_name.'__'.$attributePage->{checkTable};
+        if(exists $self->{tables}->{$table}) {
           1;
         }
         else {
@@ -2552,42 +2545,5 @@ sub check_pointer_dataset_table_exist {
   }
   return ($pointer_dataset_table);
 }
-
-=head2 check_variation_data
-  Description: Check if a species has variation data
-  Arg        : Mart dataset name
-  Arg        : Variation database adaptor
-  Returntype : Boolean, 1 for has variation data or 0 if not
-  Exceptions : none
-  Caller     : general
-  Status     : Stable
-=cut
-
-sub check_variation_data {
-  my ($self,$dataset, $variation_dba)= @_;
-  my $has_variation=0;
-  my $has_somatic=0;
-  if (defined $variation_dba){
-    my $db_dbc = $variation_dba->dbc();
-    my $variation_db = $db_dbc->dbname; 
-    my $database_tables = $db_dbc->sql_helper()
-                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${variation_db}'" );
-    if (defined $database_tables->[0]) {
-      if ($database_tables->[0] > 0) {
-        $has_variation=1;
-        my $somatic_check= $db_dbc->sql_helper()
-                    ->execute_simple( -SQL =>"select count(*) from ${variation_db}.source where somatic_status='somatic'" );
-        if(defined $somatic_check->[0]) {
-          if ($somatic_check->[0] > 0) {
-              $has_somatic=1;
-          }
-        }
-      }
-    }
-    $db_dbc->disconnect_if_idle();
-  }
-  return ($has_variation,$has_somatic);
-}
-
 
 1;

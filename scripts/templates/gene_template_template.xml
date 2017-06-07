@@ -1398,7 +1398,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter for genes associated with Variants" displayName="VARIANT:" internalName="snp" useDefault="true">
+    <FilterGroup description="Filter for genes associated with Variants" displayName="VARIANT:" internalName="snp" useDefault="true" checkTable="mart_transcript_variation__dm">
       <FilterCollection displayName="Germline variant source" internalName="variation_source" useDefault="true">
         <FilterDescription displayName="limit to genes with germline variant data sources" displayType="list" field="name_2021" internalName="germ_line_variation_source" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
@@ -1851,7 +1851,7 @@
       <Replace id="homoeology_attributes"/>
     </AttributeGroup>
   </AttributePage>
-  <AttributePage description="Details on Gene - Variant Associations" displayName="Variant (Germline)" internalName="snp" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls" useDefault="true">
+  <AttributePage description="Details on Gene - Variant Associations" displayName="Variant (Germline)" internalName="snp" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls" useDefault="true" checkTable="mart_transcript_variation__dm">
     <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene" useDefault="true">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes" useDefault="true">
         <AttributeDescription internalName="snp_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
@@ -1911,7 +1911,7 @@
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
-  <AttributePage description="Details on Gene - Variant Associations" displayName="Variant (Somatic)" internalName="snp_somatic" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls" useDefault="true">
+  <AttributePage description="Details on Gene - Variant Associations" displayName="Variant (Somatic)" internalName="snp_somatic" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls" useDefault="true" checkTable="mart_transcript_variation_som__dm">
     <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene_som" useDefault="true">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes_som" useDefault="true">
         <AttributeDescription internalName="snp_som_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
