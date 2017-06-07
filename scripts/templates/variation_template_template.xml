@@ -124,7 +124,7 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="&lt;a href='http://www.ensembl.org/info/docs/variation/index.html#nsSNP'&gt;PolyPhen score&lt;/a&gt; &gt;= [1 most damaging, 0 least damaging]" hidden="false" internalName="polyphen_score" useDefault="true">
+      <FilterCollection displayName="PolyPhen score &gt;= [1 most damaging, 0 least damaging]" hidden="false" internalName="polyphen_score" useDefault="true">
         <FilterDescription displayName="PolyPhen score &gt;=" displayType="text" field="polyphen_score_2090" hidden="false" internalName="polyphen_score" key="variation_feature_id_2026_key" legal_qualifiers="&gt;=" qualifier="&gt;=" tableConstraint="mart_transcript_variation__dm" type="text" useDefault="true"/>
       </FilterCollection>
       <FilterCollection displayName="Global minor allele frequency &lt;=" internalName="global_minor_allele_frequency" useDefault="true">
@@ -162,7 +162,7 @@
         <FilterDescription displayType="list" hidden="false" internalName="so_consequence_name" legal_qualifiers="=" multipleValues="1" pointerDataset="closure_SO_mini" pointerFilter="so_mini_parent_name" pointerInterface="default" qualifier="=" style="menu" type="list" useDefault="true"/>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup displayName="REGULATORY REGION ASSOCIATED INFORMATION FILTERS:" internalName="regulatory_region_associated_info" useDefault="true">
+    <FilterGroup displayName="REGULATORY REGION ASSOCIATED INFORMATION FILTERS:" internalName="regulatory_region_associated_info" useDefault="true" checkTable="regulatory_feature_variation__dm">
       <FilterCollection displayName="Filter by Regulatory stable ID(s) (e.g. ENSR00001280467) [Max 500 advised]" internalName="feature_stable_id" useDefault="true">
         <FilterDescription displayName="Filter by Regulatory stable ID(s) (e.g. ENSR00001529861) [Max 500 ADVISED]" displayType="text" field="feature_stable_id_20126" hidden="false" internalName="feature_stable_id" key="variation_feature_id_2026_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="regulatory_feature_variation__dm" type="list" useDefault="true"/>
       </FilterCollection>
@@ -188,8 +188,8 @@
         <AttributeDescription displayName="Variant supporting evidence" field="evidence_2025" internalName="validated" key="variation_id_2025_key" maxLength="22" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Ancestral allele" field="ancestral_allele_2025" internalName="allele_1" key="variation_id_2025_key" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Minor allele (ALL)" field="minor_allele_2025" internalName="minor_allele" key="variation_id_2025_key" maxLength="1" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="1000 Genomes global minor allele frequency (all individuals)" field="minor_allele_freq_2025" internalName="minor_allele_freq" key="variation_id_2025_key" maxLength="12" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="1000 Genomes global minor allele count (all individuals)" field="minor_allele_count_2025" internalName="minor_allele_count" key="variation_id_2025_key" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Global minor allele frequency (all individuals)" field="minor_allele_freq_2025" internalName="minor_allele_freq" key="variation_id_2025_key" maxLength="12" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Global minor allele count (all individuals)" field="minor_allele_count_2025" internalName="minor_allele_count" key="variation_id_2025_key" maxLength="10" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Clinical significance" field="clinical_significance_2025" internalName="clinical_significance" key="variation_id_2025_key" maxLength="255" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
       <AttributeCollection displayName="Variant synonyms" internalName="variation_synonym" useDefault="true">
