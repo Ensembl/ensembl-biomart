@@ -3576,7 +3576,7 @@
 		<maskedColumn tableKey="translation__object_xref_1" colKey="1.18.0.db_release"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="1.18.0.db_release" newName="db_release_1018"/>
 		<maskedColumn tableKey="translation__object_xref_1" colKey="1.40.0.ensembl_object_type"/>
-		<renamedColumn tableKey="translation__object_xref_1" colKey="1.40.0.ensembl_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="translation__object_xref_1" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
 		<maskedColumn tableKey="translation__object_xref_1" colKey="1.40.0.object_xref_id"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
 		<renamedColumn tableKey="translation__object_xref_1" colKey="10.6.0.is_root" newName="is_root_1006"/>
@@ -3652,7 +3652,7 @@
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_release"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.18.0.db_release" newName="db_release_1018"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.ensembl_object_type"/>
-		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.ensembl_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
 		<maskedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.object_xref_id"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
 		<renamedColumn tableKey="transcript__object_xref_1" colKey="10.6.0.is_root" newName="is_root_1006"/>
@@ -4082,7 +4082,7 @@
 		<maskedColumn tableKey="transcript__object_xref" colKey="1.18.0.secondary_db_table"/>
 		<renamedColumn tableKey="transcript__object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
 		<maskedColumn tableKey="transcript__object_xref" colKey="1.40.0.ensembl_object_type"/>
-		<renamedColumn tableKey="transcript__object_xref" colKey="1.40.0.ensembl_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="transcript__object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
 		<maskedColumn tableKey="transcript__object_xref" colKey="1.40.0.object_xref_id"/>
 		<renamedColumn tableKey="transcript__object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
 		<maskedColumn tableKey="transcript__object_xref" colKey="1.40.0.analysis_id"/>
@@ -4135,7 +4135,7 @@
 		<maskedColumn tableKey="gene__object_xref" colKey="1.18.0.secondary_db_table"/>
 		<renamedColumn tableKey="gene__object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
 		<maskedColumn tableKey="gene__object_xref" colKey="1.40.0.ensembl_object_type"/>
-		<renamedColumn tableKey="gene__object_xref" colKey="1.40.0.ensembl_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="gene__object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
 		<maskedColumn tableKey="gene__object_xref" colKey="1.40.0.object_xref_id"/>
 		<renamedColumn tableKey="gene__object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
 		<maskedColumn tableKey="gene__object_xref" colKey="1.40.0.analysis_id"/>
@@ -4268,7 +4268,7 @@
 		<maskedColumn tableKey="translation__object_xref" colKey="1.18.0.secondary_db_table"/>
 		<renamedColumn tableKey="translation__object_xref" colKey="1.18.0.secondary_db_table" newName="secondary_db_table_1018"/>
 		<maskedColumn tableKey="translation__object_xref" colKey="1.40.0.ensembl_object_type"/>
-		<renamedColumn tableKey="translation__object_xref" colKey="1.40.0.ensembl_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="translation__object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
 		<maskedColumn tableKey="translation__object_xref" colKey="1.40.0.object_xref_id"/>
 		<renamedColumn tableKey="translation__object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
 		<maskedColumn tableKey="translation__object_xref" colKey="1.40.0.analysis_id"/>
@@ -4312,7 +4312,7 @@
 		<maskedColumn tableKey="gene__object_xref_1" colKey="1.18.0.db_release"/>
 		<renamedColumn tableKey="gene__object_xref_1" colKey="1.18.0.db_release" newName="db_release_1018"/>
 		<maskedColumn tableKey="gene__object_xref_1" colKey="1.40.0.ensembl_object_type"/>
-		<renamedColumn tableKey="gene__object_xref_1" colKey="1.40.0.ensembl_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="gene__object_xref_1" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
 		<maskedColumn tableKey="gene__object_xref_1" colKey="1.40.0.object_xref_id"/>
 		<renamedColumn tableKey="gene__object_xref_1" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040"/>
 		<renamedColumn tableKey="gene__object_xref_1" colKey="10.6.0.is_root" newName="is_root_1006"/>
@@ -4388,12 +4388,12 @@
 		<renamedColumn tableKey="object_xref" colKey="1.20.0.description" newName="description_1020"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.20.0.created_date" newName="created_date_1020"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040_key"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.20.0.stable_id" newName="stable_id_1020"/>
 		<renamedColumn tableKey="object_xref" colKey="1.20.0.analysis_id" newName="analysis_id_1020"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="%PASS%_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="ensembl_id_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
@@ -4481,12 +4481,12 @@
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.64.0.source" newName="source_1064"/>
 		<renamedColumn tableKey="object_xref" colKey="1.64.0.stable_id" newName="stable_id_1064"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040_key"/>
 		<renamedColumn tableKey="object_xref" colKey="1.64.0.gene_id" newName="gene_id_1064"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.64.0.seq_region_end" newName="seq_region_end_1064"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="%PASS%_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="ensembl_id_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.64.0.version" newName="version_1064"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
@@ -4568,12 +4568,12 @@
 		<renamedColumn tableKey="object_xref" colKey="1.40.0.xref_id" newName="xref_id_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.68.0.seq_start" newName="seq_start_1068"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.68.0.start_exon_id" newName="start_exon_id_1068"/>
 		<renamedColumn tableKey="object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040_key"/>
 		<renamedColumn tableKey="object_xref" colKey="1.68.0.modified_date" newName="modified_date_1068"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="%PASS%_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="ensembl_id_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
@@ -4657,7 +4657,7 @@
 		<renamedColumn tableKey="object_xref" colKey="1.20.0.description" newName="description_1020"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.20.0.created_date" newName="created_date_1020"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040_key"/>
 		<renamedColumn tableKey="object_xref" colKey="10.6.0.is_root" newName="is_root_1006"/>
 		<renamedColumn tableKey="object_xref" colKey="10.6.0.subsets" newName="subsets_1006"/>
@@ -4666,7 +4666,7 @@
 		<renamedColumn tableKey="object_xref" colKey="1.20.0.stable_id" newName="stable_id_1020"/>
 		<renamedColumn tableKey="object_xref" colKey="1.20.0.analysis_id" newName="analysis_id_1020"/>
 		<renamedColumn tableKey="object_xref" colKey="10.6.0.term_id" newName="term_id_1006"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="%PASS%_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="ensembl_id_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
@@ -4752,10 +4752,10 @@
 		<renamedColumn tableKey="object_xref" colKey="1.40.0.xref_id" newName="xref_id_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.64.0.source" newName="source_1064"/>
 		<renamedColumn tableKey="object_xref" colKey="1.64.0.stable_id" newName="stable_id_1064"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.64.0.gene_id" newName="gene_id_1064"/>
 		<renamedColumn tableKey="object_xref" colKey="10.6.0.subsets" newName="subsets_1006"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="%PASS%_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="ensembl_id_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="10.6.0.ontology_id" newName="ontology_id_1006"/>
@@ -4849,7 +4849,7 @@
 		<renamedColumn tableKey="object_xref" colKey="1.40.0.xref_id" newName="xref_id_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_release" newName="db_release_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.68.0.seq_start" newName="seq_start_1068"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="%PASS%_object_type_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_object_type" newName="ensembl_object_type_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.68.0.start_exon_id" newName="start_exon_id_1068"/>
 		<renamedColumn tableKey="object_xref" colKey="1.40.0.object_xref_id" newName="object_xref_id_1040_key"/>
 		<renamedColumn tableKey="object_xref" colKey="1.68.0.modified_date" newName="modified_date_1068"/>
@@ -4858,7 +4858,7 @@
 		<renamedColumn tableKey="object_xref" colKey="10.6.0.is_obsolete" newName="is_obsolete_1006"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.secondary_db_name" newName="secondary_db_name_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="10.6.0.term_id" newName="term_id_1006"/>
-		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="%PASS%_id_1040"/>
+		<renamedColumn tableKey="object_xref" colKey="1.40.0.ensembl_id" newName="ensembl_id_1040"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.status" newName="status_1018"/>
 		<renamedColumn tableKey="object_xref" colKey="1.74.0.external_db_id" newName="external_db_id_1074"/>
 		<renamedColumn tableKey="object_xref" colKey="1.18.0.db_name" newName="db_name_1018"/>
