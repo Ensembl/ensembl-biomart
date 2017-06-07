@@ -41,8 +41,8 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Limit to study accession from DGVa (Please select DGVa from source filter above)" internalName="structural_variation_study" useDefault="true">
-        <FilterDescription displayName="DGVa study accession" displayType="list" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" style="menu" useDefault="true">
+      <FilterCollection displayName="Limit to study accession" internalName="structural_variation_study" useDefault="true">
+        <FilterDescription displayName="Study accession" displayType="list" field="name_20100" hidden="false" internalName="dgva_study_accession" key="structural_variation_id_2072_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" style="menu" useDefault="true">
             <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -67,7 +67,7 @@
   <AttributePage displayName="Structural variant informations" internalName="structural_variation" outFormats="html,txt,csv,tsv,xls" useDefault="true">
     <AttributeGroup displayName="STRUCTURAL VARIANT INFORMATIONS:" internalName="structural_variation" useDefault="true">
       <AttributeCollection displayName="Structural variant (SV) informations" internalName="structural_variation" useDefault="true">
-        <AttributeDescription default="true" displayName="DGVa study accession" field="name_20100" internalName="dgva_study_accession" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="Study accession" field="name_20100" internalName="dgva_study_accession" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription default="true" displayName="Structural variant name" field="variation_name_2072" internalName="sv_accession" key="structural_variation_id_2072_key" linkoutURL="exturl|/*species2*/StructuralVariation/Explore?sv=%s" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Structural variant type" field="value_2092" internalName="sv_variant_type" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Structural variant description" field="description_2021" internalName="description" key="structural_variation_id_2072_key" maxLength="255" tableConstraint="main" useDefault="true"/>
