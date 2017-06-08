@@ -1338,7 +1338,7 @@ sub write_attributes {
                   tableConstraint => $table }, {
                   displayName  => "$o_dataset->{display_name} gene name",
                   field        => "display_label_40273_r1",
-                  linkoutURL  => "exturl|/$dataset->{production_name}/Gene/Summary?g=%s|$o_dataset->{name}_homolog_ensembl_gene",
+                  linkoutURL  => "exturl|/$o_dataset->{production_name}/Gene/Summary?g=%s|$o_dataset->{name}_homolog_ensembl_gene",
                   internalName => "$o_dataset->{name}_homolog_associated_gene_name",
                   key          => "gene_id_1020_key",
                   maxLength    => "128",
