@@ -134,6 +134,7 @@ if ($opts->{template_name} eq 'genes'){
   else {
     $dba->dbc()->dbname() =~ m/^([a-z0-9]+)_.+/;
     my $division = $1;
+    $division = 'vectorbase' if $division eq 'vb';
     $opts->{ini_file} ||= "https://raw.githubusercontent.com/EnsemblGenomes/eg-web-${division}/master/conf/ini-files/DEFAULTS.ini";
   }
 }
