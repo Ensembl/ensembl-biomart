@@ -28,6 +28,8 @@ use Carp;
 use Log::Log4perl qw(:easy);
 use List::MoreUtils qw(any);
 use Data::Dumper;
+use FindBin;
+use lib "$FindBin::Bin/../modules";
 use DbiUtils;
 use MartUtils;
 use Getopt::Long;
