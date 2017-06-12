@@ -27,6 +27,8 @@ use DBI;
 use Data::Dumper;
 use Carp;
 use Log::Log4perl qw(:easy);
+use FindBin;
+use lib "$FindBin::Bin/../modules";
 use DbiUtils;
 use MartUtils;
 use Cwd;
@@ -36,6 +38,8 @@ use Getopt::Long;
 Log::Log4perl->easy_init($DEBUG);
 
 my $logger = get_logger();
+
+my $template_dir = "$FindBin::Bin/templates";
 
 # db params
 
@@ -167,8 +171,8 @@ print $species_paralog_sql;
 
 my $species_homolog_sth = $mart_handle->prepare($species_homolog_sql);
 my $species_paralog_sth = $mart_handle->prepare($species_paralog_sql);
-my $homolog_sql = './templates/update_homo.sql.tmp';
-my $paralog_sql = './templates/update_para.sql.tmp';
+my $homolog_sql = "$template_dir/update_homo.sql.tmp";
+my $paralog_sql = "$template_dir/update_para.sql.tmp";
 
 my $get_species_id_sth = $mart_handle->prepare('select species_id from dataset_names where name=?');
 my $get_species_clade_sth = $mart_handle->prepare('select src_dataset from dataset_names where name=?');

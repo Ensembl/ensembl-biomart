@@ -23,6 +23,8 @@
 
 use warnings;
 use strict;
+use FindBin;
+use lib "$FindBin::Bin/../modules";
 use Bio::EnsEMBL::BioMart::MartService;
 use Test::More;
 use Try::Tiny;
