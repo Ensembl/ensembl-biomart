@@ -35,6 +35,8 @@ use DBI;
 use Data::Dumper;
 use Carp;
 use Log::Log4perl qw(:easy);
+use FindBin;
+use lib "$FindBin::Bin/../modules";
 use DbiUtils;
 use MartUtils;
 use Cwd;
