@@ -32,10 +32,19 @@ use Getopt::Long;
 use Carp;
 use Pod::Usage;
 
+# Get parameters
 my $opts = {};
-GetOptions( $opts,        'old_uri=s', 'new_uri=s', 'old_mart=s',
-			'new_mart=s', 'dataset=s', 'filters',   'attributes',
-			'verbose|v',  'output_file' );
+GetOptions($opts,
+  'old_uri=s',
+  'new_uri=s',
+  'old_mart=s',
+	'new_mart=s',
+  'dataset=s',
+  'filters',
+  'attributes',		
+  'verbose|v',
+  'output_file'
+);
 if ( !defined $opts->{filters} && !defined $opts->{attributes} ) {
 	$opts->{filters}    = 1;
 	$opts->{attributes} = 1;
@@ -50,9 +59,10 @@ if (    !defined $opts->{old_mart}
 }
 
 if ( !defined $opts->{verbose} ) {
-	Test::More->builder->output( $opts->{output_file} || './test_mart.out' );
+	Test::More->builder->output( $opts->{output_file} || './compare_mart.out' );
 }
 
+# Being testing
 diag "Creating connection to old service " . $opts->{old_uri};
 my $old_srv =
   Bio::EnsEMBL::BioMart::MartService->new( -URL => $opts->{old_uri} );
@@ -219,7 +229,7 @@ __END__
 compare_marts.pl
 =head1 SYNOPSIS
 
-test_mart.pl -uri http://fungi.ensembl.org/biomart/martservice [-mart fungi_mart_15] [-dataset spombe_eg_gene] [-attributes] [-filters]
+test_mart.pl -uri http://fungi.ensembl.org/biomart/martservice [-mart fungi_mart_15] [-dataset spombe_eg_gene] [-attributes] [-filters] [-verbose] [-output_file ./compare_mart.out]
 
 =head1 OPTIONS
 
@@ -248,6 +258,14 @@ Test only filters
 =item B<-attributes>
 
 Test only attributes
+
+=item B<-verbose>
+
+Print output to STDOUT
+
+=item B<-output_file>
+
+Print output to a file. Not activated if -verbose. If neither -verbose not -output_file is provided, print to ./compare_mart.out.
 
 =back
 
