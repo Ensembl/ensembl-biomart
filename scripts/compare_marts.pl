@@ -23,6 +23,8 @@
 
 use warnings;
 use strict;
+use FindBin;
+use lib "$FindBin::Bin/../modules";
 use Bio::EnsEMBL::BioMart::MartService;
 use Test::More;
 use Data::Dumper;
@@ -30,10 +32,19 @@ use Getopt::Long;
 use Carp;
 use Pod::Usage;
 
+# Get parameters
 my $opts = {};
-GetOptions( $opts,        'old_uri=s', 'new_uri=s', 'old_mart=s',
-			'new_mart=s', 'dataset=s', 'filters',   'attributes',
-			'verbose|v',  'output_file' );
+GetOptions($opts,
+  'old_uri=s',
+  'new_uri=s',
+  'old_mart=s',
+	'new_mart=s',
+  'dataset=s',
+  'filters',
+  'attributes',		
+  'verbose|v',
+  'output_file'
+);
 if ( !defined $opts->{filters} && !defined $opts->{attributes} ) {
 	$opts->{filters}    = 1;
 	$opts->{attributes} = 1;
@@ -48,28 +59,27 @@ if (    !defined $opts->{old_mart}
 }
 
 if ( !defined $opts->{verbose} ) {
-	Test::More->builder->output( $opts->{output_file} || './test_mart.out' );
+	Test::More->builder->output( $opts->{output_file} || './compare_mart.out' );
 }
 
+# Being testing
 diag "Creating connection to old service " . $opts->{old_uri};
 my $old_srv =
   Bio::EnsEMBL::BioMart::MartService->new( -URL => $opts->{old_uri} );
 ok( defined $old_srv, "Checking old service " . $opts->{old_uri} . " exists" );
-diag "Creating connection to old service " . $opts->{new_uri};
+diag "Creating connection to new service " . $opts->{new_uri};
 my $new_srv =
   Bio::EnsEMBL::BioMart::MartService->new( -URL => $opts->{new_uri} );
-ok( defined $new_srv, "Checking old service " . $opts->{new_uri} . " exists" );
+ok( defined $new_srv, "Checking new service " . $opts->{new_uri} . " exists" );
 
 diag "Retrieving marts";
 my $old_mart = $old_srv->get_mart_by_name( $opts->{old_mart} );
 ok( defined $old_mart, "Checking old mart " . $opts->{old_mart} . " exists" );
-my $new_mart = $old_srv->get_mart_by_name( $opts->{new_mart} );
-ok( defined $new_mart, "Checking new mart " . $opts->{old_mart} . " exists" );
+my $new_mart = $new_srv->get_mart_by_name( $opts->{new_mart} );
+ok( defined $new_mart, "Checking new mart " . $opts->{new_mart} . " exists" );
 
 diag "Hashing marts";
 my $old_mart_hash = hash_mart($old_mart);
-ok( defined $old_mart_hash,
-	"Checking old mart " . $old_mart->name() . " can be hashed" );
 ok( defined $old_mart_hash,
 	"Checking old mart " . $old_mart->name() . " can be hashed" );
 my $new_mart_hash = hash_mart($new_mart);
@@ -141,9 +151,9 @@ for my $dataset (@new_datasets) {
 		# new vs old
 		for my $new_attribute ( values %$new_attributes ) {
 			my $old_attribute = $old_attributes->{ $new_attribute->name() };
-			ok( defined $new_attribute,
+			ok( defined $old_attribute,
 				"Checking for new attribute "
-				  . $old_attribute->name()
+				  . $new_attribute->name()
 				  . " in old dataset "
 				  . $dataset->name() );
 		}
@@ -219,7 +229,7 @@ __END__
 compare_marts.pl
 =head1 SYNOPSIS
 
-test_mart.pl -uri http://fungi.ensembl.org/biomart/martservice [-mart fungi_mart_15] [-dataset spombe_eg_gene] [-attributes] [-filters]
+test_mart.pl -uri http://fungi.ensembl.org/biomart/martservice [-mart fungi_mart_15] [-dataset spombe_eg_gene] [-attributes] [-filters] [-verbose] [-output_file ./compare_mart.out]
 
 =head1 OPTIONS
 
@@ -248,6 +258,14 @@ Test only filters
 =item B<-attributes>
 
 Test only attributes
+
+=item B<-verbose>
+
+Print output to STDOUT
+
+=item B<-output_file>
+
+Print output to a file. Not activated if -verbose. If neither -verbose not -output_file is provided, print to ./compare_mart.out.
 
 =back
 
