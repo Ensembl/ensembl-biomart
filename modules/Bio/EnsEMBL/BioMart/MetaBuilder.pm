@@ -2372,7 +2372,7 @@ sub generate_probes_list {
           if(defined $empty_probe_table->[0]) {
             if ($empty_probe_table->[0] > 0) {
               $probes_list = $db_dbc->sql_helper()->execute(
-                -SQL => "select distinct(LOWER(array_name)), array_vendor_and_name, is_probeset_array from ${regulation_db}.MTMP_probestuff_helper order by array_vendor_and_name",
+                -SQL => "select distinct(replace(LOWER(array_name),' ','')), replace(array_vendor_and_name,' ',''), is_probeset_array from ${regulation_db}.MTMP_probestuff_helper order by array_vendor_and_name",
               );
             }
           }
