@@ -92,7 +92,6 @@ sub pipeline_analyses {
       {
         -logic_name => 'dataset_factory',
         -module     => 'Bio::EnsEMBL::BioMart::DatasetFactory',
-        -wait_for   => 'generate_names',
         -parameters => { 'mart'     => $self->o('mart'),
                        'user'     => $self->o('user'),
                        'pass'     => $self->o('pass'),
@@ -101,7 +100,6 @@ sub pipeline_analyses {
                        'datasets' => $self->o('datasets'),
                        'base_dir' => $self->o('base_dir'),
                        'registry' => $self->o('registry'), },
-        -input_ids => [ {} ],
         -flow_into => { 
           1  => WHEN(
             '(#dataset# ne "dmelanogaster")' => [ 'AddExtraMartIndexesExternalFeatures', 'AddExtraMartIndexesAnnotatedFeatures', 'AddExtraMartIndexesMiRNATargetFeatures', 'AddExtraMartIndexesMotifFeatures', 'AddExtraMartIndexesRegulatoryFeatures' ],
