@@ -131,10 +131,10 @@ sub get_list {
     my @list = ();
     my $sql;
     if ($opts->{mart} =~ "mouse_mart" and $opts->{division} eq "Ensembl") {
-      $sql = 'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1 and species.species_prefix like "%MGP_%"'
+      $sql = 'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1 and species.production_name like "%mus_musculus_%"'
     }
     elsif ($opts->{mart} =~ "ensembl_mart" and $opts->{division} eq "Ensembl") {
-      $sql = 'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1 and species.species_prefix not like "%MGP_%"'
+      $sql = 'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1 and species.production_name not like "%mus_musculus_%"'
     }
     else {
       $sql = 'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1'
