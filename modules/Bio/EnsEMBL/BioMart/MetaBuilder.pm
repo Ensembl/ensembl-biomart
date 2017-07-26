@@ -436,11 +436,14 @@ sub write_filters {
   #Defining Annotation filters
   my $annotations = {
     1 => {display_name => 'Gene stable ID(s)', field =>'stable_id_1023', table => $ds_name.'__gene__main', internal_name => 'gene_id'},
-    2 => {display_name => 'Transcript stable ID(s)', field => 'stable_id_1066', table => $ds_name.'__transcript__main', internal_name => 'transcript_id' },
-    3 => {display_name => 'Protein stable ID(s)', field => 'stable_id_1070', table => $ds_name.'__translation__main', internal_name => 'peptide_id' },
-    4 => {display_name => 'Exon ID(s)', field => 'stable_id_1016', table => $ds_name.'__exon_transcript__dm', internal_name => 'exon_id' },
-    5 => {display_name => 'Gene Name(s)', field => 'display_label_1074', table => $ds_name.'__gene__main', internal_name => 'external_gene_name' },
-    6 => {display_name => 'Transcript Name(s)', field => 'display_label_1074_r1', table => $ds_name.'__transcript__main', internal_name => 'external_transcript_name' },
+    2 => {display_name => 'Gene stable ID(s) with version', field =>'gene__main_stable_id_version', table => $ds_name.'__gene__main', internal_name => 'gene_id_version'},
+    3 => {display_name => 'Transcript stable ID(s)', field => 'stable_id_1066', table => $ds_name.'__transcript__main', internal_name => 'transcript_id' },
+    4 => {display_name => 'Transcript stable ID(s) with version', field => 'transcript__main_stable_id_version', table => $ds_name.'__transcript__main', internal_name => 'transcript_id_version' },
+    5 => {display_name => 'Protein stable ID(s)', field => 'stable_id_1070', table => $ds_name.'__translation__main', internal_name => 'peptide_id' },
+    6 => {display_name => 'Protein stable ID(s) with version', field => 'translation__main_stable_id_version', table => $ds_name.'__translation__main', internal_name => 'peptide_id_version' },
+    7 => {display_name => 'Exon ID(s)', field => 'stable_id_1016', table => $ds_name.'__exon_transcript__dm', internal_name => 'exon_id' },
+    8 => {display_name => 'Gene Name(s)', field => 'display_label_1074', table => $ds_name.'__gene__main', internal_name => 'external_gene_name' },
+    9 => {display_name => 'Transcript Name(s)', field => 'display_label_1074_r1', table => $ds_name.'__transcript__main', internal_name => 'external_transcript_name' },
   };
   # Defining Extrain protein domains
   my $extra_protein_domains = {
