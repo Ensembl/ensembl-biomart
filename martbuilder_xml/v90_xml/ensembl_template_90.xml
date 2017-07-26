@@ -4212,7 +4212,6 @@
 		<maskedColumn tableKey="transcript__translation" colKey="description_1018"/>
 		<indexedColumn tableKey="transcript__translation" colKey="stable_id_1066"/>
 		<maskedColumn tableKey="transcript__translation" colKey="coord_system_id_1059"/>
-		<maskedColumn tableKey="transcript__translation" colKey="1.68.0.version"/>
 		<renamedColumn tableKey="transcript__translation" colKey="1.68.0.version" newName="version_1068"/>
 		<maskedColumn tableKey="transcript__translation" colKey="version_1074_r1"/>
 		<renamedColumn tableKey="transcript__translation" colKey="1.68.0.end_exon_id" newName="end_exon_id_1068"/>
