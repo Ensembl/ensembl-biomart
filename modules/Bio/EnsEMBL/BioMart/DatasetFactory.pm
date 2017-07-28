@@ -21,6 +21,9 @@ sub run {
         -SQL=>"select distinct(name),src_db from dataset_names"
                              )}) {
         my ($dataset,$core) = @$dataset_names;
+        if ($self->param('mart') =~ m/mouse_mart/i and ($dataset eq "mmusculus" or $dataset eq "rnorvegicus")) {
+            next;
+        }
         push @$output_ids, {dataset=>$dataset,core=>$core}
     }
     $self->param('output_ids',$output_ids);
