@@ -28,6 +28,8 @@ use Carp;
 use Log::Log4perl qw(:easy);
 use List::MoreUtils qw(any);
 use Data::Dumper;
+use FindBin;
+use lib "$FindBin::Bin/../modules";
 use DbiUtils;
 use MartUtils;
 use Getopt::Long;
@@ -98,11 +100,12 @@ else {
 			   '%\_transcript\_variation\_som\_\_dm' => ['seq_region_start_2026'],
 			   '%\_\_go\_%\_\_dm'               => ['dbprimary_acc_1074'],
 			   '%\_\_tra\_%\_\_dm'               => ['value_1065'],
-			   '%\_\ox\_%\_\_dm'               => ['dbprimary_acc_1074']);
+			   '%\_\ox\_%\_\_dm'               => ['dbprimary_acc_1074'],
+			   '%\_\_phenotype\_\_dm'       => ['description_20125']);
   %columns_to_tidy = (
-  	           '%\_\_gene\_\_main'    => ['display_label_1074','db_display_name_1018'],
-  	           '%\_\_transcript\_\_main'    => ['display_label_1074_r1','db_display_name_1018_r1'],
-  	           '%\_\_translation\_\_main'    => ['stable_id_408','description_408','family_bool']
+  	           '%\_\_gene\_\_main'    => ['display_label_1074','db_display_name_1018','phenotype_bool'],
+  	           '%\_\_transcript\_\_main'    => ['display_label_1074_r1','db_display_name_1018_r1','phenotype_bool'],
+  	           '%\_\_translation\_\_main'    => ['stable_id_408','description_408','family_bool','phenotype_bool']
   );
 }
 

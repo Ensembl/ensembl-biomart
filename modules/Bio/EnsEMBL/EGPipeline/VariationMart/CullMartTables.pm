@@ -34,7 +34,10 @@ sub run {
   }
 
   foreach my $table (keys %snp_cull_columns) {
-    $self->cull_column($table, $snp_cull_columns{$table});
+    foreach my $column (@{$snp_cull_columns{$table}})
+    {
+      $self->cull_column($table, $column);
+    }
   }
 
   if ($self->param_required('species') eq 'homo_sapiens'){

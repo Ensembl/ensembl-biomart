@@ -406,11 +406,14 @@ sub write_filters {
   #Defining Annotation filters
   my $annotations = {
     1 => {display_name => 'Gene stable ID(s)', field =>'stable_id_1023', table => $ds_name.'__gene__main', internal_name => 'gene_id'},
-    2 => {display_name => 'Transcript stable ID(s)', field => 'stable_id_1066', table => $ds_name.'__transcript__main', internal_name => 'transcript_id' },
-    3 => {display_name => 'Protein stable ID(s)', field => 'stable_id_1070', table => $ds_name.'__translation__main', internal_name => 'peptide_id' },
-    4 => {display_name => 'Exon ID(s)', field => 'stable_id_1016', table => $ds_name.'__exon_transcript__dm', internal_name => 'exon_id' },
-    5 => {display_name => 'Gene Name(s)', field => 'display_label_1074', table => $ds_name.'__gene__main', internal_name => 'external_gene_name' },
-    6 => {display_name => 'Transcript Name(s)', field => 'display_label_1074_r1', table => $ds_name.'__transcript__main', internal_name => 'external_transcript_name' },
+    2 => {display_name => 'Gene stable ID(s) with version', field =>'gene__main_stable_id_version', table => $ds_name.'__gene__main', internal_name => 'gene_id_version'},
+    3 => {display_name => 'Transcript stable ID(s)', field => 'stable_id_1066', table => $ds_name.'__transcript__main', internal_name => 'transcript_id' },
+    4 => {display_name => 'Transcript stable ID(s) with version', field => 'transcript__main_stable_id_version', table => $ds_name.'__transcript__main', internal_name => 'transcript_id_version' },
+    5 => {display_name => 'Protein stable ID(s)', field => 'stable_id_1070', table => $ds_name.'__translation__main', internal_name => 'peptide_id' },
+    6 => {display_name => 'Protein stable ID(s) with version', field => 'translation__main_stable_id_version', table => $ds_name.'__translation__main', internal_name => 'peptide_id_version' },
+    7 => {display_name => 'Exon ID(s)', field => 'stable_id_1016', table => $ds_name.'__exon_transcript__dm', internal_name => 'exon_id' },
+    8 => {display_name => 'Gene Name(s)', field => 'display_label_1074', table => $ds_name.'__gene__main', internal_name => 'external_gene_name' },
+    9 => {display_name => 'Transcript Name(s)', field => 'display_label_1074_r1', table => $ds_name.'__transcript__main', internal_name => 'external_transcript_name' },
   };
   # Defining Extrain protein domains
   my $extra_protein_domains = {
@@ -1224,19 +1227,8 @@ sub write_filters {
       } ## end for my $filterCollection...
 
       if ( $nC > 0 ) {
-        #Check if species has variation data
-        if($fgo->{internalName} eq "snp") {
-          my ($has_variation_data,$has_variation_somatic_data) = $self->check_variation_data($dataset, $variation_dba);
-          if ($has_variation_data){
-            1;
-          }
-          else {
-            $logger->info( "No Variation data for this dataset, removing filter");
-            $self->{delete}{$dataset->{name}."_".$fgo->{internalName}}=1;
-          }
-        } 
         if(defined $fgo->{checkTable}) {
-          # check for special checkTable tag which allows us to remove unneeded ontology filters which only exist as closures
+          # check for special checkTable tag which allows us to remove unneeded filters (e.g: ontology, variation filters in gene mart)
           my $table = $ds_name.'__'.$fgo->{checkTable};
           if(exists $self->{tables}->{$table}) {
             delete $fgo->{checkTable};
@@ -1264,11 +1256,11 @@ sub write_attributes {
   for my $attributePage ( @{ elem_as_array($templ_in->{AttributePage}) } ) {
     $logger->debug( "Processing filterPage " . $attributePage->{internalName} );
     # Check if the species has variation data, else skip this page.
-    if($attributePage->{internalName} eq "snp" or $attributePage->{internalName} eq "snp_somatic") {
-      my ($has_variation_data,$has_variation_somatic_data) = $self->check_variation_data($dataset, $variation_dba);
-      if ($attributePage->{internalName} eq "snp")
-      {
-        if ($has_variation_data){
+    if ($attributePage->{internalName} eq "snp") {
+      if(defined $attributePage->{checkTable}) {
+        # check for special checkTable tag which allows us to remove unneeded sections
+        my $table = $ds_name.'__'.$attributePage->{checkTable};
+        if(exists $self->{tables}->{$table}) {
           1;
         }
         else {
@@ -1276,8 +1268,12 @@ sub write_attributes {
           next;
         }
       }
-      elsif ($attributePage->{internalName} eq "snp_somatic"){
-        if ($has_variation_somatic_data){
+    }
+    elsif ($attributePage->{internalName} eq "snp_somatic"){
+      if(defined $attributePage->{checkTable}) {
+        # check for special checkTable tag which allows us to remove unneeded sections
+        my $table = $ds_name.'__'.$attributePage->{checkTable};
+        if(exists $self->{tables}->{$table}) {
           1;
         }
         else {
@@ -1315,7 +1311,7 @@ sub write_attributes {
                   tableConstraint => $table }, {
                   displayName  => "$o_dataset->{display_name} gene name",
                   field        => "display_label_40273_r1",
-                  linkoutURL  => "exturl|/$dataset->{production_name}/Gene/Summary?g=%s|$o_dataset->{name}_homolog_ensembl_gene",
+                  linkoutURL  => "exturl|/$o_dataset->{production_name}/Gene/Summary?g=%s|$o_dataset->{name}_homolog_ensembl_gene",
                   internalName => "$o_dataset->{name}_homolog_associated_gene_name",
                   key          => "gene_id_1020_key",
                   maxLength    => "128",
@@ -1612,6 +1608,8 @@ sub write_attributes {
             $logger->info(
                             "Generating data for $aco->{internalName} attributes");
             foreach my $xref (@{ $xref_list }) {
+              #Skipping GO and GOA attributes since they have their own attribute section
+              next if ($xref->[0] eq "go" or $xref->[0] eq "goslim_goa");
               my $table = $ds_name."__ox_".$xref->[0]."__dm";
               if ( defined $self->{tables}->{$table} ) {
                 my $key = $self->get_table_key($table);
@@ -2347,7 +2345,7 @@ sub generate_probes_list {
           if(defined $empty_probe_table->[0]) {
             if ($empty_probe_table->[0] > 0) {
               $probes_list = $db_dbc->sql_helper()->execute(
-                -SQL => "select distinct(LOWER(array_name)), array_vendor_and_name, is_probeset_array from ${regulation_db}.MTMP_probestuff_helper order by array_vendor_and_name",
+                -SQL => "select distinct(replace(LOWER(array_name),' ','')), replace(array_vendor_and_name,' ',''), is_probeset_array from ${regulation_db}.MTMP_probestuff_helper order by array_vendor_and_name",
               );
             }
           }
@@ -2476,11 +2474,19 @@ sub parse_ini_file {
     my $cfg = Config::IniFiles->new( -file => \$ini );
     if ( defined $cfg ) {
       for my $parameter ( $cfg->Parameters($section) ) {
-        my $value = $cfg->val($section,$parameter);
+        my @values = $cfg->val($section,$parameter);
         # Remove any / from parameter name
         $parameter  =~ s/\///g;
-        # Making sure that the parameter name is lowercase
-        $parsed_data{lc($parameter)}=$value;
+        #Because we are lowercasing xrefs, we can end up replacing hash key
+        if (exists $parsed_data{lc($parameter)})
+        {
+          1;
+        }
+        else{
+          # Making sure that the parameter name is lowercase
+          # When the file contains multiple URL, the last one seems to be the one displayed on the website
+          $parsed_data{lc($parameter)}=$values[-1];
+        }
       }
     }
   }
@@ -2512,42 +2518,5 @@ sub check_pointer_dataset_table_exist {
   }
   return ($pointer_dataset_table);
 }
-
-=head2 check_variation_data
-  Description: Check if a species has variation data
-  Arg        : Mart dataset name
-  Arg        : Variation database adaptor
-  Returntype : Boolean, 1 for has variation data or 0 if not
-  Exceptions : none
-  Caller     : general
-  Status     : Stable
-=cut
-
-sub check_variation_data {
-  my ($self,$dataset, $variation_dba)= @_;
-  my $has_variation=0;
-  my $has_somatic=0;
-  if (defined $variation_dba){
-    my $db_dbc = $variation_dba->dbc();
-    my $variation_db = $db_dbc->dbname; 
-    my $database_tables = $db_dbc->sql_helper()
-                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${variation_db}'" );
-    if (defined $database_tables->[0]) {
-      if ($database_tables->[0] > 0) {
-        $has_variation=1;
-        my $somatic_check= $db_dbc->sql_helper()
-                    ->execute_simple( -SQL =>"select count(*) from ${variation_db}.source where somatic_status='somatic'" );
-        if(defined $somatic_check->[0]) {
-          if ($somatic_check->[0] > 0) {
-              $has_somatic=1;
-          }
-        }
-      }
-    }
-    $db_dbc->disconnect_if_idle();
-  }
-  return ($has_variation,$has_somatic);
-}
-
 
 1;

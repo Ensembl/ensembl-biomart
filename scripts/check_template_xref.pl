@@ -28,6 +28,8 @@ use Carp;
 use Log::Log4perl qw(:easy);
 use List::MoreUtils qw(any);
 use Data::Dumper;
+use FindBin;
+use lib "$FindBin::Bin/../modules";
 use DbiUtils;
 use Getopt::Long;
 use XML::DOM;
@@ -58,7 +60,7 @@ my $db_port;
 my $db_user;
 my $db_pwd;
 my $mart_db;
-my $template = './templates/eg_template_template.xml';
+my $template = $FindBin::Bin.'/templates/gene_template_template.xml';
 my $base_name = 'gene';
 
 sub usage {

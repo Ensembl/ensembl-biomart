@@ -43,6 +43,9 @@ sub create_index {
   my $mart_table = "$mart_table_prefix$table";
   my $sql_file = catdir($self->param_required('tables_dir'), $table, 'index.sql');
   
+  my $hive_dbc = $self->dbc;
+  $hive_dbc->disconnect_if_idle();
+
   my $index_sql = $self->read_string($sql_file);
   $index_sql =~ s/SPECIES_ABBREV/$mart_table_prefix/gm;
   my $mart_dbc = $self->mart_dbc;

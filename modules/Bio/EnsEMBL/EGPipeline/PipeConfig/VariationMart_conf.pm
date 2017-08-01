@@ -151,8 +151,7 @@ sub default_options {
     # snp_cull_tables should be defined in an inheriting module
 
     snp_cull_columns => {
-      'snp__mart_transcript_variation__dm'     => 'polyphen_score_2090',
-      'snp__mart_transcript_variation__dm'    => 'sift_score_2090',
+      'snp__mart_transcript_variation__dm'     => ['polyphen_score_2090','sift_score_2090'],
     },
 
     snp_som_cull_tables => {
@@ -251,7 +250,7 @@ sub pipeline_analyses {
 
     {
       -logic_name      => 'ScheduleSpecies',
-      -module          => 'Bio::EnsEMBL::Production::Pipeline::BaseSpeciesFactory',
+      -module          => 'Bio::EnsEMBL::Production::Pipeline::Common::SpeciesFactory',
       -parameters      => {
                             species     => $self->o('species'),
                             antispecies => $self->o('antispecies'),
@@ -453,7 +452,7 @@ sub pipeline_analyses {
       -parameters        => {
                               tables_dir => $self->o('tables_dir'),
                             },
-      -max_retry_count   => 0,
+      -max_retry_count   => 2,
       -analysis_capacity => 10,
       -rc_name           => 'normal',
     },
@@ -489,7 +488,6 @@ sub pipeline_analyses {
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
-      -wait_for          => ['CreateMartIndexes'],
       -can_be_empty      => 1,
       -flow_into         => ['AddSOMMetaData'],
       -rc_name           => 'normal',
