@@ -52,5 +52,9 @@ UPDATE MTMP_probestuff_helper SET array_vendor_and_name ='AGILENT_SurePrnt_GPL16
 
 UPDATE MTMP_probestuff_helper SET array_vendor_and_name ='AGILENT_059389_Chicken_GE_8X60k' WHERE array_vendor_and_name='AGILENT_AGILENT_059389_Custom_Chicken_GE_8X60k';
 
+-- Same for Barley hvulgare_eg_gene__eFG_AGILENT_AgilentBarleyGeneExpressionMicroarray__dm
+
+UPDATE MTMP_probestuff_helper SET array_vendor_and_name ='AGILENT_Barley Gene Expression Microarray' WHERE array_vendor_and_name='AGILENT_Agilent Barley Gene Expression Microarray';
+
 
 OPTIMIZE TABLE MTMP_probestuff_helper;

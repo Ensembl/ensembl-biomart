@@ -99,6 +99,9 @@ sub run_script {
     $self->warning("MTMP_$table already exists for this species");
   }
   else{
+    $dbc->disconnect_if_idle();
+    my $hive_dbc = $self->dbc;
+    $hive_dbc->disconnect_if_idle();
     ## Is this really how we're doing it?
     my $cmd = "perl -I$variation_import_lib $script ".
       " --host ".$dbc->host.
@@ -123,13 +126,16 @@ sub sample_genotype {
   my ($self) = @_;
   
   my $drop_mtmp = $self->param_required('drop_mtmp');
-  my $dbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
+  my $dbc = $self->get_DBAdaptor('variation')->dbc();
   my $tmp_dir = $self->param_required('tmp_dir');
   my $output_file = "$tmp_dir/mtmp_sg_".$self->param_required('species').".txt";
   
+  my $hive_dbc = $self->dbc;
+  $hive_dbc->disconnect_if_idle();
+
   if ($drop_mtmp) {
     my $drop_sql = 'DROP TABLE IF EXISTS MTMP_sample_genotype;';
-    $dbh->do($drop_sql) or $self->throw($dbh->errstr);
+    $dbc->db_handle->do($drop_sql) or $self->throw($dbc->db_handle->errstr);
   }
 
   my $create_sql =
@@ -159,12 +165,12 @@ sub sample_genotype {
   my $load_sql = 
   "LOAD DATA LOCAL INFILE '$output_file' INTO TABLE MTMP_sample_genotype;";
   
-  my $alleles = $dbh->selectall_arrayref($alleles_sql) or $self->throw($dbh->errstr);
+  my $alleles = $dbc->db_handle->selectall_arrayref($alleles_sql) or $self->throw($dbc->db_handle->errstr);
   my %alleles = map { shift @$_, [ @$_ ]} @$alleles;
   
   open my $fh, '>', $output_file or $self->throw("Error opening $output_file - $!");
   
-  my $sth = $dbh->prepare($genotypes_sql);
+  my $sth = $dbc->db_handle->prepare($genotypes_sql);
   $sth->execute();
   while (my ($variation_id, $compressed_genotypes) = $sth->fetchrow_array()) {
     my @genotypes = unpack("(ww)*", $compressed_genotypes);
@@ -184,10 +190,12 @@ sub sample_genotype {
   
   close $fh;
   
-  $dbh->do($create_sql) or $self->throw($dbh->errstr);
-  $dbh->do($load_sql) or $self->throw($dbh->errstr);
+  $dbc->db_handle->do($create_sql) or $self->throw($dbc->db_handle->errstr);
+  $dbc->db_handle->do($load_sql) or $self->throw($dbc->db_handle->errstr);
 
   unlink "$output_file" || warn "Failed to remove temp file: $output_file :$!\n";
+
+  $dbc->disconnect_if_idle();
 }
 
 sub supporting_structural_variation {
@@ -195,6 +203,10 @@ sub supporting_structural_variation {
 
  my $drop_mtmp = $self->param_required('drop_mtmp');
  my $dbc = $self->get_DBAdaptor('variation')->dbc();
+
+ my $hive_dbc = $self->dbc;
+ $hive_dbc->disconnect_if_idle();
+
  if ($drop_mtmp) {
    my $drop_sql = 'DROP VIEW IF EXISTS MTMP_supporting_structural_variation;';
    $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
@@ -238,17 +250,21 @@ sub supporting_structural_variation {
 sub order_consequences {
   my ($self) = @_;
   
-  my $dbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
+  my $hive_dbc = $self->dbc;
+  $hive_dbc->disconnect_if_idle();
+  my $dbc = $self->get_DBAdaptor('variation')->dbc();
   my $table = 'MTMP_transcript_variation';
   my $column = 'consequence_types';
-  my $sth = $dbh->column_info(undef, undef, $table, $column);
-  my $column_info = $sth->fetchrow_hashref() or $self->throw($dbh->errstr);
+  my $sth = $dbc->db_handle->column_info(undef, undef, $table, $column);
+  my $column_info = $sth->fetchrow_hashref() or $self->throw($dbc->db_handle->errstr);
   my $consequences = $$column_info{'mysql_type_name'};
   $consequences =~ s/set\((.*)\)/$1/;
   my @consequences = sort { lc($a) cmp lc($b) } split(/,/, $consequences);
   $consequences = join(',', @consequences);
   my $sql = "ALTER TABLE $table MODIFY COLUMN $column SET($consequences);";
-  $dbh->do($sql) or $self->throw($dbh->errstr);
+  $dbc->db_handle->do($sql) or $self->throw($dbc->db_handle->errstr);
+
+  $dbc->disconnect_if_idle();
 }
 
 # Check if a MTMP table already exists
@@ -257,13 +273,14 @@ sub order_consequences {
 sub does_table_exist {
   my ($self,$table_name) = @_;
   
-  my $dbh = $self->get_DBAdaptor('variation')->dbc()->db_handle;
-  my $sth = $dbh->table_info(undef, undef, "MTMP_$table_name", 'TABLE');
+  my $dbc = $self->get_DBAdaptor('variation')->dbc();
+  my $sth = $dbc->db_handle->table_info(undef, undef, "MTMP_$table_name", 'TABLE');
   
-  $sth->execute or $self->throw($dbh->errstr);
+  $sth->execute or $self->throw($dbc->db_handle->errstr);
   my @info = $sth->fetchrow_array;
   
   my $exists = scalar @info;
+  $dbc->disconnect_if_idle();
   return $exists;
 }
 

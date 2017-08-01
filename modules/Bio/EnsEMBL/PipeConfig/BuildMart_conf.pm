@@ -36,7 +36,8 @@ sub resource_classes {
 
 sub default_options {
   my ($self) = @_;
-  return { %{ $self->SUPER::default_options },
+  return {
+    %{ $self->SUPER::default_options },
            'user'      => undef,
            'pass'      => undef,
            'port'      => undef,
@@ -52,7 +53,14 @@ sub default_options {
            'registry'      => $self->o('registry'),
            'genomic_features_mart' => '',
            'max_dropdown' => '256',
-           'tables_dir' => $self->o('base_dir').'/ensembl-biomart/gene_mart/tables'};
+           'tables_dir' => $self->o('base_dir').'/ensembl-biomart/gene_mart/tables',
+
+    concat_columns => {
+      'gene__main'     => ['stable_id_1023','version_1020'],
+      'transcript__main'    => ['stable_id_1066','version_1064'],
+      'translation__main'      => ['stable_id_1070','version_1068'],
+    },
+  },
 }
 
 =head2 pipeline_wide_parameters
@@ -105,7 +113,7 @@ sub pipeline_analyses {
                        'registry' => $self->o('registry'), },
         -input_ids => [ {} ],
         -flow_into => { 1 => [ 'calculate_sequence', 'add_compara',
-                             'add_xrefs', 'add_slims', 'AddExtraMartIndexesGene', 'AddExtraMartIndexesTranscript', 'AddExtraMartIndexesTranslation' ],
+                             'add_xrefs', 'add_slims', 'AddExtraMartIndexesGene', 'AddExtraMartIndexesTranscript', 'AddExtraMartIndexesTranslation','ConcatStableIDColumns' ],
                       2 => ['tidy_tables','optimize','generate_meta'] },
         -meadow_type => 'LOCAL'
     },
@@ -238,6 +246,22 @@ sub pipeline_analyses {
                               tables_dir => $self->o('tables_dir'),
                               table => 'translation__main',
                               mart_table_prefix => '#dataset#'."_".$self->o('base_name'),
+                              mart_host => $self->o('host'),
+                              mart_port => $self->o('port'),
+                              mart_user => $self->o('user'),
+                              mart_pass => $self->o('pass'),
+                              mart_db_name =>  $self->o('mart'),
+                            },
+      -max_retry_count   => 0,
+      -analysis_capacity => 10,
+      -rc_name           => 'default',
+    },
+    {
+      -logic_name        => 'ConcatStableIDColumns',
+      -module            => 'Bio::EnsEMBL::BioMart::ConcatColumns',
+      -parameters        => {
+                              concat_columns => $self->o('concat_columns'),
+                              mart_table_prefix => '#dataset#'."_".$self->o('base_name')."__",
                               mart_host => $self->o('host'),
                               mart_port => $self->o('port'),
                               mart_user => $self->o('user'),

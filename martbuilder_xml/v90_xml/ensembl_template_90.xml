@@ -3213,6 +3213,7 @@
 		<indexedColumn tableKey="gene" colKey="1.20.0.biotype"/>
 		<renamedColumn tableKey="gene" colKey="1.20.0.biotype" newName="biotype_1020"/>
 		<renamedColumn tableKey="gene" colKey="1.20.0.version" newName="version_1020"/>
+		<maskedColumn tableKey="gene" colKey="1.20.0.status"/>
 		<indexedColumn tableKey="gene" colKey="1.20.0.status"/>
 		<renamedColumn tableKey="gene" colKey="1.20.0.status" newName="status_1020"/>
 		<renamedColumn tableKey="gene" colKey="1.20.0.seq_region_strand" newName="seq_region_strand_1020"/>
@@ -3912,6 +3913,7 @@
 		<maskedColumn tableKey="gene__transcript" colKey="description_1074"/>
 		<maskedColumn tableKey="gene__transcript" colKey="version_1074"/>
 		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.seq_region_start" newName="seq_region_start_1064"/>
+		<maskedColumn tableKey="gene__transcript" colKey="status_1020"/>
 		<maskedColumn tableKey="gene__transcript" colKey="1.64.0.modified_date"/>
 		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.modified_date" newName="modified_date_1064"/>
 		<renamedColumn tableKey="gene__transcript" colKey="1.74.0.display_label" newName="display_label_1074_r1"/>
@@ -3946,6 +3948,7 @@
 		<renamedColumn tableKey="gene__transcript" colKey="1.74.0.dbprimary_acc" newName="dbprimary_acc_1074_r1"/>
 		<maskedColumn tableKey="gene__transcript" colKey="1.18.0.priority"/>
 		<renamedColumn tableKey="gene__transcript" colKey="1.18.0.priority" newName="priority_1018_r1"/>
+		<maskedColumn tableKey="gene__transcript" colKey="1.64.0.status"/>
 		<indexedColumn tableKey="gene__transcript" colKey="1.64.0.status"/>
 		<renamedColumn tableKey="gene__transcript" colKey="1.64.0.status" newName="status_1064"/>
 		<maskedColumn tableKey="gene__transcript" colKey="1.18.0.type"/>
@@ -4147,6 +4150,8 @@
 		<maskedColumn tableKey="transcript__translation" colKey="description_1074"/>
 		<maskedColumn tableKey="transcript__translation" colKey="external_db_id_1074_r1"/>
 		<maskedColumn tableKey="transcript__translation" colKey="version_1074"/>
+		<maskedColumn tableKey="transcript__translation" colKey="status_1020"/>
+		<maskedColumn tableKey="transcript__translation" colKey="status_1064"/>
 		<renamedColumn tableKey="transcript__translation" colKey="1.68.0.seq_end" newName="seq_end_1068"/>
 		<maskedColumn tableKey="transcript__translation" colKey="modified_date_1064"/>
 		<maskedColumn tableKey="transcript__translation" colKey="secondary_db_table_1018"/>
@@ -4207,7 +4212,6 @@
 		<maskedColumn tableKey="transcript__translation" colKey="description_1018"/>
 		<indexedColumn tableKey="transcript__translation" colKey="stable_id_1066"/>
 		<maskedColumn tableKey="transcript__translation" colKey="coord_system_id_1059"/>
-		<maskedColumn tableKey="transcript__translation" colKey="1.68.0.version"/>
 		<renamedColumn tableKey="transcript__translation" colKey="1.68.0.version" newName="version_1068"/>
 		<maskedColumn tableKey="transcript__translation" colKey="version_1074_r1"/>
 		<renamedColumn tableKey="transcript__translation" colKey="1.68.0.end_exon_id" newName="end_exon_id_1068"/>

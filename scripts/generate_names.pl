@@ -27,6 +27,8 @@ use DBI;
 use Carp;
 use Log::Log4perl qw(:easy);
 use List::MoreUtils qw(any);
+use FindBin;
+use lib "$FindBin::Bin/../modules";
 use DbiUtils;
 use MartUtils;
 use Getopt::Long;
@@ -130,7 +132,7 @@ my %src_dbs;
 
 my $regexp = undef;
 
-if ( defined $div && ( $div eq 'vectorbase' || $div eq 'ensembl' ) ) {
+if ( defined $div && $div eq 'ensembl' ) {
   $regexp = ".*_core_${release}_.*";
 }
 elsif ( defined $div && $div eq 'parasite' ) {
@@ -189,7 +191,7 @@ if    ( $div eq 'protists' ) { $pId = 10000; $suffix = '_eg'; }
 elsif ( $div eq 'plants' )   { $pId = 20000; $suffix = '_eg'; }
 elsif ( $div eq 'metazoa' ) { $pId = 30000; $suffix = '_eg'; }
 elsif ( $div eq 'fungi' )    { $pId = 40000; $suffix = '_eg'; }
-elsif ( $div eq 'vectorbase' ) { $pId = 50000 }
+elsif ( $div eq 'vectorbase' ) { $pId = 50000; $suffix = '_eg'; }
 elsif ( $div eq 'parasite' )   { $pId = 60000 }
 elsif ( $div eq 'ensembl' ) {
   if ( defined $species_id_start ) {

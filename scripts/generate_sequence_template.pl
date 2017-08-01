@@ -27,6 +27,8 @@ use DBI;
 use Data::Dumper;
 use Carp;
 use Log::Log4perl qw(:easy);
+use FindBin;
+use lib "$FindBin::Bin/../modules";
 use DbiUtils;
 use MartUtils;
 use Cwd;
@@ -35,6 +37,7 @@ use Bio::EnsEMBL::Registry;
 
 Log::Log4perl->easy_init($DEBUG);
 
+my $template_dir = "$FindBin::Bin/templates";
 my $division = '';
 
 my $logger = get_logger();
@@ -54,10 +57,10 @@ sub write_dataset_xml {
     open my $dataset_file, '>', $fname or croak "Could not open $fname for writing";
     my $template_file_name;
     if ($division eq "Ensembl"){
-      $template_file_name = 'templates/dataset_sequence_template_ensembl.xml';
+      $template_file_name = "$template_dir/dataset_sequence_template_ensembl.xml";
     }
     else {
-      $template_file_name = 'templates/dataset_sequence_template.xml';
+      $template_file_name = "$template_dir/dataset_sequence_template.xml";
     }
     open my $template_file, '<', $template_file_name or croak "Could not open $template_file_name";
     while (my $line = <$template_file>) {
@@ -102,10 +105,10 @@ sub write_template_xml {
 	    $dataset->{dataset}.'"/>'."\n";
 	my $template_filename = $dataset->{template};
         if ($division eq "Ensembl"){
-	  write_replace_file('templates/sequence_template_template_ensembl.xml',"$output_dir/$template_filename",$dataset);
+	  write_replace_file("$template_dir/sequence_template_template_ensembl.xml","$output_dir/$template_filename",$dataset);
         }
         else{
-          write_replace_file('templates/sequence_template_template.xml',"$output_dir/$template_filename",$dataset);
+          write_replace_file("$template_dir/sequence_template_template.xml","$output_dir/$template_filename",$dataset);
         }
 	`gzip -c $output_dir/$template_filename > $output_dir/$template_filename.gz`;
     }

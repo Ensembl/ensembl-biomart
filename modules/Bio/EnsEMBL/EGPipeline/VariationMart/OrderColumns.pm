@@ -43,6 +43,9 @@ sub order_columns {
   
   my $mart_table_prefix = $self->param_required('mart_table_prefix');
   my $mart_table = "$mart_table_prefix\_$table";
+
+  my $hive_dbc = $self->dbc;
+  $hive_dbc->disconnect_if_idle();
   
   my $order_sql = "ALTER TABLE $mart_table ORDER by $columns;";
   my $mart_dbc = $self->mart_dbc;

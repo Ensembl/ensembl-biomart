@@ -191,16 +191,6 @@
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Status (gene)" internalName="status_coll" useDefault="true">
-        <FilterDescription displayName="Status (gene)" displayType="list" field="status_1020" internalName="status" key="gene_id_1020_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
-          <SpecificFilterContent internalName="replaceMe"/>
-        </FilterDescription>
-      </FilterCollection>
-      <FilterCollection displayName="Status (transcript)" internalName="transcript_status_coll" useDefault="true">
-        <FilterDescription displayName="Status (transcript)" displayType="list" field="status_1064" hidden="false" internalName="transcript_status" key="transcript_id_1064_key" legal_qualifiers="=" qualifier="=" style="menu" tableConstraint="main" type="list" useDefault="true">
-          <SpecificFilterContent internalName="replaceMe"/>
-        </FilterDescription>
-      </FilterCollection>
       <FilterCollection displayName="Transcript Support Level (TSL)" internalName="transcript_tsl" useDefault="true">
         <FilterDescription displayName="Transcript Support Level (TSL)" displayType="list" field="value_1065" internalName="transcript_tsl" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_tsl__dm" type="boolean" useDefault="true">
           <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
@@ -1398,7 +1388,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter for genes associated with Variants" displayName="VARIANT:" internalName="snp" useDefault="true">
+    <FilterGroup description="Filter for genes associated with Variants" displayName="VARIANT:" internalName="snp" useDefault="true" checkTable="mart_transcript_variation__dm">
       <FilterCollection displayName="Germline variant source" internalName="variation_source" useDefault="true">
         <FilterDescription displayName="limit to genes with germline variant data sources" displayType="list" field="name_2021" internalName="germ_line_variation_source" key="transcript_id_1064_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="mart_transcript_variation__dm" type="list" useDefault="true">
           <SpecificFilterContent internalName="replaceMe"/>
@@ -1425,8 +1415,11 @@
     <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene" useDefault="true">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes" useDefault="true">
         <AttributeDescription default="true" description="Stable ID of the Gene" displayName="Gene stable ID" field="stable_id_1023" internalName="ensembl_gene_id" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription description="Versionned stable ID of the Gene" displayName="Gene stable ID version" field="gene__main_stable_id_version" internalName="ensembl_gene_id_version" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s" maxLength="15" tableConstraint="main"/>
         <AttributeDescription default="true" description="Stable ID of the Transcript" displayName="Transcript stable ID" field="stable_id_1066" internalName="ensembl_transcript_id" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription description="Versionned stable ID of the Transcript" displayName="Transcript stable ID version" field="transcript__main_stable_id_version" internalName="ensembl_transcript_id_version" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s" maxLength="15" tableConstraint="main"/>
         <AttributeDescription displayName="Protein stable ID" field="stable_id_1070" internalName="ensembl_peptide_id" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/ProteinSummary?db=core;p=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Protein stable ID version" field="translation__main_stable_id_version" internalName="ensembl_peptide_id_version" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/ProteinSummary?db=core;p=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Exon stable ID" field="stable_id_1016" hidden="false" internalName="ensembl_exon_id" key="transcript_id_1064_key" maxLength="128" tableConstraint="exon_transcript__dm" useDefault="true"/>
         <AttributeDescription displayName="Canonical transcript stable ID(s)" field="stable_id_1066_clash" internalName="canonical_transcript_stable_id" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s" maxLength="128" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Gene description" field="description_1020" internalName="description" key="gene_id_1020_key" maxLength="550" tableConstraint="main" useDefault="true"/>
@@ -1454,13 +1447,11 @@
         <AttributeDescription displayName="Ensembl protein length" field="peptide_length" internalName="ensembl_peptide_length" key="transcript_id_1064_key" maxLength="10" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Transcript count" field="transcript_count" internalName="transcript_count" key="gene_id_1020_key" maxLength="16" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Translation count" field="translation_count" internalName="translation_count" key="transcript_id_1064_key" maxLength="11" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription description="Percentage gene GC content" displayName="% GC content" field="value_1022" internalName="percentage_gene_gc_content" key="gene_id_1020_key" maxLength="3" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription description="Percentage gene GC content" displayName="Gene % GC content" field="value_1022" internalName="percentage_gene_gc_content" key="gene_id_1020_key" maxLength="3" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Gene type" field="biotype_1020" internalName="gene_biotype" key="gene_id_1020_key" maxLength="40" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Transcript type" field="biotype_1064" internalName="transcript_biotype" key="transcript_id_1064_key" maxLength="40" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Source (gene)" field="source_1020" internalName="source" key="gene_id_1020_key" maxLength="20" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Source (transcript)" field="source_1064" internalName="transcript_source" key="transcript_id_1064_key" maxLength="20" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="Status (gene)" field="status_1020" internalName="status" key="gene_id_1020_key" maxLength="9" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="Status (transcript)" field="status_1064" internalName="transcript_status" key="transcript_id_1064_key" maxLength="19" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Version (gene)" field="version_1020" internalName="version" key="gene_id_1020_key" maxLength="5" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Version (transcript)" field="version_1064" internalName="transcript_version" key="transcript_id_1064_key" maxLength="5" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
@@ -1851,7 +1842,7 @@
       <Replace id="homoeology_attributes"/>
     </AttributeGroup>
   </AttributePage>
-  <AttributePage description="Details on Gene - Variant Associations" displayName="Variant (Germline)" internalName="snp" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls" useDefault="true">
+  <AttributePage description="Details on Gene - Variant Associations" displayName="Variant (Germline)" internalName="snp" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls" useDefault="true" checkTable="mart_transcript_variation__dm">
     <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene" useDefault="true">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes" useDefault="true">
         <AttributeDescription internalName="snp_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
@@ -1911,7 +1902,7 @@
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
-  <AttributePage description="Details on Gene - Variant Associations" displayName="Variant (Somatic)" internalName="snp_somatic" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls" useDefault="true">
+  <AttributePage description="Details on Gene - Variant Associations" displayName="Variant (Somatic)" internalName="snp_somatic" outFormats="html,*mouse_formatter1*,txt,csv,*mouse_formatter3*,tsv,*mouse_formatter2*,xls" useDefault="true" checkTable="mart_transcript_variation_som__dm">
     <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene_som" useDefault="true">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes_som" useDefault="true">
         <AttributeDescription internalName="snp_som_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
