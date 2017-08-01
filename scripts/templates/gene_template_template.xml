@@ -140,6 +140,14 @@
       </FilterCollection>
       <FilterCollection displayName="Input external references ID list [Max 500 advised]" internalName="id_list_limit_xrefs" useDefault="true">
         <FilterDescription displayName="Entries with following IDs" displayType="container" internalName="id_list_limit_xrefs_filters" type="id_list" useDefault="true">
+          <Option key="gene_id_1020_key" description="Filter to include genes with supplied list of Gene stable ID(s)" displayName="Gene stable ID(s) [e.g. *example*]" displayType="text" field="stable_id_1023" hidden="false" internalName="ensembl_gene_id" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
+          <Option key="gene_id_1020_key" description="Filter to include genes with supplied list of Gene stable ID(s) with version" displayName="Gene stable ID(s) with version [e.g. *example*]" displayType="text" field="gene__main_stable_id_version" hidden="false" internalName="ensembl_gene_id_version" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
+          <Option key="transcript_id_1064_key" description="Filter to include genes with supplied list of Transcript stable ID(s)" displayName="Transcript stable ID(s) [e.g. *example*]" displayType="text" field="stable_id_1066" hidden="false" internalName="ensembl_transcript_id" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
+          <Option key="transcript_id_1064_key" description="Filter to include genes with supplied list of Transcript stable ID(s) with version" displayName="Transcript stable ID(s) with version [e.g. *example*]" displayType="text" field="transcript__main_stable_id_version" hidden="false" internalName="ensembl_transcript_id_version" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
+          <Option key="translation_id_1068_key" description="Filter to include genes with supplied list of Protein stable ID(s)" displayName="Protein stable ID(s) [e.g. *example*]" displayType="text" field="stable_id_1070" hidden="false" internalName="ensembl_peptide_id" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
+          <Option key="transcript_id_1064_key" description="Filter to include genes with supplied list of Exon ID(s)" displayName="Exon ID(s) [e.g. *example*]" displayType="text" field="stable_id_1016" hidden="false" internalName="ensembl_exon_id" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="exon_transcript__dm" type="List" />
+          <Option key="gene_id_1020_key" description="Filter to include genes with supplied list of Gene Name(s)" displayName="Gene Name(s) [e.g. *example*]" displayType="text" field="display_label_1074" hidden="false" internalName="external_gene_name" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
+          <Option key="transcript_id_1064_key" description="Filter to include genes with supplied list of Transcript Name(s)" displayName="Transcript Name(s) [e.g. *example*]" displayType="text" field="display_label_1074_r1" hidden="false" internalName="external_transcript_name" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
           <Option internalName="id_list_limit_xrefs_filters"/>
         </FilterDescription>
       </FilterCollection>
@@ -1380,10 +1388,20 @@
       <FilterCollection displayName="Limit to genes ..." internalName="family_domain_id" useDefault="true">
         <FilterDescription displayType="container" internalName="id_list_protein_domain_and_feature_filters" type="boolean_list" useDefault="true">
           <SpecificFilterContent internalName="id_list_protein_domain_and_feature_filters"/>
+           <Option key="translation_id_1068_key" displayName="With Interpro ID(s)" displayType="list" field="interpro_bool" hidden="false" internalName="with_interpro" isSelectable="true" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" hidden="false" internalName="only" value="only" />
+            <Option displayName="Excluded" hidden="false" internalName="excluded" value="excluded" />
+          </Option>
+          <Option key="translation_id_1068_key" displayName="With Ensembl Protein Family ID(s)" displayType="list" field="family_bool" hidden="false" internalName="with_family" isSelectable="true" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
+            <Option displayName="Only" hidden="false" internalName="only" value="only" />
+            <Option displayName="Excluded" hidden="false" internalName="excluded" value="excluded" />
+          </Option>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection description="Limit to genes with these family or domain IDs:" displayName="Limit to genes with these family or domain IDs [Max 500 advised]" internalName="family_domain_id_list" useDefault="true">
         <FilterDescription displayName="Entries with following ID(s)" displayType="container" internalName="id_list_limit_protein_domain_filters" type="id_list" useDefault="true">
+           <Option key="translation_id_1068_key" description="Filter to include genes with supplied list of Interpro" displayName="Interpro ID(s) [e.g. *example*]" displayType="text" field="interpro_ac_1026" hidden="false" internalName="interpro" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="interpro__dm" type="List" />
+          <Option key="translation_id_1068_key" description="Filter to include genes with supplied list of Ensembl Protein Family" displayName="Ensembl Protein Family ID(s) [e.g. *example*]" displayType="text" field="stable_id_408" hidden="false" internalName="family" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
           <SpecificFilterContent internalName="id_list_limit_protein_domain_filters"/>
         </FilterDescription>
       </FilterCollection>

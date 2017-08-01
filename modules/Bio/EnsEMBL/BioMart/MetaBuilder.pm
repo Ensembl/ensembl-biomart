@@ -348,9 +348,6 @@ sub write_importables {
 
   return;
 } ## end sub write_importables
-my %species_exportables = map { $_ => 1 }
-  qw/genomic_region gene_exon_intron transcript_exon_intron gene_flank transcript_flank coding_gene_flank coding_transcript_flank 3utr 5utr cdna gene_exon peptide coding/;
-
 
 sub write_exportables {
   my ( $self, $dataset, $templ_in, $datasets, $template_name, $ds_name ) = @_;
@@ -403,23 +400,6 @@ sub write_exportables {
 sub write_filters {
   my ( $self, $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $variation_dba ) = @_;
   my $templ_out = $dataset->{config};
-  #Defining Annotation filters
-  my $annotations = {
-    1 => {display_name => 'Gene stable ID(s)', field =>'stable_id_1023', table => $ds_name.'__gene__main', internal_name => 'gene_id'},
-    2 => {display_name => 'Gene stable ID(s) with version', field =>'gene__main_stable_id_version', table => $ds_name.'__gene__main', internal_name => 'gene_id_version'},
-    3 => {display_name => 'Transcript stable ID(s)', field => 'stable_id_1066', table => $ds_name.'__transcript__main', internal_name => 'transcript_id' },
-    4 => {display_name => 'Transcript stable ID(s) with version', field => 'transcript__main_stable_id_version', table => $ds_name.'__transcript__main', internal_name => 'transcript_id_version' },
-    5 => {display_name => 'Protein stable ID(s)', field => 'stable_id_1070', table => $ds_name.'__translation__main', internal_name => 'peptide_id' },
-    6 => {display_name => 'Protein stable ID(s) with version', field => 'translation__main_stable_id_version', table => $ds_name.'__translation__main', internal_name => 'peptide_id_version' },
-    7 => {display_name => 'Exon ID(s)', field => 'stable_id_1016', table => $ds_name.'__exon_transcript__dm', internal_name => 'exon_id' },
-    8 => {display_name => 'Gene Name(s)', field => 'display_label_1074', table => $ds_name.'__gene__main', internal_name => 'external_gene_name' },
-    9 => {display_name => 'Transcript Name(s)', field => 'display_label_1074_r1', table => $ds_name.'__transcript__main', internal_name => 'external_transcript_name' },
-  };
-  # Defining Extrain protein domains
-  my $extra_protein_domains = {
-    1 => {display_name => 'Interpro', field =>'interpro_ac_1026', table => $ds_name.'__interpro__dm', internal_name => 'interpro'},
-    2 => {display_name => 'Ensembl Protein Family', field =>'stable_id_408', table => $ds_name.'__translation__main', internal_name => 'family'},
-  };
   $logger->info( "Writing filters for " . $dataset->{name} );
   # FilterPage
   for my $filterPage ( @{ elem_as_array( $templ_in->{FilterPage}) } ) {
@@ -598,45 +578,7 @@ sub write_filters {
           elsif ( $fdo->{internalName} eq 'id_list_limit_xrefs_filters' ) {
             $logger->info(
                             "Generating data for $fdo->{internalName}");
-            # Generating Filters for Gene, Transcript, Protein and exons
-            foreach my $annotation (sort keys %{$annotations}) {
-                my $field = $annotations->{$annotation}->{'field'};
-                my $table = $annotations->{$annotation}->{'table'};
-                if ( defined $self->{tables}->{$table} ) {
-                  my $key = $self->get_table_key($table);
-                  if ( defined $self->{tables}->{$table}->{$key} ) {
-                    if (defined $self->{tables}->{$table}->{$field} ) {
-                      my $example = $self->get_example($table,$field);
-                      # We need to keep historical internal name. This would make many people in BiomaRt community if the naming change
-                      my $internal_name;
-                      #For ensembl gene mart we need to use historical prefix.
-                      if ($annotations->{$annotation}->{'internal_name'} =~ "external")
-                      {
-                        $internal_name = $annotations->{$annotation}->{'internal_name'};
-                      }
-                      else{
-                        $internal_name = "ensembl_".$annotations->{$annotation}->{'internal_name'};
-                      }
-                      # add in if the column exists
-                      push @{ $fdo->{Option} }, {
-                        displayName  => $annotations->{$annotation}->{'display_name'}." [e.g. $example]",
-                        displayType  => "text",
-                        description  => "Filter to include genes with supplied list of $annotations->{$annotation}->{'display_name'}",
-                        field        => $field,
-                        hidden       => "false",
-                        internalName => $internal_name,
-                        isSelectable => "true",
-                        key          => $key,
-                        legal_qualifiers => "=,in",
-                        multipleValues   => "1",
-                        qualifier        => "=",
-                        tableConstraint  => $table,
-                        type             => "List" };
-                    }
-                  }
-                }
-              } ## end if ( defined $self->{tables...})
-              # Generation all the other xrefs
+              # Generation of the other xrefs
               foreach my $xref (@{ $xref_list }) {
                 my $table = $ds_name."__ox_".$xref->[0]."__dm";
                 if ( defined $self->{tables}->{$table} ) {
@@ -796,44 +738,6 @@ sub write_filters {
           elsif ( $fdo->{internalName} eq 'id_list_protein_domain_and_feature_filters' ) {
             $logger->info(
                             "Generating data for $fdo->{internalName}");
-            # Generating Filters for Extra Protein domains
-            foreach my $extra_protein_domain (sort keys %{$extra_protein_domains}) {
-                #We don't have a boolean filter for Ensembl Protein family
-                next if $extra_protein_domain eq "family";
-                my $field = $extra_protein_domains->{$extra_protein_domain}->{internal_name}."_bool";
-                my $table = $extra_protein_domains->{$extra_protein_domain}->{'table'};
-                 if ( defined $self->{tables}->{$table} ) {
-                  my $key = $self->get_table_key($table);
-                    if ( defined $self->{tables}->{$table}->{$key} ) {
-                      my $main_table=${ds_name}."__translation__main";
-                      if (defined $self->{tables}->{$main_table}->{$field} ) {
-                        # add in if the column exists
-                        push @{ $fdo->{Option} }, {
-                          displayName  => "With $extra_protein_domains->{$extra_protein_domain}->{'display_name'} ID(s)",
-                          displayType  => "list",
-                          field        => $field,
-                          hidden       => "false",
-                          internalName => "with_".$extra_protein_domains->{$extra_protein_domain}->{internal_name},
-                          isSelectable => "true",
-                          key          => $key,
-                          legal_qualifiers => "only,excluded",
-                          qualifier        => "only",
-                          style            => "radio",
-                          tableConstraint  => "main",
-                          type             => "boolean",
-                          Option           => [ {
-                                  displayName  => "Only",
-                                  hidden       => "false",
-                                  internalName => "only",
-                                  value        => "only" }, {
-                                  displayName  => "Excluded",
-                                  hidden       => "false",
-                                  internalName => "excluded",
-                                  value        => "excluded" } ] };
-                      }
-                    }
-                  }
-              } ## end foreach my $extra_protein_domain
               foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
                 my $field = "protein_feature_".$protein_domain_and_feature->[0]."_bool";
                 my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->[0]."__dm";
@@ -888,35 +792,7 @@ sub write_filters {
           elsif ( $fdo->{internalName} eq 'id_list_limit_protein_domain_filters' ) {
             $logger->info(
                             "Generating data for $fdo->{internalName}");
-            # Generating Filters for Gene, Transcript, Protein and exons
-            foreach my $extra_protein_domain (sort keys %{$extra_protein_domains}) {
-                my $field = $extra_protein_domains->{$extra_protein_domain}->{'field'};
-                my $table = $extra_protein_domains->{$extra_protein_domain}->{'table'};
-                if ( defined $self->{tables}->{$table} ) {
-                  my $key = $self->get_table_key($table);
-                  if ( defined $self->{tables}->{$table}->{$key} ) {
-                    if (defined $self->{tables}->{$table}->{$field} ) {
-                      my $example = $self->get_example($table,$field);
-                      # add in if the column exists
-                      push @{ $fdo->{Option} }, {
-                        displayName  => $extra_protein_domains->{$extra_protein_domain}->{'display_name'}." ID(s) [e.g. $example]",
-                        displayType  => "text",
-                        description  => "Filter to include genes with supplied list of $extra_protein_domains->{$extra_protein_domain}->{'display_name'}",
-                        field        => $field,
-                        hidden       => "false",
-                        internalName => $extra_protein_domains->{$extra_protein_domain}->{internal_name},
-                        isSelectable => "true",
-                        key          => $key,
-                        legal_qualifiers => "=,in",
-                        multipleValues   => "1",
-                        qualifier        => "=",
-                        tableConstraint  => $table,
-                        type             => "List" };
-                    }
-                  }
-                }
-              } ## end foreach  my $extra_protein_domain
-              # Generation all the other protein domains
+              # Generating protein domains
               foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
                 # Excluding protein features
                 next if !defined $protein_domain_and_feature->[2] or $protein_domain_and_feature->[2]  eq "{'type' => 'feature'}";
@@ -970,6 +846,11 @@ sub write_filters {
                      ->{ $opt->{key} } ) )
               {
                 $logger->debug( "Found option " . $opt->{internalName});
+                #### Replace *example* with an ID from the database
+                if (defined $opt->{displayName} and $opt->{displayName} =~ m/\*example\*/i ){
+                  my $example = $self->get_example($opt->{tableConstraint},$opt->{field});
+                  $opt->{displayName} =~ s/\*example\*/$example/;
+                }
                 push @{ $fdo->{Option} }, $opt;
                 for my $o ( @{ $option->{Option} } ) {
                   push @{ $opt->{Option} }, $o;
