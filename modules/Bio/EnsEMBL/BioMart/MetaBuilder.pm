@@ -240,7 +240,7 @@ sub process_dataset {
 
 sub has_main_tables {
   my ($self, $dataset, $templ_in, $ds_name) = @_;
-  for my $mainTable (@{elem_as_array(clone($templ_in->{MainTable}))}) {
+  for my $mainTable (@{elem_as_array(clone($templ_in->{MainTables}))}) {
     $mainTable =~ s/\*base_name\*/$ds_name/;
     if(!defined $self->{tables}->{$mainTable}) {
       $logger->warn("Main table $mainTable not found");
@@ -308,17 +308,14 @@ sub write_toplevel {
     } ## end if ( !ref($value) )
   } ## end while ( my ( $key, $value...))
 
-  # add MainTable
+  # add MainTable and keys
   $dataset->{config}->{MainTable} = [];
   for my $mainTable (@{elem_as_array(clone($templ_in->{MainTable}))}) {
-    $mainTable =~ s/\*base_name\*/$ds_name/;
-    push @{ $dataset->{config}->{MainTable} }, $mainTable;
-  }
-
-  # add Key
-  $dataset->{config}->{Key} = [];
-  for my $key (@{elem_as_array(clone($templ_in->{Key}))}) {
-    push @{ $dataset->{config}->{Key} }, $key;
+    my $key = $mainTable->{key};
+    my $table = $mainTable->{table};
+    $table =~ s/\*base_name\*/$ds_name/;
+    $dataset->{config}->{MainTable}->{$key} = $table;
+    push @{ $dataset->{config}->{MainTables} }, $table;
   }
 
   return;
@@ -1817,71 +1814,13 @@ sub update_table_keys {
   if ( defined $obj->{tableConstraint} ) {
     if ( $obj->{tableConstraint} eq 'main' ) {
       if ( !defined $obj->{key} ) {
-        ( $obj->{tableConstraint} ) = @{ $dataset->{config}->{MainTable} };
+        ( $obj->{tableConstraint} ) = @{ $dataset->{config}->{MainTables} };
         $obj->{tableConstraint} =~ s/\*base_name\*/${ds_name}/;
       }
       else {
         # use key to find the correct main table
-        if ( $obj->{key} eq 'gene_id_1020_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__gene__main";
-        }
-        elsif ( $obj->{key} eq 'transcript_id_1064_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__transcript__main";
-        }
-        elsif ( $obj->{key} eq 'translation_id_1068_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__translation__main";
-        }
-        elsif ( $obj->{key} eq 'variation_id_2025_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__variation__main";
-        }
-        elsif ( $obj->{key} eq 'variation_feature_id_2026_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__variation_feature__main";
-        }
-        elsif ( $obj->{key} eq 'structural_variation_id_2072_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__structural_variation__main";
-        }
-        elsif ( $obj->{key} eq 'structural_variation_feature_id_20104_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__structural_variation_feature__main";
-        }
-        elsif ( $obj->{key} eq 'annotated_feature_id_103_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__annotated_feature__main";
-        }
-        elsif ( $obj->{key} eq 'external_feature_id_1021_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__external_feature__main";
-        }
-        elsif ( $obj->{key} eq 'mirna_target_feature_id_1079_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__mirna_target_feature__main";
-        }
-        elsif ( $obj->{key} eq 'motif_feature_id_1065_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__motif_feature__main";
-        }
-        elsif ( $obj->{key} eq 'regulatory_feature_id_1036_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__regulatory_feature__main";
-        }
-        elsif ( $obj->{key} eq 'misc_feature_id_1037_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__misc_feature__main";
-        }
-        elsif ( $obj->{key} eq 'phenotype_feature_id_2023_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__qtl_feature__main";
-        }
-        elsif ( $obj->{key} eq 'karyotype_id_1027_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__karyotype__main";
-        }
-        elsif ( $obj->{key} eq 'marker_feature_id_1031_key' ) {
-          $obj->{tableConstraint} = "${ds_name}__marker_feature__main";
-        }
-        elsif ( $obj->{key} eq 'closure_id_301_key') {
-         $obj->{tableConstraint} = "${ds_name}__closure__main";
-        }
-        elsif ( $obj->{key} eq 'closure_mini_id_301_key') {
-         $obj->{tableConstraint} = "${ds_name}__closure_mini__main";
-        }
-        elsif ( $obj->{key} eq 'closure_regulation_id_301_key') {
-         $obj->{tableConstraint} = "${ds_name}__closure_regulation__main";
-        }
-        elsif ( $obj->{key} eq 'closure_motif_id_301_key') {
-         $obj->{tableConstraint} = "${ds_name}__closure_motif__main";
-        }
+        $obj->{tableConstraint} = $dataset->{config}->{MainTable}->{$obj->{key}};
+        $obj->{tableConstraint} =~ s/\*base_name\*/${ds_name}/;
       }
     }
     else {

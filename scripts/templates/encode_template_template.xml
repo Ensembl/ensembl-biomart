@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="encode_template" displayName="encode" interfaces="default" internalName="template" martUsers="default" modified="2008-03-06 11:39:13.813" softwareVersion="0.6" template="encode" type="TableSet" useDefault="true" visible="0">
-  <MainTable>*base_name*__misc_feature__main</MainTable>
-  <Key>misc_feature_id_1037_key</Key>
+  <MainTable table="*base_name*__misc_feature__main" key="misc_feature_id_1037_key"/>
   <Exportable attributes="name_2,seq_region_start,seq_region_end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>
   <FilterPage displayName="FILTERS" internalName="naive_filters" useDefault="true">
     <FilterGroup displayName="FILTERS" internalName="filters" useDefault="true">
