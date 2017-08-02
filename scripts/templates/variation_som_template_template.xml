@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="snp_som_template" defaultDataset="*default*" displayName="*species1* Somatic Short Variants (SNPs and indels excluding flagged variants) (*version*)" entryLabel="SNPs" interfaces="default" internalName="template" martUsers="default" modified="2010-07-12 09:41:21.875" softwareVersion="0.6" template="*basename*" type="TableSet" useDefault="true" version="*version*" visible="1">
-  <MainTable>*base_name*__variation__main</MainTable>
-  <MainTable>*base_name*__variation_feature__main</MainTable>
-  <Key>variation_id_2025_key</Key>
-  <Key>variation_feature_id_2026_key</Key>
+  <MainTable table="*base_name*__variation__main" key="variation_id_2025_key"/>
+  <MainTable table="*base_name*__variation_feature__main" key="variation_feature_id_2026_key"/>
   <Replace id="datasets"/>
   <Importable filters="link_so_mini_closure" internalName="so_mini_closure" linkName="so_mini_closure" name="so_mini_closure" type="link" useDefault="true"/>
   <Importable filters="link_so_regulation_closure" internalName="so_regulation_closure" linkName="so_regulation_closure" name="so_regulation_closure" type="link" useDefault="true"/>

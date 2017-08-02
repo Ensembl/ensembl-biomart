@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="qtl_feature_template" displayName="qtl_feature" interfaces="default" internalName="template" martUsers="default" modified="2013-04-18 10:39:39.706" softwareVersion="0.6" template="qtl_feature" type="TableSet" useDefault="true" visible="0">
-  <MainTable>*base_name*__qtl_feature__main</MainTable>
-  <Key>phenotype_feature_id_2023_key</Key>
+  <MainTable table="*base_name*__qtl_feature__main" key="phenotype_feature_id_2023_key"/>
   <Exportable attributes="name_2,seq_region_start,seq_region_end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>
   <FilterPage displayName="FILTERS" internalName="naive_filters" useDefault="true">
     <FilterGroup displayName="FILTERS" internalName="filters" useDefault="true">

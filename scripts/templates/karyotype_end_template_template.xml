@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+ <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="karyotype_end_template" displayName="karyotype_end" interfaces="default" internalName="template" martUsers="default" modified="2007-12-18 15:02:09.637" softwareVersion="0.6" template="karyotype_end" type="TableSet" useDefault="true" visible="0">
-  <MainTable>*base_name*__karyotype__main</MainTable>
-  <Key>karyotype_id_1027_key</Key>
+  <MainTable table="*base_name*__karyotype__main" key="karyotype_id_1027_key"/>
   <Exportable attributes="name,seq_region_end" default="1" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
   <FilterPage displayName="FILTERS" internalName="naive_filters" useDefault="true">
     <FilterGroup displayName="FILTERS" internalName="filters" useDefault="true">

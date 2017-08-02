@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="gene_ensembl_template" datasetID="87" defaultDataset="*default*" description="Ensembl Genes" displayName="*species1* genes (*version*)" entryLabel="Genes" interfaces="default" internalName="template" martUsers="default" modified="2006-10-02 16:13:46" softwareVersion="0.6" template="gene" type="TableSet" useDefault="true" version="*version*" visible="1">
-  <MainTable>*base_name*__gene__main</MainTable>
-  <MainTable>*base_name*__transcript__main</MainTable>
-  <MainTable>*base_name*__translation__main</MainTable>
-  <Key>gene_id_1020_key</Key>
-  <Key>transcript_id_1064_key</Key>
-  <Key>translation_id_1068_key</Key>
+  <MainTable table="*base_name*__gene__main" key="gene_id_1020_key" />
+  <MainTable table="*base_name*__transcript__main" key="transcript_id_1064_key" />
+  <MainTable table="*base_name*__translation__main" key="translation_id_1068_key" />
   <Replace id="datasets"/>
   <Importable filters="link_go_closure" internalName="go_closure" linkName="go_closure" name="go_closure" type="link" useDefault="true"/>
   <Importable filters="link_so_closure" internalName="so_closure" linkName="so_closure" name="so_closure" type="link" useDefault="true"/>
