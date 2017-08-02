@@ -111,7 +111,7 @@ sub build {
   my $datasets = $self->get_datasets();
   # get latest species_id from the dataset_name table
   my $description="Ensembl $template_name";
-  my $offsets = $self->{dbc}->sql_helper()->execute_simple( -SQL =>"select max(dataset_id_key) from meta_conf__dataset__main where description != '${description}'");
+  my $offsets = $self->{dbc}->sql_helper()->execute_simple( -SQL =>qq/select max(dataset_id_key) from meta_conf__dataset__main where description != '${description}'/);
   # avoid clashes for multiple template types
   my $n        = $offsets->[0] || 0;
   my $xref_url_list;
@@ -538,8 +538,8 @@ sub write_filters {
             $logger->info(
                             "Generating data for $fdo->{internalName}");
               foreach my $xref (@{ $xref_list }) {
-                my $field = "ox_".$xref->[0]."_bool";
-                my $table = $ds_name."__ox_".$xref->[0]."__dm";
+                my $field = "ox_".$xref->{db_name}."_bool";
+                my $table = $ds_name."__ox_".$xref->{db_name}."__dm";
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = $self->get_table_key($table);
                     if ( defined $self->{tables}->{$table}->{$key} ) {
@@ -547,11 +547,11 @@ sub write_filters {
                       if (defined $self->{tables}->{$main_table}->{$field} ) {
                         # add in if the column exists
                         push @{ $fdo->{Option} }, {
-                          displayName  => "With $xref->[1] ID(s)",
+                          displayName  => "With $xref->{db_display_name} ID(s)",
                           displayType  => "list",
                           field        => $field,
                           hidden       => "false",
-                          internalName => "with_$xref->[0]",
+                          internalName => "with_$xref->{db_name}",
                           isSelectable => "true",
                           key          => $key,
                           legal_qualifiers => "only,excluded",
@@ -580,21 +580,21 @@ sub write_filters {
                             "Generating data for $fdo->{internalName}");
               # Generation of the other xrefs
               foreach my $xref (@{ $xref_list }) {
-                my $table = $ds_name."__ox_".$xref->[0]."__dm";
+                my $table = $ds_name."__ox_".$xref->{db_name}."__dm";
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = $self->get_table_key($table);
                   if ( defined $self->{tables}->{$table}->{$key} ) {
-                    if (exists $exception_xrefs->{$xref->[0]}) {
+                    if (exists $exception_xrefs->{$xref->{db_name}}) {
                       #Checking if the xrefs is part of the execption xrefs hash.
                       #We need to use dbprimary_acc_1074 instead of display_label_1074 or both
-                      while ( my ($field, $suffix) = each %{$exception_xrefs->{$xref->[0]}->{columns}}) {
+                      while ( my ($field, $suffix) = each %{$exception_xrefs->{$xref->{db_name}}->{columns}}) {
                         # We don't want filters for description field
                         # E.g: MIM gene description(s) [e.g. RING1- AND YY1-BINDING PROTEIN; RYBP;;YY1- AND E4TF1/GABP-ASSOCIATED FACTOR 1; YEAF1]
                         # or MIM morbid description(s) [e.g. MONOCARBOXYLATE TRANSPORTER 1 DEFICIENCY; MCT1D]
 
                         #Remove from display name string whatever has been defined in the regex below.
                         # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
-                        my $xref_display_name = $xref->[1];
+                        my $xref_display_name = $xref->{db_display_name};
                         $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
                         next if ($field eq "description_1074");
                         my $example = $self->get_example($table,$field);
@@ -604,7 +604,7 @@ sub write_filters {
                         description  => "Filter to include genes with supplied list of $xref_display_name $suffix"."(s)",
                         field        => $field,
                         hidden       => "false",
-                        internalName => $xref->[0]."_".lc($suffix),
+                        internalName => $xref->{db_name}."_".lc($suffix),
                         isSelectable => "true",
                         key          => $key,
                         legal_qualifiers => "=,in",
@@ -617,7 +617,7 @@ sub write_filters {
                     else {
                       #Remove from display name string whatever has been defined in the regex below.
                       # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
-                      my $xref_display_name = $xref->[1];
+                      my $xref_display_name = $xref->{db_display_name};
                       $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
                       #Use dbprimary_acc_1074 column for all the other xrefs
                       my $field = "dbprimary_acc_1074";
@@ -626,10 +626,10 @@ sub write_filters {
                       push @{ $fdo->{Option} }, {
                         displayName  => "$xref_display_name ID(s) [e.g. $example]",
                         displayType  => "text",
-                        description  => "Filter to include genes with supplied list of $xref->[1] ID(s)",
+                        description  => "Filter to include genes with supplied list of $xref->{db_display_name} ID(s)",
                         field        => $field,
                         hidden       => "false",
-                        internalName => "$xref->[0]",
+                        internalName => "$xref->{db_name}",
                         isSelectable => "true",
                         key          => $key,
                         legal_qualifiers => "=,in",
@@ -654,14 +654,14 @@ sub write_filters {
               $logger->info(
                             "Generating data for $fdo->{internalName}");
                 foreach my $probe (@{ $probe_list }) {
-                  my $field = "efg_".lc($probe->[1])."_bool";
-                  my $table = $ds_name."__efg_".lc($probe->[1])."__dm";
+                  my $field = "efg_".lc($probe->{array_vendor_and_name})."_bool";
+                  my $table = $ds_name."__efg_".lc($probe->{array_vendor_and_name})."__dm";
                   if ( defined $self->{tables}->{$table} ) {
                     my $key = "transcript_id_1064_key";
                     if ( defined $self->{tables}->{$table}->{$key} ) {
                       my $main_table=${ds_name}."__transcript__main";
                       if (defined $self->{tables}->{$main_table}->{$field} ) {
-                        my $display_name=$probe->[1];
+                        my $display_name=$probe->{array_vendor_and_name};
                         $display_name =~ s/_/ /g;
                         # add in if the column exists
                         push @{ $fdo->{Option} }, {
@@ -669,7 +669,7 @@ sub write_filters {
                           displayType  => "list",
                           field        => $field,
                           hidden       => "false",
-                          internalName => "with_".lc($probe->[1]),
+                          internalName => "with_".lc($probe->{array_vendor_and_name}),
                           isSelectable => "true",
                           key          => $key,
                           legal_qualifiers => "only,excluded",
@@ -706,11 +706,11 @@ sub write_filters {
                             "Generating data for $fdo->{internalName}");
                 foreach my $probe (@{ $probe_list }) {
                   my $field = "display_label_11056";
-                  my $table = $ds_name."__efg_".lc($probe->[1])."__dm";
+                  my $table = $ds_name."__efg_".lc($probe->{array_vendor_and_name})."__dm";
                   if ( defined $self->{tables}->{$table} ) {
                     my $key = "transcript_id_1064_key";
                     if ( defined $self->{tables}->{$table}->{$key} ) {
-                      my $display_name=$probe->[1];
+                      my $display_name=$probe->{array_vendor_and_name};
                       $display_name =~ s/_/ /g;
                       my $example = $self->get_example($table,$field);
                       # add in if the column exists
@@ -720,7 +720,7 @@ sub write_filters {
                         description  => "Filter to include genes with supplied list of $display_name ID(s)",
                         field        => $field,
                         hidden       => "false",
-                        internalName => lc($probe->[1]),
+                        internalName => lc($probe->{array_vendor_and_name}),
                         isSelectable => "true",
                         key          => $key,
                         legal_qualifiers => "=,in",
@@ -739,20 +739,20 @@ sub write_filters {
             $logger->info(
                             "Generating data for $fdo->{internalName}");
               foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
-                my $field = "protein_feature_".$protein_domain_and_feature->[0]."_bool";
-                my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->[0]."__dm";
+                my $field = "protein_feature_".$protein_domain_and_feature->{logic_name}."_bool";
+                my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->{logic_name}."__dm";
                 my $display_name;
                 # We only want to display "ID(s)" for Protein domains
-                if (defined $protein_domain_and_feature->[2] and $protein_domain_and_feature->[2] ne "{'type' => 'feature'}"){
-                  $display_name="With $protein_domain_and_feature->[3] ID(s)";
+                if (defined $protein_domain_and_feature->{web_data} and $protein_domain_and_feature->{web_data} ne "{'type' => 'feature'}"){
+                  $display_name="With $protein_domain_and_feature->{display_label} ID(s)";
                 }
-                elsif (defined $protein_domain_and_feature->[3])
+                elsif (defined $protein_domain_and_feature->{display_label})
                 {
-                  $display_name="With $protein_domain_and_feature->[3]";
+                  $display_name="With $protein_domain_and_feature->{display_label}";
                 } 
                 # BlastProdom don't have an analysis_description.
                 else {
-                  $display_name="With $protein_domain_and_feature->[1]";
+                  $display_name="With $protein_domain_and_feature->{db}";
                 }
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = $self->get_table_key($table);
@@ -765,7 +765,7 @@ sub write_filters {
                           displayType  => "list",
                           field        => $field,
                           hidden       => "false",
-                          internalName => "with_".$protein_domain_and_feature->[0],
+                          internalName => "with_".$protein_domain_and_feature->{logic_name},
                           isSelectable => "true",
                           key          => $key,
                           legal_qualifiers => "only,excluded",
@@ -795,18 +795,18 @@ sub write_filters {
               # Generating protein domains
               foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
                 # Excluding protein features
-                next if !defined $protein_domain_and_feature->[2] or $protein_domain_and_feature->[2]  eq "{'type' => 'feature'}";
-                my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->[0]."__dm";
+                next if !defined $protein_domain_and_feature->{web_data} or $protein_domain_and_feature->{web_data}  eq "{'type' => 'feature'}";
+                my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->{logic_name}."__dm";
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = $self->get_table_key($table);
                   if ( defined $self->{tables}->{$table}->{$key} ) {
                       my $field = "hit_name_1048";
                       my $display_name;
-                      if (defined $protein_domain_and_feature->[3]) {
-                        $display_name=$protein_domain_and_feature->[3];
+                      if (defined $protein_domain_and_feature->{display_label}) {
+                        $display_name=$protein_domain_and_feature->{display_label};
                       }
                       else{
-                        $display_name=$protein_domain_and_feature->[1];
+                        $display_name=$protein_domain_and_feature->{db};
                       }
                       # add in if the column exists
                       my $example = $self->get_example($table,$field);
@@ -816,7 +816,7 @@ sub write_filters {
                         description  => "Filter to include genes with supplied list of $display_name ID(s)",
                         field        => $field,
                         hidden       => "false",
-                        internalName => "$protein_domain_and_feature->[0]",
+                        internalName => "$protein_domain_and_feature->{logic_name}",
                         isSelectable => "true",
                         key          => $key,
                         legal_qualifiers => "=,in",
@@ -1490,12 +1490,12 @@ sub write_attributes {
                             "Generating data for $aco->{internalName} attributes");
             foreach my $xref (@{ $xref_list }) {
               #Skipping GO and GOA attributes since they have their own attribute section
-              next if ($xref->[0] eq "go" or $xref->[0] eq "goslim_goa");
-              my $table = $ds_name."__ox_".$xref->[0]."__dm";
+              next if ($xref->{db_name} eq "go" or $xref->{db_name} eq "goslim_goa");
+              my $table = $ds_name."__ox_".$xref->{db_name}."__dm";
               if ( defined $self->{tables}->{$table} ) {
                 my $key = $self->get_table_key($table);
                 if ( defined $self->{tables}->{$table}->{$key} ) {
-                  my $url = $xref_url_list->{$xref->[0]};
+                  my $url = $xref_url_list->{$xref->{db_name}};
                   # Replacing ###ID### with mart placeholder %s and ###SPECIES### with
                   # species production name
                   if (defined $url) {
@@ -1507,22 +1507,22 @@ sub write_attributes {
                     $url='';
                   }
                   # Getting exception where we should use dbprimary_acc_1074 instead of display_label_1074 or both
-                  if (exists $exception_xrefs->{$xref->[0]}) {
-                    while (my ($field,$suffix) = each %{$exception_xrefs->{$xref->[0]}->{columns}}) {
+                  if (exists $exception_xrefs->{$xref->{db_name}}) {
+                    while (my ($field,$suffix) = each %{$exception_xrefs->{$xref->{db_name}}->{columns}}) {
                       #For extra attribute using URL of the main field dbprimary_acc_1074
                       if ($field ne "dbprimary_acc_1074")
                       {
-                        $url=$url."|".$xref->[0]."_".lc($exception_xrefs->{$xref->[0]}->{columns}->{"dbprimary_acc_1074"})
+                        $url=$url."|".$xref->{db_name}."_".lc($exception_xrefs->{$xref->{db_name}}->{columns}->{"dbprimary_acc_1074"})
                       }
                       #Remove from display name string whatever has been defined in the regex below.
                       # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
-                      my $xref_display_name = $xref->[1];
+                      my $xref_display_name = $xref->{db_display_name};
                       $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
                       push @{ $aco->{AttributeDescription} }, {
                         key             => $key,
                         displayName     => "$xref_display_name $suffix",
                         field           => $field,
-                        internalName    => $xref->[0]."_".lc($suffix),
+                        internalName    => $xref->{db_name}."_".lc($suffix),
                         linkoutURL      => $url,
                         maxLength       => "512",
                         tableConstraint => $table };
@@ -1533,14 +1533,14 @@ sub write_attributes {
                   else {
                     #Remove from display name string whatever has been defined in the regex below.
                     # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
-                    my $xref_display_name = $xref->[1];
+                    my $xref_display_name = $xref->{db_display_name};
                     $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
                     my $field = "dbprimary_acc_1074";
                     push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
                       displayName     => "$xref_display_name ID",
                       field           => $field,
-                      internalName    => "$xref->[0]",
+                      internalName    => "$xref->{db_name}",
                       linkoutURL      => $url,
                       maxLength       => "512",
                       tableConstraint => $table };
@@ -1558,24 +1558,24 @@ sub write_attributes {
               my $url;
               # Using is_probeset_array to generate the linkout URL
               # This link is mainly for affy probes
-              if ($probe->[2]){
+              if ($probe->{is_probeset_array}){
                 $url="exturl|/$dataset->{production_name}/Location/Genome?ftype=ProbeFeature;fdb=funcgen;id=%s;ptype=pset;";
               }
               # This link is for other probes like codelink, agilent, illumina...
               else {
                 $url="exturl|/$dataset->{production_name}/Location/Genome?ftype=ProbeFeature;fdb=funcgen;id=%s";
               }
-              my $table = $ds_name."__efg_".lc($probe->[1])."__dm";
+              my $table = $ds_name."__efg_".lc($probe->{array_vendor_and_name})."__dm";
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = "transcript_id_1064_key";
                   if ( defined $self->{tables}->{$table}->{$key} ) {
-                    my $display_name=$probe->[1];
+                    my $display_name=$probe->{array_vendor_and_name};
                     $display_name =~ s/_/ /g;
                     push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
                       displayName     => "$display_name probe",
                       field           => $field,
-                      internalName    => lc($probe->[1]),
+                      internalName    => lc($probe->{array_vendor_and_name}),
                       linkoutURL      => $url,
                       maxLength       => "140",
                       tableConstraint => $table };
@@ -1589,13 +1589,13 @@ sub write_attributes {
                             "Generating data for $aco->{internalName} attributes");
             foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
               # Excluding protein features
-              next if !defined $protein_domain_and_feature->[2] or $protein_domain_and_feature->[2] eq "{'type' => 'feature'}";
-              my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->[0]."__dm";
+              next if !defined $protein_domain_and_feature->{web_data} or $protein_domain_and_feature->{web_data} eq "{'type' => 'feature'}";
+              my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->{logic_name}."__dm";
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = "translation_id_1068_key";
                   if ( defined $self->{tables}->{$table}->{$key} ) {
                     # Getting URLs from the parsed Web ini file
-                    my $url = $xref_url_list->{lc($protein_domain_and_feature->[1])};
+                    my $url = $xref_url_list->{lc($protein_domain_and_feature->{db})};
                     # Replacing ###ID### with mart placeholder %s and ###SPECIES### with
                     # species production name
                     if (defined $url) {
@@ -1607,17 +1607,17 @@ sub write_attributes {
                       $url='';
                     }
                     my $display_name;
-                    if (defined $protein_domain_and_feature->[3]) {
-                      $display_name=$protein_domain_and_feature->[3];
+                    if (defined $protein_domain_and_feature->{display_label}) {
+                      $display_name=$protein_domain_and_feature->{display_label};
                     }
                     else{
-                      $display_name=$protein_domain_and_feature->[1];
+                      $display_name=$protein_domain_and_feature->{db};
                     }
                     push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
                       displayName     => "$display_name ID",
                       field           => "hit_name_1048",
-                      internalName    => $protein_domain_and_feature->[0],
+                      internalName    => $protein_domain_and_feature->{logic_name},
                       linkoutURL      => $url,
                       maxLength       => "40",
                       tableConstraint => $table };
@@ -1625,7 +1625,7 @@ sub write_attributes {
                       key             => $key,
                       displayName     => "$display_name start",
                       field           => "seq_start_1048",
-                      internalName    => $protein_domain_and_feature->[0]."_start",
+                      internalName    => $protein_domain_and_feature->{logic_name}."_start",
                       linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
                       maxLength       => "10",
                       tableConstraint => $table };
@@ -1633,7 +1633,7 @@ sub write_attributes {
                       key             => $key,
                       displayName     => "$display_name end",
                       field           => "seq_end_1048",
-                      internalName    => $protein_domain_and_feature->[0]."_end",
+                      internalName    => $protein_domain_and_feature->{logic_name}."_end",
                       linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
                       maxLength       => "10",
                       tableConstraint => $table };
@@ -1647,12 +1647,12 @@ sub write_attributes {
                             "Generating data for $aco->{internalName} attributes");
             foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
               #Excluding protein domains
-              next if defined $protein_domain_and_feature->[2] and $protein_domain_and_feature->[2] eq "{'type' => 'domain'}";
-              my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->[0]."__dm";
+              next if defined $protein_domain_and_feature->{web_data} and $protein_domain_and_feature->{web_data} eq "{'type' => 'domain'}";
+              my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->{logic_name}."__dm";
                 if ( defined $self->{tables}->{$table} ) {
                   my $key = "translation_id_1068_key";
                   if ( defined $self->{tables}->{$table}->{$key} ) {
-                    my $url = $xref_url_list->{lc($protein_domain_and_feature->[1])};
+                    my $url = $xref_url_list->{lc($protein_domain_and_feature->{db})};
                     # Replacing ###ID### with mart placeholder %s and ###SPECIES### with
                     # species production name
                     if (defined $url) {
@@ -1664,17 +1664,17 @@ sub write_attributes {
                       $url='';
                     }
                     my $display_name;
-                    if (defined $protein_domain_and_feature->[3]) {
-                      $display_name=$protein_domain_and_feature->[3];
+                    if (defined $protein_domain_and_feature->{display_label}) {
+                      $display_name=$protein_domain_and_feature->{display_label};
                     }
                     else{
-                      $display_name=$protein_domain_and_feature->[1];
+                      $display_name=$protein_domain_and_feature->{db};
                     }
                     push @{ $aco->{AttributeDescription} }, {
                       key             => $key,
                       displayName     => "$display_name",
                       field           => "hit_name_1048",
-                      internalName    => $protein_domain_and_feature->[0],
+                      internalName    => $protein_domain_and_feature->{logic_name},
                       linkoutURL      => $url,
                       maxLength       => "40",
                       tableConstraint => $table };
@@ -1682,7 +1682,7 @@ sub write_attributes {
                       key             => $key,
                       displayName     => "$display_name start",
                       field           => "seq_start_1048",
-                      internalName    => $protein_domain_and_feature->[0]."_start",
+                      internalName    => $protein_domain_and_feature->{logic_name}."_start",
                       linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
                       maxLength       => "10",
                       tableConstraint => $table };
@@ -1690,7 +1690,7 @@ sub write_attributes {
                       key             => $key,
                       displayName     => "$display_name end",
                       field           => "seq_end_1048",
-                      internalName    => $protein_domain_and_feature->[0]."_end",
+                      internalName    => $protein_domain_and_feature->{logic_name}."_end",
                       linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
                       maxLength       => "10",
                       tableConstraint => $table };
@@ -1920,11 +1920,11 @@ sub create_metatables {
   $self->create_metatable( 'meta_version__version__main',
                            ['version varchar(10) default NULL'] );
   my $rows = $self->{dbc}->sql_helper()
-                    ->execute_simple( -SQL =>"select count(version) from meta_version__version__main" );
+                    ->execute_simple( -SQL =>qq/select count(version) from meta_version__version__main/);
   # Only add a row if the table is empty
   if ($rows->[0] == 0) {
     $self->{dbc}->sql_helper()
-                    ->execute_update(-SQL => "INSERT INTO meta_version__version__main VALUES ('0.7')" );
+                    ->execute_update(-SQL => qq/INSERT INTO meta_version__version__main VALUES ('0.7')/ );
   }
   # template tables
   $self->create_metatable( 'meta_template__template__main', [
@@ -1951,12 +1951,12 @@ sub create_metatables {
 
   $self->{dbc}->sql_helper()
     ->execute_update( -SQL =>
-                      "DELETE FROM meta_template__xml__dm WHERE template=?",
+                      qq/DELETE FROM meta_template__xml__dm WHERE template=?/,
                       -PARAMS=>[$template_name]
                     );
 
   $self->{dbc}->sql_helper()->execute_update(
-                      -SQL => 'INSERT INTO meta_template__xml__dm VALUES (?,?)',
+                      -SQL => qq/INSERT INTO meta_template__xml__dm VALUES (?,?)/,
                       -PARAMS => [ $template_name, $gzip_template ] );
   $self->create_metatable(
     'meta_conf__dataset__main', [
@@ -2041,11 +2041,11 @@ left join meta_template__template__main t using (dataset_id_key)
 
   $self->{dbc}->sql_helper()
     ->execute_update(
-       -SQL => "INSERT INTO meta_conf__user__dm VALUES($speciesId,'default')" );
+       -SQL => qq/INSERT INTO meta_conf__user__dm VALUES($speciesId,'default')/ );
 
   $self->{dbc}->sql_helper()
     ->execute_update( -SQL =>
-          "INSERT INTO meta_conf__interface__dm VALUES($speciesId,'default')" );
+          qq/INSERT INTO meta_conf__interface__dm VALUES($speciesId,'default')/ );
 
   $logger->info("Population complete for $ds_name");
   return;
@@ -2099,17 +2099,19 @@ sub generate_chromosome_bands_push_action {
   my $chr_bands_kend;
 
   my $database_tables =$self->{dbc}->sql_helper()
-                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${genomic_features_mart}'" );
+                    ->execute_simple( -SQL =>qq/select count(table_name) from information_schema.tables where table_schema=?/, -PARAMS => [$genomic_features_mart]);
   if (defined $database_tables->[0]) {
     if ($database_tables->[0] > 0) {
+      my $ks_table_name = $dataset_name."_karyotype_start__karyotype__main";
+      my $ke_table_name = $dataset_name."_karyotype_end__karyotype__main";
       my $empty_ks_table=$self->{dbc}->sql_helper()
-                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${dataset_name}_karyotype_start__karyotype__main'" );
+                    ->execute_simple( -SQL =>qq/select TABLE_ROWS from information_schema.tables where table_schema=? and table_name=?/, -PARAMS => [$genomic_features_mart,$ks_table_name]);
       my $empty_ke_table=$self->{dbc}->sql_helper()
-                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${dataset_name}_karyotype_start__karyotype__main'" );
+                    ->execute_simple( -SQL =>qq/select TABLE_ROWS from information_schema.tables where table_schema=? and table_name=?/, -PARAMS => [$genomic_features_mart,$ke_table_name]);
       if(defined $empty_ks_table->[0] and defined $empty_ke_table->[0]) {
         if ($empty_ks_table->[0] > 0 and $empty_ke_table->[0] > 0) {
           $chr_bands_kstart = $self->{dbc}->sql_helper()->execute_into_hash(
-            -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${dataset_name}_karyotype_start__karyotype__main where band_1027 is not null order by band_1027",
+            -SQL => qq/select name_1059, band_1027 from $genomic_features_mart.$ks_table_name where band_1027 is not null order by band_1027/,
             -CALLBACK => sub {
               my ( $row, $value ) = @_;
               $value = [] if !defined $value;
@@ -2118,7 +2120,7 @@ sub generate_chromosome_bands_push_action {
               }
           );
           $chr_bands_kend = $self->{dbc}->sql_helper()->execute_into_hash(
-            -SQL => "select name_1059, band_1027 from ${genomic_features_mart}.${dataset_name}_karyotype_end__karyotype__main where band_1027 is not null order by band_1027",
+            -SQL => qq/select name_1059, band_1027 from $genomic_features_mart.$ke_table_name where band_1027 is not null order by band_1027/,
             -CALLBACK => sub {
               my ( $row, $value ) = @_;
               $value = [] if !defined $value;
@@ -2148,15 +2150,16 @@ sub generate_chromosome_qtl_push_action {
   my $qtl_features;
 
   my $database_tables =$self->{dbc}->sql_helper()
-                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${genomic_features_mart}'" );
+                    ->execute_simple( -SQL =>qq/select count(table_name) from information_schema.tables where table_schema=?/, -PARAMS => [$genomic_features_mart] );
   if (defined $database_tables->[0]) {
     if ($database_tables->[0] > 0) {
+      my $qtl_table_name = ${dataset_name}."_qtl_feature__qtl_feature__main";
       my $empty_qtl_table=$self->{dbc}->sql_helper()
-                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${genomic_features_mart}' and table_name='${dataset_name}_qtl_feature__qtl_feature__main'" );
+                    ->execute_simple( -SQL =>qq/select TABLE_ROWS from information_schema.tables where table_schema=? and table_name=?/, -PARAMS => [$genomic_features_mart,$qtl_table_name]);
       if(defined $empty_qtl_table->[0]) {
         if ($empty_qtl_table->[0] > 0) {
           $qtl_features = $self->{dbc}->sql_helper()->execute_into_hash(
-            -SQL => "select distinct name_2033, qtl_region from ${genomic_features_mart}.${dataset_name}_qtl_feature__qtl_feature__main where qtl_region is not null order by qtl_region",
+            -SQL => qq/select distinct name_2033, qtl_region from $genomic_features_mart.$qtl_table_name where qtl_region is not null order by qtl_region/,
             -CALLBACK => sub {
               my ( $row, $value ) = @_;
               $value = [] if !defined $value;
@@ -2187,12 +2190,11 @@ sub generate_xrefs_list {
   my $database = $db_dbc->dbname;
   my $xrefs_list;
   my $database_tables = $db_dbc->sql_helper()
-                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${database}'" );
+                    ->execute_simple( -SQL =>qq/select count(table_name) from information_schema.tables where table_schema=?/, -PARAMS => [$database]);
     if (defined $database_tables->[0]) {
       # Need to make sure all the db_name are lowercase and don't contain / to match mart table names.
       # Removed "Symbol" from HGNC symbol as this is causing issues in the attribute section
-      $xrefs_list = $db_dbc->sql_helper()->execute(
-        -SQL => "select distinct(REPLACE(LOWER(db_name),'/','')), db_display_name from ${database}.external_db order by db_display_name");
+      $xrefs_list = $db_dbc->sql_helper()->execute( -SQL => qq/select distinct(REPLACE(LOWER(db_name),'\/','')) as db_name, db_display_name from $database.external_db order by db_display_name/, -USE_HASHREFS => 1);
     }
     else {
       die "$database database is missing from the server\n"
@@ -2218,15 +2220,15 @@ sub generate_probes_list {
     my $db_dbc = $regulation_dba->dbc();
     my $regulation_db =$db_dbc->dbname;
     my $database_tables = $db_dbc->sql_helper()
-                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${regulation_db}'" );
+                    ->execute_simple( -SQL =>qq/select count(table_name) from information_schema.tables where table_schema=?/,-PARAMS => [$regulation_db]);
       if (defined $database_tables->[0]) {
         if ($database_tables->[0] > 0) {
           my $empty_probe_table=$db_dbc->sql_helper()
-                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${regulation_db}' and table_name='MTMP_probestuff_helper'" );
+                    ->execute_simple( -SQL =>qq/select TABLE_ROWS from information_schema.tables where table_schema=? and table_name='MTMP_probestuff_helper'/, -PARAMS => [$regulation_db]);
           if(defined $empty_probe_table->[0]) {
             if ($empty_probe_table->[0] > 0) {
               $probes_list = $db_dbc->sql_helper()->execute(
-                -SQL => "select distinct(replace(LOWER(array_name),' ','')), replace(array_vendor_and_name,' ',''), is_probeset_array from ${regulation_db}.MTMP_probestuff_helper order by array_vendor_and_name",
+                -SQL => qq/select distinct(replace(LOWER(array_name),' ','')) as array_name, replace(array_vendor_and_name,' ','') as array_vendor_and_name, is_probeset_array from $regulation_db.MTMP_probestuff_helper order by array_vendor_and_name/, -USE_HASHREFS => 1 
               );
             }
           }
@@ -2253,11 +2255,11 @@ sub generate_protein_domain_and_feature_list {
   my $core_db =$db_dbc->dbname;
   my $protein_domain_and_feature_list;
   my $database_tables = $db_dbc->sql_helper()
-                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${core_db}'" );
+                    ->execute_simple( -SQL =>qq/select count(table_name) from information_schema.tables where table_schema=?/ -PARAMS => [$core_db]);
   if (defined $database_tables->[0]) {
     if ($database_tables->[0] > 0) {
       $protein_domain_and_feature_list = $db_dbc->sql_helper()->execute(
-              -SQL => "select distinct(LOWER(logic_name)), db, web_data, display_label from ${core_db}.protein_feature JOIN ${core_db}.analysis USING(analysis_id) LEFT JOIN ${core_db}.analysis_description USING (analysis_id) order by db",
+              -SQL => qq/select distinct(LOWER(logic_name)) as logic_name, db, web_data, display_label from $core_db.protein_feature JOIN $core_db.analysis USING(analysis_id) LEFT JOIN $core_db.analysis_description USING (analysis_id) order by db/, -USE_HASHREFS => 1 
             );
     }
   }
@@ -2280,20 +2282,22 @@ my $key;
 my $mart=$self->{dbc}->dbname();
 my $main_key;
 my $database_table = $self->{dbc}->sql_helper()
-                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${mart}' and table_name='${table}'" );
+                    ->execute_simple( -SQL =>qq/select TABLE_ROWS from information_schema.tables where table_schema=? and table_name=?/,-PARAMS => [$mart,$table]);
   if (defined $database_table->[0]) {
     if ($database_table->[0] > 0) {
       if ($table =~ "main"){
         $table =~ m/.*__(.*)__main$/;
-        my $main_key=$1;
-        $key = $self->{dbc}->sql_helper()->execute_simple(
-            -SQL => "select COLUMN_NAME from information_schema.columns where table_schema='${mart}' and table_name='${table}' and COLUMN_NAME like '${main_key}%key';",
-          )->[0];
+        my $main_key=$1."%key";
+        $key = $self->{dbc}->sql_helper()->execute(
+            -SQL => qq/select COLUMN_NAME from information_schema.columns where table_schema=? and table_name=? and COLUMN_NAME like ?;/,
+            -PARAMS => [$mart,$table,$main_key], -USE_HASHREFS => 1
+          );
       }
       else {
-          $key = $self->{dbc}->sql_helper()->execute_simple(
-            -SQL => "select COLUMN_NAME from information_schema.columns where table_schema='${mart}' and table_name='${table}' and COLUMN_NAME like '%key';",
-          )->[0];
+          $key = $self->{dbc}->sql_helper()->execute(
+            -SQL => qq/select COLUMN_NAME from information_schema.columns where table_schema=? and table_name=? and COLUMN_NAME like '%key';/,
+            -PARAMS => [$mart,$table], -USE_HASHREFS => 1
+          );
         }
     }
   }
@@ -2314,7 +2318,7 @@ sub get_example {
   my ($self,$table,$field)= @_;
   my $mart=$self->{dbc}->dbname();
   my $example = $self->{dbc}->sql_helper()->execute_simple(
-            -SQL => "select $field from $mart.$table where $field is not null limit 1;",
+            -SQL => qq/select $field from $mart.$table where $field is not null limit 1;/,
           )->[0];
   return ($example);
 }
@@ -2388,15 +2392,9 @@ sub parse_ini_file {
 sub check_pointer_dataset_table_exist {
   my ($self,$dataset_name,$pointer_mart,$pointer_dataset)= @_;
   my $pointer_dataset_table;
-
-  my $database_tables =$self->{dbc}->sql_helper()
-                    ->execute_simple( -SQL =>"select count(table_name) from information_schema.tables where table_schema='${pointer_mart}'" );
-  if (defined $database_tables->[0]) {
-    if ($database_tables->[0] > 0) {
-      $pointer_dataset_table = $self->{dbc}->sql_helper()
-                    ->execute_simple( -SQL =>"select TABLE_ROWS from information_schema.tables where table_schema='${pointer_mart}' and table_name like '${pointer_dataset}%'" );
-    }
-  }
+  my $dataset_regex=$pointer_dataset."%";
+  $pointer_dataset_table = $self->{dbc}->sql_helper()
+                    ->execute_simple( -SQL =>qq/select TABLE_ROWS from information_schema.tables where table_schema=? and table_name like ?/, -PARAMS => [$pointer_mart,$dataset_regex]);
   return ($pointer_dataset_table);
 }
 
