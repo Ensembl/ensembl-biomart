@@ -21,7 +21,7 @@ package Bio::EnsEMBL::EGPipeline::VariationMart::InitialiseMartDB;
 use strict;
 use warnings;
 
-use base ('Bio::EnsEMBL::EGPipeline::Common::RunnableDB::Base');
+use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 
 sub param_defaults {
   return {
