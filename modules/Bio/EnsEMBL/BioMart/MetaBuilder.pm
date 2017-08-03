@@ -440,204 +440,17 @@ sub write_filters {
           #### if contains options, treat differently
           #### if its called homolog_filters, add the homologs here
           if ( $fdo->{internalName} eq 'homolog_filters' ) {
-            # check for paralogues
-            my $table = "${ds_name}__gene__main";
-            {
-              my $field = "paralog_$dataset->{name}_bool";
-              if ( defined $self->{tables}->{$table}->{$field} ) {
-                # add in if the column exists
-                push @{ $fdo->{Option} }, {
-                    displayName  => "Paralogous $dataset->{display_name} Genes",
-                    displayType  => "list",
-                    field        => $field,
-                    hidden       => "false",
-                    internalName => "with_$dataset->{name}_paralog",
-                    isSelectable => "true",
-                    key          => "gene_id_1020_key",
-                    legal_qualifiers => "only,excluded",
-                    qualifier        => "only",
-                    style            => "radio",
-                    tableConstraint  => "main",
-                    type             => "boolean",
-                    Option           => [ {
-                                  displayName  => "Only",
-                                  hidden       => "false",
-                                  internalName => "only",
-                                  value        => "only" }, {
-                                  displayName  => "Excluded",
-                                  hidden       => "false",
-                                  internalName => "excluded",
-                                  value        => "excluded" } ] };
-              } ## end if ( defined $self->{tables...})
-            }
-            {
-              my $field = "homoeolog_$dataset->{name}_bool";
-              if ( defined $self->{tables}->{$table}->{$field} ) {
-                # add in if the column exists
-                push @{ $fdo->{Option} }, {
-                    displayName => "Homoeologous $dataset->{display_name} Genes",
-                    displayType => "list",
-                    field       => $field,
-                    hidden      => "false",
-                    internalName     => "with_$dataset->{name}_homoeolog",
-                    isSelectable     => "true",
-                    key              => "gene_id_1020_key",
-                    legal_qualifiers => "only,excluded",
-                    qualifier        => "only",
-                    style            => "radio",
-                    tableConstraint  => "main",
-                    type             => "boolean",
-                    Option           => [ {
-                                  displayName  => "Only",
-                                  hidden       => "false",
-                                  internalName => "only",
-                                  value        => "only" }, {
-                                  displayName  => "Excluded",
-                                  hidden       => "false",
-                                  internalName => "excluded",
-                                  value        => "excluded" } ] };
-              } ## end if ( defined $self->{tables...})
-            }
-
-            for my $homo_dataset (@$datasets) {
-              my $field = "homolog_$homo_dataset->{name}_bool";
-              if ( defined $self->{tables}->{$table}->{$field} ) {
-                # add in if the column exists
-                push @{ $fdo->{Option} }, {
-                    displayName =>
-                      "Orthologous $homo_dataset->{display_name} Genes",
-                    displayType      => "list",
-                    field            => $field,
-                    hidden           => "false",
-                    internalName     => "with_$homo_dataset->{name}_homolog",
-                    isSelectable     => "true",
-                    key              => "gene_id_1020_key",
-                    legal_qualifiers => "only,excluded",
-                    qualifier        => "only",
-                    style            => "radio",
-                    tableConstraint  => "main",
-                    type             => "boolean",
-                    Option           => [ {
-                                  displayName  => "Only",
-                                  hidden       => "false",
-                                  internalName => "only",
-                                  value        => "only" }, {
-                                  displayName  => "Excluded",
-                                  hidden       => "false",
-                                  internalName => "excluded",
-                                  value        => "excluded" } ] };
-              } ## end if ( defined $self->{tables...})
-            } ## end for my $homo_dataset (@$datasets)
+            $fdo = $self->generate_homolog_filters($fdo,$datasets,$dataset,$ds_name);
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
           } ## end if ( $fdo->{internalName...})
           elsif ( $fdo->{internalName} eq 'id_list_xrefs_filters' ) {
-            $logger->info(
-                            "Generating data for $fdo->{internalName}");
-              foreach my $xref (@{ $xref_list }) {
-                my $field = "ox_".$xref->{db_name}."_bool";
-                my $table = $ds_name."__ox_".$xref->{db_name}."__dm";
-                if ( defined $self->{tables}->{$table} ) {
-                  my $key = $self->get_table_key($table);
-                    if ( defined $self->{tables}->{$table}->{$key} ) {
-                      my $main_table=${ds_name}."__translation__main";
-                      if (defined $self->{tables}->{$main_table}->{$field} ) {
-                        # add in if the column exists
-                        push @{ $fdo->{Option} }, {
-                          displayName  => "With $xref->{db_display_name} ID(s)",
-                          displayType  => "list",
-                          field        => $field,
-                          hidden       => "false",
-                          internalName => "with_$xref->{db_name}",
-                          isSelectable => "true",
-                          key          => $key,
-                          legal_qualifiers => "only,excluded",
-                          qualifier        => "only",
-                          style            => "radio",
-                          tableConstraint  => "main",
-                          type             => "boolean",
-                          Option           => [ {
-                                  displayName  => "Only",
-                                  hidden       => "false",
-                                  internalName => "only",
-                                  value        => "only" }, {
-                                  displayName  => "Excluded",
-                                  hidden       => "false",
-                                  internalName => "excluded",
-                                  value        => "excluded" } ] };
-                      }
-                    }
-                }
-              } ## end if ( defined $self->{tables...})
+            $fdo = $self->generate_id_list_xrefs_filters($fdo,$xref_list,$ds_name);
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
           } ## end elsif ( $fdo->{internalName...})
           elsif ( $fdo->{internalName} eq 'id_list_limit_xrefs_filters' ) {
-            $logger->info(
-                            "Generating data for $fdo->{internalName}");
-              # Generation of the other xrefs
-              foreach my $xref (@{ $xref_list }) {
-                my $table = $ds_name."__ox_".$xref->{db_name}."__dm";
-                if ( defined $self->{tables}->{$table} ) {
-                  my $key = $self->get_table_key($table);
-                  if ( defined $self->{tables}->{$table}->{$key} ) {
-                    if (exists $exception_xrefs->{$xref->{db_name}}) {
-                      #Checking if the xrefs is part of the execption xrefs hash.
-                      #We need to use dbprimary_acc_1074 instead of display_label_1074 or both
-                      while ( my ($field, $suffix) = each %{$exception_xrefs->{$xref->{db_name}}->{columns}}) {
-                        # We don't want filters for description field
-                        # E.g: MIM gene description(s) [e.g. RING1- AND YY1-BINDING PROTEIN; RYBP;;YY1- AND E4TF1/GABP-ASSOCIATED FACTOR 1; YEAF1]
-                        # or MIM morbid description(s) [e.g. MONOCARBOXYLATE TRANSPORTER 1 DEFICIENCY; MCT1D]
-
-                        #Remove from display name string whatever has been defined in the regex below.
-                        # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
-                        my $xref_display_name = $xref->{db_display_name};
-                        $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
-                        next if ($field eq "description_1074");
-                        my $example = $self->get_example($table,$field);
-                        push @{ $fdo->{Option} }, {
-                        displayName  => "$xref_display_name $suffix"."(s) [e.g. $example]",
-                        displayType  => "text",
-                        description  => "Filter to include genes with supplied list of $xref_display_name $suffix"."(s)",
-                        field        => $field,
-                        hidden       => "false",
-                        internalName => $xref->{db_name}."_".lc($suffix),
-                        isSelectable => "true",
-                        key          => $key,
-                        legal_qualifiers => "=,in",
-                        multipleValues   => "1",
-                        qualifier        => "=",
-                        tableConstraint  => $table,
-                        type             => "List" };
-                      }
-                    }
-                    else {
-                      #Remove from display name string whatever has been defined in the regex below.
-                      # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
-                      my $xref_display_name = $xref->{db_display_name};
-                      $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
-                      #Use dbprimary_acc_1074 column for all the other xrefs
-                      my $field = "dbprimary_acc_1074";
-                      # add in if the column exists
-                      my $example = $self->get_example($table,$field);
-                      push @{ $fdo->{Option} }, {
-                        displayName  => "$xref_display_name ID(s) [e.g. $example]",
-                        displayType  => "text",
-                        description  => "Filter to include genes with supplied list of $xref->{db_display_name} ID(s)",
-                        field        => $field,
-                        hidden       => "false",
-                        internalName => "$xref->{db_name}",
-                        isSelectable => "true",
-                        key          => $key,
-                        legal_qualifiers => "=,in",
-                        multipleValues   => "1",
-                        qualifier        => "=",
-                        tableConstraint  => $table,
-                        type             => "List" };
-                    }
-                  }
-                }
-              } ## end if ( defined $self->{tables...})
+            $fdo = $self->generate_id_list_limit_xrefs_filters($fdo,$xref_list,$ds_name,$exception_xrefs);
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
           } ## end elsif ( $fdo->{internalName...})
@@ -648,45 +461,7 @@ sub write_filters {
                             "No data for $fdo->{internalName}, removing it from the template");
             }
             else {
-              $logger->info(
-                            "Generating data for $fdo->{internalName}");
-                foreach my $probe (@{ $probe_list }) {
-                  my $field = "efg_".lc($probe->{array_vendor_and_name})."_bool";
-                  my $table = $ds_name."__efg_".lc($probe->{array_vendor_and_name})."__dm";
-                  if ( defined $self->{tables}->{$table} ) {
-                    my $key = "transcript_id_1064_key";
-                    if ( defined $self->{tables}->{$table}->{$key} ) {
-                      my $main_table=${ds_name}."__transcript__main";
-                      if (defined $self->{tables}->{$main_table}->{$field} ) {
-                        my $display_name=$probe->{array_vendor_and_name};
-                        $display_name =~ s/_/ /g;
-                        # add in if the column exists
-                        push @{ $fdo->{Option} }, {
-                          displayName  => "With $display_name probe ID(s)",
-                          displayType  => "list",
-                          field        => $field,
-                          hidden       => "false",
-                          internalName => "with_".lc($probe->{array_vendor_and_name}),
-                          isSelectable => "true",
-                          key          => $key,
-                          legal_qualifiers => "only,excluded",
-                          qualifier        => "only",
-                          style            => "radio",
-                          tableConstraint  => "main",
-                          type             => "boolean",
-                          Option           => [ {
-                                  displayName  => "Only",
-                                  hidden       => "false",
-                                  internalName => "only",
-                                  value        => "only" }, {
-                                  displayName  => "Excluded",
-                                  hidden       => "false",
-                                  internalName => "excluded",
-                                  value        => "excluded" } ] };
-                      }
-                  }
-                }
-              } ## end if ( defined $self->{tables...})
+              $fdo = $self->generate_id_list_microarray_filters($fdo,$probe_list,$ds_name);
             }
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
@@ -699,131 +474,18 @@ sub write_filters {
                             "No data for $fdo->{internalName}, removing it from the template");
               }
             else {
-              $logger->info(
-                            "Generating data for $fdo->{internalName}");
-                foreach my $probe (@{ $probe_list }) {
-                  my $field = "display_label_11056";
-                  my $table = $ds_name."__efg_".lc($probe->{array_vendor_and_name})."__dm";
-                  if ( defined $self->{tables}->{$table} ) {
-                    my $key = "transcript_id_1064_key";
-                    if ( defined $self->{tables}->{$table}->{$key} ) {
-                      my $display_name=$probe->{array_vendor_and_name};
-                      $display_name =~ s/_/ /g;
-                      my $example = $self->get_example($table,$field);
-                      # add in if the column exists
-                      push @{ $fdo->{Option} }, {
-                        displayName  => "$display_name probe ID(s) [e.g. $example]",
-                        displayType  => "text",
-                        description  => "Filter to include genes with supplied list of $display_name ID(s)",
-                        field        => $field,
-                        hidden       => "false",
-                        internalName => lc($probe->{array_vendor_and_name}),
-                        isSelectable => "true",
-                        key          => $key,
-                        legal_qualifiers => "=,in",
-                        multipleValues   => "1",
-                        qualifier        => "=",
-                        tableConstraint  => $table,
-                        type             => "List" };
-                  }
-                }
-              } ## end if ( defined $self->{tables...})
+              $fdo = $self->generate_id_list_limit_microarray_filters($fdo,$probe_list,$ds_name);
             }
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
           } ## end elsif ( $fdo->{internalName...})
           elsif ( $fdo->{internalName} eq 'id_list_protein_domain_and_feature_filters' ) {
-            $logger->info(
-                            "Generating data for $fdo->{internalName}");
-              foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
-                my $field = "protein_feature_".$protein_domain_and_feature->{logic_name}."_bool";
-                my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->{logic_name}."__dm";
-                my $display_name;
-                # We only want to display "ID(s)" for Protein domains
-                if (defined $protein_domain_and_feature->{web_data} and $protein_domain_and_feature->{web_data} ne "{'type' => 'feature'}"){
-                  $display_name="With $protein_domain_and_feature->{display_label} ID(s)";
-                }
-                elsif (defined $protein_domain_and_feature->{display_label})
-                {
-                  $display_name="With $protein_domain_and_feature->{display_label}";
-                } 
-                # BlastProdom don't have an analysis_description.
-                else {
-                  $display_name="With $protein_domain_and_feature->{db}";
-                }
-                if ( defined $self->{tables}->{$table} ) {
-                  my $key = $self->get_table_key($table);
-                    if ( defined $self->{tables}->{$table}->{$key} ) {
-                      my $main_table=${ds_name}."__translation__main";
-                      if (defined $self->{tables}->{$main_table}->{$field} ) {
-                        # add in if the column exists
-                        push @{ $fdo->{Option} }, {
-                          displayName  => $display_name,
-                          displayType  => "list",
-                          field        => $field,
-                          hidden       => "false",
-                          internalName => "with_".$protein_domain_and_feature->{logic_name},
-                          isSelectable => "true",
-                          key          => $key,
-                          legal_qualifiers => "only,excluded",
-                          qualifier        => "only",
-                          style            => "radio",
-                          tableConstraint  => "main",
-                          type             => "boolean",
-                          Option           => [ {
-                                  displayName  => "Only",
-                                  hidden       => "false",
-                                  internalName => "only",
-                                  value        => "only" }, {
-                                  displayName  => "Excluded",
-                                  hidden       => "false",
-                                  internalName => "excluded",
-                                  value        => "excluded" } ] };
-                      }
-                    }
-                }
-              } ## end if ( defined $self->{tables...})
+            $fdo = $self->generate_id_list_protein_domain_and_feature_filters($fdo,$protein_domain_and_feature_list,$ds_name);
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
           } ## end elsif ( $fdo->{internalName...})
           elsif ( $fdo->{internalName} eq 'id_list_limit_protein_domain_filters' ) {
-            $logger->info(
-                            "Generating data for $fdo->{internalName}");
-              # Generating protein domains
-              foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
-                # Excluding protein features
-                next if !defined $protein_domain_and_feature->{web_data} or $protein_domain_and_feature->{web_data}  eq "{'type' => 'feature'}";
-                my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->{logic_name}."__dm";
-                if ( defined $self->{tables}->{$table} ) {
-                  my $key = $self->get_table_key($table);
-                  if ( defined $self->{tables}->{$table}->{$key} ) {
-                      my $field = "hit_name_1048";
-                      my $display_name;
-                      if (defined $protein_domain_and_feature->{display_label}) {
-                        $display_name=$protein_domain_and_feature->{display_label};
-                      }
-                      else{
-                        $display_name=$protein_domain_and_feature->{db};
-                      }
-                      # add in if the column exists
-                      my $example = $self->get_example($table,$field);
-                      push @{ $fdo->{Option} }, {
-                        displayName  => "$display_name ID(s) [e.g. $example]",
-                        displayType  => "text",
-                        description  => "Filter to include genes with supplied list of $display_name ID(s)",
-                        field        => $field,
-                        hidden       => "false",
-                        internalName => "$protein_domain_and_feature->{logic_name}",
-                        isSelectable => "true",
-                        key          => $key,
-                        legal_qualifiers => "=,in",
-                        multipleValues   => "1",
-                        qualifier        => "=",
-                        tableConstraint  => $table,
-                        type             => "List" };
-                    }
-                  }
-              } ## end foreach  my $protein_domain_and_feature
+            $fdo = $self->generate_id_list_limit_protein_domain_filters($fdo,$protein_domain_and_feature_list,$ds_name);
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
           } ## end elsif ( $fdo->{internalName...})
@@ -1172,308 +834,15 @@ sub write_attributes {
       my $ago = copy_hash($attributeGroup);
       #### add the homologs here
       if ( $ago->{internalName} eq 'orthologs' ) {
-        for my $o_dataset (@$datasets) {
-          my $table = "${ds_name}__homolog_$o_dataset->{name}__dm";
-          if ( defined $self->{tables}->{$table} ) {
-            push @{ $ago->{AttributeCollection} }, {
-              displayName          => "$o_dataset->{display_name} Orthologues",
-              internalName         => "homolog_$o_dataset->{name}",
-              AttributeDescription => [ {
-                  displayName  => "$o_dataset->{display_name} gene stable ID",
-                  field        => "stable_id_4016_r2",
-                  internalName => "$o_dataset->{name}_homolog_ensembl_gene",
-                  key          => "gene_id_1020_key",
-                  linkoutURL =>
-                    "exturl|/$o_dataset->{production_name}/Gene/Summary?g=%s",
-                  maxLength       => "128",
-                  tableConstraint => $table }, {
-                  displayName  => "$o_dataset->{display_name} gene name",
-                  field        => "display_label_40273_r1",
-                  linkoutURL  => "exturl|/$o_dataset->{production_name}/Gene/Summary?g=%s|$o_dataset->{name}_homolog_ensembl_gene",
-                  internalName => "$o_dataset->{name}_homolog_associated_gene_name",
-                  key          => "gene_id_1020_key",
-                  maxLength    => "128",
-                  tableConstraint => $table },{
-                  displayName  => "$o_dataset->{display_name} protein or transcript stable ID",
-                  field        => "stable_id_4016_r3",
-                  internalName => "$o_dataset->{name}_homolog_ensembl_peptide",
-                  key          => "gene_id_1020_key",
-                  maxLength    => "128",
-                  tableConstraint => $table }, {
-                  displayName => "$o_dataset->{display_name} chromosome/scaffold name",
-                  field       => "chr_name_4016_r2",
-                  internalName    => "$o_dataset->{name}_homolog_chromosome",
-                  key             => "gene_id_1020_key",
-                  maxLength       => "40",
-                  tableConstraint => $table }, {
-                  displayName     => "$o_dataset->{display_name} chromosome/scaffold start (bp)",
-                  field           => "chr_start_4016_r2",
-                  internalName    => "$o_dataset->{name}_homolog_chrom_start",
-                  key             => "gene_id_1020_key",
-                  maxLength       => "10",
-                  tableConstraint => $table }, {
-                  displayName     => "$o_dataset->{display_name} chromosome/scaffold end (bp)",
-                  field           => "chr_end_4016_r2",
-                  internalName    => "$o_dataset->{name}_homolog_chrom_end",
-                  key             => "gene_id_1020_key",
-                  maxLength       => "10",
-                  tableConstraint => $table }, {
-                  displayName => "Query protein or transcript ID",
-                  field       => "stable_id_4016_r1",
-                  internalName =>
-                    "$o_dataset->{name}_homolog_canonical_transcript_protein",
-                  key             => "gene_id_1020_key",
-                  maxLength       => "128",
-                  tableConstraint => $table }, {
-                  displayName     => "Last common ancestor with $o_dataset->{display_name}",
-                  field           => "node_name_40192",
-                  internalName    => "$o_dataset->{name}_homolog_subtype",
-                  key             => "gene_id_1020_key",
-                  maxLength       => "40",
-                  tableConstraint => $table }, {
-                  displayName     => "$o_dataset->{display_name} homology type",
-                  field           => "description_4014",
-                  internalName    => "$o_dataset->{name}_homolog_orthology_type",
-                  key             => "gene_id_1020_key",
-                  maxLength       => "25",
-                  tableConstraint => $table }, {
-                  displayName     => "%id. target $o_dataset->{display_name} gene identical to query gene",
-                  field           => "perc_id_4015",
-                  internalName    => "$o_dataset->{name}_homolog_perc_id",
-                  key             => "gene_id_1020_key",
-                  maxLength       => "10",
-                  tableConstraint => $table }, {
-                  displayName     => "%id. query gene identical to target $o_dataset->{display_name} gene",
-                  field           => "perc_id_4015_r1",
-                  internalName    => "$o_dataset->{name}_homolog_perc_id_r1",
-                  key             => "gene_id_1020_key",
-                  maxLength       => "10",
-                  tableConstraint => $table },{
-                  displayName     => "$o_dataset->{display_name} Gene-order conservation score",
-                  field           => "goc_score_4014",
-                  internalName    => "$o_dataset->{name}_homolog_goc_score",
-                  key             => "gene_id_1020_key",
-                  maxLength       => "10",
-                  tableConstraint => $table },{
-                  displayName     => "$o_dataset->{display_name} Whole-genome alignment coverage",
-                  field           => "wga_coverage_4014",
-                  internalName    => "$o_dataset->{name}_homolog_wga_coverage",
-                  key             => "gene_id_1020_key",
-                  maxLength       => "5",
-                  tableConstraint => $table }, {
-                  displayName     => "dN with $o_dataset->{display_name}",
-                  field           => "dn_4014",
-                  internalName    => "$o_dataset->{name}_homolog_dn",
-                  key             => "gene_id_1020_key",
-                  maxLength       => "10",
-                  tableConstraint => $table }, {
-                  displayName     => "dS with $o_dataset->{display_name}",
-                  field           => "ds_4014",
-                  internalName    => "$o_dataset->{name}_homolog_ds",
-                  key             => "gene_id_1020_key",
-                  maxLength       => "10",
-                  tableConstraint => $table }, {
-                  displayName  => "$o_dataset->{display_name} orthology confidence [0 low, 1 high]",
-                  field        => "is_high_confidence_4014",
-                  internalName => "$o_dataset->{name}_homolog_orthology_confidence",
-                  key          => "gene_id_1020_key",
-                  maxLength    => "10",
-                  tableConstraint => $table } ] };
-            $nC++;
-          } ## end if ( defined $self->{tables...})
-        } ## end for my $o_dataset (@$datasets)
+        ($ago,$nC) = $self->generate_orthologs_attributes($ago, $datasets, $ds_name ,$nC);
       } ## end if ( $ago->{internalName...})
       elsif ( $ago->{internalName} eq 'paralogs' ) {
-        my $table = "${ds_name}__paralog_$dataset->{name}__dm";
-        if ( defined $self->{tables}->{$table} ) {
-          push @{ $ago->{AttributeCollection} }, {
-
-            displayName          => "$dataset->{display_name} Paralogues",
-            internalName         => "paralogs_$dataset->{name}",
-            AttributeDescription => [ {
-                displayName     => "$dataset->{display_name} paralogue gene stable ID",
-                field           => "stable_id_4016_r2",
-                internalName    => "$dataset->{name}_paralog_ensembl_gene",
-                key             => "gene_id_1020_key",
-                linkoutURL      => "exturl|/$dataset->{production_name}/Gene/Summary?g=%s",
-                maxLength       => "140",
-                tableConstraint => $table }, {
-                displayName => "$dataset->{display_name} paralogue associated gene name",
-                field       => "display_label_40273_r1",
-                linkoutURL  => "exturl|/$dataset->{production_name}/Gene/Summary?g=%s|$dataset->{name}_paralog_ensembl_gene",
-                internalName => "$dataset->{name}_paralog_associated_gene_name",
-                key             => "gene_id_1020_key",
-                maxLength       => "128",
-                tableConstraint => $table }, {
-                displayName => "$dataset->{display_name} paralogue protein or transcript ID",
-                field       => "stable_id_4016_r3",
-                internalName => "$dataset->{name}_paralog_ensembl_peptide",
-                key             => "gene_id_1020_key",
-                maxLength       => "40",
-                tableConstraint => $table }, {
-                displayName     => "$dataset->{display_name} paralogue chromosome/scaffold name",
-                field           => "chr_name_4016_r2",
-                internalName    => "$dataset->{name}_paralog_chromosome",
-                key             => "gene_id_1020_key",
-                maxLength       => "40",
-                tableConstraint => $table }, {
-                displayName     => "$dataset->{display_name} paralogue chromosome/scaffold start (bp)",
-                field           => "chr_start_4016_r2",
-                internalName    => "$dataset->{name}_paralog_chrom_start",
-                key             => "gene_id_1020_key",
-                maxLength       => "10",
-                tableConstraint => $table }, {
-                displayName     => "$dataset->{display_name} paralogue chromosome/scaffold end (bp)",
-                field           => "chr_end_4016_r2",
-                internalName    => "$dataset->{name}_paralog_chrom_end",
-                key             => "gene_id_1020_key",
-                maxLength       => "10",
-                tableConstraint => $table }, {
-                displayName     => "Paralogue query protein or transcript ID",
-                field           => "stable_id_4016_r1",
-                internalName    => "$dataset->{name}_paralog_canonical_transcript_protein",
-                key             => "gene_id_1020_key",
-                maxLength       => "40",
-                tableConstraint => $table }, {
-                displayName     => "Paralogue last common ancestor with $dataset->{display_name}",
-                field           => "node_name_40192",
-                internalName    => "$dataset->{name}_paralog_subtype",
-                key             => "gene_id_1020_key",
-                maxLength       => "40",
-                tableConstraint => $table }, {
-                displayName     => "$dataset->{display_name} paralogue homology type",
-                field           => "description_4014",
-                internalName    => "$dataset->{name}_paralog_orthology_type",
-                key             => "gene_id_1020_key",
-                maxLength       => "25",
-                tableConstraint => $table }, {
-                displayName     => "Paralogue %id. target $dataset->{display_name} gene identical to query gene",
-                field           => "perc_id_4015",
-                internalName    => "$dataset->{name}_paralog_perc_id",
-                key             => "gene_id_1020_key",
-                maxLength       => "10",
-                tableConstraint => $table }, {
-                displayName     => "Paralogue %id. query gene identical to target $dataset->{display_name} gene",
-                field           => "perc_id_4015_r1",
-                internalName    => "$dataset->{name}_paralog_perc_id_r1",
-                key             => "gene_id_1020_key",
-                maxLength       => "10",
-                tableConstraint => $table }, {
-                displayName     => "Paralogue dN with $dataset->{display_name}",
-                field           => "dn_4014",
-                internalName    => "$dataset->{name}_paralog_dn",
-                key             => "gene_id_1020_key",
-                maxLength       => "10",
-                tableConstraint => $table }, {
-                displayName     => "Paralogue dS with $dataset->{display_name}",
-                field           => "ds_4014",
-                internalName    => "$dataset->{name}_paralog_ds",
-                key             => "gene_id_1020_key",
-                maxLength       => "10",
-                tableConstraint => $table }, {
-                displayName     => "$dataset->{display_name} paralogy confidence [0 low, 1 high]",
-                field           => "is_high_confidence_4014",
-                internalName    => "$dataset->{name}_paralog_paralogy_confidence",
-                key             => "gene_id_1020_key",
-                maxLength       => "10",
-                tableConstraint => $table } ] };
-          $nC++;
-        } ## end if ( defined $self->{tables...})
-
+        ($ago,$nC) = $self->generate_paralogs_attributes($ago, $dataset, $ds_name ,$nC);
       } ## end elsif ( $ago->{internalName... [ if ( $ago->{internalName...})]})
       elsif ( $ago->{internalName} eq 'homoeologs' ) {
-        my $table = "${ds_name}__homoeolog_$dataset->{name}__dm";
-        if ( defined $self->{tables}->{$table} ) {
-          push @{ $ago->{AttributeCollection} }, {
-
-            displayName          => "$dataset->{display_name} Homoeologues",
-            internalName         => "paralogs_$dataset->{name}",
-            AttributeDescription => [ {
-                displayName     => "$dataset->{display_name} homoeologue gene stable ID",
-                field           => "stable_id_4016_r2",
-                internalName    => "$dataset->{name}_homoeolog_gene",
-                key             => "gene_id_1020_key",
-                linkoutURL      => "exturl|/$dataset->{production_name}/Gene/Summary?g=%s",
-                maxLength       => "140",
-                tableConstraint => $table }, {
-                displayName => "$dataset->{display_name} homoeologue protein or transcript stable ID",
-                field       => "stable_id_4016_r3",
-                internalName =>
-                  "$dataset->{name}_homoeolog_homoeolog_ensembl_peptide",
-                key             => "gene_id_1020_key",
-                maxLength       => "40",
-                tableConstraint => $table }, {
-                displayName     => "$dataset->{display_name} homoeologue chromosome/scaffold name",
-                field           => "chr_name_4016_r2",
-                internalName    => "$dataset->{name}_homoeolog_chromosome",
-                key             => "gene_id_1020_key",
-                maxLength       => "40",
-                tableConstraint => $table }, {
-                displayName     => "$dataset->{display_name} homoeologue chromosome/scaffold start (bp)",
-                field           => "chr_start_4016_r2",
-                internalName    => "$dataset->{name}_homoeolog_chrom_start",
-                key             => "gene_id_1020_key",
-                maxLength       => "10",
-                tableConstraint => $table }, {
-                displayName     => "$dataset->{display_name} homoeologue chromosome/scaffold end (bp)",
-                field           => "chr_end_4016_r2",
-                internalName    => "$dataset->{name}_homoeolog_chrom_end",
-                key             => "gene_id_1020_key",
-                maxLength       => "10",
-                tableConstraint => $table }, {
-                displayName     => "Homoeologue query protein or transcript ID",
-                field           => "stable_id_4016_r1",
-                internalName    => "$dataset->{name}_homoeolog_ensembl_peptide",
-                key             => "gene_id_1020_key",
-                maxLength       => "40",
-                tableConstraint => $table }, {
-                displayName     => "Homoelogue last common ancestor with $dataset->{display_name}",
-                field           => "node_name_40192",
-                internalName    => "$dataset->{name}_homoeolog_ancestor",
-                key             => "gene_id_1020_key",
-                maxLength       => "40",
-                tableConstraint => $table }, {
-                displayName     => "$dataset->{display_name} homoelogue homology type",
-                field           => "description_4014",
-                internalName    => "$dataset->{name}_homoeolog_type",
-                key             => "gene_id_1020_key",
-                maxLength       => "25",
-                tableConstraint => $table }, {
-                displayName     => "Homoelogue %id. target $dataset->{display_name} gene identical to query gene",
-                field           => "perc_id_4015",
-                internalName    => "homoeolog_$dataset->{name}_identity",
-                key             => "gene_id_1020_key",
-                maxLength       => "10",
-                tableConstraint => $table }, {
-                displayName  => "Homoeologue %id. query gene identical to target $dataset->{display_name} gene",
-                field        => "perc_id_4015_r1",
-                internalName => "homoeolog_$dataset->{name}_homoeolog_identity",
-                key          => "gene_id_1020_key",
-                maxLength    => "10",
-                tableConstraint => $table }, {
-                displayName     => "Homoeologue dN with $dataset->{display_name}",
-                field           => "dn_4014",
-                internalName    => "$dataset->{name}_homoeolog_dn",
-                key             => "gene_id_1020_key",
-                maxLength       => "10",
-                tableConstraint => $table }, {
-                displayName     => "Homoeologue dS with $dataset->{display_name}",
-                field           => "ds_4014",
-                internalName    => "$dataset->{name}_homoeolog_ds",
-                key             => "gene_id_1020_key",
-                maxLength       => "10",
-                tableConstraint => $table }, {
-                displayName     => "$dataset->{display_name} homoeology confidence [0 low, 1 high]",
-                field           => "is_high_confidence_4014",
-                internalName    => "$dataset->{name}_homoeolog_confidence",
-                key             => "gene_id_1020_key",
-                maxLength       => "10",
-                tableConstraint => $table }]};
-          $nC++;
-        } ## end if ( defined $self->{tables...})
+        ($ago,$nC) = $self->generate_homoeolog_attributes($ago, $dataset, $ds_name ,$nC);
       } ## end elsif ( $ago->{internalName... [ if ( $ago->{internalName...})]})
       else {
-
         ### Attributecollection
         for my $attributeCollection (
                                    @{ $attributeGroup->{AttributeCollection} } )
@@ -1483,218 +852,16 @@ sub write_attributes {
           my $aco = copy_hash($attributeCollection);
 
           if ( $aco->{internalName} eq 'xrefs' ) {
-            $logger->info(
-                            "Generating data for $aco->{internalName} attributes");
-            foreach my $xref (@{ $xref_list }) {
-              #Skipping GO and GOA attributes since they have their own attribute section
-              next if ($xref->{db_name} eq "go" or $xref->{db_name} eq "goslim_goa");
-              my $table = $ds_name."__ox_".$xref->{db_name}."__dm";
-              if ( defined $self->{tables}->{$table} ) {
-                my $key = $self->get_table_key($table);
-                if ( defined $self->{tables}->{$table}->{$key} ) {
-                  my $url = $xref_url_list->{$xref->{db_name}};
-                  # Replacing ###ID### with mart placeholder %s and ###SPECIES### with
-                  # species production name
-                  if (defined $url) {
-                    $url =~ s/###ID###/%s/;
-                    $url =~ s/###SPECIES###/$dataset->{production_name}/;
-                    $url = "exturl|".$url;
-                  }
-                  else{
-                    $url='';
-                  }
-                  # Getting exception where we should use dbprimary_acc_1074 instead of display_label_1074 or both
-                  if (exists $exception_xrefs->{$xref->{db_name}}) {
-                    while (my ($field,$suffix) = each %{$exception_xrefs->{$xref->{db_name}}->{columns}}) {
-                      #For extra attribute using URL of the main field dbprimary_acc_1074
-                      if ($field ne "dbprimary_acc_1074")
-                      {
-                        $url=$url."|".$xref->{db_name}."_".lc($exception_xrefs->{$xref->{db_name}}->{columns}->{"dbprimary_acc_1074"})
-                      }
-                      #Remove from display name string whatever has been defined in the regex below.
-                      # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
-                      my $xref_display_name = $xref->{db_display_name};
-                      $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
-                      push @{ $aco->{AttributeDescription} }, {
-                        key             => $key,
-                        displayName     => "$xref_display_name $suffix",
-                        field           => $field,
-                        internalName    => $xref->{db_name}."_".lc($suffix),
-                        linkoutURL      => $url,
-                        maxLength       => "512",
-                        tableConstraint => $table };
-                      $nD++;
-                      }
-                    }
-                  # All the other xrefs
-                  else {
-                    #Remove from display name string whatever has been defined in the regex below.
-                    # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
-                    my $xref_display_name = $xref->{db_display_name};
-                    $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
-                    my $field = "dbprimary_acc_1074";
-                    push @{ $aco->{AttributeDescription} }, {
-                      key             => $key,
-                      displayName     => "$xref_display_name ID",
-                      field           => $field,
-                      internalName    => "$xref->{db_name}",
-                      linkoutURL      => $url,
-                      maxLength       => "512",
-                      tableConstraint => $table };
-                  $nD++;
-                  }
-                }
-              }
-            } ## end if ( defined $self->{tables...})
+            ($aco,$nD) = $self->generate_xrefs_attributes($aco, $xref_list, $ds_name, $exception_xrefs, $nD, $xref_url_list, $dataset);
           } ## end elsif ( $aco->{internalName... [ if ( $aco->{internalName...})]})
           elsif ( $aco->{internalName} eq 'microarray' ) {
-            $logger->info(
-                            "Generating data for $aco->{internalName} attributes");
-            foreach my $probe (@{ $probe_list }) {
-              my $field = "display_label_11056";
-              my $url;
-              # Using is_probeset_array to generate the linkout URL
-              # This link is mainly for affy probes
-              if ($probe->{is_probeset_array}){
-                $url="exturl|/$dataset->{production_name}/Location/Genome?ftype=ProbeFeature;fdb=funcgen;id=%s;ptype=pset;";
-              }
-              # This link is for other probes like codelink, agilent, illumina...
-              else {
-                $url="exturl|/$dataset->{production_name}/Location/Genome?ftype=ProbeFeature;fdb=funcgen;id=%s";
-              }
-              my $table = $ds_name."__efg_".lc($probe->{array_vendor_and_name})."__dm";
-                if ( defined $self->{tables}->{$table} ) {
-                  my $key = "transcript_id_1064_key";
-                  if ( defined $self->{tables}->{$table}->{$key} ) {
-                    my $display_name=$probe->{array_vendor_and_name};
-                    $display_name =~ s/_/ /g;
-                    push @{ $aco->{AttributeDescription} }, {
-                      key             => $key,
-                      displayName     => "$display_name probe",
-                      field           => $field,
-                      internalName    => lc($probe->{array_vendor_and_name}),
-                      linkoutURL      => $url,
-                      maxLength       => "140",
-                      tableConstraint => $table };
-                  $nD++;
-                  }
-                }
-            } ## end if ( defined $self->{tables...})
+            ($aco,$nD) = $self->generate_microarray_attributes($aco, $probe_list, $ds_name, $nD, $dataset);
           } ## end elsif ( $aco->{internalName... [ if ( $aco->{internalName...})]})
           elsif ( $aco->{internalName} eq 'protein_domain' ) {
-            $logger->info(
-                            "Generating data for $aco->{internalName} attributes");
-            foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
-              # Excluding protein features
-              next if !defined $protein_domain_and_feature->{web_data} or $protein_domain_and_feature->{web_data} eq "{'type' => 'feature'}";
-              my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->{logic_name}."__dm";
-                if ( defined $self->{tables}->{$table} ) {
-                  my $key = "translation_id_1068_key";
-                  if ( defined $self->{tables}->{$table}->{$key} ) {
-                    # Getting URLs from the parsed Web ini file
-                    my $url = $xref_url_list->{lc($protein_domain_and_feature->{db})};
-                    # Replacing ###ID### with mart placeholder %s and ###SPECIES### with
-                    # species production name
-                    if (defined $url) {
-                      $url =~ s/###ID###/%s/;
-                      $url =~ s/###SPECIES###/$dataset->{production_name}/;
-                      $url = "exturl|".$url;
-                    }
-                    else{
-                      $url='';
-                    }
-                    my $display_name;
-                    if (defined $protein_domain_and_feature->{display_label}) {
-                      $display_name=$protein_domain_and_feature->{display_label};
-                    }
-                    else{
-                      $display_name=$protein_domain_and_feature->{db};
-                    }
-                    push @{ $aco->{AttributeDescription} }, {
-                      key             => $key,
-                      displayName     => "$display_name ID",
-                      field           => "hit_name_1048",
-                      internalName    => $protein_domain_and_feature->{logic_name},
-                      linkoutURL      => $url,
-                      maxLength       => "40",
-                      tableConstraint => $table };
-                      push @{ $aco->{AttributeDescription} }, {
-                      key             => $key,
-                      displayName     => "$display_name start",
-                      field           => "seq_start_1048",
-                      internalName    => $protein_domain_and_feature->{logic_name}."_start",
-                      linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
-                      maxLength       => "10",
-                      tableConstraint => $table };
-                      push @{ $aco->{AttributeDescription} }, {
-                      key             => $key,
-                      displayName     => "$display_name end",
-                      field           => "seq_end_1048",
-                      internalName    => $protein_domain_and_feature->{logic_name}."_end",
-                      linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
-                      maxLength       => "10",
-                      tableConstraint => $table };
-                  $nD++;
-                  }
-                }
-            } ## end if ( defined $self->{tables...})
+            ($aco,$nD) = $self->generate_protein_domain_protein_features_attributes($aco, $protein_domain_and_feature_list, $ds_name, "protein_domain", $nD, $xref_url_list, $dataset);
           } ## end elsif ( $aco->{internalName... [ if ( $aco->{internalName...})]})
           elsif ( $aco->{internalName} eq 'protein_feature' ) {
-            $logger->info(
-                            "Generating data for $aco->{internalName} attributes");
-            foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
-              #Excluding protein domains
-              next if defined $protein_domain_and_feature->{web_data} and $protein_domain_and_feature->{web_data} eq "{'type' => 'domain'}";
-              my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->{logic_name}."__dm";
-                if ( defined $self->{tables}->{$table} ) {
-                  my $key = "translation_id_1068_key";
-                  if ( defined $self->{tables}->{$table}->{$key} ) {
-                    my $url = $xref_url_list->{lc($protein_domain_and_feature->{db})};
-                    # Replacing ###ID### with mart placeholder %s and ###SPECIES### with
-                    # species production name
-                    if (defined $url) {
-                      $url =~ s/###ID###/%s/;
-                      $url =~ s/###SPECIES###/$dataset->{production_name}/;
-                      $url = "exturl|".$url;
-                    }
-                    else{
-                      $url='';
-                    }
-                    my $display_name;
-                    if (defined $protein_domain_and_feature->{display_label}) {
-                      $display_name=$protein_domain_and_feature->{display_label};
-                    }
-                    else{
-                      $display_name=$protein_domain_and_feature->{db};
-                    }
-                    push @{ $aco->{AttributeDescription} }, {
-                      key             => $key,
-                      displayName     => "$display_name",
-                      field           => "hit_name_1048",
-                      internalName    => $protein_domain_and_feature->{logic_name},
-                      linkoutURL      => $url,
-                      maxLength       => "40",
-                      tableConstraint => $table };
-                      push @{ $aco->{AttributeDescription} }, {
-                      key             => $key,
-                      displayName     => "$display_name start",
-                      field           => "seq_start_1048",
-                      internalName    => $protein_domain_and_feature->{logic_name}."_start",
-                      linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
-                      maxLength       => "10",
-                      tableConstraint => $table };
-                      push @{ $aco->{AttributeDescription} }, {
-                      key             => $key,
-                      displayName     => "$display_name end",
-                      field           => "seq_end_1048",
-                      internalName    => $protein_domain_and_feature->{logic_name}."_end",
-                      linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
-                      maxLength       => "10",
-                      tableConstraint => $table };
-                  $nD++;
-                  }
-                }
-            } ## foreach my $protein_domain_and_feature
+            ($aco,$nD) = $self->generate_protein_domain_protein_features_attributes($aco, $protein_domain_and_feature_list, $ds_name, "protein_feature", $nD, $xref_url_list, $dataset);
           } ## end elsif ( $aco->{internalName... [ if ( $aco->{internalName...})]})
           ### AttributeDescription
           for my $attributeDescription (
@@ -2335,6 +1502,1033 @@ sub check_pointer_dataset_table_exist {
   $pointer_dataset_table = $self->{dbc}->sql_helper()
                     ->execute_simple( -SQL =>qq/select TABLE_ROWS from information_schema.tables where table_schema=? and table_name like ?/, -PARAMS => [$pointer_mart,$dataset_regex]);
   return ($pointer_dataset_table);
+}
+
+
+=head2 generate_homolog_filters
+  Description: Subroutine used to generate options for the id list xref filter
+  Arg        : Hashref representing the filter description
+  Arg        : Arrayref representing the list of all the mart datasets
+  Arg        : Hashref representing species databaset
+  Arg        : String representing species dataset name
+  Returntype : Hashref
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_homolog_filters{
+  my ($self,$fdo,$datasets,$dataset,$ds_name) = @_;
+  # check for paralogues
+  my $table = "${ds_name}__gene__main";
+  {
+    my $field = "paralog_$dataset->{name}_bool";
+    if ( defined $self->{tables}->{$table}->{$field} ) {
+      # add in if the column exists
+      push @{ $fdo->{Option} }, {
+          displayName  => "Paralogous $dataset->{display_name} Genes",
+          displayType  => "list",
+          field        => $field,
+          hidden       => "false",
+          internalName => "with_$dataset->{name}_paralog",
+          isSelectable => "true",
+          key          => "gene_id_1020_key",
+          legal_qualifiers => "only,excluded",
+          qualifier        => "only",
+          style            => "radio",
+          tableConstraint  => "main",
+          type             => "boolean",
+          Option           => [ {
+                        displayName  => "Only",
+                        hidden       => "false",
+                        internalName => "only",
+                        value        => "only" }, {
+                        displayName  => "Excluded",
+                        hidden       => "false",
+                        internalName => "excluded",
+                        value        => "excluded" } ] };
+    } ## end if ( defined $self->{tables...})
+  }
+  {
+    my $field = "homoeolog_$dataset->{name}_bool";
+    if ( defined $self->{tables}->{$table}->{$field} ) {
+      # add in if the column exists
+      push @{ $fdo->{Option} }, {
+          displayName => "Homoeologous $dataset->{display_name} Genes",
+          displayType => "list",
+          field       => $field,
+          hidden      => "false",
+          internalName     => "with_$dataset->{name}_homoeolog",
+          isSelectable     => "true",
+          key              => "gene_id_1020_key",
+          legal_qualifiers => "only,excluded",
+          qualifier        => "only",
+          style            => "radio",
+          tableConstraint  => "main",
+          type             => "boolean",
+          Option           => [ {
+                        displayName  => "Only",
+                        hidden       => "false",
+                        internalName => "only",
+                        value        => "only" }, {
+                        displayName  => "Excluded",
+                        hidden       => "false",
+                        internalName => "excluded",
+                        value        => "excluded" } ] };
+    } ## end if ( defined $self->{tables...})
+  }
+
+  for my $homo_dataset (@$datasets) {
+    my $field = "homolog_$homo_dataset->{name}_bool";
+    if ( defined $self->{tables}->{$table}->{$field} ) {
+      # add in if the column exists
+      push @{ $fdo->{Option} }, {
+          displayName =>
+            "Orthologous $homo_dataset->{display_name} Genes",
+          displayType      => "list",
+          field            => $field,
+          hidden           => "false",
+          internalName     => "with_$homo_dataset->{name}_homolog",
+          isSelectable     => "true",
+          key              => "gene_id_1020_key",
+          legal_qualifiers => "only,excluded",
+          qualifier        => "only",
+          style            => "radio",
+          tableConstraint  => "main",
+          type             => "boolean",
+          Option           => [ {
+                        displayName  => "Only",
+                        hidden       => "false",
+                        internalName => "only",
+                        value        => "only" }, {
+                        displayName  => "Excluded",
+                        hidden       => "false",
+                        internalName => "excluded",
+                        value        => "excluded" } ] };
+    } ## end if ( defined $self->{tables...})
+  } ## end for my $homo_dataset (@$datasets)
+  return $fdo;
+}
+
+=head2 generate_id_list_xrefs_filters
+  Description: Subroutine used to generate options for the id list xref filter
+  Arg        : Hashref representing the filter description
+  Arg        : Arrayref representing the list of all the xrefs
+  Arg        : Species dataset name
+  Returntype : Hashref
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_id_list_xrefs_filters{
+  my ($self,$fdo,$xref_list,$ds_name) = @_;
+  $logger->info(
+                    "Generating data for $fdo->{internalName}");
+      foreach my $xref (@{ $xref_list }) {
+        my $field = "ox_".$xref->{db_name}."_bool";
+        my $table = $ds_name."__ox_".$xref->{db_name}."__dm";
+        if ( defined $self->{tables}->{$table} ) {
+          my $key = $self->get_table_key($table);
+            if ( defined $self->{tables}->{$table}->{$key} ) {
+              my $main_table=${ds_name}."__translation__main";
+              if (defined $self->{tables}->{$main_table}->{$field} ) {
+                # add in if the column exists
+                push @{ $fdo->{Option} }, {
+                  displayName  => "With $xref->{db_display_name} ID(s)",
+                  displayType  => "list",
+                  field        => $field,
+                  hidden       => "false",
+                  internalName => "with_$xref->{db_name}",
+                  isSelectable => "true",
+                  key          => $key,
+                  legal_qualifiers => "only,excluded",
+                  qualifier        => "only",
+                  style            => "radio",
+                  tableConstraint  => "main",
+                  type             => "boolean",
+                  Option           => [ {
+                          displayName  => "Only",
+                          hidden       => "false",
+                          internalName => "only",
+                          value        => "only" }, {
+                          displayName  => "Excluded",
+                          hidden       => "false",
+                          internalName => "excluded",
+                          value        => "excluded" } ] };
+              }
+            }
+        }
+      } ## end if ( defined $self->{tables...})
+  return $fdo;
+}
+
+=head2 generate_id_list_limit_xrefs_filters
+  Description: Subroutine used to generate options for the id list limit xref filter
+  Arg        : Hashref representing the filter description
+  Arg        : Arrayref representing the list of all the xrefs
+  Arg        : Species dataset name
+  Arg        : Hashref representing xrefs exceptions
+  Returntype : Hashref
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_id_list_limit_xrefs_filters {
+  my ($self,$fdo,$xref_list,$ds_name,$exception_xrefs) = @_;
+  $logger->info(
+                            "Generating data for $fdo->{internalName}");
+  # Generation of the other xrefs
+  foreach my $xref (@{ $xref_list }) {
+    my $table = $ds_name."__ox_".$xref->{db_name}."__dm";
+    if ( defined $self->{tables}->{$table} ) {
+      my $key = $self->get_table_key($table);
+      if ( defined $self->{tables}->{$table}->{$key} ) {
+        if (exists $exception_xrefs->{$xref->{db_name}}) {
+          #Checking if the xrefs is part of the execption xrefs hash.
+          #We need to use dbprimary_acc_1074 instead of display_label_1074 or both
+          while ( my ($field, $suffix) = each %{$exception_xrefs->{$xref->{db_name}}->{columns}}) {
+            # We don't want filters for description field
+            # E.g: MIM gene description(s) [e.g. RING1- AND YY1-BINDING PROTEIN; RYBP;;YY1- AND E4TF1/GABP-ASSOCIATED FACTOR 1; YEAF1]
+            # or MIM morbid description(s) [e.g. MONOCARBOXYLATE TRANSPORTER 1 DEFICIENCY; MCT1D]
+
+            #Remove from display name string whatever has been defined in the regex below.
+            # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
+            my $xref_display_name = $xref->{db_display_name};
+            $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
+            next if ($field eq "description_1074");
+            my $example = $self->get_example($table,$field);
+            push @{ $fdo->{Option} }, {
+            displayName  => "$xref_display_name $suffix"."(s) [e.g. $example]",
+            displayType  => "text",
+            description  => "Filter to include genes with supplied list of $xref_display_name $suffix"."(s)",
+            field        => $field,
+            hidden       => "false",
+            internalName => $xref->{db_name}."_".lc($suffix),
+            isSelectable => "true",
+            key          => $key,
+            legal_qualifiers => "=,in",
+            multipleValues   => "1",
+            qualifier        => "=",
+            tableConstraint  => $table,
+            type             => "List" };
+          }
+        }
+        else {
+          #Remove from display name string whatever has been defined in the regex below.
+          # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
+          my $xref_display_name = $xref->{db_display_name};
+          $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
+          #Use dbprimary_acc_1074 column for all the other xrefs
+          my $field = "dbprimary_acc_1074";
+          # add in if the column exists
+          my $example = $self->get_example($table,$field);
+          push @{ $fdo->{Option} }, {
+            displayName  => "$xref_display_name ID(s) [e.g. $example]",
+            displayType  => "text",
+            description  => "Filter to include genes with supplied list of $xref->{db_display_name} ID(s)",
+            field        => $field,
+            hidden       => "false",
+            internalName => "$xref->{db_name}",
+            isSelectable => "true",
+            key          => $key,
+            legal_qualifiers => "=,in",
+            multipleValues   => "1",
+            qualifier        => "=",
+            tableConstraint  => $table,
+            type             => "List" };
+        }
+      }
+    }
+  } ## end if ( defined $self->{tables...})
+  return $fdo;
+}
+
+
+=head2 generate_id_list_microarray_filters
+  Description: Subroutine used to generate options for the id list probes filter
+  Arg        : Hashref representing the filter description
+  Arg        : Arrayref representing the list of all the probes
+  Arg        : Species dataset name
+  Returntype : Hashref
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_id_list_microarray_filters {
+  my ($self,$fdo,$probe_list,$ds_name) = @_;
+
+  $logger->info(
+              "Generating data for $fdo->{internalName}");
+  foreach my $probe (@{ $probe_list }) {
+    my $field = "efg_".lc($probe->{array_vendor_and_name})."_bool";
+    my $table = $ds_name."__efg_".lc($probe->{array_vendor_and_name})."__dm";
+    if ( defined $self->{tables}->{$table} ) {
+      my $key = "transcript_id_1064_key";
+      if ( defined $self->{tables}->{$table}->{$key} ) {
+        my $main_table=${ds_name}."__transcript__main";
+        if (defined $self->{tables}->{$main_table}->{$field} ) {
+          my $display_name=$probe->{array_vendor_and_name};
+          $display_name =~ s/_/ /g;
+          # add in if the column exists
+          push @{ $fdo->{Option} }, {
+            displayName  => "With $display_name probe ID(s)",
+            displayType  => "list",
+            field        => $field,
+            hidden       => "false",
+            internalName => "with_".lc($probe->{array_vendor_and_name}),
+            isSelectable => "true",
+            key          => $key,
+            legal_qualifiers => "only,excluded",
+            qualifier        => "only",
+            style            => "radio",
+            tableConstraint  => "main",
+            type             => "boolean",
+            Option           => [ {
+                    displayName  => "Only",
+                    hidden       => "false",
+                    internalName => "only",
+                    value        => "only" }, {
+                    displayName  => "Excluded",
+                    hidden       => "false",
+                    internalName => "excluded",
+                    value        => "excluded" } ] };
+          }
+      }
+    }
+  } ## end if ( defined $self->{tables...})
+  return $fdo;
+}
+
+=head2 generate_id_list_limit_microarray_filters
+  Description: Subroutine used to generate options for the id list limit probes filter
+  Arg        : Hashref representing the filter description
+  Arg        : Arrayref representing the list of all the probes
+  Arg        : Species dataset name
+  Returntype : Hashref
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_id_list_limit_microarray_filters {
+  my ($self,$fdo,$probe_list,$ds_name) = @_;
+  $logger->info(
+              "Generating data for $fdo->{internalName}");
+  foreach my $probe (@{ $probe_list }) {
+    my $field = "display_label_11056";
+    my $table = $ds_name."__efg_".lc($probe->{array_vendor_and_name})."__dm";
+    if ( defined $self->{tables}->{$table} ) {
+      my $key = "transcript_id_1064_key";
+      if ( defined $self->{tables}->{$table}->{$key} ) {
+        my $display_name=$probe->{array_vendor_and_name};
+        $display_name =~ s/_/ /g;
+        my $example = $self->get_example($table,$field);
+        # add in if the column exists
+        push @{ $fdo->{Option} }, {
+          displayName  => "$display_name probe ID(s) [e.g. $example]",
+          displayType  => "text",
+          description  => "Filter to include genes with supplied list of $display_name ID(s)",
+          field        => $field,
+          hidden       => "false",
+          internalName => lc($probe->{array_vendor_and_name}),
+          isSelectable => "true",
+          key          => $key,
+          legal_qualifiers => "=,in",
+          multipleValues   => "1",
+          qualifier        => "=",
+          tableConstraint  => $table,
+          type             => "List" };
+      }
+    }
+  } ## end if ( defined $self->{tables...})
+  return $fdo;
+}
+
+=head2 generate_id_list_protein_domain_and_feature_filters
+  Description: Subroutine used to generate options for the id list protein domains and protein features filters
+  Arg        : Hashref representing the filter description
+  Arg        : Arrayref representing the list of all the protein domains and protein features
+  Arg        : Species dataset name
+  Returntype : Hashref
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_id_list_protein_domain_and_feature_filters {
+  my ($self,$fdo,$protein_domain_and_feature_list,$ds_name) = @_;
+  $logger->info(
+                "Generating data for $fdo->{internalName}");
+  foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
+    my $field = "protein_feature_".$protein_domain_and_feature->{logic_name}."_bool";
+    my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->{logic_name}."__dm";
+    my $display_name;
+    # We only want to display "ID(s)" for Protein domains
+    if (defined $protein_domain_and_feature->{web_data} and $protein_domain_and_feature->{web_data} ne "{'type' => 'feature'}"){
+      $display_name="With $protein_domain_and_feature->{display_label} ID(s)";
+    }
+    elsif (defined $protein_domain_and_feature->{display_label})
+    {
+      $display_name="With $protein_domain_and_feature->{display_label}";
+    } 
+    # BlastProdom don't have an analysis_description.
+    else {
+      $display_name="With $protein_domain_and_feature->{db}";
+    }
+    if ( defined $self->{tables}->{$table} ) {
+      my $key = $self->get_table_key($table);
+        if ( defined $self->{tables}->{$table}->{$key} ) {
+          my $main_table=${ds_name}."__translation__main";
+          if (defined $self->{tables}->{$main_table}->{$field} ) {
+            # add in if the column exists
+            push @{ $fdo->{Option} }, {
+              displayName  => $display_name,
+              displayType  => "list",
+              field        => $field,
+              hidden       => "false",
+              internalName => "with_".$protein_domain_and_feature->{logic_name},
+              isSelectable => "true",
+              key          => $key,
+              legal_qualifiers => "only,excluded",
+              qualifier        => "only",
+              style            => "radio",
+              tableConstraint  => "main",
+              type             => "boolean",
+              Option           => [ {
+                      displayName  => "Only",
+                      hidden       => "false",
+                      internalName => "only",
+                      value        => "only" }, {
+                      displayName  => "Excluded",
+                      hidden       => "false",
+                      internalName => "excluded",
+                      value        => "excluded" } ] };
+          }
+        }
+    }
+  } ## end if ( defined $self->{tables...})
+  return $fdo;
+}
+
+
+=head2 generate_id_list_limit_protein_domain_filters
+  Description: Subroutine used to generate options for the id list limit protein domains and protein features filters
+  Arg        : Hashref representing the filter description
+  Arg        : Arrayref representing the list of all the protein domains and protein features
+  Arg        : Species dataset name
+  Returntype : Hashref
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_id_list_limit_protein_domain_filters {
+  my ($self,$fdo,$protein_domain_and_feature_list,$ds_name) = @_;
+  $logger->info(
+                  "Generating data for $fdo->{internalName}");
+  # Generating protein domains
+  foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
+    # Excluding protein features
+    next if !defined $protein_domain_and_feature->{web_data} or $protein_domain_and_feature->{web_data}  eq "{'type' => 'feature'}";
+    my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->{logic_name}."__dm";
+    if ( defined $self->{tables}->{$table} ) {
+      my $key = $self->get_table_key($table);
+      if ( defined $self->{tables}->{$table}->{$key} ) {
+          my $field = "hit_name_1048";
+          my $display_name;
+          if (defined $protein_domain_and_feature->{display_label}) {
+            $display_name=$protein_domain_and_feature->{display_label};
+          }
+          else{
+            $display_name=$protein_domain_and_feature->{db};
+          }
+          # add in if the column exists
+          my $example = $self->get_example($table,$field);
+          push @{ $fdo->{Option} }, {
+            displayName  => "$display_name ID(s) [e.g. $example]",
+            displayType  => "text",
+            description  => "Filter to include genes with supplied list of $display_name ID(s)",
+            field        => $field,
+            hidden       => "false",
+            internalName => "$protein_domain_and_feature->{logic_name}",
+            isSelectable => "true",
+            key          => $key,
+            legal_qualifiers => "=,in",
+            multipleValues   => "1",
+            qualifier        => "=",
+            tableConstraint  => $table,
+            type             => "List" };
+        }
+      }
+  } ## end foreach  my $protein_domain_and_feature
+  return $fdo;
+}
+
+=head2 generate_orthologs_attributes
+  Description: Subroutine used to generate the orthologs attributes
+  Arg        : Hashref representing the attribute group
+  Arg        : Arrayref representing the list of all the mart datasets
+  Arg        : Species dataset name
+  Arg        : variable to count the number of attribute Collection
+  Returntype : Hashref,int
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_orthologs_attributes {
+  my ($self,$ago, $datasets, $ds_name ,$nC) = @_;  
+  for my $o_dataset (@$datasets) {
+    my $table = "${ds_name}__homolog_$o_dataset->{name}__dm";
+    if ( defined $self->{tables}->{$table} ) {
+      push @{ $ago->{AttributeCollection} }, {
+        displayName          => "$o_dataset->{display_name} Orthologues",
+        internalName         => "homolog_$o_dataset->{name}",
+        AttributeDescription => [ {
+            displayName  => "$o_dataset->{display_name} gene stable ID",
+            field        => "stable_id_4016_r2",
+            internalName => "$o_dataset->{name}_homolog_ensembl_gene",
+            key          => "gene_id_1020_key",
+            linkoutURL =>
+              "exturl|/$o_dataset->{production_name}/Gene/Summary?g=%s",
+            maxLength       => "128",
+            tableConstraint => $table }, {
+            displayName  => "$o_dataset->{display_name} gene name",
+            field        => "display_label_40273_r1",
+            linkoutURL  => "exturl|/$o_dataset->{production_name}/Gene/Summary?g=%s|$o_dataset->{name}_homolog_ensembl_gene",
+            internalName => "$o_dataset->{name}_homolog_associated_gene_name",
+            key          => "gene_id_1020_key",
+            maxLength    => "128",
+            tableConstraint => $table },{
+            displayName  => "$o_dataset->{display_name} protein or transcript stable ID",
+            field        => "stable_id_4016_r3",
+            internalName => "$o_dataset->{name}_homolog_ensembl_peptide",
+            key          => "gene_id_1020_key",
+            maxLength    => "128",
+            tableConstraint => $table }, {
+            displayName => "$o_dataset->{display_name} chromosome/scaffold name",
+            field       => "chr_name_4016_r2",
+            internalName    => "$o_dataset->{name}_homolog_chromosome",
+            key             => "gene_id_1020_key",
+            maxLength       => "40",
+            tableConstraint => $table }, {
+            displayName     => "$o_dataset->{display_name} chromosome/scaffold start (bp)",
+            field           => "chr_start_4016_r2",
+            internalName    => "$o_dataset->{name}_homolog_chrom_start",
+            key             => "gene_id_1020_key",
+            maxLength       => "10",
+            tableConstraint => $table }, {
+            displayName     => "$o_dataset->{display_name} chromosome/scaffold end (bp)",
+            field           => "chr_end_4016_r2",
+            internalName    => "$o_dataset->{name}_homolog_chrom_end",
+            key             => "gene_id_1020_key",
+            maxLength       => "10",
+            tableConstraint => $table }, {
+            displayName => "Query protein or transcript ID",
+            field       => "stable_id_4016_r1",
+            internalName =>
+              "$o_dataset->{name}_homolog_canonical_transcript_protein",
+            key             => "gene_id_1020_key",
+            maxLength       => "128",
+            tableConstraint => $table }, {
+            displayName     => "Last common ancestor with $o_dataset->{display_name}",
+            field           => "node_name_40192",
+            internalName    => "$o_dataset->{name}_homolog_subtype",
+            key             => "gene_id_1020_key",
+            maxLength       => "40",
+            tableConstraint => $table }, {
+            displayName     => "$o_dataset->{display_name} homology type",
+            field           => "description_4014",
+            internalName    => "$o_dataset->{name}_homolog_orthology_type",
+            key             => "gene_id_1020_key",
+            maxLength       => "25",
+            tableConstraint => $table }, {
+            displayName     => "%id. target $o_dataset->{display_name} gene identical to query gene",
+            field           => "perc_id_4015",
+            internalName    => "$o_dataset->{name}_homolog_perc_id",
+            key             => "gene_id_1020_key",
+            maxLength       => "10",
+            tableConstraint => $table }, {
+            displayName     => "%id. query gene identical to target $o_dataset->{display_name} gene",
+            field           => "perc_id_4015_r1",
+            internalName    => "$o_dataset->{name}_homolog_perc_id_r1",
+            key             => "gene_id_1020_key",
+            maxLength       => "10",
+            tableConstraint => $table },{
+            displayName     => "$o_dataset->{display_name} Gene-order conservation score",
+            field           => "goc_score_4014",
+            internalName    => "$o_dataset->{name}_homolog_goc_score",
+            key             => "gene_id_1020_key",
+            maxLength       => "10",
+            tableConstraint => $table },{
+            displayName     => "$o_dataset->{display_name} Whole-genome alignment coverage",
+            field           => "wga_coverage_4014",
+            internalName    => "$o_dataset->{name}_homolog_wga_coverage",
+            key             => "gene_id_1020_key",
+            maxLength       => "5",
+            tableConstraint => $table }, {
+            displayName     => "dN with $o_dataset->{display_name}",
+            field           => "dn_4014",
+            internalName    => "$o_dataset->{name}_homolog_dn",
+            key             => "gene_id_1020_key",
+            maxLength       => "10",
+            tableConstraint => $table }, {
+            displayName     => "dS with $o_dataset->{display_name}",
+            field           => "ds_4014",
+            internalName    => "$o_dataset->{name}_homolog_ds",
+            key             => "gene_id_1020_key",
+            maxLength       => "10",
+            tableConstraint => $table }, {
+            displayName  => "$o_dataset->{display_name} orthology confidence [0 low, 1 high]",
+            field        => "is_high_confidence_4014",
+            internalName => "$o_dataset->{name}_homolog_orthology_confidence",
+            key          => "gene_id_1020_key",
+            maxLength    => "10",
+            tableConstraint => $table } ] };
+      $nC++;
+    } ## end if ( defined $self->{tables...})
+  } ## end for my $o_dataset (@$datasets)
+  return ($ago,$nC);
+}
+
+
+=head2 generate_paralogs_attributes
+  Description: Subroutine used to generate the paralogs attributes
+  Arg        : Hashref representing the attribute group
+  Arg        : Hashref representing the mart species dataset object
+  Arg        : Species dataset name
+  Arg        : variable to count the number of attribute Collection
+  Returntype : Hashref,int
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_paralogs_attributes {
+  my ($self, $ago, $dataset, $ds_name ,$nC) = @_;
+  my $table = "${ds_name}__paralog_$dataset->{name}__dm";
+  if ( defined $self->{tables}->{$table} ) {
+    push @{ $ago->{AttributeCollection} }, {
+
+      displayName          => "$dataset->{display_name} Paralogues",
+      internalName         => "paralogs_$dataset->{name}",
+      AttributeDescription => [ {
+          displayName     => "$dataset->{display_name} paralogue gene stable ID",
+          field           => "stable_id_4016_r2",
+          internalName    => "$dataset->{name}_paralog_ensembl_gene",
+          key             => "gene_id_1020_key",
+          linkoutURL      => "exturl|/$dataset->{production_name}/Gene/Summary?g=%s",
+          maxLength       => "140",
+          tableConstraint => $table }, {
+          displayName => "$dataset->{display_name} paralogue associated gene name",
+          field       => "display_label_40273_r1",
+          linkoutURL  => "exturl|/$dataset->{production_name}/Gene/Summary?g=%s|$dataset->{name}_paralog_ensembl_gene",
+          internalName => "$dataset->{name}_paralog_associated_gene_name",
+          key             => "gene_id_1020_key",
+          maxLength       => "128",
+          tableConstraint => $table }, {
+          displayName => "$dataset->{display_name} paralogue protein or transcript ID",
+          field       => "stable_id_4016_r3",
+          internalName => "$dataset->{name}_paralog_ensembl_peptide",
+          key             => "gene_id_1020_key",
+          maxLength       => "40",
+          tableConstraint => $table }, {
+          displayName     => "$dataset->{display_name} paralogue chromosome/scaffold name",
+          field           => "chr_name_4016_r2",
+          internalName    => "$dataset->{name}_paralog_chromosome",
+          key             => "gene_id_1020_key",
+          maxLength       => "40",
+          tableConstraint => $table }, {
+          displayName     => "$dataset->{display_name} paralogue chromosome/scaffold start (bp)",
+          field           => "chr_start_4016_r2",
+          internalName    => "$dataset->{name}_paralog_chrom_start",
+          key             => "gene_id_1020_key",
+          maxLength       => "10",
+          tableConstraint => $table }, {
+          displayName     => "$dataset->{display_name} paralogue chromosome/scaffold end (bp)",
+          field           => "chr_end_4016_r2",
+          internalName    => "$dataset->{name}_paralog_chrom_end",
+          key             => "gene_id_1020_key",
+          maxLength       => "10",
+          tableConstraint => $table }, {
+          displayName     => "Paralogue query protein or transcript ID",
+          field           => "stable_id_4016_r1",
+          internalName    => "$dataset->{name}_paralog_canonical_transcript_protein",
+          key             => "gene_id_1020_key",
+          maxLength       => "40",
+          tableConstraint => $table }, {
+          displayName     => "Paralogue last common ancestor with $dataset->{display_name}",
+          field           => "node_name_40192",
+          internalName    => "$dataset->{name}_paralog_subtype",
+          key             => "gene_id_1020_key",
+          maxLength       => "40",
+          tableConstraint => $table }, {
+          displayName     => "$dataset->{display_name} paralogue homology type",
+          field           => "description_4014",
+          internalName    => "$dataset->{name}_paralog_orthology_type",
+          key             => "gene_id_1020_key",
+          maxLength       => "25",
+          tableConstraint => $table }, {
+          displayName     => "Paralogue %id. target $dataset->{display_name} gene identical to query gene",
+          field           => "perc_id_4015",
+          internalName    => "$dataset->{name}_paralog_perc_id",
+          key             => "gene_id_1020_key",
+          maxLength       => "10",
+          tableConstraint => $table }, {
+          displayName     => "Paralogue %id. query gene identical to target $dataset->{display_name} gene",
+          field           => "perc_id_4015_r1",
+          internalName    => "$dataset->{name}_paralog_perc_id_r1",
+          key             => "gene_id_1020_key",
+          maxLength       => "10",
+          tableConstraint => $table }, {
+          displayName     => "Paralogue dN with $dataset->{display_name}",
+          field           => "dn_4014",
+          internalName    => "$dataset->{name}_paralog_dn",
+          key             => "gene_id_1020_key",
+          maxLength       => "10",
+          tableConstraint => $table }, {
+          displayName     => "Paralogue dS with $dataset->{display_name}",
+          field           => "ds_4014",
+          internalName    => "$dataset->{name}_paralog_ds",
+          key             => "gene_id_1020_key",
+          maxLength       => "10",
+          tableConstraint => $table }, {
+          displayName     => "$dataset->{display_name} paralogy confidence [0 low, 1 high]",
+          field           => "is_high_confidence_4014",
+          internalName    => "$dataset->{name}_paralog_paralogy_confidence",
+          key             => "gene_id_1020_key",
+          maxLength       => "10",
+          tableConstraint => $table } ] };
+    $nC++;
+  } ## end if ( defined $self->{tables...})
+  return ($ago,$nC);
+}
+
+=head2 generate_homoeolog_attributes
+  Description: Subroutine used to generate the Homoeolog attributes
+  Arg        : Hashref representing the attribute group
+  Arg        : Hashref representing the mart species dataset object
+  Arg        : Species dataset name
+  Arg        : variable to count the number of attribute Collection
+  Returntype : Hashref,int
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_homoeolog_attributes {
+  my ($self, $ago, $dataset, $ds_name, $nC) = @_;
+  my $table = "${ds_name}__homoeolog_$dataset->{name}__dm";
+  if ( defined $self->{tables}->{$table} ) {
+    push @{ $ago->{AttributeCollection} }, {
+
+      displayName          => "$dataset->{display_name} Homoeologues",
+      internalName         => "paralogs_$dataset->{name}",
+      AttributeDescription => [ {
+          displayName     => "$dataset->{display_name} homoeologue gene stable ID",
+          field           => "stable_id_4016_r2",
+          internalName    => "$dataset->{name}_homoeolog_gene",
+          key             => "gene_id_1020_key",
+          linkoutURL      => "exturl|/$dataset->{production_name}/Gene/Summary?g=%s",
+          maxLength       => "140",
+          tableConstraint => $table }, {
+          displayName => "$dataset->{display_name} homoeologue protein or transcript stable ID",
+          field       => "stable_id_4016_r3",
+          internalName =>
+            "$dataset->{name}_homoeolog_homoeolog_ensembl_peptide",
+          key             => "gene_id_1020_key",
+          maxLength       => "40",
+          tableConstraint => $table }, {
+          displayName     => "$dataset->{display_name} homoeologue chromosome/scaffold name",
+          field           => "chr_name_4016_r2",
+          internalName    => "$dataset->{name}_homoeolog_chromosome",
+          key             => "gene_id_1020_key",
+          maxLength       => "40",
+          tableConstraint => $table }, {
+          displayName     => "$dataset->{display_name} homoeologue chromosome/scaffold start (bp)",
+          field           => "chr_start_4016_r2",
+          internalName    => "$dataset->{name}_homoeolog_chrom_start",
+          key             => "gene_id_1020_key",
+          maxLength       => "10",
+          tableConstraint => $table }, {
+          displayName     => "$dataset->{display_name} homoeologue chromosome/scaffold end (bp)",
+          field           => "chr_end_4016_r2",
+          internalName    => "$dataset->{name}_homoeolog_chrom_end",
+          key             => "gene_id_1020_key",
+          maxLength       => "10",
+          tableConstraint => $table }, {
+          displayName     => "Homoeologue query protein or transcript ID",
+          field           => "stable_id_4016_r1",
+          internalName    => "$dataset->{name}_homoeolog_ensembl_peptide",
+          key             => "gene_id_1020_key",
+          maxLength       => "40",
+          tableConstraint => $table }, {
+          displayName     => "Homoelogue last common ancestor with $dataset->{display_name}",
+          field           => "node_name_40192",
+          internalName    => "$dataset->{name}_homoeolog_ancestor",
+          key             => "gene_id_1020_key",
+          maxLength       => "40",
+          tableConstraint => $table }, {
+          displayName     => "$dataset->{display_name} homoelogue homology type",
+          field           => "description_4014",
+          internalName    => "$dataset->{name}_homoeolog_type",
+          key             => "gene_id_1020_key",
+          maxLength       => "25",
+          tableConstraint => $table }, {
+          displayName     => "Homoelogue %id. target $dataset->{display_name} gene identical to query gene",
+          field           => "perc_id_4015",
+          internalName    => "homoeolog_$dataset->{name}_identity",
+          key             => "gene_id_1020_key",
+          maxLength       => "10",
+          tableConstraint => $table }, {
+          displayName  => "Homoeologue %id. query gene identical to target $dataset->{display_name} gene",
+          field        => "perc_id_4015_r1",
+          internalName => "homoeolog_$dataset->{name}_homoeolog_identity",
+          key          => "gene_id_1020_key",
+          maxLength    => "10",
+          tableConstraint => $table }, {
+          displayName     => "Homoeologue dN with $dataset->{display_name}",
+          field           => "dn_4014",
+          internalName    => "$dataset->{name}_homoeolog_dn",
+          key             => "gene_id_1020_key",
+          maxLength       => "10",
+          tableConstraint => $table }, {
+          displayName     => "Homoeologue dS with $dataset->{display_name}",
+          field           => "ds_4014",
+          internalName    => "$dataset->{name}_homoeolog_ds",
+          key             => "gene_id_1020_key",
+          maxLength       => "10",
+          tableConstraint => $table }, {
+          displayName     => "$dataset->{display_name} homoeology confidence [0 low, 1 high]",
+          field           => "is_high_confidence_4014",
+          internalName    => "$dataset->{name}_homoeolog_confidence",
+          key             => "gene_id_1020_key",
+          maxLength       => "10",
+          tableConstraint => $table }]};
+    $nC++;
+  } ## end if ( defined $self->{tables...})
+  return ($ago,$nC);
+}
+
+=head2 generate_xrefs_attributes
+  Description: Subroutine used to generate xref attributes
+  Arg        : Hashref representing the attribute Collection
+  Arg        : Arrayref representing the list of all the xrefs
+  Arg        : Species dataset name
+  Arg        : Hashref representing xrefs exceptions
+  Arg        : variable to count the number of attribute options
+  Arg        : Hashref representing the list of xrefs URLs
+  Arg        : Hashref species dataset object
+  Returntype : Hashref,int
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_xrefs_attributes {
+  my ($self, $aco, $xref_list, $ds_name, $exception_xrefs, $nD, $xref_url_list, $dataset) = @_;
+  $logger->info(
+                  "Generating data for $aco->{internalName} attributes");
+  foreach my $xref (@{ $xref_list }) {
+    #Skipping GO and GOA attributes since they have their own attribute section
+    next if ($xref->{db_name} eq "go" or $xref->{db_name} eq "goslim_goa");
+    my $table = $ds_name."__ox_".$xref->{db_name}."__dm";
+    if ( defined $self->{tables}->{$table} ) {
+      my $key = $self->get_table_key($table);
+      if ( defined $self->{tables}->{$table}->{$key} ) {
+        my $url = $xref_url_list->{$xref->{db_name}};
+        # Replacing ###ID### with mart placeholder %s and ###SPECIES### with
+        # species production name
+        if (defined $url) {
+          $url =~ s/###ID###/%s/;
+          $url =~ s/###SPECIES###/$dataset->{production_name}/;
+          $url = "exturl|".$url;
+        }
+        else{
+          $url='';
+        }
+        # Getting exception where we should use dbprimary_acc_1074 instead of display_label_1074 or both
+        if (exists $exception_xrefs->{$xref->{db_name}}) {
+          while (my ($field,$suffix) = each %{$exception_xrefs->{$xref->{db_name}}->{columns}}) {
+            #For extra attribute using URL of the main field dbprimary_acc_1074
+            if ($field ne "dbprimary_acc_1074")
+            {
+              $url=$url."|".$xref->{db_name}."_".lc($exception_xrefs->{$xref->{db_name}}->{columns}->{"dbprimary_acc_1074"})
+            }
+            #Remove from display name string whatever has been defined in the regex below.
+            # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
+            my $xref_display_name = $xref->{db_display_name};
+            $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
+            push @{ $aco->{AttributeDescription} }, {
+              key             => $key,
+              displayName     => "$xref_display_name $suffix",
+              field           => $field,
+              internalName    => $xref->{db_name}."_".lc($suffix),
+              linkoutURL      => $url,
+              maxLength       => "512",
+              tableConstraint => $table };
+            $nD++;
+            }
+          }
+        # All the other xrefs
+        else {
+          #Remove from display name string whatever has been defined in the regex below.
+          # At the moment removing Symbol for the HGNC xref and ID for other xrefs like INSDC protein
+          my $xref_display_name = $xref->{db_display_name};
+          $xref_display_name =~ s/(\s+[sS]ymbol$)|(\s+[iI][dD]$)//;
+          my $field = "dbprimary_acc_1074";
+          push @{ $aco->{AttributeDescription} }, {
+            key             => $key,
+            displayName     => "$xref_display_name ID",
+            field           => $field,
+            internalName    => "$xref->{db_name}",
+            linkoutURL      => $url,
+            maxLength       => "512",
+            tableConstraint => $table };
+        $nD++;
+        }
+      }
+    }
+  } ## end if ( defined $self->{tables...})
+  return ($aco,$nD);
+}
+
+=head2 generate_microarray_attributes
+  Description: Subroutine used to generate microarray attributes
+  Arg        : Hashref representing the attribute Collection
+  Arg        : Arrayref representing the list of all the probes
+  Arg        : Species dataset name
+  Arg        : variable to count the number of attribute options
+  Arg        : Hashref species dataset object
+  Returntype : Hashref,int
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_microarray_attributes {
+  my ($self, $aco, $probe_list, $ds_name, $nD, $dataset) = @_;
+  $logger->info(
+                  "Generating data for $aco->{internalName} attributes");
+  foreach my $probe (@{ $probe_list }) {
+    my $field = "display_label_11056";
+    my $url;
+    # Using is_probeset_array to generate the linkout URL
+    # This link is mainly for affy probes
+    if ($probe->{is_probeset_array}){
+      $url="exturl|/$dataset->{production_name}/Location/Genome?ftype=ProbeFeature;fdb=funcgen;id=%s;ptype=pset;";
+    }
+    # This link is for other probes like codelink, agilent, illumina...
+    else {
+      $url="exturl|/$dataset->{production_name}/Location/Genome?ftype=ProbeFeature;fdb=funcgen;id=%s";
+    }
+    my $table = $ds_name."__efg_".lc($probe->{array_vendor_and_name})."__dm";
+      if ( defined $self->{tables}->{$table} ) {
+        my $key = "transcript_id_1064_key";
+        if ( defined $self->{tables}->{$table}->{$key} ) {
+          my $display_name=$probe->{array_vendor_and_name};
+          $display_name =~ s/_/ /g;
+          push @{ $aco->{AttributeDescription} }, {
+            key             => $key,
+            displayName     => "$display_name probe",
+            field           => $field,
+            internalName    => lc($probe->{array_vendor_and_name}),
+            linkoutURL      => $url,
+            maxLength       => "140",
+            tableConstraint => $table };
+        $nD++;
+        }
+      }
+  } ## end if ( defined $self->{tables...})
+  return ($aco,$nD);
+}
+
+=head2 generate_protein_domain_protein_features_attributes
+  Description: Subroutine used to generate protein domain and protein features attributes
+  Arg        : Hashref representing the attribute Collection
+  Arg        : Arrayref representing the list of all the probes
+  Arg        : Species dataset name
+  Arg        : String, either protein domain and protein features attributes
+  Arg        : String variable to count the number of attribute options
+  Arg        : Hashref containing a list of URLs for protein domains and protein features
+  Arg        : Hashref species dataset object
+  Returntype : Hashref,int
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub generate_protein_domain_protein_features_attributes {
+  my ($self, $aco, $protein_domain_and_feature_list, $ds_name, $mode, $nD, $xref_url_list, $dataset) = @_;
+    $logger->info(
+                  "Generating data for $aco->{internalName} attributes");
+  foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
+    if ($mode eq "protein_domain"){
+      # Excluding protein features
+      next if !defined $protein_domain_and_feature->{web_data} or $protein_domain_and_feature->{web_data} eq "{'type' => 'feature'}";
+    }
+    elsif ($mode eq "protein_feature"){
+      #Excluding protein domains
+      next if defined $protein_domain_and_feature->{web_data} and $protein_domain_and_feature->{web_data} eq "{'type' => 'domain'}";
+    }
+    my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->{logic_name}."__dm";
+      if ( defined $self->{tables}->{$table} ) {
+        my $key = "translation_id_1068_key";
+        if ( defined $self->{tables}->{$table}->{$key} ) {
+          # Getting URLs from the parsed Web ini file
+          my $url = $xref_url_list->{lc($protein_domain_and_feature->{db})};
+          # Replacing ###ID### with mart placeholder %s and ###SPECIES### with
+          # species production name
+          if (defined $url) {
+            $url =~ s/###ID###/%s/;
+            $url =~ s/###SPECIES###/$dataset->{production_name}/;
+            $url = "exturl|".$url;
+          }
+          else{
+            $url='';
+          }
+          my $display_name;
+          if (defined $protein_domain_and_feature->{display_label}) {
+            $display_name=$protein_domain_and_feature->{display_label};
+          }
+          else{
+            $display_name=$protein_domain_and_feature->{db};
+          }
+          if ($mode eq "protein_domain"){
+            $display_name=$display_name." ID";
+          }
+          push @{ $aco->{AttributeDescription} }, {
+            key             => $key,
+            displayName     => $display_name,
+            field           => "hit_name_1048",
+            internalName    => $protein_domain_and_feature->{logic_name},
+            linkoutURL      => $url,
+            maxLength       => "40",
+            tableConstraint => $table };
+            push @{ $aco->{AttributeDescription} }, {
+            key             => $key,
+            displayName     => "$display_name start",
+            field           => "seq_start_1048",
+            internalName    => $protein_domain_and_feature->{logic_name}."_start",
+            linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
+            maxLength       => "10",
+            tableConstraint => $table };
+            push @{ $aco->{AttributeDescription} }, {
+            key             => $key,
+            displayName     => "$display_name end",
+            field           => "seq_end_1048",
+            internalName    => $protein_domain_and_feature->{logic_name}."_end",
+            linkoutURL      => "exturl|/$dataset->{production_name}/Transcript/Domains?db=core;t=%s|ensembl_transcript_id",
+            maxLength       => "10",
+            tableConstraint => $table };
+        $nD++;
+        }
+      }
+  } ## end if ( defined $self->{tables...})
+  return ($aco,$nD);
 }
 
 1;
