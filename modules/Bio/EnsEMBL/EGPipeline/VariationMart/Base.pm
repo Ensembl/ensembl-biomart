@@ -21,6 +21,8 @@ package Bio::EnsEMBL::EGPipeline::VariationMart::Base;
 use strict;
 use warnings;
 
+use base qw/Bio::EnsEMBL::Hive::Process/;
+
 sub mart_dba {
   my ($self) = @_;
   
