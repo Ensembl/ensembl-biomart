@@ -213,12 +213,12 @@ my @datasets = get_datasets( \@src_tables, $re, $suffix );
 
 # For the mouse gene mart, we need mouse and rat in the dataset_name table..
 if ($mart_db =~ "mouse_mart"){
-  push @datasets,"mmusculus";
-  push @datasets,"rnorvegicus";
+  push @datasets,"mmusculus" unless grep{$_ == "mmusculus"} @datasets;
+  push @datasets,"rnorvegicus" unless grep{$_ == "rnorvegicus"} @datasets;
 }
 # For the Vectorbase gene mart, we also need dmelanogaster_eg in the dataset_name table.
 elsif ($mart_db =~ "vb_gene_mart") {
-  push @datasets, "dmelanogaster_eg";
+  push @datasets, "dmelanogaster_eg" unless grep{$_ == "dmelanogaster_eg"} @datasets;
 }
 
 
