@@ -216,6 +216,10 @@ if ($mart_db =~ "mouse_mart"){
   push @datasets,"mmusculus";
   push @datasets,"rnorvegicus";
 }
+# For the Vectorbase gene mart, we also need dmelanogaster_eg in the dataset_name table.
+elsif ($mart_db =~ "vb_gene_mart") {
+  push @datasets, "dmelanogaster_eg";
+}
 
 
 unless ( scalar @datasets > 0 ) {
