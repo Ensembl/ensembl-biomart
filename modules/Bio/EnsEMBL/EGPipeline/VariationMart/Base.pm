@@ -20,7 +20,7 @@ package Bio::EnsEMBL::EGPipeline::VariationMart::Base;
 
 use strict;
 use warnings;
-
+use Bio::EnsEMBL::DBSQL::DBAdaptor;
 use base qw/Bio::EnsEMBL::Hive::Process/;
 
 sub mart_dba {
