@@ -54,6 +54,9 @@ use Clone qw/clone/;
 use Log::Log4perl qw/get_logger/;
 use LWP::UserAgent;
 use Config::IniFiles;
+use File::Slurp;
+use JSON;
+use FindBin;
 
 my $logger = get_logger();
 
@@ -213,19 +216,7 @@ sub process_dataset {
 
     # Hardcoded list of Xrefs using the dbprimary_acc_1074 columns or using both dbprimary_acc_1074 and display_label_1074
     # Each column as an associated name that will be use for filter/attribute name
-     $exception_xrefs = {
-      hgnc => { columns => { dbprimary_acc_1074 => "ID",  display_label_1074 => "symbol"}},
-      mirbase => { columns => { dbprimary_acc_1074 => "accession", display_label_1074 => "ID"}},
-      mim_gene => {columns => { dbprimary_acc_1074 => "accession", description_1074 => "description"}},
-      mim_morbid => {columns => { dbprimary_acc_1074 => "accession", description_1074 => "description"}},
-      dbass3 => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "name"}},
-      dbass5 => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "name"}},
-      wikigene => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "name", description_1074 => "description"}},
-      zfin_id => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "symbol"}},
-      mgi => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "symbol", description_1074 => "description"}},
-      rgd => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "symbol"}},
-      zfin_xpat => {columns => {dbprimary_acc_1074 => "ID", display_label_1074 => "symbol"}},
-    };
+     $exception_xrefs = decode_json(read_file( $FindBin::Bin.'/generate_meta_xrefs_exceptions.json'));
   }
 
   ### Write xml data
