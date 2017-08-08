@@ -24,6 +24,9 @@ sub run {
         if ($self->param('mart') =~ m/mouse_mart/i and ($dataset eq "mmusculus" or $dataset eq "rnorvegicus")) {
             next;
         }
+        elsif ($self->param('mart') =~ m/vb_gene_mart/i and $dataset eq "dmelanogaster_eg") {
+            next;
+        }
         push @$output_ids, {dataset=>$dataset,core=>$core}
     }
     $self->param('output_ids',$output_ids);
