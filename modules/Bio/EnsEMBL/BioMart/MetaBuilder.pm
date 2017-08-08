@@ -296,7 +296,14 @@ sub write_toplevel {
   # displayName
   # version
   my $display_name = $dataset->{display_name};
-  my $version      = $dataset->{assembly};
+  my $version;
+  # For Vectorbase, we want to display the genebuild.version meta key
+  if ($self->{dbc}->dbname() =~ 'vb_') {
+    $version = $dataset->{genebuild};
+  }
+  else {
+    $version = $dataset->{assembly};
+  }
   while ( my ( $key, $value ) = each %{$templ_in} ) {
     if ( !ref($value) ) {
       if ( $key eq 'defaultDataset') {
