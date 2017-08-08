@@ -101,11 +101,13 @@ fi
 
 newvs="${division}_mart_${release}"
 mart_type="default"
+filename="diffAllMarts_${division}.log"
 
 if [ ${GRCH37} == "1" ]
 then
   OLD_MART=http://grch37.ensembl.org/biomart/martservice
   newvs="${division}_mart_${release}_GRCh37"
+  filename="diffAllMarts_${division}_GRCh37.log"
 fi
 
 if [ ${division} == "protists" ]
@@ -116,7 +118,7 @@ then
   oldvs="fungal_mart"
 fi
 
-cat >diffAllMarts_${division}.log <<EOT
+cat >$filename <<EOT
 ========================================================================
 ${division} GENE MART
 ========================================================================
@@ -141,9 +143,29 @@ for ds in $( get_species $new_gene_mart ${mart_type}); do
     exit 1
   fi
 
-done >>diffAllMarts_${division}.log
+done >>$filename
 
-cat >>diffAllMarts_${division}.log <<EOT
+cat >>$filename <<EOT
+========================================================================
+${division} MOUSE MART
+========================================================================
+EOT
+new_mouse_mart="mouse_mart_${release}"
+old_mouse_mart="mouse_mart_$(( release - 1 ))"
+mouse_mart_suffix="_ensembl"
+for ds in $( get_species $new_mouse_mart ${mart_type}); do
+  $scriptdir/diffMart.sh \
+    ${oldvs} $old_mouse_mart ${ds}${suffix}_gene${mouse_mart_suffix} $OLD_MART \
+    ${newvs} $new_mouse_mart ${ds}${suffix}_gene${mouse_mart_suffix} $NEW_MART
+
+  if let $?; then
+    print -u2 "Problem"
+    exit 1
+  fi
+
+done >>$filename
+
+cat >>$filename <<EOT
 ========================================================================
 ${division} SNP MART
 ========================================================================
@@ -159,9 +181,9 @@ for ds in $( get_species ${prefix}snp_mart_${release} ${mart_type}); do
     exit 1
   fi
 
-done >>diffAllMarts_${division}.log
+done >>$filename
 
-cat >>diffAllMarts_${division}.log <<EOT
+cat >>$filename <<EOT
 
 ========================================================================
 ${division} SNP MART - STRUCVAR
@@ -178,12 +200,12 @@ for ds in $( get_species ${prefix}snp_mart_${release} ${mart_type}); do
     exit 1
   fi  
 
-done >>diffAllMarts_${division}.log
+done >>$filename
 
 
 if [ ${division} == "ensembl" ]
 then
-cat >>diffAllMarts_${division}.log <<EOT
+cat >>$filename <<EOT
 
 ========================================================================
 SNP MART - hsapiens SOM
@@ -202,9 +224,9 @@ for ds in $( get_species snp_mart_${release} ${mart_type}); do
     exit 1
   fi  
 
-done >>diffAllMarts_${division}.log
+done >>$filename
 
-cat >>diffAllMarts_${division}.log <<EOT
+cat >>$filename <<EOT
 
 ========================================================================
 SNP MART - hsapiens STRUCVAR  SOM
@@ -222,9 +244,9 @@ for ds in $( get_species snp_mart_${release} ${mart_type}); do
     exit 1
   fi  
 
-done >>diffAllMarts_${division}.log
+done >>$filename
 
-cat >>diffAllMarts_${division}.log <<EOT
+cat >>$filename <<EOT
 
 
 ========================================================================
@@ -243,9 +265,9 @@ for ds in $( get_species regulation_mart_${release} ${mart_type}); do
     exit 1
   fi
 
-done >>diffAllMarts_${division}.log
+done >>$filename
 
-cat >>diffAllMarts_${division}.log <<EOT
+cat >>$filename <<EOT
 
 ========================================================================
 REGULATION MART - external feature
@@ -263,9 +285,9 @@ for ds in $( get_species regulation_mart_${release} ${mart_type}); do
     exit 1
   fi
 
-done >>diffAllMarts_${division}.log
+done >>$filename
 
-cat >>diffAllMarts_${division}.log <<EOT
+cat >>$filename <<EOT
 
 ========================================================================
 REGULATION MART - regulatory feature
@@ -283,9 +305,9 @@ for ds in $( get_species regulation_mart_${release} ${mart_type}); do
     exit 1
   fi
 
-done >>diffAllMarts_${division}.log
+done >>$filename
 
-cat >>diffAllMarts_${division}.log <<EOT
+cat >>$filename <<EOT
 
 ========================================================================
 REGULATION MART - miRNA target feature
@@ -303,9 +325,9 @@ for ds in $( get_species regulation_mart_${release} ${mart_type}); do
     exit 1
   fi
 
-done >>diffAllMarts_${division}.log
+done >>$filename
 
-cat >>diffAllMarts_${division}.log <<EOT
+cat >>$filename <<EOT
 
 ========================================================================
 REGULATION MART - motif feature
@@ -323,7 +345,7 @@ for ds in $( get_species regulation_mart_${release} ${mart_type}); do
     exit 1
   fi
 
-done >>diffAllMarts_${division}.log
+done >>$filename
 
 fi
 
