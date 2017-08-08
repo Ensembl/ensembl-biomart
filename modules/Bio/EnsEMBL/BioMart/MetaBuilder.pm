@@ -300,7 +300,7 @@ sub write_toplevel {
   } ## end while ( my ( $key, $value...))
 
   # add MainTable and keys
-  $dataset->{config}->{MainTable} = [];
+  $dataset->{config}->{MainTable} = {};
   for my $mainTable (@{elem_as_array(clone($templ_in->{MainTable}))}) {
     my $key = $mainTable->{key};
     my $table = $mainTable->{table};
@@ -1352,7 +1352,7 @@ sub generate_protein_domain_and_feature_list {
   my $core_db =$db_dbc->dbname;
   my $protein_domain_and_feature_list;
   my $database_tables = $db_dbc->sql_helper()
-                    ->execute_simple( -SQL =>qq/select count(table_name) from information_schema.tables where table_schema=?/ -PARAMS => [$core_db]);
+                    ->execute_simple( -SQL =>qq/select count(table_name) from information_schema.tables where table_schema=?/, -PARAMS => [$core_db]);
   if (defined $database_tables->[0]) {
     if ($database_tables->[0] > 0) {
       $protein_domain_and_feature_list = $db_dbc->sql_helper()->execute(
