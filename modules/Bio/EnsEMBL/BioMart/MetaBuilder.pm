@@ -231,7 +231,7 @@ sub process_dataset {
 
 sub has_main_tables {
   my ($self, $dataset, $templ_in, $ds_name) = @_;
-  for my $mainTable (@{elem_as_array(clone($templ_in->{MainTables}))}) {
+  for my $mainTable (@{elem_as_array(clone($templ_in->{MainTable}))}) {
     $mainTable =~ s/\*base_name\*/$ds_name/;
     if(!defined $self->{tables}->{$mainTable}) {
       $logger->warn("Main table $mainTable not found");
@@ -307,13 +307,14 @@ sub write_toplevel {
   } ## end while ( my ( $key, $value...))
 
   # add MainTable and keys
-  $dataset->{config}->{MainTable} = {};
-  for my $mainTable (@{elem_as_array(clone($templ_in->{MainTable}))}) {
-    my $key = $mainTable->{key};
-    my $table = $mainTable->{table};
+  $dataset->{config}->{MainTables} = {};
+  for my $mainTables (@{elem_as_array(clone($templ_in->{MainTables}))}) {
+    my $key = $mainTables->{key};
+    my $table = $mainTables->{table};
     $table =~ s/\*base_name\*/$ds_name/;
-    $dataset->{config}->{MainTable}->{$key} = $table;
-    push @{ $dataset->{config}->{MainTables} }, $table;
+    $dataset->{config}->{MainTables}->{$key} = $table;
+    push @{ $dataset->{config}->{MainTable} }, $table;
+    push @{ $dataset->{config}->{Key} }, $key;
   }
 
   return;
@@ -448,6 +449,10 @@ sub write_filters {
             $nD++;
           } ## end elsif ( $fdo->{internalName...})
           elsif ( $fdo->{internalName} eq 'id_list_limit_xrefs_filters' ) {
+            # Process existing options
+            my $nO = 0;
+            ($fdo, $nO) = $self->process_container_filter($fdo, $filterDescription, $dataset, $ds_name, $nO);
+            # Generate xrefs options
             $fdo = $self->generate_id_list_limit_xrefs_filters($fdo,$xref_list,$ds_name,$exception_xrefs);
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
@@ -478,52 +483,26 @@ sub write_filters {
             $nD++;
           } ## end elsif ( $fdo->{internalName...})
           elsif ( $fdo->{internalName} eq 'id_list_protein_domain_and_feature_filters' ) {
+            # Process existing options
+            my $nO = 0;
+            ($fdo, $nO) = $self->process_boolean_filter($fdo, $filterDescription, $ds_name, $nO);
+            # Generate id list protein and features id list options
             $fdo = $self->generate_id_list_protein_domain_and_feature_filters($fdo,$protein_domain_and_feature_list,$ds_name);
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
           } ## end elsif ( $fdo->{internalName...})
           elsif ( $fdo->{internalName} eq 'id_list_limit_protein_domain_filters' ) {
+            # Process existing options
+            my $nO = 0;
+            ($fdo, $nO) = $self->process_container_filter($fdo, $filterDescription, $dataset, $ds_name, $nO);
+            # Generate id list limit protein and features id list options
             $fdo = $self->generate_id_list_limit_protein_domain_filters($fdo,$protein_domain_and_feature_list,$ds_name);
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
             $nD++;
           } ## end elsif ( $fdo->{internalName...})
           elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'container') {
-            $logger->debug( "Processing options for " . $filterDescription->{internalName} );
             my $nO = 0;
-            normalise( $filterDescription, "Option" );
-            for my $option ( @{ $filterDescription->{Option} } ) {
-              my $opt = copy_hash($option);
-              update_table_keys( $opt, $dataset, $self->{keys} );
-              $logger->debug( "Checking option " . $opt->{internalName});
-              if ( defined $self->{tables}->{ $opt->{tableConstraint} } &&
-                   defined $self->{tables}->{ $opt->{tableConstraint} }
-                   ->{ $opt->{field} } &&
-                   ( !defined $opt->{key} ||
-                     defined $self->{tables}->{ $opt->{tableConstraint} }
-                     ->{ $opt->{key} } ) )
-              {
-                $logger->debug( "Found option " . $opt->{internalName});
-                #### Replace *example* with an ID from the database
-                if (defined $opt->{displayName} and $opt->{displayName} =~ m/\*example\*/i ){
-                  my $example = $self->get_example($opt->{tableConstraint},$opt->{field});
-                  $opt->{displayName} =~ s/\*example\*/$example/;
-                }
-                push @{ $fdo->{Option} }, $opt;
-                for my $o ( @{ $option->{Option} } ) {
-                  push @{ $opt->{Option} }, $o;
-                }
-                $logger->debug(Dumper($opt));
-                $nO++;
-              }
-              else {
-                $logger->debug( "Could not find table " .
-                            ( $opt->{tableConstraint} || 'undef' ) . " field " .
-                            ( $opt->{field}           || 'undef' ) . ", Key " .
-                            ( $opt->{key} || 'undef' ) . ", Option " .
-                            $opt->{internalName} );
-              }
-              restore_main( $opt, $ds_name );
-            } ## end for my $option ( @{ $filterDescription...})
+            ($fdo, $nO) = $self->process_container_filter($fdo, $filterDescription, $dataset, $ds_name, $nO);
             if ( $nO > 0 ) {
               $logger->debug("Options found for filter ".$fdo->{internalName});
               push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
@@ -534,33 +513,24 @@ sub write_filters {
           elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'list' && ($fdo->{type} eq 'boolean' or $fdo->{type} eq 'list') && defined $filterDescription->{Option}){
             my $nO = 0;
             if ( defined $self->{tables}->{ $fdo->{tableConstraint} } &&
+                 defined $self->{tables}->{ $fdo->{tableConstraint} }
+                 ->{ $fdo->{field} } &&
+                 ( !defined $filterDescription->{key} ||
                    defined $self->{tables}->{ $fdo->{tableConstraint} }
-                   ->{ $fdo->{field} } &&
-                   ( !defined $filterDescription->{key} ||
-                     defined $self->{tables}->{ $fdo->{tableConstraint} }
-                     ->{ $fdo->{key} } ) )
-              {
-                normalise( $filterDescription, "Option" );
-                for my $option ( @{ $filterDescription->{Option} } ) {
-                  my $opt = copy_hash($option);
-                  push @{ $fdo->{Option} }, $opt;
-                  for my $o ( @{ $option->{Option} } ) {
-                    push @{ $opt->{Option} }, $o;
-                  }
-                  $nO++;
-                }
-                if ( $nO > 0 ) {
-                  push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
-                  $nD++;
-                }
-              } else {
-                $logger->debug( "Could not find table " .
-                                ( $filterDescription->{tableConstraint} || 'undef' ) . " field " .
-                                ( $filterDescription->{field}           || 'undef' ) . ", Key " .
-                                ( $filterDescription->{key} || 'undef' ) . ", FilterDescription " .
-                                $filterDescription->{internalName} );
-              }
-            restore_main( $fdo, $ds_name );
+                   ->{ $fdo->{key} } ) )
+            {
+              ($fdo, $nO) = $self->process_boolean_filter($fdo, $filterDescription, $ds_name, $nO);
+            } else {
+              $logger->debug( "Could not find table " .
+                      ( $filterDescription->{tableConstraint} || 'undef' ) . " field " .
+                      ( $filterDescription->{field}           || 'undef' ) . ", Key " .
+                      ( $filterDescription->{key} || 'undef' ) . ", FilterDescription " .
+                      $filterDescription->{internalName} );
+            }
+            if ( $nO > 0 ) {
+              push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
+              $nD++;
+            }
           }
           ### end elsif ( $fdo->{displayType} && $fdo->{displayType} eq 'list' && $fdo->{type} eq 'boolean' && defined $filterDescription->{Option})
           else {
@@ -979,12 +949,12 @@ sub update_table_keys {
   if ( defined $obj->{tableConstraint} ) {
     if ( $obj->{tableConstraint} eq 'main' ) {
       if ( !defined $obj->{key} ) {
-        ( $obj->{tableConstraint} ) = @{ $dataset->{config}->{MainTables} };
+        ( $obj->{tableConstraint} ) = @{ $dataset->{config}->{MainTable} };
         $obj->{tableConstraint} =~ s/\*base_name\*/${ds_name}/;
       }
       else {
         # use key to find the correct main table
-        $obj->{tableConstraint} = $dataset->{config}->{MainTable}->{$obj->{key}};
+        $obj->{tableConstraint} = $dataset->{config}->{MainTables}->{$obj->{key}};
         $obj->{tableConstraint} =~ s/\*base_name\*/${ds_name}/;
       }
     }
@@ -1392,16 +1362,16 @@ my $database_table = $self->{dbc}->sql_helper()
       if ($table =~ "main"){
         $table =~ m/.*__(.*)__main$/;
         my $main_key=$1."%key";
-        $key = $self->{dbc}->sql_helper()->execute(
+        $key = $self->{dbc}->sql_helper()->execute_simple(
             -SQL => qq/select COLUMN_NAME from information_schema.columns where table_schema=? and table_name=? and COLUMN_NAME like ?;/,
-            -PARAMS => [$mart,$table,$main_key], -USE_HASHREFS => 1
-          );
+            -PARAMS => [$mart,$table,$main_key]
+          )->[0];
       }
       else {
-          $key = $self->{dbc}->sql_helper()->execute(
+          $key = $self->{dbc}->sql_helper()->execute_simple(
             -SQL => qq/select COLUMN_NAME from information_schema.columns where table_schema=? and table_name=? and COLUMN_NAME like '%key';/,
-            -PARAMS => [$mart,$table], -USE_HASHREFS => 1
-          );
+            -PARAMS => [$mart,$table]
+          )->[0];
         }
     }
   }
@@ -1503,8 +1473,91 @@ sub check_pointer_dataset_table_exist {
 }
 
 
+=head2 process_container_filter
+  Description: Subroutine used to process options for a container filter
+  Arg        : Hashref representing the filter description
+  Arg        : Hashref representing the filterDescription
+  Arg        : Hashref representing species databaset
+  Arg        : String representing species dataset name
+  Arg        : Hashref representing the Filter Collection
+  Arg        : Int representing the number of filter description
+  Returntype : Hashref, Hashref,  Int
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub process_container_filter {
+  my ($self, $fdo, $filterDescription, $dataset, $ds_name , $nO) = @_;
+  $logger->debug( "Processing options for " . $filterDescription->{internalName} );
+  normalise( $filterDescription, "Option" );
+  for my $option ( @{ $filterDescription->{Option} } ) {
+    my $opt = copy_hash($option);
+    update_table_keys( $opt, $dataset, $self->{keys} );
+    $logger->debug( "Checking option " . $opt->{internalName});
+    if ( defined $self->{tables}->{ $opt->{tableConstraint} } &&
+         defined $self->{tables}->{ $opt->{tableConstraint} }
+         ->{ $opt->{field} } &&
+         ( !defined $opt->{key} ||
+           defined $self->{tables}->{ $opt->{tableConstraint} }
+           ->{ $opt->{key} } ) )
+    {
+      $logger->debug( "Found option " . $opt->{internalName});
+      #### Replace *example* with an ID from the database
+      if (defined $opt->{displayName} and $opt->{displayName} =~ m/\*example\*/i ){
+        my $example = $self->get_example($opt->{tableConstraint},$opt->{field});
+        $opt->{displayName} =~ s/\*example\*/$example/;
+      }
+      push @{ $fdo->{Option} }, $opt;
+      for my $o ( @{ $option->{Option} } ) {
+        push @{ $opt->{Option} }, $o;
+      }
+      $logger->debug(Dumper($opt));
+      $nO++;
+    }
+    else {
+      $logger->debug( "Could not find table " .
+                  ( $opt->{tableConstraint} || 'undef' ) . " field " .
+                  ( $opt->{field}           || 'undef' ) . ", Key " .
+                  ( $opt->{key} || 'undef' ) . ", Option " .
+                  $opt->{internalName} );
+    }
+    restore_main( $opt, $ds_name );
+  } ## end for my $option ( @{ $filterDescription...})
+  return ($fdo, $nO);
+}
+
+=head2 process_boolean_filter
+  Description: Subroutine used to process options for a boolean filter
+  Arg        : Hashref representing the filter description
+  Arg        : Hashref representing the filterDescription
+  Arg        : Hashref representing the Filter Collection
+  Arg        : Int representing the number of filter description
+  Arg        : String representing species dataset name
+  Returntype : Hashref, Hasref, Int
+  Exceptions : none
+  Caller     : general
+  Status     : Stable
+=cut
+
+sub process_boolean_filter{
+  my ($self, $fdo, $filterDescription, $ds_name, $nO) = @_;
+  normalise( $filterDescription, "Option" );
+  for my $option ( @{ $filterDescription->{Option} } ) {
+    my $opt = copy_hash($option);
+    push @{ $fdo->{Option} }, $opt;
+    for my $o ( @{ $option->{Option} } ) {
+      push @{ $opt->{Option} }, $o;
+    }
+    $nO++;
+  }
+  restore_main( $fdo, $ds_name );
+  return ($fdo, $nO);
+}
+
+
 =head2 generate_homolog_filters
-  Description: Subroutine used to generate options for the id list xref filter
+  Description: Subroutine used to generate options for the homolog filter
   Arg        : Hashref representing the filter description
   Arg        : Arrayref representing the list of all the mart datasets
   Arg        : Hashref representing species databaset
@@ -2489,6 +2542,7 @@ sub generate_protein_domain_protein_features_attributes {
             $url='';
           }
           my $display_name;
+          my $main_display_name;
           if (defined $protein_domain_and_feature->{display_label}) {
             $display_name=$protein_domain_and_feature->{display_label};
           }
@@ -2496,11 +2550,14 @@ sub generate_protein_domain_protein_features_attributes {
             $display_name=$protein_domain_and_feature->{db};
           }
           if ($mode eq "protein_domain"){
-            $display_name=$display_name." ID";
+            $main_display_name=$display_name." ID";
+          }
+          else {
+            $main_display_name=$display_name;
           }
           push @{ $aco->{AttributeDescription} }, {
             key             => $key,
-            displayName     => $display_name,
+            displayName     => $main_display_name,
             field           => "hit_name_1048",
             internalName    => $protein_domain_and_feature->{logic_name},
             linkoutURL      => $url,
