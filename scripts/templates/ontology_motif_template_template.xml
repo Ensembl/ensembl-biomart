@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="ontology_motif_template" datasetID="22" displayName="ontology_motif" interfaces="default" internalName="default" martUsers="default" modified="2016-02-25 15:53:03" softwareVersion="0.6" template="ontology_motif" type="TableSet" useDefault="true" visible="0">
-  <MainTable table="*base_name*__closure_motif__main" key="closure_motif_id_301_key"/>
+  <MainTables table="*base_name*__closure_motif__main" key="closure_motif_id_301_key"/>
   <Exportable attributes="name_305" internalName="*ontology*" linkName="*ontology*" name="*ontology*" type="link" useDefault="true"/>
   <FilterPage displayName="Transitive closure filters" internalName="closure_filters" useDefault="true">
     <FilterGroup displayName="FILTERS" internalName="filters" useDefault="true">

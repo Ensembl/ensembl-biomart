@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="gene_ensembl_template" datasetID="87" defaultDataset="*default*" description="Ensembl Genes" displayName="*species1* genes (*version*)" entryLabel="Genes" interfaces="default" internalName="template" martUsers="default" modified="2006-10-02 16:13:46" softwareVersion="0.6" template="gene" type="TableSet" useDefault="true" version="*version*" visible="1">
-  <MainTable table="*base_name*__gene__main" key="gene_id_1020_key" />
-  <MainTable table="*base_name*__transcript__main" key="transcript_id_1064_key" />
-  <MainTable table="*base_name*__translation__main" key="translation_id_1068_key" />
+  <MainTables table="*base_name*__gene__main" key="gene_id_1020_key" />
+  <MainTables table="*base_name*__transcript__main" key="transcript_id_1064_key" />
+  <MainTables table="*base_name*__translation__main" key="translation_id_1068_key" />
   <Replace id="datasets"/>
   <Importable filters="link_go_closure" internalName="go_closure" linkName="go_closure" name="go_closure" type="link" useDefault="true"/>
   <Importable filters="link_so_closure" internalName="so_closure" linkName="so_closure" name="so_closure" type="link" useDefault="true"/>
@@ -142,6 +142,7 @@
           <Option key="transcript_id_1064_key" description="Filter to include genes with supplied list of Transcript stable ID(s)" displayName="Transcript stable ID(s) [e.g. *example*]" displayType="text" field="stable_id_1066" hidden="false" internalName="ensembl_transcript_id" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
           <Option key="transcript_id_1064_key" description="Filter to include genes with supplied list of Transcript stable ID(s) with version" displayName="Transcript stable ID(s) with version [e.g. *example*]" displayType="text" field="transcript__main_stable_id_version" hidden="false" internalName="ensembl_transcript_id_version" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
           <Option key="translation_id_1068_key" description="Filter to include genes with supplied list of Protein stable ID(s)" displayName="Protein stable ID(s) [e.g. *example*]" displayType="text" field="stable_id_1070" hidden="false" internalName="ensembl_peptide_id" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
+          <Option key="translation_id_1068_key" description="Filter to include genes with supplied list of Protein stable ID(s) with version" displayName="Protein stable ID(s) with version [e.g. *example*]" displayType="text" field="translation__main_stable_id_version" hidden="false" internalName="ensembl_peptide_id_version" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
           <Option key="transcript_id_1064_key" description="Filter to include genes with supplied list of Exon ID(s)" displayName="Exon ID(s) [e.g. *example*]" displayType="text" field="stable_id_1016" hidden="false" internalName="ensembl_exon_id" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="exon_transcript__dm" type="List" />
           <Option key="gene_id_1020_key" description="Filter to include genes with supplied list of Gene Name(s)" displayName="Gene Name(s) [e.g. *example*]" displayType="text" field="display_label_1074" hidden="false" internalName="external_gene_name" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
           <Option key="transcript_id_1064_key" description="Filter to include genes with supplied list of Transcript Name(s)" displayName="Transcript Name(s) [e.g. *example*]" displayType="text" field="display_label_1074_r1" hidden="false" internalName="external_transcript_name" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
@@ -1384,7 +1385,6 @@
     <FilterGroup description="Filter on Protein domains and families data" displayName="PROTEIN DOMAINS AND FAMILIES:" internalName="protein" useDefault="true">
       <FilterCollection displayName="Limit to genes ..." internalName="family_domain_id" useDefault="true">
         <FilterDescription displayType="container" internalName="id_list_protein_domain_and_feature_filters" type="boolean_list" useDefault="true">
-          <SpecificFilterContent internalName="id_list_protein_domain_and_feature_filters"/>
            <Option key="translation_id_1068_key" displayName="With Interpro ID(s)" displayType="list" field="interpro_bool" hidden="false" internalName="with_interpro" isSelectable="true" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" hidden="false" internalName="only" value="only" />
             <Option displayName="Excluded" hidden="false" internalName="excluded" value="excluded" />
@@ -1393,6 +1393,7 @@
             <Option displayName="Only" hidden="false" internalName="only" value="only" />
             <Option displayName="Excluded" hidden="false" internalName="excluded" value="excluded" />
           </Option>
+          <SpecificFilterContent internalName="id_list_protein_domain_and_feature_filters"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection description="Limit to genes with these family or domain IDs:" displayName="Limit to genes with these family or domain IDs [Max 500 advised]" internalName="family_domain_id_list" useDefault="true">
