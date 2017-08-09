@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="regulatory_feature_template" defaultDataset="*default*" description="regulatory features" displayName="*species1* Regulatory Features (*version*)" entryLabel="Count unavailable" interfaces="default" internalName="template" martUsers="default" modified="2014-10-28 17:04:15.332" noCount="1" softwareVersion="0.6" template="regulatory_feature" type="TableSet" useDefault="true" version="*version*" visible="1">
-  <MainTable>*base_name*__regulatory_feature__main</MainTable>
-  <Key>regulatory_feature_id_1036_key</Key>
+  <MainTables table="*base_name*__regulatory_feature__main" key="regulatory_feature_id_1036_key"/>
   <Replace id="datasets"/>
   <Importable filters="chromosome_name,start,end" internalName="genomic_seq" linkName="genomic_seq" linkVersion="*link_version*" name="genomic_seq" type="link" useDefault="true"/>
   <Importable filters="chromosome_name,start,end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>

@@ -2,8 +2,7 @@
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="external_feature_template" defaultDataset="*default*" description="Other Regulatory Regions" displayName="*species1* Other Regulatory Regions (*version*)" entryLabel="Count unavailable" interfaces="default" internalName="template" martUsers="default" modified="2014-10-29 16:47:01.682" noCount="1" softwareVersion="0.6" template="external_feature" type="TableSet" useDefault="true" version="*version*" visible="1">
 
-  <MainTable>*base_name*__external_feature__main</MainTable>
-  <Key>external_feature_id_1021_key</Key>
+  <MainTables table="*base_name*__external_feature__main" key="external_feature_id_1021_key"/>
   <Replace id="datasets"/>
   <Importable filters="chromosome_name,start,end" internalName="genomic_seq" linkName="genomic_seq" linkVersion="*link_version*" name="genomic_seq" type="link" useDefault="true"/>
   <Importable filters="chromosome_name,start,end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>

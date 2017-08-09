@@ -143,35 +143,9 @@ else
   $opts->{ini_file} ||= '';
 }
 
-# for EG, there are specific sets of attributes/filters that we need to delete from the interface
-my $delete = {};
-if ( $dba->dbc()->dbname() !~ 'fungi' ) {
-  $delete->{pbo}           = 1;
-  $delete->{so}            = 1;
-  $delete->{mod}           = 1;
-  $delete->{fypo}          = 1;
-  $delete->{pbo_closure}   = 1;
-  $delete->{so_closure}    = 1;
-  $delete->{mod_closure}   = 1;
-  $delete->{fypo_closure}  = 1;
-}
-if ( $dba->dbc()->dbname() !~ 'plants' ) {
-  $delete->{po}             = 1;
-  $delete->{eo}             = 1;
-  $delete->{to}             = 1;
-  $delete->{gro}            = 1;
-  $delete->{gr_tax}         = 1;
-  $delete->{po_closure}     = 1;
-  $delete->{eo_closure}     = 1;
-  $delete->{to_closure}     = 1;
-  $delete->{gro_closure}    = 1;
-  $delete->{gr_tax_closure} = 1;
-}
-
 # build
 my $builder =
   Bio::EnsEMBL::BioMart::MetaBuilder->new( -DBC    => $dba->dbc(),
-                                           -DELETE => $delete,
                                            -BASENAME => $opts->{ds_basename},
                                            -MAX_DROPDOWN =>  $opts->{max_dropdown} );
 

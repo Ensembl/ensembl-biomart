@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="*base_name*" datasetID="3" description="Ensembl Sequences" displayName="*species1* sequences (*version*)" interfaces="default" internalName="default" martUsers="default" modified="2008-07-10 12:07:40" optional_parameters="*base_name*__dna_chunks__main,chr_name,chr_start,sequence,100000" softwareVersion="0.7" template="*base_name*" type="GenomicSequence" useDefault="true" version="*version*" visible="0">
-  <MainTable>*base_name*__dna_chunks__main</MainTable>
-  <Key>chunk_key</Key>
+  <MainTables table="*base_name*__dna_chunks__main" key="chunk_key"/>
   <Importable filters="pkey,transcript_pkey,chr,start,end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id,transcript_count" internalName="coding_gene_flank" linkName="coding_gene_flank" linkVersion="*link_version*" name="coding_gene_flank" orderBy="pkey" type="link" useDefault="true"/>
   <Importable filters="pkey,chr,start,end,coding_start_offset,coding_end_offset,strand,exon_id,rank,start_exon_id,end_exon_id" internalName="coding_transcript_flank" linkName="coding_transcript_flank" linkVersion="*link_version*" name="coding_transcript_flank" orderBy="pkey" type="link" useDefault="true"/>
   <Importable filters="pkey,chr,start,end,strand" internalName="transcript_exon_intron" linkName="transcript_exon_intron" linkVersion="*link_version*" name="transcript_exon_intron" orderBy="pkey" type="link" useDefault="true"/>

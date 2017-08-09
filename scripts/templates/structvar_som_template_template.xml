@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="structvar_som_template" defaultDataset="*default*" displayName="*species1* Somatic Structural Variants (*version*)" interfaces="default" internalName="template" martUsers="default" modified="2012-04-27 10:45:12.856" template="*basename*" type="TableSet" softwareVersion="0.6" useDefault="true" version="*version*" visible="1">
-  <MainTable>*base_name*__structural_variation__main</MainTable>
-  <MainTable>*base_name*__structural_variation_feature__main</MainTable>
-  <Key>structural_variation_id_2072_key</Key>
-  <Key>structural_variation_feature_id_20104_key</Key>
+  <MainTables table="*base_name*__structural_variation__main" key="structural_variation_id_2072_key"/>
+  <MainTables table="*base_name*__structural_variation_feature__main" key="structural_variation_feature_id_20104_key"/>
   <Replace id="datasets"/>
   <Importable filters="chr_name,start,end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
   <Importable filters="chr_name,start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link" useDefault="true"/>

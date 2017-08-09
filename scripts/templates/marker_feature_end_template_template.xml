@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="marker_feature_end" displayName="marker_feature_end" interfaces="default" internalName="template" martUsers="default" modified="2007-12-18 15:05:08.929" softwareVersion="0.6" template="marker_feature_end" type="TableSet" useDefault="true" visible="0">
-  <MainTable>*base_name*__marker_feature__main</MainTable>
-  <Key>marker_feature_id_1031_key</Key>
+  <MainTables table="*base_name*__marker_feature__main" key="marker_feature_id_1031_key"/>
   <Exportable attributes="name,seq_region_end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
   <FilterPage displayName="FILTERS" internalName="naive_filters" useDefault="true">
     <FilterGroup displayName="FILTERS" internalName="filters" useDefault="true">
