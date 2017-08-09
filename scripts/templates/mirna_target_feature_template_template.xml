@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="mirna_target_feature_template" defaultDataset="*default*" description="miRNA Target Regions" displayName="*species1* miRNA Target Regions (*version*)" entryLabel="Count unavailable" interfaces="default" internalName="template" martUsers="default" modified="2014-11-06 17:07:50.227" noCount="1" softwareVersion="0.6" template="mirna_target_feature" type="TableSet" useDefault="true" version="*version*" visible="1">
-  <MainTable table="*base_name*__mirna_target_feature__main" key="mirna_target_feature_id_1079_key"/>
+  <MainTables table="*base_name*__mirna_target_feature__main" key="mirna_target_feature_id_1079_key"/>
   <Replace id="datasets"/>
   <Importable filters="chromosome_name,start,end" internalName="genomic_seq" linkName="genomic_seq" linkVersion="*link_version*" name="genomic_seq" type="link" useDefault="true"/>
   <Importable filters="chromosome_name,start,end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="annotated_feature_template" defaultDataset="*default*" description="regulatory Evidence" displayName="*species1* Regulatory Evidence (*version*)" entryLabel="Count unavailable" interfaces="default" internalName="template" martUsers="default" modified="2014-10-29 15:37:54.523" noCount="1" softwareVersion="0.6" template="annotated_feature" type="TableSet" useDefault="true" version="*version*" visible="1">
-  <MainTable table="*base_name*__annotated_feature__main" key="annotated_feature_id_103_key" />
+  <MainTables table="*base_name*__annotated_feature__main" key="annotated_feature_id_103_key" />
   <Replace id="datasets"/>
   <Importable filters="chromosome_name,start,end" internalName="genomic_seq" linkName="genomic_seq" linkVersion="*link_version*" name="genomic_seq" type="link" useDefault="true"/>
   <Importable filters="chromosome_name,start,end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>
