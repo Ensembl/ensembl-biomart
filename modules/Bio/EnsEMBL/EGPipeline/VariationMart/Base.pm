@@ -49,4 +49,13 @@ sub mart_dbh {
   return $self->mart_dbc->db_handle(); 
 }
 
+sub get_DBAdaptor {
+  my ($self, $type) = @_;
+
+  $type ||= 'core';
+  my $species = ($type =~ /^(production|taxonomy)$/) ? 'multi' : $self->param_required('species');
+
+  return Bio::EnsEMBL::Registry->get_DBAdaptor($species, $type);
+}
+
 1;
