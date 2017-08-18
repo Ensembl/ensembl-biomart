@@ -59,6 +59,15 @@ create table if not exists $mart.dataset_names (
 
   my $output_ids = [];
   my $division   = $self->param('division');
+  my $pId;
+  if    ( $division eq 'EnsemblProtists' ) { $pId = 10000; }
+  elsif ( $division eq 'EnsemblPlants' )   { $pId = 20000; }
+  elsif ( $division eq 'EnsemblMetazoa' ) { $pId = 30000;  }
+  elsif ( $division eq 'EnsemblFungi' )    { $pId = 40000;  }
+  elsif ( $division eq 'Vectorbase' ) { $pId = 50000; }
+  elsif ( $division eq 'Parasite' )   { $pId = 60000 }
+  elsif ( $division eq 'Ensembl' ) { $pId = 0;}
+
   for my $dba ( @{$dbas} ) {
 
     if ( $dba->dbc()->dbname() =~ m/_collection_/ || 
@@ -81,9 +90,23 @@ qq/select meta_key,meta_value from ${database}.meta where species_id=1/
     $dataset = $dataset . $suffix;
 
     my $assembly  = $ds->{'assembly.name'};
-    my $genebuild = $ds->{'genebuild.last_geneset_update'} ||
-      $ds->{'genebuild.start_date'} ||
-      $ds->{'genebuild_version'};
+    if ( !defined $ds->{'species.proteome_id'} ||
+         !isdigit $ds->{'species.proteome_id'} )
+    {
+      $ds->{'species.proteome_id'} = ++$pId;
+    }
+    my $gb_version = $ds->{'genebuild.version'};
+    if ( $division eq "Ensembl" ) {
+      $gb_version =
+        $ds->{'genebuild.last_geneset_update'} ||
+        $ds->{'genebuild.start_date'}          ||
+        $ds->{'genebuild_version'};
+    }
+
+    my $has_chromosomes =
+      $mart_dbc->sql_helper()->execute_simple(
+"select count(distinct coord_system_id) from ${database}.coord_system join ${database}.seq_region using (coord_system_id) join ${database}.seq_region_attrib using (seq_region_id) join ${database}.attrib_type using (attrib_type_id) where code='karyotype_rank' and species_id=1"
+    )->[0];
 
     $mart_dbc->sql_helper()->execute_update(
                -SQL => qq/delete from $mart.dataset_names where name=?/,
@@ -94,13 +117,13 @@ qq/insert into $mart.dataset_names() values(?,?,?,?,?,?,?,?,?,NULL,?)/,
       -PARAMS => [ $dataset,
                    $dataset,
                    $database,
-                   1,
+                   $ds->{'species.proteome_id'},
                    $ds->{'species.taxonomy_id'},
-                   $ds->{'species.production_name'},
                    $ds->{'species.display_name'},
+                   $ds->{'species.production_name'},
                    $assembly,
-                   $genebuild,
-                   0 ] );
+                   $gb_version,
+                   $has_chromosomes ] );
     push @$output_ids, { dataset => $dataset };
     $dba->dbc()->disconnect_if_idle();
   } ## end for my $dba ( @{$dbas} )
