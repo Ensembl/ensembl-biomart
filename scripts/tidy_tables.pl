@@ -103,9 +103,9 @@ else {
 			   '%\_\ox\_%\_\_dm'               => ['dbprimary_acc_1074'],
 			   '%\_\_phenotype\_\_dm'       => ['description_20125']);
   %columns_to_tidy = (
-  	           '%\_\_gene\_\_main'    => ['display_label_1074','db_display_name_1018','phenotype_bool'],
-  	           '%\_\_transcript\_\_main'    => ['display_label_1074_r1','db_display_name_1018_r1','phenotype_bool'],
-  	           '%\_\_translation\_\_main'    => ['stable_id_408','description_408','family_bool','phenotype_bool']
+               '%\_\_gene\_\_main'    => ['display_label_1074','db_display_name_1018','phenotype_bool','version_1020'],
+               '%\_\_transcript\_\_main'    => ['display_label_1074_r1','db_display_name_1018_r1','phenotype_bool','version_1064','version_1020'],
+               '%\_\_translation\_\_main'    => ['stable_id_408','description_408','family_bool','phenotype_bool','version_1064','version_1020','version_1068']
   );
 }
 
