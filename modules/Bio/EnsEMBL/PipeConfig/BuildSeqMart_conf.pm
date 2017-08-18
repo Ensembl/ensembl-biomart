@@ -23,9 +23,8 @@ package Bio::EnsEMBL::PipeConfig::BuildSeqMart_conf;
 use strict;
 use warnings;
 use Data::Dumper;
-use Bio::EnsEMBL::Hive::PipeConfig::HiveGeneric_conf;
- # All Hive databases configuration files should inherit from HiveGeneric, directly or indirectly
-use base ('Bio::EnsEMBL::Hive::PipeConfig::EnsemblGeneric_conf');
+use base ('Bio::EnsEMBL::Hive::PipeConfig::HiveGeneric_conf')
+  ; # All Hive databases configuration files should inherit from HiveGeneric, directly or indirectly
 use Bio::EnsEMBL::ApiVersion;
 use Cwd;
 
@@ -49,9 +48,8 @@ sub default_options {
            'datasets'  => [],
            'compara'   => undef,
            'base_dir'  => getcwd,
-	         'suffix' => '',
-           'base_name' => 'gene',
- };
+	   'suffix' => '',
+           'base_name' => 'gene' };
 }
 
 =head2 pipeline_wide_parameters
@@ -71,39 +69,23 @@ sub pipeline_wide_parameters {
 sub pipeline_analyses {
   my ($self) = @_;
   my $analyses = [
-      { -logic_name  => 'generate_names',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-'perl #base_dir#/ensembl-biomart/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -div #division#',
-        'mart'     => $self->o('mart'),
-        'user'     => $self->o('user'),
-        'pass'     => $self->o('pass'),
-        'host'     => $self->o('host'),
-        'port'     => $self->o('port'),
-        'base_dir' => $self->o('base_dir'),
-        'division'  => $self->o('division') },
-      -input_ids         => [ {} ],
-      -analysis_capacity => 1,
-      -meadow_type       => 'LOCAL',
-      -flow_into => {1 => 'dataset_factory'},
-      },
-      {
-        -logic_name => 'dataset_factory',
-        -module     => 'Bio::EnsEMBL::BioMart::DatasetFactory',
-        -parameters => { 'mart'     => $self->o('mart'),
-                       'user'     => $self->o('user'),
-                       'pass'     => $self->o('pass'),
-                       'host'     => $self->o('host'),
-                       'port'     => $self->o('port'),
-                       'datasets' => $self->o('datasets'),
-                       'base_dir' => $self->o('base_dir')},
-        -flow_into => { 1 => [ 'build_sequence' ],
+    { -logic_name => 'sequence_dataset_factory',
+      -module     => 'Bio::EnsEMBL::BioMart::SequenceDatasetFactory',
+      -parameters => { 
+		      'division' => $self->o('division'),
+		      'suffix'     => $self->o('suffix'),
+		      'user'     => $self->o('user'),
+		      'pass'     => $self->o('pass'),
+		      'host'     => $self->o('host'),
+		      'port'     => $self->o('port'),
+		      'mart'     => $self->o('mart'),
+		      'datasets' => $self->o('datasets'),
+		      'base_dir' => $self->o('base_dir') },
+      -input_ids => [ {} ],
+      -flow_into => { 1 => [ 'build_sequence' ],
                       2 => [ 'optimize', 'generate_meta' ]
                     },
-        -meadow_type => 'LOCAL'
-    },
+      -meadow_type => 'LOCAL' },
     { -logic_name  => 'build_sequence',
       -module     => 'Bio::EnsEMBL::BioMart::BuildSequenceMart',
       -meadow_type => 'LSF',
