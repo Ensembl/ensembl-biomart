@@ -110,14 +110,6 @@ then
   filename="diffAllMarts_${division}_GRCh37.log"
 fi
 
-if [ ${division} == "protists" ]
-then
-  oldvs="protist_mart"
-elif [ ${division} == "fungi" ]
-then
-  oldvs="fungal_mart"
-fi
-
 cat >$filename <<EOT
 ========================================================================
 ${division} GENE MART
