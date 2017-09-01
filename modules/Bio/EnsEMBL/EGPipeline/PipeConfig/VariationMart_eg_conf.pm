@@ -52,10 +52,12 @@ sub default_options {
     drop_mtmp             => 1,
     sample_threshold      => 20000,
     population_threshold  => 500,
-    optimize_tables       => 0,
+    optimize_tables       => 1,
     populate_mart_rc_name => 'normal',
     species_suffix        => '_eg',
     drop_mart_db          => 1,
+    genomic_features_dbname => $self->o('division_name').'_genomic_features_mart_'.$self->o('eg_release'),
+
     
     # Most mart table configuration is in VariationMart_conf, but e! and EG
     # differ in the absence/presence of the poly__dm table.
