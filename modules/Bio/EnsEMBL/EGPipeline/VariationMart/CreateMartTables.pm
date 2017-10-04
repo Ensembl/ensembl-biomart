@@ -198,6 +198,11 @@ sub write_output {
     'v',
     'variation_id',
     ['v.somatic = 1', 'v.display = 1']);
+  my @t = (
+    'transcript',
+    't',
+    'transcript_id',
+    ['t.source != "LRG database"']);
   my @vf = (
     'variation_feature',
     'vf',
@@ -230,24 +235,35 @@ sub write_output {
     ['svf.somatic = 1']);
 
   my ($max_key_id, $base_where_sql, $max_key_id_som, $base_where_sql_som);
-  if ($self->param('variation_feature')) {
-    $max_key_id = $self->max_key_id(@vf);
+  if (defined $self->param('base_name')){
+    if ($self->param('base_name') =~ m/gene/i ){
+      $max_key_id = $self->max_key_id("core",@t);
+      $base_where_sql = $self->base_where_sql(@t);
+      if ($self->param_required('species') eq 'homo_sapiens')
+      {
+        $max_key_id_som = $self->max_key_id("core",@t);
+        $base_where_sql_som = $self->base_where_sql(@t);
+      }
+    }
+  }
+  elsif ($self->param('variation_feature')) {
+    $max_key_id = $self->max_key_id("variation",@vf);
     $base_where_sql = $self->base_where_sql(@vf);
     if ($self->param_required('species') eq 'homo_sapiens')
     {
-      $max_key_id_som = $self->max_key_id(@vfsom);
+      $max_key_id_som = $self->max_key_id("variation",@vfsom);
       $base_where_sql_som = $self->base_where_sql(@vfsom);
     }
   } else {
-    $max_key_id = $self->max_key_id(@v);
+    $max_key_id = $self->max_key_id("variation",@v);
     $base_where_sql = $self->base_where_sql(@v);
     if ($self->param_required('species') eq 'homo_sapiens')
     {
-      $max_key_id_som = $self->max_key_id(@vsom);
+      $max_key_id_som = $self->max_key_id("variation",@vsom);
     $base_where_sql_som = $self->base_where_sql(@vsom);
     }
   }
-  
+
   foreach my $table ( @{$self->param_required('snp_tables')} ) {
     $self->dataflow_output_id({
       'table'          => $table,
@@ -308,9 +324,9 @@ sub write_output {
 }
 
 sub max_key_id {
-  my ($self, $table, $alias, $column, $conditions) = @_;
+  my ($self, $database, $table, $alias, $column, $conditions) = @_;
   
-  my $vdbc = $self->get_DBAdaptor('variation')->dbc();
+  my $vdbc = $self->get_DBAdaptor($database)->dbc();
   
   # Don't bother getting the numbers exact, assume that the column has
   # roughly consecutive IDs; the partition size is thus an upper limit, really.
