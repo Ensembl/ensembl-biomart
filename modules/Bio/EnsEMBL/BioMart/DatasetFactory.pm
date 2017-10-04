@@ -18,16 +18,16 @@ sub run {
         );
     my $output_ids = [];
     for my $dataset_names (@{$mart_dbc->sql_helper()->execute(
-        -SQL=>"select distinct(name),src_db from dataset_names"
+        -SQL=>"select distinct(name),src_db,sql_name from dataset_names"
                              )}) {
-        my ($dataset,$core) = @$dataset_names;
+        my ($dataset,$core,$species) = @$dataset_names;
         if ($self->param('mart') =~ m/mouse_mart/i and ($dataset eq "mmusculus" or $dataset eq "rnorvegicus")) {
             next;
         }
         elsif ($self->param('mart') =~ m/vb_gene_mart/i and $dataset eq "dmelanogaster_eg") {
             next;
         }
-        push @$output_ids, {dataset=>$dataset,core=>$core}
+        push @$output_ids, {dataset=>$dataset,core=>$core,species=>$species}
     }
     $self->param('output_ids',$output_ids);
     return;
