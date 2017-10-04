@@ -23,15 +23,32 @@ package Bio::EnsEMBL::PipeConfig::BuildMart_conf;
 use strict;
 use warnings;
 use Data::Dumper;
-use base ('Bio::EnsEMBL::Hive::PipeConfig::HiveGeneric_conf')
-  ; # All Hive databases configuration files should inherit from HiveGeneric, directly or indirectly
+use Bio::EnsEMBL::Hive::PipeConfig::HiveGeneric_conf;
+ # All Hive databases configuration files should inherit from HiveGeneric, directly or indirectly
+use base ('Bio::EnsEMBL::Hive::PipeConfig::EnsemblGeneric_conf');
 use Bio::EnsEMBL::ApiVersion;
 use Cwd;
 
 sub resource_classes {
   my ($self) = @_;
   return { 'default' => { 'LSF' => '-q production-rh7' },
-           'mem'     => { 'LSF' => '-q production-rh7 -M 2500 -R "rusage[mem=2500]"'} };
+           'mem'     => { 'LSF' => '-q production-rh7 -M 7000 -R "rusage[mem=7000]"'} };
+}
+
+# Force an automatic loading of the registry in all workers.
+sub beekeeper_extra_cmdline_options {
+  my $self = shift;
+  return "-reg_conf ".$self->o("registry");
+}
+
+# Ensures that species output parameter gets propagated implicitly.
+sub hive_meta_table {
+  my ($self) = @_;
+
+  return {
+    %{$self->SUPER::hive_meta_table},
+    'hive_use_param_stack'  => 1,
+  };
 }
 
 sub default_options {
@@ -54,12 +71,22 @@ sub default_options {
            'genomic_features_mart' => '',
            'max_dropdown' => '256',
            'tables_dir' => $self->o('base_dir').'/ensembl-biomart/gene_mart/tables',
+           'run_all'    => 0,
+           'species'      => '',
+           'antispecies'  => [],
+           'partition_size' => 1000,
 
     concat_columns => {
       'gene__main'     => ['stable_id_1023','version_1020'],
       'transcript__main'    => ['stable_id_1066','version_1064'],
       'translation__main'      => ['stable_id_1070','version_1068'],
-    },
+        },
+    tables => [
+      '_mart_transcript_variation__dm',
+      ],
+    som_tables => [
+      '_mart_transcript_variation_som__dm',
+      ],
   },
 }
 
@@ -111,10 +138,10 @@ sub pipeline_analyses {
                        'datasets' => $self->o('datasets'),
                        'base_dir' => $self->o('base_dir'),
                        'registry' => $self->o('registry'), },
-        -input_ids => [ {} ],
-        -flow_into => { 1 => [ 'calculate_sequence', 'add_compara',
-                             'add_xrefs', 'add_slims', 'AddExtraMartIndexesGene', 'AddExtraMartIndexesTranscript', 'AddExtraMartIndexesTranslation','ConcatStableIDColumns' ],
-                      2 => ['tidy_tables','optimize','generate_meta'] },
+        -flow_into => {
+           1 => [ 'calculate_sequence', 'add_compara',
+                             'add_xrefs', 'add_slims', 'AddExtraMartIndexesGene', 'AddExtraMartIndexesTranscript', 'AddExtraMartIndexesTranslation','ConcatStableIDColumns', 'ScheduleSpecies'],
+           2 => ['tidy_tables','optimize','generate_meta'] },
         -meadow_type => 'LOCAL'
     },
     {
@@ -183,7 +210,6 @@ sub pipeline_analyses {
         'port'     => $self->o('port'),
         'base_dir' => $self->o('base_dir') },
       -analysis_capacity => 10,
-      -wait_for          => ['tidy_tables'],
     },
     {
       -logic_name  => 'add_slims',
@@ -202,7 +228,6 @@ sub pipeline_analyses {
         'base_name' => $self->o('base_name'),
          },
       -analysis_capacity => 10,
-      -wait_for          => ['tidy_tables'],
       -rc_name          => 'mem',
     },
     {
@@ -308,7 +333,95 @@ sub pipeline_analyses {
                        'max_dropdown' => $self->o('max_dropdown'),
                        'base_name' => $self->o('base_name') },
       -analysis_capacity => 1
-    }
+    },
+    {
+      -logic_name      => 'ScheduleSpecies',
+      -module          => 'Bio::EnsEMBL::Production::Pipeline::Common::SpeciesFactory',
+      -parameters      => {
+                            species     => $self->o('species'),
+                            antispecies => $self->o('antispecies'),
+                            division    => $self->o('division'),
+                            run_all     => $self->o('run_all'),
+                          },
+      -max_retry_count => 0,
+      -rc_name         => 'default',
+      -flow_into       => {
+                            '4' => 'CreateTables',
+                          },
+      -meadow_type     => 'LOCAL',
+    },
+     {
+      -logic_name        => 'CreateTables',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartTables',
+      -parameters        => {
+                              snp_tables        => $self->o('tables'),
+                              snp_som_tables    => $self->o('som_tables'),
+                              tables_dir        => $self->o('tables_dir'),
+                              mart_table_prefix => '#dataset#'."_".$self->o('base_name'),
+                              variation_feature => 1,
+                              mart_host => $self->o('host'),
+                              mart_port => $self->o('port'),
+                              mart_user => $self->o('user'),
+                              mart_pass => $self->o('pass'),
+                              mart_db_name =>  $self->o('mart'),
+                              base_name => $self->o('base_name'),
+                              consequences  => {'_mart_transcript_variation__dm' => 'consequence_types_2076'},
+                            },
+      -max_retry_count   => 0,
+      -analysis_capacity => 10,
+      -flow_into         => {
+                              '1->A' => ['PartitionTables'],
+                              'A->1' => ['CreateMartIndexes'],
+                            },
+      -rc_name           => 'default',
+    },
+    {
+      -logic_name        => 'PartitionTables',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::PartitionTables',
+      -parameters        => {
+                              partition_size => $self->o('partition_size'),
+                            },
+      -max_retry_count   => 0,
+      -analysis_capacity => 10,
+      -flow_into         => ['PopulateMart'],
+      -rc_name           => 'default',
+      -meadow_type       => 'LOCAL',
+    },
+
+    {
+      -logic_name        => 'PopulateMart',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::PopulateMart',
+      -parameters        => {
+                              tables_dir => $self->o('tables_dir'),
+                              mart_table_prefix => '#dataset#'."_".$self->o('base_name'),
+                              mart_host => $self->o('host'),
+                              mart_port => $self->o('port'),
+                              mart_user => $self->o('user'),
+                              mart_pass => $self->o('pass'),
+                              mart_db_name =>  $self->o('mart'),
+                            },
+      -max_retry_count   => 3,
+      -analysis_capacity => 20,
+      -rc_name           => 'mem',
+    },
+
+    {
+      -logic_name        => 'CreateMartIndexes',
+      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
+      -parameters        => {
+                              tables_dir => $self->o('tables_dir'),
+                              mart_table_prefix => '#dataset#'."_".$self->o('base_name'),
+                              mart_host => $self->o('host'),
+                              mart_port => $self->o('port'),
+                              mart_user => $self->o('user'),
+                              mart_pass => $self->o('pass'),
+                              mart_db_name =>  $self->o('mart'),
+                            },
+      -max_retry_count   => 2,
+      -analysis_capacity => 10,
+      -rc_name           => 'default',
+    },
+
   ];
   return $analyses;
 } ## end sub pipeline_analyses
