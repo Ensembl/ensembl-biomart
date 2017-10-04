@@ -69,14 +69,11 @@ sub dump_data {
     $self->param_required('mart_db_name'),
   );
   
-  my $cmd = 'mysql '.join(' ', @params)." -ss -r -e '$select_sql' > $output_file";
+  my $cmd = 'mysql '.join(' ', @params)." -ss -r -e '$select_sql' | sed 's/NULL/\\\\N/g' > $output_file";
   if (system($cmd)) {
     $self->throw("Loading failed when running $cmd");
   }
-  
-  my $output = $self->read_string($output_file);
-  $output =~ s/NULL/\\N/gm;
-  $self->save_file($output, $output_file);
+
   $self->get_DBAdaptor('core')->dbc()->disconnect_if_idle();
   $self->get_DBAdaptor('variation')->dbc()->disconnect_if_idle();
 }
@@ -102,14 +99,6 @@ sub read_string {
   my $contents = <$fh>;
   close $fh;
   return $contents;
-}
-
-sub save_file {
-  my ($self, $data, $filename) = @_;
-  
-  open my $fh, '>', $filename or $self->throw("Error opening $filename - $!\n");
-  print $fh $data;
-  close $fh;
 }
 
 1;
