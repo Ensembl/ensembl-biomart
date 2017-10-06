@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE DatasetConfig>
+<DatasetConfig dataset="peak_template" defaultDataset="*default*" description="regulatory Evidence" displayName="*species1* Regulatory Evidence (*version*)" entryLabel="Count unavailable" interfaces="default" internalName="template" martUsers="default" modified="2014-10-29 15:37:54.523" noCount="1" softwareVersion="0.6" template="peak" type="TableSet" useDefault="true" version="*version*" visible="1">
+  <MainTables table="*base_name*__peak__main" key="peak_id_10106_key" />
+  <Replace id="datasets"/>
+  <Importable filters="chromosome_name,start,end" internalName="genomic_seq" linkName="genomic_seq" linkVersion="*link_version*" name="genomic_seq" type="link" useDefault="true"/>
+  <Importable filters="chromosome_name,start,end" internalName="genomic_region_range" linkName="genomic_region_range" linkVersion="*link_version*" name="genomic_region_range" type="link" useDefault="true"/>
+  <Importable filters="chromosome_name,end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
+  <Importable filters="chromosome_name,start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link" useDefault="true"/>
+  <Importable filters="chromosome_name,start,end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
+  <FilterPage displayName="FILTERS" internalName="filters" useDefault="true">
+    <FilterGroup displayName="REGULATORY EVIDENCE      (&lt;a href='http://www.ensembl.org/info/genome/funcgen/regulatory_build.html'&gt;Regulatory Build Information&lt;/a&gt;)" hidden="false" internalName="peaks" useDefault="true">
+      <FilterCollection description="Limit to Genes on a specific Chromosome. " displayName="Chromosome" hidden="false" internalName="chromosome" useDefault="true">
+        <FilterDescription displayName="Chromosome Name" displayType="list" field="seq_region_name_1048" internalName="chromosome_name" key="peak_id_10106_key" otherFilters="*species3*_karyotype_start.name;*species3*_karyotype_end.name" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" useDefault="true">
+            <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection description="Limit to Genes within prescribed Chromosomal Coordinates." displayName="Coordinates" hidden="false" internalName="chromosome_coordinates" useDefault="true">
+        <FilterDescription defaultValue="1" description="Determine which base pair on the specified chromosome to begin range" displayName="Start (bp)" displayType="text" field="seq_region_end_1048" hidden="false" internalName="start" key="peak_id_10106_key" legal_qualifiers="&gt;=" qualifier="&gt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
+        <FilterDescription defaultValue="10000000" description="Determine which base pair on the specified chromosome to end range" displayName="End (bp)" displayType="text" field="seq_region_start_1048" hidden="false" internalName="end" key="peak_id_10106_key" legal_qualifiers="&lt;=" qualifier="&lt;=" regexp="\d+" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000,1:100000:2000000)  [Max 500]" displayName="Multiple regions (Chr:Start:End) Max 500 advised] " hidden="false" internalName="chromosome_regions" useDefault="true">
+        <FilterDescription defaultValue="1:100:10000000" description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1) [Max 500]" displayName="e.g 1:100:10000000, 1:100000:200000" displayType="text" field="seq_region_start_1048" filterList="chromosome_name,start,end" hidden="false" internalName="chromosomal_region" key="peak_id_10106_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="Karyotype band" hidden="false" internalName="band_collection" useDefault="true" checkPointerDataset="*species3*_karyotype_start" >
+        <FilterDescription hidden="false" internalName="band_start" pointerDataset="*species3*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
+        <FilterDescription hidden="false" internalName="band_end" pointerDataset="*species3*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true" checkPointerDataset="*species3*_marker_start">
+        <FilterDescription hidden="false" internalName="marker_start" pointerDataset="*species3*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
+        <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species3*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true"/>
+      </FilterCollection>
+      <FilterCollection displayName="&lt;a href='http://www.genome.gov/26525202'&gt;ENCODE Pilot Regions&lt;/a&gt;" internalName="encode_region_col" useDefault="true" checkPointerDataset="*species3*_encode">
+        <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species3*_encode" pointerFilter="encode_region" pointerInterface="default" useDefault="true">
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Feature type" hidden="false" internalName="peak_type" useDefault="true">
+        <FilterDescription autoCompletion="menu" displayName="Feature Type" displayType="list" field="feature_type_name_1048" internalName="peak_type_name" key="peak_id_10106_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="list" style="menu" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Epigenome" hidden="false" internalName="annotated_epigenome" useDefault="true">
+        <FilterDescription autoCompletion="menu" displayName="Epigenome Name" displayType="list" field="epigenome_name_1081" internalName="annotated_epigenome_name" key="peak_id_10106_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="list" style="menu" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Feature type class" hidden="false" internalName="peak_type_class" useDefault="true">
+        <FilterDescription autoCompletion="menu" displayName="Feature Type Class" displayType="list" field="feature_type_class_1048" internalName="peak_type_class" key="peak_id_10106_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="list" style="menu" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Project name" internalName="project_name" useDefault="true">
+        <FilterDescription displayName="Project name" displayType="list" field="project_name_1048" internalName="project_name" key="peak_id_10106_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" style="menu" useDefault="true">
+          <SpecificFilterContent internalName="replaceMe"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="&lt;a href='http://www.ebi.ac.uk/ena/about/about'&gt;SRA&lt;/a&gt; Experiment Accession (e.g. &lt;a href='http://www.ebi.ac.uk/ena/data/view/SRX056736'&gt;SRX056736, ...&lt;/a&gt;) [Max 500]" internalName="annotated_archive" useDefault="true">
+        <FilterDescription displayName="SRA experiment accession (e.g. &lt;a href='www.google.com'&gt;SRX000375&lt;/a&gt;) [Max 500 advised] " displayType="text" field="archive_id_1048" internalName="annotated_archive_id" key="peak_id_10106_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="list" useDefault="true">
+        </FilterDescription>
+      </FilterCollection>
+    </FilterGroup>
+  </FilterPage>
+  <AttributePage displayName="Regulatory evidence" internalName="peak" outFormats="html,txt,csv,tsv,xls" useDefault="true">
+    <AttributeGroup displayName="REGULATORY EVIDENCE" internalName="peaks" useDefault="true">
+      <AttributeCollection internalName="peak" useDefault="true">
+        <AttributeDescription displayName="EFO term accession" field="dbprimary_acc_1046" internalName="efo_id" key="peak_id_10106_key" maxLength="512" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="Feature set" field="display_label_1048" hidden="true" internalName="display_label" key="peak_id_10106_key" maxLength="80" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="Chromosome/scaffold name" field="seq_region_name_1048" internalName="chromosome_name" key="peak_id_10106_key" linkoutURL="exturl|/*species2*/contigview?chr=%s" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="Start (bp)" field="seq_region_start_1048" internalName="chromosome_start" key="peak_id_10106_key" linkoutURL="exturl|/*species2*/Location/View?r=%s:%s-%s|chromosome_name|chromosome_start|chromosome_end" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="End (bp)" field="seq_region_end_1048" internalName="chromosome_end" key="peak_id_10106_key" linkoutURL="exturl|/*species2*/Location/View?r=%s:%s-%s|chromosome_name|chromosome_start|chromosome_end" maxLength="10" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="Feature type" field="feature_type_name_1048" internalName="feature_type_name" key="peak_id_10106_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription default="true" displayName="Feature type class" field="feature_type_class_1048" internalName="feature_type_class" key="peak_id_10106_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Feature type description" field="feature_type_description_1048" internalName="feature_type_description" key="peak_id_10106_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Epigenome name" field="epigenome_name_1081" hidden="false" internalName="epigenome_name" key="peak_id_10106_key" maxLength="120" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Epigenome description" field="epigenome_description_1081" hidden="false" internalName="epigenome_description" key="peak_id_10106_key" maxLength="80" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Project name" field="project_name_1048" internalName="project_name" key="peak_id_10106_key" maxLength="40" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="SRA experiment accession" field="archive_id_1048" internalName="archive_id" key="peak_id_10106_key" linkoutURL="exturl|http://www.ebi.ac.uk/ena/data/view/%s" maxLength="20" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="SO term accession" field="so_accession_1024" internalName="so_accession" key="peak_id_10106_key" linkoutURL="exturl|http://www.sequenceontology.org/browser/current_release/term/%s" maxLength="64" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="SO term name" field="so_name_1024" internalName="so_name" key="peak_id_10106_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+      </AttributeCollection>
+    </AttributeGroup>
+  </AttributePage>
+</DatasetConfig>
