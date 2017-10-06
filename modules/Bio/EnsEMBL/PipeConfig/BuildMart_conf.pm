@@ -140,7 +140,7 @@ sub pipeline_analyses {
         -flow_into => {
            '1->A' => [ 'calculate_sequence', 'add_compara',
                              'add_xrefs', 'add_slims', 'AddExtraMartIndexesGene', 'AddExtraMartIndexesTranscript', 'AddExtraMartIndexesTranslation','ConcatStableIDColumns', 'ScheduleSpecies'],
-           'A->1' => 'tidy_tables' },
+           'A->2' => 'tidy_tables' },
         -meadow_type => 'LOCAL'
     },
     {
