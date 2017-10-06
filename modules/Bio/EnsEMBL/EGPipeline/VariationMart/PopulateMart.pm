@@ -87,6 +87,7 @@ sub load_data {
   my $load_sql = "LOAD DATA LOCAL INFILE '$output_file' INTO TABLE $mart_table;";
   
   my $mart_dbc = $self->mart_dbc;
+  $mart_dbc->sql_helper->execute_update("SET bulk_insert_buffer_size = 536870912;");
   $mart_dbc->sql_helper->execute_update(-SQL=>$load_sql);
   $mart_dbc->disconnect_if_idle();
 }
