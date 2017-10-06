@@ -129,7 +129,6 @@ sub pipeline_analyses {
       {
         -logic_name => 'dataset_factory',
         -module     => 'Bio::EnsEMBL::BioMart::DatasetFactory',
-        -wait_for   => 'generate_names',
         -parameters => { 'mart'     => $self->o('mart'),
                        'user'     => $self->o('user'),
                        'pass'     => $self->o('pass'),
@@ -139,9 +138,9 @@ sub pipeline_analyses {
                        'base_dir' => $self->o('base_dir'),
                        'registry' => $self->o('registry'), },
         -flow_into => {
-           1 => [ 'calculate_sequence', 'add_compara',
+           '1->A' => [ 'calculate_sequence', 'add_compara',
                              'add_xrefs', 'add_slims', 'AddExtraMartIndexesGene', 'AddExtraMartIndexesTranscript', 'AddExtraMartIndexesTranslation','ConcatStableIDColumns', 'ScheduleSpecies'],
-           2 => ['tidy_tables','optimize','generate_meta'] },
+           'A->1' => 'tidy_tables' },
         -meadow_type => 'LOCAL'
     },
     {
@@ -184,7 +183,7 @@ sub pipeline_analyses {
       -logic_name  => 'tidy_tables',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
       -meadow_type => 'LSF',
-      -wait_for    => [ 'add_compara', 'calculate_sequence'],
+      -flow_into => {1 =>'optimize'},
       -parameters  => {
         'cmd' =>
 'perl #base_dir#/ensembl-biomart/scripts/tidy_tables.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',
@@ -300,8 +299,8 @@ sub pipeline_analyses {
     {
       -logic_name  => 'optimize',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -flow_into => {1 => 'generate_meta'},
       -meadow_type => 'LSF',
-      -wait_for    => [ 'add_xrefs', 'add_slims'],
       -parameters  => {
         'cmd' =>
 'mysqlcheck -h#host# -u#user# -p#pass# -P#port# --optimize "#mart#"',
@@ -317,7 +316,6 @@ sub pipeline_analyses {
       -logic_name  => 'generate_meta',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
       -meadow_type => 'LSF',
-      -wait_for    => ['generate_names','optimize'],
       -parameters  => {
         'cmd' =>
         'perl #base_dir#/ensembl-biomart/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
