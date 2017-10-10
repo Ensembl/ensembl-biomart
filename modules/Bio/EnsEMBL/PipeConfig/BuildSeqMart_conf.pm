@@ -82,8 +82,8 @@ sub pipeline_analyses {
 		      'datasets' => $self->o('datasets'),
 		      'base_dir' => $self->o('base_dir') },
       -input_ids => [ {} ],
-      -flow_into => { 1 => [ 'build_sequence' ],
-                      2 => [ 'optimize', 'generate_meta' ]
+      -flow_into => { '1->A' => [ 'build_sequence' ],
+                      'A->2' => [ 'optimize']
                     },
       -meadow_type => 'LOCAL' },
     { -logic_name  => 'build_sequence',
@@ -100,7 +100,7 @@ sub pipeline_analyses {
     { -logic_name  => 'optimize',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
       -meadow_type => 'LSF',
-      -wait_for    => [ 'build_sequence' ],
+      -flow_into    => 'generate_meta',
       -parameters  => {
         'cmd' =>
 'mysqlcheck -h#host# -u#user# -p#pass# -P#port# --optimize "#mart#"',
@@ -113,7 +113,6 @@ sub pipeline_analyses {
       { -logic_name  => 'generate_meta',
         -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
         -meadow_type => 'LSF',
-        -wait_for    => 'optimize',
         -parameters  => {
                          'cmd' =>
                          'perl #base_dir#/ensembl-biomart/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #base_dir#/ensembl-biomart/scripts/templates/sequence_template_template.xml  -ds_basename genomic_sequence -template_name sequences',
@@ -123,7 +122,6 @@ sub pipeline_analyses {
                          'host'     => $self->o('host'),
                          'port'     => $self->o('port'),
                          'base_dir' => $self->o('base_dir') },
-        -input_ids         => [ {} ],
         -analysis_capacity => 1 }
       
   ];
