@@ -88,9 +88,9 @@ sub run_script {
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
   
   # Drop table if exist and drop_mtmp parameter set to 1
-  # We don't want to drop the MTMP_transcript_variation table as it
+  # We don't want to drop the MTMP_transcript_variation or MTMP_variation_set_variation tables as they
   # gets automatically renerated by the Transcript variation pipeline
-  if ($drop_mtmp and $table ne "transcript_variation") {
+  if (($drop_mtmp and $table ne "transcript_variation") or ($drop_mtmp and $table ne "variation_set_variation")) {
     my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
     $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
   }
