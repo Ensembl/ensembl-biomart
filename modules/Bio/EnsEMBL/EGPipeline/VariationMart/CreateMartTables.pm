@@ -285,11 +285,11 @@ sub write_output {
   if ($self->param('sv_exists')) {
     my ($sv_max_key_id, $sv_base_where_sql);
     if ($self->param('variation_feature')) {
-      $sv_max_key_id = $self->max_key_id(@svf);
+      $sv_max_key_id = $self->max_key_id("variation",@svf);
       $sv_base_where_sql = $self->base_where_sql(@svf); 
     }
     else {
-      $sv_max_key_id = $self->max_key_id(@sv);
+      $sv_max_key_id = $self->max_key_id("variation",@sv);
       $sv_base_where_sql = $self->base_where_sql(@sv);
     }
         foreach my $table ( @{$self->param_required('sv_tables')} ) {
@@ -305,11 +305,11 @@ sub write_output {
     {
       my ($sv_max_key_id_som, $sv_base_where_sql_som);
       if ($self->param('variation_feature')) {
-        $sv_max_key_id_som = $self->max_key_id(@svfsom);
+        $sv_max_key_id_som = $self->max_key_id("variation",@svfsom);
         $sv_base_where_sql_som = $self->base_where_sql(@svfsom);
       }
       elsif ($self->param_required('species') eq 'homo_sapiens')  {
-        $sv_max_key_id_som = $self->max_key_id(@svsom);
+        $sv_max_key_id_som = $self->max_key_id("variation",@svsom);
         $sv_base_where_sql_som = $self->base_where_sql(@svsom);
       }
     
