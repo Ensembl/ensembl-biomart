@@ -45,7 +45,7 @@ push(@{$optsd},"runner_port:s");
 # process the command line with the supplied options plus a help subroutine
 my $opts = $cli_helper->process_args($optsd,\&usage);
 
-$opts->{mdbname} ||= 'ensembl_production';
+$opts->{mdbname} ||= 'ensembl_production_91';
 $opts->{runner_port} ||= 8888;
 
 if(!defined $opts->{division} || !defined $opts->{template}|| !defined $opts->{mart} || !defined $opts->{eg} || !defined $opts->{ens} || !defined $opts->{host} || !defined $opts->{mhost} || !defined $opts->{runner_host}) {
