@@ -2794,7 +2794,7 @@
 			<column id="2497" name="description" visibleModified="false" inSchemaPartition="btaurus,cfamiliaris,drerio,dmelanogaster,ecaballus,fcatus,ggallus,hsapiens,mmulatta,mdomestica,mmusculus,oanatinus,ptroglodytes,pabelii,rnorvegicus,scerevisiae,sscrofa,tguttata,tnigroviridis,mgallopavo,nleucogenys,oaries"/>
 			<primaryKey id="2498" columnIds="2496" status="INFERRED" visibleModified="false"/>
 		</table>
-		<table uniqueId="76" id="2499" name="MTMP_transcript_variation" ignore="false" inSchemaPartition="btaurus,cfamiliaris,drerio,dmelanogaster,ecaballus,fcatus,ggallus,hsapiens,mmulatta,mdomestica,mmusculus,oanatinus,ptroglodytes,pabelii,rnorvegicus,scerevisiae,sscrofa,tguttata,tnigroviridis,mgallopavo,nleucogenys,oaries">
+		<table uniqueId="76" id="2499" name="MTMP_transcript_variation" ignore="true" inSchemaPartition="btaurus,cfamiliaris,drerio,dmelanogaster,ecaballus,fcatus,ggallus,hsapiens,mmulatta,mdomestica,mmusculus,oanatinus,ptroglodytes,pabelii,rnorvegicus,scerevisiae,sscrofa,tguttata,tnigroviridis,mgallopavo,nleucogenys,oaries">
 			<column id="2500" name="cds_end" visibleModified="false" inSchemaPartition="btaurus,cfamiliaris,drerio,dmelanogaster,ecaballus,fcatus,ggallus,hsapiens,mmulatta,mdomestica,mmusculus,oanatinus,ptroglodytes,pabelii,rnorvegicus,scerevisiae,sscrofa,tguttata,tnigroviridis,mgallopavo,nleucogenys,oaries"/>
 			<column id="2501" name="consequence_types" visibleModified="false" inSchemaPartition="btaurus,cfamiliaris,drerio,dmelanogaster,ecaballus,fcatus,ggallus,hsapiens,mmulatta,mdomestica,mmusculus,oanatinus,ptroglodytes,pabelii,rnorvegicus,scerevisiae,sscrofa,tguttata,tnigroviridis,mgallopavo,nleucogenys,oaries"/>
 			<column id="2502" name="feature_stable_id" visibleModified="false" inSchemaPartition="btaurus,cfamiliaris,drerio,dmelanogaster,ecaballus,fcatus,ggallus,hsapiens,mmulatta,mdomestica,mmusculus,oanatinus,ptroglodytes,pabelii,rnorvegicus,scerevisiae,sscrofa,tguttata,tnigroviridis,mgallopavo,nleucogenys,oaries"/>
@@ -3332,89 +3332,6 @@
 		<renamedColumn tableKey="transcript__MTMP_probestuff_helper" colKey="11.56.0.array_name" newName="array_name_11056"/>
 		<maskedColumn tableKey="transcript__MTMP_probestuff_helper" colKey="11.56.0.array_vendor_and_name"/>
 		<renamedColumn tableKey="transcript__MTMP_probestuff_helper" colKey="11.56.0.array_vendor_and_name" newName="array_vendor_and_name_11056"/>
-		<renamedTable tableKey="transcript__MTMP_transcript_variation" newName="mart_transcript_variation"/>
-		<skipOptimiser tableKey="transcript__MTMP_transcript_variation"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.allele_string" newName="allele_string_2026"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.polyphen_prediction" newName="polyphen_prediction_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.allele_string" newName="allele_string_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.distance_to_transcript" newName="distance_to_transcript_2076"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.consequence_types"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.consequence_types" newName="consequence_types_2026"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.21.0.description" newName="description_2021"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.minor_allele_count" newName="minor_allele_count_2025"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.evidence_attribs"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.evidence_attribs" newName="evidence_attribs_2026"/>
-		<indexedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.21.0.name"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.21.0.name" newName="name_2021"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.21.0.data_types"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.21.0.data_types" newName="data_types_2021"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.cds_end" newName="cds_end_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.minor_allele_freq" newName="minor_allele_freq_2025"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.21.0.type"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.21.0.type" newName="type_2021"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.sift_score" newName="sift_score_2076"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.21.0.url"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.21.0.url" newName="url_2021"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.translation_start" newName="translation_start_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.seq_region_end" newName="seq_region_end_2026"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.display"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.display" newName="display_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.map_weight" newName="map_weight_2026"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.cdna_end"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.cdna_end" newName="cdna_end_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.minor_allele" newName="minor_allele_2025"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.pep_allele_string" newName="pep_allele_string_2076"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.flags"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.flags" newName="flags_2026"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.variation_name" newName="name_2025"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.variation_id"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.variation_id" newName="variation_id_2026"/>
-		<indexedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.consequence_types"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.consequence_types" newName="consequence_types_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.sift_prediction" newName="sift_prediction_2076"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.21.0.somatic_status"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.21.0.somatic_status" newName="somatic_status_2021"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.cdna_start" newName="cdna_start_2076"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.21.0.version"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.21.0.version" newName="version_2021"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.alignment_quality"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.alignment_quality" newName="alignment_quality_2026"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.seq_region_start" newName="seq_region_start_2026"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.polyphen_score" newName="polyphen_score_2076"/>
-		<indexedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.134.0.evidence"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.134.0.evidence" newName="evidence_2025"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.variation_feature_id"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.variation_feature_id" newName="variation_feature_id_2076"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.seq_region_id"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.seq_region_id" newName="seq_region_id_2026"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.source_id"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.source_id" newName="source_id_2026"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.class_attrib_id"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.class_attrib_id" newName="class_attrib_id_2026"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.cds_start" newName="cds_start_2076"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.display"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.display" newName="display_2026"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.variation_set_id"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.variation_set_id" newName="variation_set_id_2026"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.seq_region_strand" newName="seq_region_strand_2026"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.somatic"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.somatic" newName="somatic_2026"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.translation_end"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.76.0.translation_end" newName="translation_end_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation" colKey="2.26.0.clinical_significance" newName="clinical_significance_2025"/>
-		<compoundRelation tableKey="transcript__MTMP_transcript_variation" relationId="2859" n="2" parallel="true"/>
-		<alternativeJoin tableKey="transcript__MTMP_transcript_variation" relationId="2777"/>
-		<alternativeJoin tableKey="transcript__MTMP_transcript_variation" relationId="2782"/>
-		<maskedRelation tableKey="transcript__MTMP_transcript_variation" relationId="2782"/>
-		<alternativeJoin tableKey="transcript__MTMP_transcript_variation" relationId="2801"/>
-		<maskedRelation tableKey="transcript__MTMP_transcript_variation" relationId="2801"/>
-		<alternativeJoin tableKey="transcript__MTMP_transcript_variation" relationId="2809"/>
-		<maskedRelation tableKey="transcript__MTMP_transcript_variation" relationId="2809"/>
-		<compoundRelation tableKey="transcript__MTMP_transcript_variation" relationId="2859" n="2" parallel="true"/>
-		<maskedRelation tableKey="transcript__MTMP_transcript_variation" relationId="2830"/>
-		<alternativeJoin tableKey="transcript__MTMP_transcript_variation" relationId="2841"/>
-		<restrictedTable tableKey="transcript__MTMP_transcript_variation" tableId="2229" aliasColumnIds="2241" aliasNames="col1" expression=":col1=0"/>
-		<restrictedTable tableKey="transcript__MTMP_transcript_variation" tableId="2634" aliasColumnIds="2653,2638" aliasNames="col1,col2" expression=":col1=0 and :col2=1"/>
 		<renamedTable tableKey="translation__protein_feature" newName="protein_feature"/>
 		<distinctRows tableKey="translation__protein_feature"/>
 		<maskedColumn tableKey="translation__protein_feature" colKey="1.48.0.perc_ident"/>
@@ -3734,88 +3651,6 @@
 		<renamedTable tableKey="gene__alt_allele" newName="alt_allele"/>
 		<renamedColumn tableKey="gene__alt_allele" colKey="1.1.0.alt_allele_group_id" newName="alt_allele_group_id_101"/>
 		<renamedColumn tableKey="gene__alt_allele" colKey="1.1.0.alt_allele_id" newName="alt_allele_id_101"/>
-		<renamedTable tableKey="transcript__MTMP_transcript_variation_1" newName="mart_transcript_variation_som"/>
-		<explainHideMasked tableKey="transcript__MTMP_transcript_variation_1"/>
-		<skipOptimiser tableKey="transcript__MTMP_transcript_variation_1"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.allele_string" newName="allele_string_2026"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.polyphen_prediction" newName="polyphen_prediction_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.allele_string" newName="allele_string_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.distance_to_transcript" newName="distance_to_transcript_2076"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.consequence_types"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.consequence_types" newName="consequence_types_2026"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.21.0.description" newName="description_2021"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.minor_allele_count" newName="minor_allele_count_2025"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.evidence_attribs"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.evidence_attribs" newName="evidence_attribs_2026"/>
-		<indexedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.21.0.name"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.21.0.name" newName="name_2021"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.21.0.data_types"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.21.0.data_types" newName="data_types_2021"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.cds_end" newName="cds_end_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.minor_allele_freq" newName="minor_allele_freq_2025"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.21.0.type"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.21.0.type" newName="type_2021"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.sift_score" newName="sift_score_2076"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.21.0.url"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.21.0.url" newName="url_2021"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.translation_start" newName="translation_start_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.seq_region_end" newName="seq_region_end_2026"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.display"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.display" newName="display_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.map_weight" newName="map_weight_2026"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.cdna_end"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.cdna_end" newName="cdna_end_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.minor_allele" newName="minor_allele_2025"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.pep_allele_string" newName="pep_allele_string_2076"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.flags"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.flags" newName="flags_2026"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.variation_name" newName="name_2025"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.variation_id"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.variation_id" newName="variation_id_2026"/>
-		<indexedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.consequence_types"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.consequence_types" newName="consequence_types_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.sift_prediction" newName="sift_prediction_2076"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.21.0.somatic_status"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.21.0.somatic_status" newName="somatic_status_2021"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.cdna_start" newName="cdna_start_2076"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.21.0.version"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.21.0.version" newName="version_2021"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.alignment_quality"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.alignment_quality" newName="alignment_quality_2026"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.seq_region_start" newName="seq_region_start_2026"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.polyphen_score" newName="polyphen_score_2076"/>
-		<indexedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.134.0.evidence"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.134.0.evidence" newName="evidence_2025"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.variation_feature_id"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.variation_feature_id" newName="variation_feature_id_2076"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.seq_region_id"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.seq_region_id" newName="seq_region_id_2026"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.source_id"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.source_id" newName="source_id_2026"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.class_attrib_id"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.class_attrib_id" newName="class_attrib_id_2026"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.cds_start" newName="cds_start_2076"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.display"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.display" newName="display_2026"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.variation_set_id"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.variation_set_id" newName="variation_set_id_2026"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.seq_region_strand" newName="seq_region_strand_2026"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.somatic"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.somatic" newName="somatic_2026"/>
-		<maskedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.translation_end"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.76.0.translation_end" newName="translation_end_2076"/>
-		<renamedColumn tableKey="transcript__MTMP_transcript_variation_1" colKey="2.26.0.clinical_significance" newName="clinical_significance_2025"/>
-		<alternativeJoin tableKey="transcript__MTMP_transcript_variation_1" relationId="2777"/>
-		<alternativeJoin tableKey="transcript__MTMP_transcript_variation_1" relationId="2782"/>
-		<maskedRelation tableKey="transcript__MTMP_transcript_variation_1" relationId="2782"/>
-		<alternativeJoin tableKey="transcript__MTMP_transcript_variation_1" relationId="2801"/>
-		<maskedRelation tableKey="transcript__MTMP_transcript_variation_1" relationId="2801"/>
-		<alternativeJoin tableKey="transcript__MTMP_transcript_variation_1" relationId="2809"/>
-		<maskedRelation tableKey="transcript__MTMP_transcript_variation_1" relationId="2809"/>
-		<maskedRelation tableKey="transcript__MTMP_transcript_variation_1" relationId="2830"/>
-		<alternativeJoin tableKey="transcript__MTMP_transcript_variation_1" relationId="2841"/>
-		<restrictedTable tableKey="transcript__MTMP_transcript_variation_1" tableId="2229" aliasColumnIds="2241" aliasNames="col1" expression=":col1=1"/>
-		<restrictedTable tableKey="transcript__MTMP_transcript_variation_1" tableId="2634" aliasColumnIds="2653,2638" aliasNames="col1,col2" expression=":col1=1 and :col2=1"/>
 		<renamedTable tableKey="transcript__transcript_attrib" newName="tra"/>
 		<skipOptimiser tableKey="transcript__transcript_attrib"/>
 		<maskedColumn tableKey="transcript__transcript_attrib" colKey="1.6.0.name"/>
