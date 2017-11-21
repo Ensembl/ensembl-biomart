@@ -90,9 +90,14 @@ sub run_script {
   # Drop table if exist and drop_mtmp parameter set to 1
   # We don't want to drop the MTMP_transcript_variation or MTMP_variation_set_variation tables as they
   # gets automatically renerated by the Transcript variation pipeline
-  if (($drop_mtmp and $table ne "transcript_variation") or ($drop_mtmp and $table ne "variation_set_variation")) {
-    my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
-    $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
+  if ($drop_mtmp){
+    if (($table eq "transcript_variation") or ($table eq "variation_set_variation")){
+      1;
+    }
+    else {
+      my $drop_sql = "DROP TABLE IF EXISTS MTMP_$table;";
+      $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
+    }
   }
   
   if ($self->does_table_exist($table)) {
