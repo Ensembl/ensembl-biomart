@@ -148,7 +148,7 @@ sub build {
     }
     # Check if dataset has a main table
     if($self->has_main_tables($dataset,$template->{DatasetConfig},$ds_name)==0) {
-      $logger->warn("No main tables found for $template_name for ".$dataset->{name});
+      $logger->warn("Template $template_name main table not found for ".$dataset->{name}."skipping dataset");
       next;
     }
     if ($self->{dbc}->dbname() !~ 'ontology') {
@@ -231,14 +231,19 @@ sub process_dataset {
 
 sub has_main_tables {
   my ($self, $dataset, $templ_in, $ds_name) = @_;
-  for my $mainTable (@{elem_as_array(clone($templ_in->{MainTable}))}) {
-    $mainTable =~ s/\*base_name\*/$ds_name/;
-    if(!defined $self->{tables}->{$mainTable}) {
-      $logger->warn("Main table $mainTable not found");
-      return 0;
+  if ($templ_in->{MainTables}){
+    for my $mainTable (@{elem_as_array(clone($templ_in->{MainTables}))}) {
+      my $table = $mainTable->{table};
+      $table =~ s/\*base_name\*/$ds_name/;
+      if(!defined $self->{tables}->{$table}) {
+        $logger->warn("Main table $table not found");
+        return 0;
+      }
     }
+    return 1;
   }
-  return 1;
+  $logger->warn("No main tables for $ds_name");
+  return 0;
 }
 
 sub write_toplevel {
