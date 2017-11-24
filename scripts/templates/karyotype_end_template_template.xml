@@ -1,4 +1,4 @@
- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE DatasetConfig>
 <DatasetConfig dataset="karyotype_end_template" displayName="karyotype_end" interfaces="default" internalName="template" martUsers="default" modified="2007-12-18 15:02:09.637" softwareVersion="0.6" template="karyotype_end" type="TableSet" useDefault="true" visible="0">
   <MainTables table="*base_name*__karyotype__main" key="karyotype_id_1027_key"/>
