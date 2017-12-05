@@ -29,6 +29,7 @@ use MartUtils;
 use Cwd;
 use File::Copy;
 use Getopt::Long;
+use File::Slurp qw/read_file/;
 
 Log::Log4perl->easy_init($DEBUG);
 
@@ -100,11 +101,10 @@ sub get_species_sets {
 sub write_species {
     my ($dataset, $basename, $species_id, $species_name, $speciesTld, $sql_file_name) = @_;
     my $ds = $dataset.'_'.$basename;
-    open my $sql_file, '<', $sql_file_name or croak "Could not open SQL file $sql_file_name for reading";
-    my $indexN = 0; my $mySql="";
-    while (my $sql = <$sql_file>) {
-        chomp($sql);
-        if($sql ne q{} && !($sql =~ m/^#/) && $sql ne "" ) {
+    my $indexN = 0; 
+    my $all_sql = read_file($sql_file_name);
+    for my $sql (split(';',$all_sql)) {
+      next unless $sql =~ m/\w+/;
             my $indexName = 'I_'.$species_id.'_'.++$indexN;
             $sql =~ s/%srcSchema%/$compara_db/g;
             $sql =~ s/%martSchema%/$mart_db/g;
@@ -112,20 +112,10 @@ sub write_species {
             $sql =~ s/%speciesTld%/$speciesTld/g;
             $sql =~ s/%method_link_species_set_id%/$species_id/g;
             $sql =~ s/%indexName%/$indexName/g;
-            
-            $mySql .=  $sql;
-            if ($mySql =~ m/;/){
-                $logger->debug($sql);
-                my $sth = $mart_handle->prepare($mySql);
+                $logger->info($sql);
+                my $sth = $mart_handle->prepare($sql);
                 $sth->execute();
-                $mySql= "";
-            }
-            else {
-                # Keep going until we have a fully formed SQL query to execute
-            }
-        }
-    }
-    close($sql_file);
+	  }
 }
 
 sub write_family {
