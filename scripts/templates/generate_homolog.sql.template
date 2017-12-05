@@ -274,4 +274,4 @@ update
   %martSchema%.homo_%dataSet%_TEMP_%method_link_species_set_id% using (gene_id_1020_key)
   set homolog_%speciesTld%_bool=1;
 
-drop table %martSchema%.homo_%dataSet%_TEMP_%method_link_species_set_id%;;
+drop table %martSchema%.homo_%dataSet%_TEMP_%method_link_species_set_id%;
