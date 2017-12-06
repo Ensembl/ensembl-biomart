@@ -344,12 +344,12 @@ sub pipeline_analyses {
       -max_retry_count => 0,
       -rc_name         => 'default',
       -flow_into       => {
-                            '4' => 'CreateTables',
+                            '4' => 'CreateMartTranscriptVariationTable',
                           },
       -meadow_type     => 'LOCAL',
     },
      {
-      -logic_name        => 'CreateTables',
+      -logic_name        => 'CreateMartTranscriptVariationTable',
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartTables',
       -parameters        => {
                               snp_tables        => $self->o('tables'),
