@@ -67,5 +67,17 @@ $srv -e "show databases" | grep variation | while read db; do
 	    -tmpdir /tmp -tmpfile phenotype_${db}.txt
         cd -
 done
+
+$srv -e "show databases" | grep variation | while read db; do
+	echo "Creating variation MTMP_evidence table for $db"
+	cd ${BASE_DIR}/ensembl-variation
+	perl -I modules -I scripts/import \
+	    scripts/misc/create_MTMP_tables.pl \
+	    $($srv details script) \
+	    -db $db \
+        -mode evidence \
+	    -tmpdir /tmp -tmpfile evidence_${db}.txt
+        cd -
+done
 	
 echo "Completed setup of $mart on $srv"
