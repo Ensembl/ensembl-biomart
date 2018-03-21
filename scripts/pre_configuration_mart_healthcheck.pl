@@ -116,8 +116,8 @@ foreach my $mart (@marts) {
 # Check tables and columns name the same
 ########################################
 
-  my $new_dbi = dbi( $newhost, $newport, $newuser, $new_dbname );
-  my $old_dbi = dbi( $oldhost, $oldport, $olduser, $old_dbname );
+  my $new_dbi = dbi( $newhost, $newport, $newuser, $new_dbname, $newpass );
+  my $old_dbi = dbi( $oldhost, $oldport, $olduser, $old_dbname, $oldpass );
 
   $old_dbi->{PrintError} = 0;
   $new_dbi->{PrintError} = 0;
@@ -319,7 +319,7 @@ foreach my $rel ( "new", "old" ) {
     $host        = $newhost || "ens-staging2";
     $port        = $newport || 3306;
 
-    $dbi = dbi( $host, $port, $user, $new_dbname);
+    $dbi = dbi( $host, $port, $user, $new_dbname, $pass);
     print "Looking up data for " . $new_dbname . "\n";
 
   } else {
@@ -332,7 +332,7 @@ foreach my $rel ( "new", "old" ) {
     $host        = $oldhost || "mart1";
     $port        = $oldport || 3306;
 
-    $dbi = dbi( $host, $port, $user, $old_dbname );
+    $dbi = dbi( $host, $port, $user, $old_dbname, $pass );
     print "Looking up data for " . $old_dbname . "\n";
   }
 
