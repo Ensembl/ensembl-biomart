@@ -17,17 +17,30 @@ sub run {
         -DBNAME=>$self->param('mart')
         );
     my $output_ids = [];
-    for my $dataset_names (@{$mart_dbc->sql_helper()->execute(
-        -SQL=>"select distinct(name),src_db,sql_name from dataset_names"
-                             )}) {
-        my ($dataset,$core,$species) = @$dataset_names;
-        if ($self->param('mart') =~ m/mouse_mart/i and ($dataset eq "mmusculus" or $dataset eq "rnorvegicus")) {
+    $DB::single = 1;
+    if (scalar(@{$self->param('species')} != 0))
+    {
+      for my $species_name (@{$self->param('species')}){
+           my $dataset_names = $mart_dbc->sql_helper()->execute(
+          -SQL=>qq/select distinct(name),src_db,sql_name from dataset_names where sql_name=?/,
+          -PARAMS => [$species_name]
+                            )->[0];
+          push @$output_ids, {dataset=>$dataset_names->[0],core=>$dataset_names->[1],species=>$dataset_names->[2]}
+      }
+    }
+    else {
+      for my $dataset_names (@{$mart_dbc->sql_helper()->execute(
+          -SQL=>qq/select distinct(name),src_db,sql_name from dataset_names/
+                            )}) {
+          my ($dataset,$core,$species) = @$dataset_names;
+          if ($self->param('mart') =~ m/mouse_mart/i and ($dataset eq "mmusculus" or $dataset eq "rnorvegicus")) {
             next;
-        }
-        elsif ($self->param('mart') =~ m/vb_gene_mart/i and $dataset eq "dmelanogaster_eg") {
+          }
+          elsif ($self->param('mart') =~ m/vb_gene_mart/i and $dataset eq "dmelanogaster_eg") {
             next;
-        }
-        push @$output_ids, {dataset=>$dataset,core=>$core,species=>$species}
+          }
+          push @$output_ids, {dataset=>$dataset,core=>$core,species=>$species}
+      }
     }
     $self->param('output_ids',$output_ids);
     return;
