@@ -72,7 +72,7 @@ sub default_options {
            'max_dropdown' => '256',
            'tables_dir' => $self->o('base_dir').'/ensembl-biomart/gene_mart/tables',
            'run_all'    => 0,
-           'species'      => '',
+           'species'      => [],
            'antispecies'  => [],
            'partition_size' => 1000,
 
@@ -136,7 +136,8 @@ sub pipeline_analyses {
                        'port'     => $self->o('port'),
                        'datasets' => $self->o('datasets'),
                        'base_dir' => $self->o('base_dir'),
-                       'registry' => $self->o('registry'), },
+                       'registry' => $self->o('registry'),
+                       'species' => $self->o('species') },
         -flow_into => {
            '1->A' => [ 'calculate_sequence', 'add_compara',
                              'add_xrefs', 'add_slims', 'AddExtraMartIndexesGene', 'AddExtraMartIndexesTranscript', 'AddExtraMartIndexesTranslation','ConcatStableIDColumns', 'ScheduleSpecies'],
