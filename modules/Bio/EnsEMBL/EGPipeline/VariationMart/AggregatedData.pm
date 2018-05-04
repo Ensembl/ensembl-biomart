@@ -91,6 +91,8 @@ sub run {
 
 sub variation_annotation_bool {
   my ($self, $mart_table_prefix, $variation_db, $prefix) = @_;
+  my $hive_dbc = $self->dbc;
+  $hive_dbc->disconnect_if_idle();
   
   my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
@@ -116,6 +118,8 @@ sub variation_annotation_bool {
 
 sub variation_citation_bool {
   my ($self, $mart_table_prefix, $variation_db, $prefix) = @_;
+  my $hive_dbc = $self->dbc;
+  $hive_dbc->disconnect_if_idle();
   
   my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
@@ -141,6 +145,8 @@ sub variation_citation_bool {
 
 sub variation_feature_count {
   my ($self, $mart_table_prefix, $variation_db, $prefix) = @_;
+  my $hive_dbc = $self->dbc;
+  $hive_dbc->disconnect_if_idle();
   
   my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
@@ -167,6 +173,8 @@ sub variation_feature_count {
 
 sub structural_variation_feature_count {
   my ($self, $mart_table_prefix, $variation_db, $prefix) = @_;
+  my $hive_dbc = $self->dbc;
+  $hive_dbc->disconnect_if_idle();
   
   my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_structvar'.$prefix.'__structural_variation__main '.
