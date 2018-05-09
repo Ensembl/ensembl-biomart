@@ -2524,11 +2524,11 @@ sub generate_protein_domain_protein_features_attributes {
   foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
     if ($mode eq "protein_domain"){
       # Excluding protein features
-      next if !defined $protein_domain_and_feature->{web_data} or $protein_domain_and_feature->{web_data} eq "{'type' => 'feature'}";
+      next if !defined $protein_domain_and_feature->{web_data} or $protein_domain_and_feature->{web_data} =~ /feature/;
     }
     elsif ($mode eq "protein_feature"){
       #Excluding protein domains
-      next if defined $protein_domain_and_feature->{web_data} and $protein_domain_and_feature->{web_data} eq "{'type' => 'domain'}";
+      next if defined $protein_domain_and_feature->{web_data} and $protein_domain_and_feature->{web_data} =~ /domain/;
     }
     my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->{logic_name}."__dm";
       if ( defined $self->{tables}->{$table} ) {
