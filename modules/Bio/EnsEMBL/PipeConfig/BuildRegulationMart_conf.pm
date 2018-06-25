@@ -100,7 +100,8 @@ sub pipeline_analyses {
                        'port'     => $self->o('port'),
                        'datasets' => $self->o('datasets'),
                        'base_dir' => $self->o('base_dir'),
-                       'registry' => $self->o('registry'), },
+                       'registry' => $self->o('registry'),
+                       'species'  => $self->o('species') },
         -flow_into => { 
           '1->A' => WHEN(
             '(#dataset# ne "dmelanogaster")' => [ 'AddExtraMartIndexesExternalFeatures', 'AddExtraMartIndexesPeaks', 'AddExtraMartIndexesMiRNATargetFeatures', 'AddExtraMartIndexesMotifFeatures', 'AddExtraMartIndexesRegulatoryFeatures' ],
