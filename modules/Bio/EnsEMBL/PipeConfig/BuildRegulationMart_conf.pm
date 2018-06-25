@@ -44,13 +44,14 @@ sub default_options {
            'host'      => undef,
            'mart'      => undef,
            'datasets'  => [],
+           'species'      => [],
            'base_dir'  => getcwd,
            'base_name' => 'external_feature',
            'division' => '',
            'registry'      => $self->o('registry'),
            'genomic_features_mart' => '',
            'max_dropdown' => '256',
-           'tables_dir' => $self->o('base_dir').'/regulation_mart/tables'};
+           'tables_dir' => $self->o('base_dir').'/regulation_mart/tables'},
 }
 
 =head2 pipeline_wide_parameters
