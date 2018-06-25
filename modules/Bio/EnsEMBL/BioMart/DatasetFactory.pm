@@ -17,7 +17,6 @@ sub run {
         -DBNAME=>$self->param('mart')
         );
     my $output_ids = [];
-    $DB::single = 1;
     if (scalar(@{$self->param('species')} != 0))
     {
       for my $species_name (@{$self->param('species')}){
