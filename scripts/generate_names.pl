@@ -179,7 +179,7 @@ unless ($div) {
   elsif ( $mart_db =~ m/fungi/ )     { $div = 'fungi' }
   elsif ( $mart_db =~ m/vb/ )       { $div = 'vectorbase' }
   elsif ( $mart_db =~ m/parasite/ ) { $div = 'parasite' }
-  elsif ( $mart_db =~ m/ensembl/ )  { $div = 'ensembl' }
+  elsif ( $mart_db =~ m/ensembl/ )  { $div = 'vertebrates' }
   else {
     die
 "-div division not defined, and unable infer from database name $mart_db\n";
@@ -193,7 +193,7 @@ elsif ( $div eq 'metazoa' ) { $pId = 30000; $suffix = '_eg'; }
 elsif ( $div eq 'fungi' )    { $pId = 40000; $suffix = '_eg'; }
 elsif ( $div eq 'vectorbase' ) { $pId = 50000; $suffix = '_eg'; }
 elsif ( $div eq 'parasite' )   { $pId = 60000 }
-elsif ( $div eq 'ensembl' ) {
+elsif ( $div eq 'vertebrates' ) {
   if ( defined $species_id_start ) {
     $pId = $species_id_start;
   }
