@@ -58,8 +58,6 @@
         <AttributeDescription default="true" displayName="Score" field="score_1075" internalName="score" key="motif_feature_id_1065_key" maxLength="22" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Display label" field="display_label_1075" internalName="display_label" key="motif_feature_id_1065_key" maxLength="14" tableConstraint="main" useDefault="true"/>
         <AttributeDescription default="true" displayName="Feature Type" field="feature_type_name_1075" internalName="feature_type_name" key="motif_feature_id_1065_key" maxLength="40" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="SO term accession" field="so_accession_1024" internalName="so_accession" key="motif_feature_id_1065_key" linkoutURL="exturl|http://www.sequenceontology.org/browser/current_release/term/%s" maxLength="64" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="SO term name" field="so_name_1024" internalName="so_name" key="motif_feature_id_1065_key" maxLength="255" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>

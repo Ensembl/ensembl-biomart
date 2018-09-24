@@ -67,6 +67,8 @@ sub run {
 sub cull_table {
   my ($self, $table, $column) = @_;
   
+  my $hive_dbc = $self->dbc;
+  $hive_dbc->disconnect_if_idle();
   my $mart_dbc = $self->mart_dbc;
   my $mart_table_prefix = $self->param_required('mart_table_prefix');
   my $mart_table = "$mart_table_prefix\_$table";
@@ -89,6 +91,8 @@ sub cull_table {
 sub cull_column {
   my ($self, $table, $column) = @_;
 
+  my $hive_dbc = $self->dbc;
+  $hive_dbc->disconnect_if_idle();
   my $mart_dbc = $self->mart_dbc;
   my $mart_table_prefix = $self->param_required('mart_table_prefix');
   my $mart_table = "$mart_table_prefix\_$table";
