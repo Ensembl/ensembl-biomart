@@ -84,7 +84,7 @@ print "Funcgen found: $func_str\n";
 
 
 my ($partitionRegex,$partitionExpression,$name);
-if ($opts->{division} eq "Ensembl") {
+if ($opts->{division} eq "EnsemblVertebrates") {
   $partitionRegex=$opts->{ens};
   $partitionExpression='$1$2';
   $name="gene_ensembl";
@@ -130,10 +130,10 @@ sub get_list {
     my ($dba,$division,$type) = @_;
     my @list = ();
     my $sql;
-    if ($opts->{mart} =~ "mouse_mart" and $opts->{division} eq "Ensembl") {
+    if ($opts->{mart} =~ "mouse_mart" and $opts->{division} eq "EnsemblVertebrates") {
       $sql = 'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1 and species.production_name like "%mus_musculus_%"'
     }
-    elsif ($opts->{mart} =~ "ensembl_mart" and $opts->{division} eq "Ensembl") {
+    elsif ($opts->{mart} =~ "ensembl_mart" and $opts->{division} eq "EnsemblVertebrates") {
       $sql = 'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1 and species.production_name not like "%mus_musculus_%"'
     }
     elsif ($opts->{mart} =~ "vb_gene_mart" and $opts->{division} eq "Vectorbase") {
@@ -148,7 +148,7 @@ sub get_list {
 	} else {
             if(defined $opts->{collection}) {
                 $db =~ s/^[^_]+_([^_]+_collection)/$1_eg/;
-            } elsif ($opts->{division} eq "Ensembl") {
+            } elsif ($opts->{division} eq "EnsemblVertebrates") {
                 $db =~ s/^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)/$1$2/;
             } else {
                 $db =~ s/([a-z])[^_]+_([^_]+)/$1$2_eg/;

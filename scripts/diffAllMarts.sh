@@ -81,25 +81,26 @@ scriptdir=$( dirname $0 )
 NEW_MART=http://ens-prod-1.ebi.ac.uk:10301/biomart/martservice
 
 
-for division in "ensembl" "plants" "metazoa" "protists" "fungi" 
+for division in "vertebrates" "plants" "metazoa" "protists" "fungi"
 do 
 
-if [ ${division} == "ensembl" ]
+if [ ${division} == "vertebrates" ]
 then
   prefix=
   suffix=
   OLD_MART=http://www.ensembl.org/biomart/martservice
   oldvs="default"
   release=$RELEASE
+  newvs="ensembl_mart_${release}"
 else
   prefix="${division}_"
   suffix="_eg"
   OLD_MART=http://${division}.ensembl.org/biomart/martservice
   release=$EG_RELEASE
   oldvs="${division}_mart"
+  newvs="${division}_mart_${release}"
 fi
 
-newvs="${division}_mart_${release}"
 mart_type="default"
 filename="diffAllMarts_${division}.log"
 
@@ -115,7 +116,7 @@ cat >$filename <<EOT
 ${division} GENE MART
 ========================================================================
 EOT
-if [ ${division} == "ensembl" ]
+if [ ${division} == "vertebrates" ]
 then
   new_gene_mart="ensembl_mart_${release}"
   old_gene_mart="ensembl_mart_$(( release - 1 ))"
