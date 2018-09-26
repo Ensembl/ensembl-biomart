@@ -66,7 +66,7 @@ create table if not exists $mart.dataset_names (
   elsif ( $division eq 'EnsemblFungi' )    { $pId = 40000;  }
   elsif ( $division eq 'Vectorbase' ) { $pId = 50000; }
   elsif ( $division eq 'Parasite' )   { $pId = 60000 }
-  elsif ( $division eq 'Ensembl' ) { $pId = 0;}
+  elsif ( $division eq 'EnsemblVertebrates' ) { $pId = 0;}
 
   for my $dba ( @{$dbas} ) {
 
@@ -96,7 +96,7 @@ qq/select meta_key,meta_value from ${database}.meta where species_id=1/
       $ds->{'species.proteome_id'} = ++$pId;
     }
     my $gb_version = $ds->{'genebuild.version'};
-    if ( $division eq "Ensembl" ) {
+    if ( $division eq "EnsemblVertebrates" ) {
       $gb_version =
         $ds->{'genebuild.last_geneset_update'} ||
         $ds->{'genebuild.start_date'}          ||

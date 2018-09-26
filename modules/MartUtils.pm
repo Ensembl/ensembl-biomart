@@ -161,7 +161,7 @@ sub build_dataset_href {
 	    $formatted_species_name = $formatted_species_name . $suffix;
         }
         # If division is ensembl then use the name column in the dataset_names table
-        if ($division_value eq "Ensembl") {
+        if ($division_value eq "EnsemblVertebrates") {
             $formatted_species_name = $src_db;
             $formatted_species_name =~ s/^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)_[a-z]{4}_[0-9]{2}_[0-9]*$/$1$2/;
         }
@@ -217,7 +217,7 @@ sub build_dataset_href {
     print STDERR "baseset: $baseset\n";
     
     my $version_num;
-    if ($division_value ne "Ensembl") {
+    if ($division_value ne "EnsemblVertebrates") {
       $version_num = @{$meta_container->list_value_by_key('genebuild.version')}[0];
       if (! defined $version_num) {
           die "'genebuild.version' meta attribute not defined for species, '$species_name'!\n";
