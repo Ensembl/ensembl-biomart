@@ -244,8 +244,7 @@ sub pipeline_analyses {
       -flow_into       => {
                             '1->A' => ['ScheduleSpecies'],
                             'A->1' => ['AddMetaData'],
-                          },
-      -meadow_type     => 'LOCAL',
+                          }
     },
 
     {
@@ -261,8 +260,7 @@ sub pipeline_analyses {
       -rc_name         => 'normal',
       -flow_into       => {
                             '4' => 'DropMartTables'
-                          },
-      -meadow_type     => 'LOCAL',
+                          }
     },
 
     {
@@ -297,8 +295,7 @@ sub pipeline_analyses {
                               '3->B' => ['CreateMTMPTables'],
                               '4'    => ['CopyMart'],
                               'B->5' => ['GenerateMart'],
-                            },
-      -meadow_type       => 'LOCAL',
+                            }
     },
 
     {
@@ -340,8 +337,7 @@ sub pipeline_analyses {
       -flow_into         => {
                               '1->A' => ['CreateMartTables'],
                               'A->1' => ['CullMartTables'],
-                            },
-      -meadow_type       => 'LOCAL',
+                            }
     },
 
     {
@@ -353,8 +349,7 @@ sub pipeline_analyses {
       -flow_into         => {
                               '1->A' => ['CreateIndependentTables'],
                               'A->1' => ['AggregatedData'],
-                            },
-      -meadow_type       => 'LOCAL',
+                            }
     },
 
     {
@@ -406,8 +401,7 @@ sub pipeline_analyses {
       -max_retry_count   => 0,
       -analysis_capacity => 10,
       -flow_into         => ['PopulateMart'],
-      -rc_name           => 'normal',
-      -meadow_type       => 'LOCAL',
+      -rc_name           => 'normal'
     },
 
     {
