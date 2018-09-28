@@ -123,7 +123,6 @@ sub pipeline_analyses {
         'registry'  => $self->o('registry') },
       -input_ids         => [ {} ],
       -analysis_capacity => 1,
-      -meadow_type       => 'LOCAL',
       -flow_into => {1 => 'dataset_factory'},
       },
       {
@@ -142,7 +141,6 @@ sub pipeline_analyses {
            '1->A' => [ 'calculate_sequence', 'add_compara',
                              'add_xrefs', 'add_slims', 'AddExtraMartIndexesGene', 'AddExtraMartIndexesTranscript', 'AddExtraMartIndexesTranslation','ConcatStableIDColumns', 'ScheduleSpecies'],
            'A->2' => 'tidy_tables' },
-        -meadow_type => 'LOCAL'
     },
     {
       -logic_name  => 'calculate_sequence',
@@ -346,8 +344,7 @@ sub pipeline_analyses {
       -rc_name         => 'default',
       -flow_into       => {
                             '4' => 'CreateMartTranscriptVariationTable',
-                          },
-      -meadow_type     => 'LOCAL',
+                          }
     },
      {
       -logic_name        => 'CreateMartTranscriptVariationTable',
@@ -383,8 +380,7 @@ sub pipeline_analyses {
       -max_retry_count   => 0,
       -analysis_capacity => 10,
       -flow_into         => ['PopulateMart'],
-      -rc_name           => 'default',
-      -meadow_type       => 'LOCAL',
+      -rc_name           => 'default'
     },
 
     {
