@@ -84,8 +84,7 @@ sub pipeline_analyses {
       -input_ids => [ {} ],
       -flow_into => { '1->A' => [ 'build_sequence' ],
                       'A->2' => [ 'optimize']
-                    },
-      -meadow_type => 'LOCAL' },
+                    } },
     { -logic_name  => 'build_sequence',
       -module     => 'Bio::EnsEMBL::BioMart::BuildSequenceMart',
       -meadow_type => 'LSF',

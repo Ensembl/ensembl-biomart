@@ -90,8 +90,7 @@ sub pipeline_analyses {
       -rc_name         => 'normal',
       -flow_into       => {
                             '4' => 'DropMTMPTables'
-                          },
-      -meadow_type     => 'LOCAL',
+                          }
     },
 
     {
@@ -99,8 +98,7 @@ sub pipeline_analyses {
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::DropMTMPTables',
       -parameters        => {},
       -max_retry_count   => 0,
-      -rc_name           => 'normal',
-      -meadow_type       => 'LOCAL',
+      -rc_name           => 'normal'
     },
     
   ];
