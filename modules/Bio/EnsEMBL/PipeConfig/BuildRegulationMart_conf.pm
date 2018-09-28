@@ -87,7 +87,6 @@ sub pipeline_analyses {
         'registry'  => $self->o('registry') },
       -input_ids         => [ {} ],
       -analysis_capacity => 1,
-      -meadow_type       => 'LOCAL',
       -flow_into => {1 => 'dataset_factory'},
       },
       {
@@ -107,8 +106,7 @@ sub pipeline_analyses {
             '(#dataset# ne "dmelanogaster")' => [ 'AddExtraMartIndexesExternalFeatures', 'AddExtraMartIndexesPeaks', 'AddExtraMartIndexesMiRNATargetFeatures', 'AddExtraMartIndexesMotifFeatures', 'AddExtraMartIndexesRegulatoryFeatures' ],
             ELSE 'AddExtraMartIndexesExternalFeatures',
           ),
-          'A->2' => 'tidy_tables' },
-        -meadow_type => 'LOCAL'
+          'A->2' => 'tidy_tables' }
     },
     {
       -logic_name  => 'tidy_tables',
