@@ -50,6 +50,7 @@ sub default_options {
     division_name         => 'EnsemblVertebrates',
     mart_db_name          => 'snp_mart_'.$self->o('eg_release'),
     drop_mtmp             => 1,
+    drop_mtmp_tv_vsv       => 0,
     sample_threshold      => 0,
     population_threshold  => 500,
     optimize_tables       => 1,
