@@ -55,6 +55,7 @@ sub default_options {
     never_skip_genotypes  => [],
     tmp_dir               => '/tmp',
     drop_mtmp             => 1,
+    drop_mtmp_tv_vsv       => 0,
     snp_indep_tables      => [],
     mart_db_name          => $self->o('division_name').'_snp_mart_'.$self->o('eg_release'),
     sample_threshold      => 0,
@@ -303,6 +304,7 @@ sub pipeline_analyses {
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMTMPTables',
       -parameters        => {
                               drop_mtmp                => $self->o('drop_mtmp'),
+                              drop_mtmp_tv_vsv          => $self->o('drop_mtmp_tv_vsv'),
                               variation_import_lib     => $self->o('variation_import_lib'),
                               variation_feature_script => $self->o('variation_feature_script'),
                               variation_mtmp_script    => $self->o('variation_mtmp_script'),

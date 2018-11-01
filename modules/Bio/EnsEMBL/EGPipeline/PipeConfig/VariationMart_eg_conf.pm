@@ -50,6 +50,7 @@ sub default_options {
     mart_db_name          => $self->o('division_name').'_snp_mart_'.$self->o('eg_release'),
     pipeline_name         => 'variation_mart_'.$self->o('division_name').'_'.$self->o('eg_release'),
     drop_mtmp             => 1,
+    drop_mtmp_tv_vsv       => 0,
     sample_threshold      => 20000,
     population_threshold  => 500,
     optimize_tables       => 1,
