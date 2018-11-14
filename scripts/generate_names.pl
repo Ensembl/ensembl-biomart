@@ -132,7 +132,7 @@ my %src_dbs;
 
 my $regexp = undef;
 
-if ( defined $div && $div eq 'ensembl' ) {
+if ( defined $div && $div eq 'vertebrates' ) {
   $regexp = ".*_core_${release}_.*";
 }
 elsif ( defined $div && $div eq 'parasite' ) {
@@ -286,7 +286,7 @@ foreach my $dataset (@datasets) {
     }
     my $assembly   = $species_names{'assembly.name'};
     my $gb_version = $species_names{'genebuild.version'};
-    if ( $div eq "ensembl" ) {
+    if ( $div eq "vertebrates" ) {
       $gb_version =
         $species_names{'genebuild.last_geneset_update'} ||
         $species_names{'genebuild.start_date'}          ||
@@ -311,7 +311,7 @@ foreach my $dataset (@datasets) {
 
     # Add a meta key on the core database
     # Do that only when templating gene mart - not SNP mart nor e! marts
-    if ( ($mart_db !~ /snp/i) and ($div ne 'ensembl') ) {
+    if ( ($mart_db !~ /snp/i) and ($div ne 'vertebrates') ) {
       $meta_insert->execute( $species_id, $dataset );
     }
 
