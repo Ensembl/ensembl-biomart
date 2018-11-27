@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE MartRegistry SYSTEM "classpath:data/XML/MartRegistry.dtd">
-<MartRegistry>
-    <DatabaseLocation databaseType="mysql" jdbcDriverClassName="com.mysql.jdbc.Driver" host="127.0.0.1" instanceName="ensembl_mart_22_1" user="ensro"/>
-</MartRegistry>
