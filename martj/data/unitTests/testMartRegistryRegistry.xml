@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE MartRegistry SYSTEM "classpath:data/XML/MartRegistry.dtd">
-<MartRegistry>
-  <RegistryLocation url="file:data/XML/testMartRegistryRegFile.xml"/>
-</MartRegistry>

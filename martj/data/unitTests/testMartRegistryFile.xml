@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE MartRegistry SYSTEM "classpath:data/XML/MartRegistry.dtd">
-<MartRegistry>
-    <URLLocation url="file:data/unitTests/testDatasetConfigRegFile.xml" name="testDatasetConfigRegFile"/>
-</MartRegistry>
