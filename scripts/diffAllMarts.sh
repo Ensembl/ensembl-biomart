@@ -66,6 +66,13 @@ function get_species
   sed -e 's/_.*//' -e '/meta/d' |
   sort -u
 
+  elif [ ${template_type} == "peak" ]
+  then
+  mysql $($SERVER details mysql) -BN \
+   -e 'show tables like "%peak%main"' ${mart} |
+  sed -e 's/_.*//' -e '/meta/d' |
+  sort -u
+
   elif [ ${template_type} == "default" ] 
   then
   mysql $($SERVER details mysql) -BN \
@@ -107,7 +114,7 @@ filename="diffAllMarts_${division}.log"
 if [ ${GRCH37} == "1" ]
 then
   OLD_MART=http://grch37.ensembl.org/biomart/martservice
-  newvs="${division}_mart_${release}_GRCh37"
+  newvs="ensembl_mart_${release}_GRCh37"
   filename="diffAllMarts_${division}_GRCh37.log"
 fi
 
@@ -196,7 +203,7 @@ for ds in $( get_species ${prefix}snp_mart_${release} ${mart_type}); do
 done >>$filename
 
 
-if [ ${division} == "ensembl" ]
+if [ ${division} == "vertebrates" ]
 then
 cat >>$filename <<EOT
 
@@ -243,15 +250,15 @@ cat >>$filename <<EOT
 
 
 ========================================================================
-REGULATION MART - annotated feature
+REGULATION MART - peak
 ========================================================================
 EOT
-mart_type="regulatory_feature"
+mart_type="peak"
 for ds in $( get_species regulation_mart_${release} ${mart_type}); do
 
   $scriptdir/diffMart.sh \
-    ${oldvs} regulation_mart_$(( release - 1 )) ${ds}_annotated_feature $OLD_MART \
-    ${newvs} regulation_mart_${release} ${ds}_annotated_feature $NEW_MART
+    ${oldvs} regulation_mart_$(( release - 1 )) ${ds}_peak $OLD_MART \
+    ${newvs} regulation_mart_${release} ${ds}_peak $NEW_MART
 
   if let $?; then
     print -u2 "Problem"
