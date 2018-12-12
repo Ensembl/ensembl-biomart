@@ -24,9 +24,9 @@ use warnings;
 use strict;
 use Getopt::Long;
 use Data::Dumper;
-use Bio::EnsEMBL::DBSQL::DBConnection;
 use Bio::EnsEMBL::Utils::CliHelper;
 use Carp;
+use Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor;
 
 my $cli_helper = Bio::EnsEMBL::Utils::CliHelper->new();
 
@@ -36,7 +36,6 @@ my $optsd = [@{$cli_helper->get_dba_opts()},@{$cli_helper->get_dba_opts('m')}];
 push(@{$optsd},"division:s");
 push(@{$optsd},"template:s");
 push(@{$optsd},"mart:s");
-push(@{$optsd},"collection");
 push(@{$optsd},"eg:s");
 push(@{$optsd},"ens:s");
 push(@{$optsd},"runner_host:s");
@@ -45,7 +44,7 @@ push(@{$optsd},"runner_port:s");
 # process the command line with the supplied options plus a help subroutine
 my $opts = $cli_helper->process_args($optsd,\&usage);
 
-$opts->{mdbname} ||= 'ensembl_production';
+$opts->{mdbname} ||= 'ensembl_metadata';
 $opts->{runner_port} ||= 8888;
 
 if(!defined $opts->{division} || !defined $opts->{template}|| !defined $opts->{mart} || !defined $opts->{eg} || !defined $opts->{ens} || !defined $opts->{host} || !defined $opts->{mhost} || !defined $opts->{runner_host}) {
@@ -54,33 +53,20 @@ if(!defined $opts->{division} || !defined $opts->{template}|| !defined $opts->{m
 
 print "Connecting to $opts->{mdbname}\n";
 # use the args to create a DBA
-my $dba = Bio::EnsEMBL::DBSQL::DBConnection->new(-USER => $opts->{muser}, -PASS => $opts->{mpass},
+my $dba =Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor->new(-USER => $opts->{muser}, -PASS => $opts->{mpass},
 -DBNAME=>$opts->{mdbname}, -HOST=>$opts->{mhost}, -PORT=>$opts->{mport});
 
 print "Getting db lists from $opts->{mdbname}\n";
-# 1. assemble core species list
-my @cores = @{get_list($dba,$opts->{division},'core')};
-my @variation = ();
-my @funcgen = ();
-if(defined $opts->{collection}) {
-    # keep collection only
-    @cores = grep {$_ =~ m/collection/} @cores;
-    # collections have no variation or funcgen at the moment
-} else {
-    # strip out collections
-    @cores = grep {$_ !~ m/collection/} @cores;
-    # 2. assemble variation list
-    @variation = @{get_list($dba,$opts->{division},'variation')};
-    # 3. assemble funcgen list
-    @funcgen = @{get_list($dba,$opts->{division},'funcgen')};
-}
+# Assemble list of databases for each species by db_type
+my ($core,$variation,$funcgen) = get_list($dba);
 
-my $core_str = join ',',@cores;
-print "Cores found: $core_str\n";
-my $var_str = join ',',@variation;
-print "Variation found: $var_str\n";
-my $func_str = join ',',@funcgen;
-print "Funcgen found: $func_str\n";
+# Print number of database type and genome name in mart for each genome of a division
+my $core_str = join ',',@$core;
+print scalar(@$core)." Cores found: $core_str\n";
+my $var_str = join ',',@$variation;
+print scalar(@$variation)." Variation found: $var_str\n";
+my $func_str = join ',',@$funcgen;
+print scalar(@$funcgen)." Funcgen found: $func_str\n";
 
 
 my ($partitionRegex,$partitionExpression,$name);
@@ -99,7 +85,7 @@ my $inname = $opts->{template};
 print "Reading $inname\n";
 open(my $in_file, "<", $inname) or croak "Could not open $inname";
 
-my $outname = $opts->{mart}.((defined $opts->{collection})?'_collection':'').'.xml';
+my $outname = $opts->{mart}.'.xml';
 print "Writing $outname\n";
 open(my $out_file, '>', $outname) or croak "Could not open $outname";
 
@@ -126,37 +112,61 @@ while (<$in_file>) {
 close $in_file;
 close $out_file;
 
+# Get a list of genome mart name for each database type of given division and release using the metadata database
 sub get_list {
-    my ($dba,$division,$type) = @_;
-    my @list = ();
-    my $sql;
-    if ($opts->{mart} =~ "mouse_mart" and $opts->{division} eq "EnsemblVertebrates") {
-      $sql = 'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1 and species.production_name like "%mus_musculus_%"'
+    my ($dba) = @_;
+    my @core = ();
+    my @variation = ();
+    my @funcgen = ();
+    #Get metadata adaptors
+    my $gdba = $dba->get_GenomeInfoAdaptor();
+    my $dbdba = $dba->get_DatabaseInfoAdaptor();
+    my $rdba = $dba->get_DataReleaseInfoAdaptor();
+    my $release;
+    # Use division to find the release in metadata database
+    if ($opts->{division} eq "EnsemblVertebrates"){
+        $release = $rdba->fetch_by_ensembl_release($opts->{ens});
     }
-    elsif ($opts->{mart} =~ "ensembl_mart" and $opts->{division} eq "EnsemblVertebrates") {
-      $sql = 'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1 and species.production_name not like "%mus_musculus_%"'
+    else{
+        $release = $rdba->fetch_by_ensembl_genomes_release($opts->{eg});
     }
-    elsif ($opts->{mart} =~ "vb_gene_mart" and $opts->{division} eq "Vectorbase") {
-      $sql = 'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1 and species.production_name not like "%drosophila_melanogaster_%"'
-    }
-    else {
-      $sql = 'select db_name from division join division_species using (division_id) join species using (species_id) join db using (species_id) where division.name=? and db_type=? and db.is_current=1 and species.is_current=1'
-    }
-    for my $db (@{$dba->sql_helper()->execute_simple(-SQL=>$sql,-PARAMS=>[$division,$type])}) {
-	if($division eq 'EnsemblParasite') {
-          $db =~ s/([a-z])[^_]+_(.{1,5})[^_]*_([^_]+)/$2$3_eg/; # Need to use the BioProject to differentiate between the duplicate genome projects; name becomes too long if we use the species+BioProject
-	} else {
-            if(defined $opts->{collection}) {
-                $db =~ s/^[^_]+_([^_]+_collection)/$1_eg/;
-            } elsif ($opts->{division} eq "EnsemblVertebrates") {
-                $db =~ s/^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)/$1$2/;
-            } else {
-                $db =~ s/([a-z])[^_]+_([^_]+)/$1$2_eg/;
+    $gdba->data_release($release);
+    # Get all the genomes for a given division and release
+    my $genomes = $gdba->fetch_all_by_division($opts->{division});
+    foreach my $genome (@$genomes){
+        # Special hack for the ensembl mart as we don't want the mouse strains in it.
+        if ( $genome->name() =~ m/^mus_musculus_/){
+            if ($opts->{mart} =~ "ensembl_mart" and $opts->{division} eq "EnsemblVertebrates"){
+                next;
             }
         }
-        push @list, $db;
+        # Special hack for the mouse mart as we only want the mouse strains in it
+        elsif ($opts->{mart} =~ "mouse_mart" and $opts->{division} eq "EnsemblVertebrates"){
+            next;
+        }
+        # Get all the databases associated to a genome
+        foreach my $database (@{$genome->databases()}){
+            my $mart_name = $genome->name;
+            # Generate mart name using regexes depending on division
+            if ($opts->{division} eq "EnsemblVertebrates") {
+                $mart_name =~ s/^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)/$1$2/;
+            } else {
+                $mart_name =~ s/([a-z])[^_]+_([^_]+)/$1$2_eg/;
+            }
+            # For core databases, exclude collections as mart can't deal with the volume of data
+            if ($database->type eq "core" and $database->dbname !~ m/collection/){
+                push (@core, $mart_name);
+            }
+            # Get variation and funcgen databases
+            elsif ($database->type eq "variation"){
+                push (@variation, $mart_name);
+            }
+            elsif ($database->type eq "funcgen"){
+                push (@funcgen, $mart_name);
+            }
+        }
     }
-    return \@list;
+    return (\@core,\@variation,\@funcgen);
 }
 
 sub usage {
@@ -171,17 +181,17 @@ sub usage {
 
   -p|pass              Password for user 
 
-  -d|pandbname         Database name (default is ensembl_production)
+  -d|pandbname         Metadata database name (default is ensembl_metadata)
 
   -mart                Name of mart to generate
 
   -template            Template file to read from
 
-  -division            Name of division (e.g. EnsemblFungi)
+  -division            Name of division (e.g. EnsemblFungi, EnsemblMetazoa, EnsemblPlants, EnsemblProtists, EnsemblMetazoa)
 
-  -ens                 Ensembl version number
+  -ens                 Ensembl version number (e.g: 95)
 
-  -eg                  Ensembl Genomes version number
+  -eg                  Ensembl Genomes version number (e.g: 42)
 
 EOF
 }
