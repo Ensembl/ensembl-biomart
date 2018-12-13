@@ -117,9 +117,8 @@ sub sample_genotype {
   my $genotypes_sql =
   q/SELECT variation_id, genotypes FROM compressed_genotype_var;/;
   
-  my $load_sql = 
-  qq/LOAD DATA LOCAL INFILE $output_file INTO TABLE MTMP_sample_genotype;/;
-  
+  my $load_sql = qq/LOAD DATA LOCAL INFILE '$output_file' INTO TABLE MTMP_sample_genotype;/;
+
   my $alleles = $dbc->db_handle->selectall_arrayref($alleles_sql) or $self->throw($dbc->db_handle->errstr);
   my %alleles = map { shift @$_, [ @$_ ]} @$alleles;
   
