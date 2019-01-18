@@ -26,9 +26,7 @@ use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 sub param_defaults {
   my ($self) = @_;
   
-  return {
-    'tmp_dir' => '/tmp',
-  };
+  return {};
 }
 
 sub fetch_input {

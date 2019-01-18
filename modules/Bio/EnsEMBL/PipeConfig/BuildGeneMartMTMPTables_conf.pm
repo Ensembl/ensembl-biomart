@@ -32,7 +32,7 @@ sub resource_classes {
   my ($self) = @_;
   return { 'default' => { 'LSF' => '-q production-rh7' },
            'normal'            => {'LSF' => '-q production-rh7 -M  4000 -R "rusage[mem=4000]"'},
-    '16Gb_mem_16Gb_tmp' => {'LSF' => '-q production-rh7 -M 16000 -R "rusage[mem=16000,tmp=16000]"'}
+    '16Gb_mem_16Gb_scratch' => {'LSF' => '-q production-rh7 -M 16000 -R "rusage[mem=16000,scratch=16000]"'}
     };
 }
 
@@ -55,7 +55,7 @@ sub default_options {
            'variation_feature_script' => $self->o('base_dir').'/ensembl-variation/scripts/misc/mart_variation_effect.pl',
            'variation_mtmp_script' => $self->o('base_dir').'/ensembl-variation/scripts/misc/create_MTMP_tables.pl',
            'mart_phenotypes_script' => $self->o('base_dir').'/ensembl-variation/scripts/misc/mart_phenotypes.pl',
-           'tmp_dir'                  => '/tmp',
+           'scratch_dir'                  => '/scratch',
   };
 }
 
@@ -124,7 +124,7 @@ sub pipeline_analyses {
       -max_retry_count   => 3,
       -analysis_capacity => 5,
       -can_be_empty      => 1,
-      -rc_name           => '16Gb_mem_16Gb_tmp',
+      -rc_name           => '16Gb_mem_16Gb_scratch',
     },
     {
       -logic_name        => 'CreateMTMPVariation',
@@ -136,13 +136,13 @@ sub pipeline_analyses {
                               variation_feature_script => $self->o('variation_feature_script'),
                               variation_mtmp_script    => $self->o('variation_mtmp_script'),
                               registry                 => $self->o('registry'),
-                              tmp_dir                  => $self->o('tmp_dir'),
+                              scratch_dir                  => $self->o('scratch_dir'),
                               mart_phenotypes_script   => $self->o('mart_phenotypes_script'),
                             },
       -max_retry_count   => 3,
       -analysis_capacity => 5,
       -can_be_empty      => 1,
-      -rc_name           => '16Gb_mem_16Gb_tmp',
+      -rc_name           => '16Gb_mem_16Gb_scratch',
     },
   ];
   return $analyses;

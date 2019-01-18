@@ -26,7 +26,7 @@ use File::Spec::Functions qw(catdir);
 
 sub param_defaults {
   return {
-    'tmp_dir' => '/tmp',
+    'scratch_dir' => '/scratch',
   };
 }
 
@@ -35,7 +35,7 @@ sub run {
   
   my $table = $self->param_required('table');
   my $job_id = $self->input_job->dbID();
-  my $output_file = $self->param('tmp_dir')."/$table.$job_id.sql";
+  my $output_file = $self->param('scratch_dir')."/$table.$job_id.sql";
   
   $self->dump_data($table, $output_file);
   $self->load_data($table, $output_file);
