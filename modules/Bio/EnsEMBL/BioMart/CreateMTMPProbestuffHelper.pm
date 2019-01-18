@@ -25,14 +25,12 @@ use warnings;
 sub param_defaults {
   return {
     'drop_mtmp'         => 0,
-    'tmp_dir'           => '/tmp',
   };
 }
 
 sub run {
   my ($self) = @_;
   my $drop_mtmp = $self->param_required('drop_mtmp');
-  my $tmp_dir = $self->param_required('tmp_dir');
   my $dbc = $self->get_DBAdaptor('funcgen')->dbc();
   my $table='MTMP_probestuff_helper';
   my $species = $self->param_required('species');
