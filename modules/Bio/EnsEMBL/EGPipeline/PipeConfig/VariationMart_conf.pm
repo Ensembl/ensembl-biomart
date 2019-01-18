@@ -53,7 +53,7 @@ sub default_options {
     mtmp_tables_exist     => 0,
     always_skip_genotypes => [],
     never_skip_genotypes  => [],
-    tmp_dir               => '/tmp',
+    scratch_dir               => '/scratch',
     drop_mtmp             => 1,
     drop_mtmp_tv_vsv       => 0,
     snp_indep_tables      => [],
@@ -223,7 +223,7 @@ sub pipeline_create_commands {
     return [
       # inheriting database and hive tables' creation
       @{$self->SUPER::pipeline_create_commands},
-      'mkdir -p '.$self->o('tmp_dir'),
+      'mkdir -p '.$self->o('scratch_dir'),
     ];
 }
 
@@ -309,12 +309,12 @@ sub pipeline_analyses {
                               variation_feature_script => $self->o('variation_feature_script'),
                               variation_mtmp_script    => $self->o('variation_mtmp_script'),
                               registry                 => $self->o('registry'),
-                              tmp_dir                  => $self->o('tmp_dir'),
+                              scratch_dir                  => $self->o('scratch_dir'),
                             },
       -max_retry_count   => 3,
       -analysis_capacity => 5,
       -can_be_empty      => 1,
-      -rc_name           => '16Gb_mem_16Gb_tmp',
+      -rc_name           => '16Gb_mem_16Gb_scratch',
     },
 
     {
@@ -326,7 +326,7 @@ sub pipeline_analyses {
       -max_retry_count   => 0,
       -analysis_capacity => 5,
       -can_be_empty      => 1,
-      -rc_name           => '16Gb_mem_16Gb_tmp',
+      -rc_name           => '16Gb_mem_16Gb_scratch',
     },
 
     {
@@ -574,7 +574,7 @@ sub resource_classes {
     'default'           => {'LSF' => '-q production-rh7 -M  4000 -R "rusage[mem=4000]"'},
     'normal'            => {'LSF' => '-q production-rh7 -M  4000 -R "rusage[mem=4000]"'},
     '8Gb_mem'           => {'LSF' => '-q production-rh7 -M  8000 -R "rusage[mem=8000]"'},
-    '16Gb_mem_16Gb_tmp' => {'LSF' => '-q production-rh7 -M 16000 -R "rusage[mem=16000,tmp=16000]"'},
+    '16Gb_mem_16Gb_scratch' => {'LSF' => '-q production-rh7 -M 16000 -R "rusage[mem=16000,scratch=16000]"'},
   }
 }
 
