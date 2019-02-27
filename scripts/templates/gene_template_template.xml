@@ -238,8 +238,8 @@
       <FilterCollection displayName="Entries with plant pathogen annotation (source: PHI-base)" internalName="phi_extension_bool">
         <FilterDescription description="Limit to entries with pathogen phenotype annotation (source: PHI-base)" displayName="Entries with pathogen phenotype annotation" displayType="list" field="phi_extension_bool" internalName="with_phi_extension" key="translation_id_1068_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
       </FilterCollection>
-      <FilterCollection internalName="phibase_host" displayName="Plant host (source: PHI-base)" description="Plant host (source: PHI-base)">
-        <FilterDescription displayName="Plant host" displayType="list" field="host_label" internalName="phibase_host" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" multipleValues="1" style="menu" tableConstraint="phi_extension__dm" type="text">
+      <FilterCollection internalName="phibase_host" displayName="Host (source: PHI-base)" description="Host (source: PHI-base)">
+        <FilterDescription displayName="Host" displayType="list" field="host_label" internalName="phibase_host" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" multipleValues="1" style="menu" tableConstraint="phi_extension__dm" type="text">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -1755,7 +1755,7 @@
       </AttributeCollection>
       <AttributeCollection displayName="Pathogen Phenotypes (source: PHI-base)" internalName="phi_extension">
         <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="subject_label" internalName="phi" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Plant host" field="host_label" internalName="phibase_host" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Host" field="host_label" internalName="phibase_host" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Pathogenic phenotype" field="phenotype_label" internalName="phibase_phenotype" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Experimental condition" field="experimental_evidence_label" internalName="phibase_condition" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
       </AttributeCollection>
