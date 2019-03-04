@@ -95,7 +95,7 @@ sub run_script {
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
   my $drop_mtmp = $self->param_required('drop_mtmp');
   my $variation_import_lib = $self->param_required('variation_import_lib');
-  my $tmp_dir = $self->param_required('tmp_dir');
+  my $scratch_dir = $self->param_required('scratch_dir');
   my $drop_mtmp_tv_vsv = $self->param_required('drop_mtmp_tv_vsv');
 
 
@@ -124,7 +124,7 @@ sub run_script {
       " --user ".$dbc->username.
       " --pass ".$dbc->password.
       " --db ".$dbc->dbname.
-      " --tmpdir $tmp_dir ".
+      " --scratch_dir $scratch_dir".
       " --tmpfile mtmp_".$table."_".$self->param_required('species').".txt";
     if ($table_param_name and $table){
       $cmd = $cmd." --$table_param_name $table";
