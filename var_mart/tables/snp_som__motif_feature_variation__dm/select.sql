@@ -2,7 +2,7 @@ SELECT
   vf.variation_feature_id as variation_feature_id_2026_key,
   mfv.feature_stable_id as feature_stable_id_20125,
   mfv.allele_string as allele_string_20125,
-  mfv.motif_name as motif_name_20125,
+  mfv.binding_matrix_stable_id as motif_name_20125,
   mfv.motif_start as motif_start_20125,
   mfv.motif_score_delta as motif_score_delta_20125,
   mfv.consequence_types as consequence_types_20125,
