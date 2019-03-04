@@ -124,7 +124,7 @@ sub run_script {
       " --user ".$dbc->username.
       " --pass ".$dbc->password.
       " --db ".$dbc->dbname.
-      " --scratch_dir $scratch_dir".
+      " --tmpdir $scratch_dir".
       " --tmpfile mtmp_".$table."_".$self->param_required('species').".txt";
     if ($table_param_name and $table){
       $cmd = $cmd." --$table_param_name $table";
