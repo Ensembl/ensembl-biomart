@@ -329,7 +329,8 @@ sub pipeline_analyses {
                        'genomic_features_mart' => $self->o('genomic_features_mart'),
                        'max_dropdown' => $self->o('max_dropdown'),
                        'base_name' => $self->o('base_name') },
-      -analysis_capacity => 1
+      -analysis_capacity => 1,
+      -rc_name           => 'mem'
     },
     {
       -logic_name      => 'ScheduleSpecies',
