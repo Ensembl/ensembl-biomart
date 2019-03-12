@@ -3464,7 +3464,7 @@
 		<renamedColumn tableKey="attrib_type" colKey="1.6.0.attrib_type_id" newName="attrib_type_id_106_key"/>
 		<restrictedTable tableKey="attrib_type" tableId="483" aliasColumnIds="484" aliasNames="col1" expression=":col1 IN (&quot;appris&quot;,&quot;TSL&quot;,&quot;gencode_basic&quot;,&quot;MANE_Select&quot;)"/>
 	</dataset>
-	<dataset name="gene_ensembl" centralTableId="226" optimiser="COLUMN_BOOL_NULL_INHERIT" invisible="false" masked="false" hideMasked="true" indexOptimiser="false">
+	<dataset name="%NAME%" centralTableId="226" optimiser="COLUMN_BOOL_NULL_INHERIT" invisible="false" masked="false" hideMasked="true" indexOptimiser="false">
 		<subclassRelation relationId="729"/>
 		<compoundRelation relationId="746" n="2" parallel="true"/>
 		<compoundRelation relationId="3086" n="2" parallel="true"/>
@@ -5066,32 +5066,32 @@
 	</dataset>
 	<datasetPartitionTable name="object_xref" selectedColumns="db_name_1018">
 		<partitionRegex name="db_name_1018" match="-" replace="_"/>
-		<partitionApplication name="gene_ensembl" dimension="gene__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="0"/>
+		<partitionApplication name="%NAME%" dimension="gene__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="0"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="object_xref_copy" selectedColumns="db_name_1018">
 		<partitionRegex name="db_name_1018" match="-" replace="_"/>
-		<partitionApplication name="gene_ensembl" dimension="transcript__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="0"/>
+		<partitionApplication name="%NAME%" dimension="transcript__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="0"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="attrib_type" selectedColumns="code_106">
-		<partitionApplication name="gene_ensembl" dimension="transcript__transcript_attrib" pCols="code_106" dsCols="1.6.0.code" relationIds="785" nameCols="code_106" compounds="292"/>
+		<partitionApplication name="%NAME%" dimension="transcript__transcript_attrib" pCols="code_106" dsCols="1.6.0.code" relationIds="785" nameCols="code_106" compounds="292"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="protein_feature" selectedColumns="logic_name_102">
-		<partitionApplication name="gene_ensembl" dimension="translation__protein_feature" pCols="logic_name_102" dsCols="1.2.0.logic_name" relationIds="817" nameCols="logic_name_102" compounds="12"/>
+		<partitionApplication name="%NAME%" dimension="translation__protein_feature" pCols="logic_name_102" dsCols="1.2.0.logic_name" relationIds="817" nameCols="logic_name_102" compounds="12"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="object_xref_copy_1" selectedColumns="db_name_1018">
 		<partitionRegex name="db_name_1018" match="-" replace="_"/>
-		<partitionApplication name="gene_ensembl" dimension="translation__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="15"/>
+		<partitionApplication name="%NAME%" dimension="translation__object_xref" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="15"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="ontology_xref_gene" selectedColumns="db_name_1018">
-		<partitionApplication name="gene_ensembl" dimension="gene__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="1"/>
+		<partitionApplication name="%NAME%" dimension="gene__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="1"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="ontology_xref_transcript" selectedColumns="db_name_1018">
-		<partitionApplication name="gene_ensembl" dimension="transcript__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" relationIds="727" nameCols="db_name_1018" compounds="1"/>
+		<partitionApplication name="%NAME%" dimension="transcript__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" relationIds="727" nameCols="db_name_1018" compounds="1"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="ontology_xref_translation" selectedColumns="db_name_1018">
-		<partitionApplication name="gene_ensembl" dimension="translation__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="1"/>
+		<partitionApplication name="%NAME%" dimension="translation__object_xref_1" pCols="db_name_1018" dsCols="1.18.0.db_name" nameCols="db_name_1018" compounds="1"/>
 	</datasetPartitionTable>
 	<datasetPartitionTable name="MTMP_probestuff_helper" selectedColumns="array_vendor_and_name_11056">
-		<partitionApplication name="gene_ensembl" dimension="transcript__MTMP_probestuff_helper" pCols="array_vendor_and_name_11056" dsCols="11.56.0.array_vendor_and_name" relationIds="3087" nameCols="array_vendor_and_name_11056" compounds="0"/>
+		<partitionApplication name="%NAME%" dimension="transcript__MTMP_probestuff_helper" pCols="array_vendor_and_name_11056" dsCols="11.56.0.array_vendor_and_name" relationIds="3087" nameCols="array_vendor_and_name_11056" compounds="0"/>
 	</datasetPartitionTable>
 </mart>
