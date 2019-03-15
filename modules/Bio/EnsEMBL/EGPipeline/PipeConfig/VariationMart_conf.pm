@@ -121,7 +121,6 @@ sub default_options {
     snp_som_dep_tables => [
       'snp_som__variation_feature__main',
       'snp_som__mart_transcript_variation__dm',
-      'snp_som__motif_feature_variation__dm',
       'snp_som__regulatory_feature_variation__dm',
     ],
 
