@@ -26,7 +26,6 @@ use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 sub param_defaults {
   return {
     'drop_mtmp'         => 0,
-    'tmp_dir'           => '/tmp',
     'drop_mtmp_tv_vsv'   => 0,
   };
 }

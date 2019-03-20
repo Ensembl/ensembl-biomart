@@ -34,7 +34,7 @@ sub run {
     $mart_dbc->sql_helper()->execute_update(-SQL=>qq/create table $table
 (
 chunk_key int(10) not null,
-chr_name varchar(40) not null default '',
+chr_name varchar(255) not null default '',
 chr_start int(10) not null default '0',
 sequence mediumtext
 )ENGINE=MyISAM MAX_ROWS=100000 AVG_ROW_LENGTH=100000/

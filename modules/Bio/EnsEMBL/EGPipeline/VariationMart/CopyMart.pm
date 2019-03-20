@@ -26,9 +26,7 @@ use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 sub param_defaults {
   my ($self) = @_;
   
-  return {
-    'tmp_dir' => '/tmp',
-  };
+  return {};
 }
 
 sub fetch_input {
@@ -72,7 +70,7 @@ sub run {
   $self->existing_table_check();
   
   foreach my $table (@tables) {
-    my $output_file = $self->param('tmp_dir')."/$table.sql";
+    my $output_file = $self->param('scratch_dir')."/$table.sql";
     $self->dump_mart_table($table, $output_file);
     $self->load_mart_table($output_file);
     $self->check_mart_table($table);

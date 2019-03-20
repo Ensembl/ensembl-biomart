@@ -215,6 +215,12 @@
           <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
         </FilterDescription>
       </FilterCollection>
+      <FilterCollection displayName="MANE Select transcript" internalName="mane_select" useDefault="true">
+        <FilterDescription displayName="MANE Select transcript" displayType="list" field="value_1065" internalName="mane_select" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_mane_select__dm" type="boolean" useDefault="true">
+          <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
+        </FilterDescription>
+      </FilterCollection>
     </FilterGroup>
     <FilterGroup description="Filter on phenotype" displayName="PHENOTYPE:" internalName="phenotype" useDefault="true">
       <FilterCollection displayName="Phenotype" internalName="phenotype_description" useDefault="true">
@@ -232,8 +238,8 @@
       <FilterCollection displayName="Entries with plant pathogen annotation (source: PHI-base)" internalName="phi_extension_bool">
         <FilterDescription description="Limit to entries with pathogen phenotype annotation (source: PHI-base)" displayName="Entries with pathogen phenotype annotation" displayType="list" field="phi_extension_bool" internalName="with_phi_extension" key="translation_id_1068_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="main" type="boolean"/>
       </FilterCollection>
-      <FilterCollection internalName="phibase_host" displayName="Plant host (source: PHI-base)" description="Plant host (source: PHI-base)">
-        <FilterDescription displayName="Plant host" displayType="list" field="host_label" internalName="phibase_host" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" multipleValues="1" style="menu" tableConstraint="phi_extension__dm" type="text">
+      <FilterCollection internalName="phibase_host" displayName="Host (source: PHI-base)" description="Host (source: PHI-base)">
+        <FilterDescription displayName="Host" displayType="list" field="host_label" internalName="phibase_host" key="translation_id_1068_key" legal_qualifiers="=" qualifier="=" multipleValues="1" style="menu" tableConstraint="phi_extension__dm" type="text">
           <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -1454,6 +1460,8 @@
         </AttributeDescription>
         <AttributeDescription displayName="APPRIS annotation" field="value_1065" internalName="transcript_appris" key="transcript_id_1064_key" linkoutURL="exturl|http://www.ensembl.org/Help/Glossary?id=521" maxLength="255" tableConstraint="tra_appris__dm" useDefault="true">
         </AttributeDescription>
+        <AttributeDescription displayName="RefSeq match transcript" field="value_1065" internalName="transcript_mane_select" key="transcript_id_1064_key" linkoutURL="exturl|https://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="255" tableConstraint="tra_mane_select__dm" useDefault="true">
+        </AttributeDescription>
         <AttributeDescription displayName="Gene name" field="display_label_1074" internalName="external_gene_name" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s|ensembl_gene_id" maxLength="16" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Source of gene name" field="db_display_name_1018" internalName="external_gene_source" key="gene_id_1020_key" maxLength="17" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Transcript name" field="display_label_1074_r1" internalName="external_transcript_name" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s|ensembl_transcript_id" maxLength="16" tableConstraint="main" useDefault="true"/>
@@ -1747,7 +1755,7 @@
       </AttributeCollection>
       <AttributeCollection displayName="Pathogen Phenotypes (source: PHI-base)" internalName="phi_extension">
         <AttributeDescription checkForNulls="true" displayName="PHI-base ID" field="subject_label" internalName="phi" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
-        <AttributeDescription checkForNulls="true" displayName="Plant host" field="host_label" internalName="phibase_host" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
+        <AttributeDescription checkForNulls="true" displayName="Host" field="host_label" internalName="phibase_host" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Pathogenic phenotype" field="phenotype_label" internalName="phibase_phenotype" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
         <AttributeDescription checkForNulls="true" displayName="Experimental condition" field="experimental_evidence_label" internalName="phibase_condition" key="translation_id_1068_key" maxLength="40" tableConstraint="phi_extension__dm"/>
       </AttributeCollection>
