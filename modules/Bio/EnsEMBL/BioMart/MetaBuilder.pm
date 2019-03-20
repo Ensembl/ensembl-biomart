@@ -1019,10 +1019,10 @@ sub create_metatables {
   my $template_xml =
     XMLout( { DatasetConfig => $template->{config} }, KeepRoot => 1 );
 
-  if ( !-d "./tmp" ) {
-    mkdir "./tmp";
+  if ( !-d "./scratch" ) {
+    mkdir "./scratch";
   }
-  open my $out, ">", "./tmp/tmp.xml";
+  open my $out, ">", "./scratch/tmp.xml";
   print $out $template_xml;
   close $out;
   my $gzip_template;
