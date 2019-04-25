@@ -147,11 +147,11 @@ sub get_list {
         # Get all the databases associated to a genome
         foreach my $database (@{$genome->databases()}){
             my $mart_name = $genome->name;
-            # Generate mart name using regexes depending on division
-            if ($opts->{division} eq "EnsemblVertebrates") {
-                $mart_name =~ s/^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)/$1$2/;
-            } else {
-                $mart_name =~ s/([a-z])[^_]+_([^_]+)/$1$2_eg/;
+            # Generate mart name using regexes
+            $mart_name =~ s/^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)/$1$2/;
+            # Change name for non-vertebrates
+            if ($opts->{division} ne "EnsemblVertebrates") {
+                $mart_name = $mart_name."_eg";
             }
             # For core databases, exclude collections as mart can't deal with the volume of data
             if ($database->type eq "core" and $database->dbname !~ m/collection/){
