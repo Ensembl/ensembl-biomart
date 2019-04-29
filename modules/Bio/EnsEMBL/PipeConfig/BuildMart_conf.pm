@@ -31,8 +31,8 @@ use Cwd;
 
 sub resource_classes {
   my ($self) = @_;
-  return { 'default' => { 'LSF' => '-q production-rh7' },
-           'mem'     => { 'LSF' => '-q production-rh7 -M 20000 -R "rusage[mem=20000]"'} };
+  return { 'default' => { 'LSF' => '-q production-rh74' },
+           'mem'     => { 'LSF' => '-q production-rh74 -M 20000 -R "rusage[mem=20000]"'} };
 }
 
 # Force an automatic loading of the registry in all workers.

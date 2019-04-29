@@ -30,9 +30,9 @@ use Cwd;
 
 sub resource_classes {
   my ($self) = @_;
-  return { 'default' => { 'LSF' => '-q production-rh7' },
-           'normal'            => {'LSF' => '-q production-rh7 -M  4000 -R "rusage[mem=4000]"'},
-    '16Gb_mem_16Gb_scratch' => {'LSF' => '-q production-rh7 -M 16000 -R "rusage[mem=16000,scratch=16000]"'}
+  return { 'default' => { 'LSF' => '-q production-rh74' },
+           'normal'            => {'LSF' => '-q production-rh74 -M  4000 -R "rusage[mem=4000]"'},
+    '16Gb_mem_16Gb_scratch' => {'LSF' => '-q production-rh74 -M 16000 -R "rusage[mem=16000,scratch=16000]"'}
     };
 }
 

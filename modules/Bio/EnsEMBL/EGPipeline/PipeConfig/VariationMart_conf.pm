@@ -570,10 +570,10 @@ sub pipeline_analyses {
 sub resource_classes {
   my ($self) = @_;
   return {
-    'default'           => {'LSF' => '-q production-rh7 -M  4000 -R "rusage[mem=4000]"'},
-    'normal'            => {'LSF' => '-q production-rh7 -M  4000 -R "rusage[mem=4000]"'},
-    '8Gb_mem'           => {'LSF' => '-q production-rh7 -M  8000 -R "rusage[mem=8000]"'},
-    '16Gb_mem_16Gb_scratch' => {'LSF' => '-q production-rh7 -M 16000 -R "rusage[mem=16000,scratch=16000]"'},
+    'default'           => {'LSF' => '-q production-rh74 -M  4000 -R "rusage[mem=4000]"'},
+    'normal'            => {'LSF' => '-q production-rh74 -M  4000 -R "rusage[mem=4000]"'},
+    '8Gb_mem'           => {'LSF' => '-q production-rh74 -M  8000 -R "rusage[mem=8000]"'},
+    '16Gb_mem_16Gb_scratch' => {'LSF' => '-q production-rh74 -M 16000 -R "rusage[mem=16000,scratch=16000]"'},
   }
 }
 
