@@ -69,6 +69,20 @@ sub pipeline_wide_parameters {
 sub pipeline_analyses {
   my ($self) = @_;
   my $analyses = [
+    { -logic_name  => 'cleanup_old_database',
+      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -meadow_type => 'LSF',
+      -flow_into    => 'sequence_dataset_factory',
+      -input_ids => [ {} ],
+      -parameters  => {
+        'cmd' =>
+'mysql -h#host# -u#user# -p#pass# -P#port# -e "DROP DATABASE IF EXISTS #mart#; CREATE DATABASE #mart#;"',
+        'mart' => $self->o('mart'),
+        'user' => $self->o('user'),
+        'pass' => $self->o('pass'),
+        'host' => $self->o('host'),
+        'port' => $self->o('port') },
+      -analysis_capacity => 1 },
     { -logic_name => 'sequence_dataset_factory',
       -module     => 'Bio::EnsEMBL::BioMart::SequenceDatasetFactory',
       -parameters => { 
@@ -81,7 +95,6 @@ sub pipeline_analyses {
 		      'mart'     => $self->o('mart'),
 		      'datasets' => $self->o('datasets'),
 		      'base_dir' => $self->o('base_dir') },
-      -input_ids => [ {} ],
       -flow_into => { '1->A' => [ 'build_sequence' ],
                       'A->2' => [ 'optimize']
                     } },
