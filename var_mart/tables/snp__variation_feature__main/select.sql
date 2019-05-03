@@ -1,7 +1,6 @@
 SELECT
   v_m.variation_id_2025_key,
   v_m.name_2025,
-  v_m.ancestral_allele_2025,
   v_m.minor_allele_2025,
   v_m.minor_allele_count_2025,
   v_m.minor_allele_freq_2025,
@@ -16,6 +15,7 @@ SELECT
   vf.seq_region_start as seq_region_start_2026,
   vf.seq_region_end as seq_region_end_2026,
   vf.seq_region_strand as seq_region_strand_2026,
+  vf.ancestral_allele as ancestral_allele_2025,
   vf.allele_string as allele_string_2026,
   vf.map_weight as map_weight_2026
 FROM
