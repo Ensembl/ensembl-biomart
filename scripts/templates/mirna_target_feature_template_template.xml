@@ -77,11 +77,8 @@
         <AttributeDescription displayName="SO term name" field="so_name_1024" internalName="so_name" key="mirna_target_feature_id_1079_key" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Evidence" field="evidence_1079" internalName="evidence" key="mirna_target_feature_id_1079_key" maxLength="60" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
-      <AttributeCollection displayName="Gene/transcript references" internalName="external_object_xref_features" useDefault="true">
-        <AttributeDescription displayName="Database name" field="db_display_name_1020" internalName="db_display_name" key="mirna_target_feature_id_1079_key" maxLength="255" tableConstraint="object_xref__dm" useDefault="true"/>
-        <AttributeDescription displayName="Display label" field="xref_display_label_1046" internalName="xref_display_label" key="mirna_target_feature_id_1079_key" maxLength="128" tableConstraint="object_xref__dm" useDefault="true"/>
-        <AttributeDescription displayName="Ensembl gene ID" field="dbprimary_acc_1046" internalName="dbprimary_acc" key="mirna_target_feature_id_1079_key" linkoutURL="exturl|/*species2*/geneview?gene=%s" maxLength="40" tableConstraint="object_xref__dm" useDefault="true"/>
-        <AttributeDescription displayName="Linkage annotation" field="linkage_annotation_1030" internalName="linkage_annotation" key="mirna_target_feature_id_1079_key" maxLength="255" tableConstraint="object_xref__dm" useDefault="true"/>
+      <AttributeCollection displayName="Gene references" internalName="external_object_xref_features" useDefault="true">
+        <AttributeDescription displayName="Ensembl gene ID" field="gene_stable_id_1079" internalName="gene_stable_id" key="mirna_target_feature_id_1079_key" linkoutURL="exturl|/*species2*/geneview?gene=%s" maxLength="40" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
