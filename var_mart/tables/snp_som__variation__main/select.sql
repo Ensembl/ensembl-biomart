@@ -1,7 +1,6 @@
 SELECT
   v.variation_id as variation_id_2025_key,
   REPLACE(v.name, ",", "") as name_2025,
-  v.ancestral_allele as ancestral_allele_2025,
   v.minor_allele as minor_allele_2025,
   v.minor_allele_count as minor_allele_count_2025,
   v.minor_allele_freq as minor_allele_freq_2025,
