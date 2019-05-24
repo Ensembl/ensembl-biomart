@@ -30,9 +30,9 @@ use Cwd;
 
 sub resource_classes {
   my ($self) = @_;
-  return { 'default' => { 'LSF' => '-q production-rh7' },
-           'normal'            => {'LSF' => '-q production-rh7 -M  4000 -R "rusage[mem=4000]"'},
-    '16Gb_mem_16Gb_scratch' => {'LSF' => '-q production-rh7 -M 16000 -R "rusage[mem=16000,scratch=16000]"'}
+  return { 'default' => { 'LSF' => '-q production-rh74' },
+           'normal'            => {'LSF' => '-q production-rh74 -M  4000 -R "rusage[mem=4000]"'},
+    '16Gb_mem_16Gb_scratch' => {'LSF' => '-q production-rh74 -M 16000 -R "rusage[mem=16000,scratch=16000]"'}
     };
 }
 
@@ -47,7 +47,7 @@ sub default_options {
            'run_all'      => 0,
            'base_dir'  => getcwd,
            'registry'      => $self->o('registry'),
-           'drop_mtmp_tv_vsv' => 0,
+           'drop_mtmp_tv' => 0,
            'drop_mtmp_variation'      => 1,
            'drop_mtmp_probestuff'     => 1,
            # The following are required for building MTMP tables.
@@ -131,7 +131,7 @@ sub pipeline_analyses {
       -module            => 'Bio::EnsEMBL::BioMart::CreateMTMPVariation',
       -parameters        => {
                               drop_mtmp               => $self->o('drop_mtmp_variation'),
-                              drop_mtmp_tv_vsv         => $self->o('drop_mtmp_tv_vsv'),
+                              drop_mtmp_tv         => $self->o('drop_mtmp_tv'),
                               variation_import_lib     => $self->o('variation_import_lib'),
                               variation_feature_script => $self->o('variation_feature_script'),
                               variation_mtmp_script    => $self->o('variation_mtmp_script'),

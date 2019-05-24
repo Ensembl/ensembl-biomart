@@ -59,7 +59,7 @@ sub get_DBAdaptor {
 }
 
 # Check if a MTMP table already exists
-# MTMP_transcript_variation and MTMP_variation_set_variation are quite
+# MTMP_transcript_variation is really
 # big for some species so if the table is already there keep it
 sub does_table_exist {
   my ($self,$table_name) = @_;
@@ -96,14 +96,14 @@ sub run_script {
   my $drop_mtmp = $self->param_required('drop_mtmp');
   my $variation_import_lib = $self->param_required('variation_import_lib');
   my $scratch_dir = $self->param_required('scratch_dir');
-  my $drop_mtmp_tv_vsv = $self->param_required('drop_mtmp_tv_vsv');
+  my $drop_mtmp_tv = $self->param_required('drop_mtmp_tv');
 
 
   # Drop table if exist and drop_mtmp parameter set to 1
-  # We don't want to drop the MTMP_transcript_variation or MTMP_variation_set_variation tables as they
+  # We don't want to drop the MTMP_transcript_variation table as this table
   # gets automatically renerated by the Transcript variation pipeline for the variarion mart
   if ($drop_mtmp){
-    if (!$drop_mtmp_tv_vsv and (($table eq "transcript_variation") or ($table eq "variation_set_variation"))){
+    if (!$drop_mtmp_tv and $table eq "transcript_variation"){
       1;
     }
     else {
