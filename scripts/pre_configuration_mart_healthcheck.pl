@@ -17,18 +17,25 @@ use Getopt::Long;
 use Carp;
 use DBI;
 use POSIX;
+use Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor;
+use Bio::EnsEMBL::MetaData::Base qw(process_division_names fetch_and_set_release);
 
 
 my ( $old_dbname, $olduser,    $oldpass, $oldhost,
      $oldport,    $new_dbname, $newuser, $newpass,
      $newhost,    $newport,    $mart,    $oldrel,
-     $newrel,     $dumpdir,    $percent, $empty_column );
+     $newrel,     $dumpdir,    $percent, $empty_column,
+     $metadata_dbname, $metadatauser, $metadatapass, $metadatahost, $metadataport );
 
 $oldhost = 'mysql-ens-general-prod-1';
 $newhost = 'mysql-ens-sta-1';
+$metadatahost = 'mysql-ens-meta-prod-1';
 $oldport = '4525';
 $newport = '4519';
+$metadataport = '4483';
 $olduser = $newuser = 'ensro';
+$metadatauser = 'ensro';
+$metadata_dbname = 'ensembl_metadata';
 
 GetOptions( 'old_dbname=s'   => \$old_dbname,
             'olduser=s'      => \$olduser,
@@ -45,15 +52,12 @@ GetOptions( 'old_dbname=s'   => \$old_dbname,
             'dumpdir=s'      => \$dumpdir,
             'percent=s'      => \$percent,
             'mart=s'         => \$mart,
-            'empty_column=s' => \$empty_column );
-
-if ( !defined($oldhost) ) {
-  $oldhost = 'mysql-ens-general-prod-1';
-}
-
-if ( !defined($newhost) ) {
-  $newhost = 'mysql-ens-sta-1';
-}
+            'empty_column=s' => \$empty_column,
+            'metadata_dbname=s'   => \$metadata_dbname,
+            'metadatauser=s'      => \$metadatauser,
+            'metadatapass=s'      => \$metadatapass,
+            'metadatahost=s'      => \$metadatahost,
+            'metadataport=i'      => \$metadataport );
 
 if ( !defined($new_dbname) ) {
   $new_dbname = $mart . "_" . $newrel;
@@ -100,10 +104,14 @@ foreach my $mart (@marts) {
   my $diff_file   = $old_dbname . "_" . $oldhost . "_vs_" . $new_dbname . "_" . $newhost . ".DIFF";
   my $table_file  = $old_dbname . "_" . $oldhost . "_vs_" . $new_dbname . "_" . $newhost . ".TABLE";
   my $column_file = $old_dbname . "_" . $oldhost . "_vs_" . $new_dbname . "_" . $newhost . ".COLUMN";
+  my $species_file = $old_dbname . "_" . $oldhost . "_vs_" . $new_dbname . "_" . $newhost . ".SPECIES";
+
 
   open(    OUT, ">" . $dir . $diff_file )   || die "Could no open $diff_file file";
   open(  TABLE, ">" . $dir . $table_file )  || die "Could no open $table_file file";
   open( COLUMN, ">" . $dir . $column_file ) || die "Could no open $column_file file";
+  open( SPECIES, ">" . $dir . $species_file ) || die "Could no open $species_file file";
+
 
   # If running the empty column test (time consuming test)
   my $empty_column_file;
@@ -374,7 +382,7 @@ foreach my $rel ( "new", "old" ) {
   my %all_species;
   foreach my $old_sp ( sort keys %old_species ) {
     if ( !defined( $new_species{$old_sp} ) ) {
-      print OUT "Cannot find $old_sp in new database\n";
+      print SPECIES "Cannot find $old_sp in new database\n";
 
       #
       # Rhoda wants all tables listed anyway
@@ -389,6 +397,38 @@ foreach my $rel ( "new", "old" ) {
       # delete $new_species{$new_sp};  # no point analysing this any more
     } else {
       $all_species{$new_sp} = 1;
+    }
+  }
+  #
+  # Compare with species from the mart with species from metadata database
+  # for gene, sequence and variation marts
+  #
+  my $division;
+  my $metadata_species;
+  # Getting division name from the database name
+  if ($new_dbname =~ '^ensembl_mart' or $new_dbname =~ '^mouse_mart' or $new_dbname =~ '^sequence_mart' or $new_dbname =~ '^snp_mart') {
+    $division = "vertebrates";
+  }
+  else {
+    $new_dbname =~ m/^([a-z0-9]+)_.+/;
+    $division = $1;
+  }
+  my $div_gene_mart = $division."_mart";
+  # Only run this test for gene, sequence and variation marts
+  if ($new_dbname =~ 'ensembl_mart' or $new_dbname=~ $div_gene_mart or $new_dbname =~ 'sequence' or $new_dbname =~ 'snp'){
+    my ($metadata_species_core, $metadata_species_variation) = metadata_species_list($metadata_dbname, $metadatahost, $metadatapass, $metadataport, $metadatauser, $newrel, $new_dbname, $division);
+    if ($new_dbname =~ 'snp'){
+      $metadata_species = $metadata_species_variation;
+    }
+    else{
+      $metadata_species = $metadata_species_core;
+    }
+    # Compare list of species in the new mart with species from the metadata db
+    # Report any species missing in the marts
+    foreach my $species (sort keys %{$metadata_species}){
+      if (!defined ($new_species{$species})){
+        print SPECIES "Cannot find $species in new database but is present in ensembl_metadata as ".$metadata_species->{$species}."\n";
+      }
     }
   }
 
@@ -455,4 +495,59 @@ sub dbi {
   }
 
   return $dbi2;
+}
+
+sub metadata_species_list {
+  my ($metadata_dbname, $metadatahost, $metadatapass, $metadataport, $metadatauser, $newrel, $new_dbname, $div) = @_;
+  my $dba = Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor->new(-USER => $metadatauser, -PASS => $metadatapass,-DBNAME=>$metadata_dbname, -HOST=>$metadatahost, -PORT=>$metadataport);
+  my $gdba = $dba->get_GenomeInfoAdaptor();
+  my $dbdba = $dba->get_DatabaseInfoAdaptor();
+  my $rdba = $dba->get_DataReleaseInfoAdaptor();
+  my %metadata_species_core;
+  my %metadata_species_variation;
+  my ($release,$release_info);
+  # Get the release version
+  ($rdba,$gdba,$release,$release_info) = fetch_and_set_release($newrel,$rdba,$gdba);
+  #Get both division short and full name from a division short or full name
+  my ($division,$division_name)=process_division_names($div);
+  # Get all the genomes for a given division and release
+  my $genomes = $gdba->fetch_all_by_division($division_name);
+  foreach my $genome (@$genomes){
+    # Special hack for the ensembl mart as we don't want the mouse strains in it.
+    if ( $genome->name() =~ m/^mus_musculus_/){
+        if ($new_dbname =~ "ensembl_mart" and $division eq "vertebrates"){
+            next;
+        }
+    }
+    # Special hack for the mouse mart as we only want the mouse strains in it
+    elsif ($new_dbname =~ "mouse_mart" and $division eq "vertebrates"){
+        next;
+    }
+    foreach my $database (@{$genome->databases()}){
+      my $mart_name = $genome->name;
+      # Generate mart name using regexes
+      $mart_name =~ s/^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)/$1$2/;
+      # Change name for non-vertebrates
+      if ($division ne "vertebrates") {
+          $mart_name = $mart_name."_eg";
+      }
+      # For core databases, exclude collections as mart can't deal with the volume of data
+      if ($database->type eq "core" and $database->dbname !~ m/collection/){
+          if ($new_dbname=~ /sequence_/){
+            $metadata_species_core{$mart_name."_genomic_sequence"} = $genome->name;
+          }
+          elsif ($division eq "vertebrates"){
+              $metadata_species_core{$mart_name."_gene_ensembl"} = $genome->name;
+            }
+          else{
+              $metadata_species_core{$mart_name."_gene"} = $genome->name;
+            }
+      }
+      # Get variation and funcgen databases
+      elsif ($database->type eq "variation"){
+          $metadata_species_variation{$mart_name."_snp"} = $genome->name;
+      }
+    }
+  }
+  return(\%metadata_species_core,\%metadata_species_variation);
 }

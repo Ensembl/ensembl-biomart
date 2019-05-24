@@ -194,7 +194,7 @@
         <AttributeDescription displayName="Variant alleles" field="allele_string_2026" internalName="allele" key="variation_feature_id_2026_key" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Mapweight" field="map_weight_2026" internalName="mapweight" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Variant supporting evidence" field="evidence_2025" internalName="validated" key="variation_id_2025_key" maxLength="22" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="Ancestral allele" field="ancestral_allele_2025" internalName="allele_1" key="variation_id_2025_key" maxLength="255" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Ancestral allele" field="ancestral_allele_2025" internalName="allele_1" key="variation_feature_id_2026_key" maxLength="255" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Minor allele (ALL)" field="minor_allele_2025" internalName="minor_allele" key="variation_id_2025_key" maxLength="1" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Global minor allele frequency (all individuals)" field="minor_allele_freq_2025" internalName="minor_allele_freq" key="variation_id_2025_key" maxLength="12" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Global minor allele count (all individuals)" field="minor_allele_count_2025" internalName="minor_allele_count" key="variation_id_2025_key" maxLength="10" tableConstraint="main" useDefault="true"/>

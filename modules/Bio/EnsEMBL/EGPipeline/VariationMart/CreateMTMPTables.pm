@@ -26,7 +26,7 @@ use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 sub param_defaults {
   return {
     'drop_mtmp'         => 0,
-    'drop_mtmp_tv_vsv'   => 0,
+    'drop_mtmp_tv'   => 0,
     'sv_exists'         => 0,
     'regulatory_exists' => 1,
     'motif_exits'       => 1,

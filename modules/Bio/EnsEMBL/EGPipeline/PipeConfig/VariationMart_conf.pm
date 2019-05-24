@@ -55,7 +55,7 @@ sub default_options {
     never_skip_genotypes  => [],
     scratch_dir               => '/scratch',
     drop_mtmp             => 1,
-    drop_mtmp_tv_vsv       => 0,
+    drop_mtmp_tv       => 0,
     snp_indep_tables      => [],
     mart_db_name          => $self->o('division_name').'_snp_mart_'.$self->o('eg_release'),
     sample_threshold      => 0,
@@ -303,7 +303,7 @@ sub pipeline_analyses {
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMTMPTables',
       -parameters        => {
                               drop_mtmp                => $self->o('drop_mtmp'),
-                              drop_mtmp_tv_vsv          => $self->o('drop_mtmp_tv_vsv'),
+                              drop_mtmp_tv          => $self->o('drop_mtmp_tv'),
                               variation_import_lib     => $self->o('variation_import_lib'),
                               variation_feature_script => $self->o('variation_feature_script'),
                               variation_mtmp_script    => $self->o('variation_mtmp_script'),
@@ -570,10 +570,10 @@ sub pipeline_analyses {
 sub resource_classes {
   my ($self) = @_;
   return {
-    'default'           => {'LSF' => '-q production-rh7 -M  4000 -R "rusage[mem=4000]"'},
-    'normal'            => {'LSF' => '-q production-rh7 -M  4000 -R "rusage[mem=4000]"'},
-    '8Gb_mem'           => {'LSF' => '-q production-rh7 -M  8000 -R "rusage[mem=8000]"'},
-    '16Gb_mem_16Gb_scratch' => {'LSF' => '-q production-rh7 -M 16000 -R "rusage[mem=16000,scratch=16000]"'},
+    'default'           => {'LSF' => '-q production-rh74 -M  4000 -R "rusage[mem=4000]"'},
+    'normal'            => {'LSF' => '-q production-rh74 -M  4000 -R "rusage[mem=4000]"'},
+    '8Gb_mem'           => {'LSF' => '-q production-rh74 -M  8000 -R "rusage[mem=8000]"'},
+    '16Gb_mem_16Gb_scratch' => {'LSF' => '-q production-rh74 -M 16000 -R "rusage[mem=16000,scratch=16000]"'},
   }
 }
 

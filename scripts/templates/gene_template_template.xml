@@ -1437,9 +1437,9 @@
     <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene" useDefault="true">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes" useDefault="true">
         <AttributeDescription default="true" description="Stable ID of the Gene" displayName="Gene stable ID" field="stable_id_1023" internalName="ensembl_gene_id" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription description="Versionned stable ID of the Gene" displayName="Gene stable ID version" field="gene__main_stable_id_version" internalName="ensembl_gene_id_version" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s" maxLength="15" tableConstraint="main"/>
+        <AttributeDescription default="true" description="Versionned stable ID of the Gene" displayName="Gene stable ID version" field="gene__main_stable_id_version" internalName="ensembl_gene_id_version" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s" maxLength="15" tableConstraint="main"/>
         <AttributeDescription default="true" description="Stable ID of the Transcript" displayName="Transcript stable ID" field="stable_id_1066" internalName="ensembl_transcript_id" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription description="Versionned stable ID of the Transcript" displayName="Transcript stable ID version" field="transcript__main_stable_id_version" internalName="ensembl_transcript_id_version" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s" maxLength="15" tableConstraint="main"/>
+        <AttributeDescription default="true" description="Versionned stable ID of the Transcript" displayName="Transcript stable ID version" field="transcript__main_stable_id_version" internalName="ensembl_transcript_id_version" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s" maxLength="15" tableConstraint="main"/>
         <AttributeDescription displayName="Protein stable ID" field="stable_id_1070" internalName="ensembl_peptide_id" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/ProteinSummary?db=core;p=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Protein stable ID version" field="translation__main_stable_id_version" internalName="ensembl_peptide_id_version" key="translation_id_1068_key" linkoutURL="exturl|/*species2*/Transcript/ProteinSummary?db=core;p=%s" maxLength="15" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Exon stable ID" field="stable_id_1016" hidden="false" internalName="ensembl_exon_id" key="transcript_id_1064_key" maxLength="128" tableConstraint="exon_transcript__dm" useDefault="true"/>
@@ -1478,6 +1478,7 @@
         <AttributeDescription displayName="Source (transcript)" field="source_1064" internalName="transcript_source" key="transcript_id_1064_key" maxLength="20" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Version (gene)" field="version_1020" internalName="version" key="gene_id_1020_key" maxLength="5" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Version (transcript)" field="version_1064" internalName="transcript_version" key="transcript_id_1064_key" maxLength="5" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Version (protein)" field="version_1068" internalName="peptide_version" key="translation_id_1068_key" maxLength="5" tableConstraint="main" useDefault="true"/>
       </AttributeCollection>
       <AttributeCollection description="Phenotypes linked to genes" displayName="Phenotype" internalName="phenotype" useDefault="true">
         <AttributeDescription displayName="Phenotype description" field="description_20125" internalName="phenotype_description" key="gene_id_1020_key" maxLength="255" tableConstraint="phenotype__dm" useDefault="true">
@@ -1790,8 +1791,14 @@
     <AttributeGroup displayName="GENE:" internalName="gene" useDefault="true">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes_structure" useDefault="true">
         <AttributeDescription internalName="structure_gene_stable_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_gene_stable_id_version" pointerAttribute="ensembl_gene_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_gene_version" pointerAttribute="version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="structure_transcript_stable_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_transcript_stable_id_version" pointerAttribute="ensembl_transcript_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_transcript_version" pointerAttribute="transcript_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="structure_translation_stable_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_translation_stable_id_version" pointerAttribute="ensembl_peptide_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="structure_peptide_version" pointerAttribute="peptide_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="structure_canonical_transcript_id" pointerAttribute="canonical_transcript_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="structure_chrom_name" pointerAttribute="chromosome_name" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="structure_gene_chrom_start" pointerAttribute="start_position" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
@@ -1838,8 +1845,14 @@
     <AttributeGroup description="Features of Genes" displayName="GENE:" hidden="false" internalName="gene" useDefault="true">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" hidden="false" internalName="ensembl_attributes" useDefault="true">
         <AttributeDescription hidden="false" internalName="homologs_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="homologs_gene_stable_id_version" pointerAttribute="ensembl_gene_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="homologs_gene_version" pointerAttribute="version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription hidden="false" internalName="homologs_ensembl_transcript_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="homologs_transcript_stable_id_version" pointerAttribute="ensembl_transcript_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="homologs_transcript_version" pointerAttribute="transcript_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription hidden="false" internalName="homologs_ensembl_peptide_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="homologs_translation_stable_id_version" pointerAttribute="ensembl_peptide_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="homologs_peptide_version" pointerAttribute="peptide_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="homologs_canonical_transcript_id" pointerAttribute="canonical_transcript_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription hidden="false" internalName="homologs_chromosome_name" pointerAttribute="chromosome_name" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription hidden="false" internalName="homologs_start_position" pointerAttribute="start_position" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
@@ -1870,8 +1883,14 @@
     <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene" useDefault="true">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes" useDefault="true">
         <AttributeDescription internalName="snp_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_gene_stable_id_version" pointerAttribute="ensembl_gene_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_gene_version" pointerAttribute="version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="snp_ensembl_transcript_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_transcript_stable_id_version" pointerAttribute="ensembl_transcript_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_transcript_version" pointerAttribute="transcript_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="snp_ensembl_peptide_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_translation_stable_id_version" pointerAttribute="ensembl_peptide_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_peptide_version" pointerAttribute="peptide_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_canonical_transcript_id" pointerAttribute="canonical_transcript_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="snp_chromosome_name" pointerAttribute="chromosome_name" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="snp_start_position" pointerAttribute="start_position" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
@@ -1930,8 +1949,14 @@
     <AttributeGroup description="Features of Genes" displayName="GENE:" internalName="gene_som" useDefault="true">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" internalName="ensembl_attributes_som" useDefault="true">
         <AttributeDescription internalName="snp_som_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_gene_stable_id_version" pointerAttribute="ensembl_gene_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_gene_version" pointerAttribute="version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="snp_som_ensembl_transcript_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_transcript_stable_id_version" pointerAttribute="ensembl_transcript_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_transcript_version" pointerAttribute="transcript_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="snp_som_ensembl_peptide_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_translation_stable_id_version" pointerAttribute="ensembl_peptide_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="snp_som_peptide_version" pointerAttribute="peptide_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_som_canonical_transcript_id" pointerAttribute="canonical_transcript_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="snp_som_chromosome_name" pointerAttribute="chromosome_name" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="snp_som_start_position" pointerAttribute="start_position" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
@@ -2053,6 +2078,7 @@
     <AttributeGroup displayName="HEADER INFORMATION:" internalName="header_info" useDefault="true">
       <AttributeCollection displayName="Gene Information" internalName="gene" maxSelect="0" useDefault="true">
         <AttributeDescription internalName="sequence_gene_stable_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_gene_stable_id_version" pointerAttribute="ensembl_gene_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_description" pointerAttribute="description" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_external_gene_name" pointerAttribute="external_gene_name" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_external_source_name" pointerAttribute="external_gene_source" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
@@ -2060,6 +2086,7 @@
         <AttributeDescription internalName="sequence_gene_chrom_start" pointerAttribute="start_position" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_gene_chrom_end" pointerAttribute="end_position" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_gene_biotype" pointerAttribute="gene_biotype" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_gene_version" pointerAttribute="version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_family" pointerAttribute="family" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_upi" pointerAttribute="uniparc" pointerDataset="*species4*" pointerInterface="default"/>
         <AttributeDescription internalName="sequence_uniprot_swissprot_accession" pointerAttribute="uniprotswissprot" pointerDataset="*species4*" pointerInterface="default"/>
@@ -2068,10 +2095,14 @@
       </AttributeCollection>
       <AttributeCollection displayName="Transcript Information" internalName="transcript" maxSelect="0" useDefault="true">
         <AttributeDescription internalName="sequence_transcript_stable_id" pointerAttribute="ensembl_transcript_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_transcript_stable_id_version" pointerAttribute="ensembl_transcript_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_translation_stable_id" pointerAttribute="ensembl_peptide_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_translation_stable_id_version" pointerAttribute="ensembl_peptide_id_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_canonical_transcript_id" pointerAttribute="canonical_transcript_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_biotype" pointerAttribute="biotype" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_transcript_biotype" pointerAttribute="transcript_biotype" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_transcript_version" pointerAttribute="transcript_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
+        <AttributeDescription internalName="sequence_peptide_version" pointerAttribute="peptide_version" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_transcript_chrom_strand" pointerAttribute="strand" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_transcript_chrom_start" pointerAttribute="transcript_start" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
         <AttributeDescription internalName="sequence_transcript_chrom_end" pointerAttribute="transcript_end" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
