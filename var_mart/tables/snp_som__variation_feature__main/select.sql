@@ -1,7 +1,6 @@
 SELECT
   v_m.variation_id_2025_key,
   v_m.name_2025,
-  v_m.ancestral_allele_2025,
   v_m.minor_allele_2025,
   v_m.minor_allele_count_2025,
   v_m.minor_allele_freq_2025,
