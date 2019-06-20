@@ -159,7 +159,10 @@ sub get_list {
             }
             # Get variation and funcgen databases
             elsif ($database->type eq "variation"){
-                push (@variation, $mart_name);
+                # We now have empty variation databases linked to VCF files like chlorocebus_sabaeus
+                if ($genome->has_variations()){
+                    push (@variation, $mart_name);
+                }
             }
             elsif ($database->type eq "funcgen"){
                 push (@funcgen, $mart_name);
