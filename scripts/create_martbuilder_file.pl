@@ -27,6 +27,7 @@ use Data::Dumper;
 use Bio::EnsEMBL::Utils::CliHelper;
 use Carp;
 use Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor;
+use MartUtils;
 
 my $cli_helper = Bio::EnsEMBL::Utils::CliHelper->new();
 
@@ -72,12 +73,12 @@ print scalar(@$funcgen)." Funcgen found: $func_str\n";
 my ($partitionRegex,$partitionExpression,$name);
 if ($opts->{division} eq "EnsemblVertebrates") {
   $partitionRegex=$opts->{ens};
-  $partitionExpression='$1$2';
+  $partitionExpression='$1$2$3';
   $name="gene_ensembl";
 }
 else {
   $partitionRegex=$opts->{eg}."_".$opts->{ens};
-  $partitionExpression='$1$2_eg';
+  $partitionExpression='$1$2$3_eg';
   $name='gene';
 }
 
@@ -146,9 +147,8 @@ sub get_list {
         }
         # Get all the databases associated to a genome
         foreach my $database (@{$genome->databases()}){
-            my $mart_name = $genome->name;
             # Generate mart name using regexes
-            $mart_name =~ s/^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)/$1$2/;
+            my $mart_name = generate_dataset_name_from_db_name($database->dbname);
             # Change name for non-vertebrates
             if ($opts->{division} ne "EnsemblVertebrates") {
                 $mart_name = $mart_name."_eg";
