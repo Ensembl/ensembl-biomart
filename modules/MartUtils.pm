@@ -86,6 +86,14 @@ sub get_datasets_regexp {
     return @datasets;
 }
 
+#Generate a mart dataset name from a database name
+sub generate_dataset_name_from_db_name {
+    my ($database) = @_;
+    ( my $dataset = $database ) =~ m/^(.)[^_]+_?([a-z0-9])?[a-z0-9]+?_([a-z0-9]+)_[a-z]+_[0-9]+_?[0-9]+?_[0-9]+$/;
+    $dataset = defined $2 ? $1.$2.$3 : $1.$3;
+    return $dataset;
+}
+
 #@deprecated
 sub get_sequence_datasets {
     my $regexp = "genomic_sequence__dna_chunks__main";
@@ -96,7 +104,7 @@ sub get_ensembl_db_single {
     my ($src_dbs,$dataset,$release) = @_;
     return get_ensembl_db($src_dbs,$dataset, sub {
 	my $var = shift;
-	$var =~ s/^(.)[^_]*_?[^_]*_([^_]+)_core_*\d*_($release)_[0-9]+[a-z]*$/$1$2/;
+    $var = generate_dataset_name_from_db_name($var);
 	return $var;
 			  }
 	);    
