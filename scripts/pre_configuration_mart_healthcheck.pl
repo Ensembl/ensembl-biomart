@@ -19,6 +19,7 @@ use DBI;
 use POSIX;
 use Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor;
 use Bio::EnsEMBL::MetaData::Base qw(process_division_names fetch_and_set_release);
+use MartUtils;
 
 
 my ( $old_dbname, $olduser,    $oldpass, $oldhost,
@@ -526,7 +527,7 @@ sub metadata_species_list {
     foreach my $database (@{$genome->databases()}){
       my $mart_name = $genome->name;
       # Generate mart name using regexes
-      $mart_name =~ s/^(.)[^_]+_?[a-z0-9]+?_([a-z0-9]+)/$1$2/;
+      $mart_name = generate_dataset_name_from_db_name($database->dbname);
       # Change name for non-vertebrates
       if ($division ne "vertebrates") {
           $mart_name = $mart_name."_eg";

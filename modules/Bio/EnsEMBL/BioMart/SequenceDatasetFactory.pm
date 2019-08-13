@@ -11,6 +11,7 @@ use Bio::EnsEMBL::DBSQL::DBAdaptor;
 use Bio::EnsEMBL::DBSQL::DBConnection;
 use Bio::EnsEMBL::Registry;
 use Bio::EnsEMBL::ApiVersion qw/software_version/;
+use MartUtils;
 
 sub run {
   my $self    = shift @_;
@@ -85,8 +86,7 @@ create table if not exists $mart.dataset_names (
 qq/select meta_key,meta_value from ${database}.meta where species_id=1/
       );
 
-    ( my $dataset = $database ) =~
-      s/^([a-z])[a-z]+.*_([^_]+)_core.*/$1$2/;
+    my $dataset = generate_dataset_name_from_db_name($database);
     $dataset = $dataset . $suffix;
 
     my $assembly  = $ds->{'assembly.name'};
