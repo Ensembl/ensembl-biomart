@@ -139,7 +139,7 @@ sub pipeline_analyses {
                        'species' => $self->o('species') },
         -flow_into => {
            '1->A' => [ 'calculate_sequence', 'add_compara',
-                             'add_xrefs', 'add_slims', 'AddExtraMartIndexesGene', 'AddExtraMartIndexesTranscript', 'AddExtraMartIndexesTranslation','ConcatStableIDColumns', 'ScheduleSpecies'],
+                             'add_xrefs', 'add_slims','add_external_synonyms', 'AddExtraMartIndexesGene', 'AddExtraMartIndexesTranscript', 'AddExtraMartIndexesTranslation','ConcatStableIDColumns', 'ScheduleSpecies'],
            'A->2' => 'tidy_tables' },
     },
     {
@@ -227,6 +227,24 @@ sub pipeline_analyses {
          },
       -analysis_capacity => 10,
       -rc_name          => 'mem',
+    },
+    {
+      -logic_name  => 'add_external_synonyms',
+      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -meadow_type => 'LSF',
+      -parameters  => {
+        'cmd' =>
+'perl #base_dir#/ensembl-biomart/scripts/generate_external_synonym.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -reg_file #registry# -basename #base_name#',
+        'mart'     => $self->o('mart'),
+        'user'     => $self->o('user'),
+        'pass'     => $self->o('pass'),
+        'host'     => $self->o('host'),
+        'port'     => $self->o('port'),
+        'base_dir' => $self->o('base_dir'),
+        'registry' => $self->o('registry'),
+        'base_name' => $self->o('base_name'),
+         },
+      -analysis_capacity => 10,
     },
     {
       -logic_name        => 'AddExtraMartIndexesGene',

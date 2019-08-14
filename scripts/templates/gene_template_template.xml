@@ -146,6 +146,7 @@
           <Option key="transcript_id_1064_key" description="Filter to include genes with supplied list of Exon ID(s)" displayName="Exon ID(s) [e.g. *example*]" displayType="text" field="stable_id_1016" hidden="false" internalName="ensembl_exon_id" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="exon_transcript__dm" type="List" />
           <Option key="gene_id_1020_key" description="Filter to include genes with supplied list of Gene Name(s)" displayName="Gene Name(s) [e.g. *example*]" displayType="text" field="display_label_1074" hidden="false" internalName="external_gene_name" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
           <Option key="transcript_id_1064_key" description="Filter to include genes with supplied list of Transcript Name(s)" displayName="Transcript Name(s) [e.g. *example*]" displayType="text" field="display_label_1074_r1" hidden="false" internalName="external_transcript_name" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="main" type="List" />
+          <Option key="gene_id_1020_key" description="Filter to include genes with supplied list of Gene Synonym(s)" displayName="Gene Synonym(s) [e.g. *example*]" displayType="text" field="external_synonym" hidden="false" internalName="external_synonym" isSelectable="true" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="external_synonym__dm" type="List" />
           <Option internalName="id_list_limit_xrefs_filters"/>
         </FilterDescription>
       </FilterCollection>
@@ -1479,6 +1480,7 @@
         <AttributeDescription displayName="Version (gene)" field="version_1020" internalName="version" key="gene_id_1020_key" maxLength="5" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Version (transcript)" field="version_1064" internalName="transcript_version" key="transcript_id_1064_key" maxLength="5" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Version (protein)" field="version_1068" internalName="peptide_version" key="translation_id_1068_key" maxLength="5" tableConstraint="main" useDefault="true"/>
+        <AttributeDescription displayName="Gene Synonym" field="external_synonym" internalName="external_synonym" key="gene_id_1020_key" maxLength="100" tableConstraint="external_synonym__dm" useDefault="true"/>
       </AttributeCollection>
       <AttributeCollection description="Phenotypes linked to genes" displayName="Phenotype" internalName="phenotype" useDefault="true">
         <AttributeDescription displayName="Phenotype description" field="description_20125" internalName="phenotype_description" key="gene_id_1020_key" maxLength="255" tableConstraint="phenotype__dm" useDefault="true">
