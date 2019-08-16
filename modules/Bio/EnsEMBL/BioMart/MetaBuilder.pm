@@ -1307,7 +1307,7 @@ sub generate_probes_list {
           if(defined $empty_probe_table->[0]) {
             if ($empty_probe_table->[0] > 0) {
               $probes_list = $db_dbc->sql_helper()->execute(
-                -SQL => qq/select distinct(replace(LOWER(array_name),' ','')) as array_name, replace(array_vendor_and_name,' ','') as array_vendor_and_name, is_probeset_array from $regulation_db.MTMP_probestuff_helper order by array_vendor_and_name/, -USE_HASHREFS => 1 
+                -SQL => qq/select distinct(replace(LOWER(array_name),' ','')) as array_name, replace(array_vendor_and_name,' ','') as array_vendor_and_name, array_name as array, SUBSTRING_INDEX(array_vendor_and_name,'_',1) as vendor, is_probeset_array from $regulation_db.MTMP_probestuff_helper order by array_vendor_and_name/, -USE_HASHREFS => 1 
               );
             }
           }
@@ -2475,11 +2475,11 @@ sub generate_microarray_attributes {
     # Using is_probeset_array to generate the linkout URL
     # This link is mainly for affy probes
     if ($probe->{is_probeset_array}){
-      $url="exturl|/$dataset->{production_name}/Location/Genome?ftype=ProbeFeature;fdb=funcgen;id=%s;ptype=pset;";
+      $url="exturl|/$dataset->{production_name}/Location/Genome?ftype=ProbeFeature;array=$probe->{array};vendor=$probe->{vendor};fdb=funcgen;id=%s;ptype=pset;";
     }
     # This link is for other probes like codelink, agilent, illumina...
     else {
-      $url="exturl|/$dataset->{production_name}/Location/Genome?ftype=ProbeFeature;fdb=funcgen;id=%s";
+      $url="exturl|/$dataset->{production_name}/Location/Genome?ftype=ProbeFeature;array=$probe->{array};vendor=$probe->{vendor};fdb=funcgen;id=%s";
     }
     my $table = $ds_name."__efg_".lc($probe->{array_vendor_and_name})."__dm";
       if ( defined $self->{tables}->{$table} ) {
