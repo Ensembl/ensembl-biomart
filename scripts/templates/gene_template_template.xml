@@ -1843,7 +1843,7 @@
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
-  <AttributePage displayName="Homologues" hidden="false" internalName="homologs" maxSelect="5" outFormats="html,txt,csv,tsv,xls" useDefault="true">
+  <AttributePage displayName="Homologues (Max select 6 orthologues)" hidden="false" internalName="homologs" outFormats="html,txt,csv,tsv,xls" useDefault="true">
     <AttributeGroup description="Features of Genes" displayName="GENE:" hidden="false" internalName="gene" useDefault="true">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" hidden="false" internalName="ensembl_attributes" useDefault="true">
         <AttributeDescription hidden="false" internalName="homologs_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
@@ -1871,7 +1871,19 @@
         <AttributeDescription hidden="false" internalName="homologs_description" pointerAttribute="description" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
       </AttributeCollection>
     </AttributeGroup>
-    <AttributeGroup displayName="ORTHOLOGUES (Max select 6 orthologues):" internalName="orthologs" maxSelect="6" useDefault="true">
+    <AttributeGroup displayName="ORTHOLOGUES [A-E]:" internalName="orthologs_a_e" maxSelect="6" useDefault="true">
+      <Replace id="homology_attributes"/>
+    </AttributeGroup>
+    <AttributeGroup displayName="ORTHOLOGUES [F-J]:" internalName="orthologs_f_j" maxSelect="6" useDefault="true">
+      <Replace id="homology_attributes"/>
+    </AttributeGroup>
+    <AttributeGroup displayName="ORTHOLOGUES [K-O]:" internalName="orthologs_k_o" maxSelect="6" useDefault="true">
+      <Replace id="homology_attributes"/>
+    </AttributeGroup>
+    <AttributeGroup displayName="ORTHOLOGUES [P-T]:" internalName="orthologs_p_t" maxSelect="6" useDefault="true">
+      <Replace id="homology_attributes"/>
+    </AttributeGroup>
+    <AttributeGroup displayName="ORTHOLOGUES [U-Z]:" internalName="orthologs_u_z" maxSelect="6" useDefault="true">
       <Replace id="homology_attributes"/>
     </AttributeGroup>
     <AttributeGroup displayName="PARALOGUES:" hidden="false" internalName="paralogs" useDefault="true">
