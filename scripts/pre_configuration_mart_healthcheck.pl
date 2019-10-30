@@ -76,7 +76,7 @@ if ( defined($dumpdir)) {
 if ( defined($percent) ) {
   $percent = $percent/100;
 } else {
-  $percent = 0.1;    # 10%
+  $percent = 0.5;    # 50%
 }
 
 my @marts;
@@ -137,7 +137,6 @@ foreach my $mart (@marts) {
     my $sth        = $new_dbi->prepare($tables_sql);
     $sth->execute();
     while ( my $table_name = $sth->fetchrow_array() ) {
-
       my %columns;
       my $try_sth = $old_dbi->prepare("describe $table_name");
       if ( $try_sth->execute ) {
@@ -150,67 +149,34 @@ foreach my $mart (@marts) {
         while ( my $col = $try_sth->fetch ) {
           # If running the empty column test (time consuming test)
           if ( defined($empty_column) ) {
-            # Looking for empty columns in strain gtype poly (empty
-            # columns will have blank rows)
-            if ( $table_name =~ "strain_gtype_poly" ) {
-              my $empty_colums = $new_dbi->prepare(
-                 "select $$col[0] from $table_name where $$col[0]!='' limit 1"
-              );
-              $empty_colums->execute();
-              my $res = $empty_colums->fetchrow_array();
-              #If a strain is empty then store column name into a hash
-              if ( $res eq "" ) {
-                $old_empty_columns{$table_name}{ $$col[0] } = "";
-              }
-            }
             # For the other tables, looking for columns full of nulls
             # and storing them into a hash
-            else {
+            my $empty_colums = $new_dbi->prepare(
+              "select $$col[0] from $table_name where $$col[0] is not null limit 1" );
+            $empty_colums->execute();
+            my $res = $empty_colums->fetchrow_array();
+            if ( $res eq "" ) {
+              $old_empty_columns{$table_name}{ $$col[0] } = "";
+            }
+          }
+          # For a new column, check for
+          # full of nulls.
+          if ( !defined( $columns{ $$col[0] } ) ) {
+            # If running the empty column test (time consuming test)
+            if ( defined($empty_column) ) {
+              # For the other tables, looking for columns full of nulls
               my $empty_colums = $new_dbi->prepare(
                 "select $$col[0] from $table_name where $$col[0] is not null limit 1" );
               $empty_colums->execute();
               my $res = $empty_colums->fetchrow_array();
               if ( $res eq "" ) {
-                $old_empty_columns{$table_name}{ $$col[0] } = "";
-              }
-            }
-          }
-          # For a new column, if it's in strain_gtype_poly check for
-          # columns full of empty rows and for the other check for
-          # full of nulls.
-          if ( !defined( $columns{ $$col[0] } ) ) {
-            print COLUMN "** For table $table_name NEW column " . $$col[0] . "\n";
-            # If running the empty column test (time consuming test)
-            if ( defined($empty_column) ) {
-              if ( $table_name =~ "strain_gtype_poly" ) {
-                my $empty_colums = $new_dbi->prepare(
-                  "select $$col[0] from $table_name where $$col[0]!='' limit 1" );
-                $empty_colums->execute();
-                my $res = $empty_colums->fetchrow_array();
-                #If a strain is empty then store column name into a hash
-                if ( $res eq "" ) {
-                  print EMPTY_COLUMN "** For table $table_name new column "
-                    . $$col[0]
-                    . " is empty\n";
-                }
-              }
-              # For the other tables, looking for columns full of nulls
-              else {
-                my $empty_colums = $new_dbi->prepare(
-                  "select $$col[0] from $table_name where $$col[0] is not null limit 1" );
-                $empty_colums->execute();
-                my $res = $empty_colums->fetchrow_array();
-                if ( $res eq "" ) {
-                  print EMPTY_COLUMN "** For table $table_name new column "
-                    . $$col[0]
-                    . " is null\n";
-                }
+                print EMPTY_COLUMN "** For table $table_name new column "
+                  . $$col[0]
+                  . " is null\n";
               }
             } ## end if ( defined($empty_column...))
           } ## end if ( !defined( $columns...))
         } ## end while ( my $col = $try_sth...)
-      } else {
-        print TABLE "***** New Table $table_name *****\n";
       }
     } ## end while ( my $table_name = ...)
   } ## end foreach my $ext ( "_main", ...)
@@ -235,63 +201,16 @@ foreach my $mart (@marts) {
         while ( my $col = $try_sth->fetch ) {
           # If running the empty column test (time consuming test)
           if ( defined($empty_column) ) {
-            if ( $table_name =~ "strain_gtype_poly" ) {
-              my $empty_colums = $old_dbi->prepare(
-                 "select $$col[0] from $table_name where $$col[0]!='' limit 1"
-              );
-              $empty_colums->execute();
-              my $res = $empty_colums->fetchrow_array();
-              # If the column is empty in the old mart
-              if ( $res eq "" ) {
-                # Check if it was empty in the new mart. This is fine.
-                if ( exists( $old_empty_columns{$table_name}{ $$col[0] } ) ) {
-                  1;
-                }
-                # Check if the columns is not gone, no need to report it
-                elsif ( !defined( $columns{ $$col[0] } ) ) {
-                  1;
-                }
-                # Column now contain data in the new mart.
-                else {
-                  print EMPTY_COLUMN "** For table $table_name column " . $$col[0] . " now contain data\n";
-                }
+            my $empty_colums = $old_dbi->prepare(
+              "select $$col[0] from $table_name where $$col[0] is not null limit 1" );
+            $empty_colums->execute();
+            my $res = $empty_colums->fetchrow_array();
+            # Column is not empty in the old mart but is in the new mart.
+            if ( $res ne "" ) {
+              if ( exists( $old_empty_columns{$table_name}{ $$col[0] } ) ) {
+                print EMPTY_COLUMN "** For table $table_name column " . $$col[0] . " is now empty\n";
               }
-              # Column is not empty in the old mart but is in the new mart.
-              else {
-                if ( exists( $old_empty_columns{$table_name}{ $$col[0] } ) ) {
-                  print EMPTY_COLUMN "** For table $table_name column "
-                    . $$col[0]
-                    . " is now empty\n";
-                }
-              }
-            } else {
-              my $empty_colums = $old_dbi->prepare(
-                "select $$col[0] from $table_name where $$col[0] is not null limit 1" );
-              $empty_colums->execute();
-              my $res = $empty_colums->fetchrow_array();
-              # IF the column is empty in the old mart
-              if ( $res eq "" ) {
-                # Check if it was empty in the new mart. This is fine.
-                if ( exists( $old_empty_columns{$table_name}{ $$col[0] } ) ) {
-                  1;
-                }
-                # Check if the columns is not gone, no need to report it
-                elsif ( !defined( $columns{ $$col[0] } ) ) {
-                  1;
-                }
-                # Column now contain data in the new mart.
-                else {
-                  print EMPTY_COLUMN "** For table $table_name column "
-                    . $$col[0]
-                    . " now contain data\n";
-                }
-              }
-              # Column is not empty in the old mart but is in the new mart.
-              else {
-                if ( exists( $old_empty_columns{$table_name}{ $$col[0] } ) ) {
-                  print EMPTY_COLUMN "** For table $table_name column " . $$col[0] . " is now empty\n"; }
-              }
-            } ## end else [ if ( $table_name =~ "strain_gtype_poly")]
+            }
           } ## end if ( defined($empty_column...))
 
           if ( !defined( $columns{ $$col[0] } ) ) {
@@ -445,10 +364,7 @@ foreach my $rel ( "new", "old" ) {
         $new_count{$sp}{$tab} |= 0;
         my $diff = abs( $old_count{$sp}{$tab} - $new_count{$sp}{$tab} )/
           $old_count{$sp}{$tab};
-        if ( $diff > $percent and $new_count{$sp}{$tab} > $old_count{$sp}{$tab}  ) {    #10% change
-          print OUT $sp . "<->" . $tab . "\t" . $old_count{$sp}{$tab} . "\t" . $new_count{$sp}{$tab} . "\t" . ceil( $diff*100 ) . "\n";
-        }
-        elsif($diff > $percent and $new_count{$sp}{$tab} < $old_count{$sp}{$tab} )
+        if($diff > $percent and $new_count{$sp}{$tab} < $old_count{$sp}{$tab} )
         {
           print OUT $sp . "<->" . $tab . "\t" . $old_count{$sp}{$tab} . "\t" . $new_count{$sp}{$tab} . "\t" . ( "-" . ceil($diff*100) ) . "\n";
         }
