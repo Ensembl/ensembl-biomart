@@ -43,7 +43,7 @@ GetOptions($opts,
   'filters',
   'attributes',		
   'verbose|v',
-  'output_file'
+  'output_file=s'
 );
 if ( !defined $opts->{filters} && !defined $opts->{attributes} ) {
 	$opts->{filters}    = 1;
