@@ -42,6 +42,7 @@ push(@{$optsd},"eg:s");
 push(@{$optsd},"ens:s");
 push(@{$optsd},"runner_host:s");
 push(@{$optsd},"runner_port:s");
+push(@{$optsd},"grch37:s");
 
 # process the command line with the supplied options plus a help subroutine
 my $opts = $cli_helper->process_args($optsd,\&usage);
@@ -58,9 +59,33 @@ print "Connecting to $opts->{mdbname}\n";
 my $dba =Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor->new(-USER => $opts->{muser}, -PASS => $opts->{mpass},
 -DBNAME=>$opts->{mdbname}, -HOST=>$opts->{mhost}, -PORT=>$opts->{mport});
 
-print "Getting db lists from $opts->{mdbname}\n";
+my ($core,$variation,$funcgen)=([],[],[]);
+my $mart = $opts->{mart};
 # Assemble list of databases for each species by db_type
-my ($core,$variation,$funcgen) = get_list($dba);
+if (defined $opts->{grch37}){
+    print "Getting db lists from $opts->{host}\n";
+    Bio::EnsEMBL::Registry->load_registry_from_db(
+                                          -host => $opts->{host},
+                                          -user => $opts->{user},
+                                          -pass => $opts->{pass},
+                                          -port => $opts->{port},
+                                          -db_version => $opts->{ens} );
+
+  my $core_dba = Bio::EnsEMBL::Registry->get_DBAdaptor( 'homo_sapiens','core');
+  push $core,$core_dba->dbc()->dbname();
+  my $variarion_dba = Bio::EnsEMBL::Registry->get_DBAdaptor( 'homo_sapiens', 'variation');
+  push $variation,$variarion_dba->dbc()->dbname();
+  my $regulation_dba = Bio::EnsEMBL::Registry->get_DBAdaptor( 'homo_sapiens', 'funcgen');
+  push $funcgen,$regulation_dba->dbc()->dbname();
+  $core_dba->dbc()->disconnect_if_idle();
+  $variarion_dba->dbc()->disconnect_if_idle();
+  $regulation_dba->dbc()->disconnect_if_idle();
+  $mart = $mart.'_grch37';
+}
+else{
+  print "Getting db lists from $opts->{mdbname}\n";
+  ($core,$variation,$funcgen) = get_list($dba);
+}
 
 # Print number of database type and genome name in mart for each genome of a division
 my $core_str = join ',',@$core;
@@ -87,11 +112,11 @@ my $inname = $opts->{template};
 print "Reading $inname\n";
 open(my $in_file, "<", $inname) or croak "Could not open $inname";
 
-my $outname = $opts->{mart}.'.xml';
+my $outname = $mart.'.xml';
 print "Writing $outname\n";
 open(my $out_file, '>', $outname) or croak "Could not open $outname";
 
-my $mart = $opts->{mart};
+
 while (<$in_file>) {
     s/core_species_list/$core_str/g;
     s/funcgen_species_list/$func_str/g;
