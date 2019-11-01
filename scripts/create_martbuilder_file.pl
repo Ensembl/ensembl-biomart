@@ -28,6 +28,7 @@ use Bio::EnsEMBL::Utils::CliHelper;
 use Carp;
 use Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor;
 use MartUtils;
+use Bio::EnsEMBL::BioMart::Mart qw(genome_to_exclude);
 
 my $cli_helper = Bio::EnsEMBL::Utils::CliHelper->new();
 
@@ -124,9 +125,12 @@ sub get_list {
     my $dbdba = $dba->get_DatabaseInfoAdaptor();
     my $rdba = $dba->get_DataReleaseInfoAdaptor();
     my $release;
+    my $excluded_species;
     # Use division to find the release in metadata database
     if ($opts->{division} eq "EnsemblVertebrates"){
         $release = $rdba->fetch_by_ensembl_release($opts->{ens});
+        # Load species to exclude from the Vertebrates marts
+        $excluded_species = genome_to_exclude($opts->{division});
     }
     else{
         $release = $rdba->fetch_by_ensembl_genomes_release($opts->{eg});
@@ -144,6 +148,13 @@ sub get_list {
         # Special hack for the mouse mart as we only want the mouse strains in it
         elsif ($opts->{mart} =~ "mouse_mart" and $opts->{division} eq "EnsemblVertebrates"){
             next;
+        }
+        # For Vertebrates, we are excluding some species from the marts
+        if ($opts->{division} eq "EnsemblVertebrates"){
+            my $genome_name = $genome->name();
+            if (grep( /$genome_name/, @$excluded_species) ){
+                next;
+            }
         }
         # Get all the databases associated to a genome
         foreach my $database (@{$genome->databases()}){
