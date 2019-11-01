@@ -806,9 +806,31 @@ sub write_attributes {
       normalise( $attributeGroup, "AttributeCollection" );
       my $ago = copy_hash($attributeGroup);
       #### add the homologs here
-      if ( $ago->{internalName} eq 'orthologs' ) {
-        ($ago,$nC) = $self->generate_orthologs_attributes($ago, $datasets, $ds_name ,$nC);
-      } ## end if ( $ago->{internalName...})
+      if ( $ago->{internalName} eq 'orthologs_a_e' ) {
+        foreach my $letter ('a' .. 'e') {
+          ($ago,$nC) = $self->generate_orthologs_attributes($ago, $datasets, $ds_name ,$nC, $letter);
+        }
+      }
+      elsif($ago->{internalName} eq 'orthologs_f_j') {
+        foreach my $letter ('f' .. 'j') {
+          ($ago,$nC) = $self->generate_orthologs_attributes($ago, $datasets, $ds_name ,$nC, $letter);
+        }
+      }
+      elsif($ago->{internalName} eq 'orthologs_k_o') {
+        foreach my $letter ('k' .. 'o') {
+          ($ago,$nC) = $self->generate_orthologs_attributes($ago, $datasets, $ds_name ,$nC, $letter);
+        }
+      }
+      elsif($ago->{internalName} eq 'orthologs_p_t') {
+        foreach my $letter ('p' .. 't') {
+          ($ago,$nC) = $self->generate_orthologs_attributes($ago, $datasets, $ds_name ,$nC, $letter);
+        }
+      }
+      elsif($ago->{internalName} eq 'orthologs_u_z') {
+        foreach my $letter ('u' .. 'z') {
+          ($ago,$nC) = $self->generate_orthologs_attributes($ago, $datasets, $ds_name ,$nC, $letter);
+        }
+      }
       elsif ( $ago->{internalName} eq 'paralogs' ) {
         ($ago,$nC) = $self->generate_paralogs_attributes($ago, $dataset, $ds_name ,$nC);
       } ## end elsif ( $ago->{internalName... [ if ( $ago->{internalName...})]})
@@ -2036,10 +2058,10 @@ sub generate_id_list_limit_protein_domain_filters {
 =cut
 
 sub generate_orthologs_attributes {
-  my ($self,$ago, $datasets, $ds_name ,$nC) = @_;  
+  my ($self,$ago, $datasets, $ds_name ,$nC, $letter) = @_;
   for my $o_dataset (@$datasets) {
     my $table = "${ds_name}__homolog_$o_dataset->{name}__dm";
-    if ( defined $self->{tables}->{$table} ) {
+    if ( defined $self->{tables}->{$table} and lc($o_dataset->{display_name}) =~ /^$letter/) {
       push @{ $ago->{AttributeCollection} }, {
         displayName          => "$o_dataset->{display_name} Orthologues",
         internalName         => "homolog_$o_dataset->{name}",
