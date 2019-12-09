@@ -20,6 +20,7 @@ use POSIX;
 use Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor;
 use Bio::EnsEMBL::MetaData::Base qw(process_division_names fetch_and_set_release);
 use MartUtils;
+use Bio::EnsEMBL::BioMart::Mart qw(genome_to_exclude);
 
 
 my ( $old_dbname, $olduser,    $oldpass, $oldhost,
@@ -422,11 +423,13 @@ sub metadata_species_list {
   my $rdba = $dba->get_DataReleaseInfoAdaptor();
   my %metadata_species_core;
   my %metadata_species_variation;
-  my ($release,$release_info);
+  my ($release,$release_info,$excluded_species);
   # Get the release version
   ($rdba,$gdba,$release,$release_info) = fetch_and_set_release($newrel,$rdba,$gdba);
   #Get both division short and full name from a division short or full name
   my ($division,$division_name)=process_division_names($div);
+  # Load species to exclude from the Vertebrates marts
+  $excluded_species = genome_to_exclude($division_name);
   # Get all the genomes for a given division and release
   my $genomes = $gdba->fetch_all_by_division($division_name);
   foreach my $genome (@$genomes){
@@ -439,6 +442,13 @@ sub metadata_species_list {
     # Special hack for the mouse mart as we only want the mouse strains in it
     elsif ($new_dbname =~ "mouse_mart" and $division eq "vertebrates"){
         next;
+    }
+    # For Vertebrates, we are excluding some species from the marts
+    if ($division eq "vertebrates"){
+        my $genome_name = $genome->name();
+        if (grep( /$genome_name/, @$excluded_species) ){
+            next;
+        }
     }
     foreach my $database (@{$genome->databases()}){
       my $mart_name = $genome->name;
