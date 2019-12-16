@@ -47,13 +47,11 @@ sub write_output {
   my $species_suffix    = $self->param('species_suffix');
   my $mart_table_prefix;
   
+  $species =~ /^(.)[^_]+_?([a-z0-9])?[a-z0-9]+?_([a-z0-9]+)$/;
+  $mart_table_prefix = defined $2 ? "$1$2$3" : "$1$3";
+  
   if ($species_suffix ne '') {
-    $species =~ /^(\w).+_(\w+)$/;
-    $mart_table_prefix = "$1$2$species_suffix";
-  }
-  else {
-    $species =~ /^(\w).+_(\w+)$/;
-    $mart_table_prefix = "$1$2";
+    $mart_table_prefix .= $species_suffix;
   }
   
   my $copy = 0;

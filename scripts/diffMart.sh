@@ -68,7 +68,7 @@ EOT
   sed 's/\(\w\+\).*/\1/' ${oldfile} | cut -f1 | sort -u -o ${s_oldfile}
   sed 's/\(\w\+\).*/\1/' ${newfile} | cut -f1 | sort -u -o ${s_newfile}
 
-  diff -u -i ${s_oldfile} ${s_newfile} | sed -n '/^[+-]/p'
+  diff -u -i ${s_oldfile} ${s_newfile} | sed -n '/^[-]/p'
 
   rm -f ${oldfile} ${newfile}
   rm -f ${s_oldfile} ${s_newfile}
