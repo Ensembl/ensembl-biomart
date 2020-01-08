@@ -82,13 +82,14 @@ sub genome_to_exclude {
 	#Get both division short and full name from a division short or full name
 	my ($division,$division_name)=process_division_names($div);
 	my $filename;
+	my @excluded_species;
 	if (defined $base_dir){
 		$filename = $base_dir.'/ensembl-biomart/scripts/exclude_'.$division.'.ini';
 	}
 	else{
 		$filename = $FindBin::Bin.'/exclude_'.$division.'.ini';
 	}
-	my @excluded_species = read_file( $filename,chomp => 1);
+	@excluded_species = read_file( $filename,chomp => 1) if -e $filename;
 	return \@excluded_species;
 }
 
