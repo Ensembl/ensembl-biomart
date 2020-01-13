@@ -428,8 +428,10 @@ sub metadata_species_list {
   ($rdba,$gdba,$release,$release_info) = fetch_and_set_release($newrel,$rdba,$gdba);
   #Get both division short and full name from a division short or full name
   my ($division,$division_name)=process_division_names($div);
-  # Load species to exclude from the Vertebrates marts
-  $excluded_species = genome_to_exclude($division_name);
+  if ($division eq "vertebrates"){
+    # Load species to exclude from the Vertebrates marts
+    $excluded_species = genome_to_exclude($division_name);
+  }
   # Get all the genomes for a given division and release
   my $genomes = $gdba->fetch_all_by_division($division_name);
   foreach my $genome (@$genomes){

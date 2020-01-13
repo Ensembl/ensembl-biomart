@@ -89,7 +89,7 @@ sub genome_to_exclude {
 	else{
 		$filename = $FindBin::Bin.'/exclude_'.$division.'.ini';
 	}
-	@excluded_species = read_file( $filename,chomp => 1) if -e $filename;
+	@excluded_species = read_file( $filename,chomp => 1);
 	return \@excluded_species;
 }
 
