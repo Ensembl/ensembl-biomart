@@ -288,6 +288,7 @@ sub pipeline_analyses {
                               never_skip_genotypes  => $self->o('never_skip_genotypes'),
                               division_name         => $self->o('division_name'),
                               species_suffix      => $self->o('species_suffix'),
+                              ensembl_cvs_root_dir => $self->o('ensembl_cvs_root_dir')
                             },
       -max_retry_count   => 0,
       -rc_name           => 'normal',
