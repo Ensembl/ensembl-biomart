@@ -89,8 +89,24 @@ sub get_datasets_regexp {
 #Generate a mart dataset name from a database name
 sub generate_dataset_name_from_db_name {
     my ($database) = @_;
+    # Hash containing list of name that we want to shorten
+    my $name_substitution = {'familiaris' => 'fam'};
     ( my $dataset = $database ) =~ m/^(.)[^_]+_?([a-z0-9])?[a-z0-9]+?_([a-z0-9]+)_[a-z]+_[0-9]+_?[0-9]+?_[0-9]+$/;
-    $dataset = defined $2 ? $1.$2.$3 : $1.$3;
+    $dataset = defined $2 ? "$1$2$3" : "$1$3";
+    # If dataset is longer than 18 char, we won't be able to generate gene mart tables
+    # like dataset_gene_ensembl__protein_feature_superfamily__dm as this will exceed
+    # the MySQL table name limit of 64 char.
+    if (length($dataset) > 18) {
+        while(my($full_name, $alias) = each %{$name_substitution}) {
+            if ($dataset =~ m/$full_name/){
+                $dataset =~ s/$full_name/$alias/g;
+            }
+            print $dataset."\n";
+        }
+        if (length($dataset) > 18) {
+            die "$dataset name is too long. Add a new key to the name_substitution hash for this species $database\n";
+        }
+    }
     return $dataset;
 }
 
