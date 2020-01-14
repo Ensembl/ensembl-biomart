@@ -101,7 +101,6 @@ sub generate_dataset_name_from_db_name {
             if ($dataset =~ m/$full_name/){
                 $dataset =~ s/$full_name/$alias/g;
             }
-            print $dataset."\n";
         }
         if (length($dataset) > 18) {
             die "$dataset name is too long. Add a new key to the name_substitution hash for this species $database\n";
