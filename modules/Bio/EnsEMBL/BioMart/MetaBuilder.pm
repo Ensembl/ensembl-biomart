@@ -1945,7 +1945,7 @@ sub generate_id_list_protein_domain_and_feature_filters {
     my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->{logic_name}."__dm";
     my $display_name;
     # We only want to display "ID(s)" for Protein domains
-    if (defined $protein_domain_and_feature->{web_data} and $protein_domain_and_feature->{web_data} ne "{'type' => 'feature'}"){
+    if (defined $protein_domain_and_feature->{web_data} and $protein_domain_and_feature->{web_data} !~ /feature/){
       $display_name="With $protein_domain_and_feature->{display_label} ID(s)";
     }
     elsif (defined $protein_domain_and_feature->{display_label})
@@ -2010,7 +2010,7 @@ sub generate_id_list_limit_protein_domain_filters {
   # Generating protein domains
   foreach my $protein_domain_and_feature (@{ $protein_domain_and_feature_list }) {
     # Excluding protein features
-    next if !defined $protein_domain_and_feature->{web_data} or $protein_domain_and_feature->{web_data}  eq "{'type' => 'feature'}";
+    next if !defined $protein_domain_and_feature->{web_data} or $protein_domain_and_feature->{web_data} =~ /feature/;
     my $table = $ds_name."__protein_feature_".$protein_domain_and_feature->{logic_name}."__dm";
     if ( defined $self->{tables}->{$table} ) {
       my $key = $self->get_table_key($table);
