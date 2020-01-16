@@ -474,7 +474,10 @@ sub metadata_species_list {
       }
       # Get variation and funcgen databases
       elsif ($database->type eq "variation"){
+        # This will exclude empty variation databases like chlorocebus_sabaeus and salmo_salar
+        if ($genome->has_variations){
           $metadata_species_variation{$mart_name."_snp"} = $genome->name;
+        }
       }
     }
   }
