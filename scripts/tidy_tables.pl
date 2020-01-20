@@ -105,7 +105,10 @@ else {
   %columns_to_tidy = (
                '%\_\_gene\_\_main'    => ['display_label_1074','db_display_name_1018','phenotype_bool','version_1020'],
                '%\_\_transcript\_\_main'    => ['display_label_1074_r1','db_display_name_1018_r1','phenotype_bool','version_1064','version_1020'],
-               '%\_\_translation\_\_main'    => ['stable_id_408','description_408','family_bool','phenotype_bool','version_1064','version_1020','version_1068']
+               '%\_\_translation\_\_main'    => ['stable_id_408','description_408','family_bool','phenotype_bool','version_1064','version_1020','version_1068'],
+							 '%\_\_homolog\_%\_\_dm'  => ['dn_4014','ds_4014','goc_score_4014','wga_coverage_4014','is_high_confidence_4014'],
+							 '%\_\_paralog\_%\_\_dm' => ['dn_4014','ds_4014','is_high_confidence_4014'],
+							 '%\_\_homoeolog\_%\_\_dm' => ['dn_4014','ds_4014','is_high_confidence_4014']
   );
 }
 

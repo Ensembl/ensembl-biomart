@@ -1382,7 +1382,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on multi species comparison relationships" displayName="MULTI SPECIES COMPARISONS:" hidden="false" internalName="multispecies" useDefault="true">
+    <FilterGroup description="Filter on multi species comparison relationships" displayName="MULTI SPECIES COMPARISONS:" hidden="false" internalName="multispecies" useDefault="true" checkTable="homolog_">
       <FilterCollection displayName="Homologue filters" hidden="false" internalName="homolog_filter_collection" useDefault="true">
         <FilterDescription displayType="container" hidden="false" internalName="homolog_filters" type="boolean_list" useDefault="true">
           <Replace id="homology_filters"/>
@@ -1393,10 +1393,6 @@
       <FilterCollection displayName="Limit to genes ..." internalName="family_domain_id" useDefault="true">
         <FilterDescription displayType="container" internalName="id_list_protein_domain_and_feature_filters" type="boolean_list" useDefault="true">
            <Option key="translation_id_1068_key" displayName="With Interpro ID(s)" displayType="list" field="interpro_bool" hidden="false" internalName="with_interpro" isSelectable="true" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
-            <Option displayName="Only" hidden="false" internalName="only" value="only" />
-            <Option displayName="Excluded" hidden="false" internalName="excluded" value="excluded" />
-          </Option>
-          <Option key="translation_id_1068_key" displayName="With Ensembl Protein Family ID(s)" displayType="list" field="family_bool" hidden="false" internalName="with_family" isSelectable="true" legal_qualifiers="only,excluded" qualifier="only" style="radio" tableConstraint="main" type="boolean">
             <Option displayName="Only" hidden="false" internalName="only" value="only" />
             <Option displayName="Excluded" hidden="false" internalName="excluded" value="excluded" />
           </Option>
@@ -1843,7 +1839,7 @@
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
-  <AttributePage displayName="Homologues (Max select 6 orthologues)" hidden="false" internalName="homologs" outFormats="html,txt,csv,tsv,xls" useDefault="true">
+  <AttributePage displayName="Homologues (Max select 6 orthologues)" hidden="false" internalName="homologs" outFormats="html,txt,csv,tsv,xls" useDefault="true" checkTable="homolog_">
     <AttributeGroup description="Features of Genes" displayName="GENE:" hidden="false" internalName="gene" useDefault="true">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" hidden="false" internalName="ensembl_attributes" useDefault="true">
         <AttributeDescription hidden="false" internalName="homologs_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>

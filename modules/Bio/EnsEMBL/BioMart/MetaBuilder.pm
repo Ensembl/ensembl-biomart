@@ -491,6 +491,31 @@ sub write_filters {
             # Process existing options
             my $nO = 0;
             ($fdo, $nO) = $self->process_boolean_filter($fdo, $filterDescription, $ds_name, $nO);
+            # Generate Ensembl Family ID filter
+            if (defined $self->{tables}->{${ds_name}."__translation__main"}->{'family_bool'} ) {
+              push @{ $fdo->{Option} }, {
+                displayName  => "With Ensembl Protein Family ID(s)",
+                displayType  => "list",
+                field        => "family_bool",
+                hidden       => "false",
+                internalName => "with_family",
+                isSelectable => "true",
+                key          => "translation_id_1068_key",
+                legal_qualifiers => "only,excluded",
+                qualifier        => "only",
+                style            => "radio",
+                tableConstraint  => "main",
+                type             => "boolean",
+                Option           => [ {
+                        displayName  => "Only",
+                        hidden       => "false",
+                        internalName => "only",
+                        value        => "only" }, {
+                        displayName  => "Excluded",
+                        hidden       => "false",
+                        internalName => "excluded",
+                        value        => "excluded" } ] };
+            }
             # Generate id list protein and features id list options
             $fdo = $self->generate_id_list_protein_domain_and_feature_filters($fdo,$protein_domain_and_feature_list,$ds_name);
             push @{ $fco->{FilterDescription} }, $fdo unless exists $self->{delete}{$fdo->{internalName}};
@@ -741,12 +766,31 @@ sub write_filters {
 
       if ( $nC > 0 ) {
         if(defined $fgo->{checkTable}) {
-          # check for special checkTable tag which allows us to remove unneeded filters (e.g: ontology, variation filters in gene mart)
-          my $table = $ds_name.'__'.$fgo->{checkTable};
-          if(exists $self->{tables}->{$table}) {
-            delete $fgo->{checkTable};
-            push @{ $fpo->{FilterGroup} }, $fgo unless exists $self->{delete}{$fgo->{internalName}};
-            $nG++;
+              # Check if the species has homolog data, else skip this page.
+          if ($fgo->{internalName} eq "multispecies") {
+            # check for special checkTable tag which allows us to remove unneeded sections
+            my $homolog_tables = $ds_name.'__'.$fgo->{checkTable};
+            my $found = 0;
+            foreach my $table (keys %{ $self->{tables} }) {
+              if ($table =~ m/$homolog_tables/){
+                $found = 1;
+                last;
+              }
+            }
+            if ($found){
+              delete $fgo->{checkTable};
+              push @{ $fpo->{FilterGroup} }, $fgo unless exists $self->{delete}{$fgo->{internalName}};
+              $nG++;
+            }
+          }
+          else{
+            # check for special checkTable tag which allows us to remove unneeded filters (e.g: ontology, variation filters in gene mart)
+            my $table = $ds_name.'__'.$fgo->{checkTable};
+            if(exists $self->{tables}->{$table}) {
+              delete $fgo->{checkTable};
+              push @{ $fpo->{FilterGroup} }, $fgo unless exists $self->{delete}{$fgo->{internalName}};
+              $nG++;
+            }
           }
         } else {
           push @{ $fpo->{FilterGroup} }, $fgo unless (exists $self->{delete}{$fgo->{internalName}} or exists $self->{delete}{$dataset->{name}."_".$fgo->{internalName}});
@@ -768,6 +812,24 @@ sub write_attributes {
   # AttributePage
   for my $attributePage ( @{ elem_as_array($templ_in->{AttributePage}) } ) {
     $logger->debug( "Processing filterPage " . $attributePage->{internalName} );
+    # Check if the species has homolog data, else skip this page.
+    if ($attributePage->{internalName} eq "homologs") {
+      if(defined $attributePage->{checkTable}) {
+        # check for special checkTable tag which allows us to remove unneeded sections
+        my $homolog_tables = $ds_name.'__'.$attributePage->{checkTable};
+        my $found = 0;
+        foreach my $table (keys %{ $self->{tables} }) {
+          if ($table =~ m/$homolog_tables/){
+            $found = 1;
+            last;
+          }
+        }
+        if (not $found){
+            $logger->info( "No Homologs data for this dataset, removing attributes");
+            next;
+        }
+      }
+    }
     # Check if the species has variation data, else skip this page.
     if ($attributePage->{internalName} eq "snp") {
       if(defined $attributePage->{checkTable}) {
@@ -2062,7 +2124,7 @@ sub generate_orthologs_attributes {
   for my $o_dataset (@$datasets) {
     my $table = "${ds_name}__homolog_$o_dataset->{name}__dm";
     if ( defined $self->{tables}->{$table} and lc($o_dataset->{display_name}) =~ /^$letter/) {
-      push @{ $ago->{AttributeCollection} }, {
+      my $orthologs = {
         displayName          => "$o_dataset->{display_name} Orthologues",
         internalName         => "homolog_$o_dataset->{name}",
         AttributeDescription => [ {
@@ -2135,37 +2197,43 @@ sub generate_orthologs_attributes {
             internalName    => "$o_dataset->{name}_homolog_perc_id_r1",
             key             => "gene_id_1020_key",
             maxLength       => "10",
-            tableConstraint => $table },{
+            tableConstraint => $table } ] };
+      push @{ $orthologs->{AttributeDescription} }, {
             displayName     => "$o_dataset->{display_name} Gene-order conservation score",
             field           => "goc_score_4014",
             internalName    => "$o_dataset->{name}_homolog_goc_score",
             key             => "gene_id_1020_key",
             maxLength       => "10",
-            tableConstraint => $table },{
+            tableConstraint => $table } if defined $self->{tables}->{$table}->{goc_score_4014};
+      push @{ $orthologs->{AttributeDescription} }, {
             displayName     => "$o_dataset->{display_name} Whole-genome alignment coverage",
             field           => "wga_coverage_4014",
             internalName    => "$o_dataset->{name}_homolog_wga_coverage",
             key             => "gene_id_1020_key",
             maxLength       => "5",
-            tableConstraint => $table }, {
+            tableConstraint => $table } if defined $self->{tables}->{$table}->{wga_coverage_4014};
+      push @{ $orthologs->{AttributeDescription} }, {
             displayName     => "dN with $o_dataset->{display_name}",
             field           => "dn_4014",
             internalName    => "$o_dataset->{name}_homolog_dn",
             key             => "gene_id_1020_key",
             maxLength       => "10",
-            tableConstraint => $table }, {
+            tableConstraint => $table } if defined $self->{tables}->{$table}->{dn_4014};
+      push @{ $orthologs->{AttributeDescription} }, {
             displayName     => "dS with $o_dataset->{display_name}",
             field           => "ds_4014",
             internalName    => "$o_dataset->{name}_homolog_ds",
             key             => "gene_id_1020_key",
             maxLength       => "10",
-            tableConstraint => $table }, {
+            tableConstraint => $table } if defined $self->{tables}->{$table}->{ds_4014};
+      push @{ $orthologs->{AttributeDescription} },{
             displayName  => "$o_dataset->{display_name} orthology confidence [0 low, 1 high]",
             field        => "is_high_confidence_4014",
             internalName => "$o_dataset->{name}_homolog_orthology_confidence",
             key          => "gene_id_1020_key",
             maxLength    => "10",
-            tableConstraint => $table } ] };
+            tableConstraint => $table } if defined $self->{tables}->{$table}->{is_high_confidence_4014};
+      push @{ $ago->{AttributeCollection} }, $orthologs;
       $nC++;
     } ## end if ( defined $self->{tables...})
   } ## end for my $o_dataset (@$datasets)
@@ -2189,8 +2257,7 @@ sub generate_paralogs_attributes {
   my ($self, $ago, $dataset, $ds_name ,$nC) = @_;
   my $table = "${ds_name}__paralog_$dataset->{name}__dm";
   if ( defined $self->{tables}->{$table} ) {
-    push @{ $ago->{AttributeCollection} }, {
-
+    my $paralogs =  {
       displayName          => "$dataset->{display_name} Paralogues",
       internalName         => "paralogs_$dataset->{name}",
       AttributeDescription => [ {
@@ -2261,25 +2328,29 @@ sub generate_paralogs_attributes {
           internalName    => "$dataset->{name}_paralog_perc_id_r1",
           key             => "gene_id_1020_key",
           maxLength       => "10",
-          tableConstraint => $table }, {
+          tableConstraint => $table } ] };
+    push @{ $paralogs->{AttributeDescription} }, {
           displayName     => "Paralogue dN with $dataset->{display_name}",
           field           => "dn_4014",
           internalName    => "$dataset->{name}_paralog_dn",
           key             => "gene_id_1020_key",
           maxLength       => "10",
-          tableConstraint => $table }, {
+          tableConstraint => $table } if defined $self->{tables}->{$table}->{dn_4014};
+    push @{ $paralogs->{AttributeDescription} }, {
           displayName     => "Paralogue dS with $dataset->{display_name}",
           field           => "ds_4014",
           internalName    => "$dataset->{name}_paralog_ds",
           key             => "gene_id_1020_key",
           maxLength       => "10",
-          tableConstraint => $table }, {
+          tableConstraint => $table } if defined $self->{tables}->{$table}->{ds_4014};
+    push @{ $paralogs->{AttributeDescription} }, {
           displayName     => "$dataset->{display_name} paralogy confidence [0 low, 1 high]",
           field           => "is_high_confidence_4014",
           internalName    => "$dataset->{name}_paralog_paralogy_confidence",
           key             => "gene_id_1020_key",
           maxLength       => "10",
-          tableConstraint => $table } ] };
+          tableConstraint => $table } if defined $self->{tables}->{$table}->{is_high_confidence_4014};
+    push @{ $ago->{AttributeCollection} }, $paralogs;
     $nC++;
   } ## end if ( defined $self->{tables...})
   return ($ago,$nC);
@@ -2301,8 +2372,7 @@ sub generate_homoeolog_attributes {
   my ($self, $ago, $dataset, $ds_name, $nC) = @_;
   my $table = "${ds_name}__homoeolog_$dataset->{name}__dm";
   if ( defined $self->{tables}->{$table} ) {
-    push @{ $ago->{AttributeCollection} }, {
-
+    my $homoeologs = {
       displayName          => "$dataset->{display_name} Homoeologues",
       internalName         => "paralogs_$dataset->{name}",
       AttributeDescription => [ {
@@ -2367,25 +2437,29 @@ sub generate_homoeolog_attributes {
           internalName => "homoeolog_$dataset->{name}_homoeolog_identity",
           key          => "gene_id_1020_key",
           maxLength    => "10",
-          tableConstraint => $table }, {
+          tableConstraint => $table }]};
+    push @{ $homoeologs->{AttributeDescription} }, {
           displayName     => "Homoeologue dN with $dataset->{display_name}",
           field           => "dn_4014",
           internalName    => "$dataset->{name}_homoeolog_dn",
           key             => "gene_id_1020_key",
           maxLength       => "10",
-          tableConstraint => $table }, {
+          tableConstraint => $table } if defined $self->{tables}->{$table}->{dn_4014};
+    push @{ $homoeologs->{AttributeDescription} }, {
           displayName     => "Homoeologue dS with $dataset->{display_name}",
           field           => "ds_4014",
           internalName    => "$dataset->{name}_homoeolog_ds",
           key             => "gene_id_1020_key",
           maxLength       => "10",
-          tableConstraint => $table }, {
+          tableConstraint => $table } if defined $self->{tables}->{$table}->{ds_4014};
+    push @{ $homoeologs->{AttributeDescription} }, {
           displayName     => "$dataset->{display_name} homoeology confidence [0 low, 1 high]",
           field           => "is_high_confidence_4014",
           internalName    => "$dataset->{name}_homoeolog_confidence",
           key             => "gene_id_1020_key",
           maxLength       => "10",
-          tableConstraint => $table }]};
+          tableConstraint => $table } if defined $self->{tables}->{$table}->{is_high_confidence_4014};
+    push @{ $ago->{AttributeCollection} }, $homoeologs;
     $nC++;
   } ## end if ( defined $self->{tables...})
   return ($ago,$nC);
