@@ -190,8 +190,9 @@ sub compare_filters {
 		  . $f1->name()
 		  . " from dataset "
 		  . $f1->dataset()->name() );
-	is( scalar( @{ $f1->options() } ),
-		scalar( @{ $f2->options() } ),
+	my $fifty_percent_change = scalar( @{ $f1->options() } ) * 50 / 100;
+	cmp_ok( scalar( @{ $f2->options() } ) , ">=",
+		, $fifty_percent_change,
 		"Checking numbers of options for filter "
 		  . $f1->name()
 		  . " from dataset "
