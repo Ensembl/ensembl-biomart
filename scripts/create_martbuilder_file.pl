@@ -42,7 +42,7 @@ push(@{$optsd},"eg:s");
 push(@{$optsd},"ens:s");
 push(@{$optsd},"runner_host:s");
 push(@{$optsd},"runner_port:s");
-push(@{$optsd},"grch37:s");
+push(@{$optsd},"grch37:i");
 
 # process the command line with the supplied options plus a help subroutine
 my $opts = $cli_helper->process_args($optsd,\&usage);
@@ -231,6 +231,8 @@ sub usage {
   -ens                 Ensembl version number (e.g: 95)
 
   -eg                  Ensembl Genomes version number (e.g: 42)
+
+  -grch37              Flag for GRCh37 release
 
 EOF
 }
