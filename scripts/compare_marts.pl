@@ -122,15 +122,6 @@ for my $dataset (@new_datasets) {
 			compare_filters( $new_filter, $old_filter )
 			  if defined $new_filter;
 		}
-		# new vs old
-		for my $new_filter ( values %$new_filters ) {
-			my $old_filter = $old_filters->{ $new_filter->name() };
-			ok( defined $new_filter,
-				"Checking new filter "
-				  . $new_filter->name()
-				  . " in old dataset "
-				  . $dataset->name() );
-		}
 	} ## end if ( $opts->{filters} ...)
 
 	if ( $opts->{attributes} == 1 ) {
@@ -148,16 +139,6 @@ for my $dataset (@new_datasets) {
 			compare_attributes( $new_attribute, $old_attribute )
 			  if defined $new_attribute;
 		}
-		# new vs old
-		for my $new_attribute ( values %$new_attributes ) {
-			my $old_attribute = $old_attributes->{ $new_attribute->name() };
-			ok( defined $old_attribute,
-				"Checking for new attribute "
-				  . $new_attribute->name()
-				  . " in old dataset "
-				  . $dataset->name() );
-		}
-
 	} ## end if ( $opts->{attributes...})
 } ## end for my $dataset (@new_datasets)
 done_testing;
