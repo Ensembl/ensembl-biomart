@@ -28,7 +28,7 @@ use File::Slurp;
 use base qw(Bio::EnsEMBL::BioMart::MartServiceObject);
 use Bio::EnsEMBL::MetaData::Base qw(process_division_names);
 use Exporter qw/import/;
-our @EXPORT_OK = qw(genome_to_exclude);
+our @EXPORT_OK = qw(genome_to_include);
 
 sub new {
 	my ( $proto, @args ) = @_;
@@ -77,20 +77,20 @@ sub get_dataset_by_name {
 	return $dataset;
 }
 
-sub genome_to_exclude {
+sub genome_to_include {
 	my ($div,$base_dir) = @_;
 	#Get both division short and full name from a division short or full name
 	my ($division,$division_name)=process_division_names($div);
 	my $filename;
-	my @excluded_species;
+	my @included_species;
 	if (defined $base_dir){
-		$filename = $base_dir.'/ensembl-biomart/scripts/exclude_'.$division.'.ini';
+		$filename = $base_dir.'/ensembl-biomart/scripts/include_'.$division.'.ini';
 	}
 	else{
-		$filename = $FindBin::Bin.'/exclude_'.$division.'.ini';
+		$filename = $FindBin::Bin.'/include_'.$division.'.ini';
 	}
-	@excluded_species = read_file( $filename,chomp => 1);
-	return \@excluded_species;
+	@included_species = read_file( $filename,chomp => 1);
+	return \@included_species;
 }
 
 1;

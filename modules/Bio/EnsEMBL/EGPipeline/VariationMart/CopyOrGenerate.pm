@@ -22,7 +22,7 @@ use strict;
 use warnings;
 use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
 use MartUtils;
-use Bio::EnsEMBL::BioMart::Mart qw(genome_to_exclude);
+use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
 
 sub param_defaults {
   return {
@@ -48,13 +48,14 @@ sub write_output {
   my $species_suffix    = $self->param('species_suffix');
   my $ensembl_cvs_root_dir = $self->param('ensembl_cvs_root_dir');
   my $mart_table_prefix;
-  my $excluded_species;
+  my $included_species;
   # Use division to find the release in metadata database
   if ($division_name eq "vertebrates"){
     # Load species to exclude from the Vertebrates marts
-    $excluded_species = genome_to_exclude($division_name,$ensembl_cvs_root_dir);
+    $included_species = genome_to_include($division_name,$ensembl_cvs_root_dir);
   }
-  if (grep( /$species/, @$excluded_species) ){
+  if (!grep( /$species/, @$included_species) ){
+    $self->warning("Excluding $species from variation mart");
     return;
   }
 
