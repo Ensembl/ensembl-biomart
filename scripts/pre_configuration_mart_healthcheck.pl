@@ -20,7 +20,7 @@ use POSIX;
 use Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor;
 use Bio::EnsEMBL::MetaData::Base qw(process_division_names fetch_and_set_release);
 use MartUtils;
-use Bio::EnsEMBL::BioMart::Mart qw(genome_to_exclude);
+use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
 
 
 my ( $old_dbname, $olduser,    $oldpass, $oldhost,
@@ -420,14 +420,14 @@ sub metadata_species_list {
   my $rdba = $dba->get_DataReleaseInfoAdaptor();
   my %metadata_species_core;
   my %metadata_species_variation;
-  my ($release,$release_info,$excluded_species);
+  my ($release,$release_info,$included_species);
   # Get the release version
   ($rdba,$gdba,$release,$release_info) = fetch_and_set_release($newrel,$rdba,$gdba);
   #Get both division short and full name from a division short or full name
   my ($division,$division_name)=process_division_names($div);
   if ($division eq "vertebrates"){
-    # Load species to exclude from the Vertebrates marts
-    $excluded_species = genome_to_exclude($division_name);
+    # Load species to include in the Vertebrates marts
+    $included_species = genome_to_include($division_name);
   }
   # Get all the genomes for a given division and release
   my $genomes = $gdba->fetch_all_by_division($division_name);
@@ -443,9 +443,9 @@ sub metadata_species_list {
         next;
     }
     # For Vertebrates, we are excluding some species from the marts
-    if ($division eq "vertebrates"){
+    if ($division eq "vertebrates" and $new_dbname !~ "mouse_mart"){
         my $genome_name = $genome->name();
-        if (grep( /$genome_name/, @$excluded_species) ){
+        if (!grep( /$genome_name/, @$included_species) ){
             next;
         }
     }
