@@ -53,10 +53,10 @@ sub write_output {
   if ($division_name eq "vertebrates"){
     # Load species to exclude from the Vertebrates marts
     $included_species = genome_to_include($division_name,$ensembl_cvs_root_dir);
-  }
-  if (!grep( /$species/, @$included_species) ){
-    $self->warning("Excluding $species from variation mart");
-    return;
+    if (!grep( /$species/, @$included_species) ){
+      $self->warning("Excluding $species from variation mart");
+      return;
+    }
   }
 
   my $database = $self->get_DBAdaptor('core')->dbc()->dbname;
