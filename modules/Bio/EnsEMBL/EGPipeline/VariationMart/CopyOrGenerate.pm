@@ -21,7 +21,7 @@ package Bio::EnsEMBL::EGPipeline::VariationMart::CopyOrGenerate;
 use strict;
 use warnings;
 use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
-use MartUtils;
+use MartUtils qw(generate_dataset_name_from_db_name);
 use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
 
 sub param_defaults {
