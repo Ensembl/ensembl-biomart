@@ -25,10 +25,13 @@ limitations under the License.
 
 use warnings;
 use strict;
+package MartUtils;
 use DBI;
 use Carp;
 use Log::Log4perl qw(:easy);
 use DbiUtils;
+use Exporter qw/import/;
+our @EXPORT_OK = qw(generate_dataset_name_from_db_name);
 
 #sub get_species_name_for_dataset {
 #    my ($dbh,$ds_name) = @_;
