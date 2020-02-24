@@ -1382,7 +1382,7 @@
         </FilterDescription>
       </FilterCollection>
     </FilterGroup>
-    <FilterGroup description="Filter on multi species comparison relationships" displayName="MULTI SPECIES COMPARISONS:" hidden="false" internalName="multispecies" useDefault="true" checkTable="homolog_">
+    <FilterGroup description="Filter on multi species comparison relationships" displayName="MULTI SPECIES COMPARISONS:" hidden="false" internalName="multispecies" useDefault="true" checkTable="paralog_">
       <FilterCollection displayName="Homologue filters" hidden="false" internalName="homolog_filter_collection" useDefault="true">
         <FilterDescription displayType="container" hidden="false" internalName="homolog_filters" type="boolean_list" useDefault="true">
           <Replace id="homology_filters"/>
@@ -1839,7 +1839,7 @@
       </AttributeCollection>
     </AttributeGroup>
   </AttributePage>
-  <AttributePage displayName="Homologues (Max select 6 orthologues)" hidden="false" internalName="homologs" outFormats="html,txt,csv,tsv,xls" useDefault="true" checkTable="homolog_">
+  <AttributePage displayName="Homologues (Max select 6 orthologues)" hidden="false" internalName="homologs" outFormats="html,txt,csv,tsv,xls" useDefault="true" checkTable="paralog_">
     <AttributeGroup description="Features of Genes" displayName="GENE:" hidden="false" internalName="gene" useDefault="true">
       <AttributeCollection description="Ensembl Annotated Attributes and Features" displayName="Ensembl" hidden="false" internalName="ensembl_attributes" useDefault="true">
         <AttributeDescription hidden="false" internalName="homologs_ensembl_gene_id" pointerAttribute="ensembl_gene_id" pointerDataset="*species4*" pointerInterface="default" useDefault="true"/>
