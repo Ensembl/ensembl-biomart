@@ -30,7 +30,7 @@ use Data::Dumper;
 use FindBin;
 use lib "$FindBin::Bin/../modules";
 use DbiUtils;
-use MartUtils;
+use MartUtils qw(get_ensembl_db get_ensembl_db_collection get_datasets);
 use Getopt::Long qw(:config no_ignore_case);
 use Log::Log4perl qw(:easy);
 
