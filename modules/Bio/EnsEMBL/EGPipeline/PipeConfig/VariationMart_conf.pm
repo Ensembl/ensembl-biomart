@@ -154,6 +154,10 @@ sub default_options {
       'snp__mart_transcript_variation__dm'     => ['polyphen_score_2090','sift_score_2090'],
     },
 
+    snp_som_cull_columns => {
+      'snp_som__mart_transcript_variation__dm'   => ['pep_allele_string_2090','polyphen_prediction_2090','polyphen_score_2090','sift_prediction_2090','sift_score_2090'],
+    },
+
     snp_som_cull_tables => {
       'snp_som__population_genotype__dm'     => 'name_2019',
       'snp_som__variation_annotation__dm'    => 'name_2021',
@@ -459,6 +463,7 @@ sub pipeline_analyses {
       -parameters        => {
                               snp_cull_tables => $self->o('snp_cull_tables'),
                               snp_cull_columns => $self->o('snp_cull_columns'),
+                              snp_som_cull_columns => $self->o('snp_som_cull_columns'),
                               snp_som_cull_tables => $self->o('snp_som_cull_tables'), 
                               sv_cull_tables  => $self->o('sv_cull_tables'),
                               sv_som_cull_tables => $self->o('sv_som_cull_tables'),
