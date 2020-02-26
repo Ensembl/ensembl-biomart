@@ -22,7 +22,7 @@ use strict;
 use warnings;
 
 use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
-use MartUtils;
+use MartUtils qw(generate_dataset_name_from_db_name);
 
 sub run {
   my ($self) = @_;
