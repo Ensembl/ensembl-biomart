@@ -6,7 +6,7 @@ use DBI;
 use Getopt::Long qw(:config no_ignore_case);
 use Bio::EnsEMBL::Registry;
 use DbiUtils;
-use MartUtils;
+use MartUtils qw(get_sql_name_for_dataset);
 use Log::Log4perl qw(:easy);
 
 

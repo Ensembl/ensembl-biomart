@@ -31,7 +31,7 @@ use Data::Dumper;
 use FindBin;
 use lib "$FindBin::Bin/../modules";
 use DbiUtils;
-use MartUtils;
+use MartUtils qw(get_dataset_names get_sql_name_for_dataset);
 use Getopt::Long;
 use Bio::EnsEMBL::Registry;
 
