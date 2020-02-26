@@ -30,7 +30,7 @@ use List::MoreUtils qw(any);
 use FindBin;
 use lib "$FindBin::Bin/../modules";
 use DbiUtils;
-use MartUtils;
+use MartUtils qw(get_ensembl_db get_ensembl_db_single_parasite get_datasets get_ensembl_db_single);
 use Getopt::Long;
 use POSIX;
 use Bio::EnsEMBL::Registry;

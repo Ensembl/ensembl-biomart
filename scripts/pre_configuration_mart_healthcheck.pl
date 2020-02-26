@@ -19,7 +19,7 @@ use DBI;
 use POSIX;
 use Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor;
 use Bio::EnsEMBL::MetaData::Base qw(process_division_names fetch_and_set_release);
-use MartUtils;
+use MartUtils qw(generate_dataset_name_from_db_name);
 use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
 
 

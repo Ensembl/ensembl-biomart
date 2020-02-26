@@ -27,7 +27,7 @@ use Data::Dumper;
 use Bio::EnsEMBL::Utils::CliHelper;
 use Carp;
 use Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor;
-use MartUtils;
+use MartUtils qw(generate_dataset_name_from_db_name);
 use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
 
 my $cli_helper = Bio::EnsEMBL::Utils::CliHelper->new();

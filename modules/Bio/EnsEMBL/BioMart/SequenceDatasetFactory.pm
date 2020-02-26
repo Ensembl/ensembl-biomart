@@ -11,7 +11,7 @@ use Bio::EnsEMBL::DBSQL::DBAdaptor;
 use Bio::EnsEMBL::DBSQL::DBConnection;
 use Bio::EnsEMBL::Registry;
 use Bio::EnsEMBL::ApiVersion qw/software_version/;
-use MartUtils;
+use MartUtils qw(generate_dataset_name_from_db_name);
 use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
 
 sub run {

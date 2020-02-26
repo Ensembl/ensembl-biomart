@@ -45,6 +45,13 @@ sub run {
     foreach my $table (keys %snp_som_cull_tables) {
       $self->cull_table($table, $snp_som_cull_tables{$table});
     }
+    my %snp_som_cull_columns = %{$self->param_required('snp_som_cull_columns')};
+    foreach my $table (keys %snp_som_cull_columns) {
+      foreach my $column (@{$snp_som_cull_columns{$table}})
+      {
+        $self->cull_column($table, $column);
+      }
+    }
   }
 
   
