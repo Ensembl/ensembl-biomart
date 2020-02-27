@@ -156,6 +156,9 @@ sub default_options {
 
     snp_som_cull_columns => {
       'snp_som__mart_transcript_variation__dm'   => ['pep_allele_string_2090','polyphen_prediction_2090','polyphen_score_2090','sift_prediction_2090','sift_score_2090'],
+      'snp_som__variation__main' => ['clinical_significance_2025','minor_allele_2025','minor_allele_count_2025','minor_allele_freq_2025'],
+      'snp_som__variation_feature__main' => ['clinical_significance_2025','minor_allele_2025','minor_allele_count_2025','minor_allele_freq_2025'],
+      'snp_som__variation_annotation__dm' => ['associated_gene_2035','associated_variant_risk_allele_2035','description_20100','external_reference_20100','name_20100','p_value_2035','study_type_20100','variation_names_2035'],
     },
 
     snp_som_cull_tables => {
