@@ -29,7 +29,7 @@ package MartUtils;
 use DBI;
 use Carp;
 use Log::Log4perl qw(:easy);
-use DbiUtils;
+use DbiUtils qw(get_string query_to_strings);
 use Exporter qw/import/;
 our @EXPORT_OK = qw(get_ensembl_db get_ensembl_db_collection get_ensembl_db_single_parasite get_dataset_names get_species_name_for_dataset get_sql_name_for_dataset generate_dataset_name_from_db_name get_datasets get_ensembl_db_single);
 
