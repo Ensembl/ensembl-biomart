@@ -30,7 +30,7 @@ use List::MoreUtils qw(any);
 use Data::Dumper;
 use FindBin;
 use lib "$FindBin::Bin/../modules";
-use DbiUtils;
+use DbiUtils qw(get_string get_tables get_databases query_to_strings);
 use MartUtils;
 use Getopt::Long;
 
