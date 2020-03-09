@@ -94,12 +94,6 @@ sub generate_dataset_name_from_db_name {
     my ($database) = @_;
     ( my $dataset = $database ) =~ m/^(.)[^_]+_?([a-z0-9])?[a-z0-9]+?_([a-z0-9]+)_[a-z]+_[0-9]+_?[0-9]+?_[0-9]+$/;
     $dataset = defined $2 ? "$1$2$3" : "$1$3";
-    # If dataset is longer than 18 char, we won't be able to generate gene mart tables
-    # like dataset_gene_ensembl__protein_feature_superfamily__dm as this will exceed
-    # the MySQL table name limit of 64 char.
-      if (length($dataset) > 18) {
-        die "$dataset name is too long. Check with data team and remove this species $database from the include ini file\n";
-      }
     return $dataset;
 }
 
