@@ -24,7 +24,7 @@ use Carp;
 use Log::Log4perl qw(:easy);
 use FindBin;
 use lib "$FindBin::Bin/../modules";
-use DbiUtils;
+use DbiUtils qw(get_string query_to_strings row_count);
 use MartUtils qw(get_dataset_names get_species_name_for_dataset get_sql_name_for_dataset);
 use Cwd;
 use File::Copy;

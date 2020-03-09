@@ -24,7 +24,7 @@ use List::MoreUtils qw(any);
 use Data::Dumper;
 use FindBin;
 use lib "$FindBin::Bin/../modules";
-use DbiUtils;
+use DbiUtils qw(drop_table get_string get_strings get_rows get_row);
 use MartUtils;
 use Getopt::Long;
 use POSIX;
