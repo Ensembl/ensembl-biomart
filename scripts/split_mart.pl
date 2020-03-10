@@ -29,8 +29,8 @@ use List::MoreUtils qw(any);
 use Data::Dumper;
 use FindBin;
 use lib "$FindBin::Bin/../modules";
-use DbiUtils;
-use MartUtils;
+use DbiUtils qw(create_table_from_query drop_and_create_table drop_table create_table get_string get_tables get_databases query_to_hash has_column row_count);
+use MartUtils qw(get_ensembl_db get_ensembl_db_collection get_datasets);
 use Getopt::Long qw(:config no_ignore_case);
 use Log::Log4perl qw(:easy);
 

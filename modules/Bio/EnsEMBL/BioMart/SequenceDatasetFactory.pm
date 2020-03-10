@@ -11,8 +11,8 @@ use Bio::EnsEMBL::DBSQL::DBAdaptor;
 use Bio::EnsEMBL::DBSQL::DBConnection;
 use Bio::EnsEMBL::Registry;
 use Bio::EnsEMBL::ApiVersion qw/software_version/;
-use MartUtils;
-use Bio::EnsEMBL::BioMart::Mart qw(genome_to_exclude);
+use MartUtils qw(generate_dataset_name_from_db_name);
+use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
 
 sub run {
   my $self    = shift @_;
@@ -62,15 +62,15 @@ create table if not exists $mart.dataset_names (
   my $output_ids = [];
   my $division   = $self->param('division');
   my $pId;
-  #List of species to exclude from the sequence mart
-  my $excluded_species;
+  #List of species to include in the vertebreates sequence mart
+  my $included_species;
   if    ( $division eq 'EnsemblProtists' ) { $pId = 10000; }
   elsif ( $division eq 'EnsemblPlants' )   { $pId = 20000; }
   elsif ( $division eq 'EnsemblMetazoa' ) { $pId = 30000;  }
   elsif ( $division eq 'EnsemblFungi' )    { $pId = 40000;  }
   elsif ( $division eq 'Vectorbase' ) { $pId = 50000; }
   elsif ( $division eq 'Parasite' )   { $pId = 60000 }
-  elsif ( $division eq 'EnsemblVertebrates' ) { $pId = 0; $excluded_species = genome_to_exclude($division,$self->param('base_dir'));}
+  elsif ( $division eq 'EnsemblVertebrates' ) { $pId = 0; $included_species = genome_to_include($division,$self->param('base_dir'));}
 
   for my $dba ( @{$dbas} ) {
 
@@ -86,7 +86,9 @@ create table if not exists $mart.dataset_names (
     # Excluding species from the sequence mart for vertebrates
     if ($division eq 'EnsemblVertebrates'){
       my $production_name  = $dba->get_MetaContainer()->get_production_name();
-      if (grep( /$production_name/, @$excluded_species) ){
+      # In the vertebrates sequence mart we want to include the mouse strains for the mouse mart
+      if (!grep( /$production_name/, @$included_species) and $production_name !~ m/^mus_musculus_/){
+        $self->warning("Excluding $production_name from sequence mart");
         $dba->dbc()->disconnect_if_idle();
         next;
       }
