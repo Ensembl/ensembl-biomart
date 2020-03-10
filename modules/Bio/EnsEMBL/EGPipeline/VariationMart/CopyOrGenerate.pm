@@ -20,8 +20,9 @@ package Bio::EnsEMBL::EGPipeline::VariationMart::CopyOrGenerate;
 
 use strict;
 use warnings;
-
 use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
+use MartUtils qw(generate_dataset_name_from_db_name);
+use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
 
 sub param_defaults {
   return {
@@ -45,10 +46,21 @@ sub write_output {
   my $copy_all          = $self->param('copy_all');
   my $division_name     = $self->param('division_name');
   my $species_suffix    = $self->param('species_suffix');
+  my $ensembl_cvs_root_dir = $self->param('ensembl_cvs_root_dir');
   my $mart_table_prefix;
-  
-  $species =~ /^(.)[^_]+_?([a-z0-9])?[a-z0-9]+?_([a-z0-9]+)$/;
-  $mart_table_prefix = defined $2 ? "$1$2$3" : "$1$3";
+  my $included_species;
+  # Use division to find the release in metadata database
+  if ($division_name eq "vertebrates"){
+    # Load species to exclude from the Vertebrates marts
+    $included_species = genome_to_include($division_name,$ensembl_cvs_root_dir);
+    if (!grep( /$species/, @$included_species) ){
+      $self->warning("Excluding $species from variation mart");
+      return;
+    }
+  }
+
+  my $database = $self->get_DBAdaptor('core')->dbc()->dbname;
+  $mart_table_prefix = generate_dataset_name_from_db_name($database);
   
   if ($species_suffix ne '') {
     $mart_table_prefix .= $species_suffix;

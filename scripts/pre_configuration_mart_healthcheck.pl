@@ -19,15 +19,15 @@ use DBI;
 use POSIX;
 use Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor;
 use Bio::EnsEMBL::MetaData::Base qw(process_division_names fetch_and_set_release);
-use MartUtils;
-use Bio::EnsEMBL::BioMart::Mart qw(genome_to_exclude);
+use MartUtils qw(generate_dataset_name_from_db_name);
+use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
 
 
 my ( $old_dbname, $olduser,    $oldpass, $oldhost,
      $oldport,    $new_dbname, $newuser, $newpass,
      $newhost,    $newport,    $mart,    $oldrel,
      $newrel,     $dumpdir,    $percent, $empty_column,
-     $metadata_dbname, $metadatauser, $metadatapass, $metadatahost, $metadataport );
+     $metadata_dbname, $metadatauser, $metadatapass, $metadatahost, $metadataport, $grch37 );
 
 $oldhost = 'mysql-ens-general-prod-1';
 $newhost = 'mysql-ens-sta-1';
@@ -54,12 +54,13 @@ GetOptions( 'old_dbname=s'   => \$old_dbname,
             'dumpdir=s'      => \$dumpdir,
             'percent=s'      => \$percent,
             'mart=s'         => \$mart,
-            'empty_column=s' => \$empty_column,
+            'empty_column=i' => \$empty_column,
             'metadata_dbname=s'   => \$metadata_dbname,
             'metadatauser=s'      => \$metadatauser,
             'metadatapass=s'      => \$metadatapass,
             'metadatahost=s'      => \$metadatahost,
-            'metadataport=i'      => \$metadataport );
+            'metadataport=i'      => \$metadataport,
+            'grch37=i'            => \$grch37 );
 
 if ( !defined($new_dbname) ) {
   $new_dbname = $mart . "_" . $newrel;
@@ -304,19 +305,12 @@ foreach my $rel ( "new", "old" ) {
   foreach my $old_sp ( sort keys %old_species ) {
     if ( !defined( $new_species{$old_sp} ) ) {
       print SPECIES "Cannot find $old_sp in new database\n";
-
-      #
-      # Rhoda wants all tables listed anyway
-      #      delete $old_species{$old_sp};  # no point analysing this any more
     } else {
       $all_species{$old_sp} = 1;
     }
   }
   foreach my $new_sp ( sort keys %new_species ) {
-    if ( !defined( $old_species{$new_sp} ) ) {
-      print "############## Cannot find $new_sp in old database. Is this new?\n";
-      # delete $new_species{$new_sp};  # no point analysing this any more
-    } else {
+    if ( defined( $old_species{$new_sp} ) ) {
       $all_species{$new_sp} = 1;
     }
   }
@@ -335,20 +329,23 @@ foreach my $rel ( "new", "old" ) {
     $division = $1;
   }
   my $div_gene_mart = $division."_mart";
-  # Only run this test for gene, sequence and variation marts
-  if ($new_dbname =~ 'ensembl_mart' or $new_dbname=~ $div_gene_mart or $new_dbname =~ 'sequence' or $new_dbname =~ 'snp'){
-    my ($metadata_species_core, $metadata_species_variation) = metadata_species_list($metadata_dbname, $metadatahost, $metadatapass, $metadataport, $metadatauser, $newrel, $new_dbname, $division);
-    if ($new_dbname =~ 'snp'){
-      $metadata_species = $metadata_species_variation;
-    }
-    else{
-      $metadata_species = $metadata_species_core;
-    }
-    # Compare list of species in the new mart with species from the metadata db
-    # Report any species missing in the marts
-    foreach my $species (sort keys %{$metadata_species}){
-      if (!defined ($new_species{$species})){
-        print SPECIES "Cannot find $species in new database but is present in ensembl_metadata as ".$metadata_species->{$species}."\n";
+  # We don't want to run this test for GRCh37 since we only have human.
+  if (!defined $grch37){
+    # Only run this test for gene, sequence and variation marts
+    if ($new_dbname =~ 'ensembl_mart' or $new_dbname=~ $div_gene_mart or $new_dbname =~ 'sequence' or $new_dbname =~ 'snp'){
+      my ($metadata_species_core, $metadata_species_variation) = metadata_species_list($metadata_dbname, $metadatahost, $metadatapass, $metadataport, $metadatauser, $newrel, $new_dbname, $division);
+      if ($new_dbname =~ 'snp'){
+        $metadata_species = $metadata_species_variation;
+      }
+      else{
+        $metadata_species = $metadata_species_core;
+      }
+      # Compare list of species in the new mart with species from the metadata db
+      # Report any species missing in the marts
+      foreach my $species (sort keys %{$metadata_species}){
+        if (!defined ($new_species{$species})){
+          print SPECIES "Cannot find $species in new database but is present in ensembl_metadata as ".$metadata_species->{$species}."\n";
+        }
       }
     }
   }
@@ -423,13 +420,15 @@ sub metadata_species_list {
   my $rdba = $dba->get_DataReleaseInfoAdaptor();
   my %metadata_species_core;
   my %metadata_species_variation;
-  my ($release,$release_info,$excluded_species);
+  my ($release,$release_info,$included_species);
   # Get the release version
   ($rdba,$gdba,$release,$release_info) = fetch_and_set_release($newrel,$rdba,$gdba);
   #Get both division short and full name from a division short or full name
   my ($division,$division_name)=process_division_names($div);
-  # Load species to exclude from the Vertebrates marts
-  $excluded_species = genome_to_exclude($division_name);
+  if ($division eq "vertebrates"){
+    # Load species to include in the Vertebrates marts
+    $included_species = genome_to_include($division_name);
+  }
   # Get all the genomes for a given division and release
   my $genomes = $gdba->fetch_all_by_division($division_name);
   foreach my $genome (@$genomes){
@@ -444,9 +443,9 @@ sub metadata_species_list {
         next;
     }
     # For Vertebrates, we are excluding some species from the marts
-    if ($division eq "vertebrates"){
+    if ($division eq "vertebrates" and $new_dbname !~ "mouse_mart"){
         my $genome_name = $genome->name();
-        if (grep( /$genome_name/, @$excluded_species) ){
+        if (!grep( /$genome_name/, @$included_species) ){
             next;
         }
     }
@@ -472,7 +471,10 @@ sub metadata_species_list {
       }
       # Get variation and funcgen databases
       elsif ($database->type eq "variation"){
+        # This will exclude empty variation databases like chlorocebus_sabaeus and salmo_salar
+        if ($genome->has_variations){
           $metadata_species_variation{$mart_name."_snp"} = $genome->name;
+        }
       }
     }
   }

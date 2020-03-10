@@ -154,6 +154,13 @@ sub default_options {
       'snp__mart_transcript_variation__dm'     => ['polyphen_score_2090','sift_score_2090'],
     },
 
+    snp_som_cull_columns => {
+      'snp_som__mart_transcript_variation__dm'   => ['pep_allele_string_2090','polyphen_prediction_2090','polyphen_score_2090','sift_prediction_2090','sift_score_2090'],
+      'snp_som__variation__main' => ['clinical_significance_2025','minor_allele_2025','minor_allele_count_2025','minor_allele_freq_2025'],
+      'snp_som__variation_feature__main' => ['clinical_significance_2025','minor_allele_2025','minor_allele_count_2025','minor_allele_freq_2025'],
+      'snp_som__variation_annotation__dm' => ['associated_gene_2035','associated_variant_risk_allele_2035','description_20100','external_reference_20100','name_20100','p_value_2035','study_type_20100','variation_names_2035'],
+    },
+
     snp_som_cull_tables => {
       'snp_som__population_genotype__dm'     => 'name_2019',
       'snp_som__variation_annotation__dm'    => 'name_2021',
@@ -288,6 +295,7 @@ sub pipeline_analyses {
                               never_skip_genotypes  => $self->o('never_skip_genotypes'),
                               division_name         => $self->o('division_name'),
                               species_suffix      => $self->o('species_suffix'),
+                              ensembl_cvs_root_dir => $self->o('ensembl_cvs_root_dir')
                             },
       -max_retry_count   => 0,
       -rc_name           => 'normal',
@@ -458,6 +466,7 @@ sub pipeline_analyses {
       -parameters        => {
                               snp_cull_tables => $self->o('snp_cull_tables'),
                               snp_cull_columns => $self->o('snp_cull_columns'),
+                              snp_som_cull_columns => $self->o('snp_som_cull_columns'),
                               snp_som_cull_tables => $self->o('snp_som_cull_tables'), 
                               sv_cull_tables  => $self->o('sv_cull_tables'),
                               sv_som_cull_tables => $self->o('sv_som_cull_tables'),

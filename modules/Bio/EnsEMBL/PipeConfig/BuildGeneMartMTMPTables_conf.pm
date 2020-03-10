@@ -110,7 +110,33 @@ sub pipeline_analyses {
       -max_retry_count => 0,
       -rc_name         => 'normal',
       -flow_into       => {
+                            '4' => 'CheckExcludedSpeciesVariation',
+                            '6' => 'CheckExcludedSpeciesRegulation',
+                          }
+    },
+    {
+      -logic_name      => 'CheckExcludedSpeciesVariation',
+      -module          => 'Bio::EnsEMBL::BioMart::CheckExcludedSpecies',
+      -max_retry_count => 0,
+      -parameters        => {
+                        base_dir     => $self->o('base_dir'),
+                        division    => $self->o('division'),
+                      },
+      -rc_name         => 'normal',
+      -flow_into       => {
                             '4' => 'CreateMTMPVariation',
+                          }
+    },
+    {
+      -logic_name      => 'CheckExcludedSpeciesRegulation',
+      -module          => 'Bio::EnsEMBL::BioMart::CheckExcludedSpecies',
+      -max_retry_count => 0,
+      -parameters        => {
+                        base_dir     => $self->o('base_dir'),
+                        division    => $self->o('division'),
+                      },
+      -rc_name         => 'normal',
+      -flow_into       => {
                             '6' => 'CreateMTMPProbestuffHelper',     
                           }
     },

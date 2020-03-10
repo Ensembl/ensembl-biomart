@@ -22,6 +22,7 @@ use strict;
 use warnings;
 
 use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
+use MartUtils qw(generate_dataset_name_from_db_name);
 
 sub run {
   my ($self) = @_;
@@ -29,8 +30,8 @@ sub run {
   my $species = $self->param_required('species');
   
   if ($self->param('drop_mart_tables')) {
-    $species =~ /^(\w).+_(\w+)$/;
-    my $mart_table_prefix = "$1$2_eg";
+    my $database = $self->get_DBAdaptor('core')->dbc()->dbname;
+    my $mart_table_prefix = generate_dataset_name_from_db_name($database);
     
     my $mart_dbh = $self->mart_dbh();
     

@@ -26,7 +26,10 @@ limitations under the License.
 
 use warnings;
 use strict;
+package DbiUtils;
 use DBI;
+use Exporter qw/import/;
+our @EXPORT_OK = qw(create_table_from_query create_indices get_indexed_columns table_exists drop_and_create_table drop_table create_table get_string get_strings get_rows get_row get_hash get_tables get_databases query_to_strings query_to_hash has_column row_count);
 
 sub create_table_from_query {
     my ($db_handle,$src_mart,$src_table,$target_mart,$target_table,$query) = @_;
