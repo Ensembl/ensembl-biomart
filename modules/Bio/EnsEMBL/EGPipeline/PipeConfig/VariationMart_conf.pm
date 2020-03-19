@@ -65,7 +65,7 @@ sub default_options {
     optimize_tables       => 0,
     population_threshold  => 100,
     species_suffix        => '',
-    max_dropdown          => '',
+    max_dropdown          => '20000',
     genomic_features_dbname => '',
 
     
