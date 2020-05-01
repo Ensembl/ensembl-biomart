@@ -43,13 +43,21 @@ sub default_options {
            'pass'      => undef,
            'port'      => undef,
            'host'      => undef,
+           'olduser'   => undef,
+           'oldport'   => undef,
+           'oldhost'   => undef,
            'mart'      => undef,
-           'division'      => undef,
+           'division'  => undef,
            'datasets'  => [],
            'compara'   => undef,
            'base_dir'  => getcwd,
-	   'suffix' => '',
-           'base_name' => 'gene' };
+	         'suffix' => '',
+           'base_name' => 'gene',
+           'test_dir' => '/hps/nobackup2/production/ensembl/'.$self->o('ENV', 'USER').'/mart_test',
+           'old_mart' => undef,
+           'old_release' => undef,
+           'new_release' => undef,
+           'grch37' => 0 };
 }
 
 =head2 pipeline_wide_parameters
@@ -61,6 +69,15 @@ sub pipeline_wide_parameters {
     %{ $self->SUPER::pipeline_wide_parameters
       } # here we inherit anything from the base class, then add our own stuff
   };
+}
+
+sub pipeline_create_commands {
+  my ($self) = @_;
+
+  return [
+    @{$self->SUPER::pipeline_create_commands},
+    'mkdir -p '.$self->o('test_dir'),
+  ];
 }
 
 =head2 pipeline_analyses
@@ -125,6 +142,7 @@ sub pipeline_analyses {
       { -logic_name  => 'generate_meta',
         -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
         -meadow_type => 'LSF',
+        -flow_into    => 'run_tests',
         -parameters  => {
                          'cmd' =>
                          'perl #base_dir#/ensembl-biomart/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #base_dir#/ensembl-biomart/scripts/templates/sequence_template_template.xml  -ds_basename genomic_sequence -template_name sequences',
@@ -134,7 +152,43 @@ sub pipeline_analyses {
                          'host'     => $self->o('host'),
                          'port'     => $self->o('port'),
                          'base_dir' => $self->o('base_dir') },
-        -analysis_capacity => 1 }
+        -analysis_capacity => 1 },
+      { -logic_name  => 'run_tests',
+        -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+        -meadow_type => 'LSF',
+        -flow_into    => 'check_tests',
+        -parameters  => {
+                         'cmd' =>
+                         'cd #test_dir#;perl #base_dir#/ensembl-biomart/scripts/pre_configuration_mart_healthcheck.pl -newuser #user# -newpass #pass# -newport #port# -newhost #host# -olduser #olduser# -oldport #oldport# -oldhost #oldhost# -new_dbname #mart# -old_dbname #old_mart# -old_rel #old_release# -new_rel #new_release# -empty_column 1 -grch37 #grch37#',
+                         'mart'   => $self->o('mart'),
+                         'user'     => $self->o('user'),
+                         'pass'     => $self->o('pass'),
+                         'host'     => $self->o('host'),
+                         'port'     => $self->o('port'),
+                         'olduser'     => $self->o('olduser'),
+                         'oldhost'     => $self->o('oldhost'),
+                         'oldport'     => $self->o('oldport'),
+                         'old_mart'     => $self->o('old_mart'),
+                         'test_dir'    => $self->o('test_dir'),
+                         'old_release' => $self->o('old_release'),
+                         'new_release' => $self->o('new_release'),
+                         'base_dir' => $self->o('base_dir'),
+                         'grch37' => $self->o('grch37') },
+        -analysis_capacity => 1 },
+      { -logic_name  => 'check_tests',
+        -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+        -meadow_type => 'LSF',
+        -max_retry_count   => 0,
+        -parameters  => {
+                         'cmd' =>
+                         'EXIT_CODE=0;failed_tests=`find #test_dir#/#old_mart#_#oldhost#_vs_#mart#_#host#.* -type f ! -empty -print`;if [ -n "$failed_tests" ]; then >&2 echo "Some tests have failed please check ${failed_tests}";EXIT_CODE=1;fi;exit $EXIT_CODE',
+                         'mart'   => $self->o('mart'),
+                         'host'     => $self->o('host'),
+                         'oldhost'     => $self->o('oldhost'),
+                         'old_mart'     => $self->o('old_mart'),
+                         'test_dir'    => $self->o('test_dir'),
+        -analysis_capacity => 1 },
+      }
       
   ];
   return $analyses;
