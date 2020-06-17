@@ -171,10 +171,8 @@
       <FilterCollection displayName="Regulatory consequence" internalName="consequence_type_regulation" useDefault="true">
         <FilterDescription displayType="list" hidden="false" internalName="regulatory_so_consequence_name" legal_qualifiers="=" multipleValues="1" pointerDataset="closure_SO_regulation" pointerFilter="so_regulation_parent_name" pointerInterface="default" qualifier="=" style="menu" type="list" useDefault="true"/>
       </FilterCollection>
-      <FilterCollection displayName="Motif Name" internalName="motif_name" useDefault="true">
-        <FilterDescription displayName="Motif name" displayType="list" field="motif_name_20125" internalName="motif_name" key="variation_feature_id_2026_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="motif_feature_variation__dm" type="list" useDefault="true">
-          <SpecificFilterContent internalName="replaceMe"/>
-        </FilterDescription>
+      <FilterCollection displayName="Filter by Binding matrix stable ID(s) (e.g. ENSPFM0402) [Max 500 advised]" internalName="motif_name" useDefault="true">
+        <FilterDescription displayName="Filter by Binding matrix stable ID(s) (e.g. ENSPFM0402) [Max 500 ADVISED]" displayType="text" field="motif_name_20125" hidden="false" internalName="motif_name" key="variation_feature_id_2026_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="motif_feature_variation__dm" type="list" useDefault="true"/>
       </FilterCollection>
       <FilterCollection displayName="Motif consequence" internalName="consequence_type_motif" useDefault="true">
         <FilterDescription displayType="list" hidden="false" internalName="motif_so_consequence_name" legal_qualifiers="=" multipleValues="1" pointerDataset="closure_SO_motif" pointerFilter="so_motif_parent_name" pointerInterface="default" qualifier="=" style="menu" type="list" useDefault="true"/>
@@ -283,7 +281,7 @@
         <AttributeDescription displayName="Motif feature consequence type" field="consequence_types_20125" internalName="motif_consequence_types" key="variation_feature_id_2026_key" maxLength="33" tableConstraint="motif_feature_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="High information position" field="in_informative_position_20125" internalName="motif_in_informative_position" key="variation_feature_id_2026_key" maxLength="1" tableConstraint="motif_feature_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Motif score change" field="motif_score_delta_20125" internalName="motif_score_delta" key="variation_feature_id_2026_key" maxLength="12" tableConstraint="motif_feature_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Motif name" field="motif_name_20125" internalName="motif_name" key="variation_feature_id_2026_key" maxLength="255" tableConstraint="motif_feature_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Binding matrix stable ID" field="motif_name_20125" internalName="motif_name" key="variation_feature_id_2026_key" maxLength="255" tableConstraint="motif_feature_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Motif position" field="motif_start_20125" internalName="motif_start" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="motif_feature_variation__dm" useDefault="true"/>
       </AttributeCollection>
     </AttributeGroup>

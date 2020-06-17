@@ -262,9 +262,6 @@ foreach my $dataset (@datasets) {
   }
   $logger->debug("$dataset derived from $ens_db");
   my $ens_dbh = $src_dbs{$ens_db}->dbc()->db_handle();
-  my $meta_insert = $ens_dbh->prepare(
-"INSERT IGNORE INTO meta(species_id,meta_key,meta_value) VALUES(?,'species.biomart_dataset',?)"
-  );
 
   # get hash of species IDs
   my @species_ids = query_to_strings( $ens_dbh,
@@ -308,13 +305,6 @@ foreach my $dataset (@datasets) {
                             $assembly,
                             $gb_version,
                             $has_chromosomes );
-
-    # Add a meta key on the core database
-    # Do that only when templating gene mart - not SNP mart nor e! marts
-    if ( ($mart_db !~ /snp/i) and ($div ne 'vertebrates') ) {
-      $meta_insert->execute( $species_id, $dataset );
-    }
-
   } ## end foreach my $species_id (@species_ids)
   $ens_dbh->disconnect();
 
