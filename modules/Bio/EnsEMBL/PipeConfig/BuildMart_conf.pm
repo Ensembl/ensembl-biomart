@@ -22,90 +22,58 @@ package Bio::EnsEMBL::PipeConfig::BuildMart_conf;
 
 use strict;
 use warnings;
-use Data::Dumper;
-use Bio::EnsEMBL::Hive::PipeConfig::HiveGeneric_conf;
- # All Hive databases configuration files should inherit from HiveGeneric, directly or indirectly
+
 use base ('Bio::EnsEMBL::Hive::PipeConfig::EnsemblGeneric_conf');
-use Bio::EnsEMBL::ApiVersion;
-use Cwd;
 
 sub resource_classes {
   my ($self) = @_;
-  return { 'default' => { 'LSF' => '-q production-rh74' },
-           'mem'     => { 'LSF' => '-q production-rh74 -M 20000 -R "rusage[mem=20000]"'} };
-}
-
-# Force an automatic loading of the registry in all workers.
-sub beekeeper_extra_cmdline_options {
-  my $self = shift;
-  return "-reg_conf ".$self->o("registry");
-}
-
-# Ensures that species output parameter gets propagated implicitly.
-sub hive_meta_table {
-  my ($self) = @_;
-
   return {
-    %{$self->SUPER::hive_meta_table},
-    'hive_use_param_stack'  => 1,
+    'default' => {'LSF' => '-q production-rh74'},
+    '2GB'     => {'LSF' => '-q production-rh74 -M  2000 -R "rusage[mem=2000]"'},
+    '16GB'    => {'LSF' => '-q production-rh74 -M 16000 -R "rusage[mem=16000]"'}
   };
 }
 
 sub default_options {
   my ($self) = @_;
   return {
-    %{ $self->SUPER::default_options },
-           'user'      => undef,
-           'pass'      => undef,
-           'port'      => undef,
-           'host'      => undef,
-           'olduser'   => undef,
-           'oldport'   => undef,
-           'oldhost'   => undef,
-           'mart'      => undef,
-           'datasets'  => [],
-           'compara'   => undef,
-           'base_dir'  => getcwd,
-	         'template' => undef,
-           'base_name' => 'gene',
-           'template_name' => 'genes',
-           'division' => '',
-           'registry'      => $self->o('registry'),
-           'genomic_features_mart' => '',
-           'max_dropdown' => '256',
-           'tables_dir' => $self->o('base_dir').'/ensembl-biomart/gene_mart/tables',
-           'run_all'    => 0,
-           'species'      => [],
-           'antispecies'  => [],
-           'partition_size' => 1000,
-           'test_dir' => '/hps/nobackup2/production/ensembl/'.$self->o('ENV', 'USER').'/mart_test',
-           'old_mart' => undef,
-           'old_release' => undef,
-           'new_release' => undef,
-           'grch37' => 0,
+    %{$self->SUPER::default_options},
+
+    species => [],
+
+    base_dir => $self->o('ENV', 'BASE_DIR'),
+
+    template_name => 'genes',
+    max_dropdown  => '256',
+
+    tables_dir => $self->o('base_dir').'/ensembl-biomart/gene_mart/tables',
+  
+    partition_size => 1000,
+  
+    test_dir => '/hps/nobackup2/production/ensembl/'.$self->o('ENV', 'USER').'/mart_test',
+    grch37   => 0,
 
     concat_columns => {
-      'gene__main'     => ['stable_id_1023','version_1020'],
-      'transcript__main'    => ['stable_id_1066','version_1064'],
-      'translation__main'      => ['stable_id_1070','version_1068'],
-        },
-    tables => [
-      '_mart_transcript_variation__dm',
-      ],
-    som_tables => [
-      '_mart_transcript_variation_som__dm',
-      ],
-  },
+      'gene__main'        => ['stable_id_1023','version_1020'],
+      'transcript__main'  => ['stable_id_1066','version_1064'],
+      'translation__main' => ['stable_id_1070','version_1068'],
+    },
+
+    snp_tables => ['_mart_transcript_variation__dm'],
+    snp_som_tables => ['_mart_transcript_variation_som__dm'],
+  };
 }
 
-=head2 pipeline_wide_parameters
-=cut
+sub beekeeper_extra_cmdline_options {
+  my $self = shift;
+  return "-reg_conf ".$self->o("registry");
+}
 
-sub pipeline_wide_parameters {
+sub hive_meta_table {
   my ($self) = @_;
   return {
-    %{ $self->SUPER::pipeline_wide_parameters
-      } # here we inherit anything from the base class, then add our own stuff
+    %{$self->SUPER::hive_meta_table},
+    'hive_use_param_stack'  => 1,
   };
 }
 
@@ -118,288 +86,161 @@ sub pipeline_create_commands {
   ];
 }
 
-
-=head2 pipeline_analyses
-=cut
+sub pipeline_wide_parameters {
+  my ($self) = @_;
+  return {
+    %{$self->SUPER::pipeline_wide_parameters},
+    mart         => $self->o('mart'),
+    host         => $self->o('host'),
+    port         => $self->o('port'),
+    user         => $self->o('user'),
+    pass         => $self->o('pass'),
+    base_dir     => $self->o('base_dir'),
+    registry     => $self->o('registry'),
+    division     => $self->o('division'),
+    species      => $self->o('species'),
+    base_name    => $self->o('base_name'),
+    mart_host    => $self->o('host'),
+    mart_port    => $self->o('port'),
+    mart_user    => $self->o('user'),
+    mart_pass    => $self->o('pass'),
+    mart_db_name => $self->o('mart'),
+    tables_dir   => $self->o('tables_dir'),
+  };
+}
 
 sub pipeline_analyses {
   my ($self) = @_;
   my $analyses = [
-    { -logic_name  => 'generate_names',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-'perl #base_dir#/ensembl-biomart/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -div #division# -registry #registry#',
-        'mart'     => $self->o('mart'),
-        'user'     => $self->o('user'),
-        'pass'     => $self->o('pass'),
-        'host'     => $self->o('host'),
-        'port'     => $self->o('port'),
-        'base_dir' => $self->o('base_dir'),
-        'division'  => $self->o('division'),
-        'registry'  => $self->o('registry') },
-      -input_ids         => [ {} ],
-      -analysis_capacity => 1,
-      -flow_into => {1 => 'dataset_factory'},
+    {
+      -logic_name => 'generate_names',
+      -module     => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -input_ids  => [ {} ],
+      -parameters => {
+        cmd => 'perl #base_dir#/ensembl-biomart/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -div #division# -registry #registry#',
       },
-      {
-        -logic_name => 'dataset_factory',
-        -module     => 'Bio::EnsEMBL::BioMart::DatasetFactory',
-        -parameters => { 'mart'     => $self->o('mart'),
-                       'user'     => $self->o('user'),
-                       'pass'     => $self->o('pass'),
-                       'host'     => $self->o('host'),
-                       'port'     => $self->o('port'),
-                       'datasets' => $self->o('datasets'),
-                       'base_dir' => $self->o('base_dir'),
-                       'registry' => $self->o('registry'),
-                       'species' => $self->o('species') },
-        -flow_into => {
-           '1->A' => [ 'calculate_sequence', 'add_compara',
-                             'add_xrefs', 'add_slims','add_external_synonyms', 'AddExtraMartIndexesGene', 'AddExtraMartIndexesTranscript', 'AddExtraMartIndexesTranslation','ConcatStableIDColumns', 'ScheduleSpecies'],
-           'A->2' => 'tidy_tables' },
+      -flow_into  => {
+                       1 => 'dataset_factory'
+                     },
     },
     {
-      -logic_name  => 'calculate_sequence',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-'perl #base_dir#/ensembl-biomart/scripts/calculate_sequence_data.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -dataset_basename #base_name# -registry #registry#',
-        'mart'      => $self->o('mart'),
-        'user'      => $self->o('user'),
-        'pass'      => $self->o('pass'),
-        'host'      => $self->o('host'),
-        'port'      => $self->o('port'),
-        'registry' => $self->o('registry'),
-        'base_dir'  => $self->o('base_dir'),
-        'base_name' => $self->o('base_name')
-        },
-      -rc_name          => 'mem',
+      -logic_name => 'dataset_factory',
+      -module     => 'Bio::EnsEMBL::BioMart::DatasetFactory',
+      -parameters => {},
+      -flow_into  => {
+                      '2->A' => [
+                        'calculate_sequence',
+                        'add_compara',
+                        'add_xrefs',
+                        'add_slims',
+                        'add_external_synonyms',
+                        'AddExtraMartIndexesGene',
+                        'AddExtraMartIndexesTranscript',
+                        'AddExtraMartIndexesTranslation',
+                        'ConcatStableIDColumns',
+                        'SpeciesFactory'
+                      ],
+                      'A->1' => 'tidy_tables'
+                     },
+    },
+    {
+      -logic_name => 'calculate_sequence',
+      -module     => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -parameters => {
+        cmd => 'perl #base_dir#/ensembl-biomart/scripts/calculate_sequence_data.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -dataset_basename #base_name# -registry #registry#',
+      },
+      -analysis_capacity => 10,
+      -rc_name => '2GB',
+    },
+    {
+      -logic_name => 'add_compara',
+      -module     => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -parameters => {
+        cmd => 'perl #base_dir#/ensembl-biomart/scripts/add_compara.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -compara #compara# -dataset #dataset# -name #base_name#',
+        compara => $self->o('compara'),
+      },
       -analysis_capacity => 10
     },
     {
-      -logic_name  => 'add_compara',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-'perl #base_dir#/ensembl-biomart/scripts/add_compara.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -compara #compara# -dataset #dataset# -name #base_name#',
-        'mart'     => $self->o('mart'),
-        'user'     => $self->o('user'),
-        'pass'     => $self->o('pass'),
-        'host'     => $self->o('host'),
-        'port'     => $self->o('port'),
-        'compara'  => $self->o('compara'),
-        'base_dir' => $self->o('base_dir'),
-        'base_name' => $self->o('base_name') },
-      -analysis_capacity => 10
-    },
-    {
-      -logic_name  => 'tidy_tables',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -flow_into => {1 =>'optimize'},
-      -parameters  => {
-        'cmd' =>
-'perl #base_dir#/ensembl-biomart/scripts/tidy_tables.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',
-        'mart'     => $self->o('mart'),
-        'user'     => $self->o('user'),
-        'pass'     => $self->o('pass'),
-        'host'     => $self->o('host'),
-        'port'     => $self->o('port'),
-        'base_dir' => $self->o('base_dir') },
-      -analysis_capacity => 1
-    },
-    {
-      -logic_name  => 'add_xrefs',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-'perl #base_dir#/ensembl-biomart/scripts/generate_ontology_extension.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset#',
-        'mart'     => $self->o('mart'),
-        'user'     => $self->o('user'),
-        'pass'     => $self->o('pass'),
-        'host'     => $self->o('host'),
-        'port'     => $self->o('port'),
-        'base_dir' => $self->o('base_dir') },
+      -logic_name => 'add_xrefs',
+      -module     => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -parameters => {
+        cmd => 'perl #base_dir#/ensembl-biomart/scripts/generate_ontology_extension.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset#',
+      },
       -analysis_capacity => 10,
     },
     {
-      -logic_name  => 'add_slims',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-'perl #base_dir#/ensembl-biomart/scripts/generate_slim.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -registry #registry# -name #base_name#',
-        'mart'     => $self->o('mart'),
-        'user'     => $self->o('user'),
-        'pass'     => $self->o('pass'),
-        'host'     => $self->o('host'),
-        'port'     => $self->o('port'),
-        'base_dir' => $self->o('base_dir'),
-        'registry' => $self->o('registry'),
-        'base_name' => $self->o('base_name'),
-         },
+      -logic_name => 'add_slims',
+      -module     => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -parameters => {
+        cmd => 'perl #base_dir#/ensembl-biomart/scripts/generate_slim.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -registry #registry# -name #base_name#',
+      },
       -analysis_capacity => 10,
-      -rc_name          => 'mem',
     },
     {
-      -logic_name  => 'add_external_synonyms',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-'perl #base_dir#/ensembl-biomart/scripts/generate_external_synonym.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -reg_file #registry# -basename #base_name#',
-        'mart'     => $self->o('mart'),
-        'user'     => $self->o('user'),
-        'pass'     => $self->o('pass'),
-        'host'     => $self->o('host'),
-        'port'     => $self->o('port'),
-        'base_dir' => $self->o('base_dir'),
-        'registry' => $self->o('registry'),
-        'base_name' => $self->o('base_name'),
-         },
+      -logic_name => 'add_external_synonyms',
+      -module     => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -parameters => {
+        cmd => 'perl #base_dir#/ensembl-biomart/scripts/generate_external_synonym.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -dataset #dataset# -reg_file #registry# -basename #base_name#',
+      },
       -analysis_capacity => 10,
     },
     {
       -logic_name        => 'AddExtraMartIndexesGene',
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
       -parameters        => {
-                              tables_dir => $self->o('tables_dir'),
                               table => 'gene__main',
-                              mart_table_prefix => '#dataset#'."_".$self->o('base_name'),
-                              mart_host => $self->o('host'),
-                              mart_port => $self->o('port'),
-                              mart_user => $self->o('user'),
-                              mart_pass => $self->o('pass'),
-                              mart_db_name =>  $self->o('mart'),
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
-      -rc_name           => 'default',
     },
     {
       -logic_name        => 'AddExtraMartIndexesTranscript',
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
       -parameters        => {
-                              tables_dir => $self->o('tables_dir'),
                               table => 'transcript__main',
-                              mart_table_prefix => '#dataset#'."_".$self->o('base_name'),
-                              mart_host => $self->o('host'),
-                              mart_port => $self->o('port'),
-                              mart_user => $self->o('user'),
-                              mart_pass => $self->o('pass'),
-                              mart_db_name =>  $self->o('mart'),
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
-      -rc_name           => 'default',
     },
     {
       -logic_name        => 'AddExtraMartIndexesTranslation',
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
       -parameters        => {
-                              tables_dir => $self->o('tables_dir'),
                               table => 'translation__main',
-                              mart_table_prefix => '#dataset#'."_".$self->o('base_name'),
-                              mart_host => $self->o('host'),
-                              mart_port => $self->o('port'),
-                              mart_user => $self->o('user'),
-                              mart_pass => $self->o('pass'),
-                              mart_db_name =>  $self->o('mart'),
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
-      -rc_name           => 'default',
     },
     {
       -logic_name        => 'ConcatStableIDColumns',
       -module            => 'Bio::EnsEMBL::BioMart::ConcatColumns',
       -parameters        => {
-                              concat_columns => $self->o('concat_columns'),
-                              mart_table_prefix => '#dataset#'."_".$self->o('base_name')."__",
-                              mart_host => $self->o('host'),
-                              mart_port => $self->o('port'),
-                              mart_user => $self->o('user'),
-                              mart_pass => $self->o('pass'),
-                              mart_db_name =>  $self->o('mart'),
+                              concat_columns=> $self->o('concat_columns'),
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
-      -rc_name           => 'default',
     },
     {
-      -logic_name  => 'optimize',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -flow_into => {1 => 'generate_meta'},
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-'mysqlcheck -h#host# -u#user# -p#pass# -P#port# --optimize "#mart#"',
-        'mart' => $self->o('mart'),
-        'user' => $self->o('user'),
-        'pass' => $self->o('pass'),
-        'host' => $self->o('host'),
-        'port' => $self->o('port')
-        },
-      -analysis_capacity => 1
-    },
-    {
-      -logic_name  => 'generate_meta',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-        'perl #base_dir#/ensembl-biomart/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
-                       'mart'     => $self->o('mart'),
-                       'template'     => $self->o('template'),
-                       'user'     => $self->o('user'),
-                       'pass'     => $self->o('pass'),
-                       'host'     => $self->o('host'),
-                       'port'     => $self->o('port'),
-                       'base_dir' => $self->o('base_dir'),
-                       'template_name' => $self->o('template_name'),
-                       'genomic_features_mart' => $self->o('genomic_features_mart'),
-                       'max_dropdown' => $self->o('max_dropdown'),
-                       'base_name' => $self->o('base_name') },
-      -analysis_capacity => 1,
-      -rc_name           => 'mem',
-      -flow_into    => 'run_tests'
-    },
-    {
-      -logic_name      => 'ScheduleSpecies',
+      -logic_name      => 'SpeciesFactory',
       -module          => 'Bio::EnsEMBL::Production::Pipeline::Common::SpeciesFactory',
       -parameters      => {
-                            species     => $self->o('species'),
-                            antispecies => $self->o('antispecies'),
-                            division    => $self->o('division'),
-                            run_all     => $self->o('run_all'),
+                            species  => $self->o('species'),
+                            division => [$self->o('division')],
                           },
       -max_retry_count => 0,
-      -rc_name         => 'default',
       -flow_into       => {
                             '4' => 'CreateMartTranscriptVariationTable',
                           }
     },
-     {
+    {
       -logic_name        => 'CreateMartTranscriptVariationTable',
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartTables',
       -parameters        => {
-                              snp_tables        => $self->o('tables'),
-                              snp_som_tables    => $self->o('som_tables'),
-                              tables_dir        => $self->o('tables_dir'),
-                              mart_table_prefix => '#dataset#'."_".$self->o('base_name'),
+                              snp_tables        => $self->o('snp_tables'),
+                              snp_som_tables    => $self->o('snp_som_tables'),
                               variation_feature => 1,
-                              mart_host => $self->o('host'),
-                              mart_port => $self->o('port'),
-                              mart_user => $self->o('user'),
-                              mart_pass => $self->o('pass'),
-                              mart_db_name =>  $self->o('mart'),
-                              base_name => $self->o('base_name'),
-                              consequences  => {'_mart_transcript_variation__dm' => 'consequence_types_2076'},
+                              consequences      => {'_mart_transcript_variation__dm' => 'consequence_types_2076'},
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
@@ -407,7 +248,6 @@ sub pipeline_analyses {
                               '1->A' => ['PartitionTables'],
                               'A->1' => ['CreateMartIndexes'],
                             },
-      -rc_name           => 'default',
     },
     {
       -logic_name        => 'PartitionTables',
@@ -418,80 +258,80 @@ sub pipeline_analyses {
       -max_retry_count   => 0,
       -analysis_capacity => 10,
       -flow_into         => ['PopulateMart'],
-      -rc_name           => 'default'
     },
-
     {
       -logic_name        => 'PopulateMart',
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::PopulateMart',
-      -parameters        => {
-                              tables_dir => $self->o('tables_dir'),
-                              mart_table_prefix => '#dataset#'."_".$self->o('base_name'),
-                              mart_host => $self->o('host'),
-                              mart_port => $self->o('port'),
-                              mart_user => $self->o('user'),
-                              mart_pass => $self->o('pass'),
-                              mart_db_name =>  $self->o('mart'),
-                            },
-      -max_retry_count   => 3,
+      -parameters        => {},
+      -max_retry_count   => 2,
       -analysis_capacity => 20,
-      -rc_name           => 'mem',
+      -rc_name           => '16GB',
     },
-
     {
       -logic_name        => 'CreateMartIndexes',
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
-      -parameters        => {
-                              tables_dir => $self->o('tables_dir'),
-                              mart_table_prefix => '#dataset#'."_".$self->o('base_name'),
-                              mart_host => $self->o('host'),
-                              mart_port => $self->o('port'),
-                              mart_user => $self->o('user'),
-                              mart_pass => $self->o('pass'),
-                              mart_db_name =>  $self->o('mart'),
-                            },
+      -parameters        => {},
       -max_retry_count   => 2,
       -analysis_capacity => 10,
-      -rc_name           => 'default',
     },
-    { -logic_name  => 'run_tests',
-        -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-        -meadow_type => 'LSF',
-        -flow_into    => 'check_tests',
-        -parameters  => {
-                         'cmd' =>
-                         'cd #test_dir#;perl #base_dir#/ensembl-biomart/scripts/pre_configuration_mart_healthcheck.pl -newuser #user# -newpass #pass# -newport #port# -newhost #host# -olduser #olduser# -oldport #oldport# -oldhost #oldhost# -new_dbname #mart# -old_dbname #old_mart# -old_rel #old_release# -new_rel #new_release# -empty_column 1 -grch37 #grch37#',
-                         'mart'   => $self->o('mart'),
-                         'user'     => $self->o('user'),
-                         'pass'     => $self->o('pass'),
-                         'host'     => $self->o('host'),
-                         'port'     => $self->o('port'),
-                         'olduser'     => $self->o('olduser'),
-                         'oldhost'     => $self->o('oldhost'),
-                         'oldport'     => $self->o('oldport'),
-                         'old_mart'     => $self->o('old_mart'),
-                         'test_dir'    => $self->o('test_dir'),
-                         'old_release' => $self->o('old_release'),
-                         'new_release' => $self->o('new_release'),
-                         'base_dir' => $self->o('base_dir'),
-                         'grch37' => $self->o('grch37') },
-        -analysis_capacity => 1 },
-      { -logic_name  => 'check_tests',
-        -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-        -meadow_type => 'LSF',
-        -max_retry_count   => 0,
-        -parameters  => {
-                         'cmd' =>
-                         'EXIT_CODE=0;failed_tests=`find #test_dir#/#old_mart#_#oldhost#_vs_#mart#_#host#.* -type f ! -empty -print`;if [ -n "$failed_tests" ]; then >&2 echo "Some tests have failed please check ${failed_tests}";EXIT_CODE=1;fi;exit $EXIT_CODE',
-                         'mart'   => $self->o('mart'),
-                         'host'     => $self->o('host'),
-                         'oldhost'     => $self->o('oldhost'),
-                         'old_mart'     => $self->o('old_mart'),
-                         'test_dir'    => $self->o('test_dir'),
-        -analysis_capacity => 1 },
-      }
-
+    {
+      -logic_name => 'tidy_tables',
+      -module     => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -parameters => {
+        cmd => 'perl #base_dir#/ensembl-biomart/scripts/tidy_tables.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',
+      },
+      -flow_into => ['optimize'],
+    },
+    {
+      -logic_name => 'optimize',
+      -module     => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -parameters => {
+        cmd => 'mysqlcheck -h#host# -u#user# -p#pass# -P#port# --optimize "#mart#"',
+      },
+      -flow_into  => ['generate_meta'],
+    },
+    {
+      -logic_name => 'generate_meta',
+      -module     => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -parameters => {
+        cmd => 'perl #base_dir#/ensembl-biomart/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
+        template              => $self->o('template'),
+        template_name         => $self->o('template_name'),
+        max_dropdown          => $self->o('max_dropdown'),
+        genomic_features_mart => $self->o('genomic_features_mart'),
+      },
+      -rc_name    => '2GB',
+      -flow_into  => ['run_tests'],
+    },
+    {
+      -logic_name => 'run_tests',
+      -module     => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -parameters => {
+        cmd => 'cd #test_dir#;perl #base_dir#/ensembl-biomart/scripts/pre_configuration_mart_healthcheck.pl -newuser #user# -newpass #pass# -newport #port# -newhost #host# -olduser #olduser# -oldport #oldport# -oldhost #oldhost# -new_dbname #mart# -old_dbname #old_mart# -old_rel #old_release# -new_rel #new_release# -empty_column 1 -grch37 #grch37#',
+        oldhost     => $self->o('oldhost'),
+        oldport     => $self->o('oldport'),
+        olduser     => $self->o('olduser'),
+        old_mart    => $self->o('old_mart'),
+        old_release => $self->o('old_release'),
+        new_release => $self->o('new_release'),
+        grch37      => $self->o('grch37'),
+        test_dir    => $self->o('test_dir'),
+      },
+      -flow_into  => ['check_tests'],
+    },
+    {
+      -logic_name => 'check_tests',
+      -module     => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -parameters => {
+        cmd => 'EXIT_CODE=0;failed_tests=`find #test_dir#/#old_mart#_#oldhost#_vs_#mart#_#host#.* -type f ! -empty -print`;if [ -n "$failed_tests" ]; then >&2 echo "Some tests have failed please check ${failed_tests}";EXIT_CODE=1;fi;exit $EXIT_CODE',
+        oldhost  => $self->o('oldhost'),
+        old_mart => $self->o('old_mart'),
+        test_dir => $self->o('test_dir'),
+      },
+    }
   ];
+
   return $analyses;
-} ## end sub pipeline_analyses
+}
+
 1;
