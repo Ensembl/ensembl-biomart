@@ -557,7 +557,7 @@ sub pipeline_analyses {
       -logic_name  => 'run_tests',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
       -parameters  => {
-                        cmd => 'cd #test_dir#;perl #base_dir#/ensembl-biomart/scripts/pre_configuration_mart_healthcheck.pl -newuser #user# -newpass #pass# -newport #port# -newhost #host# -olduser #olduser# -oldport #oldport# -oldhost #oldhost# -new_dbname #mart# -old_dbname #old_mart# -old_rel #old_release# -new_rel #new_release# -empty_column 1 -grch37 #grch37#',
+                        cmd => 'cd #test_dir#;perl #base_dir#/ensembl-biomart/scripts/pre_configuration_mart_healthcheck.pl -newuser #user# -newpass #pass# -newport #port# -newhost #host# -olduser #olduser# -oldport #oldport# -oldhost #oldhost# -new_dbname #mart# -old_dbname #old_mart# -old_rel #old_release# -new_rel #new_release# -empty_column 1 -grch37 #grch37# -mart snp_mart',
                         mart        => $self->o('mart_db_name'),
                         user        => $self->o('user'),
                         pass        => $self->o('pass'),
