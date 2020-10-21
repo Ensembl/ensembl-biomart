@@ -1463,9 +1463,9 @@
         </AttributeDescription>
         <AttributeDescription displayName="APPRIS annotation" field="value_1065" internalName="transcript_appris" key="transcript_id_1064_key" linkoutURL="exturl|http://www.ensembl.org/Help/Glossary?id=521" maxLength="255" tableConstraint="tra_appris__dm" useDefault="true">
         </AttributeDescription>
-        <AttributeDescription displayName="RefSeq match transcript" field="value_1065" internalName="transcript_mane_select" key="transcript_id_1064_key" linkoutURL="exturl|https://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="255" tableConstraint="tra_mane_select__dm" useDefault="true">
+        <AttributeDescription displayName="RefSeq match transcript (MANE Select)" field="value_1065" internalName="transcript_mane_select" key="transcript_id_1064_key" linkoutURL="exturl|https://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="255" tableConstraint="tra_mane_select__dm" useDefault="true">
         </AttributeDescription>
-        <AttributeDescription displayName="RefSeq clinical transcript" field="value_1065" internalName="transcript_mane_plus_clinical" key="transcript_id_1064_key" linkoutURL="exturl|https://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="255" tableConstraint="tra_mane_plus_clinical__dm" useDefault="true">
+        <AttributeDescription displayName="RefSeq match transcript (MANE Plus Clinical)" field="value_1065" internalName="transcript_mane_plus_clinical" key="transcript_id_1064_key" linkoutURL="exturl|https://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="255" tableConstraint="tra_mane_plus_clinical__dm" useDefault="true">
         </AttributeDescription>
         <AttributeDescription displayName="Gene name" field="display_label_1074" internalName="external_gene_name" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s|ensembl_gene_id" maxLength="16" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Source of gene name" field="db_display_name_1018" internalName="external_gene_source" key="gene_id_1020_key" maxLength="17" tableConstraint="main" useDefault="true"/>
