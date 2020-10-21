@@ -4455,7 +4455,7 @@
 		<renamedColumn tableKey="attrib_type" colKey="1.6.0.description" newName="description_106"/>
 		<renamedColumn tableKey="attrib_type" colKey="1.6.0.code" newName="code_106"/>
 		<renamedColumn tableKey="attrib_type" colKey="1.6.0.attrib_type_id" newName="attrib_type_id_106_key"/>
-		<restrictedTable tableKey="attrib_type" tableId="483" aliasColumnIds="484" aliasNames="col1" expression=":col1 IN (&quot;appris&quot;,&quot;TSL&quot;,&quot;gencode_basic&quot;,&quot;MANE_Select&quot;,&quot;MANE_Plus&quot;)"/>
+		<restrictedTable tableKey="attrib_type" tableId="483" aliasColumnIds="484" aliasNames="col1" expression=":col1 IN (&quot;appris&quot;,&quot;TSL&quot;,&quot;gencode_basic&quot;,&quot;MANE_Select&quot;,&quot;MANE_Plus_Clinical&quot;)"/>
 		</dataset>
 	<dataset name="object_xref" centralTableId="677" optimiser="NONE" invisible="false" masked="false" hideMasked="false" indexOptimiser="false">
 		<renamedTable tableKey="object_xref" newName="object_xref"/>
