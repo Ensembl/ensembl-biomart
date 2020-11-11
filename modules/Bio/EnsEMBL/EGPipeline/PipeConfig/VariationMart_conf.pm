@@ -430,7 +430,7 @@ sub pipeline_analyses {
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
-      -flow_into         => ['CreateMartIndexes'],
+      -flow_into         => ['CreateDependentTables'],
     },
 
     # {
