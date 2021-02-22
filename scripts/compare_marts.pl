@@ -192,10 +192,23 @@ sub compare_attributes {
 	return;
 }
 
+
+sub clean_attribute {
+    my ( $method, $value ) = @_;
+    if ( $method eq "display_name" ) {
+        return $value =~ s/\s*\[e\.g\..+\]\s*//r;
+    }
+    else {
+        return $value
+    }
+}
+
 sub compare_queryobjects {
 	my ( $type, $o1, $o2 ) = @_;
 	for my $method (qw(display_name description page table column)) {
-		is( $o1->$method(), $o2->$method(),
+        my $clean_attr_1 = clean_attribute( $method, $o1->$method() );
+        my $clean_attr_2 = clean_attribute( $method, $o2->$method() );
+		is( $clean_attr_1, $clean_attr_2,
 			    "Checking $method for $type "
 			  . $o1->name()
 			  . " from dataset "
