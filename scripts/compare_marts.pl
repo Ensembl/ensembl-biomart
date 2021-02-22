@@ -198,7 +198,7 @@ sub clean_attribute {
         return $value =~ s/\s*\[e\.g\..+\]\s*//r;
     }
     else {
-        return $value
+        return $value;
     }
 }
 
