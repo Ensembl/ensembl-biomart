@@ -192,7 +192,6 @@ sub compare_attributes {
 	return;
 }
 
-
 sub clean_attribute {
     my ( $method, $value ) = @_;
     if ( $method eq "display_name" ) {
