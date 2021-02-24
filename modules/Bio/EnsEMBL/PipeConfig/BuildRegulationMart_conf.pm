@@ -89,45 +89,51 @@ sub pipeline_create_commands {
 sub pipeline_analyses {
   my ($self) = @_;
   my $analyses = [
-    { -logic_name  => 'generate_names',
+    {
+      -logic_name  => 'generate_names',
       -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
       -meadow_type => 'LSF',
       -parameters  => {
         'cmd' =>
-'perl #base_dir#/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -div #division# -registry #registry#',
+          'perl #base_dir#/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -div #division# -registry #registry#',
         'mart'     => $self->o('mart'),
         'user'     => $self->o('user'),
         'pass'     => $self->o('pass'),
         'host'     => $self->o('host'),
         'port'     => $self->o('port'),
         'base_dir' => $self->o('base_dir'),
-        'division'  => $self->o('division'),
-        'registry'  => $self->o('registry') },
+        'division' => $self->o('division'),
+        'registry' => $self->o('registry') },
       -input_ids         => [ {} ],
       -analysis_capacity => 1,
       -flow_into => {
         '1->A' => ['dataset_factory'],
         'A->1' => ['tidy_tables']
       },
-      },
-      {
-        -logic_name => 'dataset_factory',
-        -module     => 'Bio::EnsEMBL::BioMart::DatasetFactory',
-        -parameters => { 'mart'     => $self->o('mart'),
-                       'user'     => $self->o('user'),
-                       'pass'     => $self->o('pass'),
-                       'host'     => $self->o('host'),
-                       'port'     => $self->o('port'),
-                       'datasets' => $self->o('datasets'),
-                       'base_dir' => $self->o('base_dir'),
-                       'registry' => $self->o('registry'),
-                       'species'  => $self->o('species') },
-        -flow_into => {
-          1 => WHEN(
-            '(#dataset# ne "dmelanogaster")' => [ 'AddExtraMartIndexesExternalFeatures', 'AddExtraMartIndexesPeaks', 'AddExtraMartIndexesMiRNATargetFeatures', 'AddExtraMartIndexesMotifFeatures', 'AddExtraMartIndexesRegulatoryFeatures' ],
-            ELSE 'AddExtraMartIndexesExternalFeatures',
-          )
-        }
+    },
+    {
+      -logic_name => 'dataset_factory',
+      -module     => 'Bio::EnsEMBL::BioMart::DatasetFactory',
+      -parameters => {
+        'mart'     => $self->o('mart'),
+        'user'     => $self->o('user'),
+        'pass'     => $self->o('pass'),
+        'host'     => $self->o('host'),
+        'port'     => $self->o('port'),
+        'datasets' => $self->o('datasets'),
+        'base_dir' => $self->o('base_dir'),
+        'registry' => $self->o('registry'),
+        'species'  => $self->o('species') },
+      -flow_into => {
+        1 => WHEN(
+          '(#dataset# ne "dmelanogaster")' => ['AddExtraMartIndexesExternalFeatures',
+                                               'AddExtraMartIndexesPeaks',
+                                               'AddExtraMartIndexesMiRNATargetFeatures',
+                                               'AddExtraMartIndexesMotifFeatures',
+                                               'AddExtraMartIndexesRegulatoryFeatures'],
+          ELSE 'AddExtraMartIndexesExternalFeatures',
+        )
+      }
     },
     {
       -logic_name        => 'AddExtraMartIndexesExternalFeatures',
