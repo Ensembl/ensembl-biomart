@@ -1,10 +1,10 @@
 
-=pod 
+=pod
 =head1 NAME
 
 =head1 SYNOPSIS
 
-=head1 DESCRIPTION  
+=head1 DESCRIPTION
 
 =head1 LICENSE
     Copyright [1999-2015] Wellcome Trust Sanger Institute and the EMBL-European Bioinformatics Institute
@@ -105,7 +105,10 @@ sub pipeline_analyses {
         'registry'  => $self->o('registry') },
       -input_ids         => [ {} ],
       -analysis_capacity => 1,
-      -flow_into => {1 => 'dataset_factory'},
+      -flow_into => {
+        '1->A' => ['dataset_factory'],
+        'A->1' => ['tidy_tables']
+      },
       },
       {
         -logic_name => 'dataset_factory',
@@ -119,28 +122,12 @@ sub pipeline_analyses {
                        'base_dir' => $self->o('base_dir'),
                        'registry' => $self->o('registry'),
                        'species'  => $self->o('species') },
-        -flow_into => { 
-          '1->A' => WHEN(
+        -flow_into => {
+          1 => WHEN(
             '(#dataset# ne "dmelanogaster")' => [ 'AddExtraMartIndexesExternalFeatures', 'AddExtraMartIndexesPeaks', 'AddExtraMartIndexesMiRNATargetFeatures', 'AddExtraMartIndexesMotifFeatures', 'AddExtraMartIndexesRegulatoryFeatures' ],
             ELSE 'AddExtraMartIndexesExternalFeatures',
-          ),
-          'A->2' => 'tidy_tables' }
-    },
-    {
-      -logic_name  => 'tidy_tables',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-'perl #base_dir#/scripts/tidy_tables.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',
-        'mart'     => $self->o('mart'),
-        'user'     => $self->o('user'),
-        'pass'     => $self->o('pass'),
-        'host'     => $self->o('host'),
-        'port'     => $self->o('port'),
-        'base_dir' => $self->o('base_dir') },
-      -analysis_capacity => 1,
-      -flow_into => ['optimize'],
+          )
+        }
     },
     {
       -logic_name        => 'AddExtraMartIndexesExternalFeatures',
@@ -226,6 +213,22 @@ sub pipeline_analyses {
       -max_retry_count   => 0,
       -analysis_capacity => 10,
       -rc_name           => 'default',
+    },
+    {
+      -logic_name  => 'tidy_tables',
+      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -meadow_type => 'LSF',
+      -parameters  => {
+        'cmd' =>
+'perl #base_dir#/scripts/tidy_tables.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',
+        'mart'     => $self->o('mart'),
+        'user'     => $self->o('user'),
+        'pass'     => $self->o('pass'),
+        'host'     => $self->o('host'),
+        'port'     => $self->o('port'),
+        'base_dir' => $self->o('base_dir') },
+      -analysis_capacity => 1,
+      -flow_into => ['optimize'],
     },
     {
       -logic_name  => 'optimize',
