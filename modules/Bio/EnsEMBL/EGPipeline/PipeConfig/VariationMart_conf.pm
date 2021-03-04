@@ -1,6 +1,6 @@
 =head1 LICENSE
 
-Copyright [1999-2020] EMBL-European Bioinformatics Institute
+Copyright [1999-2019] EMBL-European Bioinformatics Institute
 and Wellcome Trust Sanger Institute
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -53,10 +53,11 @@ sub default_options {
     mtmp_tables_exist     => 0,
     always_skip_genotypes => [],
     never_skip_genotypes  => [],
-    scratch_dir           => '/scratch',
+    scratch_dir               => '/scratch',
     drop_mtmp             => 1,
-    drop_mtmp_tv          => 0,
+    drop_mtmp_tv       => 0,
     snp_indep_tables      => [],
+    mart_db_name          => $self->o('division_name').'_snp_mart_'.$self->o('eg_release'),
     sample_threshold      => 0,
     populate_mart_rc_name => 'normal',
     snp_cull_tables       => [],
@@ -64,13 +65,9 @@ sub default_options {
     optimize_tables       => 0,
     population_threshold  => 100,
     species_suffix        => '',
-    max_dropdown          => '20000',
+    max_dropdown          => '',
+    genomic_features_dbname => '',
 
-    base_dir => $self->o('ENV', 'BASE_DIR'),
-    biomart_dir => $self->o('base_dir').'/ensembl-biomart',
- 
-    test_dir => '/hps/nobackup2/production/ensembl/'.$self->o('ENV', 'USER').'/mart_test',
-    grch37   => 0,
     
     previous_mart => {
       -driver => $self->o('hive_driver'),
@@ -84,20 +81,19 @@ sub default_options {
     antispecies  => [],
     division     => [],
     run_all      => 0,
-
     copy_species => [],
     copy_all     => 0,
     
     partition_size => 100000,
     
     # The following are required for building MTMP tables.
-    variation_import_lib => $self->o('base_dir').
+    variation_import_lib => $self->o('ensembl_cvs_root_dir').
       '/ensembl-variation/scripts/import',
     
-    variation_feature_script => $self->o('base_dir').
+    variation_feature_script => $self->o('ensembl_cvs_root_dir').
       '/ensembl-variation/scripts/misc/mart_variation_effect.pl',
 
-    variation_mtmp_script => $self->o('base_dir').
+    variation_mtmp_script => $self->o('ensembl_cvs_root_dir').
       '/ensembl-variation/scripts/misc/create_MTMP_tables.pl',
     
     # Mart tables are mostly independent in that their construction does not
@@ -158,13 +154,6 @@ sub default_options {
       'snp__mart_transcript_variation__dm'     => ['polyphen_score_2090','sift_score_2090'],
     },
 
-    snp_som_cull_columns => {
-      'snp_som__mart_transcript_variation__dm'   => ['pep_allele_string_2090','polyphen_prediction_2090','polyphen_score_2090','sift_prediction_2090','sift_score_2090'],
-      'snp_som__variation__main' => ['clinical_significance_2025','minor_allele_2025','minor_allele_count_2025','minor_allele_freq_2025'],
-      'snp_som__variation_feature__main' => ['clinical_significance_2025','minor_allele_2025','minor_allele_count_2025','minor_allele_freq_2025'],
-      'snp_som__variation_annotation__dm' => ['associated_gene_2035','associated_variant_risk_allele_2035','description_20100','external_reference_20100','name_20100','p_value_2035','study_type_20100','variation_names_2035'],
-    },
-
     snp_som_cull_tables => {
       'snp_som__population_genotype__dm'     => 'name_2019',
       'snp_som__variation_annotation__dm'    => 'name_2021',
@@ -187,27 +176,27 @@ sub default_options {
       'structvar_som__phenotype__dm'                          => 'phenotype_name',
     },
     
-    tables_dir => $self->o('biomart_dir').'/var_mart/tables',
+    tables_dir => $self->o('ensembl_biomart_root_dir').'/var_mart/tables',
     
     # The following are required for adding metadata.
-    scripts_lib => $self->o('biomart_dir').'/scripts',
+    scripts_lib => $self->o('ensembl_biomart_root_dir').'/scripts',
     
-    generate_names_script => $self->o('biomart_dir').
+    generate_names_script => $self->o('ensembl_biomart_root_dir').
       '/scripts/generate_names.pl',
     
-    generate_meta_script => $self->o('biomart_dir').
+    generate_meta_script => $self->o('ensembl_biomart_root_dir').
       '/scripts/generate_meta.pl',
     
-    template_template => $self->o('biomart_dir').
+    template_template => $self->o('ensembl_biomart_root_dir').
       '/scripts/templates/variation_template_template.xml',
     
-    template_sv_template => $self->o('biomart_dir').
+    template_sv_template => $self->o('ensembl_biomart_root_dir').
       '/scripts/templates/structvar_template_template.xml',
 
-    template_som_template => $self->o('biomart_dir').
+    template_som_template => $self->o('ensembl_biomart_root_dir').
       '/scripts/templates/variation_som_template_template.xml',
     
-    template_sv_som_template => $self->o('biomart_dir').
+    template_sv_som_template => $self->o('ensembl_biomart_root_dir').
       '/scripts/templates/structvar_som_template_template.xml',
   };
 }
@@ -251,6 +240,7 @@ sub pipeline_analyses {
                             drop_mart_db => $self->o('drop_mart_db'),
                           },
       -max_retry_count => 0,
+      -rc_name         => 'normal',
       -flow_into       => {
                             '1->A' => ['ScheduleSpecies'],
                             'A->1' => ['AddMetaData'],
@@ -267,6 +257,7 @@ sub pipeline_analyses {
                             run_all     => $self->o('run_all'),
                           },
       -max_retry_count => 0,
+      -rc_name         => 'normal',
       -flow_into       => {
                             '4' => 'DropMartTables'
                           }
@@ -280,6 +271,7 @@ sub pipeline_analyses {
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 5,
+      -rc_name           => 'normal',
       -flow_into         => ['CopyOrGenerate'],
     },
 
@@ -296,9 +288,9 @@ sub pipeline_analyses {
                               never_skip_genotypes  => $self->o('never_skip_genotypes'),
                               division_name         => $self->o('division_name'),
                               species_suffix      => $self->o('species_suffix'),
-                              ensembl_cvs_root_dir => $self->o('base_dir')
                             },
       -max_retry_count   => 0,
+      -rc_name           => 'normal',
       -flow_into         => {
                               '3->B' => ['CreateMTMPTables'],
                               '4'    => ['CopyMart'],
@@ -321,7 +313,7 @@ sub pipeline_analyses {
       -max_retry_count   => 3,
       -analysis_capacity => 5,
       -can_be_empty      => 1,
-      -rc_name           => '16Gb_mem',
+      -rc_name           => '16Gb_mem_16Gb_scratch',
     },
 
     {
@@ -333,7 +325,7 @@ sub pipeline_analyses {
       -max_retry_count   => 0,
       -analysis_capacity => 5,
       -can_be_empty      => 1,
-      -rc_name           => '16Gb_mem',
+      -rc_name           => '16Gb_mem_16Gb_scratch',
     },
 
     {
@@ -342,6 +334,7 @@ sub pipeline_analyses {
       -parameters        => {},
       -max_retry_count   => 0,
       -can_be_empty      => 1,
+      -rc_name           => 'normal',
       -flow_into         => {
                               '1->A' => ['CreateMartTables'],
                               'A->1' => ['CullMartTables'],
@@ -353,6 +346,7 @@ sub pipeline_analyses {
       -module            => 'Bio::EnsEMBL::Hive::RunnableDB::Dummy',
       -parameters        => {},
       -max_retry_count   => 0,
+      -rc_name           => 'normal',
       -flow_into         => {
                               '1->A' => ['CreateIndependentTables'],
                               'A->1' => ['AggregatedData'],
@@ -376,6 +370,7 @@ sub pipeline_analyses {
                               '1->A' => ['PartitionTables'],
                               'A->1' => ['OrderColumns'],
                             },
+      -rc_name           => 'normal',
     },
 
     {
@@ -395,6 +390,7 @@ sub pipeline_analyses {
                               '1->A' => ['PartitionTables'],
                               'A->1' => ['OrderColumns'],
                             },
+      -rc_name           => 'normal',
     },
 
     {
@@ -406,6 +402,7 @@ sub pipeline_analyses {
       -max_retry_count   => 0,
       -analysis_capacity => 10,
       -flow_into         => ['PopulateMart'],
+      -rc_name           => 'normal'
     },
 
     {
@@ -431,6 +428,7 @@ sub pipeline_analyses {
       -max_retry_count   => 0,
       -analysis_capacity => 10,
       -flow_into         => ['CreateDependentTables'],
+      -rc_name           => 'normal',
     },
 
     {
@@ -440,6 +438,7 @@ sub pipeline_analyses {
                             },
       -flow_into         => ['CreateMartIndexes'],
       -max_retry_count   => 3,
+      -rc_name           => 'default',
     },
 
     {
@@ -450,6 +449,7 @@ sub pipeline_analyses {
                             },
       -max_retry_count   => 2,
       -analysis_capacity => 10,
+      -rc_name           => 'normal',
     },
 
     {
@@ -458,13 +458,13 @@ sub pipeline_analyses {
       -parameters        => {
                               snp_cull_tables => $self->o('snp_cull_tables'),
                               snp_cull_columns => $self->o('snp_cull_columns'),
-                              snp_som_cull_columns => $self->o('snp_som_cull_columns'),
                               snp_som_cull_tables => $self->o('snp_som_cull_tables'), 
                               sv_cull_tables  => $self->o('sv_cull_tables'),
                               sv_som_cull_tables => $self->o('sv_som_cull_tables'),
                             },
       -max_retry_count   => 0,
       -analysis_capacity => 10,
+      -rc_name           => 'normal',
     },
 
     {
@@ -475,6 +475,8 @@ sub pipeline_analyses {
                               generate_names_script    => $self->o('generate_names_script'),
                               generate_meta_script => $self->o('generate_meta_script'),
                               template_template        => $self->o('template_template'),
+                              ensembl_release          => $self->o('ensembl_release'),
+                              eg_release               => $self->o('eg_release'),
                               max_dropdown        =>  $self->o('max_dropdown'),
                               genomic_features_dbname => $self->o('genomic_features_dbname'),
                               division_name    => $self->o('division_name'),
@@ -483,6 +485,7 @@ sub pipeline_analyses {
       -analysis_capacity => 10,
       -can_be_empty      => 1,
       -flow_into         => ['AddSOMMetaData'],
+      -rc_name           => 'normal',
     },
 
     {
@@ -493,6 +496,8 @@ sub pipeline_analyses {
                               generate_names_script    => $self->o('generate_names_script'),
                               generate_meta_script => $self->o('generate_meta_script'),
                               template_template        => $self->o('template_som_template'),
+                              ensembl_release          => $self->o('ensembl_release'),
+                              eg_release               => $self->o('eg_release'),
                               dataset_name             => 'snp_som',
                               description              => 'variations_som',
                               max_dropdown        =>  $self->o('max_dropdown'),
@@ -503,6 +508,7 @@ sub pipeline_analyses {
       -analysis_capacity => 10,
       -can_be_empty      => 1,
       -flow_into         => ['AddSVMetaData'],
+      -rc_name           => 'normal',
     },
 
     {
@@ -513,6 +519,7 @@ sub pipeline_analyses {
                               generate_names_script    => $self->o('generate_names_script'),
                               generate_meta_script => $self->o('generate_meta_script'),
                               template_template        => $self->o('template_sv_template'),
+                              ensembl_release          => $self->o('ensembl_release'),
                               dataset_name             => 'structvar',
                               description              => 'structural_variations',
                               max_dropdown        =>  $self->o('max_dropdown'),
@@ -523,6 +530,7 @@ sub pipeline_analyses {
       -analysis_capacity => 10,
       -can_be_empty      => 1,
       -flow_into         => ['AddSVSOMMetaData'],
+      -rc_name           => 'normal',
     },
     {
       -logic_name        => 'AddSVSOMMetaData',
@@ -532,6 +540,7 @@ sub pipeline_analyses {
                               generate_names_script    => $self->o('generate_names_script'),
                               generate_meta_script => $self->o('generate_meta_script'),
                               template_template        => $self->o('template_sv_som_template'),
+                              ensembl_release          => $self->o('ensembl_release'),
                               dataset_name             => 'structvar_som',
                               description              => 'structural_variations_som',
                               max_dropdown        =>  $self->o('max_dropdown'),
@@ -542,6 +551,7 @@ sub pipeline_analyses {
       -analysis_capacity => 10,
       -can_be_empty      => 1,
       -flow_into         => ['AnalyzeTables'],
+      -rc_name           => 'normal',
     },
 
     {
@@ -551,52 +561,19 @@ sub pipeline_analyses {
                               optimize_tables => $self->o('optimize_tables'),
                             },
       -max_retry_count   => 0,
-      -flow_into         => ['run_tests'],
+      -rc_name           => 'normal',
     },
-    {
-      -logic_name  => 'run_tests',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -parameters  => {
-                        cmd => 'cd #test_dir#;perl #base_dir#/ensembl-biomart/scripts/pre_configuration_mart_healthcheck.pl -newuser #user# -newpass #pass# -newport #port# -newhost #host# -olduser #olduser# -oldport #oldport# -oldhost #oldhost# -new_dbname #mart# -old_dbname #old_mart# -old_rel #old_release# -new_rel #new_release# -empty_column 1 -grch37 #grch37# -mart snp_mart',
-                        mart        => $self->o('mart_db_name'),
-                        user        => $self->o('user'),
-                        pass        => $self->o('pass'),
-                        host        => $self->o('host'),
-                        port        => $self->o('port'),
-                        olduser     => $self->o('olduser'),
-                        oldhost     => $self->o('oldhost'),
-                        oldport     => $self->o('oldport'),
-                        old_mart    => $self->o('old_mart'),
-                        test_dir    => $self->o('test_dir'),
-                        old_release => $self->o('old_release'),
-                        new_release => $self->o('ensembl_release'),
-                        base_dir    => $self->o('base_dir'),
-                        grch37      => $self->o('grch37'),
-                      },
-      -flow_into   => ['check_tests'],
-    },
-    {
-      -logic_name  => 'check_tests',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -parameters  => {
-                        cmd => 'EXIT_CODE=0;failed_tests=`find #test_dir#/#old_mart#_#oldhost#_vs_#mart#_#host#.* -type f ! -empty -print`;if [ -n "$failed_tests" ]; then >&2 echo "Some tests have failed please check ${failed_tests}";EXIT_CODE=1;fi;exit $EXIT_CODE',
-                        mart     => $self->o('mart_db_name'),
-                        host     => $self->o('host'),
-                        oldhost  => $self->o('oldhost'),
-                        old_mart => $self->o('old_mart'),
-                        test_dir => $self->o('test_dir'),
-                      },
-    }
+
   ];
 }
 
 sub resource_classes {
   my ($self) = @_;
   return {
-    'default'  => {'LSF' => '-q production-rh74'},
-    'normal'   => {'LSF' => '-q production-rh74 -M  4000 -R "rusage[mem=4000]"'},
-    '8Gb_mem'  => {'LSF' => '-q production-rh74 -M  8000 -R "rusage[mem=8000]"'},
-    '16Gb_mem' => {'LSF' => '-q production-rh74 -M 16000 -R "rusage[mem=16000,scratch=4000]"'},
+    'default'           => {'LSF' => '-q production-rh74 -M  4000 -R "rusage[mem=4000]"'},
+    'normal'            => {'LSF' => '-q production-rh74 -M  4000 -R "rusage[mem=4000]"'},
+    '8Gb_mem'           => {'LSF' => '-q production-rh74 -M  8000 -R "rusage[mem=8000]"'},
+    '16Gb_mem_16Gb_scratch' => {'LSF' => '-q production-rh74 -M 16000 -R "rusage[mem=16000,scratch=16000]"'},
   }
 }
 

@@ -1,5 +1,5 @@
 #!/bin/env perl
-# Copyright [2009-2020] EMBL-European Bioinformatics Institute
+# Copyright [2009-2019] EMBL-European Bioinformatics Institute
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,8 +29,8 @@ use Carp;
 use Log::Log4perl qw(:easy);
 use FindBin;
 use lib "$FindBin::Bin/../modules";
-use DbiUtils qw(get_string);
-use MartUtils qw(get_dataset_names get_species_name_for_dataset get_sql_name_for_dataset);
+use DbiUtils;
+use MartUtils;
 use Cwd;
 use File::Copy;
 use Getopt::Long;

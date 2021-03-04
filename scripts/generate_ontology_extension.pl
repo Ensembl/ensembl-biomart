@@ -1,5 +1,5 @@
 #!/bin/env perl
-# Copyright [2009-2020] EMBL-European Bioinformatics Institute
+# Copyright [2009-2019] EMBL-European Bioinformatics Institute
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ use List::MoreUtils qw(any);
 use Data::Dumper;
 use FindBin;
 use lib "$FindBin::Bin/../modules";
-use DbiUtils qw(drop_table get_string get_strings get_rows get_row);
+use DbiUtils;
 use MartUtils;
 use Getopt::Long;
 use POSIX;

@@ -1,5 +1,5 @@
 #!/bin/env perl
-# Copyright [2009-2020] EMBL-European Bioinformatics Institute
+# Copyright [2009-2019] EMBL-European Bioinformatics Institute
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,8 +27,8 @@ use Data::Dumper;
 use Bio::EnsEMBL::Utils::CliHelper;
 use Carp;
 use Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor;
-use MartUtils qw(generate_dataset_name_from_db_name);
-use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
+use MartUtils;
+use Bio::EnsEMBL::BioMart::Mart qw(genome_to_exclude);
 
 my $cli_helper = Bio::EnsEMBL::Utils::CliHelper->new();
 
@@ -42,7 +42,7 @@ push(@{$optsd},"eg:s");
 push(@{$optsd},"ens:s");
 push(@{$optsd},"runner_host:s");
 push(@{$optsd},"runner_port:s");
-push(@{$optsd},"grch37:i");
+push(@{$optsd},"grch37:s");
 
 # process the command line with the supplied options plus a help subroutine
 my $opts = $cli_helper->process_args($optsd,\&usage);
@@ -59,7 +59,7 @@ print "Connecting to $opts->{mdbname}\n";
 my $dba =Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor->new(-USER => $opts->{muser}, -PASS => $opts->{mpass},
 -DBNAME=>$opts->{mdbname}, -HOST=>$opts->{mhost}, -PORT=>$opts->{mport});
 
-my ($core,$variation,$funcgen,$excluded_species)=([],[],[],[]);
+my ($core,$variation,$funcgen)=([],[],[]);
 my $mart = $opts->{mart};
 # Assemble list of databases for each species by db_type
 if (defined $opts->{grch37}){
@@ -84,7 +84,7 @@ if (defined $opts->{grch37}){
 }
 else{
   print "Getting db lists from $opts->{mdbname}\n";
-  ($core,$variation,$funcgen,$excluded_species) = get_list($dba);
+  ($core,$variation,$funcgen) = get_list($dba);
 }
 
 # Print number of database type and genome name in mart for each genome of a division
@@ -94,10 +94,6 @@ my $var_str = join ',',@$variation;
 print scalar(@$variation)." Variation found: $var_str\n";
 my $func_str = join ',',@$funcgen;
 print scalar(@$funcgen)." Funcgen found: $func_str\n";
-if (scalar(@$excluded_species)){
-    my $excluded_str = join ',',@$excluded_species;
-    print scalar(@$excluded_species)." Excluded species from mart: $excluded_str\n";
-}
 
 
 my ($partitionRegex,$partitionExpression,$name);
@@ -149,18 +145,17 @@ sub get_list {
     my @core = ();
     my @variation = ();
     my @funcgen = ();
-    my @excluded_species = ();
     #Get metadata adaptors
     my $gdba = $dba->get_GenomeInfoAdaptor();
     my $dbdba = $dba->get_DatabaseInfoAdaptor();
     my $rdba = $dba->get_DataReleaseInfoAdaptor();
     my $release;
-    my $included_species;
+    my $excluded_species;
     # Use division to find the release in metadata database
     if ($opts->{division} eq "EnsemblVertebrates"){
         $release = $rdba->fetch_by_ensembl_release($opts->{ens});
-        # Load species to include in the Vertebrates marts
-        $included_species = genome_to_include($opts->{division});
+        # Load species to exclude from the Vertebrates marts
+        $excluded_species = genome_to_exclude($opts->{division});
     }
     else{
         $release = $rdba->fetch_by_ensembl_genomes_release($opts->{eg});
@@ -180,10 +175,9 @@ sub get_list {
             next;
         }
         # For Vertebrates, we are excluding some species from the marts
-        if ($opts->{division} eq "EnsemblVertebrates" and $opts->{mart} !~ "mouse_mart"){
+        if ($opts->{division} eq "EnsemblVertebrates"){
             my $genome_name = $genome->name();
-            if (!grep( /$genome_name/, @$included_species) ){
-                push (@excluded_species,$genome_name);
+            if (grep( /$genome_name/, @$excluded_species) ){
                 next;
             }
         }
@@ -211,7 +205,7 @@ sub get_list {
             }
         }
     }
-    return (\@core,\@variation,\@funcgen,\@excluded_species);
+    return (\@core,\@variation,\@funcgen);
 }
 
 sub usage {
@@ -237,8 +231,6 @@ sub usage {
   -ens                 Ensembl version number (e.g: 95)
 
   -eg                  Ensembl Genomes version number (e.g: 42)
-
-  -grch37              Flag for GRCh37 release
 
 EOF
 }

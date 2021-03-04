@@ -5,8 +5,8 @@ use strict;
 use DBI;
 use Getopt::Long qw(:config no_ignore_case);
 use Bio::EnsEMBL::Registry;
-use DbiUtils qw(get_string);
-use MartUtils qw(get_sql_name_for_dataset);
+use DbiUtils;
+use MartUtils;
 use Log::Log4perl qw(:easy);
 
 

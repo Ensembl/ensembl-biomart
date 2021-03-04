@@ -1,5 +1,5 @@
 #!/bin/env perl
-# Copyright [2009-2020] EMBL-European Bioinformatics Institute
+# Copyright [2009-2019] EMBL-European Bioinformatics Institute
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ use List::MoreUtils qw(any);
 use Data::Dumper;
 use FindBin;
 use lib "$FindBin::Bin/../modules";
-use DbiUtils qw(get_string get_tables get_databases query_to_strings);
+use DbiUtils;
 use MartUtils;
 use Getopt::Long;
 
@@ -79,7 +79,18 @@ $mart_handle->do("use $mart_db");
 my %tables_to_tidy;
 my %columns_to_tidy;
 
-if ($mart_db =~ /ontology_mart/) {
+if ($mart_db =~ /snp_mart/) {
+  %tables_to_tidy = (
+				 '%\_\_mpoly\_\_dm'                   =>  ['name_2019'],
+				 '%\_\_variation\_set\_variation\_\_dm' => ['description_2077'],
+				 '%snp\_\_variation\_annotation\_\_dm'    => ['description_2033','name_2021'],
+				 '%structural\_\_variation\_annotation\_\_dm'    => ['name_2019','description_2019'],
+      );
+  %columns_to_tidy = (
+  	             '%snp\_\_mart\_transcript\_variation\_\_dm'    => ['sift_score_2090','polyphen_score_2090'],
+  	);
+}
+elsif ($mart_db =~ /ontology_mart/) {
   %tables_to_tidy = (
 				 'closure\_%\_\_closure__main' => ['name_302']
   );
@@ -92,13 +103,9 @@ else {
 			   '%\_\ox\_%\_\_dm'               => ['dbprimary_acc_1074'],
 			   '%\_\_phenotype\_\_dm'       => ['description_20125']);
   %columns_to_tidy = (
-					     '%\_transcript\_variation\_som\_\_dm' => ['seq_region_start_2026','clinical_significance_2025','minor_allele_2025','minor_allele_count_2025','minor_allele_freq_2025','pep_allele_string_2076','polyphen_prediction_2076','polyphen_score_2076','sift_prediction_2076','sift_score_2076'],
                '%\_\_gene\_\_main'    => ['display_label_1074','db_display_name_1018','phenotype_bool','version_1020'],
                '%\_\_transcript\_\_main'    => ['display_label_1074_r1','db_display_name_1018_r1','phenotype_bool','version_1064','version_1020'],
-               '%\_\_translation\_\_main'    => ['stable_id_408','description_408','family_bool','phenotype_bool','version_1064','version_1020','version_1068'],
-							 '%\_\_homolog\_%\_\_dm'  => ['dn_4014','ds_4014','goc_score_4014','wga_coverage_4014','is_high_confidence_4014'],
-							 '%\_\_paralog\_%\_\_dm' => ['dn_4014','ds_4014','is_high_confidence_4014'],
-							 '%\_\_homoeolog\_%\_\_dm' => ['dn_4014','ds_4014','is_high_confidence_4014']
+               '%\_\_translation\_\_main'    => ['stable_id_408','description_408','family_bool','phenotype_bool','version_1064','version_1020','version_1068']
   );
 }
 

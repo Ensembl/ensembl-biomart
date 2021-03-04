@@ -1,6 +1,6 @@
 =head1 LICENSE
 
-Copyright [1999-2020] EMBL-European Bioinformatics Institute
+Copyright [1999-2019] EMBL-European Bioinformatics Institute
 and Wellcome Trust Sanger Institute
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -48,7 +48,7 @@ sub default_options {
     %{$self->SUPER::default_options},
     
     division_name         => 'vertebrates',
-    mart_db_name          => 'snp_mart_'.$self->o('ensembl_release'),
+    mart_db_name          => 'snp_mart_'.$self->o('eg_release'),
     drop_mtmp             => 1,
     drop_mtmp_tv       => 0,
     sample_threshold      => 0,
@@ -56,6 +56,7 @@ sub default_options {
     optimize_tables       => 1,
     populate_mart_rc_name => '8Gb_mem',
     genomic_features_dbname => 'genomic_features_mart_'.$self->o('ensembl_release'),
+    max_dropdown          => '20000',
     
     # Most mart table configuration is in VariationMart_conf, but e! and EG
     # differ in the absence/presence of the poly__dm table.

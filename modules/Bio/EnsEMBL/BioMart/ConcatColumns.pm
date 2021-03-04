@@ -1,6 +1,6 @@
 =head1 LICENSE
 
-Copyright [2009-2020] EMBL-European Bioinformatics Institute
+Copyright [2009-2019] EMBL-European Bioinformatics Institute
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ sub create_stable_id_version_column {
   
   my $mart_table_prefix = $self->param_required('mart_table_prefix');
   my $concat_separator = '.';
-  my $mart_table = "$mart_table_prefix"."__"."$table";
+  my $mart_table = "$mart_table_prefix$table"; 
   
   my $mart_dbc = $self->mart_dbc;
   # Check that column 1 and 2 are not null
@@ -91,7 +91,7 @@ sub drop_column_if_exist {
 sub replicate_column_child_tables {
   my ($self, $mart_dbc, $mart_table, $mart_table_prefix, $child_table_name, $column, $main_table_key, $column_type, $column1,$column2,$concat_separator) = @_;
   # Add the column to the Transcript main table
-  my $child_mart_table = "$mart_table_prefix"."__"."$child_table_name";
+  my $child_mart_table = "$mart_table_prefix$child_table_name";
   #Drop column if exist
   $self->drop_column_if_exist($mart_dbc,$child_mart_table,$column);
   # Create new column

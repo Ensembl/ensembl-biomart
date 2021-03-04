@@ -1,6 +1,6 @@
 =head1 LICENSE
 
-Copyright [2009-2020] EMBL-European Bioinformatics Institute
+Copyright [2009-2019] EMBL-European Bioinformatics Institute
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -25,13 +25,10 @@ limitations under the License.
 
 use warnings;
 use strict;
-package MartUtils;
 use DBI;
 use Carp;
 use Log::Log4perl qw(:easy);
-use DbiUtils qw(get_string query_to_strings);
-use Exporter qw/import/;
-our @EXPORT_OK = qw(get_ensembl_db get_ensembl_db_collection get_ensembl_db_single_parasite get_dataset_names get_species_name_for_dataset get_sql_name_for_dataset generate_dataset_name_from_db_name get_datasets get_ensembl_db_single);
+use DbiUtils;
 
 #sub get_species_name_for_dataset {
 #    my ($dbh,$ds_name) = @_;
@@ -93,7 +90,7 @@ sub get_datasets_regexp {
 sub generate_dataset_name_from_db_name {
     my ($database) = @_;
     ( my $dataset = $database ) =~ m/^(.)[^_]+_?([a-z0-9])?[a-z0-9]+?_([a-z0-9]+)_[a-z]+_[0-9]+_?[0-9]+?_[0-9]+$/;
-    $dataset = defined $2 ? "$1$2$3" : "$1$3";
+    $dataset = defined $2 ? $1.$2.$3 : $1.$3;
     return $dataset;
 }
 

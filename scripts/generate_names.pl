@@ -1,5 +1,5 @@
 #!/bin/env perl
-# Copyright [2009-2020] EMBL-European Bioinformatics Institute
+# Copyright [2009-2019] EMBL-European Bioinformatics Institute
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -29,8 +29,8 @@ use Log::Log4perl qw(:easy);
 use List::MoreUtils qw(any);
 use FindBin;
 use lib "$FindBin::Bin/../modules";
-use DbiUtils qw(drop_and_create_table create_table get_string get_tables query_to_strings query_to_hash);
-use MartUtils qw(get_ensembl_db get_ensembl_db_single_parasite get_datasets get_ensembl_db_single);
+use DbiUtils;
+use MartUtils;
 use Getopt::Long;
 use POSIX;
 use Bio::EnsEMBL::Registry;
@@ -262,6 +262,9 @@ foreach my $dataset (@datasets) {
   }
   $logger->debug("$dataset derived from $ens_db");
   my $ens_dbh = $src_dbs{$ens_db}->dbc()->db_handle();
+  my $meta_insert = $ens_dbh->prepare(
+"INSERT IGNORE INTO meta(species_id,meta_key,meta_value) VALUES(?,'species.biomart_dataset',?)"
+  );
 
   # get hash of species IDs
   my @species_ids = query_to_strings( $ens_dbh,
@@ -305,6 +308,13 @@ foreach my $dataset (@datasets) {
                             $assembly,
                             $gb_version,
                             $has_chromosomes );
+
+    # Add a meta key on the core database
+    # Do that only when templating gene mart - not SNP mart nor e! marts
+    if ( ($mart_db !~ /snp/i) and ($div ne 'vertebrates') ) {
+      $meta_insert->execute( $species_id, $dataset );
+    }
+
   } ## end foreach my $species_id (@species_ids)
   $ens_dbh->disconnect();
 

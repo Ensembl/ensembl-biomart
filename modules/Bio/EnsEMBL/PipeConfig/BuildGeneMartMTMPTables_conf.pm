@@ -22,53 +22,68 @@ package Bio::EnsEMBL::PipeConfig::BuildGeneMartMTMPTables_conf;
 
 use strict;
 use warnings;
-
+use Data::Dumper;
+use Bio::EnsEMBL::Hive::PipeConfig::HiveGeneric_conf;
+ # All Hive databases configuration files should inherit from HiveGeneric, directly or indirectly
 use base ('Bio::EnsEMBL::Hive::PipeConfig::EnsemblGeneric_conf');
+use Cwd;
 
 sub resource_classes {
   my ($self) = @_;
-
-  return {
-    'default' => {'LSF' => '-q production-rh74'},
-    '4GB'     => {'LSF' => '-q production-rh74 -M  4000 -R "rusage[mem=4000,scratch=4000]"'}
-  };
+  return { 'default' => { 'LSF' => '-q production-rh74' },
+           'normal'            => {'LSF' => '-q production-rh74 -M  4000 -R "rusage[mem=4000]"'},
+    '16Gb_mem_16Gb_scratch' => {'LSF' => '-q production-rh74 -M 16000 -R "rusage[mem=16000,scratch=16000]"'}
+    };
 }
 
 sub default_options {
   my ($self) = @_;
-  return {
-    %{$self->SUPER::default_options},
-
-    species     => [],
-    antispecies => [],
-    division    => [],
-    run_all     => 0,
-
-    base_dir    => $self->o('ENV', 'BASE_DIR'),
-    scratch_dir => '/scratch',
-
-    drop_mart_db         => 1,
-    drop_mtmp_probestuff => 1,
-    drop_mtmp_tv         => 0,
-    drop_mtmp_variation  => 1,
-
-    scripts_dir              => $self->o('base_dir').'/ensembl-variation/scripts/',
-    variation_import_lib     => $self->o('scripts_dir').'import',
-    variation_feature_script => $self->o('scripts_dir').'misc/mart_variation_effect.pl',
-    variation_mtmp_script    => $self->o('scripts_dir').'misc/create_MTMP_tables.pl',
-    mart_phenotypes_script   => $self->o('scripts_dir').'misc/mart_phenotypes.pl',
+  return { %{ $self->SUPER::default_options },
+           'mart_db_name' => '',
+           'drop_mart_db' => 1,
+           'antispecies'  => [],
+           'species'      => [],
+           'division'     => [],
+           'run_all'      => 0,
+           'base_dir'  => getcwd,
+           'registry'      => $self->o('registry'),
+           'drop_mtmp_tv' => 0,
+           'drop_mtmp_variation'      => 1,
+           'drop_mtmp_probestuff'     => 1,
+           # The following are required for building MTMP tables.
+           'variation_import_lib' => $self->o('base_dir').'/ensembl-variation/scripts/import',
+           'variation_feature_script' => $self->o('base_dir').'/ensembl-variation/scripts/misc/mart_variation_effect.pl',
+           'variation_mtmp_script' => $self->o('base_dir').'/ensembl-variation/scripts/misc/create_MTMP_tables.pl',
+           'mart_phenotypes_script' => $self->o('base_dir').'/ensembl-variation/scripts/misc/mart_phenotypes.pl',
+           'scratch_dir'                  => '/scratch',
   };
 }
 
+=head2 pipeline_wide_parameters
+=cut
+
+sub pipeline_wide_parameters {
+  my ($self) = @_;
+  return {
+    %{ $self->SUPER::pipeline_wide_parameters
+      } # here we inherit anything from the base class, then add our own stuff
+  };
+}
+
+# Force an automatic loading of the registry in all workers.
 sub beekeeper_extra_cmdline_options {
   my $self = shift;
   return "-reg_conf ".$self->o("registry");
 }
 
+
+=head2 pipeline_analyses
+=cut
+
 sub pipeline_analyses {
   my ($self) = @_;
   my $analyses = [
-    {
+        {
       -logic_name      => 'InitialiseMartDB',
       -module          => 'Bio::EnsEMBL::EGPipeline::VariationMart::InitialiseMartDB',
       -input_ids       => [ {} ],
@@ -77,10 +92,14 @@ sub pipeline_analyses {
                             drop_mart_db => $self->o('drop_mart_db'),
                           },
       -max_retry_count => 0,
-      -flow_into       => ['SpeciesFactory']
+      -rc_name         => 'default',
+      -flow_into       => {
+                            '1' => ['ScheduleSpecies']
+                          }
     },
+
     {
-      -logic_name      => 'SpeciesFactory',
+      -logic_name      => 'ScheduleSpecies',
       -module          => 'Bio::EnsEMBL::Production::Pipeline::Common::SpeciesFactory',
       -parameters      => {
                             species     => $self->o('species'),
@@ -89,64 +108,43 @@ sub pipeline_analyses {
                             run_all     => $self->o('run_all'),
                           },
       -max_retry_count => 0,
+      -rc_name         => 'normal',
       -flow_into       => {
-                            '4' => 'CheckExcludedSpeciesVariation',
-                            '6' => 'CheckExcludedSpeciesRegulation',
-                          }
-    },
-    {
-      -logic_name      => 'CheckExcludedSpeciesVariation',
-      -module          => 'Bio::EnsEMBL::BioMart::CheckExcludedSpecies',
-      -max_retry_count => 0,
-      -parameters      => {
-                            base_dir => $self->o('base_dir')
-                          },
-      -flow_into       => {
-                            '3' => 'CreateMTMPVariation',
-                          }
-    },
-    {
-      -logic_name      => 'CheckExcludedSpeciesRegulation',
-      -module          => 'Bio::EnsEMBL::BioMart::CheckExcludedSpecies',
-      -max_retry_count => 0,
-      -parameters      => {
-                            base_dir => $self->o('base_dir'),
-                          },
-      -flow_into       => {
-                            '3' => 'CreateMTMPProbestuffHelper',
+                            '4' => 'CreateMTMPVariation',
+                            '6' => 'CreateMTMPProbestuffHelper',     
                           }
     },
     {
       -logic_name        => 'CreateMTMPProbestuffHelper',
       -module            => 'Bio::EnsEMBL::BioMart::CreateMTMPProbestuffHelper',
       -parameters        => {
-                              drop_mtmp => $self->o('drop_mtmp_probestuff'),
-                              registry  => $self->o('registry'),
+                              drop_mtmp     => $self->o('drop_mtmp_probestuff'),
+                              registry                 => $self->o('registry'),
                             },
-      -max_retry_count   => 1,
-      -analysis_capacity => 50,
-      -rc_name           => '4GB',
+      -max_retry_count   => 3,
+      -analysis_capacity => 5,
+      -can_be_empty      => 1,
+      -rc_name           => '16Gb_mem_16Gb_scratch',
     },
     {
       -logic_name        => 'CreateMTMPVariation',
       -module            => 'Bio::EnsEMBL::BioMart::CreateMTMPVariation',
       -parameters        => {
-                              registry                 => $self->o('registry'),
-                              scratch_dir              => $self->o('scratch_dir'),
-                              drop_mtmp                => $self->o('drop_mtmp_variation'),
-                              drop_mtmp_tv             => $self->o('drop_mtmp_tv'),
+                              drop_mtmp               => $self->o('drop_mtmp_variation'),
+                              drop_mtmp_tv         => $self->o('drop_mtmp_tv'),
                               variation_import_lib     => $self->o('variation_import_lib'),
                               variation_feature_script => $self->o('variation_feature_script'),
                               variation_mtmp_script    => $self->o('variation_mtmp_script'),
+                              registry                 => $self->o('registry'),
+                              scratch_dir                  => $self->o('scratch_dir'),
                               mart_phenotypes_script   => $self->o('mart_phenotypes_script'),
                             },
-      -max_retry_count   => 1,
-      -analysis_capacity => 50,
-      -rc_name           => '4GB',
+      -max_retry_count   => 3,
+      -analysis_capacity => 5,
+      -can_be_empty      => 1,
+      -rc_name           => '16Gb_mem_16Gb_scratch',
     },
   ];
-
   return $analyses;
-}
-
+} ## end sub pipeline_analyses
 1;
