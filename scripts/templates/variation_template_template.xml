@@ -9,6 +9,7 @@
   <Importable filters="link_so_regulation_closure" internalName="so_regulation_closure" linkName="so_regulation_closure" name="so_regulation_closure" type="link" useDefault="true"/>
   <Importable filters="link_so_motif_closure" internalName="so_motif_closure" linkName="so_motif_closure" name="so_motif_closure" type="link" useDefault="true"/>
   <Importable filters="ensembl_gene" internalName="variation_to_ensembl" linkName="variation_to_ensembl" linkVersion="*link_version*" name="variation_to_ensembl" type="link" useDefault="true"/>
+  <Importable filters="ensembl_gene_name" internalName="variation_to_ensembl_name" linkName="variation_to_ensembl_name" linkVersion="*link_version*" name="variation_to_ensembl_name" type="link" useDefault="true"/>
   <Importable filters="chr_name,start,end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
   <Importable filters="chr_name,end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
   <Importable filters="chr_name,start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link" useDefault="true"/>
@@ -16,6 +17,7 @@
   <Exportable attributes="refsnp_id" internalName="refsnp_id" linkName="refsnp_id" name="refsnp_id" type="link" useDefault="true"/>
   <Exportable attributes="variation_feature_id_key,chr_name,chrom_start,chrom_strand,allele" default="1" internalName="snp" linkName="snp" linkVersion="*link_version*" name="snp" orderBy="variation_feature_id_key" type="link" useDefault="true"/>
   <Exportable attributes="ensembl_gene_stable_id" internalName="ensembl_gene_id" linkName="ensembl_gene_id" linkVersion="*link_version*" name="ensembl_gene_id" type="link"/>
+  <Exportable attributes="ensembl_gene_name" internalName="ensembl_gene_name" linkName="ensembl_gene_name" linkVersion="*link_version*" name="ensembl_gene_name" type="link"/>
   <Replace id="exportables"/>
   <FilterPage displayName="FILTERS FOR LINKS" hideDisplay="true" internalName="link_filters" useDefault="true">
     <FilterGroup description="Filters for Links" hideDisplay="true" internalName="link_filters" useDefault="true">
@@ -160,6 +162,9 @@
       <FilterCollection displayName="Gene stable ID(s) [Max 500 advised]" internalName="ensembl_gene_ids" useDefault="true">
         <FilterDescription displayName="Gene stable ID(s) [Max 500]" displayType="text" field="stable_id_1023" hidden="false" internalName="ensembl_gene" key="variation_feature_id_2026_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="mart_transcript_variation__dm" type="list" useDefault="true"/>
       </FilterCollection>
+      <FilterCollection displayName="Gene Name(s) [Max 500 advised]" internalName="ensembl_gene_names" useDefault="true">
+        <FilterDescription displayName="Gene Name(s) :" displayType="text" field="stable_id_1023" hidden="false" internalName="ensembl_gene_names" key="variation_feature_id_2026_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="mart_transcript_variation__dm" type="list" useDefault="true"/>
+      </FilterCollection>
       <FilterCollection displayName="Variant consequence" internalName="consequence_type" useDefault="true">
         <FilterDescription displayType="list" hidden="false" internalName="so_consequence_name" legal_qualifiers="=" multipleValues="1" pointerDataset="closure_SO_mini" pointerFilter="so_mini_parent_name" pointerInterface="default" qualifier="=" style="menu" type="list" useDefault="true"/>
       </FilterCollection>
@@ -250,6 +255,7 @@
     <AttributeGroup displayName="GENE ASSOCIATED INFORMATION:" internalName="genesnpatts" useDefault="true">
       <AttributeCollection displayName="Gene attribute" internalName="ensemblatts" maxSelect="0" useDefault="true">
         <AttributeDescription displayName="Gene stable ID" field="stable_id_1023" internalName="ensembl_gene_stable_id" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Gene/Summary?g=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Gene Name" field="stable_id_1023" internalName="ensembl_gene_name" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Gene/Summary?g=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Transcript stable ID" field="stable_id_1066" internalName="ensembl_transcript_stable_id" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Gene/Summary?t=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Transcript strand" field="seq_region_strand_1064" internalName="ensembl_transcript_chrom_strand" key="variation_feature_id_2026_key" maxLength="2" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Biotype" field="biotype_1064" internalName="ensembl_type" key="variation_feature_id_2026_key" maxLength="40" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
