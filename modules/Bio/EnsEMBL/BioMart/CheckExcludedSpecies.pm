@@ -20,33 +20,34 @@ package Bio::EnsEMBL::BioMart::CheckExcludedSpecies;
 
 use strict;
 use warnings;
-use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
-use MartUtils;
+use base ('Bio::EnsEMBL::Hive::Process');
+
 use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
-use Bio::EnsEMBL::MetaData::Base qw(process_division_names);
+use Bio::EnsEMBL::Registry;
 
 sub run {
   my ($self) = @_;
-  my $div     = $self->param('division');
-  my $species           = $self->param_required('species');
-  my $base_dir          = $self->param('base_dir');
+  my $species  = $self->param_required('species');
+  my $base_dir = $self->param_required('base_dir');
   my $included_species;
-  my ($division,$division_name)=process_division_names($div);
-  # Use division to find the release in metadata database
-  if ($division_name eq "vertebrates"){
-    # Load species to exclude from the Vertebrates marts
-    $included_species = genome_to_include($division_name,$base_dir);
+
+  my $dba = Bio::EnsEMBL::Registry->get_DBAdaptor($species, 'core');
+  my $mca = $dba->get_adaptor('MetaContainer');
+  my $division = $mca->get_division;
+
+  if ($division =~ /vertebrates/i) {
+    $included_species = genome_to_include($division, $base_dir);
     if (!grep( /$species/, @$included_species) ){
-      $self->warning("Excluding $species from mart");
-      return;
+      $self->complete_early("Excluding $species from mart");
     }
   }
-  $self->dataflow_output_id({
-    'species'          => $species
-  }, 4);
-  $self->dataflow_output_id({
-    'species'          => $species
-  }, 6);
+}
+
+sub write_output {
+  my ($self) = @_;
+  my $species = $self->param_required('species');
+
+  $self->dataflow_output_id({'species'=> $species}, 3);
 }
 
 1;

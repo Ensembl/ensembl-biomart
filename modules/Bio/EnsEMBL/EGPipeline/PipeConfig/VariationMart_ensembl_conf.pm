@@ -48,7 +48,7 @@ sub default_options {
     %{$self->SUPER::default_options},
     
     division_name         => 'vertebrates',
-    mart_db_name          => 'snp_mart_'.$self->o('eg_release'),
+    mart_db_name          => 'snp_mart_'.$self->o('ensembl_release'),
     drop_mtmp             => 1,
     drop_mtmp_tv       => 0,
     sample_threshold      => 0,
