@@ -16,6 +16,7 @@
   <Exportable attributes="refsnp_id" internalName="refsnp_id" linkName="refsnp_id" name="refsnp_id" type="link" useDefault="true"/>
   <Exportable attributes="variation_feature_id_key,chr_name,chrom_start,chrom_strand,allele" default="1" internalName="snp" linkName="snp" linkVersion="*link_version*" name="snp" orderBy="variation_feature_id_key" type="link" useDefault="true"/>
   <Exportable attributes="ensembl_gene_stable_id" internalName="ensembl_gene_id" linkName="ensembl_gene_id" linkVersion="*link_version*" name="ensembl_gene_id" type="link"/>
+  <Exportable attributes="ensembl_gene_name" internalName="ensembl_gene_name" linkName="ensembl_gene_name" linkVersion="*link_version*" name="ensembl_gene_name" type="link"/>
   <Replace id="exportables"/>
   <FilterPage displayName="FILTERS FOR LINKS" hideDisplay="true" internalName="link_filters" useDefault="true">
     <FilterGroup description="Filters for Links" hideDisplay="true" internalName="link_filters" useDefault="true">
@@ -250,6 +251,7 @@
     <AttributeGroup displayName="GENE ASSOCIATED INFORMATION:" internalName="genesnpatts" useDefault="true">
       <AttributeCollection displayName="Gene attribute" internalName="ensemblatts" maxSelect="0" useDefault="true">
         <AttributeDescription displayName="Gene stable ID" field="stable_id_1023" internalName="ensembl_gene_stable_id" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Gene/Summary?g=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Gene Name" field="stable_id_1023" internalName="ensembl_gene_name" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Gene/Summary?g=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Transcript stable ID" field="stable_id_1066" internalName="ensembl_transcript_stable_id" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Gene/Summary?t=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Transcript strand" field="seq_region_strand_1064" internalName="ensembl_transcript_chrom_strand" key="variation_feature_id_2026_key" maxLength="2" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Biotype" field="biotype_1064" internalName="ensembl_type" key="variation_feature_id_2026_key" maxLength="40" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
@@ -281,7 +283,7 @@
         <AttributeDescription displayName="Motif feature consequence type" field="consequence_types_20125" internalName="motif_consequence_types" key="variation_feature_id_2026_key" maxLength="33" tableConstraint="motif_feature_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="High information position" field="in_informative_position_20125" internalName="motif_in_informative_position" key="variation_feature_id_2026_key" maxLength="1" tableConstraint="motif_feature_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Motif score change" field="motif_score_delta_20125" internalName="motif_score_delta" key="variation_feature_id_2026_key" maxLength="12" tableConstraint="motif_feature_variation__dm" useDefault="true"/>
-        <AttributeDescription displayName="Binding matrix stable ID" field="motif_name_20125" internalName="motif_name" key="variation_feature_id_2026_key" maxLength="255" tableConstraint="motif_feature_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Motif name" field="motif_name_20125" internalName="motif_name" key="variation_feature_id_2026_key" maxLength="255" tableConstraint="motif_feature_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Motif position" field="motif_start_20125" internalName="motif_start" key="variation_feature_id_2026_key" maxLength="11" tableConstraint="motif_feature_variation__dm" useDefault="true"/>
       </AttributeCollection>
     </AttributeGroup>

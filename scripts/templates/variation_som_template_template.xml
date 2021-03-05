@@ -8,6 +8,7 @@
   <Importable filters="link_so_regulation_closure" internalName="so_regulation_closure" linkName="so_regulation_closure" name="so_regulation_closure" type="link" useDefault="true"/>
   <Importable filters="link_so_motif_closure" internalName="so_motif_closure" linkName="so_motif_closure" name="so_motif_closure" type="link" useDefault="true"/>
   <Importable filters="ensembl_gene" internalName="somatic_to_ensembl" linkName="somatic_to_ensembl" linkVersion="*link_version*" name="somatic_to_ensembl" type="link" useDefault="true"/>
+  <Importable filters="ensembl_gene_name" internalName="genename_to_ensembl" linkName="genename_to_ensembl" linkVersion="*link_version*" name="genename_to_ensembl" type="link" useDefault="true"/>
   <Importable filters="chr_name,start,end" internalName="genomic_sequence" linkName="genomic_sequence" linkVersion="*link_version*" name="genomic_sequence" type="link" useDefault="true"/>
   <Importable filters="chr_name,start" internalName="genomic_region_start" linkName="genomic_region_start" linkVersion="*link_version*" name="genomic_region_start" type="link" useDefault="true"/>
   <Importable filters="chr_name,end" internalName="genomic_region_end" linkName="genomic_region_end" linkVersion="*link_version*" name="genomic_region_end" type="link" useDefault="true"/>
@@ -181,6 +182,9 @@
       <FilterCollection displayName="Gene stable ID(s) [Max 500 advised]" internalName="ensembl_gene_ids" useDefault="true">
         <FilterDescription displayName="Gene stable ID(s):" displayType="text" field="stable_id_1023" hidden="false" internalName="ensembl_gene" key="variation_feature_id_2026_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="mart_transcript_variation__dm" type="list" useDefault="true"/>
       </FilterCollection>
+      <FilterCollection displayName="Gene Name(s) [Max 200 advised]" internalName="ensembl_gene_names" useDefault="true">
+        <FilterDescription displayName="Gene Name(s) :" displayType="text" field="gene_name_1023" hidden="false" internalName="ensembl_gene_name" key="variation_feature_id_2026_key" legal_qualifiers="=,in" multipleValues="1" qualifier="=" tableConstraint="mart_transcript_variation__dm" type="list" useDefault="true"/>
+      </FilterCollection>
       <FilterCollection displayName="Variant consequence" internalName="consequence_type" useDefault="true">
         <FilterDescription displayType="list" hidden="false" internalName="so_consequence_name" legal_qualifiers="=" multipleValues="1" pointerDataset="closure_SO_mini" pointerFilter="so_mini_parent_name" pointerInterface="default" qualifier="=" style="menu" type="list" useDefault="true"/>
       </FilterCollection>
@@ -258,6 +262,7 @@
     <AttributeGroup displayName="GENE ASSOCIATED INFORMATION:" internalName="genesnpatts" useDefault="true">
       <AttributeCollection displayName="For Ensembl Genes" internalName="ensemblatts" maxSelect="0" useDefault="true">
         <AttributeDescription displayName="Gene stable ID" field="stable_id_1023" internalName="ensembl_gene_stable_id" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Gene/Summary?g=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
+        <AttributeDescription displayName="Gene Name" field="gene_name_1023" internalName="ensembl_gene_name" key="variation_feature_id_2026_key" linkoutURL="exturl|/Multi/Search/Results?q=%s;page=1;facet_feature_type=Gene" maxLength="128" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Transcript stable ID" field="stable_id_1066" internalName="ensembl_transcript_stable_id" key="variation_feature_id_2026_key" linkoutURL="exturl|/*species2*/Gene/Summary?t=%s" maxLength="128" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Transcript strand" field="seq_region_strand_1064" internalName="ensembl_transcript_chrom_strand" key="variation_feature_id_2026_key" maxLength="2" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
         <AttributeDescription displayName="Biotype" field="biotype_1064" internalName="ensembl_type" key="variation_feature_id_2026_key" maxLength="40" tableConstraint="mart_transcript_variation__dm" useDefault="true"/>
