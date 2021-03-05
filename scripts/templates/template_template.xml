@@ -6,6 +6,7 @@
   <Importable filters="link_go_mol_function" internalName="go_id_mol_function" linkName="go_id_mol_function" name="go_id_mol_function" type="link"/>
   <Importable filters="mgi_symbol" internalName="mgi_symbol" linkName="mgi_symbol" name="mgi_symbol" type="link"/>
   <Importable filters="ensembl_gene_id" internalName="ensembl_gene_id" linkName="ensembl_gene_id" linkVersion="*link_version*" name="ensembl_gene_id" type="link"/>
+  <Importable filters="ensembl_gene_name" internalName="ensembl_gene_name" linkName="ensembl_gene_name" linkVersion="*link_version*" name="ensembl_gene_name" type="link"/>
   <Importable filters="link_go_biol_process" internalName="go_id_biol_process" linkName="go_id_biol_process" name="go_id_biol_process" type="link"/>
   <Importable filters="link_go_cell_component" internalName="go_id_cell_component" linkName="go_id_cell_component" name="go_id_cell_component" type="link"/>
   <Importable filters="rgd" internalName="rgd_id" linkName="rgd_id" name="rgd_id" type="link"/>

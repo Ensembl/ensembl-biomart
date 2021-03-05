@@ -216,6 +216,12 @@
           <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
         </FilterDescription>
       </FilterCollection>
+      <FilterCollection displayName="Ensembl Canonical" internalName="transcript_is_canonical" useDefault="true">
+        <FilterDescription displayName="Ensembl Canonical" displayType="list" field="value_1065" internalName="transcript_is_canonical" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_is_canonical__dm" type="boolean" useDefault="true">
+          <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
+        </FilterDescription>
+      </FilterCollection>
       <FilterCollection displayName="MANE Select transcript" internalName="mane_select" useDefault="true">
         <FilterDescription displayName="MANE Select transcript" displayType="list" field="value_1065" internalName="mane_select" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_mane_select__dm" type="boolean" useDefault="true">
           <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
@@ -1457,16 +1463,12 @@
         <AttributeDescription description="End Coordinate of the gene in chromosomal coordinates." displayName="Transcript end (bp)" field="seq_region_end_1064" hidden="false" internalName="transcript_end" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/contigview?chr=%s&amp;vc_start=%s&amp;vc_end=%s|chromosome_name|transcript_start|transcript_end" maxLength="10" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Transcription start site (TSS)" field="transcription_start_site" internalName="transcription_start_site" key="transcript_id_1064_key" maxLength="10" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Transcript length (including UTRs and CDS)" field="transcript_length" internalName="transcript_length" key="transcript_id_1064_key" maxLength="10" tableConstraint="main" useDefault="true"/>
-        <AttributeDescription displayName="Transcript support level (TSL)" field="value_1065" internalName="transcript_tsl" key="transcript_id_1064_key" linkoutURL="exturl|http://www.ensembl.org/Help/Glossary?id=492" maxLength="255" tableConstraint="tra_tsl__dm" useDefault="true">
-        </AttributeDescription>
-        <AttributeDescription displayName="GENCODE basic annotation" field="value_1065" internalName="transcript_gencode_basic" key="transcript_id_1064_key" linkoutURL="exturl|http://www.ensembl.org/Help/Glossary?id=500" maxLength="255" tableConstraint="tra_gencode_basic__dm" useDefault="true">
-        </AttributeDescription>
-        <AttributeDescription displayName="APPRIS annotation" field="value_1065" internalName="transcript_appris" key="transcript_id_1064_key" linkoutURL="exturl|http://www.ensembl.org/Help/Glossary?id=521" maxLength="255" tableConstraint="tra_appris__dm" useDefault="true">
-        </AttributeDescription>
-        <AttributeDescription displayName="RefSeq match transcript (MANE Select)" field="value_1065" internalName="transcript_mane_select" key="transcript_id_1064_key" linkoutURL="exturl|https://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="255" tableConstraint="tra_mane_select__dm" useDefault="true">
-        </AttributeDescription>
-        <AttributeDescription displayName="RefSeq match transcript (MANE Plus Clinical)" field="value_1065" internalName="transcript_mane_plus_clinical" key="transcript_id_1064_key" linkoutURL="exturl|https://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="255" tableConstraint="tra_mane_plus_clinical__dm" useDefault="true">
-        </AttributeDescription>
+        <AttributeDescription displayName="Transcript support level (TSL)" field="value_1065" internalName="transcript_tsl" key="transcript_id_1064_key" linkoutURL="exturl|http://www.ensembl.org/Help/Glossary?id=492" maxLength="255" tableConstraint="tra_tsl__dm" useDefault="true"/>
+        <AttributeDescription displayName="GENCODE basic annotation" field="value_1065" internalName="transcript_gencode_basic" key="transcript_id_1064_key" linkoutURL="exturl|http://www.ensembl.org/Help/Glossary?id=500" maxLength="255" tableConstraint="tra_gencode_basic__dm" useDefault="true"/>
+        <AttributeDescription displayName="APPRIS annotation" field="value_1065" internalName="transcript_appris" key="transcript_id_1064_key" linkoutURL="exturl|http://www.ensembl.org/Help/Glossary?id=521" maxLength="255" tableConstraint="tra_appris__dm" useDefault="true"/>
+        <AttributeDescription displayName="Ensembl Canonical" field="value_1065" internalName="transcript_is_canonical" key="transcript_id_1064_key" maxLength="255" tableConstraint="tra_is_canonical__dm" useDefault="true"/>
+        <AttributeDescription displayName="RefSeq match transcript (MANE Select)" field="value_1065" internalName="transcript_mane_select" key="transcript_id_1064_key" linkoutURL="exturl|https://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="255" tableConstraint="tra_mane_select__dm" useDefault="true"/>
+        <AttributeDescription displayName="RefSeq match transcript (MANE Plus Clinical)" field="value_1065" internalName="transcript_mane_plus_clinical" key="transcript_id_1064_key" linkoutURL="exturl|https://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="255" tableConstraint="tra_mane_plus_clinical__dm" useDefault="true"/>
         <AttributeDescription displayName="Gene name" field="display_label_1074" internalName="external_gene_name" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s|ensembl_gene_id" maxLength="16" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Source of gene name" field="db_display_name_1018" internalName="external_gene_source" key="gene_id_1020_key" maxLength="17" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Transcript name" field="display_label_1074_r1" internalName="external_transcript_name" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s|ensembl_transcript_id" maxLength="16" tableConstraint="main" useDefault="true"/>
