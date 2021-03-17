@@ -123,13 +123,15 @@ sub pipeline_analyses {
         'datasets' => $self->o('datasets'),
         'base_dir' => $self->o('base_dir'),
         'registry' => $self->o('registry'),
-        'species'  => $self->o('species') },
+        'species'  => $self->o('species'),
+          'base_name' => "features"
+      },
       -flow_into => {
         1 => WHEN(
           '(#dataset# ne "dmelanogaster")' => ['AddExtraMartIndexesExternalFeatures',
                                                'AddExtraMartIndexesPeaks',
                                                'AddExtraMartIndexesMiRNATargetFeatures',
-                                               'AddExtraMartIndexesMotifFeatures',
+                                               # 'AddExtraMartIndexesMotifFeatures',
                                                'AddExtraMartIndexesRegulatoryFeatures'],
           ELSE 'AddExtraMartIndexesExternalFeatures',
         )
@@ -186,23 +188,23 @@ sub pipeline_analyses {
       -analysis_capacity => 10,
       -rc_name           => 'default',
     },
-    {
-      -logic_name        => 'AddExtraMartIndexesMotifFeatures',
-      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
-      -parameters        => {
-                              tables_dir => $self->o('tables_dir'),
-                              table => 'motif_feature__main',
-                              mart_table_prefix => '#dataset#'."_"."motif_feature",
-                              mart_host => $self->o('host'),
-                              mart_port => $self->o('port'),
-                              mart_user => $self->o('user'),
-                              mart_pass => $self->o('pass'),
-                              mart_db_name =>  $self->o('mart'),
-                            },
-      -max_retry_count   => 0,
-      -analysis_capacity => 10,
-      -rc_name           => 'default',
-    },
+#    {
+#      -logic_name        => 'AddExtraMartIndexesMotifFeatures',
+#      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
+#      -parameters        => {
+#                              tables_dir => $self->o('tables_dir'),
+#                              table => 'motif_feature__main',
+#                              mart_table_prefix => '#dataset#'."_"."motif_feature",
+#                              mart_host => $self->o('host'),
+#                              mart_port => $self->o('port'),
+#                              mart_user => $self->o('user'),
+#                              mart_pass => $self->o('pass'),
+#                              mart_db_name =>  $self->o('mart'),
+#                            },
+#      -max_retry_count   => 0,
+#      -analysis_capacity => 10,
+#      -rc_name           => 'default',
+#    },
     {
       -logic_name        => 'AddExtraMartIndexesRegulatoryFeatures',
       -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
