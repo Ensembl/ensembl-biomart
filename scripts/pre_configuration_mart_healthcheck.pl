@@ -27,7 +27,8 @@ my ( $old_dbname, $olduser,    $oldpass, $oldhost,
      $oldport,    $new_dbname, $newuser, $newpass,
      $newhost,    $newport,    $mart,    $oldrel,
      $newrel,     $dumpdir,    $percent, $empty_column,
-     $metadata_dbname, $metadatauser, $metadatapass, $metadatahost, $metadataport, $grch37 );
+     $metadata_dbname, $metadatauser, $metadatapass, $metadatahost, $metadataport, $grch37,
+     $included_species, $division, $division_name, $filter_species, %species_set );
 
 $oldhost = 'mysql-ens-general-prod-1';
 $newhost = 'mysql-ens-sta-1';
@@ -60,7 +61,8 @@ GetOptions( 'old_dbname=s'   => \$old_dbname,
             'metadatapass=s'      => \$metadatapass,
             'metadatahost=s'      => \$metadatahost,
             'metadataport=i'      => \$metadataport,
-            'grch37=i'            => \$grch37 );
+            'grch37=i'            => \$grch37,
+            'filter_species=i'    => \$filter_species );
 
 if ( !defined($new_dbname) ) {
   $new_dbname = $mart . "_" . $newrel;
@@ -79,6 +81,28 @@ if ( defined($percent) ) {
   $percent = $percent/100;
 } else {
   $percent = 0.5;    # 50%
+}
+
+if ( !defined($division) ) {
+  # Getting division name from the database name
+  if ($new_dbname =~ '^ensembl_mart' or $new_dbname =~ '^mouse_mart' or $new_dbname =~ '^sequence_mart' or $new_dbname =~ '^snp_mart') {
+    $division = "vertebrates";
+  }
+  else {
+    $new_dbname =~ m/^([a-z0-9]+)_.+/;
+    $division = $1;
+  }
+}
+
+if ($division eq "vertebrates") {
+  #Get both division short and full name from a division short or full name
+  my ($_division, $division_name) = process_division_names($division);
+  # Load species to include in the Vertebrates marts
+  $included_species = genome_to_include($division_name);
+  foreach my $species_name ( @$included_species ) {
+      $species_name =~ s/([a-z0-9])[a-z0-9]*_/$1/g;
+      $species_se{$species_name} = 1;
+  }
 }
 
 my @marts;
@@ -190,6 +214,10 @@ foreach my $mart (@marts) {
     $sth->execute();
     while ( my $table_name = $sth->fetchrow_array() ) {
 
+      if ( ! valid_table($table_name) ) {
+        next;
+      }
+
       my %columns;
       my $try_sth = $new_dbi->prepare("describe $table_name");
       if ( $try_sth->execute ) {
@@ -274,7 +302,7 @@ foreach my $rel ( "new", "old" ) {
       #hsapiens_gene_ensembl__protein_feature_pfscan__dm
       #hsapiens_gene_ensembl__gene__main
 
-      if ( $table_name =~ /^meta/ ) {
+      if ( $table_name =~ /^meta/ || ($rel eq "old" && ! valid_table($table_name)) ) {
         next;
       }
       my ( $long_species, $feat, $type ) = split /__/, $table_name;
@@ -318,22 +346,22 @@ foreach my $rel ( "new", "old" ) {
   # Compare with species from the mart with species from metadata database
   # for gene, sequence and variation marts
   #
-  my $division;
+  # my $division;
   my $metadata_species;
   # Getting division name from the database name
-  if ($new_dbname =~ '^ensembl_mart' or $new_dbname =~ '^mouse_mart' or $new_dbname =~ '^sequence_mart' or $new_dbname =~ '^snp_mart') {
-    $division = "vertebrates";
-  }
-  else {
-    $new_dbname =~ m/^([a-z0-9]+)_.+/;
-    $division = $1;
-  }
+  # if ($new_dbname =~ '^ensembl_mart' or $new_dbname =~ '^mouse_mart' or $new_dbname =~ '^sequence_mart' or $new_dbname =~ '^snp_mart') {
+  #   $division = "vertebrates";
+  # }
+  # else {
+  #   $new_dbname =~ m/^([a-z0-9]+)_.+/;
+  #   $division = $1;
+  # }
   my $div_gene_mart = $division."_mart";
   # We don't want to run this test for GRCh37 since we only have human.
   if (!defined $grch37){
     # Only run this test for gene, sequence and variation marts
     if ($new_dbname =~ 'ensembl_mart' or $new_dbname=~ $div_gene_mart or $new_dbname =~ 'sequence' or $new_dbname =~ 'snp'){
-      my ($metadata_species_core, $metadata_species_variation) = metadata_species_list($metadata_dbname, $metadatahost, $metadatapass, $metadataport, $metadatauser, $newrel, $new_dbname, $division);
+      my ($metadata_species_core, $metadata_species_variation) = metadata_species_list($metadata_dbname, $metadatahost, $metadatapass, $metadataport, $metadatauser, $newrel, $new_dbname);
       if ($new_dbname =~ 'snp'){
         $metadata_species = $metadata_species_variation;
       }
@@ -413,22 +441,22 @@ sub dbi {
 }
 
 sub metadata_species_list {
-  my ($metadata_dbname, $metadatahost, $metadatapass, $metadataport, $metadatauser, $newrel, $new_dbname, $div) = @_;
+  my ($metadata_dbname, $metadatahost, $metadatapass, $metadataport, $metadatauser, $newrel, $new_dbname) = @_;
   my $dba = Bio::EnsEMBL::MetaData::DBSQL::MetaDataDBAdaptor->new(-USER => $metadatauser, -PASS => $metadatapass,-DBNAME=>$metadata_dbname, -HOST=>$metadatahost, -PORT=>$metadataport);
   my $gdba = $dba->get_GenomeInfoAdaptor();
   my $dbdba = $dba->get_DatabaseInfoAdaptor();
   my $rdba = $dba->get_DataReleaseInfoAdaptor();
   my %metadata_species_core;
   my %metadata_species_variation;
-  my ($release,$release_info,$included_species);
+  my ($release,$release_info);
   # Get the release version
   ($rdba,$gdba,$release,$release_info) = fetch_and_set_release($newrel,$rdba,$gdba);
   #Get both division short and full name from a division short or full name
-  my ($division,$division_name)=process_division_names($div);
-  if ($division eq "vertebrates"){
-    # Load species to include in the Vertebrates marts
-    $included_species = genome_to_include($division_name);
-  }
+  # my ($division,$division_name)=process_division_names($div);
+  # if ($division eq "vertebrates"){
+  #   # Load species to include in the Vertebrates marts
+  #   $included_species = genome_to_include($division_name);
+  # }
   # Get all the genomes for a given division and release
   my $genomes = $gdba->fetch_all_by_division($division_name);
   foreach my $genome (@$genomes){
@@ -479,4 +507,19 @@ sub metadata_species_list {
     }
   }
   return(\%metadata_species_core,\%metadata_species_variation);
+}
+
+sub valid_table {
+  my ($table_name) = @_;
+  if ( $division eq "vertebrates" && $filter_species ) {
+    my @species_names = $table_name =~ /(\w+)_gene_ensembl__homolog_(\w+)__dm/gx;
+    if ( @species_names ) {
+      foreach $name ( @species_names ) {
+        if ( ! $species_set{$name} ) {
+          return 0;
+        }
+      }
+    }
+  }
+  return 1;
 }
