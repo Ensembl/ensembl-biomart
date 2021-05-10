@@ -101,7 +101,7 @@ if ($division eq "vertebrates") {
   $included_species = genome_to_include($division_name);
   foreach my $species_name ( @$included_species ) {
       $species_name =~ s/([a-z0-9])[a-z0-9]*_/$1/g;
-      $species_se{$species_name} = 1;
+      $species_set{$species_name} = 1;
   }
 }
 
@@ -215,6 +215,7 @@ foreach my $mart (@marts) {
     while ( my $table_name = $sth->fetchrow_array() ) {
 
       if ( ! valid_table($table_name) ) {
+        print "Empty columns/tables check: skipping table " . $table_name . "\n";
         next;
       }
 
@@ -303,6 +304,7 @@ foreach my $rel ( "new", "old" ) {
       #hsapiens_gene_ensembl__gene__main
 
       if ( $table_name =~ /^meta/ || ($rel eq "old" && ! valid_table($table_name)) ) {
+        print "Species check: skipping table " . $table_name . "\n";
         next;
       }
       my ( $long_species, $feat, $type ) = split /__/, $table_name;
@@ -512,10 +514,10 @@ sub metadata_species_list {
 sub valid_table {
   my ($table_name) = @_;
   if ( $division eq "vertebrates" && $filter_species ) {
-    my @species_names = $table_name =~ /^(\w+)_gene_ensembl_|_homolog_(\w+)__dm$/gx;
+    my @species_names = $table_name =~ m/^(\w+)_gene_ensembl_|_homolog_(\w+)__dm$/gx;
     if ( @species_names ) {
-      foreach $name ( @species_names ) {
-        if ( ! $species_set{$name} ) {
+      foreach my $name ( @species_names ) {
+        if ( $name && ! $species_set{$name} ) {
           return 0;
         }
       }
