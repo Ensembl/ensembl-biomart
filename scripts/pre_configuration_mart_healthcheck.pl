@@ -512,7 +512,7 @@ sub metadata_species_list {
 sub valid_table {
   my ($table_name) = @_;
   if ( $division eq "vertebrates" && $filter_species ) {
-    my @species_names = $table_name =~ /(\w+)_gene_ensembl_|_homolog_(\w+)__dm/gx;
+    my @species_names = $table_name =~ /^(\w+)_gene_ensembl_|_homolog_(\w+)__dm$/gx;
     if ( @species_names ) {
       foreach $name ( @species_names ) {
         if ( ! $species_set{$name} ) {
