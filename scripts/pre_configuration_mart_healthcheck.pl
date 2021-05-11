@@ -214,7 +214,7 @@ foreach my $mart (@marts) {
     $sth->execute();
     while ( my $table_name = $sth->fetchrow_array() ) {
 
-      if ( ! valid_table($table_name) ) {
+      if ( ! is_valid_table($table_name) ) {
         print "Empty columns/tables check: skipping table " . $table_name . "\n";
         next;
       }
@@ -230,6 +230,11 @@ foreach my $mart (@marts) {
         $try_sth = $old_dbi->prepare("describe $table_name");
         $try_sth->execute;
         while ( my $col = $try_sth->fetch ) {
+
+          if ( ! is_valid_column($$col[0]) ) {
+            print "Empty columns/tables check: skipping column " . $$col[0] . "\n";
+            next;
+          }
           # If running the empty column test (time consuming test)
           if ( defined($empty_column) ) {
             my $empty_colums = $old_dbi->prepare(
@@ -303,7 +308,7 @@ foreach my $rel ( "new", "old" ) {
       #hsapiens_gene_ensembl__protein_feature_pfscan__dm
       #hsapiens_gene_ensembl__gene__main
 
-      if ( $table_name =~ /^meta/ || ($rel eq "old" && ! valid_table($table_name)) ) {
+      if ( $table_name =~ /^meta/ || ($rel eq "old" && ! is_valid_table($table_name)) ) {
         print "Species check: skipping table " . $table_name . "\n";
         next;
       }
@@ -511,15 +516,30 @@ sub metadata_species_list {
   return(\%metadata_species_core,\%metadata_species_variation);
 }
 
-sub valid_table {
+sub is_valid_column {
+  my ($column_name) = @_;
+  if ( $division eq "vertebrates" && $filter_species ) {
+    my @column_names = $column_name =~ m/^homolog_(\w+)_bool/gx;
+    return are_included_species(@column_names);
+  }
+  return 1;
+}
+
+sub is_valid_table {
   my ($table_name) = @_;
   if ( $division eq "vertebrates" && $filter_species ) {
     my @species_names = $table_name =~ m/^(\w+)_gene_ensembl_|_homolog_(\w+)__dm$/gx;
-    if ( @species_names ) {
-      foreach my $name ( @species_names ) {
-        if ( $name && ! $species_set{$name} ) {
-          return 0;
-        }
+    return are_included_species(@species_names);
+  }
+  return 1;
+}
+
+sub are_included_species {
+  my (@species_names) = @_;
+  if ( @species_names ) {
+    foreach my $name ( @species_names ) {
+      if ( $name && ! $species_set{$name} ) {
+        return 0;
       }
     }
   }
