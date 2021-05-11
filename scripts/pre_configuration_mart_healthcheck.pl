@@ -355,14 +355,6 @@ foreach my $rel ( "new", "old" ) {
   #
   # my $division;
   my $metadata_species;
-  # Getting division name from the database name
-  # if ($new_dbname =~ '^ensembl_mart' or $new_dbname =~ '^mouse_mart' or $new_dbname =~ '^sequence_mart' or $new_dbname =~ '^snp_mart') {
-  #   $division = "vertebrates";
-  # }
-  # else {
-  #   $new_dbname =~ m/^([a-z0-9]+)_.+/;
-  #   $division = $1;
-  # }
   my $div_gene_mart = $division."_mart";
   # We don't want to run this test for GRCh37 since we only have human.
   if (!defined $grch37){
@@ -458,12 +450,6 @@ sub metadata_species_list {
   my ($release,$release_info);
   # Get the release version
   ($rdba,$gdba,$release,$release_info) = fetch_and_set_release($newrel,$rdba,$gdba);
-  #Get both division short and full name from a division short or full name
-  # my ($division,$division_name)=process_division_names($div);
-  # if ($division eq "vertebrates"){
-  #   # Load species to include in the Vertebrates marts
-  #   $included_species = genome_to_include($division_name);
-  # }
   # Get all the genomes for a given division and release
   my $genomes = $gdba->fetch_all_by_division($division_name);
   foreach my $genome (@$genomes){
