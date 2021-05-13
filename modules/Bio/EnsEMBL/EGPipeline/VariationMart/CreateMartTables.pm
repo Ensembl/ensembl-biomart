@@ -378,8 +378,6 @@ sub base_where_sql {
 
 sub add_variation_citation_bool {
   my ($self, $mart_table_prefix, $prefix) = @_;
-  # my $hive_dbc = $self->dbc;
-  # $hive_dbc->disconnect_if_idle();
 
   my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
@@ -392,8 +390,6 @@ sub add_variation_citation_bool {
 
 sub add_variation_feature_count {
   my ($self, $mart_table_prefix, $prefix) = @_;
-  # my $hive_dbc = $self->dbc;
-  # $hive_dbc->disconnect_if_idle();
 
   my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
@@ -406,8 +402,6 @@ sub add_variation_feature_count {
 
 sub add_structural_variation_feature_count {
   my ($self, $mart_table_prefix, $prefix) = @_;
-  # my $hive_dbc = $self->dbc;
-  # $hive_dbc->disconnect_if_idle();
 
   my $table_sql =
     'ALTER TABLE '.$mart_table_prefix.'_structvar'.$prefix.'__structural_variation__main '.

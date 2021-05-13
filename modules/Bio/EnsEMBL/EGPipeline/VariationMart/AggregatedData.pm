@@ -121,10 +121,6 @@ sub variation_citation_bool {
   my $hive_dbc = $self->dbc;
   $hive_dbc->disconnect_if_idle();
   
-  # my $table_sql =
-  #   'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
-  #   'ADD COLUMN variation_citation_bool int(11) DEFAULT 0';
-  
   my $update_sql =
     'UPDATE '.
     $mart_table_prefix.'_snp'.$prefix.'__variation__main v_m INNER JOIN '.
@@ -137,7 +133,6 @@ sub variation_citation_bool {
     '(variation_citation_bool);';
   
   my $mart_dbc = $self->mart_dbc;
-  # $mart_dbc->sql_helper->execute_update(-SQL=>$table_sql) or $self->throw($mart_dbc->errstr);
   $mart_dbc->sql_helper->execute_update(-SQL=>$update_sql) or $self->throw($mart_dbc->errstr);
   $mart_dbc->sql_helper->execute_update(-SQL=>$index_sql) or $self->throw($mart_dbc->errstr);
   $mart_dbc->disconnect_if_idle();
@@ -147,10 +142,6 @@ sub variation_feature_count {
   my ($self, $mart_table_prefix, $variation_db, $prefix) = @_;
   my $hive_dbc = $self->dbc;
   $hive_dbc->disconnect_if_idle();
-  
-  # my $table_sql =
-  #   'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
-  #   'ADD COLUMN variation_feature_count int(11) DEFAULT 0';
   
   my $update_sql =
     'UPDATE '.
@@ -165,7 +156,6 @@ sub variation_feature_count {
     '(variation_feature_count);';
   
   my $mart_dbc = $self->mart_dbc;
-  # $mart_dbc->sql_helper->execute_update(-SQL=>$table_sql) or $self->throw($mart_dbc->errstr);
   $mart_dbc->sql_helper->execute_update(-SQL=>$update_sql) or $self->throw($mart_dbc->errstr);
   $mart_dbc->sql_helper->execute_update(-SQL=>$index_sql) or $self->throw($mart_dbc->errstr);
   $mart_dbc->disconnect_if_idle();
@@ -175,10 +165,6 @@ sub structural_variation_feature_count {
   my ($self, $mart_table_prefix, $variation_db, $prefix) = @_;
   my $hive_dbc = $self->dbc;
   $hive_dbc->disconnect_if_idle();
-  
-  # my $table_sql =
-  #   'ALTER TABLE '.$mart_table_prefix.'_structvar'.$prefix.'__structural_variation__main '.
-  #   'ADD COLUMN structural_variation_feature_count int(11) DEFAULT 0';
   
   my $update_sql =
     'UPDATE '.
@@ -193,7 +179,6 @@ sub structural_variation_feature_count {
     '(structural_variation_feature_count);';
 
   my $mart_dbc = $self->mart_dbc;
-  # $mart_dbc->sql_helper->execute_update(-SQL=>$table_sql) or $self->throw($mart_dbc->errstr);
   $mart_dbc->sql_helper->execute_update(-SQL=>$update_sql) or $self->throw($mart_dbc->errstr);
   $mart_dbc->sql_helper->execute_update(-SQL=>$index_sql) or $self->throw($mart_dbc->errstr);
   $mart_dbc->disconnect_if_idle();
