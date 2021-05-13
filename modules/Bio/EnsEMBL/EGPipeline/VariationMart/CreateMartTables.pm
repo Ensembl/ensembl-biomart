@@ -140,7 +140,6 @@ sub remove_unused_tables {
 sub create_table {
   my ($self, $table, $mart_table_prefix) = @_;
   
-  # my $mart_table_prefix = $self->param_required('mart_table_prefix');
   my $mart_table = "$mart_table_prefix\_$table";
   my $sql_file = catdir($self->param_required('tables_dir'), $table, 'select.sql');
   my $mart_dbc = $self->mart_dbc;
