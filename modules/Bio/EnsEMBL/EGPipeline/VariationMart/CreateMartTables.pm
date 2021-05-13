@@ -42,28 +42,52 @@ sub run {
   my ($self) = @_;
   
   my @tables=(); 
+  my $mart_table_prefix = $self->param_required('mart_table_prefix');
+
   $self->remove_unused_tables();
   
   foreach my $table ( @{$self->param_required('snp_tables')} ) {
-    $self->create_table($table);
+    $self->create_table($table, $mart_table_prefix);
+    if ( $table eq 'snp__variation_citation__dm' ) {
+        # The annotation and citation boolean fields aren't used anywhere, and
+        # aren't that useful (since there are phenotype and citation filter).
+        $self->add_variation_citation_bool($mart_table_prefix, "");
+     }
+     elsif ( $table eq 'snp__variation__main' ) {
+        # Variation feature counts aren't currently used, but could be useful
+        # in the future, so do them for now.
+        $self->add_variation_feature_count($mart_table_prefix, "");
+     }
   }
 
   if ($self->param_required('species') eq 'homo_sapiens')
   {
     foreach my $table ( @{$self->param_required('snp_som_tables')} ) {
-      $self->create_table($table);
+      $self->create_table($table, $mart_table_prefix);
+      if ( $table eq 'snp_som__variation_citation__dm' ) {
+        # The annotation and citation boolean fields aren't used anywhere, and
+        # aren't that useful (since there are phenotype and citation filter).
+        $self->add_variation_citation_bool($mart_table_prefix, "_som");
+      }
+      elsif ( $table eq 'snp_som__variation__main' ) {
+        # Variation feature counts aren't currently used, but could be useful
+        # in the future, so do them for now.
+        $self->add_variation_feature_count($mart_table_prefix, "_som");
+      }
     }
     if ($self->param('sv_som_exists') and $self->param_required('species') eq 'homo_sapiens') {
       foreach my $table ( @{$self->param_required('sv_som_tables')} ) {
-        $self->create_table($table);
+        $self->create_table($table, $mart_table_prefix);
       }
+      $self->add_structural_variation_feature_count($mart_table_prefix, "_som");
     }
   }
   
   if ($self->param('sv_exists')) {
     foreach my $table ( @{$self->param_required('sv_tables')} ) {
-      $self->create_table($table);
+      $self->create_table($table, $mart_table_prefix);
     }
+    $self->add_structural_variation_feature_count($mart_table_prefix, "");
   }
 }
 
@@ -114,9 +138,9 @@ sub remove_unused_tables {
 }
 
 sub create_table {
-  my ($self, $table) = @_;
+  my ($self, $table, $mart_table_prefix) = @_;
   
-  my $mart_table_prefix = $self->param_required('mart_table_prefix');
+  # my $mart_table_prefix = $self->param_required('mart_table_prefix');
   my $mart_table = "$mart_table_prefix\_$table";
   my $sql_file = catdir($self->param_required('tables_dir'), $table, 'select.sql');
   my $mart_dbc = $self->mart_dbc;
@@ -350,6 +374,48 @@ sub base_where_sql {
   }
   $base_where_sql .= "$alias.$column BETWEEN ";
   return $base_where_sql;
+}
+
+sub add_variation_citation_bool {
+  my ($self, $mart_table_prefix, $prefix) = @_;
+  # my $hive_dbc = $self->dbc;
+  # $hive_dbc->disconnect_if_idle();
+
+  my $table_sql =
+    'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
+    'ADD COLUMN variation_citation_bool int(11) DEFAULT 0';
+
+  my $mart_dbc = $self->mart_dbc;
+  $mart_dbc->sql_helper->execute_update(-SQL=>$table_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->disconnect_if_idle();
+}
+
+sub add_variation_feature_count {
+  my ($self, $mart_table_prefix, $prefix) = @_;
+  # my $hive_dbc = $self->dbc;
+  # $hive_dbc->disconnect_if_idle();
+
+  my $table_sql =
+    'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
+    'ADD COLUMN variation_feature_count int(11) DEFAULT 0';
+
+  my $mart_dbc = $self->mart_dbc;
+  $mart_dbc->sql_helper->execute_update(-SQL=>$table_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->disconnect_if_idle();
+}
+
+sub add_structural_variation_feature_count {
+  my ($self, $mart_table_prefix, $prefix) = @_;
+  # my $hive_dbc = $self->dbc;
+  # $hive_dbc->disconnect_if_idle();
+
+  my $table_sql =
+    'ALTER TABLE '.$mart_table_prefix.'_structvar'.$prefix.'__structural_variation__main '.
+    'ADD COLUMN structural_variation_feature_count int(11) DEFAULT 0';
+
+  my $mart_dbc = $self->mart_dbc;
+  $mart_dbc->sql_helper->execute_update(-SQL=>$table_sql) or $self->throw($mart_dbc->errstr);
+  $mart_dbc->disconnect_if_idle();
 }
 
 1;
