@@ -123,7 +123,9 @@ sub pipeline_analyses {
         'datasets' => $self->o('datasets'),
         'base_dir' => $self->o('base_dir'),
         'registry' => $self->o('registry'),
-        'species'  => $self->o('species') },
+        'species'  => $self->o('species'),
+          'base_name' => "features"
+      },
       -flow_into => {
         1 => ['AddExtraMartIndexesExternalFeatures',
               'AddExtraMartIndexesRegulatoryFeatures'],
