@@ -123,16 +123,13 @@ sub pipeline_analyses {
         'datasets' => $self->o('datasets'),
         'base_dir' => $self->o('base_dir'),
         'registry' => $self->o('registry'),
-        'species'  => $self->o('species') },
+        'species'  => $self->o('species'),
+          'base_name' => "features"
+      },
       -flow_into => {
-        1 => WHEN(
-          '(#dataset# ne "dmelanogaster")' => ['AddExtraMartIndexesExternalFeatures',
-                                               'AddExtraMartIndexesPeaks',
-                                               'AddExtraMartIndexesMiRNATargetFeatures',
-                                               'AddExtraMartIndexesMotifFeatures',
-                                               'AddExtraMartIndexesRegulatoryFeatures'],
-          ELSE 'AddExtraMartIndexesExternalFeatures',
-        )
+        1 => ['AddExtraMartIndexesExternalFeatures',
+              'AddExtraMartIndexesPeaks',
+              'AddExtraMartIndexesRegulatoryFeatures'],
       }
     },
     {
@@ -159,40 +156,6 @@ sub pipeline_analyses {
                               tables_dir => $self->o('tables_dir'),
                               table => 'peak__main',
                               mart_table_prefix => '#dataset#'."_"."peak",
-                              mart_host => $self->o('host'),
-                              mart_port => $self->o('port'),
-                              mart_user => $self->o('user'),
-                              mart_pass => $self->o('pass'),
-                              mart_db_name =>  $self->o('mart'),
-                            },
-      -max_retry_count   => 0,
-      -analysis_capacity => 10,
-      -rc_name           => 'default',
-    },
-    {
-      -logic_name        => 'AddExtraMartIndexesMiRNATargetFeatures',
-      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
-      -parameters        => {
-                              tables_dir => $self->o('tables_dir'),
-                              table => 'mirna_target_feature__main',
-                              mart_table_prefix => '#dataset#'."_"."mirna_target_feature",
-                              mart_host => $self->o('host'),
-                              mart_port => $self->o('port'),
-                              mart_user => $self->o('user'),
-                              mart_pass => $self->o('pass'),
-                              mart_db_name =>  $self->o('mart'),
-                            },
-      -max_retry_count   => 0,
-      -analysis_capacity => 10,
-      -rc_name           => 'default',
-    },
-    {
-      -logic_name        => 'AddExtraMartIndexesMotifFeatures',
-      -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
-      -parameters        => {
-                              tables_dir => $self->o('tables_dir'),
-                              table => 'motif_feature__main',
-                              mart_table_prefix => '#dataset#'."_"."motif_feature",
                               mart_host => $self->o('host'),
                               mart_port => $self->o('port'),
                               mart_user => $self->o('user'),
@@ -291,48 +254,6 @@ sub pipeline_analyses {
                        'genomic_features_mart' => $self->o('genomic_features_mart'),
                        'max_dropdown' => $self->o('max_dropdown'),
                        'base_name' => 'peak' },
-      -analysis_capacity => 1,
-      -flow_into => ['generate_meta_mirna_target_features']
-    },
-    {
-      -logic_name  => 'generate_meta_mirna_target_features',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-        'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
-                       'mart'     => $self->o('mart'),
-                       'template'     => $self->o('base_dir').'/scripts/templates/mirna_target_feature_template_template.xml',
-                       'user'     => $self->o('user'),
-                       'pass'     => $self->o('pass'),
-                       'host'     => $self->o('host'),
-                       'port'     => $self->o('port'),
-                       'base_dir' => $self->o('base_dir'),
-                       'template_name' => 'mirna_target_features',
-                       'genomic_features_mart' => $self->o('genomic_features_mart'),
-                       'max_dropdown' => $self->o('max_dropdown'),
-                       'base_name' => 'mirna_target_feature' },
-      -analysis_capacity => 1,
-      -flow_into => ['generate_meta_motif_features']
-    },
-    {
-      -logic_name  => 'generate_meta_motif_features',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-        'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
-                       'mart'     => $self->o('mart'),
-                       'template'     => $self->o('base_dir').'/scripts/templates/motif_feature_template_template.xml',
-                       'user'     => $self->o('user'),
-                       'pass'     => $self->o('pass'),
-                       'host'     => $self->o('host'),
-                       'port'     => $self->o('port'),
-                       'base_dir' => $self->o('base_dir'),
-                       'template_name' => 'motif_features',
-                       'genomic_features_mart' => $self->o('genomic_features_mart'),
-                       'max_dropdown' => $self->o('max_dropdown'),
-                       'base_name' => 'motif_feature' },
       -analysis_capacity => 1,
       -flow_into => ['generate_meta_regulatory_features']
     },
