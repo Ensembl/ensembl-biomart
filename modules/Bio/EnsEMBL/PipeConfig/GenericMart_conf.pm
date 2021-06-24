@@ -64,7 +64,8 @@ sub default_options {
     return {
         %{$self->SUPER::default_options},
         'base_dir'    => $self->o('ENV', 'BASE_DIR'),
-        'test_dir'    => catdir('/hps/scratch', $self->o('user'), 'mart_test', $self->o('pipeline_name')),
+        'user'        => $self->o('ENV', 'USER'),
+        'test_dir'    => catdir('hps', 'scratch', $self->o('user'), 'mart_test', $self->o('pipeline_name')),
         'species'     => [],
         'antispecies' => [],
         'division'    => [],
