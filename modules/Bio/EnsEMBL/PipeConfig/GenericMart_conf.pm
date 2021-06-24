@@ -49,6 +49,20 @@ sub pipeline_wide_parameters {
     };
 }
 
+sub default_options {
+    my ($self) = @_;
+    return {
+        %{$self->SUPER::default_options},
+        'base_dir'    => $self->o('ENV', 'BASE_DIR'),
+        'env_user'        => $self->o('ENV', 'USER'),
+        'species'     => [],
+        'antispecies' => [],
+        'division'    => [],
+        'mart_dir'    => getcwd,
+        'scratch_dir' => catdir('/hps', 'scratch', $self->o('env_user'), $self->o('pipeline_name')),
+        'test_dir'    => catdir($self->o('scratch_dir'), 'mart_test'),
+    }
+}
 
 sub pipeline_create_commands {
     my ($self) = @_;
@@ -56,21 +70,9 @@ sub pipeline_create_commands {
     return [
         @{$self->SUPER::pipeline_create_commands},
         'mkdir -p ' . $self->o('test_dir'),
+        'mkdir -p ' . $self->o('scratch_dir'),
     ];
 }
 
-sub default_options {
-    my ($self) = @_;
-    return {
-        %{$self->SUPER::default_options},
-        'base_dir'    => $self->o('ENV', 'BASE_DIR'),
-        'user'        => $self->o('ENV', 'USER'),
-        'test_dir'    => catdir('hps', 'scratch', $self->o('user'), 'mart_test', $self->o('pipeline_name')),
-        'species'     => [],
-        'antispecies' => [],
-        'division'    => [],
-        'mart_dir'    => getcwd,
-        'scratch_dir' => catdir('/hps/scratch', $self->o('user'), $self->o('pipeline_name'))
-    }
-}
+
 1;
