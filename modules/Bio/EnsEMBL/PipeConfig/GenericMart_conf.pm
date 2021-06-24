@@ -72,3 +72,4 @@ sub default_options {
         'scratch_dir' => catdir('/hps/scratch', $self->o('user'), $self->o('pipeline_name'))
     }
 }
+1;
