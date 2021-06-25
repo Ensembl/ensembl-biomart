@@ -54,7 +54,7 @@ sub default_options {
         'mart_dir'    => getcwd,
         'scratch_dir' => catdir('/hps/scratch', $self->o('env_user'), $self->o('pipeline_name')),
         'test_dir'    => catdir('/hps/nobackup/flicek/ensembl/production', $self->o('user'),
-            $self->o('pipeline_name'), 'mart_test'),
+            'mart_test', $self->o('pipeline_name')),
     }
 }
 
