@@ -52,8 +52,9 @@ sub default_options {
         'antispecies' => [],
         'division'    => [],
         'mart_dir'    => getcwd,
-        'scratch_dir' => catdir('/hps', 'scratch', $self->o('env_user'), $self->o('pipeline_name')),
-        'test_dir'    => catdir($self->o('scratch_dir'), 'mart_test'),
+        'scratch_dir' => catdir('/hps/scratch', $self->o('env_user'), $self->o('pipeline_name')),
+        'test_dir'    => catdir('/hps/nobackup/flicek/ensembl/production', $self->o('user'),
+            $self->o('pipeline_name'), 'mart_test'),
     }
 }
 
