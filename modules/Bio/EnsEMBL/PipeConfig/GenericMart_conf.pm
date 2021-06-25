@@ -41,14 +41,6 @@ sub resource_classes {
 }
 
 
-sub pipeline_wide_parameters {
-    my ($self) = @_;
-    return {
-        # here we inherit anything from the base class, then add our own stuff
-        %{$self->SUPER::pipeline_wide_parameters}
-    };
-}
-
 sub default_options {
     my ($self) = @_;
     return {
