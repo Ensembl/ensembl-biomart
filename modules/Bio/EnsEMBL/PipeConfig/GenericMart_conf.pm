@@ -55,6 +55,7 @@ sub default_options {
         %{$self->SUPER::default_options},
         'base_dir'    => $self->o('ENV', 'BASE_DIR'),
         'env_user'    => $self->o('ENV', 'USER'),
+        'run_all'     => 0,
         'species'     => [],
         'antispecies' => [],
         'division'    => [],

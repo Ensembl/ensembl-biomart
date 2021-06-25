@@ -29,7 +29,6 @@ sub default_options {
     my ($self) = @_;
     return {
         %{$self->SUPER::default_options},
-        run_all                  => 0,
         drop_mart_db             => 1,
         drop_mtmp_probestuff     => 1,
         drop_mtmp_tv             => 0,
