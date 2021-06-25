@@ -125,6 +125,14 @@ sub pipeline_analyses {
             -analysis_capacity => 50,
             -rc_name           => 'mem',
         },
+        {
+            -logic_name        => 'TidyScratch',
+            -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+            -max_retry_count   => 1,
+            -parameters        => {
+                cmd => 'rm -rf #scratch_dir#',
+            },
+        },
     ];
 
     return $analyses;
