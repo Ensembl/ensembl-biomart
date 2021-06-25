@@ -50,7 +50,7 @@ sub default_options {
         'run_all'     => 0,
         'species'     => [],
         'antispecies' => [],
-        'division'    => [],
+        'division'    => '',
         'mart_dir'    => getcwd,
         'scratch_dir' => catdir('/hps/scratch', $self->o('env_user'), $self->o('pipeline_name')),
         'test_dir'    => catdir('/hps/nobackup/flicek/ensembl/production', $self->o('user'),

@@ -66,7 +66,7 @@ sub pipeline_analyses {
             -parameters      => {
                 species     => $self->o('species'),
                 antispecies => $self->o('antispecies'),
-                division    => $self->o('division'),
+                division    => [$self->o('division')],
                 run_all     => $self->o('run_all'),
             },
             -max_retry_count => 0,
