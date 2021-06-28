@@ -29,6 +29,7 @@ sub default_options {
     my ($self) = @_;
     return {
         %{$self->SUPER::default_options},
+        division                 => [],
         drop_mart_db             => 1,
         drop_mtmp_probestuff     => 1,
         drop_mtmp_tv             => 0,
@@ -126,10 +127,10 @@ sub pipeline_analyses {
             -rc_name           => 'mem',
         },
         {
-            -logic_name        => 'TidyScratch',
-            -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-            -max_retry_count   => 1,
-            -parameters        => {
+            -logic_name      => 'TidyScratch',
+            -module          => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+            -max_retry_count => 1,
+            -parameters      => {
                 cmd => 'rm -rf #scratch_dir#',
             },
         },
