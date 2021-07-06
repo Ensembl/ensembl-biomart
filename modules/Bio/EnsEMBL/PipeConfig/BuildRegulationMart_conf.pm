@@ -191,7 +191,7 @@ sub pipeline_analyses {
             -meadow_type       => 'LSF',
             -parameters        => {
                 'cmd'                   =>
-                    'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
+                    'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown# -scratch_dir #scratch_dir#',
                 'mart'                  => $self->o('mart'),
                 'template'              => $self->o('base_dir') . '/scripts/templates/external_feature_template_template.xml',
                 'user'                  => $self->o('user'),
@@ -202,7 +202,8 @@ sub pipeline_analyses {
                 'template_name'         => 'external_features',
                 'genomic_features_mart' => $self->o('genomic_features_mart'),
                 'max_dropdown'          => $self->o('max_dropdown'),
-                'base_name'             => 'external_feature'
+                'base_name'             => 'external_feature',
+                'scratch_dir'           => $self->o('scratch_dir'),
             },
             -analysis_capacity => 1,
             -flow_into         => [ 'generate_meta_peaks' ],
@@ -213,7 +214,7 @@ sub pipeline_analyses {
             -meadow_type       => 'LSF',
             -parameters        => {
                 'cmd'                   =>
-                    'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
+                    'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown# -scratch_dir #scratch_dir#',
                 'mart'                  => $self->o('mart'),
                 'template'              => $self->o('base_dir') . '/scripts/templates/peak_template_template.xml',
                 'user'                  => $self->o('user'),
@@ -224,7 +225,8 @@ sub pipeline_analyses {
                 'template_name'         => 'peaks',
                 'genomic_features_mart' => $self->o('genomic_features_mart'),
                 'max_dropdown'          => $self->o('max_dropdown'),
-                'base_name'             => 'peak'
+                'base_name'             => 'peak',
+                'scratch_dir'           => $self->o('scratch_dir'),
             },
             -analysis_capacity => 1,
             -flow_into         => [ 'generate_meta_regulatory_features' ]
@@ -235,7 +237,7 @@ sub pipeline_analyses {
             -meadow_type       => 'LSF',
             -parameters        => {
                 'cmd'                   =>
-                    'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
+                    'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown# -scratch_dir #scratch_dir#',
                 'mart'                  => $self->o('mart'),
                 'template'              => $self->o('base_dir') . '/scripts/templates/regulatory_feature_template_template.xml',
                 'user'                  => $self->o('user'),
@@ -246,7 +248,8 @@ sub pipeline_analyses {
                 'template_name'         => 'regulatory_features',
                 'genomic_features_mart' => $self->o('genomic_features_mart'),
                 'max_dropdown'          => $self->o('max_dropdown'),
-                'base_name'             => 'regulatory_feature'
+                'base_name'             => 'regulatory_feature',
+                'scratch_dir'           => $self->o('scratch_dir'),
             },
             -analysis_capacity => 1,
             -flow_into         => 'run_tests',

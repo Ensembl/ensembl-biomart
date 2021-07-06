@@ -265,11 +265,12 @@ sub pipeline_analyses {
             -logic_name => 'generate_meta',
             -module     => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -parameters => {
-                cmd                   => 'perl #base_dir#/ensembl-biomart/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
+                cmd                   => 'perl #base_dir#/ensembl-biomart/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown# -scratch_dir #scratch_dir#',
                 template              => $self->o('template'),
                 template_name         => $self->o('template_name'),
                 max_dropdown          => $self->o('max_dropdown'),
                 genomic_features_mart => $self->o('genomic_features_mart'),
+                scratch_dir           => $self->o('scratch_dir'),
             },
             -rc_name    => 'low',
             -flow_into  => [ 'run_tests' ],

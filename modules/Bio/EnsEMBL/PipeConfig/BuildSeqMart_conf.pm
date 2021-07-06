@@ -123,13 +123,14 @@ sub pipeline_analyses {
             -flow_into         => 'run_tests',
             -parameters        => {
                 'cmd'      =>
-                    'perl #base_dir#/ensembl-biomart/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #base_dir#/ensembl-biomart/scripts/templates/sequence_template_template.xml  -ds_basename genomic_sequence -template_name sequences',
+                    'perl #base_dir#/ensembl-biomart/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #base_dir#/ensembl-biomart/scripts/templates/sequence_template_template.xml  -ds_basename genomic_sequence -template_name sequences -scratch_dir #scratch_dir#',
                 'mart'     => $self->o('mart'),
                 'user'     => $self->o('user'),
                 'pass'     => $self->o('pass'),
                 'host'     => $self->o('host'),
                 'port'     => $self->o('port'),
-                'base_dir' => $self->o('base_dir')
+                'base_dir' => $self->o('base_dir'),
+                'scratch_dir' => $self->o('scratch_dir'),
             },
             -analysis_capacity => 1 },
         {
