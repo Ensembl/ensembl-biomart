@@ -89,6 +89,7 @@ push( @{$optsd}, "genomic_features_dbname:s" );
 push( @{$optsd}, "registry:s" );
 push( @{$optsd}, "xref_url_ini_file:s");
 push( @{$optsd}, "max_dropdown:i" );
+push( @{$optsd}, "scratch_dir:s" );
 push( @{$optsd}, "verbose" );
 
 # process the command line with the supplied options plus a help subroutine
@@ -149,5 +150,5 @@ my $builder =
                                            -BASENAME => $opts->{ds_basename},
                                            -MAX_DROPDOWN =>  $opts->{max_dropdown} );
 
-$builder->build( $opts->{template_name}, $templ, $opts->{genomic_features_dbname}, $opts->{ini_file}, $registry_loaded );
+$builder->build( $opts->{template_name}, $templ, $opts->{genomic_features_dbname}, $opts->{ini_file}, $registry_loaded, $opts->{scratch_dir} );
 

@@ -107,9 +107,9 @@ sub new {
 =cut
 
 sub build {
-  my ( $self, $template_name, $template, $genomic_features_mart, $ini_file, $registry_loaded ) = @_;
+  my ( $self, $template_name, $template, $genomic_features_mart, $ini_file, $registry_loaded, $scratch_dir ) = @_;
   # create base metatables
-  $self->create_metatables( $template_name, $template );
+  $self->create_metatables( $template_name, $template, $scratch_dir );
   # read datasets
   my $datasets = $self->get_datasets();
   # get latest species_id from the dataset_name table
@@ -1076,7 +1076,7 @@ sub restore_main {
 }
 
 sub create_metatables {
-  my ( $self, $template_name, $template ) = @_;
+  my ( $self, $template_name, $template, $scratch_dir ) = @_;
   $logger->info("Creating meta tables");
 
   # create tables
@@ -1103,10 +1103,11 @@ sub create_metatables {
   my $template_xml =
     XMLout( { DatasetConfig => $template->{config} }, KeepRoot => 1 );
 
-  if ( !-d "./scratch" ) {
-    mkdir "./scratch";
+  $scratch_dir = './scratch' unless defined $scratch_dir;
+  if ( !-d $scratch_dir ) {
+    mkdir $scratch_dir;
   }
-  open my $out, ">", "./scratch/tmp.xml";
+  open my $out, ">", "$scratch_dir/tmp.xml";
   print $out $template_xml;
   close $out;
   my $gzip_template;
