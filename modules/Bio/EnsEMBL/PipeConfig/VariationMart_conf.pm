@@ -39,7 +39,7 @@ package Bio::EnsEMBL::PipeConfig::VariationMart_conf;
 
 use strict;
 use warnings;
-
+use File::Spec::Functions qw(catdir);
 use base ('Bio::EnsEMBL::Hive::PipeConfig::EnsemblGeneric_conf');
 
 sub default_options {
