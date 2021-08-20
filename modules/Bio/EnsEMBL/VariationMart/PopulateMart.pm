@@ -16,12 +16,12 @@ limitations under the License.
 
 =cut
 
-package Bio::EnsEMBL::EGPipeline::VariationMart::PopulateMart;
+package Bio::EnsEMBL::VariationMart::PopulateMart;
 
 use strict;
 use warnings;
 
-use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
+use base ('Bio::EnsEMBL::VariationMart::Base');
 use File::Spec::Functions qw(catdir);
 
 sub param_defaults {

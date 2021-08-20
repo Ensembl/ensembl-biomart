@@ -103,7 +103,7 @@ sub pipeline_analyses {
         },
         {
             -logic_name        => 'AddExtraMartIndexesExternalFeatures',
-            -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
+            -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
             -parameters        => {
                 tables_dir        => $self->o('tables_dir'),
                 table             => 'external_feature__main',
@@ -120,7 +120,7 @@ sub pipeline_analyses {
         },
         {
             -logic_name        => 'AddExtraMartIndexesPeaks',
-            -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
+            -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
             -parameters        => {
                 tables_dir        => $self->o('tables_dir'),
                 table             => 'peak__main',
@@ -137,7 +137,7 @@ sub pipeline_analyses {
         },
         {
             -logic_name        => 'AddExtraMartIndexesRegulatoryFeatures',
-            -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
+            -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
             -parameters        => {
                 tables_dir        => $self->o('tables_dir'),
                 table             => 'regulatory_feature__main',
