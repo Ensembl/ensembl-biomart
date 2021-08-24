@@ -53,7 +53,7 @@ sub default_options {
         mtmp_tables_exist        => 0,
         always_skip_genotypes    => [],
         never_skip_genotypes     => [],
-        scratch_dir              => catdir('/hps/scratch', $self->o('ENV', 'USER'), $self->o('pipeline_name')),
+        scratch_dir              => catdir('/hps/scratch/flicek/ensembl', $self->o('ENV', 'USER'), $self->o('pipeline_name')),
         drop_mtmp                => 1,
         drop_mtmp_tv             => 0,
         snp_indep_tables         => [],
