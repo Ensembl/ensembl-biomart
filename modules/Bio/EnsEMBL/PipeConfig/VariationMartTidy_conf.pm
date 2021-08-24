@@ -87,7 +87,7 @@ sub pipeline_analyses {
                 run_all     => $self->o('run_all'),
             },
             -max_retry_count => 0,
-            -rc_name         => 'normal',
+            -rc_name         => '4Gb_mem',
             -flow_into       => {
                 '4' => 'DropMTMPTables'
             }
@@ -98,7 +98,7 @@ sub pipeline_analyses {
             -module          => 'Bio::EnsEMBL::VariationMart::DropMTMPTables',
             -parameters      => {},
             -max_retry_count => 0,
-            -rc_name         => 'normal'
+            -rc_name         => '4Gb_mem'
         },
 
     ];
@@ -108,9 +108,9 @@ sub resource_classes {
     my ($self) = @_;
     return {
         'default'  => { 'LSF' => '-q production' },
-        'normal'   => { 'LSF' => '-q production -M 4096 -R "rusage[mem=4096]"' },
+        '4Gb_mem'   => { 'LSF' => '-q production -M 4096 -R "rusage[mem=4096]"' },
         '8Gb_mem'  => { 'LSF' => '-q production -M 8192 -R "rusage[mem=8192]"' },
-        '16Gb_mem_16Gb_tmp' => { 'LSF' => '-q production -M 16384 -R "rusage[mem=16384,scratch=16000]"' },
+        '16Gb_mem' => { 'LSF' => '-q production -M 16384 -R "rusage[mem=16384]"' },
     }
 }
 

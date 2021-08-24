@@ -58,7 +58,7 @@ sub default_options {
         drop_mtmp_tv             => 0,
         snp_indep_tables         => [],
         sample_threshold         => 0,
-        populate_mart_rc_name    => 'normal',
+        populate_mart_rc_name    => '4Gb_mem',
         snp_cull_tables          => [],
         snp_cull_columns         => [],
         optimize_tables          => 0,
@@ -593,7 +593,7 @@ sub resource_classes {
     my ($self) = @_;
     return {
         'default'  => { 'LSF' => '-q production' },
-        'normal'   => { 'LSF' => '-q production -M 4096 -R "rusage[mem=4096]"' },
+        '4Gb_mem'   => { 'LSF' => '-q production -M 4096 -R "rusage[mem=4096]"' },
         '8Gb_mem'  => { 'LSF' => '-q production -M 8192 -R "rusage[mem=8192]"' },
         '16Gb_mem' => { 'LSF' => '-q production -M 16384 -R "rusage[mem=16384]"' },
     }

@@ -54,7 +54,7 @@ sub default_options {
         sample_threshold        => 20000,
         population_threshold    => 500,
         optimize_tables         => 1,
-        populate_mart_rc_name   => 'normal',
+        populate_mart_rc_name   => '4Gb_mem',
         species_suffix          => '_eg',
         genomic_features_dbname => $self->o('division_name') . '_genomic_features_mart_' . $self->o('eg_release'),
 
