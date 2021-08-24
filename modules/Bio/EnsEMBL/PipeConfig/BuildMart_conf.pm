@@ -158,7 +158,7 @@ sub pipeline_analyses {
         },
         {
             -logic_name        => 'AddExtraMartIndexesGene',
-            -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
+            -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
             -parameters        => {
                 table => 'gene__main',
             },
@@ -167,7 +167,7 @@ sub pipeline_analyses {
         },
         {
             -logic_name        => 'AddExtraMartIndexesTranscript',
-            -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
+            -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
             -parameters        => {
                 table => 'transcript__main',
             },
@@ -176,7 +176,7 @@ sub pipeline_analyses {
         },
         {
             -logic_name        => 'AddExtraMartIndexesTranslation',
-            -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
+            -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
             -parameters        => {
                 table => 'translation__main',
             },
@@ -206,7 +206,7 @@ sub pipeline_analyses {
         },
         {
             -logic_name        => 'CreateMartTranscriptVariationTable',
-            -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartTables',
+            -module            => 'Bio::EnsEMBL::VariationMart::CreateMartTables',
             -parameters        => {
                 snp_tables        => $self->o('snp_tables'),
                 snp_som_tables    => $self->o('snp_som_tables'),
@@ -222,7 +222,7 @@ sub pipeline_analyses {
         },
         {
             -logic_name        => 'PartitionTables',
-            -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::PartitionTables',
+            -module            => 'Bio::EnsEMBL::VariationMart::PartitionTables',
             -parameters        => {
                 partition_size => $self->o('partition_size'),
             },
@@ -232,7 +232,7 @@ sub pipeline_analyses {
         },
         {
             -logic_name        => 'PopulateMart',
-            -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::PopulateMart',
+            -module            => 'Bio::EnsEMBL::VariationMart::PopulateMart',
             -parameters        => {},
             -max_retry_count   => 2,
             -analysis_capacity => 20,
@@ -240,7 +240,7 @@ sub pipeline_analyses {
         },
         {
             -logic_name        => 'CreateMartIndexes',
-            -module            => 'Bio::EnsEMBL::EGPipeline::VariationMart::CreateMartIndexes',
+            -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
             -parameters        => {},
             -max_retry_count   => 2,
             -analysis_capacity => 10,

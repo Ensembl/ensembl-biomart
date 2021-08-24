@@ -16,7 +16,7 @@ limitations under the License.
 
 =cut
 
-package Bio::EnsEMBL::EGPipeline::VariationMart::Base;
+package Bio::EnsEMBL::VariationMart::Base;
 
 use strict;
 use warnings;

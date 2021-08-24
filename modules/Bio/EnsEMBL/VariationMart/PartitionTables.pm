@@ -16,12 +16,12 @@ limitations under the License.
 
 =cut
 
-package Bio::EnsEMBL::EGPipeline::VariationMart::PartitionTables;
+package Bio::EnsEMBL::VariationMart::PartitionTables;
 
 use strict;
 use warnings;
 
-use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
+use base ('Bio::EnsEMBL::VariationMart::Base');
 
 sub param_defaults {
   return {

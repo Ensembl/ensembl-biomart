@@ -52,7 +52,7 @@ sub pipeline_analyses {
     my $analyses = [
         {
             -logic_name      => 'InitialiseMartDB',
-            -module          => 'Bio::EnsEMBL::EGPipeline::VariationMart::InitialiseMartDB',
+            -module          => 'Bio::EnsEMBL::VariationMart::InitialiseMartDB',
             -input_ids       => [ {} ],
             -parameters      => {
                 mart_db_name => $self->o('mart_db_name'),

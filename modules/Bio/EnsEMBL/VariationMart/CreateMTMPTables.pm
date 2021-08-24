@@ -16,12 +16,12 @@ limitations under the License.
 
 =cut
 
-package Bio::EnsEMBL::EGPipeline::VariationMart::CreateMTMPTables;
+package Bio::EnsEMBL::VariationMart::CreateMTMPTables;
 
 use strict;
 use warnings;
 
-use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
+use base ('Bio::EnsEMBL::VariationMart::Base');
 
 sub param_defaults {
   return {

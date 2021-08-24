@@ -16,11 +16,11 @@ limitations under the License.
 
 =cut
 
-package Bio::EnsEMBL::EGPipeline::VariationMart::CopyOrGenerate;
+package Bio::EnsEMBL::VariationMart::CopyOrGenerate;
 
 use strict;
 use warnings;
-use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
+use base ('Bio::EnsEMBL::VariationMart::Base');
 use MartUtils qw(generate_dataset_name_from_db_name);
 use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
 
