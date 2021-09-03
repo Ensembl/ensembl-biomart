@@ -32,7 +32,7 @@ sub param_defaults {
     'motif_exits'       => 1,
     'show_sams'         => 1,
     'show_pops'         => 1,
-    'scratch_dir'       => '/hps/scratch/flicek/ensembl',
+    'scratch_dir'       => catdir('/hps/nobackup/flicek/ensembl', $self->o('env_user'), $self->o('pipeline_name')),
   };
 }
 
