@@ -32,7 +32,7 @@ sub param_defaults {
     'motif_exits'       => 1,
     'show_sams'         => 1,
     'show_pops'         => 1,
-    'scratch_dir'           => '/scratch',
+    'scratch_dir'       => '/hps/scratch/flicek/ensembl',
   };
 }
 
@@ -83,7 +83,7 @@ sub sample_genotype {
   my $drop_mtmp = $self->param_required('drop_mtmp');
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
   my $scratch_dir = $self->param_required('scratch_dir');
-  my $output_file = "$scratch_dir/mtmp_sg_".$self->param_required('species').".txt";
+  my $output_file = "$scratch_dir/".$self->o('ENV', 'USER')."/mtmp_sg_".$self->param_required('species').".txt";
   
   my $hive_dbc = $self->dbc;
   $hive_dbc->disconnect_if_idle();
