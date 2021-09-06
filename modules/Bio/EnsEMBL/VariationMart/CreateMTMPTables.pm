@@ -23,16 +23,17 @@ use warnings;
 
 use base ('Bio::EnsEMBL::VariationMart::Base');
 
+
+
 sub param_defaults {
   return {
     'drop_mtmp'         => 0,
-    'drop_mtmp_tv'   => 0,
+    'drop_mtmp_tv'      => 0,
     'sv_exists'         => 0,
     'regulatory_exists' => 1,
     'motif_exits'       => 1,
     'show_sams'         => 1,
     'show_pops'         => 1,
-    'scratch_dir'       => catdir('/hps/nobackup/flicek/ensembl', $self->o('env_user'), $self->o('pipeline_name')),
   };
 }
 
