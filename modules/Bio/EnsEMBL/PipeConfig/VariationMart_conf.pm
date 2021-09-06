@@ -53,7 +53,7 @@ sub default_options {
         mtmp_tables_exist        => 0,
         always_skip_genotypes    => [],
         never_skip_genotypes     => [],
-        scratch_dir              => catdir('/hps/scratch/flicek/ensembl', $self->o('ENV', 'USER'), $self->o('pipeline_name')),
+        scratch_dir              => catdir('/hps/nobackup/flicek/ensembl', $self->o('ENV', 'USER'), $self->o('pipeline_name')),
         drop_mtmp                => 1,
         drop_mtmp_tv             => 0,
         snp_indep_tables         => [],
@@ -593,7 +593,7 @@ sub resource_classes {
     my ($self) = @_;
     return {
         'default'  => { 'LSF' => '-q production' },
-        '4Gb_mem'   => { 'LSF' => '-q production -M 4096 -R "rusage[mem=4096]"' },
+        '4Gb_mem'  => { 'LSF' => '-q production -M 4096 -R "rusage[mem=4096]"' },
         '8Gb_mem'  => { 'LSF' => '-q production -M 8192 -R "rusage[mem=8192]"' },
         '16Gb_mem' => { 'LSF' => '-q production -M 16384 -R "rusage[mem=16384]"' },
     }
