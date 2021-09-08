@@ -69,6 +69,9 @@ sub default_options {
         biomart_dir              => $self->o('base_dir') . '/ensembl-biomart',
         grch37                   => 0,
 
+        scratch_dir              => catdir('/hps/nobackup/flicek/ensembl', $self->o('ENV', 'USER'), $self->o('pipeline_name')),
+        test_dir                 => catdir('/hps/nobackup/flicek/ensembl/production', $self->o('ENV', 'USER'), 'mart_test', $self->o('pipeline_name')),
+
         previous_mart            => {
             -driver => $self->o('hive_driver'),
             -host   => $self->o('host'),
@@ -591,8 +594,8 @@ sub pipeline_wide_parameters {
     my ($self) = @_;
     return {
         %{$self->SUPER::pipeline_wide_parameters},
-        scratch_dir  => catdir('/hps/nobackup/flicek/ensembl', $self->o('ENV', 'USER'), $self->o('pipeline_name')),
-        test_dir     => catdir('/hps/nobackup/flicek/ensembl/production', $self->o('ENV', 'USER'), 'mart_test', $self->o('pipeline_name')),
+        'scratch_dir' => $self->o('scratch_dir'),
+        'test_dir'    => $self->o('test_dir')
     }
 }
 
