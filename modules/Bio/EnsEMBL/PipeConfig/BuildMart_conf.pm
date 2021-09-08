@@ -76,9 +76,7 @@ sub pipeline_wide_parameters {
         mart_user    => $self->o('user'),
         mart_pass    => $self->o('pass'),
         mart_db_name => $self->o('mart'),
-        tables_dir   => $self->o('tables_dir'),
-        scratch_dir  => catdir('/hps/nobackup/flicek/ensembl', $self->o('ENV', 'USER'), $self->o('pipeline_name')),
-        test_dir     => catdir('/hps/nobackup/flicek/ensembl/production', $self->o('ENV', 'USER'), 'mart_test', $self->o('pipeline_name')),
+        tables_dir   => $self->o('tables_dir')
 
     };
 }
