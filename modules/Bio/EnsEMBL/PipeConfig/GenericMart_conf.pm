@@ -53,9 +53,18 @@ sub default_options {
         'division'    => '',
         'mart_dir'    => getcwd,
         'scratch_dir' => catdir('/hps/scratch/flicek/ensembl', $self->o('env_user'), $self->o('pipeline_name')),
-        'test_dir'    => catdir('/hps/nobackup/flicek/ensembl/production', $self->o('env_user'),
-            'mart_test', $self->o('pipeline_name')),
-    }
+        'test_dir'    => catdir('/hps/nobackup/flicek/ensembl/production', $self->o('env_user'), 'mart_test',
+            $self->o('pipeline_name'))
+    };
+}
+
+sub pipeline_wide_parameters {
+    my ($self) = @_;
+    return {
+        %{$self->SUPER::pipeline_wide_parameters},
+        'scratch_dir' => $self->o('scratch_dir'),
+        'test_dir'    => $self->o('test_dir')
+    };
 }
 
 sub pipeline_create_commands {

@@ -76,7 +76,8 @@ sub pipeline_wide_parameters {
         mart_user    => $self->o('user'),
         mart_pass    => $self->o('pass'),
         mart_db_name => $self->o('mart'),
-        tables_dir   => $self->o('tables_dir'),
+        tables_dir   => $self->o('tables_dir')
+
     };
 }
 
