@@ -53,7 +53,6 @@ sub default_options {
         mtmp_tables_exist        => 0,
         always_skip_genotypes    => [],
         never_skip_genotypes     => [],
-        scratch_dir              => catdir('/hps/nobackup/flicek/ensembl', $self->o('ENV', 'USER'), $self->o('pipeline_name')),
         drop_mtmp                => 1,
         drop_mtmp_tv             => 0,
         snp_indep_tables         => [],
@@ -68,7 +67,6 @@ sub default_options {
 
         base_dir                 => $self->o('ENV', 'BASE_DIR'),
         biomart_dir              => $self->o('base_dir') . '/ensembl-biomart',
-        test_dir                 => catdir('/hps/nobackup/flicek/ensembl/production', $self->o('ENV', 'USER'), 'mart_test', $self->o('pipeline_name')),
         grch37                   => 0,
 
         previous_mart            => {
@@ -411,7 +409,7 @@ sub pipeline_analyses {
             -logic_name        => 'PopulateMart',
             -module            => 'Bio::EnsEMBL::VariationMart::PopulateMart',
             -parameters        => {
-                tables_dir => $self->o('tables_dir'),
+                tables_dir => $self->o('tables_dir')
             },
             -max_retry_count   => 3,
             -analysis_capacity => 20,
@@ -587,6 +585,15 @@ sub pipeline_analyses {
             },
         }
     ];
+}
+
+sub pipeline_wide_parameters {
+    my ($self) = @_;
+    return {
+        %{$self->SUPER::pipeline_wide_parameters},
+        scratch_dir  => catdir('/hps/nobackup/flicek/ensembl', $self->o('ENV', 'USER'), $self->o('pipeline_name')),
+        test_dir     => catdir('/hps/nobackup/flicek/ensembl/production', $self->o('ENV', 'USER'), 'mart_test', $self->o('pipeline_name')),
+    }
 }
 
 sub resource_classes {
