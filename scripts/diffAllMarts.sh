@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/sh
 # Copyright [1999-2013] Wellcome Trust Sanger Institute and the EMBL-European Bioinformatics Institute
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,6 +18,7 @@ SERVER=$1
 RELEASE=$2
 EG_RELEASE=$3
 GRCH37=$4
+TEST_HOST="${5:-ens-prod-1}"
 
 function get_species
 {
@@ -85,7 +86,9 @@ function get_species
 
 
 scriptdir=$( dirname $0 )
-NEW_MART=http://ens-prod-1.ebi.ac.uk:10301/biomart/martservice
+NEW_MART=http://${TEST_HOST}.ebi.ac.uk:10301/biomart/martservice
+
+echo "Testing against test HOST ${NEW_MART}"
 
 
 for division in "vertebrates" "plants" "metazoa" "protists" "fungi"
