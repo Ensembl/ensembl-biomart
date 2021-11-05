@@ -16,12 +16,12 @@ limitations under the License.
 
 =cut
 
-package Bio::EnsEMBL::EGPipeline::VariationMart::DropMartTables;
+package Bio::EnsEMBL::VariationMart::DropMartTables;
 
 use strict;
 use warnings;
 
-use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
+use base ('Bio::EnsEMBL::VariationMart::Base');
 use MartUtils qw(generate_dataset_name_from_db_name);
 
 sub run {

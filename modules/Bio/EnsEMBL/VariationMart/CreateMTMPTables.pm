@@ -16,23 +16,24 @@ limitations under the License.
 
 =cut
 
-package Bio::EnsEMBL::EGPipeline::VariationMart::CreateMTMPTables;
+package Bio::EnsEMBL::VariationMart::CreateMTMPTables;
 
 use strict;
 use warnings;
 
-use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
+use base ('Bio::EnsEMBL::VariationMart::Base');
+
+
 
 sub param_defaults {
   return {
     'drop_mtmp'         => 0,
-    'drop_mtmp_tv'   => 0,
+    'drop_mtmp_tv'      => 0,
     'sv_exists'         => 0,
     'regulatory_exists' => 1,
     'motif_exits'       => 1,
     'show_sams'         => 1,
     'show_pops'         => 1,
-    'scratch_dir'           => '/scratch',
   };
 }
 
@@ -83,7 +84,7 @@ sub sample_genotype {
   my $drop_mtmp = $self->param_required('drop_mtmp');
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
   my $scratch_dir = $self->param_required('scratch_dir');
-  my $output_file = "$scratch_dir/mtmp_sg_".$self->param_required('species').".txt";
+  my $output_file = $scratch_dir."/mtmp_sg_".$self->param_required('species').".txt";
   
   my $hive_dbc = $self->dbc;
   $hive_dbc->disconnect_if_idle();

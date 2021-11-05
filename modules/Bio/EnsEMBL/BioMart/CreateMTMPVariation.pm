@@ -21,7 +21,7 @@ package Bio::EnsEMBL::BioMart::CreateMTMPVariation;
 use strict;
 use warnings;
 
-use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
+use base ('Bio::EnsEMBL::VariationMart::Base');
 
 sub param_defaults {
   return {

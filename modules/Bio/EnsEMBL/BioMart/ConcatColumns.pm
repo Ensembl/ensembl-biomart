@@ -17,7 +17,7 @@ limitations under the License.
 =cut
 
 package Bio::EnsEMBL::BioMart::ConcatColumns;
-use base ('Bio::EnsEMBL::EGPipeline::VariationMart::Base');
+use base ('Bio::EnsEMBL::VariationMart::Base');
 
 
 use strict;
