@@ -160,11 +160,13 @@ sub get_list {
     if ($opts->{division} eq "EnsemblVertebrates"){
         $release = $rdba->fetch_by_ensembl_release($opts->{ens});
         # Load species to include in the Vertebrates marts
-        $included_species = genome_to_include($opts->{division});
+        $included_species = genome_to_include($opts->{division}, $ENV{BASE_DIR});
     }
     else{
         $release = $rdba->fetch_by_ensembl_genomes_release($opts->{eg});
-    }
+        if ($opts->{division} =~ /Ensembl[Metazoa|Plants]/){
+            $included_species = genome_to_include($opts->{division}, $ENV{BASE_DIR});
+        }
     $gdba->data_release($release);
     # Get all the genomes for a given division and release
     my $genomes = $gdba->fetch_all_by_division($opts->{division});

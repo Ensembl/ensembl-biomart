@@ -35,7 +35,7 @@ sub run {
   my $mca = $dba->get_adaptor('MetaContainer');
   my $division = $mca->get_division;
 
-  if ($division =~ /vertebrates/i) {
+  if ($division =~ /vertebrates|metazoa|plants/i) {
     $included_species = genome_to_include($division, $base_dir);
     if (!grep( /$species/, @$included_species) ){
       $self->complete_early("Excluding $species from mart");

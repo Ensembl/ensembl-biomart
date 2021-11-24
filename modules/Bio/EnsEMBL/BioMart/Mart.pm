@@ -22,8 +22,9 @@ use strict;
 
 package Bio::EnsEMBL::BioMart::Mart;
 use Bio::EnsEMBL::Utils::Exception qw(throw warning);
-use Bio::EnsEMBL::Utils::Argument qw( rearrange );
+use Bio::EnsEMBL::Utils::Argument qw(rearrange);
 use FindBin;
+use JSON;
 use File::Slurp;
 use base qw(Bio::EnsEMBL::BioMart::MartServiceObject);
 use Bio::EnsEMBL::MetaData::Base qw(process_division_names);
@@ -31,66 +32,65 @@ use Exporter qw/import/;
 our @EXPORT_OK = qw(genome_to_include);
 
 sub new {
-	my ( $proto, @args ) = @_;
+    my ($proto, @args) = @_;
     my $self = $proto->SUPER::new(@args);
-	(  $self->{visible},
-	   $self->{virtual_schema},
-	   $self->{display_name} )
-	  = rearrange( [ 'VISIBLE', 'VIRTUAL_SCHEMA',
-					 'DISPLAY_NAME' ],
-				   @args );
-	return $self;
+    ($self->{visible},
+        $self->{virtual_schema},
+        $self->{display_name})
+        = rearrange([ 'VISIBLE', 'VIRTUAL_SCHEMA',
+        'DISPLAY_NAME' ],
+        @args);
+    return $self;
 }
 
 sub visible {
-	my ($self) = @_;
-	return $self->{visible};
+    my ($self) = @_;
+    return $self->{visible};
 }
 
 sub virtual_schema {
-	my ($self) = @_;
-	return $self->{virtual_schema};
+    my ($self) = @_;
+    return $self->{virtual_schema};
 }
 
 sub display_name {
-	my ($self) = @_;
-	return $self->{display_name};
+    my ($self) = @_;
+    return $self->{display_name};
 }
 
 sub datasets {
-	my ($self) = @_;
-	if(!defined $self->{datasets}) {
-		$self->{datasets} = $self->service()->get_datasets($self);		
-	}
-	return $self->{datasets};
+    my ($self) = @_;
+    if (!defined $self->{datasets}) {
+        $self->{datasets} = $self->service()->get_datasets($self);
+    }
+    return $self->{datasets};
 }
 
 sub get_dataset_by_name {
-	my ($self,$name) = @_;
-	my $dataset;
-	for my $ds (@{$self->datasets()}) {
-		if($ds->name() eq $name) {
-			$dataset = $ds;
-			last;
-		}		
-	}
-	return $dataset;
+    my ($self, $name) = @_;
+    my $dataset;
+    for my $ds (@{$self->datasets()}) {
+        if ($ds->name() eq $name) {
+            $dataset = $ds;
+            last;
+        }
+    }
+    return $dataset;
 }
 
 sub genome_to_include {
-	my ($div,$base_dir) = @_;
-	#Get both division short and full name from a division short or full name
-	my ($division,$division_name)=process_division_names($div);
-	my $filename;
-	my @included_species;
-	if (defined $base_dir){
-		$filename = $base_dir.'/ensembl-biomart/scripts/include_'.$division.'.ini';
-	}
-	else{
-		$filename = $FindBin::Bin.'/include_'.$division.'.ini';
-	}
-	@included_species = read_file( $filename,chomp => 1);
-	return \@included_species;
+    my ($div, $base_dir) = @_;
+    #Get both division short and full name from a division short or full name
+    my ($division, $division_name) = process_division_names($div);
+    my $filename;
+    my $included_species;
+    if (defined $base_dir) {
+        $filename = $base_dir . '/ensembl-compara/conf/' . $division . '/allowed_species.json';
+    }
+    else {
+        $filename = $FindBin::Bin . '/' . $division . '/allowed_species.json';
+    }
+    return decode_json(read_file($filename, chomp => 1));
 }
 
 1;
