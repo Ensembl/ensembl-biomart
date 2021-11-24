@@ -29,7 +29,7 @@ for my $division (@divisions) {
     my $species = genome_to_include($division, $ensembl_cvs_root_dir);
     ok(scalar($species) > 0, "List Species not empty");
     ok(ref($species) eq 'ARRAY', "Species is an Array");
-    print Dumper($species);
+    # print Dumper($species);
 }
 
 done_testing();
