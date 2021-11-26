@@ -29,6 +29,7 @@ use Data::Dumper;
 use File::Slurp;
 use base qw(Bio::EnsEMBL::BioMart::MartServiceObject);
 use Bio::EnsEMBL::MetaData::Base qw(process_division_names);
+use Bio::EnsEMBL::Utils::IO qw/:slurp/;
 use Exporter qw/import/;
 our @EXPORT_OK = qw(genome_to_include);
 
@@ -92,12 +93,12 @@ sub genome_to_include {
         $filename = $FindBin::Bin . '/../ensembl-compara/conf/' . $division . '/allowed_species.json';
     }
     my $rc = eval {
-        $included_species = decode_json(read_file($filename, chomp => 1));
+        $included_species = decode_json(slurp($filename));
         1;
     };
     if (!$rc) {
         # Something failed
-        throw("Something wrong parsing the json file:".$filename);
+        throw("Something wrong parsing the json file: ".$filename);
     }
     print Dumper($included_species);
     return $included_species;
