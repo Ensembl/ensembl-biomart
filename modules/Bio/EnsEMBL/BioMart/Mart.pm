@@ -25,11 +25,11 @@ use Bio::EnsEMBL::Utils::Exception qw(throw warning);
 use Bio::EnsEMBL::Utils::Argument qw(rearrange);
 use FindBin;
 use JSON;
-use Data::Dumper;
 use File::Slurp;
+
+use Data::Dumper;
 use base qw(Bio::EnsEMBL::BioMart::MartServiceObject);
 use Bio::EnsEMBL::MetaData::Base qw(process_division_names);
-use Bio::EnsEMBL::Utils::IO qw/:slurp/;
 use Exporter qw/import/;
 our @EXPORT_OK = qw(genome_to_include);
 
@@ -92,8 +92,10 @@ sub genome_to_include {
     else {
         $filename = $FindBin::Bin . '/../ensembl-compara/conf/' . $division . '/allowed_species.json';
     }
+    my $filecontent = read_file($filename);
+    print Dumper($filecontent);
     my $rc = eval {
-        $included_species = decode_json(slurp($filename));
+        $included_species = decode_json($filecontent);
         1;
     };
     if (!$rc) {
