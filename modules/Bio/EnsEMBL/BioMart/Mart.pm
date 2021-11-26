@@ -25,6 +25,7 @@ use Bio::EnsEMBL::Utils::Exception qw(throw warning);
 use Bio::EnsEMBL::Utils::Argument qw(rearrange);
 use FindBin;
 use JSON;
+use Data::Dumper;
 use File::Slurp;
 use base qw(Bio::EnsEMBL::BioMart::MartServiceObject);
 use Bio::EnsEMBL::MetaData::Base qw(process_division_names);
@@ -90,7 +91,16 @@ sub genome_to_include {
     else {
         $filename = $FindBin::Bin . '/' . $division . '/allowed_species.json';
     }
-    return decode_json(read_file($filename, chomp => 1));
+    my $rc = eval {
+        $included_species = decode_json(read_file($filename, chomp => 1));
+        1;
+    };
+    if (!$rc) {
+        # Something failed
+        throw("Something went wrong parsing the json file ")
+    }
+    print Dumper($included_species);
+    return $included_species;
 }
 
 1;
