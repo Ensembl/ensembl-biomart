@@ -63,14 +63,8 @@ create table if not exists $mart.dataset_names (
     #List of species to include in the vertebreates sequence mart
     my $included_species;
     if ($division eq 'EnsemblProtists') {$pId = 10000;}
-    elsif ($division eq 'EnsemblPlants') {
-        $pId = 20000;
-        $included_species = genome_to_include($division, $self->param('base_dir'));
-    }
-    elsif ($division eq 'EnsemblMetazoa') {
-        $pId = 30000;
-        $included_species = genome_to_include($division, $self->param('base_dir'));
-    }
+    elsif ($division eq 'EnsemblPlants') {$pId = 20000;}
+    elsif ($division eq 'EnsemblMetazoa') {$pId = 30000;}
     elsif ($division eq 'EnsemblFungi') {$pId = 40000;}
     elsif ($division eq 'Vectorbase') {$pId = 50000;}
     elsif ($division eq 'Parasite') {$pId = 60000}
@@ -90,7 +84,7 @@ create table if not exists $mart.dataset_names (
 
         my $database = $dba->dbc()->dbname();
         # Excluding species from the sequence mart for vertebrates
-        if ($division =~ /Ensembl[Vertebrates|Metazoa|Plants]/) {
+        if ($division eq 'EnsemblVertebrates') {
             my $production_name = $dba->get_MetaContainer()->get_production_name();
             # In the vertebrates sequence mart we want to include the mouse strains for the mouse mart
             if (!grep(/$production_name/, @$included_species) and $production_name !~ m/^mus_musculus_/) {
