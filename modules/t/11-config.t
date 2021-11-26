@@ -23,11 +23,8 @@ use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
 
 my @divisions = ('vertebrates', 'metazoa', 'plants');
 
-my $ensembl_cvs_root_dir = ''.$ENV{'BASE_DIR'};
-
-
 for my $division (@divisions) {
-    my $species = genome_to_include($division, $ensembl_cvs_root_dir);
+    my $species = genome_to_include($division,  $ENV{'BASE_DIR'});
     ok(scalar($species) > 0, "List Species not empty");
     ok(ref($species) eq 'ARRAY', "Species is an Array");
 }
