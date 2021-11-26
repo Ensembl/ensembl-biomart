@@ -89,7 +89,7 @@ sub genome_to_include {
         $filename = $base_dir . '/ensembl-compara/conf/' . $division . '/allowed_species.json';
     }
     else {
-        $filename = $FindBin::Bin . '/' . $division . '/allowed_species.json';
+        $filename = $FindBin::Bin . '/../ensembl-compara/conf/' . $division . '/allowed_species.json';
     }
     my $rc = eval {
         $included_species = decode_json(read_file($filename, chomp => 1));
@@ -97,7 +97,7 @@ sub genome_to_include {
     };
     if (!$rc) {
         # Something failed
-        throw("Something went wrong parsing the json file ")
+        throw("Something wrong parsing the json file:".$filename);
     }
     print Dumper($included_species);
     return $included_species;
