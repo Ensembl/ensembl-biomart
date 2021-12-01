@@ -34,7 +34,7 @@ for my $m ( @{ $srv->get_marts() } ) {
 	}
 }
 ok( defined $mart, "Test mart found" );
-print Dumper($mart);
+# print Dumper($mart);
 my $dataset = $mart->get_dataset_by_name('spombe_eg_gene');
 ok( defined $dataset, "Test dataset found" );
 my $filter = $dataset->get_filter_by_name('with_uniprotswissprot');
