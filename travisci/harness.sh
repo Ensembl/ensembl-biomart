@@ -8,6 +8,7 @@ export PATH=$PATH:$PWD/htslib
 
 echo "Running test suite"
 echo "BASE_DIR is set to $BASE_DIR"
+ls -l $BASE_DIR
 echo "Using $PERL5LIB"
 if [ "$COVERALLS" = 'true' ]; then
   PERL5OPT='-MDevel::Cover=+ignore,bioperl,+ignore,ensembl-test' perl $PWD/ensembl-test/scripts/runtests.pl -verbose $PWD/modules/t $SKIP_TESTS
