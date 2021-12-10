@@ -1,0 +1,54 @@
+dist: trusty
+
+language: "perl"
+
+perl:
+  - "5.14"
+
+env:
+  - COVERALLS=true  DB=mysql
+  
+sudo: false
+  
+addons:
+  apt:
+    packages:
+      - unzip
+      - sendmail
+      - graphviz
+
+before_install:
+  - git clone --depth 1 https://github.com/Ensembl/ensembl-git-tools.git
+  - export PATH=$PATH:$PWD/ensembl-git-tools/bin
+  - export ENSEMBL_BRANCH=master
+  - export SECONDARY_BRANCH=main
+  - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH"
+  - if [[ $TRAVIS_BRANCH =~ ^release\/[0-9]+$ ]]; then export ENSEMBL_BRANCH=$TRAVIS_BRANCH; export SECONDARY_BRANCH=$TRAVIS_BRANCH; fi
+  - echo "ENSEMBL_BRANCH=$ENSEMBL_BRANCH"
+  - echo "SECONDARY_BRANCH=$SECONDARY_BRANCH"
+  - git-ensembl --clone --branch $ENSEMBL_BRANCH --secondary_branch $SECONDARY_BRANCH --depth 1 ensembl-test
+  - git-ensembl --clone --branch $ENSEMBL_BRANCH --secondary_branch $SECONDARY_BRANCH --depth 1 ensembl
+  - git-ensembl --clone --branch $ENSEMBL_BRANCH --secondary_branch $SECONDARY_BRANCH --depth 1 ensembl-compara
+  - git-ensembl --clone --branch $ENSEMBL_BRANCH --secondary_branch $SECONDARY_BRANCH --depth 1 ensembl-datacheck
+  - git-ensembl --clone --branch $ENSEMBL_BRANCH --secondary_branch $SECONDARY_BRANCH --depth 1 ensembl-variation
+  - git-ensembl --clone --branch $ENSEMBL_BRANCH --secondary_branch $SECONDARY_BRANCH --depth 1 ensembl-metadata
+  - git-ensembl --clone --branch $ENSEMBL_BRANCH --secondary_branch $SECONDARY_BRANCH --depth 1 ensembl-funcgen
+  - git-ensembl --clone --branch master --secondary_branch main --depth 1 ensembl-hive
+  - git-ensembl --clone --branch master --secondary_branch main --depth 1 ensembl-orm
+  - git-ensembl --clone --branch master --secondary_branch main --depth 1 ensembl-taxonomy
+  - git clone --branch 1.9 --depth 1 https://github.com/samtools/htslib.git
+  - git clone --branch release-1-6-924 --depth 1 https://github.com/bioperl/bioperl-live.git
+install:
+  - cpanm --installdeps --with-recommends --notest --cpanfile ensembl/cpanfile .
+  - cpanm --installdeps --notest --cpanfile ensembl-hive/cpanfile .
+  - cpanm --installdeps --notest .
+  - cpanm -n Devel::Cover::Report::Coveralls
+
+script: "./travisci/harness.sh"
+
+notifications:
+  email:
+    on_success: always
+    on_failure: always
+  slack:
+    secure: BkrSPAkOM5aTOpeyO9vZnHdZ0LF1PLk0r2HtcXN2eTMyiHoGXkl6VUjdAL8EkzI4gunW2GProdSIjHpf60WdiEmKAulMdJRI+xyUbuxnY31mwiikS9HYwqmPBbMTf0Mh2pMBngZRFs+gaFZDUMTfLfp+8MQfU1R54yb6hPuVt5I=

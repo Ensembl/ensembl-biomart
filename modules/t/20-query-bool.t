@@ -24,13 +24,17 @@ my $srv = Bio::EnsEMBL::BioMart::MartService->new(
 ok( defined $srv, "Service found" );
 
 my $mart;
+
+# print Dumper($srv->get_marts());
 for my $m ( @{ $srv->get_marts() } ) {
-	if ( $m->name() =~ m/fungi_mart_[0-9]+/ ) {
+	print $m->name()."\n";
+	if ( $m->name() =~ m/fungi_mart+/ ) {
 		$mart = $m;
 		last;
 	}
 }
 ok( defined $mart, "Test mart found" );
+# print Dumper($mart);
 my $dataset = $mart->get_dataset_by_name('spombe_eg_gene');
 ok( defined $dataset, "Test dataset found" );
 my $filter = $dataset->get_filter_by_name('with_uniprotswissprot');

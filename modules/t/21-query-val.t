@@ -25,7 +25,7 @@ ok( defined $srv, "Service found" );
 
 my $mart;
 for my $m ( @{ $srv->get_marts() } ) {
-	if ( $m->name() =~ m/fungi_mart_[0-9]+/ ) {
+	if ( $m->name() =~ m/fungi_mart.*/ ) {
 		$mart = $m;
 		last;
 	}

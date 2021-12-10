@@ -98,7 +98,7 @@ if ($division eq "vertebrates") {
   #Get both division short and full name from a division short or full name
   my ($_division, $division_name) = process_division_names($division);
   # Load species to include in the Vertebrates marts
-  $included_species = genome_to_include($division_name);
+  $included_species = genome_to_include($division_name, $ENV{BASE_DIR});
   foreach my $species_name ( @$included_species ) {
       $species_name =~ s/([a-z0-9])[a-z0-9]*_/$1/g;
       $species_set{$species_name} = 1;
