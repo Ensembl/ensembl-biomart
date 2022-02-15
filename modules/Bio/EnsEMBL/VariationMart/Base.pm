@@ -72,6 +72,24 @@ sub does_table_exist {
   return $exists;
 }
 
+sub does_column_exist{
+  my ($self, $table_name, $column_name) = @_;
+  my $check_sql = "SHOW COLUMNS FROM `$table_name` LIKE '$column_name'";
+  my $mart_dbc = $self->mart_dbc;
+  my ($res) = $mart_dbc->sql_helper->execute_simple(-SQL=>$check_sql)->[0];
+  return $res ? 1 : 0;
+}
+
+sub add_column{
+  my ($self, $table_name, $column_name, $col_def) = @_;
+  if (! $self->does_column_exist($table_name, $column_name)) {
+    my $sql_column = 'ALTER TABLE '.$table_name.' ADD COLUMN '.$column_name.' '.$col_def;
+    my $mart_dbc = $self->mart_dbc;
+    $mart_dbc->sql_helper->execute_update(-SQL=>$sql_column) or $self->throw($mart_dbc->errstr);
+    $mart_dbc->disconnect_if_idle();
+  }
+}
+
 sub order_consequences {
   my ($self) = @_;
   my $hive_dbc = $self->dbc;

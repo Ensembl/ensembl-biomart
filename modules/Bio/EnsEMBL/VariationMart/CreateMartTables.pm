@@ -40,12 +40,12 @@ sub param_defaults {
 
 sub run {
   my ($self) = @_;
-  
-  my @tables=(); 
+
+  my @tables=();
   my $mart_table_prefix = $self->param_required('mart_table_prefix');
 
   $self->remove_unused_tables();
-  
+
   foreach my $table ( @{$self->param_required('snp_tables')} ) {
     $self->create_table($table, $mart_table_prefix);
     if ( $table eq 'snp__variation_citation__dm' ) {
@@ -82,7 +82,7 @@ sub run {
       $self->add_structural_variation_feature_count($mart_table_prefix, "_som");
     }
   }
-  
+
   if ($self->param('sv_exists')) {
     foreach my $table ( @{$self->param_required('sv_tables')} ) {
       $self->create_table($table, $mart_table_prefix);
@@ -93,7 +93,7 @@ sub run {
 
 sub remove_unused_tables {
   my ($self) = @_;
-  
+
   my $show_sams = $self->param_required('show_sams');
   my $show_pops = $self->param_required('show_pops');
   my $mfs       = $self->param_required('motif_exists');
@@ -133,40 +133,40 @@ sub remove_unused_tables {
       }
       push @som_tables, $snp_som_table;
     }
-    $self->param('snp_som_tables', \@som_tables); 
+    $self->param('snp_som_tables', \@som_tables);
   }
 }
 
 sub create_table {
   my ($self, $table, $mart_table_prefix) = @_;
-  
+
   my $mart_table = "$mart_table_prefix\_$table";
   my $sql_file = catdir($self->param_required('tables_dir'), $table, 'select.sql');
   my $mart_dbc = $self->mart_dbc;
 
   $self->existing_table_check($mart_table);
-  
+
   my $core_db = $self->get_DBAdaptor('core')->dbc()->dbname;
   my $variation_db = $self->get_DBAdaptor('variation')->dbc()->dbname;
-  
+
   my $select_sql = $self->read_string($sql_file);
   $select_sql =~ s/CORE_DB/$core_db/gm;
   $select_sql =~ s/VAR_DB/$variation_db/gm;
   $select_sql =~ s/SPECIES_ABBREV/$mart_table_prefix/gm;
-  
+
   my $create_sql = "CREATE TABLE $mart_table AS $select_sql LIMIT 1;";
   my $truncate_sql = "TRUNCATE TABLE $mart_table;";
-  
+
   $mart_dbc->sql_helper->execute_update(-SQL=>$create_sql);
   $mart_dbc->sql_helper->execute_update(-SQL=>$truncate_sql);
-  
+
   $mart_dbc->disconnect_if_idle();
   $self->order_consequences($mart_table);
 }
 
 sub existing_table_check {
   my ($self, $mart_table) = @_;
-  
+
   my $mart_dbc = $self->mart_dbc;
   my $tables_sql = "SHOW TABLES LIKE '$mart_table';";
   my $tables = $mart_dbc->sql_helper->execute(-SQL=>$tables_sql);
@@ -180,7 +180,7 @@ sub existing_table_check {
 
 sub read_string {
   my ($self, $filename) = @_;
-  
+
   local $/ = undef;
   open my $fh, '<', $filename or $self->throw("Error opening $filename - $!\n");
   my $contents = <$fh>;
@@ -190,7 +190,7 @@ sub read_string {
 
 sub order_consequences {
   my ($self, $mart_table) = @_;
-  
+
   my $mart_dbh = $self->mart_dbh;
   my %consequences = %{$self->param('consequences')};
   foreach my $table (keys %consequences) {
@@ -210,7 +210,7 @@ sub order_consequences {
 
 sub write_output {
   my ($self) = @_;
-  
+
   my @v = (
     'variation',
     'v',
@@ -309,7 +309,7 @@ sub write_output {
     my ($sv_max_key_id, $sv_base_where_sql);
     if ($self->param('variation_feature')) {
       $sv_max_key_id = $self->max_key_id("variation",@svf);
-      $sv_base_where_sql = $self->base_where_sql(@svf); 
+      $sv_base_where_sql = $self->base_where_sql(@svf);
     }
     else {
       $sv_max_key_id = $self->max_key_id("variation",@sv);
@@ -335,7 +335,7 @@ sub write_output {
         $sv_max_key_id_som = $self->max_key_id("variation",@svsom);
         $sv_base_where_sql_som = $self->base_where_sql(@svsom);
       }
-    
+
       foreach my $table ( @{$self->param_required('sv_som_tables')} ) {
       $self->dataflow_output_id({
         'table'          => $table,
@@ -348,9 +348,9 @@ sub write_output {
 
 sub max_key_id {
   my ($self, $database, $table, $alias, $column, $conditions) = @_;
-  
+
   my $vdbc = $self->get_DBAdaptor($database)->dbc();
-  
+
   # Don't bother getting the numbers exact, assume that the column has
   # roughly consecutive IDs; the partition size is thus an upper limit, really.
   my $sql = "SELECT MAX($column) FROM $table $alias;";
@@ -365,8 +365,8 @@ sub max_key_id {
 
 sub base_where_sql {
   my ($self, $table, $alias, $column, $conditions) = @_;
-  
-  my $base_where_sql = ' WHERE '; 
+
+  my $base_where_sql = ' WHERE ';
   if (defined $conditions) {
     $base_where_sql .= join(' AND ', @$conditions);
     $base_where_sql .= ' AND ';
@@ -377,38 +377,17 @@ sub base_where_sql {
 
 sub add_variation_citation_bool {
   my ($self, $mart_table_prefix, $prefix) = @_;
-
-  my $table_sql =
-    'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
-    'ADD COLUMN variation_citation_bool int(11) DEFAULT 0';
-
-  my $mart_dbc = $self->mart_dbc;
-  $mart_dbc->sql_helper->execute_update(-SQL=>$table_sql) or $self->throw($mart_dbc->errstr);
-  $mart_dbc->disconnect_if_idle();
+  $self->add_column($mart_table_prefix.'_snp'.$prefix.'__variation__main', 'variation_citation_bool', 'int(11) DEFAULT 0' );
 }
 
 sub add_variation_feature_count {
   my ($self, $mart_table_prefix, $prefix) = @_;
-
-  my $table_sql =
-    'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
-    'ADD COLUMN variation_feature_count int(11) DEFAULT 0';
-
-  my $mart_dbc = $self->mart_dbc;
-  $mart_dbc->sql_helper->execute_update(-SQL=>$table_sql) or $self->throw($mart_dbc->errstr);
-  $mart_dbc->disconnect_if_idle();
+  $self->add_column($mart_table_prefix.'_snp'.$prefix.'__variation__main', 'variation_feature_count', 'int(11) DEFAULT 0');
 }
 
 sub add_structural_variation_feature_count {
   my ($self, $mart_table_prefix, $prefix) = @_;
-
-  my $table_sql =
-    'ALTER TABLE '.$mart_table_prefix.'_structvar'.$prefix.'__structural_variation__main '.
-    'ADD COLUMN structural_variation_feature_count int(11) DEFAULT 0';
-
-  my $mart_dbc = $self->mart_dbc;
-  $mart_dbc->sql_helper->execute_update(-SQL=>$table_sql) or $self->throw($mart_dbc->errstr);
-  $mart_dbc->disconnect_if_idle();
+  $self->add_column($mart_table_prefix.'_snp'.$prefix.'__variation__main', 'structural_variation_feature_count', 'int(11) DEFAULT 0');
 }
 
 1;

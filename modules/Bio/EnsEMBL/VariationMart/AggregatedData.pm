@@ -93,11 +93,8 @@ sub variation_annotation_bool {
   my ($self, $mart_table_prefix, $variation_db, $prefix) = @_;
   my $hive_dbc = $self->dbc;
   $hive_dbc->disconnect_if_idle();
-  
-  my $table_sql =
-    'ALTER TABLE '.$mart_table_prefix.'_snp'.$prefix.'__variation__main '.
-    'ADD COLUMN variation_annotation_bool int(11) DEFAULT 0';
-  
+  $self->add_column($mart_table_prefix.'_snp'.$prefix.'__variation__main', 'variation_annotation_bool', 'int(11) DEFAULT 0');
+
   my $update_sql =
     'UPDATE '.
     $mart_table_prefix.'_snp'.$prefix.'__variation__main v_m INNER JOIN '.
@@ -110,7 +107,6 @@ sub variation_annotation_bool {
     '(variation_annotation_bool);';
   
   my $mart_dbc = $self->mart_dbc;
-  $mart_dbc->sql_helper->execute_update(-SQL=>$table_sql) or $self->throw($mart_dbc->errstr);
   $mart_dbc->sql_helper->execute_update(-SQL=>$update_sql) or $self->throw($mart_dbc->errstr);
   $mart_dbc->sql_helper->execute_update(-SQL=>$index_sql) or $self->throw($mart_dbc->errstr);
   $mart_dbc->disconnect_if_idle();

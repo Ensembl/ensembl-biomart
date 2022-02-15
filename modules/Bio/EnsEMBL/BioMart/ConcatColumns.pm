@@ -54,7 +54,8 @@ sub create_stable_id_version_column {
       my $column1_types = $mart_dbc->sql_helper->execute_simple(-SQL=>"SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '$mart_table' AND COLUMN_NAME = '$column1';"); 
       my $column1_type = $column1_types->[0];
       # Create new column
-      $mart_dbc->sql_helper->execute_update(-SQL=>"ALTER TABLE $mart_table ADD COLUMN ${table}_stable_id_version $column1_type;");
+      # WAS $mart_dbc->sql_helper->execute_update(-SQL=>"ALTER TABLE $mart_table ADD COLUMN ${table}_stable_id_version $column1_type;");
+      $self->add_column($mart_table, $table.'_stable_id_version', $column1_type);
       # Concat table
       $mart_dbc->sql_helper->execute_update(-SQL=>"UPDATE $mart_table SET ${table}_stable_id_version = CONCAT($column1, '$concat_separator', $column2);");
       # Create index
@@ -95,7 +96,8 @@ sub replicate_column_child_tables {
   #Drop column if exist
   $self->drop_column_if_exist($mart_dbc,$child_mart_table,$column);
   # Create new column
-  $mart_dbc->sql_helper->execute_update(-SQL=>"ALTER TABLE $child_mart_table ADD COLUMN $column $column_type;");
+  # WAS $mart_dbc->sql_helper->execute_update(-SQL=>"ALTER TABLE $child_mart_table ADD COLUMN $column $column_type;");
+  $self->add_column($child_mart_table, $column, $column_type);
   # Concat table
   $mart_dbc->sql_helper->execute_update(-SQL=>"UPDATE $child_mart_table INNER JOIN $mart_table ON $mart_table.$main_table_key = $child_mart_table.$main_table_key SET $child_mart_table.$column = CONCAT($mart_table.$column1, '$concat_separator', $mart_table.$column2);");
   # Create index
