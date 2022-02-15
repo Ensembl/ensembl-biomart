@@ -20,7 +20,7 @@ use Bio::EnsEMBL::BioMart::MartService;
 use Data::Dumper;
 
 my $srv = Bio::EnsEMBL::BioMart::MartService->new(
-    -URL => 'http://fungi.ensembl.org/biomart/martservice');
+    -URL => 'https://fungi.ensembl.org/biomart/martservice');
 
 my @marts = @{$srv->get_marts()};
 ok(scalar(@marts) == 4);
