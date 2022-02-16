@@ -153,11 +153,9 @@ sub create_table {
   $select_sql =~ s/CORE_DB/$core_db/gm;
   $select_sql =~ s/VAR_DB/$variation_db/gm;
   $select_sql =~ s/SPECIES_ABBREV/$mart_table_prefix/gm;
-  my $delete_sql = "DROP TABLE IF EXISTS $mart_table";
   my $create_sql = "CREATE TABLE $mart_table AS $select_sql LIMIT 1";
   my $truncate_sql = "TRUNCATE TABLE $mart_table;";
 
-  $mart_dbc->sql_helper->execute_update(-SQL=>$delete_sql);
   $mart_dbc->sql_helper->execute_update(-SQL=>$create_sql);
   $mart_dbc->sql_helper->execute_update(-SQL=>$truncate_sql);
 
