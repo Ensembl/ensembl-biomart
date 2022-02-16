@@ -143,16 +143,16 @@ sub structural_variation_feature_count {
   my ($self, $mart_table_prefix, $variation_db, $prefix) = @_;
   my $hive_dbc = $self->dbc;
   $hive_dbc->disconnect_if_idle();
-  
+  # Patch to make sure the column is created at this
   my $update_sql =
     'UPDATE '.
     $mart_table_prefix.'_structvar'.$prefix.'__structural_variation__main sv_m '.
     'SET sv_m.structural_variation_feature_count = '.
       '(SELECT COUNT(svf.structural_variation_id) FROM '.$variation_db.'.structural_variation_feature svf '.
       'WHERE sv_m.structural_variation_id_2072_key = svf.structural_variation_id);';
+  my $mart_dbc = $self->mart_dbc;
   $mart_dbc->sql_helper->execute_update(-SQL=>$update_sql) or $self->throw($mart_dbc->errstr);
   $self->add_index($mart_table_prefix.'_structvar'.$prefix.'__structural_variation__main', 'idx_svfc', '(structural_variation_feature_count)');
-  my $mart_dbc = $self->mart_dbc;
   $mart_dbc->disconnect_if_idle();
 }
 
