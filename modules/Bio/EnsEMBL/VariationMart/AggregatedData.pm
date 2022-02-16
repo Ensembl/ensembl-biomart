@@ -100,15 +100,9 @@ sub variation_annotation_bool {
     $mart_table_prefix.'_snp'.$prefix.'__variation__main v_m INNER JOIN '.
     $variation_db.'.MTMP_variation_annotation va ON v_m.variation_id_2025_key = va.variation_id '.
     'SET v_m.variation_annotation_bool = 1;';
-  
-  my $index_sql =
-    'CREATE INDEX idx_vab ON '.
-    $mart_table_prefix.'_snp'.$prefix.'__variation__main '.
-    '(variation_annotation_bool);';
-  
+  $self->add_index($mart_table_prefix.'_snp'.$prefix.'__variation__main', 'idx_vab', '(variation_annotation_bool)');
   my $mart_dbc = $self->mart_dbc;
   $mart_dbc->sql_helper->execute_update(-SQL=>$update_sql) or $self->throw($mart_dbc->errstr);
-  $mart_dbc->sql_helper->execute_update(-SQL=>$index_sql) or $self->throw($mart_dbc->errstr);
   $mart_dbc->disconnect_if_idle();
 }
 
@@ -122,15 +116,9 @@ sub variation_citation_bool {
     $mart_table_prefix.'_snp'.$prefix.'__variation__main v_m INNER JOIN '.
     $variation_db.'.variation_citation vc ON v_m.variation_id_2025_key = vc.variation_id '.
     'SET v_m.variation_citation_bool = 1;';
-  
-  my $index_sql =
-    'CREATE INDEX idx_vcb ON '.
-    $mart_table_prefix.'_snp'.$prefix.'__variation__main '.
-    '(variation_citation_bool);';
-  
+  $self->add_index($mart_table_prefix.'_snp'.$prefix.'__variation__main', 'idx_vcb', '(variation_citation_bool)');
   my $mart_dbc = $self->mart_dbc;
   $mart_dbc->sql_helper->execute_update(-SQL=>$update_sql) or $self->throw($mart_dbc->errstr);
-  $mart_dbc->sql_helper->execute_update(-SQL=>$index_sql) or $self->throw($mart_dbc->errstr);
   $mart_dbc->disconnect_if_idle();
 }
 
