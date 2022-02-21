@@ -415,7 +415,7 @@ sub pipeline_analyses {
                 tables_dir => $self->o('tables_dir')
             },
             -max_retry_count   => 3,
-            -analysis_capacity => 20,
+            -analysis_capacity => 50,
             -rc_name           => $self->o('populate_mart_rc_name'),
         },
 
