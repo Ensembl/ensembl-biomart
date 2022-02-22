@@ -90,6 +90,24 @@ sub add_column{
   }
 }
 
+sub does_index_exist{
+  my ($self, $table_name, $index_name) = @_;
+  my $check_sql = "SHOW INDEX FROM `$table_name` WHERE Key_name = '$index_name'";
+  my $mart_dbc = $self->mart_dbc;
+  my ($res) = $mart_dbc->sql_helper->execute_simple(-SQL=>$check_sql)->[0];
+  return $res ? 1 : 0;
+}
+
+sub add_index{
+  my ($self, $table_name, $index_name, $index_def) = @_;
+  if (! $self->does_index_exist($table_name, $index_name)) {
+    my $sql_index = 'CREATE INDEX `'.$index_name.'` ON '.$table_name.' '.$index_def;
+    my $mart_dbc = $self->mart_dbc;
+    $mart_dbc->sql_helper->execute_update(-SQL=>$sql_index) or $self->throw($mart_dbc->errstr);
+    $mart_dbc->disconnect_if_idle();
+  }
+}
+
 sub order_consequences {
   my ($self) = @_;
   my $hive_dbc = $self->dbc;
