@@ -40,6 +40,7 @@ package Bio::EnsEMBL::PipeConfig::VariationMart_conf;
 use strict;
 use warnings;
 use File::Spec::Functions qw(catdir);
+use Bio::EnsEMBL::Hive::PipeConfig::HiveGeneric_conf qw( WHEN );
 use base ('Bio::EnsEMBL::Hive::PipeConfig::EnsemblGeneric_conf');
 
 sub default_options {
@@ -300,7 +301,7 @@ sub pipeline_analyses {
             },
             -max_retry_count => 0,
             -flow_into       => {
-                '3->B' => [ 'CreateMTMPTables' ],
+                '3->B' => WHEN('#mtmp_tables_exist# == 0', [ 'CreateMTMPTables' ]), 
                 '4'    => [ 'CopyMart' ],
                 'B->5' => [ 'GenerateMart' ],
             }
