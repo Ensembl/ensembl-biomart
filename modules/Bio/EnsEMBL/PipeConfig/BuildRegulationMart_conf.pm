@@ -119,23 +119,6 @@ sub pipeline_analyses {
             -rc_name           => 'default',
         },
         {
-            -logic_name        => 'AddExtraMartIndexesPeaks',
-            -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
-            -parameters        => {
-                tables_dir        => $self->o('tables_dir'),
-                table             => 'peak__main',
-                mart_table_prefix => '#dataset#' . "_" . "peak",
-                mart_host         => $self->o('host'),
-                mart_port         => $self->o('port'),
-                mart_user         => $self->o('user'),
-                mart_pass         => $self->o('pass'),
-                mart_db_name      => $self->o('mart'),
-            },
-            -max_retry_count   => 0,
-            -analysis_capacity => 10,
-            -rc_name           => 'default',
-        },
-        {
             -logic_name        => 'AddExtraMartIndexesRegulatoryFeatures',
             -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
             -parameters        => {
@@ -207,29 +190,6 @@ sub pipeline_analyses {
             },
             -analysis_capacity => 1,
             -flow_into         => [ 'generate_meta_peaks' ],
-        },
-        {
-            -logic_name        => 'generate_meta_peaks',
-            -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-            -meadow_type       => 'LSF',
-            -parameters        => {
-                'cmd'                   =>
-                    'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown# -scratch_dir #scratch_dir#',
-                'mart'                  => $self->o('mart'),
-                'template'              => $self->o('base_dir') . '/scripts/templates/peak_template_template.xml',
-                'user'                  => $self->o('user'),
-                'pass'                  => $self->o('pass'),
-                'host'                  => $self->o('host'),
-                'port'                  => $self->o('port'),
-                'base_dir'              => $self->o('base_dir'),
-                'template_name'         => 'peaks',
-                'genomic_features_mart' => $self->o('genomic_features_mart'),
-                'max_dropdown'          => $self->o('max_dropdown'),
-                'base_name'             => 'peak',
-                'scratch_dir'           => $self->o('scratch_dir'),
-            },
-            -analysis_capacity => 1,
-            -flow_into         => [ 'generate_meta_regulatory_features' ]
         },
         {
             -logic_name        => 'generate_meta_regulatory_features',
