@@ -222,14 +222,20 @@
           <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="MANE Select transcript" internalName="mane_select" useDefault="true">
-        <FilterDescription displayName="MANE Select transcript" displayType="list" field="value_1065" internalName="mane_select" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_mane_select__dm" type="boolean" useDefault="true">
+      <FilterCollection displayName="MANE Select" internalName="mane_select" useDefault="true">
+        <FilterDescription displayName="MANE Select" displayType="list" field="value_1065" internalName="mane_select" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_mane_select__dm" type="boolean" useDefault="true">
           <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
           <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
         </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="MANE Plus clinical" internalName="mane_plus_clinical" useDefault="true">
         <FilterDescription displayName="MANE Plus clinical" displayType="list" field="value_1065" internalName="mane_plus_clinical" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_mane_plus_clinical__dm" type="boolean" useDefault="true">
+          <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
+          <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
+        </FilterDescription>
+      </FilterCollection>
+      <FilterCollection displayName="Readthrough" internalName="transcript_readthrough" useDefault="true">
+        <FilterDescription displayName="Readthrough" displayType="list" field="value_1065" internalName="transcript_readthrough" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_readthrough__dm" type="boolean" useDefault="true">
           <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
           <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
         </FilterDescription>
@@ -1469,6 +1475,7 @@
         <AttributeDescription displayName="Ensembl Canonical" field="value_1065" internalName="transcript_is_canonical" key="transcript_id_1064_key" maxLength="255" tableConstraint="tra_is_canonical__dm" useDefault="true"/>
         <AttributeDescription displayName="RefSeq match transcript (MANE Select)" field="value_1065" internalName="transcript_mane_select" key="transcript_id_1064_key" linkoutURL="exturl|https://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="255" tableConstraint="tra_mane_select__dm" useDefault="true"/>
         <AttributeDescription displayName="RefSeq match transcript (MANE Plus Clinical)" field="value_1065" internalName="transcript_mane_plus_clinical" key="transcript_id_1064_key" linkoutURL="exturl|https://www.ncbi.nlm.nih.gov/nuccore/%s" maxLength="255" tableConstraint="tra_mane_plus_clinical__dm" useDefault="true"/>
+        <AttributeDescription displayName="Readthrough" field="value_1065" internalName="transcript_readthrough" key="transcript_id_1064_key" maxLength="255" tableConstraint="tra_readthrough__dm" useDefault="true"/>
         <AttributeDescription displayName="Gene name" field="display_label_1074" internalName="external_gene_name" key="gene_id_1020_key" linkoutURL="exturl|/*species2*/Gene/Summary?db=core;g=%s|ensembl_gene_id" maxLength="16" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Source of gene name" field="db_display_name_1018" internalName="external_gene_source" key="gene_id_1020_key" maxLength="17" tableConstraint="main" useDefault="true"/>
         <AttributeDescription displayName="Transcript name" field="display_label_1074_r1" internalName="external_transcript_name" key="transcript_id_1064_key" linkoutURL="exturl|/*species2*/Transcript/Summary?db=core;t=%s|ensembl_transcript_id" maxLength="16" tableConstraint="main" useDefault="true"/>
