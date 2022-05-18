@@ -222,8 +222,8 @@
           <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="MANE Select transcript" internalName="mane_select" useDefault="true">
-        <FilterDescription displayName="MANE Select transcript" displayType="list" field="value_1065" internalName="mane_select" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_mane_select__dm" type="boolean" useDefault="true">
+      <FilterCollection displayName="MANE Select" internalName="mane_select" useDefault="true">
+        <FilterDescription displayName="MANE Select" displayType="list" field="value_1065" internalName="mane_select" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_mane_select__dm" type="boolean" useDefault="true">
           <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
           <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
         </FilterDescription>
@@ -234,8 +234,8 @@
           <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
         </FilterDescription>
       </FilterCollection>
-      <FilterCollection displayName="Readthrough Transcript" internalName="transcript_readthrough" useDefault="true">
-        <FilterDescription displayName="Readthrough Transcript" displayType="list" field="value_1065" internalName="transcript_readthrough" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_readthrough__dm" type="boolean" useDefault="true">
+      <FilterCollection displayName="Readthrough" internalName="transcript_readthrough" useDefault="true">
+        <FilterDescription displayName="Readthrough" displayType="list" field="value_1065" internalName="transcript_readthrough" key="transcript_id_1064_key" legal_qualifiers="only,excluded" otherFilters="MULTI" qualifier="only" style="radio" tableConstraint="tra_readthrough__dm" type="boolean" useDefault="true">
           <Option displayName="Only" internalName="only" useDefault="true" value="only"/>
           <Option displayName="Excluded" internalName="excluded" useDefault="true" value="excluded"/>
         </FilterDescription>
