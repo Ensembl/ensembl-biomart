@@ -59,7 +59,7 @@ sub create_stable_id_version_column {
       # Concat table
       $mart_dbc->sql_helper->execute_update(-SQL => "UPDATE $mart_table SET ${table}_stable_id_version = CONCAT($column1, '$concat_separator', $column2);");
       # Create index
-      $self->add_index($mart_table, $mart_table.'_'.${table}.'_stable_id_version', "(${table}_stable_id_version)");
+      $self->add_index($mart_table, ${table}.'_stable_id_version', "(${table}_stable_id_version)");
       # WAS $mart_dbc->sql_helper->execute_update(-SQL=>"ALTER TABLE $mart_table ADD INDEX (${table}_stable_id_version);");
       # Replicate column in child tables.
       # E.g: from Gene main table to Transcript and Translation
