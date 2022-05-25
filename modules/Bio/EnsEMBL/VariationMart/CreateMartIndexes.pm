@@ -23,6 +23,9 @@ use warnings;
 
 use base ('Bio::EnsEMBL::VariationMart::Base');
 use File::Spec::Functions qw(catdir);
+use Log::Log4perl qw/get_logger/;
+
+my $logger = get_logger();
 
 sub param_defaults {
   return {};
@@ -45,7 +48,7 @@ sub create_index {
   
   my $hive_dbc = $self->dbc;
   $hive_dbc->disconnect_if_idle();
-
+  $logger->info( "CreateMartIndexesIndex::create_index table:$table, mart_table_previx:$mart_table_prefix" );
   my $index_sql = $self->read_string($sql_file);
   $index_sql =~ s/SPECIES_ABBREV/$mart_table_prefix/gm;
   my $mart_dbc = $self->mart_dbc;
