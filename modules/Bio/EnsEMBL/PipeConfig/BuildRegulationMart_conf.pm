@@ -76,8 +76,7 @@ sub pipeline_analyses {
             -input_ids         => [ {} ],
             -analysis_capacity => 1,
             -flow_into         => {
-                '1->A' => [ 'dataset_factory' ],
-                'A->1' => [ 'tidy_tables' ]
+                '1' =>  'dataset_factory'
             },
         },
         {
@@ -89,16 +88,17 @@ sub pipeline_analyses {
                 'pass'      => $self->o('pass'),
                 'host'      => $self->o('host'),
                 'port'      => $self->o('port'),
-                'datasets'  => $self->o('datasets'),
                 'base_dir'  => $self->o('base_dir'),
                 'registry'  => $self->o('registry'),
-                'species'   => $self->o('species'),
                 'base_name' => "features"
             },
             -flow_into  => {
-                1 => [ 'AddExtraMartIndexesExternalFeatures',
+                '2->A' => [
+                    'AddExtraMartIndexesExternalFeatures',
                     'AddExtraMartIndexesPeaks',
-                    'AddExtraMartIndexesRegulatoryFeatures' ],
+                    'AddExtraMartIndexesRegulatoryFeatures'
+                ],
+                'A->1' => 'tidy_tables'
             }
         },
         {
