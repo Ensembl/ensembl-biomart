@@ -255,48 +255,110 @@ sub pipeline_analyses {
             -analysis_capacity => 1,
             -flow_into         => 'run_tests',
         },
-        {
-            -logic_name        => 'run_tests',
-            -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-            -meadow_type       => 'LSF',
-            -flow_into         => 'check_tests',
-            -parameters        => {
-                'cmd'         =>
-                    'cd #test_dir#;perl #base_dir#/scripts/pre_configuration_mart_healthcheck.pl -newuser #user# -newpass #pass# -newport #port# -newhost #host# -olduser #olduser# -oldport #oldport# -oldhost #oldhost# -new_dbname #mart# -old_dbname #old_mart# -old_rel #old_release# -new_rel #new_release# -empty_column 1 -grch37 #grch37# -mart regulation_mart',
-                'mart'        => $self->o('mart'),
-                'user'        => $self->o('user'),
-                'pass'        => $self->o('pass'),
-                'host'        => $self->o('host'),
-                'port'        => $self->o('port'),
-                'olduser'     => $self->o('olduser'),
-                'oldhost'     => $self->o('oldhost'),
-                'oldport'     => $self->o('oldport'),
-                'old_mart'    => $self->o('old_mart'),
-                'test_dir'    => $self->o('test_dir'),
-                'old_release' => $self->o('old_release'),
-                'new_release' => $self->o('new_release'),
-                'base_dir'    => $self->o('base_dir'),
-                'grch37'      => $self->o('grch37')
-            },
-            -analysis_capacity => 1 },
-        {
-            -logic_name      => 'check_tests',
-            -module          => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-            -meadow_type     => 'LSF',
-            -max_retry_count => 0,
-            -parameters      => {
-                'cmd'              =>
-                    'EXIT_CODE=0;failed_tests=`find #test_dir#/#old_mart#_#oldhost#_vs_#mart#_#host#.* -type f ! -empty -print`;if [ -n "$failed_tests" ]; then >&2 echo "Some tests have failed please check ${failed_tests}";EXIT_CODE=1;fi;exit $EXIT_CODE',
-                'mart'             => $self->o('mart'),
-                'host'             => $self->o('host'),
-                'oldhost'          => $self->o('oldhost'),
-                'old_mart'         => $self->o('old_mart'),
-                'test_dir'         => $self->o('test_dir'),
-                -analysis_capacity => 1
-            },
-        }
+      -analysis_capacity => 1,
+      -flow_into => ['generate_meta_external_features'],
+    },
+    {
+      -logic_name  => 'generate_meta_external_features',
+      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -meadow_type => 'LSF',
+      -parameters  => {
+        'cmd' =>
+        'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
+                       'mart'     => $self->o('mart'),
+                       'template'     => $self->o('base_dir').'/scripts/templates/external_feature_template_template.xml',
+                       'user'     => $self->o('user'),
+                       'pass'     => $self->o('pass'),
+                       'host'     => $self->o('host'),
+                       'port'     => $self->o('port'),
+                       'base_dir' => $self->o('base_dir'),
+                       'template_name' => 'external_features',
+                       'genomic_features_mart' => $self->o('genomic_features_mart'),
+                       'max_dropdown' => $self->o('max_dropdown'),
+                       'base_name' => 'external_feature' },
+      -analysis_capacity => 1,
+      -flow_into => ['generate_meta_mirna_target_features'],
+    },
+    {
+      -logic_name  => 'generate_meta_mirna_target_features',
+      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -meadow_type => 'LSF',
+      -parameters  => {
+        'cmd' =>
+        'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
+                       'mart'     => $self->o('mart'),
+                       'template'     => $self->o('base_dir').'/scripts/templates/mirna_target_feature_template_template.xml',
+                       'user'     => $self->o('user'),
+                       'pass'     => $self->o('pass'),
+                       'host'     => $self->o('host'),
+                       'port'     => $self->o('port'),
+                       'base_dir' => $self->o('base_dir'),
+                       'template_name' => 'mirna_target_features',
+                       'genomic_features_mart' => $self->o('genomic_features_mart'),
+                       'max_dropdown' => $self->o('max_dropdown'),
+                       'base_name' => 'mirna_target_feature' },
+      -analysis_capacity => 1,
+      -flow_into => ['generate_meta_regulatory_features']
+    },
+    {
+      -logic_name  => 'generate_meta_regulatory_features',
+      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+      -meadow_type => 'LSF',
+      -parameters  => {
+        'cmd' =>
+        'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
+                       'mart'     => $self->o('mart'),
+                       'template'     => $self->o('base_dir').'/scripts/templates/regulatory_feature_template_template.xml',
+                       'user'     => $self->o('user'),
+                       'pass'     => $self->o('pass'),
+                       'host'     => $self->o('host'),
+                       'port'     => $self->o('port'),
+                       'base_dir' => $self->o('base_dir'),
+                       'template_name' => 'regulatory_features',
+                       'genomic_features_mart' => $self->o('genomic_features_mart'),
+                       'max_dropdown' => $self->o('max_dropdown'),
+                       'base_name' => 'regulatory_feature' },
+      -analysis_capacity => 1,
+      -flow_into    => 'run_tests',
+    },
+    { -logic_name  => 'run_tests',
+        -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+        -meadow_type => 'LSF',
+        -flow_into    => 'check_tests',
+        -parameters  => {
+                         'cmd' =>
+                         'cd #test_dir#;perl #base_dir#/scripts/pre_configuration_mart_healthcheck.pl -newuser #user# -newpass #pass# -newport #port# -newhost #host# -olduser #olduser# -oldport #oldport# -oldhost #oldhost# -new_dbname #mart# -old_dbname #old_mart# -old_rel #old_release# -new_rel #new_release# -empty_column 1 -grch37 #grch37# -mart regulation_mart',
+                         'mart'   => $self->o('mart'),
+                         'user'     => $self->o('user'),
+                         'pass'     => $self->o('pass'),
+                         'host'     => $self->o('host'),
+                         'port'     => $self->o('port'),
+                         'olduser'     => $self->o('olduser'),
+                         'oldhost'     => $self->o('oldhost'),
+                         'oldport'     => $self->o('oldport'),
+                         'old_mart'     => $self->o('old_mart'),
+                         'test_dir'    => $self->o('test_dir'),
+                         'old_release' => $self->o('old_release'),
+                         'new_release' => $self->o('new_release'),
+                         'base_dir' => $self->o('base_dir'),
+                         'grch37' => $self->o('grch37') },
+        -analysis_capacity => 1 },
+      { -logic_name  => 'check_tests',
+        -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+        -meadow_type => 'LSF',
+        -max_retry_count   => 0,
+        -parameters  => {
+                         'cmd' =>
+                         'EXIT_CODE=0;failed_tests=`find #test_dir#/#old_mart#_#oldhost#_vs_#mart#_#host#.* -type f ! -empty -print`;if [ -n "$failed_tests" ]; then >&2 echo "Some tests have failed please check ${failed_tests}";EXIT_CODE=1;fi;exit $EXIT_CODE',
+                         'mart'   => $self->o('mart'),
+                         'host'     => $self->o('host'),
+                         'oldhost'     => $self->o('oldhost'),
+                         'old_mart'     => $self->o('old_mart'),
+                         'test_dir'    => $self->o('test_dir'),
+        -analysis_capacity => 1 },
+      }
 
-    ];
-    return $analyses;
+  ];
+  return $analyses;
 } ## end sub pipeline_analyses
 1;
