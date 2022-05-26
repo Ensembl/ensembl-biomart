@@ -93,10 +93,10 @@ sub pipeline_analyses {
         'base_dir' => $self->o('base_dir'),
         'registry' => $self->o('registry'),
         'species'  => $self->o('species'),
-          'base_name' => "features"
+        'base_name' => "external_feature"
       },
       -flow_into => {
-        1 => WHEN(
+        2 => WHEN(
           '(#dataset# ne "dmelanogaster")' => ['AddExtraMartIndexesExternalFeatures',
                                                'AddExtraMartIndexesMiRNATargetFeatures',
                                                'AddExtraMartIndexesRegulatoryFeatures'],
