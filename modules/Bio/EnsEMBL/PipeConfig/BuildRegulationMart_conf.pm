@@ -56,133 +56,204 @@ sub default_options {
 =cut
 
 sub pipeline_analyses {
-  my ($self) = @_;
-  my $analyses = [
-    {
-      -logic_name  => 'generate_names',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-          'perl #base_dir#/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -div #division# -registry #registry#',
-        'mart'     => $self->o('mart'),
-        'user'     => $self->o('user'),
-        'pass'     => $self->o('pass'),
-        'host'     => $self->o('host'),
-        'port'     => $self->o('port'),
-        'base_dir' => $self->o('base_dir'),
-        'division' => $self->o('division'),
-        'registry' => $self->o('registry') },
-      -input_ids         => [ {} ],
-      -analysis_capacity => 1,
-      -flow_into => {
-        '1->A' => ['dataset_factory'],
-        'A->1' => ['tidy_tables']
-      },
-    },
-    {
-      -logic_name => 'dataset_factory',
-      -module     => 'Bio::EnsEMBL::BioMart::DatasetFactory',
-      -parameters => {
-        'mart'     => $self->o('mart'),
-        'user'     => $self->o('user'),
-        'pass'     => $self->o('pass'),
-        'host'     => $self->o('host'),
-        'port'     => $self->o('port'),
-        'datasets' => $self->o('datasets'),
-        'base_dir' => $self->o('base_dir'),
-        'registry' => $self->o('registry'),
-        'species'  => $self->o('species'),
-          'base_name' => "features"
-      },
-      -flow_into => {
-        1 => WHEN(
-          '(#dataset# ne "dmelanogaster")' => ['AddExtraMartIndexesExternalFeatures',
-                                               'AddExtraMartIndexesMiRNATargetFeatures',
-                                               'AddExtraMartIndexesRegulatoryFeatures'],
-          ELSE 'AddExtraMartIndexesExternalFeatures',
-        )
-      }
-    },
-    {
-      -logic_name        => 'AddExtraMartIndexesExternalFeatures',
-      -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
-      -parameters        => {
-                              tables_dir => $self->o('tables_dir'),
-                              table => 'external_feature__main',
-                              mart_table_prefix => '#dataset#'."_"."external_feature",
-                              mart_host => $self->o('host'),
-                              mart_port => $self->o('port'),
-                              mart_user => $self->o('user'),
-                              mart_pass => $self->o('pass'),
-                              mart_db_name =>  $self->o('mart'),
-                            },
-      -max_retry_count   => 0,
-      -analysis_capacity => 10,
-      -rc_name           => 'default',
-    },
-    {
-      -logic_name        => 'AddExtraMartIndexesMiRNATargetFeatures',
-      -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
-      -parameters        => {
-                              tables_dir => $self->o('tables_dir'),
-                              table => 'mirna_target_feature__main',
-                              mart_table_prefix => '#dataset#'."_"."mirna_target_feature",
-                              mart_host => $self->o('host'),
-                              mart_port => $self->o('port'),
-                              mart_user => $self->o('user'),
-                              mart_pass => $self->o('pass'),
-                              mart_db_name =>  $self->o('mart'),
-                            },
-      -max_retry_count   => 0,
-      -analysis_capacity => 10,
-      -rc_name           => 'default',
-    },
-    {
-      -logic_name        => 'AddExtraMartIndexesRegulatoryFeatures',
-      -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
-      -parameters        => {
-                              tables_dir => $self->o('tables_dir'),
-                              table => 'regulatory_feature__main',
-                              mart_table_prefix => '#dataset#'."_"."regulatory_feature",
-                              mart_host => $self->o('host'),
-                              mart_port => $self->o('port'),
-                              mart_user => $self->o('user'),
-                              mart_pass => $self->o('pass'),
-                              mart_db_name =>  $self->o('mart'),
-                            },
-      -max_retry_count   => 0,
-      -analysis_capacity => 10,
-      -rc_name           => 'default',
-    },
-    {
-      -logic_name  => 'tidy_tables',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-'perl #base_dir#/scripts/tidy_tables.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',
-        'mart'     => $self->o('mart'),
-        'user'     => $self->o('user'),
-        'pass'     => $self->o('pass'),
-        'host'     => $self->o('host'),
-        'port'     => $self->o('port'),
-        'base_dir' => $self->o('base_dir') },
-      -analysis_capacity => 1,
-      -flow_into => ['optimize'],
-    },
-    {
-      -logic_name  => 'optimize',
-      -module      => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-      -meadow_type => 'LSF',
-      -parameters  => {
-        'cmd' =>
-'mysqlcheck -h#host# -u#user# -p#pass# -P#port# --optimize "#mart#"',
-        'mart' => $self->o('mart'),
-        'user' => $self->o('user'),
-        'pass' => $self->o('pass'),
-        'host' => $self->o('host'),
-        'port' => $self->o('port')
+    my ($self) = @_;
+    my $analyses = [
+        {
+            -logic_name        => 'generate_names',
+            -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+            -meadow_type       => 'LSF',
+            -parameters        => {
+                'cmd'      =>
+                    'perl #base_dir#/scripts/generate_names.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart# -div #division# -registry #registry#',
+                'mart'     => $self->o('mart'),
+                'user'     => $self->o('user'),
+                'pass'     => $self->o('pass'),
+                'host'     => $self->o('host'),
+                'port'     => $self->o('port'),
+                'base_dir' => $self->o('base_dir'),
+                'division' => $self->o('division'),
+                'registry' => $self->o('registry') },
+            -input_ids         => [ {} ],
+            -analysis_capacity => 1,
+            -flow_into         => {
+                '1' => 'dataset_factory'
+            },
+        },
+        {
+            -logic_name => 'dataset_factory',
+            -module     => 'Bio::EnsEMBL::BioMart::DatasetFactory',
+            -parameters => {
+                'mart'      => $self->o('mart'),
+                'user'      => $self->o('user'),
+                'pass'      => $self->o('pass'),
+                'host'      => $self->o('host'),
+                'port'      => $self->o('port'),
+                'datasets'  => $self->o('datasets'),
+                'base_dir'  => $self->o('base_dir'),
+                'registry'  => $self->o('registry'),
+                'species'   => $self->o('species'),
+                'base_name' => 'features'
+            },
+            -flow_into  => {
+                '2->A' => WHEN(
+                    '(#dataset# ne "dmelanogaster")' => {
+                        'AddExtraMartIndexesExternalFeatures'    => { 'dataset' => '#dataset#' },
+                        'AddExtraMartIndexesMiRNATargetFeatures' => { 'dataset' => '#dataset#' },
+                        'AddExtraMartIndexesRegulatoryFeatures'  => { 'dataset' => '#dataset#' }
+                    },
+                    ELSE {
+                        'AddExtraMartIndexesExternalFeatures' => { 'dataset' => '#dataset#' },
+                    }),
+                'A->1' => 'tidy_tables'
+            }
+        },
+        {
+            -logic_name        => 'AddExtraMartIndexesExternalFeatures',
+            -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
+            -parameters        => {
+                tables_dir        => $self->o('tables_dir'),
+                table             => 'external_feature__main',
+                # anancymaae_external_feature__external_feature__main
+                mart_table_prefix => '#dataset#' . "_" . "external_feature",
+                mart_host         => $self->o('host'),
+                mart_port         => $self->o('port'),
+                mart_user         => $self->o('user'),
+                mart_pass         => $self->o('pass'),
+                mart_db_name      => $self->o('mart'),
+            },
+            -max_retry_count   => 0,
+            -analysis_capacity => 10,
+            -rc_name           => 'default',
+        },
+        {
+            -logic_name        => 'AddExtraMartIndexesMiRNATargetFeatures',
+            -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
+            -parameters        => {
+                tables_dir        => $self->o('tables_dir'),
+                table             => 'mirna_target_feature__main',
+                mart_table_prefix => '#dataset#' . "_" . "mirna_target_feature",
+                mart_host         => $self->o('host'),
+                mart_port         => $self->o('port'),
+                mart_user         => $self->o('user'),
+                mart_pass         => $self->o('pass'),
+                mart_db_name      => $self->o('mart'),
+            },
+            -max_retry_count   => 0,
+            -analysis_capacity => 10,
+            -rc_name           => 'default',
+        },
+        {
+            -logic_name        => 'AddExtraMartIndexesRegulatoryFeatures',
+            -module            => 'Bio::EnsEMBL::VariationMart::CreateMartIndexes',
+            -parameters        => {
+                tables_dir        => $self->o('tables_dir'),
+                table             => 'regulatory_feature__main',
+                mart_table_prefix => '#dataset#' . "_" . "regulatory_feature",
+                mart_host         => $self->o('host'),
+                mart_port         => $self->o('port'),
+                mart_user         => $self->o('user'),
+                mart_pass         => $self->o('pass'),
+                mart_db_name      => $self->o('mart'),
+            },
+            -max_retry_count   => 0,
+            -analysis_capacity => 10,
+            -rc_name           => 'default',
+        },
+        {
+            -logic_name        => 'tidy_tables',
+            -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+            -meadow_type       => 'LSF',
+            -parameters        => {
+                'cmd'      =>
+                    'perl #base_dir#/scripts/tidy_tables.pl -user #user# -pass #pass# -port #port# -host #host# -mart #mart#',
+                'mart'     => $self->o('mart'),
+                'user'     => $self->o('user'),
+                'pass'     => $self->o('pass'),
+                'host'     => $self->o('host'),
+                'port'     => $self->o('port'),
+                'base_dir' => $self->o('base_dir')
+            },
+            -analysis_capacity => 1,
+            -flow_into         => [ 'optimize' ],
+        },
+        {
+            -logic_name        => 'optimize',
+            -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+            -meadow_type       => 'LSF',
+            -parameters        => {
+                'cmd'  =>
+                    'mysqlcheck -h#host# -u#user# -p#pass# -P#port# --optimize "#mart#"',
+                'mart' => $self->o('mart'),
+                'user' => $self->o('user'),
+                'pass' => $self->o('pass'),
+                'host' => $self->o('host'),
+                'port' => $self->o('port')
+            },
+            -analysis_capacity => 1,
+            -flow_into         => [ 'generate_meta_external_features' ],
+        },
+        {
+            -logic_name        => 'generate_meta_external_features',
+            -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+            -meadow_type       => 'LSF',
+            -parameters        => {
+                'cmd'                   =>
+                    'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
+                'mart'                  => $self->o('mart'),
+                'template'              => $self->o('base_dir') . '/scripts/templates/external_feature_template_template.xml',
+                'user'                  => $self->o('user'),
+                'pass'                  => $self->o('pass'),
+                'host'                  => $self->o('host'),
+                'port'                  => $self->o('port'),
+                'base_dir'              => $self->o('base_dir'),
+                'template_name'         => 'external_features',
+                'genomic_features_mart' => $self->o('genomic_features_mart'),
+                'max_dropdown'          => $self->o('max_dropdown'),
+                'base_name'             => 'external_feature' },
+            -analysis_capacity => 1,
+            -flow_into         => [ 'generate_meta_mirna_target_features' ],
+        },
+        {
+            -logic_name        => 'generate_meta_mirna_target_features',
+            -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+            -meadow_type       => 'LSF',
+            -parameters        => {
+                'cmd'                   =>
+                    'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
+                'mart'                  => $self->o('mart'),
+                'template'              => $self->o('base_dir') . '/scripts/templates/mirna_target_feature_template_template.xml',
+                'user'                  => $self->o('user'),
+                'pass'                  => $self->o('pass'),
+                'host'                  => $self->o('host'),
+                'port'                  => $self->o('port'),
+                'base_dir'              => $self->o('base_dir'),
+                'template_name'         => 'mirna_target_features',
+                'genomic_features_mart' => $self->o('genomic_features_mart'),
+                'max_dropdown'          => $self->o('max_dropdown'),
+                'base_name'             => 'mirna_target_feature' },
+            -analysis_capacity => 1,
+            -flow_into         => [ 'generate_meta_regulatory_features' ]
+        },
+        {
+            -logic_name        => 'generate_meta_regulatory_features',
+            -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
+            -meadow_type       => 'LSF',
+            -parameters        => {
+                'cmd'                   =>
+                    'perl #base_dir#/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #template# -ds_basename #base_name# -template_name #template_name# -genomic_features_dbname #genomic_features_mart# -max_dropdown #max_dropdown#',
+                'mart'                  => $self->o('mart'),
+                'template'              => $self->o('base_dir') . '/scripts/templates/regulatory_feature_template_template.xml',
+                'user'                  => $self->o('user'),
+                'pass'                  => $self->o('pass'),
+                'host'                  => $self->o('host'),
+                'port'                  => $self->o('port'),
+                'base_dir'              => $self->o('base_dir'),
+                'template_name'         => 'regulatory_features',
+                'genomic_features_mart' => $self->o('genomic_features_mart'),
+                'max_dropdown'          => $self->o('max_dropdown'),
+                'base_name'             => 'regulatory_feature' },
+            -analysis_capacity => 1,
+            -flow_into         => 'run_tests',
         },
       -analysis_capacity => 1,
       -flow_into => ['generate_meta_external_features'],
