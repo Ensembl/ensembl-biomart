@@ -59,7 +59,7 @@ sub create_stable_id_version_column {
       # Concat table
       $mart_dbc->sql_helper->execute_update(-SQL => "UPDATE $mart_table SET ${table}_stable_id_version = CONCAT($column1, '$concat_separator', $column2);");
       # Create index
-      $self->add_index($mart_table, $mart_table.'_'.${table}.'_stable_id_version', "(${table}_stable_id_version)");
+      $self->add_index($mart_table, ${table}.'_stable_id_version', "(${table}_stable_id_version)");
       # WAS $mart_dbc->sql_helper->execute_update(-SQL=>"ALTER TABLE $mart_table ADD INDEX (${table}_stable_id_version);");
       # Replicate column in child tables.
       # E.g: from Gene main table to Transcript and Translation
@@ -102,7 +102,7 @@ sub replicate_column_child_tables {
   # Concat table
   $mart_dbc->sql_helper->execute_update(-SQL=>"UPDATE $child_mart_table INNER JOIN $mart_table ON $mart_table.$main_table_key = $child_mart_table.$main_table_key SET $child_mart_table.$column = CONCAT($mart_table.$column1, '$concat_separator', $mart_table.$column2);");
   # Create index
-  $self->add_index($child_mart_table, $child_mart_table.'_'.$column.'_idx', "($column)");
+  $self->add_index($child_mart_table, $column.'_idx', "($column)");
   # WAS $mart_dbc->sql_helper->execute_update(-SQL=>"ALTER TABLE $child_mart_table ADD INDEX ($column);");
 }
 

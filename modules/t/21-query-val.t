@@ -46,4 +46,4 @@ my $data =
   $srv->do_query( $mart, $dataset, [ $attribute, $attribute2 ], [{filter=>$filter, value=>'I'}] );
 ok( defined $data, "Data found found" );
   
-done_testing;
+done_testing();
