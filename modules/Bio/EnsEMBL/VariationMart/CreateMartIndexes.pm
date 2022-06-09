@@ -44,7 +44,7 @@ sub run {
 sub create_index {
     my ($self, $table) = @_;
     my $mart_table_prefix = $self->param_required('mart_table_prefix');
-    my $mart_table = "$mart_table_prefix$table";
+    my $mart_table = "${mart_table_prefix}__${table}";
     my $sql_file = catdir($self->param_required('tables_dir'), $table, 'index.sql');
 
     my $hive_dbc = $self->dbc;
@@ -52,6 +52,14 @@ sub create_index {
     $logger->info("CreateMartIndexesIndex::create_index table:$table, mart_table_prefix:$mart_table_prefix, marttable: $mart_table");
     my $index_sql = $self->read_string($sql_file);
     $index_sql =~ s/SPECIES_ABBREV/$mart_table_prefix/gm;
+    $index_sql =~ m{ALTER TABLE ([\w_]+) ADD};
+    my $tbl_name = $1;
+    while ($index_sql =~ m{ADD INDEX \(?([a-z_0-9]*)\)?}g) {
+        if ($self->does_index_exist($tbl_name, $1)) {
+            $logger->info("CreateMartIndexesIndex::create_index, dropping $1 on $tbl_name");
+            $self->drop_index($tbl_name, $1);
+        }
+    }
     my $mart_dbc = $self->mart_dbc;
     $mart_dbc->sql_helper->execute_update(-SQL => $index_sql);
     $mart_dbc->disconnect_if_idle();

@@ -98,6 +98,15 @@ sub does_index_exist{
   return $res ? 1 : 0;
 }
 
+sub drop_index{
+  my ($self, $table_name, $index_name) = @_;
+  my $check_sql = "DROP INDEX `$index_name` on `$table_name`";
+  my $mart_dbc = $self->mart_dbc;
+  my ($res) = $mart_dbc->sql_helper->execute_simple(-SQL=>$check_sql)->[0];
+  return $res ? 1 : 0;
+}
+
+
 sub add_index{
   my ($self, $table_name, $index_name, $index_def) = @_;
   if (! $self->does_index_exist($table_name, $index_name)) {
