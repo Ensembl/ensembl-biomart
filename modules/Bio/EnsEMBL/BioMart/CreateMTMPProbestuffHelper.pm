@@ -43,7 +43,12 @@ sub run {
       $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
   }
   if ($self->does_table_exist($table)) {
-    $self->warning("$table already exists for this species");
+      if($self->does_table_empty($table)){
+          my $drop_sql = "DROP TABLE IF EXISTS $table;";
+          $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
+      }else{
+          $self->warning("$table already exists for this species");
+      }	    
   }
   else{
     my $hive_dbc = $self->dbc;
@@ -137,5 +142,20 @@ sub does_table_exist {
   $dbc->disconnect_if_idle();
   return $exists;
 }
+
+sub does_table_empty {
+  my ($self,$table_name) = @_;
+  my $dbc = $self->get_DBAdaptor('funcgen')->dbc();
+  my $check_table_empty_sql = qq/select count(*) as row_count from $table_name/;
+  my $sth = $dbc->db_handle->prepare($check_table_empty_sql);
+  $sth->execute() or $self->throw($dbc->db_handle->errstr); ;
+  my @rows = $sth->fetchrow_array()
+  my ($row_count) =  @rows;
+  $dbc->disconnect_if_idle();
+  return ($row_count <= 0) 1 ? 0;
+}
+
+
+
 
 1;
