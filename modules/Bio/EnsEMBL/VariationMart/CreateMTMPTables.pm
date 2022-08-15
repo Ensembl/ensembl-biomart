@@ -99,7 +99,7 @@ sub sample_genotype {
     $sth->execute() or $self->throw($dbc->db_handle->errstr); 
     my @rows = $sth->fetchrow_array()
     my ($row_count) =  @rows;
-    if( $row_count <= 0 ){
+    if( $row_count == 0 ){
       my $drop_sql = q/DROP TABLE IF EXISTS MTMP_sample_genotype;/;
       $dbc->db_handle->do($drop_sql) or $self->throw($dbc->db_handle->errstr);
     }	    
