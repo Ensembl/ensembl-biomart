@@ -152,7 +152,7 @@ sub does_table_empty {
   my @rows = $sth->fetchrow_array()
   my ($row_count) =  @rows;
   $dbc->disconnect_if_idle();
-  return ($row_count <= 0) 1 ? 0;
+  return ($row_count <= 0) : 1 ? 0;
 }
 
 

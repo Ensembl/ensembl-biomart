@@ -72,6 +72,18 @@ sub does_table_exist {
   return $exists;
 }
 
+sub does_table_empty {
+  my ($self,$table_name) = @_;
+  my $dbc = $self->get_DBAdaptor('variation')->dbc();
+  my $check_table_empty_sql = qq/select count(*) as row_count from $table_name/;
+  my $sth = $dbc->db_handle->prepare($check_table_empty_sql);
+  $sth->execute() or $self->throw($dbc->db_handle->errstr); ;
+  my @rows = $sth->fetchrow_array()
+  my ($row_count) =  @rows;
+  $dbc->disconnect_if_idle();
+  return ($row_count <= 0) : 1 ? 0;
+}
+
 sub does_column_exist{
   my ($self, $table_name, $column_name) = @_;
   my $check_sql = "SHOW COLUMNS FROM `$table_name` LIKE '$column_name'";
@@ -148,9 +160,15 @@ sub run_script {
     }
   }
   if ($self->does_table_exist($table)) {
-    $self->warning("MTMP_$table already exists for this species");
+      if($self->does_table_empty($table)){
+          my $drop_sql = "DROP TABLE IF EXISTS $table;";
+          $dbc->sql_helper->execute_update(-SQL=>$drop_sql);
+      }else{
+          $self->warning("MTMP_$table already exists for this species");
+      }
   }
   else{
+    	  
     $dbc->disconnect_if_idle();
     my $hive_dbc = $self->dbc;
     $hive_dbc->disconnect_if_idle();
