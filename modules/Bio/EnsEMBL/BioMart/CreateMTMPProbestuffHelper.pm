@@ -148,8 +148,8 @@ sub does_table_empty {
   my $dbc = $self->get_DBAdaptor('funcgen')->dbc();
   my $check_table_empty_sql = qq/select count(*) as row_count from $table_name/;
   my $sth = $dbc->db_handle->prepare($check_table_empty_sql);
-  $sth->execute() or $self->throw($dbc->db_handle->errstr); ;
-  my @rows = $sth->fetchrow_array()
+  $sth->execute() or $self->throw($dbc->db_handle->errstr);
+  my @rows = $sth->fetchrow_array();
   my ($row_count) =  @rows;
   $dbc->disconnect_if_idle();
   return ($row_count == 0) ? 1 : 0;

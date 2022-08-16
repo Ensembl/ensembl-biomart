@@ -25,7 +25,7 @@ use base qw/Bio::EnsEMBL::Hive::Process/;
 
 sub mart_dba {
   my ($self) = @_;
-  
+
   my $mart_dba = Bio::EnsEMBL::DBSQL::DBAdaptor->new(
     -host   => $self->param_required('mart_host'),
     -port   => $self->param_required('mart_port'),
@@ -33,20 +33,20 @@ sub mart_dba {
     -pass   => $self->param_required('mart_pass'),
     -dbname => $self->param_required('mart_db_name'),
   );
-  
-  return $mart_dba; 
+
+  return $mart_dba;
 }
 
 sub mart_dbc {
   my ($self) = @_;
-  
+
   return $self->mart_dba->dbc();
 }
 
 sub mart_dbh {
   my ($self) = @_;
-  
-  return $self->mart_dbc->db_handle(); 
+
+  return $self->mart_dbc->db_handle();
 }
 
 sub get_DBAdaptor {
@@ -77,11 +77,11 @@ sub does_table_empty {
   my $dbc = $self->get_DBAdaptor('variation')->dbc();
   my $check_table_empty_sql = qq/select count(*) as row_count from $table_name/;
   my $sth = $dbc->db_handle->prepare($check_table_empty_sql);
-  $sth->execute() or $self->throw($dbc->db_handle->errstr); ;
-  my @rows = $sth->fetchrow_array()
+  $sth->execute() or $self->throw($dbc->db_handle->errstr);
+  my @rows = $sth->fetchrow_array();
   my ($row_count) =  @rows;
   $dbc->disconnect_if_idle();
-  return ($row_count <= 0) : 1 ? 0;
+  return ($row_count <= 0)? 1 :  0;
 }
 
 sub does_column_exist{
@@ -168,7 +168,7 @@ sub run_script {
       }
   }
   else{
-    	  
+
     $dbc->disconnect_if_idle();
     my $hive_dbc = $self->dbc;
     $hive_dbc->disconnect_if_idle();
