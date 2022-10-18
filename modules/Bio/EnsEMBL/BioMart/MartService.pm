@@ -151,8 +151,8 @@ sub get_filters {
 	 mart          => $dataset->mart()->name(),
 	 virtualSchema => $dataset->mart()->virtual_schema(),
 	 dataset       => $dataset->name()});
-
-  open my $fh, '< :encoding(Latin1)', \$response or throw "Could not break ";
+  print Dumper("test response", $response);
+  open my $fh, '<', \$response or throw "Could not break ";
   while (<$fh>) {
 	chomp;
 	# chromosome_name	Chromosome name	[AB325691,I,II,III,MT,MTR]		filters	list	=	spombe_eg_gene__gene__main	name_105
@@ -160,6 +160,7 @@ sub get_filters {
 	my ($name, $display_name, $opt_str, $des, $page, $type, $operator, $table, $column) = split('\t', $_);
 	$opt_str ||= '';
 	$opt_str =~ s/\[(.*)\]/$1/;
+	  print Dumper("opts ", $opt_str);
 	my @options = split(',', $opt_str);
 	if (defined $name) {
 	  push @$filters,
@@ -176,6 +177,7 @@ sub get_filters {
 										   -DATASET      => $dataset);
 	}
   }
+	print Dumper("filters", $filters);
   return $filters;
 } ## end sub get_filters
 
