@@ -23,44 +23,48 @@ use warnings;
 
 use base ('Bio::EnsEMBL::VariationMart::Base');
 use File::Spec::Functions qw(catdir);
+use Log::Log4perl qw(:easy);
+
+Log::Log4perl->easy_init($INFO);
+
+my $logger = get_logger();
 
 sub param_defaults {
-  return {};
+    return {};
 }
 
 sub run {
-  my ($self) = @_;
-  
-  my $table = $self->param_required('table');
-  
-  $self->create_index($table);
+    my ($self) = @_;
+
+    my $table = $self->param_required('table');
+
+    $self->create_index($table);
 }
 
 sub create_index {
-  my ($self, $table) = @_;
-  
-  my $mart_table_prefix = $self->param_required('mart_table_prefix');
-  my $mart_table = "$mart_table_prefix$table";
-  my $sql_file = catdir($self->param_required('tables_dir'), $table, 'index.sql');
-  
-  my $hive_dbc = $self->dbc;
-  $hive_dbc->disconnect_if_idle();
+    my ($self, $table) = @_;
+    my $mart_table_prefix = $self->param_required('mart_table_prefix');
+    my $mart_table = "$mart_table_prefix$table";
+    my $sql_file = catdir($self->param_required('tables_dir'), $table, 'index.sql');
 
-  my $index_sql = $self->read_string($sql_file);
-  $index_sql =~ s/SPECIES_ABBREV/$mart_table_prefix/gm;
-  my $mart_dbc = $self->mart_dbc;
-  $mart_dbc->sql_helper->execute_update(-SQL=>$index_sql);
-  $mart_dbc->disconnect_if_idle();
+    my $hive_dbc = $self->dbc;
+    $hive_dbc->disconnect_if_idle();
+    $logger->info("CreateMartIndexesIndex::create_index table:$table, mart_table_prefix:$mart_table_prefix, marttable: $mart_table");
+    my $index_sql = $self->read_string($sql_file);
+    $index_sql =~ s/SPECIES_ABBREV/$mart_table_prefix/gm;
+    my $mart_dbc = $self->mart_dbc;
+    $mart_dbc->sql_helper->execute_update(-SQL => $index_sql);
+    $mart_dbc->disconnect_if_idle();
 }
 
 sub read_string {
-  my ($self, $filename) = @_;
-  
-  local $/ = undef;
-  open my $fh, '<', $filename or $self->throw("Error opening $filename - $!\n");
-  my $contents = <$fh>;
-  close $fh;
-  return $contents;
+    my ($self, $filename) = @_;
+
+    local $/ = undef;
+    open my $fh, '<', $filename or $self->throw("Error opening $filename - $!\n");
+    my $contents = <$fh>;
+    close $fh;
+    return $contents;
 }
 
 

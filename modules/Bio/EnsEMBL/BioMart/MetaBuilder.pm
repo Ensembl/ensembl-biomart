@@ -157,7 +157,7 @@ sub build {
       $variation_dba = $registry_loaded->get_DBAdaptor( $dataset->{production_name}, 'variation');
     }
     $dataset->{species_id} = ++$n;
-    $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list, $core_dba, $regulation_dba, $variation_dba, $ds_name );
+    $self->process_dataset( $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list, $core_dba, $regulation_dba, $variation_dba, $ds_name, $scratch_dir );
   }
   return;
 }
@@ -199,7 +199,7 @@ sub get_datasets {
 =cut
 
 sub process_dataset {
-  my ( $self, $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list, $core_dba, $regulation_dba, $variation_dba, $ds_name ) = @_;
+  my ( $self, $dataset, $template_name, $template, $datasets, $genomic_features_mart, $xref_url_list, $core_dba, $regulation_dba, $variation_dba, $ds_name, $scratch_dir ) = @_;
   $logger->info( "Processing " . $dataset->{name} );
   my $templ_in = $template->{DatasetConfig};
   my $xref_list;
@@ -225,7 +225,7 @@ sub process_dataset {
   $self->write_filters( $dataset, $templ_in, $datasets, $genomic_features_mart, $xref_list, $probe_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $variation_dba );
   $self->write_attributes( $dataset, $templ_in, $datasets, $xref_list, $probe_list, $xref_url_list, $exception_xrefs, $protein_domain_and_feature_list, $ds_name, $core_dba, $regulation_dba, $variation_dba );
   # write meta
-  $self->write_dataset_metatables( $dataset, $templ_in, $template_name, $ds_name );
+  $self->write_dataset_metatables( $dataset, $templ_in, $template_name, $ds_name, $scratch_dir );
   return;
 }
 
@@ -1107,7 +1107,7 @@ sub create_metatables {
   if ( !-d $scratch_dir ) {
     mkdir $scratch_dir;
   }
-  open my $out, ">", "$scratch_dir/tmp.xml";
+  open my $out, ">", "$scratch_dir/tmp.xml" or die $!;
   print $out $template_xml;
   close $out;
   my $gzip_template;
@@ -1157,15 +1157,18 @@ sub create_metatables {
 } ## end sub create_metatables
 
 sub write_dataset_metatables {
-  my ( $self, $dataset, $templ_in, $template_name, $ds_name ) = @_;
+  my ( $self, $dataset, $templ_in, $template_name, $ds_name, $scratch_dir) = @_;
   my $speciesId = $dataset->{species_id};
 
   $logger->info("Populating metatables for $ds_name ($speciesId)");
 
   my $dataset_xml =
     XMLout( { DatasetConfig => $dataset->{config} }, KeepRoot => 1 );
-
-  open my $out, ">", "./tmp/$ds_name.xml";
+  $scratch_dir = './scratch' unless defined $scratch_dir;
+  if ( !-d $scratch_dir ) {
+    mkdir $scratch_dir;
+  }
+  open my $out, ">", "$scratch_dir/$ds_name.xml" or die $!;
   print $out $dataset_xml;
   close $out;
   my $gzip_dataset_xml;

@@ -14,7 +14,6 @@
 
 use strict;
 use warnings;
-
 use Test::More;
 use Bio::EnsEMBL::BioMart::MartService;
 use Data::Dumper;
@@ -53,4 +52,4 @@ my $data =
 				  [ { filter => $filter } ] );
 ok( defined $data, "Data found found" );
 
-done_testing;
+done_testing();

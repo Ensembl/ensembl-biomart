@@ -93,6 +93,18 @@ sub sample_genotype {
     my $drop_sql = q/DROP TABLE IF EXISTS MTMP_sample_genotype;/;
     $dbc->db_handle->do($drop_sql) or $self->throw($dbc->db_handle->errstr);
   }
+  else{
+    my $check_table_empty_sql = q/select count(*) as row_count from MTMP_sample_genotype;/; 	  
+    my $sth = $dbc->db_handle->prepare($check_table_empty_sql);
+    $sth->execute() or $self->throw($dbc->db_handle->errstr); 
+    my @rows = $sth->fetchrow_array();
+    my ($row_count) =  @rows;
+    if( $row_count == 0 ){
+      my $drop_sql = q/DROP TABLE IF EXISTS MTMP_sample_genotype;/;
+      $dbc->db_handle->do($drop_sql) or $self->throw($dbc->db_handle->errstr);
+    }	    
+  }
+
 
   my $create_sql =
   qq/CREATE TABLE MTMP_sample_genotype (
