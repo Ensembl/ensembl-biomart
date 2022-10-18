@@ -152,7 +152,7 @@ sub get_filters {
 	 virtualSchema => $dataset->mart()->virtual_schema(),
 	 dataset       => $dataset->name()});
 
-  open my $fh, '<', \$response or throw "Could not break ";
+  open my $fh, '<:utf8', \$response or throw "Could not break ";
   while (<$fh>) {
 	chomp;
 	# chromosome_name	Chromosome name	[AB325691,I,II,III,MT,MTR]		filters	list	=	spombe_eg_gene__gene__main	name_105
