@@ -12,7 +12,7 @@
   <FilterPage displayName="FILTERS" internalName="filters" useDefault="true">
     <FilterGroup displayName="&lt;a href='http://www.ensembl.org/info/genome/funcgen/regulatory_build.html'&gt;OTHER REGULATORY REGIONS&lt;/a&gt;" hidden="false" internalName="external_features" useDefault="true">
       <FilterCollection description="Limit to Genes on a specific Chromosome. " displayName="Chromosome" hidden="false" internalName="chromosome" useDefault="true">
-        <FilterDescription displayName="Chromosome Name" displayType="list" field="seq_region_name_1049" internalName="chromosome_name" key="external_feature_id_1021_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" otherFilters="*species3*_karyotype_start.name;*species3*_karyotype_end.name" useDefault="true">
+        <FilterDescription displayName="Chromosome Name" displayType="list" field="seq_region_name_1049" internalName="chromosome_name" key="external_feature_id_1021_key" legal_qualifiers="=" multipleValues="1" qualifier="=" style="menu" tableConstraint="main" otherFilters="" useDefault="true">
             <SpecificFilterContent internalName="replaceMe"/>
         </FilterDescription>
       </FilterCollection>
@@ -22,20 +22,6 @@
       </FilterCollection>
       <FilterCollection description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1)" displayName="Multiple Regions (Chr:Start:End) [Max 500 advised] " hidden="false" internalName="chromosome_regions" useDefault="true">
         <FilterDescription defaultValue="1:100:10000000" description="Limit to Genes within multiple comma separate Chromosomal regions (1:100:10000:-1,1:100000:2000000:1) [Max 500]" displayName="e.g 1:100:10000000, 1:100000:200000" displayType="text" field="seq_region_start_1049" filterList="chromosome_name,start,end" hidden="false" internalName="chromosomal_region" key="external_feature_id_1021_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="text" useDefault="true"/>
-      </FilterCollection>
-      <FilterCollection displayName="Karyotype band" hidden="false" internalName="band_collection" useDefault="true" checkPointerDataset="*species3*_karyotype_start">
-        <FilterDescription hidden="false" internalName="band_start" pointerDataset="*species3*_karyotype_start" pointerFilter="band_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
-        <FilterDescription hidden="false" internalName="band_end" pointerDataset="*species3*_karyotype_end" pointerFilter="band_end" pointerInterface="default" type="drop_down_basic_filter" useDefault="true"/>
-      </FilterCollection>
-      <FilterCollection displayName="Marker" hidden="false" internalName="marker_collection" useDefault="true" checkPointerDataset="*species3*_marker_start">
-        <FilterDescription hidden="false" internalName="marker_start" pointerDataset="*species3*_marker_start" pointerFilter="marker_start" pointerInterface="default" type="drop_down_basic_filter" useDefault="true">
-        </FilterDescription>
-        <FilterDescription hidden="false" internalName="marker_end" pointerDataset="*species3*_marker_end" pointerFilter="marker_end" pointerInterface="default" useDefault="true">
-        </FilterDescription>
-      </FilterCollection>
-      <FilterCollection displayName="&lt;a href='http://www.genome.gov/26525202'&gt;ENCODE Pilot Regions&lt;/a&gt;" internalName="encode_region_col" useDefault="true" checkPointerDataset="*species3*_encode">
-        <FilterDescription hidden="false" internalName="hsapiens_encode.encode_region" pointerDataset="*species3*_encode" pointerFilter="encode_region" pointerInterface="default" useDefault="true">
-        </FilterDescription>
       </FilterCollection>
       <FilterCollection displayName="Feature type" hidden="false" internalName="external_feature_set" useDefault="true">
         <FilterDescription autoCompletion="menu" displayName="Feature Set" displayType="list" field="fs_display_label_1049" internalName="external_feature_set_name" key="external_feature_id_1021_key" legal_qualifiers="=" multipleValues="1" qualifier="=" tableConstraint="main" type="list" style="menu" useDefault="true">

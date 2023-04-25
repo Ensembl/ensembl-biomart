@@ -87,10 +87,10 @@ sub genome_to_include {
     my $filename;
     my $included_species;
     if (defined $base_dir) {
-        $filename = $base_dir . '/ensembl-compara/conf/' . $division . '/allowed_species.json';
+        $filename = $base_dir . '/ensembl-compara/conf/' . $division . '/biomart_species.json';
     }
     else {
-        $filename = $FindBin::Bin . '/../ensembl-compara/conf/' . $division . '/allowed_species.json';
+        $filename = $FindBin::Bin . '/../ensembl-compara/conf/' . $division . '/biomart_species.json';
     }
     my $filecontent = read_file($filename);
     # print Dumper($filecontent);
