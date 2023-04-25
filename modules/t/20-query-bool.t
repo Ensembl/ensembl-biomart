@@ -1,4 +1,4 @@
-# Copyright [2009-2022] EMBL-European Bioinformatics Institute
+# Copyright [2009-2023] EMBL-European Bioinformatics Institute
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,7 +14,6 @@
 
 use strict;
 use warnings;
-
 use Test::More;
 use Bio::EnsEMBL::BioMart::MartService;
 use Data::Dumper;
@@ -53,4 +52,4 @@ my $data =
 				  [ { filter => $filter } ] );
 ok( defined $data, "Data found found" );
 
-done_testing;
+done_testing();

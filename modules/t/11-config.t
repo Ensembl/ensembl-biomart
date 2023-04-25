@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright [2009-2022] EMBL-European Bioinformatics Institute
+# Copyright [2009-2023] EMBL-European Bioinformatics Institute
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ use File::Slurp;
 
 use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
 
-my @divisions = ('vertebrates', 'metazoa', 'plants');
+my @divisions = ('vertebrates');
 
 for my $division (@divisions) {
     my $species = genome_to_include($division,  $ENV{'BASE_DIR'});

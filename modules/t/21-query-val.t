@@ -1,4 +1,4 @@
-# Copyright [2009-2022] EMBL-European Bioinformatics Institute
+# Copyright [2009-2023] EMBL-European Bioinformatics Institute
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -46,4 +46,4 @@ my $data =
   $srv->do_query( $mart, $dataset, [ $attribute, $attribute2 ], [{filter=>$filter, value=>'I'}] );
 ok( defined $data, "Data found found" );
   
-done_testing;
+done_testing();

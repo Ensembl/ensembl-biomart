@@ -1,46 +1,28 @@
-=head1 LICENSE
-
-Copyright [1999-2023] EMBL-European Bioinformatics Institute
-and Wellcome Trust Sanger Institute
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-=cut
-
-
 =pod
-
 =head1 NAME
 
-Bio::EnsEMBL::PipeConfig::VariationMart_ensembl_conf
+=head1 SYNOPSIS
 
-=head1 DESCRIPTION
+=head1 DESCRIPTION  
 
-Configuration for running the Variation Mart pipeline, which
-constructs a mart database from core and variation databases.
-
-=head1 Author
-
-James Allen
-
+=head1 LICENSE
+    Copyright [1999-2022] Wellcome Trust Sanger Institute and the EMBL-European Bioinformatics Institute
+    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+         http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing, software distributed under the License
+    is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and limitations under the License.
+=head1 CONTACT
+    Please subscribe to the Hive mailing list:  http://listserver.ebi.ac.uk/mailman/listinfo/ehive-users  to discuss Hive-related questions or to be notified of our updates
 =cut
 
-package Bio::EnsEMBL::PipeConfig::VariationMart_ensembl_conf;
+package Bio::EnsEMBL::PipeConfig::BuildVariationMartMTMPTables_ensembl_conf;
 
 use strict;
 use warnings;
 
-use base ('Bio::EnsEMBL::PipeConfig::VariationMart_conf');
+use base ('Bio::EnsEMBL::PipeConfig::BuildVariationMartMTMPTables_conf');
 
 sub default_options {
     my ($self) = @_;
@@ -48,6 +30,7 @@ sub default_options {
         %{$self->SUPER::default_options},
 
         division_name           => 'vertebrates',
+	pipeline_name           => 'variation_mart_MTMP_table_' . $self->o('division_name') . '_' . $self->o('ensembl_release'),
         mart_db_name            => 'snp_mart_' . $self->o('ensembl_release'),
         drop_mtmp               => 1,
         drop_mtmp_tv            => 0,

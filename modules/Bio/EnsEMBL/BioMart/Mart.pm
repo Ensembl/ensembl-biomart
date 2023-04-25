@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 =head1 LICENSE
 
-Copyright [2009-2022] EMBL-European Bioinformatics Institute
+Copyright [2009-2023] EMBL-European Bioinformatics Institute
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -87,10 +87,10 @@ sub genome_to_include {
     my $filename;
     my $included_species;
     if (defined $base_dir) {
-        $filename = $base_dir . '/ensembl-compara/conf/' . $division . '/allowed_species.json';
+        $filename = $base_dir . '/ensembl-compara/conf/' . $division . '/biomart_species.json';
     }
     else {
-        $filename = $FindBin::Bin . '/../ensembl-compara/conf/' . $division . '/allowed_species.json';
+        $filename = $FindBin::Bin . '/../ensembl-compara/conf/' . $division . '/biomart_species.json';
     }
     my $filecontent = read_file($filename);
     # print Dumper($filecontent);

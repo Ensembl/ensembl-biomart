@@ -1,6 +1,6 @@
 =head1 LICENSE
 
-Copyright [2009-2022] EMBL-European Bioinformatics Institute
+Copyright [2009-2023] EMBL-European Bioinformatics Institute
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -82,7 +82,8 @@ sub get_datasets_regexp {
     my $suffix = shift;
     my @datasets = ();
     foreach my $src_table (@$src_tables_aref) {
-	if( $src_table =~ m/^(?!meta)([A-Za-z1-9]*$suffix+)_.*$regexp/ ) {
+	# was if( $src_table =~ m/^(?!meta)([A-Za-z1-9]*$suffix+)_.*$regexp/ ) {
+	if( $src_table =~ m/^(?!meta)([A-Za-z0-9]*$suffix+)_.*$regexp/ ) {
 	    push @datasets,$1 unless grep{$_ eq $1} @datasets;
 	}
     }

@@ -1,6 +1,6 @@
 =head1 LICENSE
 
-Copyright [1999-2022] EMBL-European Bioinformatics Institute
+Copyright [1999-2023] EMBL-European Bioinformatics Institute
 and Wellcome Trust Sanger Institute
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,6 +40,7 @@ package Bio::EnsEMBL::PipeConfig::VariationMart_conf;
 use strict;
 use warnings;
 use File::Spec::Functions qw(catdir);
+use Bio::EnsEMBL::Hive::PipeConfig::HiveGeneric_conf qw( WHEN );
 use base ('Bio::EnsEMBL::Hive::PipeConfig::EnsemblGeneric_conf');
 
 sub default_options {
@@ -69,7 +70,7 @@ sub default_options {
         biomart_dir              => $self->o('base_dir') . '/ensembl-biomart',
         grch37                   => 0,
 
-        scratch_dir              => catdir('/hps/nobackup/flicek/ensembl', $self->o('ENV', 'USER'), $self->o('pipeline_name')),
+        scratch_dir              => catdir('/hps/nobackup/flicek/ensembl/production', $self->o('ENV', 'USER'), $self->o('pipeline_name')),
         test_dir                 => catdir('/hps/nobackup/flicek/ensembl/production', $self->o('ENV', 'USER'), 'mart_test', $self->o('pipeline_name')),
 
         previous_mart            => {
@@ -300,7 +301,7 @@ sub pipeline_analyses {
             },
             -max_retry_count => 0,
             -flow_into       => {
-                '3->B' => [ 'CreateMTMPTables' ],
+                '3->B' => WHEN('#mtmp_tables_exist# == 0', [ 'CreateMTMPTables' ]), 
                 '4'    => [ 'CopyMart' ],
                 'B->5' => [ 'GenerateMart' ],
             }
