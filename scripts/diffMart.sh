@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/sh
 # Copyright [1999-2013] Wellcome Trust Sanger Institute and the EMBL-European Bioinformatics Institute
 # 
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,6 +24,7 @@ newmart=$6
 newds=$7
 newurl=$8
 
+
 cat <<EOT
 
 ========================================================================
@@ -31,7 +32,7 @@ $oldds ($oldvs $oldmart) vs $newds ($newvs $newmart)
 ========================================================================
 EOT
 
-print -u2 "$oldds"
+echo "$oldds" >&2
 
 trap 'rm -f ${oldfile} ${newfile} ${s_oldfile} ${s_newfile}' TERM INT EXIT
 
@@ -48,7 +49,7 @@ EOT
 
   wget --retry-connrefused -O ${oldfile} \
     "$oldurl?type=${what}&mart=$oldmart&dataset=$oldds&virtualschema=$oldvs" >/dev/null 2>&1
-
+  # shellcheck disable=SC2039
   if [[ ! -s ${oldfile} ]]; then
     print -u2 "No ${what} in old mart!"
     exit 1
@@ -57,8 +58,9 @@ EOT
   wget --retry-connrefused -O ${newfile} \
     "$newurl?type=${what}&mart=$newmart&dataset=$newds&virtualschema=$newvs" >/dev/null 2>&1
 
+  # shellcheck disable=SC2039
   if [[ ! -s ${newfile} ]]; then
-    print -u2 "No ${what} in new mart!"
+    echo "No ${what} in new mart! $newurl?type=${what}&mart=$newmart&dataset=$newds&virtualschema=$newvs" >&2
     exit 1
   fi
 
