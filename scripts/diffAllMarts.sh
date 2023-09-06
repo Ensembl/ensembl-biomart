@@ -19,7 +19,7 @@ EG_RELEASE=$3
 GRCH37=$4
 DIVISION=${5:-protists vertebrates plants metazoa protists fungi grch37}
 
-exit 1
+
 get_species() {
   mart=$1
   template_type=$2
