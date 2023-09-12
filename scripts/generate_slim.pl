@@ -152,9 +152,10 @@ for $dataset (@datasets) {
     } elsif($core_db =~ m/^schizosaccharomyces_pombe_.*/) {
         $slim="aux_GO_goslim_pombe_map";
         $slim_short="pombe";
-    } elsif($core_db =~ m/^aspergillus_.*/) {
-        $slim="aux_GO_goslim_aspergillus_map";
-        $slim_short="aspergillus";
+    #}
+    #elsif($core_db =~ m/^aspergillus_.*/) {
+    #    $slim="aux_GO_goslim_aspergillus_map";
+    #    $slim_short="aspergillus";
     } elsif($mart_db =~ m/^plants_mart_.*/) {
         $slim="aux_GO_goslim_plant_map";
         $slim_short="plant";
