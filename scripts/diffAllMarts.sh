@@ -91,7 +91,7 @@ for division in $DIVISION; do # "protists vertebrates" "plants" "metazoa" "proti
     suffix="_eg"
     OLD_MART=https://${division}.ensembl.org/biomart/martservice
     release=$EG_RELEASE
-    oldvs="${division}_mart"
+    oldvs="${division}_mart_$((release - 1))"
     newvs="${division}_mart_${release}"
   fi
 
