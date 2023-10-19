@@ -162,6 +162,9 @@ sub get_list {
     }
     else {
         $release = $rdba->fetch_by_ensembl_genomes_release($opts->{eg});
+        if ($opts->{division} eq "EnsemblMetazoa") {
+            $included_species = genome_to_include($opts->{division}, $ENV{BASE_DIR});
+        }
     }
     $gdba->data_release($release);
     # Get all the genomes for a given division and release
