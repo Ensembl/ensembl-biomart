@@ -94,7 +94,7 @@ if ( !defined($division) ) {
   }
 }
 
-if ($division eq "vertebrates") {
+if ($division eq "vertebrates" || $division eq "metazoa") {
   #Get both division short and full name from a division short or full name
   my ($_division, $division_name) = process_division_names($division);
   # Load species to include in the Vertebrates marts

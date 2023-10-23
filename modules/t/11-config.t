@@ -21,7 +21,7 @@ use File::Slurp;
 
 use Bio::EnsEMBL::BioMart::Mart qw(genome_to_include);
 
-my @divisions = ('vertebrates');
+my @divisions = ('vertebrates', 'metazoa');
 
 for my $division (@divisions) {
     my $species = genome_to_include($division,  $ENV{'BASE_DIR'});

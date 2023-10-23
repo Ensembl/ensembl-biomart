@@ -50,7 +50,7 @@ sub write_output {
   my $mart_table_prefix;
   my $included_species;
   # Use division to find the release in metadata database
-  if ($division_name eq "vertebrates"){
+  if ($division_name eq "vertebrates" || $division_name eq "metazoa"){
     # Load species to exclude from the Vertebrates marts
     $included_species = genome_to_include($division_name,$ensembl_cvs_root_dir);
     if (!grep( /$species/, @$included_species) ){
