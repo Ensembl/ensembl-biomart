@@ -54,7 +54,6 @@ sub pipeline_analyses {
         {
             -logic_name        => 'cleanup_old_database',
             -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-            -meadow_type       => 'LSF',
             -flow_into         => 'sequence_dataset_factory',
             -input_ids         => [ {} ],
             -parameters        => {
@@ -89,7 +88,6 @@ sub pipeline_analyses {
         {
             -logic_name        => 'build_sequence',
             -module            => 'Bio::EnsEMBL::BioMart::BuildSequenceMart',
-            -meadow_type       => 'LSF',
             -parameters        => {
                 'mart' => $self->o('mart'),
                 'user' => $self->o('user'),
@@ -103,7 +101,6 @@ sub pipeline_analyses {
         {
             -logic_name        => 'optimize',
             -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-            -meadow_type       => 'LSF',
             -flow_into         => 'generate_meta',
             -parameters        => {
                 'cmd'  =>
@@ -119,7 +116,6 @@ sub pipeline_analyses {
         {
             -logic_name        => 'generate_meta',
             -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-            -meadow_type       => 'LSF',
             -flow_into         => 'run_tests',
             -parameters        => {
                 'cmd'      =>
@@ -136,7 +132,6 @@ sub pipeline_analyses {
         {
             -logic_name        => 'run_tests',
             -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-            -meadow_type       => 'LSF',
             -flow_into         => 'check_tests',
             -parameters        => {
                 'cmd'         =>
@@ -161,7 +156,6 @@ sub pipeline_analyses {
         {
             -logic_name      => 'check_tests',
             -module          => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
-            -meadow_type     => 'LSF',
             -max_retry_count => 0,
             -parameters      => {
                 'cmd'              =>
