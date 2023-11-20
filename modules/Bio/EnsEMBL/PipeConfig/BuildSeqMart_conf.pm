@@ -95,7 +95,7 @@ sub pipeline_analyses {
                 'host' => $self->o('host'),
                 'port' => $self->o('port')
             },
-            -rc_name           => 'himem',
+            -rc_name           => '16GB_D',
             -analysis_capacity => 10
         },
         {
@@ -118,17 +118,19 @@ sub pipeline_analyses {
             -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
             -flow_into         => 'run_tests',
             -parameters        => {
-                'cmd'      =>
+                'cmd'         =>
                     'perl #base_dir#/ensembl-biomart/scripts/generate_meta.pl -user #user# -pass #pass# -port #port# -host #host# -dbname #mart# -template #base_dir#/ensembl-biomart/scripts/templates/sequence_template_template.xml  -ds_basename genomic_sequence -template_name sequences -scratch_dir #scratch_dir#',
-                'mart'     => $self->o('mart'),
-                'user'     => $self->o('user'),
-                'pass'     => $self->o('pass'),
-                'host'     => $self->o('host'),
-                'port'     => $self->o('port'),
-                'base_dir' => $self->o('base_dir'),
+                'mart'        => $self->o('mart'),
+                'user'        => $self->o('user'),
+                'pass'        => $self->o('pass'),
+                'host'        => $self->o('host'),
+                'port'        => $self->o('port'),
+                'base_dir'    => $self->o('base_dir'),
                 'scratch_dir' => $self->o('scratch_dir'),
             },
-            -analysis_capacity => 1 },
+            -analysis_capacity => 1,
+            -rc_name           => => '200M_D'
+        },
         {
             -logic_name        => 'run_tests',
             -module            => 'Bio::EnsEMBL::Hive::RunnableDB::SystemCmd',
