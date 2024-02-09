@@ -17,6 +17,8 @@ SERVER=$1
 RELEASE=$2
 EG_RELEASE=$3
 GRCH37=$4
+DIVISION=${5:-protists vertebrates plants metazoa protists fungi grch37}
+
 
 get_species() {
   mart=$1
@@ -74,7 +76,7 @@ get_species() {
 
 scriptdir=$(dirname $0)
 
-for division in "protists"; do # "vertebrates" "plants" "metazoa" "protists" "fungi" "grch37"; do
+for division in $DIVISION; do # "protists vertebrates" "plants" "metazoa" "protists" "fungi" "grch37"; do
   NEW_MART="https://${division}-mart.ensembl-production.ebi.ac.uk/biomart/martservice"
   echo "Testing against test HOST ${NEW_MART}"
   if [ ${division} == "vertebrates" ]; then
@@ -89,7 +91,7 @@ for division in "protists"; do # "vertebrates" "plants" "metazoa" "protists" "fu
     suffix="_eg"
     OLD_MART=https://${division}.ensembl.org/biomart/martservice
     release=$EG_RELEASE
-    oldvs="${division}_mart"
+    oldvs="${division}_mart_$((release - 1))"
     newvs="${division}_mart_${release}"
   fi
 
