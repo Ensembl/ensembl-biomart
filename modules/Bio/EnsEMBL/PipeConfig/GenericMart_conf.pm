@@ -29,16 +29,67 @@ use Bio::EnsEMBL::ApiVersion;
 use File::Spec::Functions qw(catdir);
 use Cwd;
 
-
 sub resource_classes {
-    my ($self) = @_;
-    return {
-        'default' => { 'LSF' => '-q production' },
-        'low'     => { 'LSF' => '-q production -M 2048 -R "rusage[mem=2048]"' },
-        'mem'     => { 'LSF' => '-q production -M 8192 -R "rusage[mem=8192]"' },
-        'himem'   => { 'LSF' => '-q production -M 16384 -R "rusage[mem=16384]"' }
-    };
-}
+    my $self = shift;
+
+
+    ## Sting it together
+    my %time = (H => ' --time=1:00:00',
+        D         => ' --time=1-00:00:00',
+        W         => ' --time=7-00:00:00',);
+
+    my %memory = ('100M' => '100',
+        '200M'           => '200',
+        '500M'           => '500',
+        '1GB'            => '1000',
+        '2GB'            => '2000',
+        '3GB'            => '3000',
+        '4GB'            => '4000',
+        '8GB'            => '8000',
+        '16GB'           => '16000',
+        '32GB'           => '32000',);
+
+    my $pq = ' --partition=standard';
+    my $dq = ' --partition=datamover';
+
+    my %output = (
+        #Default is a duplicate of 100M
+        'default'   => { 'LSF' => '-q production', 'SLURM' => $pq . $time{'H'} . ' --mem=' . $memory{'100M'} . 'm' },
+        'default_D' => { 'LSF' => '-q production', 'SLURM' => $pq . $time{'D'} . ' --mem=' . $memory{'100M'} . 'm' },
+        'default_W' => { 'LSF' => '-q production', 'SLURM' => $pq . $time{'W'} . ' --mem=' . $memory{'100M'} . 'm' },
+        #Data mover nodes
+        'dm'        => { 'LSF' => '-q datamover', 'SLURM' => $dq . $time{'H'} . ' --mem=' . $memory{'100M'} . 'm' },
+        'dm_D'      => { 'LSF' => '-q datamover', 'SLURM' => $dq . $time{'D'} . ' --mem=' . $memory{'100M'} . 'm' },
+        'dm_W'      => { 'LSF' => '-q datamover', 'SLURM' => $dq . $time{'W'} . ' --mem=' . $memory{'100M'} . 'm' },
+
+        'low'   => { 'LSF' => '-q production -M 2048 -R "rusage[mem=2048]"', 'SLURM' => $pq . $time{'H'} . ' --mem=' . $memory{'200M'} . 'm' },
+        'mem'   => { 'LSF' => '-q production -M 8192 -R "rusage[mem=8192]"', 'SLURM' => $pq . $time{'H'} . ' --mem=8192m' },
+        'himem'   => { 'LSF' => '-q production -M 16384 -R "rusage[mem=16384]"', 'SLURM' => $pq . $time{'H'} . ' --mem=16384m' },
+
+    );
+    #Create a dictionary of all possible time and memory combinations. Format would be:
+    #2G={
+    #   'SLURM' => ' --partition=standard --time=1:00:00  --mem=2000m',
+    #   'LSF' => '-q $self->o(production_queue) -M 2000 -R "rusage[mem=2000]"'
+    # };
+
+    while ((my $time_key, my $time_value) = each(%time)) {
+        while ((my $memory_key, my $memory_value) = each(%memory)) {
+            if ($time_key eq 'H') {
+                $output{$memory_key} = { 'LSF' => '-q production -M ' . $memory_value . ' -R "rusage[mem=' . $memory_value . ']"',
+                    'SLURM'                    => $pq . $time_value . '  --mem=' . $memory_value . 'm' }
+            }
+            else {
+                $output{$memory_key . '_' . $time_key} = { 'LSF' => '-q production -M ' . $memory_value . ' -R "rusage[mem=' . $memory_value . ']"',
+                    'SLURM'                                      => $pq . $time_value . '  --mem=' . $memory_value . 'm' }
+            }
+        }
+    }
+
+    return \%output;
+
+};
+
 
 
 sub default_options {
