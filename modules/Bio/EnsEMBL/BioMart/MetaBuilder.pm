@@ -1282,7 +1282,7 @@ sub generate_chromosome_bands_push_action {
             -CALLBACK => sub {
               my ( $row, $value ) = @_;
               $value = [] if !defined $value;
-              push($value, $row->[1] );
+              push(@$value, $row->[1] );
               return $value;
               }
           );
@@ -1291,7 +1291,7 @@ sub generate_chromosome_bands_push_action {
             -CALLBACK => sub {
               my ( $row, $value ) = @_;
               $value = [] if !defined $value;
-              push($value, $row->[1] );
+              push(@$value, $row->[1] );
               return $value;
               }
           );
@@ -1330,7 +1330,7 @@ sub generate_chromosome_qtl_push_action {
             -CALLBACK => sub {
               my ( $row, $value ) = @_;
               $value = [] if !defined $value;
-              push($value, $row->[1] );
+              push(@$value, $row->[1] );
               return $value;
               }
           );
