@@ -54,15 +54,15 @@ sub resource_classes {
 
     my %output = (
         #Default is a duplicate of 100M
-        'default'   => { 'LSF' => '-q production', 'SLURM' => $pq . $time{'H'} . ' --mem=' . $memory{'100M'} . 'm' },
-        'default_D' => { 'LSF' => '-q production', 'SLURM' => $pq . $time{'D'} . ' --mem=' . $memory{'100M'} . 'm' },
-        'default_W' => { 'LSF' => '-q production', 'SLURM' => $pq . $time{'W'} . ' --mem=' . $memory{'100M'} . 'm' },
+        'default'   => { 'LSF' => '-q production', 'SLURM' => $pq . $time{'H'} . ' --mem=' . $memory{'1000M'} . 'm' },
+        'default_D' => { 'LSF' => '-q production', 'SLURM' => $pq . $time{'D'} . ' --mem=' . $memory{'1000M'} . 'm' },
+        'default_W' => { 'LSF' => '-q production', 'SLURM' => $pq . $time{'W'} . ' --mem=' . $memory{'1000M'} . 'm' },
         #Data mover nodes
         'dm'        => { 'LSF' => '-q datamover', 'SLURM' => $dq . $time{'H'} . ' --mem=' . $memory{'100M'} . 'm' },
         'dm_D'      => { 'LSF' => '-q datamover', 'SLURM' => $dq . $time{'D'} . ' --mem=' . $memory{'100M'} . 'm' },
         'dm_W'      => { 'LSF' => '-q datamover', 'SLURM' => $dq . $time{'W'} . ' --mem=' . $memory{'100M'} . 'm' },
 
-        'low'   => { 'LSF' => '-q production -M 2048 -R "rusage[mem=2048]"', 'SLURM' => $pq . $time{'H'} . ' --mem=' . $memory{'200M'} . 'm' },
+        'low'   => { 'LSF' => '-q production -M 2048 -R "rusage[mem=2048]"', 'SLURM' => $pq . $time{'H'} . ' --mem=' . $memory{'2000M'} . 'm' },
         'mem'   => { 'LSF' => '-q production -M 8192 -R "rusage[mem=8192]"', 'SLURM' => $pq . $time{'H'} . ' --mem=8192m' },
         'himem'   => { 'LSF' => '-q production -M 16384 -R "rusage[mem=16384]"', 'SLURM' => $pq . $time{'H'} . ' --mem=16384m' },
 
