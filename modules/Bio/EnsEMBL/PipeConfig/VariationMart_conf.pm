@@ -603,10 +603,13 @@ sub pipeline_wide_parameters {
 sub resource_classes {
     my ($self) = @_;
     return {
-        'default'  => { 'LSF' => '-q production' },
-        '4Gb_mem'  => { 'LSF' => '-q production -M 4096 -R "rusage[mem=4096]"' },
-        '8Gb_mem'  => { 'LSF' => '-q production -M 8192 -R "rusage[mem=8192]"' },
-        '16Gb_mem' => { 'LSF' => '-q production -M 16384 -R "rusage[mem=16384]"' },
+        'default'    => { 'SLURM' => '--partition=production --time=1-00:00:00 --mem=1G'},
+        '4Gb_mem'    => { 'SLURM' => '--partition=production --time=1-00:00:00 --mem=4G' },
+        '4Gb_mem_W'  => { 'SLURM' => '--partition=production --time=7-00:00:00 --mem=4G' },
+        '8Gb_mem'    => { 'SLURM' => '--partition=production --time=1-00:00:00 --mem=8G' },
+        '8Gb_mem_W'  => { 'SLURM' => '--partition=production --time=7-00:00:00 --mem=8G' },
+        '16Gb_mem'   => { 'SLURM' => '--partition=production --time=1-00:00:00 --mem=16G' },
+        '16Gb_mem_W' => { 'SLURM' => '--partition=production --time=7-00:00:00 --mem=16G' },
     }
 }
 
