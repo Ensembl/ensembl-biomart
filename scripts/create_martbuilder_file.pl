@@ -72,11 +72,11 @@ if (defined $opts->{grch37}) {
         -db_version => $opts->{ens});
 
     my $core_dba = Bio::EnsEMBL::Registry->get_DBAdaptor('homo_sapiens', 'core');
-    push $core, $core_dba->dbc()->dbname();
+    push @$core, $core_dba->dbc()->dbname();
     my $variarion_dba = Bio::EnsEMBL::Registry->get_DBAdaptor('homo_sapiens', 'variation');
-    push $variation, $variarion_dba->dbc()->dbname();
+    push @$variation, $variarion_dba->dbc()->dbname();
     my $regulation_dba = Bio::EnsEMBL::Registry->get_DBAdaptor('homo_sapiens', 'funcgen');
-    push $funcgen, $regulation_dba->dbc()->dbname();
+    push @$funcgen, $regulation_dba->dbc()->dbname();
     $core_dba->dbc()->disconnect_if_idle();
     $variarion_dba->dbc()->disconnect_if_idle();
     $regulation_dba->dbc()->disconnect_if_idle();
