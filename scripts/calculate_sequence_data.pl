@@ -122,7 +122,7 @@ for my $dataset (@datasets) {
               -CALLBACK => sub {
               my ( $row, $value ) = @_;
               $value = [] if !defined $value;
-              push($value, $row->[1] );
+              push(@$value, $row->[1] );
               return $value;
               }
             );

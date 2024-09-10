@@ -277,7 +277,7 @@ foreach my $dataset (@datasets) {
 "select meta_key,meta_value from meta where species_id='$species_id'" );
 
     if ( !defined $species_names{'species.proteome_id'} ||
-         !isdigit $species_names{'species.proteome_id'} )
+         $species_names{'species.proteome_id'} !~ /^\d+$/ )
     {
       $species_names{'species.proteome_id'} = ++$pId;
     }
